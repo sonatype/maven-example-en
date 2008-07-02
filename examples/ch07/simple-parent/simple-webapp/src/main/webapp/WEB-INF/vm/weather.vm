@@ -1,0 +1,10 @@
+<b>Current Weather Conditions for:
+  ${weather.location.city}, ${weather.location.region}, ${weather.location.country}</b><br/>
+  
+<ul>
+  <li>Temperature: ${weather.condition.temp}</li>
+  <li>Condition: ${weather.condition.text}</li>
+  <li>Humidity: ${weather.atmosphere.humidity}</li>
+  <li>Wind Chill: ${weather.wind.chill}</li>
+  <li>Date: ${weather.date}</li>
+</ul>

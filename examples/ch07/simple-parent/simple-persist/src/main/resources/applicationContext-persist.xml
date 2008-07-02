@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+             http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/jee 
+             http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+        http://www.springframework.org/schema/util 
+             http://www.springframework.org/schema/util/spring-util-2.0.xsd
+        http://www.springframework.org/schema/aop 
+             http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+        http://www.springframework.org/schema/tx 
+             http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+    default-lazy-init="true">
+
+	<bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="annotatedClasses">
+            <list>
+                <value>com.sonatype.maven.weather.model.Atmosphere</value>
+                <value>com.sonatype.maven.weather.model.Condition</value>
+                <value>com.sonatype.maven.weather.model.Location</value>
+                <value>com.sonatype.maven.weather.model.Weather</value>
+                <value>com.sonatype.maven.weather.model.Wind</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.connection.pool_size">0</prop>
+        		<prop key="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</prop>
+        		<prop key="hibernate.connection.url">jdbc:hsqldb:data/weather;shutdown=true</prop>
+        		<prop key="hibernate.connection.username">sa</prop>
+        	    <prop key="hibernate.connection.password"></prop>
+        	    <prop key="hibernate.connection.autocommit">true</prop>
+        	    <prop key="hibernate.jdbc.batch_size">0</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="locationDAO" class="com.sonatype.maven.weather.persist.LocationDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="weatherDAO" class="com.sonatype.maven.weather.persist.WeatherDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+ </beans>

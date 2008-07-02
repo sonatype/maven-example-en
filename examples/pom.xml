@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sonatype</groupId>
+    <artifactId>sonatype</artifactId>
+    <version>3</version>
+  </parent>
+  <artifactId>book-examples</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Maven: The Definitive Guide Example Code</name>
+  <description>Example Code for Maven: The Definitive Guide</description>
+  
+  <url>http://sonatype.com/book</url>
+
+<!--  <modules>
+    <module>ch03</module>
+    <module>ch04</module>
+    <module>ch05</module>
+    <module>ch06</module>
+    <module>ch07</module>
+  </modules> -->
+  
+  <build>
+    <finalName>mvn-examples-1.0</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2-beta-1</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/src.xml</descriptor>
+          </descriptors>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+      <profile>
+        <id>publish</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/book/book-examples/</url>
+        </site>
+        </distributionManagement>
+        <properties>
+           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
+        </properties>
+      </profile>
+  </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.0.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
