@@ -124,7 +124,7 @@
                   <fileset dir="src/site/resources"/>
                 </copy>
                 <copy todir="${project.build.directory}/site/reference/figs/web">
-                  <fileset dir="src/main/resources/figs/en/web"/>
+                  <fileset dir="src/main/resources/docbook/en/figs/web"/>
                 </copy>
               </postProcess>
             </configuration>
@@ -151,7 +151,7 @@
                   <fileset dir="${basedir}/src/site/resources/flash"/>
                 </copy>
                 <copy todir="${project.build.directory}/site/reference_de/figs/web">
-                  <fileset dir="src/main/resources/figs/de/web"/>
+                  <fileset dir="src/main/resources/docbook/de/figs/web"/>
                 </copy>
               </postProcess>
             </configuration>
@@ -178,7 +178,7 @@
                   <fileset dir="${basedir}/src/site/resources/flash"/>
                 </copy>
                 <copy todir="${project.build.directory}/site/reference_zh/figs/web">
-                  <fileset dir="src/main/resources/figs/zh/web"/>
+                  <fileset dir="src/main/resources/docbook/zh/figs/web"/>
                 </copy>
               </postProcess>
             </configuration>
