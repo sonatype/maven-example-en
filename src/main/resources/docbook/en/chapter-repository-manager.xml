@@ -567,9 +567,15 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>Browsing System Feeds</title>
 
-      <para></para>
+      <para>Nexus provides feeds that capture system events, you can browse
+      these feeds by clicking on System Feeds under the View menu. Clicking on
+      System Feeds will show the panel in <xref
+      linkend="fig-repoman-system-feeds" />. You can use these simple
+      interface to browse the most recent reports of artifact deployments,
+      cached artifacts, broken artifacts, and storage changes that have
+      occurred in Nexus. </para>
 
-      <figure>
+      <figure id="fig-repoman-system-feeds">
         <title>Browsing Nexus System Feeds</title>
 
         <mediaobject>
@@ -578,15 +584,143 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>These feeds can come in handy if you are working at a large
+      organization with multiple development teams deploying to the same
+      instance of Nexus. If such an arrangement, all developers in an
+      organization can subscribe to the <acronym>RSS</acronym> feeds for New
+      Deployed Artifacts as a way to ensure that everyone is aware when a new
+      release has been pushed to Nexus. Exposing these system events as
+      <acronym>RSS</acronym> feeds also opens to the door to other, more
+      creative uses of this information, such as connecting Nexus to external
+      automated testing systems. To access the <acronym>RSS</acronym> feeds
+      for a specific feed, select the feed in the System Feeds view panel and
+      then click on the Subscribe button. Nexus will then load the
+      <acronym>RSS</acronym> feed in your browse and you can subscribe to the
+      feed in your favorite <acronym>RSS</acronym> reader.</para>
+
+      <para>There are six system feeds available in the System Feeds view, and
+      each has a <acronym>URL</acronym> which resembles the following
+      <acronym>URL</acronym>:</para>
+
+      <screen>http://localhost:8081/nexus/service/local/feeds/recentChanges</screen>
+
+      <para>Where <varname>recentChanges</varname> would be replaced with the
+      identifier of the feed you were attempting to read. Available system
+      feeds include:</para>
+
+      <table>
+        <title>Available System Feeds</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Feed Identifier</entry>
+
+              <entry>Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>brokenArtifacts</varname></entry>
+
+              <entry>Checksum mismatch, missing checksums, invalid
+              POMs</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentCacheOrDeployments</varname></entry>
+
+              <entry>New artifacts in all repositories (cached or
+              deployed)</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentlyCached</varname></entry>
+
+              <entry>New cached artifacts in all repositories</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentlyDeployed</varname></entry>
+
+              <entry>New deployed artifacts in all repositories</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentChanges</varname></entry>
+
+              <entry>All caches, deployments, or deletions</entry>
+            </row>
+
+            <row>
+              <entry><varname>systemRepositoryStatusChanges</varname></entry>
+
+              <entry>Automatic or User-initiated status changes
+              (out-of-service and blocked proxies)</entry>
+            </row>
+
+            <row>
+              <entry><varname>systemChanges</varname></entry>
+
+              <entry>Booting nexus, changing configuration, re-indexing, and
+              rebuilding of attributes</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
 
     <section>
       <title>Browsing Log Files and Configuration</title>
 
-      <para></para>
+      <para>Logs and Config Files is only visible to Administrative users
+      under the Views menu. Click on this option brings up the dialog shown in
+      <xref linkend="fig-nexus-logs" />. From this screen you can view the
+      following log and configuration files by clicking on the drop down
+      selection next to the Download button.</para>
 
-      <figure>
-        <title></title>
+      <variablelist>
+        <varlistentry>
+          <term><filename>nexus.log</filename></term>
+
+          <listitem>
+            <para>Think of this as the general application log for Nexus.
+            Unless you are an administrative user, you might not have must
+            interest in the information in this log. If you are trying to
+            debug an error, or if you have uncovered a bug in Nexus, you'll
+            use this log viewer to diagnose problems with Nexus.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><filename>nexus-rest-0.log</filename></term>
+
+          <listitem>
+            <para>The core Nexus server is really just a bunch of
+            <acronym>REST</acronym> services, and the <acronym>UI</acronym>
+            that you are using simply interacts with these
+            <acronym>REST</acronym> services to configure and view Nexus
+            Groups and Repositories. This log file is going to reflect
+            activity generated by the Nexus <acronym>UI</acronym> interacting
+            with the Nexus <acronym>REST</acronym> services.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><filename>nexus.xml</filename></term>
+
+          <listitem>
+            <para>This XML file contains most of the configuration data for
+            your instance of Nexus. It is stored in
+            <filename>${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <figure id="fig-nexus-logs">
+        <title>Browsing Nexus Logs and Configuration</title>
 
         <mediaobject>
           <imageobject>
@@ -1701,9 +1835,118 @@ from the specified remote repositories:
     <section>
       <title>Managing Scheduled Services</title>
 
-      <para></para>
+      <para>Nexus allows you to schedule tasks that will be applied to all
+      repositories or to specific repositories on a configurable schedule. You
+      can create the following kinds of scheduled services:</para>
 
-      <figure>
+      <variablelist>
+        <varlistentry>
+          <term>Remove Snapshots from a Repository</term>
+
+          <listitem>
+            <para>Often, you will want to remove snapshots from a snapshot
+            repository to preserve storage space. When you create a scheduled
+            service to remove snapshots, you can specify:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Minimum Snapshots to preserve in a repository</para>
+              </listitem>
+
+              <listitem>
+                <para>Snapshot Retention (in days)</para>
+              </listitem>
+
+              <listitem>
+                <para>Whether snapshots should be removed if an artifact has
+                been released</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Clear Repository Caches</term>
+
+          <listitem>
+            <para>Nexus maintains information about a proxied remote
+            repository to avoid unnecessary network traffic. This scheduled
+            job clears all cached information about a remote repository, and
+            forces Nexus to retrieve artifacts and information from the remote
+            repository.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Evict Unused Proxied Items From Repository Caches</term>
+
+          <listitem>
+            <para>Use it or lose it. This scheduled service tells Nexus to get
+            rid of all proxied items which haven't been "used" (referenced or
+            retrieved by a client). This can be a good job to run if you are
+            try to conserve storage space. In this service you can specify the
+            number of days over which Nexus will look for activity before
+            making the decision to evict an artifact.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Publish Indexes</term>
+
+          <listitem>
+            <para>Just as Maven downloads an index from a remote repository,
+            Nexus can publish an index in the same format. This will make it
+            easier for people using m2eclipse or Nexus to interact with your
+            repositories.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Purge Nexus Timeline</term>
+
+          <listitem>
+            <para>Nexus maintains a lot of data that relates to the
+            interaction between itself, proxied remote repositories, and
+            clients on Nexus. While this information can be important for
+            purposes of auditing, it can also take up storage space. Using
+            this scheduled service you can tell Nexus to periodically purge
+            this information.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Rebuild Repository Attributes</term>
+
+          <listitem>
+            <para>This scheduled service tells Nexus to walk every file in a
+            repository and gather information like checksums and file contents
+            for every file. </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Reindex Repositories</term>
+
+          <listitem>
+            <para>This service tells Nexus to reindex a repository.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>When you create a new service you can configure it to apply to all
+      repositories, the repositories in a Nexus Group, or a specific Nexus
+      Repository. A service can be scheduled to run once at a specific date
+      and time, or periodically once every Day, Week, or Month. If none of
+      these options suit your specific needs, you can select a recurrence of
+      "Advanced" which will allow you to supply your own cron expression to
+      specify when the job should execute.</para>
+
+      <para>To create a new scheduled service, click on Scheduled Services
+      under the Administration menu, and click on the Add button. This will
+      bring up the screen shown in <xref
+      linkend="fig-repomap-scheduled" />.</para>
+
+      <figure id="fig-repomap-scheduled">
         <title>Managing Nexus Scheduled Services</title>
 
         <mediaobject>
@@ -1911,7 +2154,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     like Apache <acronym>HTTPD</acronym>.</para>
 
     <para>No extra wagon extension is needed in your project's
-    <acronym>POM</acronym>. Nexus works with Maven's built in
+    <acronym>POM</acronym>. Nexus works with Maven's built-in
     <varname>wagon-http-lightweight</varname>.</para>
 
     <section>
