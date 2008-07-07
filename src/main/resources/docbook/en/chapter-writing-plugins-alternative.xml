@@ -41,10 +41,10 @@
   <section>
     <title>Creating an Ant Plugin</title>
 
-    <para>To create a Maven plugin using Ant, you will need to have a pom.xml
-    and a single Mojo implemented in Ant. To get started, create a project
-    directory named firstant-maven-plugin. Place the following pom.xml in this
-    directory.</para>
+    <para>To create a Maven plugin using Ant, you will need to have a
+    <filename>pom.xml</filename> and a single Mojo implemented in Ant. To get
+    started, create a project directory named firstant-maven-plugin. Place the
+    following <filename>pom.xml</filename> in this directory.</para>
 
     <example>
       <title>POM for an Ant Maven Plugin</title>
@@ -60,7 +60,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
       &lt;artifactId&gt;maven-script-ant&lt;/artifactId&gt;
-      &lt;version&gt;2.0.6&lt;/version&gt;
+      &lt;version&gt;2.0.9&lt;/version&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
   &lt;build&gt;
@@ -70,9 +70,9 @@
         &lt;version&gt;2.3&lt;/version&gt;
         &lt;dependencies&gt;
           &lt;dependency&gt;
-            &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
+            &lt;groupId&gt;org.apache.maven.plugin-tools&lt;/groupId&gt;
             &lt;artifactId&gt;maven-plugin-tools-ant&lt;/artifactId&gt;
-            &lt;version&gt;2.0.5&lt;/version&gt;
+            &lt;version&gt;2.4&lt;/version&gt;
           &lt;/dependency&gt;
         &lt;/dependencies&gt;
       &lt;/plugin&gt;
@@ -250,7 +250,7 @@ echotarget:
       <example>
         <title>The Echo Ruby Mojo</title>
 
-        <programlisting ># Prints a message
+        <programlisting># Prints a message
 # @goal "echo"
 # @phase "validate"
 class Echo &lt; Mojo
@@ -402,7 +402,7 @@ run_mojo Echo
       <para>Putting this altogether, a fully annotated message parameter from
       <filename>echo.rb</filename> would look like the following code:</para>
 
-      <programlisting ># @parameter type="java.lang.String" default-value="Hello Maven World" \
+      <programlisting># @parameter type="java.lang.String" default-value="Hello Maven World" \
   expression="${message}"
 # @readonly true
 # @required false
@@ -488,7 +488,7 @@ end
       <para>For an example of an annotated Mojo class, consider the following
       code example:</para>
 
-      <programlisting ># Completes some build task
+      <programlisting># Completes some build task
 # @goal custom-goal
 # @phase install
 # @requiresDependencyResolution false
@@ -504,7 +504,7 @@ end</programlisting>
       <example>
         <title>Referencing a Maven Project from a Ruby Mojo</title>
 
-        <programlisting ># This is a mojo description
+        <programlisting># This is a mojo description
 # @goal test
 # @phase validate
 class Test &lt; Mojo
@@ -559,9 +559,9 @@ $ <command>mvn firstruby:test</command>
 
       <para>To log from a Ruby Mojo, call the <methodname>info()</methodname>,
       <methodname>debug()</methodname>, and <methodname>error()</methodname>
-      methods with a message. </para>
+      methods with a message.</para>
 
-      <programlisting ># Tests Logging
+      <programlisting># Tests Logging
 # @goal logtest
 # @phase validate
 class LogTest &lt; Mojo
@@ -590,7 +590,7 @@ run_mojo LogTest
       <example id="ex-raise-ruby-error">
         <title>Raising a MojoError from a Ruby Mojo</title>
 
-        <programlisting ># Prints a Message
+        <programlisting># Prints a Message
 # @goal error
 # @phase validate
 class Error &lt; Mojo
@@ -636,7 +636,7 @@ INFO] [firstruby:error]
       <example>
         <title>Depending on a Plexus Component from a Ruby Mojo</title>
 
-        <programlisting ># This mojo tests plexus integration
+        <programlisting># This mojo tests plexus integration
 # @goal testplexus
 # @phase validate
 class TestPlexus &lt; Mojo
