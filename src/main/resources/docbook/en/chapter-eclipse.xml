@@ -7,8 +7,9 @@
   <section>
     <title>Introduction</title>
 
-    <para>The Eclipse IDE is the most widely used IDE for Java development
-    today. Eclipse has a huge amount of plugins (see <ulink
+    <para>The Eclipse <acronym>IDE</acronym> is the most widely used
+    <acronym>IDE</acronym> for Java development today. Eclipse has a huge
+    amount of plugins (see <ulink
     url="http://www.eclipseplugincentral.com/">http://www.eclipseplugincentral.com/</ulink>)
     and an innumerable amount of organizations developing their own software
     on top of it. Quite simply, Eclipse is ubiquitous. The <ulink
@@ -59,29 +60,33 @@
         </listitem>
 
         <listitem>
-          <para>POM management with automatic update to dependency list</para>
+          <para><acronym>POM</acronym> management with automatic update to
+          dependency list</para>
         </listitem>
 
         <listitem>
-          <para>Materializing a project from a Maven POM</para>
+          <para>Materializing a project from a Maven
+          <acronym>POM</acronym></para>
         </listitem>
 
         <listitem>
-          <para>Checking out a Maven project from several SCM
-          repositories</para>
+          <para>Checking out a Maven project from several
+          <acronym>SCM</acronym> repositories</para>
         </listitem>
 
         <listitem>
           <para>Adapting nested multi-module Maven projects to the Eclipse
-          IDE</para>
+          <acronym>IDE</acronym></para>
         </listitem>
 
         <listitem>
-          <para>Integration with Web Tools Project (WTP)</para>
+          <para>Integration with Web Tools Project
+          (<acronym>WTP</acronym>)</para>
         </listitem>
 
         <listitem>
-          <para>Integration with AspectJ Development Tools (AJDT)</para>
+          <para>Integration with AspectJ Development Tools
+          (<acronym>AJDT</acronym>)</para>
         </listitem>
 
         <listitem>
@@ -93,7 +98,7 @@
         </listitem>
 
         <listitem>
-          <para>Graphical POM Editor</para>
+          <para>Graphical <acronym>POM</acronym> Editor</para>
         </listitem>
 
         <listitem>
@@ -101,8 +106,8 @@
         </listitem>
 
         <listitem>
-          <para>GUI Presentation of Dependency Tree and Resolved
-          Dependencies</para>
+          <para><acronym>GUI</acronym> Presentation of Dependency Tree and
+          Resolved Dependencies</para>
         </listitem>
       </itemizedlist></para>
 
@@ -1338,12 +1343,16 @@
   <section>
     <title>Using the Graphical POM Editor</title>
 
-    <para>As of version 0.9.5, m2eclipse has a POM editor which allows you to
-    edit every part of a project's pom.xml with an easy-to-use GUI
-    interface.</para>
+    <para>As of version 0.9.5, m2eclipse has a <acronym>POM</acronym> editor
+    which allows you to edit every part of a project's
+    <filename>pom.xml</filename> with an easy-to-use <acronym>GUI</acronym>
+    interface. To open the <acronym>POM</acronym> Editor, click on a project's
+    <filename>pom.xml</filename> file. The <acronym>POM</acronym> Editor will
+    then display the Overview tab as shown in <xref
+    linkend="fig-eclipse-pom-edit-overview" />.</para>
 
-    <figure>
-      <title></title>
+    <figure id="fig-eclipse-pom-edit-overview">
+      <title>Overview Tab of POM Editor for idiom-core</title>
 
       <mediaobject>
         <imageobject>
@@ -1353,52 +1362,21 @@
       </mediaobject>
     </figure>
 
-    <para>Blh blah blah</para>
+    <para>The project shown in <xref
+    linkend="fig-eclipse-pom-edit-overview" /> is a project with an
+    <varname>artifactId</varname> of of <varname>idiom-core</varname>. You'll
+    notice that most of the fields in this <varname>idiom-core</varname>
+    project are blank. There is no <varname>groupId</varname> or
+    <varname>version</varname> and there is no <acronym>SCM</acronym>
+    information supplied in the <acronym>POM</acronym> editor. This is due to
+    the fact that <varname>idiom-core</varname> inherits most of this
+    information from a parent project named <varname>idiom</varname>. If we
+    open the <filename>pom.xml</filename> for the parent project in the
+    <acronym>POM</acronym> Editor we would see the Overview tab shown in <xref
+    linkend="fig-eclipse-pom-editor-overview-parent" />.</para>
 
-    <figure>
-      <title></title>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata contentdepth="100%"
-                     fileref="figs/web/eclipse_pom-editor-dependencies.png"
-                     scalefit="1" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <para>Blah blah blah</para>
-
-    <figure>
-      <title></title>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata contentdepth="100%"
-                     fileref="figs/web/eclipse_pom-editor-build.png"
-                     scalefit="1" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <para>And the effective</para>
-
-    <figure>
-      <title></title>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata contentdepth="100%"
-                     fileref="figs/web/eclipse_pom-editor-dependencies.png"
-                     scalefit="1" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <para>Blah blah</para>
-
-    <figure>
-      <title></title>
+    <figure id="fig-eclipse-pom-editor-overview-parent">
+      <title>Overview Tab of POM Editor for idiom Parent Project</title>
 
       <mediaobject>
         <imageobject>
@@ -1409,16 +1387,148 @@
       </mediaobject>
     </figure>
 
-    <para>The bitches</para>
+    <para>In this parent <acronym>POM</acronym>, we see that the
+    <varname>groupId</varname> and <varname>version</varname> are defined and
+    that the parent <acronym>POM</acronym> supplies much of the information
+    which was missing in the <varname>idiom-core</varname> project. The
+    <acronym>POM</acronym> editor is going to show you the contents of the
+    <acronym>POM</acronym> that you are editing, and it will not show you any
+    of the inherited values. If you wanted to look at the
+    <varname>idiom-core</varname> project's effective <acronym>POM</acronym>
+    in the <acronym>POM</acronym> editor, you will need to open up the
+    <varname>idiom-core</varname> <acronym>POM</acronym> in the
+    <acronym>POM</acronym> editor and then click on the middle-button in the
+    upper right-hand corner of the <acronym>POM</acronym> editor. This is the
+    button with a left bracket and an equals sign on a page with a blue M.
+    Clicking this button will load the effective <acronym>POM</acronym> for
+    <varname>idiom-code</varname> in the <acronym>POM</acronym> Editor as
+    shown in <xref linkend="fig-eclipse-pom-editor-effective" />.</para>
+
+    <figure id="fig-eclipse-pom-editor-effective">
+      <title>Effective POM for idiom-core</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figs/web/eclipse_pom-editor-effective.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>This effective view of the <acronym>POM</acronym> merges the
+    <varname>idiom-core</varname> <acronym>POM</acronym> with the ancestor
+    <acronym>POM</acronym>s (the parent, the grandparent, etc.) and displays
+    the <acronym>POM</acronym> editor with the effective values. Because the
+    <acronym>POM</acronym> editor is display a composite view of many
+    different merged <acronym>POM</acronym>s, this effective
+    <acronym>POM</acronym> Editor is read-only, and you will not be able to
+    update any of the fields in this effective <acronym>POM</acronym> view.
+    </para>
+
+    <para>If you were looking at the <acronym>POM</acronym> editor for the
+    idiom-core project as shown in <xref
+    linkend="fig-eclipse-pom-edit-overview" />, you can also navigate to the
+    parent <acronym>POM</acronym>, by clicking the left-most icon in the upper
+    right-hand of the <acronym>POM</acronym> editor. Clicking the icon with
+    the up arrow will open the parent <acronym>POM</acronym> in the
+    <acronym>POM</acronym> editor.</para>
+
+    <para>The <acronym>POM</acronym> editor has eleven tabs available; they
+    correspond to the major sections of the <acronym>POM</acronym>. The final
+    tab exposes the <filename>pom.xml</filename> as an <acronym>XML</acronym>
+    document. There is a dependencies tab shown in <xref
+    linkend="fig-eclipse-pom-editor-dependencies" /> which exposes an
+    easy-to-use interface for adding dependencies to your project and for
+    populating the <sgmltag>dependencyManagement</sgmltag> element of a parent
+    <acronym>POM</acronym>. This dependency management screen is also
+    integrated with the artifact searching facilities in the m2eclipse plugin.
+    </para>
+
+    <figure id="fig-eclipse-pom-editor-dependencies">
+      <title>Dependencies Tab of the POM Editor</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata contentdepth="100%"
+                     fileref="figs/web/eclipse_pom-editor-dependencies.png"
+                     scalefit="1" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>In addition to the dependencies tab, there is also a build tab shown
+    in <xref linkend="fig-eclipse-pom-editor-build" /> which provides access
+    to the contents of the build element. From this tab you can customize
+    source directories, add extensions, change the default goal name, and add
+    resources directories. </para>
+
+    <figure id="fig-eclipse-pom-editor-build">
+      <title>Build Tab of the POM Editor</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata contentdepth="100%"
+                     fileref="figs/web/eclipse_pom-editor-build.png"
+                     scalefit="1" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Instead of step through each of the tabs of the
+    <acronym>POM</acronym> editor individually, we've selected a small subset
+    of the available tabs. If you are interested in seeing the rest of the
+    tabs, you should download and install the m2eclipse plugin. Once common
+    complaint about Maven is that it forces a developer to confront large and
+    often overwhelming <acronym>XML</acronym> documents in a highly complex
+    multi-module project build. And, while the authors of this book believe
+    this is a small price to pay for the flexibility of a tool like Maven, the
+    graphical <acronym>POM</acronym> editor is a tool that makes it possible
+    for people to use Maven without ever having to load a
+    <acronym>POM</acronym> in an <acronym>XML</acronym> editor.</para>
   </section>
 
   <section>
     <title>Managing Dependencies in m2eclipse</title>
 
-    <para>blah blah blah</para>
+    <para>The <acronym>POM</acronym> editor provides some dependency
+    management tools that promise to change the way people maintain and
+    monitor a project's transitive dependencies. One of the main attractions
+    to Maven is the fact that it manages a project's dependencies. If you are
+    writing an application which depends on the Spring Framework's Hibernate3
+    integration, all you need to do is depend on the
+    <varname>spring-hibernate3</varname> artifact from the Central Maven
+    Repository. Maven then reads this artifact's <acronym>POM</acronym> and
+    adds all of the necessary transitive dependencies. While this is a great
+    feature that attracts people to using Maven in the first place, it can
+    often become confusing with a project starts to depend on tens of
+    dependencies, each with tens of transitive dependencies.</para>
 
-    <figure>
-      <title></title>
+    <para>Problems start to happen when you depend on a project with a poorly
+    crafted <acronym>POM</acronym> which fails to flag dependencies as
+    optional, or when you start encountering conflicts between transitive
+    dependencies. If one of your requirements is to exclude a dependency like
+    <varname>commons-logging</varname> or the <varname>servlet-api</varname>,
+    or if you need to find out why a certain dependency is showing up under a
+    specific scope you will frequently need to invoke the
+    <varname>dependency:tree</varname> and
+    <varname>dependency:resolve</varname> goals from the command-line to track
+    down the offending transitive dependencies.</para>
+
+    <para>This is where the <acronym>POM</acronym> editor in m2eclipse comes
+    in handy. If you open a project with many dependencies, you can open the
+    Dependency Tree tab and see a two-column display of dependencies as shown
+    in <xref linkend="fig-eclipse-pom-editor-dependency-tree" />. The
+    left-side of the panel displays a tree of dependencies. The first level of
+    the tree consists of direct dependencies from your project, and each
+    subsequent level lists the dependencies of each dependency. The left-hand
+    side is a great way to figure out how a specific dependency made its way
+    into your project's resolved dependencies. The right-hand side of this
+    panel displays the resolved dependencies. This is the list of effective
+    dependencies after all conflicts and scopes have been applied, and it is
+    the effective list of dependencies that your project will use for
+    compilation, testing, and packaging.</para>
+
+    <figure id="fig-eclipse-pom-editor-dependency-tree">
+      <title>Dependency Tree Tab of the POM Editor</title>
 
       <mediaobject>
         <imageobject>
@@ -1429,10 +1539,26 @@
       </mediaobject>
     </figure>
 
-    <para>Blah blah blah</para>
+    <para>The feature which makes the Dependency Tree tab so valuable is that
+    it can be used as an investigative tool to figure out how a specific
+    dependency made it into the list of resolved dependencies. <xref
+    linkend="fig-eclipse-pom-editor-locate-depend" /> shows what happens when
+    you click on commons-logging in the resolve dependencies list. Clicking on
+    a resolved dependency filters the dependency hierarchy on the left-hand
+    side of the panel to show all of the node which contributed to the
+    resolved dependency. If you are trying to get rid of a resolved
+    dependency, you can use this tool to find out what dependencies (and what
+    transitive dependencies) are contributing the artifact to your resolved
+    dependencies. In other words, if you are trying to get rid of something
+    like <varname>commons-logging</varname> from your dependency set, the
+    Dependency Tree tab is the tool you will likely want to use. This tool
+    combines the output of two Maven goals
+    <varname>dependency:resolve</varname> and
+    <varname>dependency:tree</varname> which show two different views of your
+    project's dependencies.</para>
 
-    <figure>
-      <title></title>
+    <figure id="fig-eclipse-pom-editor-locate-depend">
+      <title>Locating Dependencies in the Dependency Tree</title>
 
       <mediaobject>
         <imageobject>
@@ -1441,10 +1567,17 @@
       </mediaobject>
     </figure>
 
-    <para>Blah blah blah</para>
+    <para>m2eclipse also provides you with the ability to view your project's
+    dependencies as a graph. <xref linkend="fig-eclipse-pom-editor-graph" />
+    shows the dependencies of <varname>idiom-core</varname>. The top-most box
+    is the <varname>idiom-core</varname> project, the second level of boxes
+    are direct dependencies, and every level below that shows a transitive
+    dependencies. In this graph view, you can select a specific node and the
+    graph will highlight the arrows that mark a given node's
+    dependencies.</para>
 
-    <figure>
-      <title></title>
+    <figure id="fig-eclipse-pom-editor-graph">
+      <title>Viewing the Dependencies of a Project as a Graph</title>
 
       <mediaobject>
         <imageobject>
@@ -1453,10 +1586,14 @@
       </mediaobject>
     </figure>
 
-    <para>Blah blah blah</para>
+    <para>If you would prefer to see the dependencies of a project in a radial
+    layout, you can right click on the graph and change the graph layout.
+    <xref linkend="fig-eclipse-pom-editor-graph-radial" /> shows the same
+    graph from <xref linkend="fig-eclipse-pom-editor-graph" /> with a radial
+    layout.</para>
 
-    <figure>
-      <title></title>
+    <figure id="fig-eclipse-pom-editor-graph-radial">
+      <title>Radial Layout of Dependency Graph</title>
 
       <mediaobject>
         <imageobject>
@@ -1464,8 +1601,6 @@
         </imageobject>
       </mediaobject>
     </figure>
-
-    <para>Blahb albh albhalbhalbh</para>
   </section>
 
   <section>
