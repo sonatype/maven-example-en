@@ -211,7 +211,7 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
       </figure>
     </section>
 
-    <section>
+    <section id="sect-repoman-post-install">
       <title>Post-Install Checklist</title>
 
       <para>Nexus ships with some default passwords and settings for
@@ -501,9 +501,14 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
   <section>
     <title>Using Nexus</title>
 
-    <para>Nexus provides for</para>
+    <para>Nexus provides for anonymous access for users who only need to
+    search repositories, browse repositories, and peruse the system feeds.
+    This anonymous access level changes the navigation menu and some of the
+    options available when you right-click on a repository. This read-only
+    access displays a user interface shown in <xref
+    linkend="fig-repoman-anonymous-interface" />.</para>
 
-    <figure>
+    <figure id="fig-repoman-anonymous-interface">
       <title>Nexus Interface for Anonymous Users</title>
 
       <mediaobject>
@@ -516,7 +521,12 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>Browsing Repositories</title>
 
-      <para></para>
+      <para>One of the most straight-forward uses of the Nexus is to browse
+      the structure of a Maven repository. If you click on the Browse
+      Repositories menu item in the Views menu, you should see the following
+      display. The top-half of <xref linkend="fig-nexus-browse-repo" /> shows
+      you a list of groups and repositories along with the type of the
+      repository and the repository status. </para>
 
       <figure id="fig-nexus-browse-repo">
         <title>Browsing a Nexus Repository</title>
@@ -527,12 +537,29 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>When you are browsing a repository, you can right click on any
+      file and download it directly to your browser. This allows you to
+      retrieve specific artifacts manually, or examine a
+      <acronym>POM</acronym> file in the browser.</para>
     </section>
 
     <section>
       <title>Browsing Groups</title>
 
-      <para></para>
+      <para>Nexus contains ordered groups of repositories which allow you to
+      expose a series of repositories through a single <acronym>URL</acronym>.
+      More often than not, an organization is going to point Maven at the two
+      default Nexus groups: Public Repositories and Public Snapshot
+      Repositories. Most end-users of Nexus are not going to know what
+      artifacts are being served from what specific repository, and they are
+      going to want to be able to browse the Public Repository. To support
+      this use case, Maven allows you to browse the contents of a Nexus Group
+      as if it were a single merged repository with a tree structure. <xref
+      linkend="fig-nexus-browse-group" /> shows the browsing interface with a
+      Nexus Group selected for browsing. There is no difference to the user
+      experience of browsing a Nexus Group vs. browsing a Nexus
+      Repository.</para>
 
       <figure id="fig-nexus-browse-group">
         <title>Browsing a Nexus Group</title>
@@ -548,10 +575,12 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>Searching for Artifacts</title>
 
-      <para>After you run a build against Nexus, log into Nexus and click on
-      Artifact Search in the left-hand navigation menu. Type the search term
-      "maven" into the Search box, and you should see something similar to
-      <xref linkend="fig-nexus-search" />.</para>
+      <para>In the left-hand navigation area, there is a Artifact Search text
+      field next to a magnifying glass. To search for an artifact by groupId
+      or artifactId, type in some text and click the magnifying glass. Typing
+      in the the search term "maven" and clicking the magnifying glass should
+      yield a search result similar to <xref
+      linkend="fig-nexus-search" />.</para>
 
       <figure id="fig-nexus-search">
         <title>Results of an Artifact Search for "maven"</title>
@@ -562,6 +591,29 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>Once you've located the artifact you were looking for you can
+      click on the Download link to download the artifact. Nexus is going to
+      show you 50 results at a time, and provide links on the bottom of the
+      search result panel for you to navigate through the search results. If
+      you would prefer to see a list of all of the matching artifacts, you can
+      select Fetch All from the drop down at the bottom of the search result
+      panel.</para>
+
+      <para>In addition to searching by a groupId or an artifactId, Nexus has
+      a feature which allows you to search for an artifact by a checksum.
+      </para>
+
+      <warning>
+        <para>Let me guess? You installed Nexus, ran to the search box, typed
+        in the name of a group or an artifact, pressed search, and saw
+        absolutely nothing. No results. Nexus isn't going to retrieve the
+        remote repository indexes by default, you need to activate downloading
+        of remote indexes for the three proxy repositories that Nexus ships
+        with. Without these indexes, Nexus has nothing to search. Find
+        instructions for activating index downloads in <xref
+        linkend="sect-repoman-post-install" />.</para>
+      </warning>
     </section>
 
     <section>
@@ -732,7 +784,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
   </section>
 
   <section id="sect-conf-maven-nexus">
-    <title>Configuring Maven to Use Nexus</title>
+    <title>Configuring Maven to Use Nexus Repositories</title>
 
     <para>To use Nexus, you will configure Maven to check Nexus instead of the
     public repositories. To do this, you'll need to edit your mirror settings
@@ -1263,7 +1315,7 @@ from the specified remote repositories:
     <section id="sect-manage-repo">
       <title>Managing Repositories</title>
 
-      <para>To manage the repositories which Nexus provides, log in as the
+      <para>To manage Nexus repositories, log in as the
       administrative user and click on Repositories in the Configuration menu
       in the left-hand navigation menu. Nexus provides for three different
       kinds of repositories:</para>
@@ -1982,7 +2034,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     </section>
   </section>
 
-  <section id="sect-manage-repo">
+  <section id="sect-maintain-repo">
     <title>Maintaining Repositories</title>
 
     <para>Once you've setup a series of repositories and grouped those
