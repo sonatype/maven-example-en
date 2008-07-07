@@ -526,7 +526,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
       Repositories menu item in the Views menu, you should see the following
       display. The top-half of <xref linkend="fig-nexus-browse-repo" /> shows
       you a list of groups and repositories along with the type of the
-      repository and the repository status. </para>
+      repository and the repository status.</para>
 
       <figure id="fig-nexus-browse-repo">
         <title>Browsing a Nexus Repository</title>
@@ -601,8 +601,8 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
       panel.</para>
 
       <para>In addition to searching by a groupId or an artifactId, Nexus has
-      a feature which allows you to search for an artifact by a checksum.
-      </para>
+      a feature which allows you to search for an artifact by a
+      checksum.</para>
 
       <warning>
         <para>Let me guess? You installed Nexus, ran to the search box, typed
@@ -625,7 +625,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
       linkend="fig-repoman-system-feeds" />. You can use these simple
       interface to browse the most recent reports of artifact deployments,
       cached artifacts, broken artifacts, and storage changes that have
-      occurred in Nexus. </para>
+      occurred in Nexus.</para>
 
       <figure id="fig-repoman-system-feeds">
         <title>Browsing Nexus System Feeds</title>
@@ -847,7 +847,7 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
       your local installation of Nexus instead of going out to the Central
       Maven repository to retrieve an artifact. After you've run a few builds
       against your local Nexus installation, you can then start to browse the
-      contents cached in your local instance of Maven. </para>
+      contents cached in your local instance of Maven.</para>
     </section>
 
     <section>
@@ -1141,7 +1141,7 @@ from the specified remote repositories:
         named <ulink url="http://extjs.com/">ExtJS</ulink>. ExtJS provides for
         a number of interesting UI widgets that allow for rich interaction
         like the drag-drop UI for adding repositories to a group and
-        reordering the contents of a group. </para>
+        reordering the contents of a group.</para>
       </note>
 
       <para>In the last few sections, you encountered a situation where you
@@ -1315,10 +1315,10 @@ from the specified remote repositories:
     <section id="sect-manage-repo">
       <title>Managing Repositories</title>
 
-      <para>To manage Nexus repositories, log in as the
-      administrative user and click on Repositories in the Configuration menu
-      in the left-hand navigation menu. Nexus provides for three different
-      kinds of repositories:</para>
+      <para>To manage Nexus repositories, log in as the administrative user
+      and click on Repositories in the Configuration menu in the left-hand
+      navigation menu. Nexus provides for three different kinds of
+      repositories:</para>
 
       <variablelist>
         <varlistentry>
@@ -1938,7 +1938,7 @@ from the specified remote repositories:
             retrieved by a client). This can be a good job to run if you are
             try to conserve storage space. In this service you can specify the
             number of days over which Nexus will look for activity before
-            making the decision to evict an artifact.</para>
+            making the decision to evict an artifact. </para>
           </listitem>
         </varlistentry>
 
@@ -1972,7 +1972,7 @@ from the specified remote repositories:
           <listitem>
             <para>This scheduled service tells Nexus to walk every file in a
             repository and gather information like checksums and file contents
-            for every file. </para>
+            for every file.</para>
           </listitem>
         </varlistentry>
 
@@ -1984,6 +1984,16 @@ from the specified remote repositories:
           </listitem>
         </varlistentry>
       </variablelist>
+
+      <note>
+        <para>The Evict and Clear services do not delete data from the Nexus
+        working directory. They simply move data to be cleared or evicted to a
+        trash directory under the Nexus work directory. If you want to reclaim
+        disk space, you need to clear the Trash on the Browse Repositories
+        screen. If something goes wrong with a evict of clear service, you can
+        move the data back to the appropriate storage location from the
+        trash.</para>
+      </note>
 
       <para>When you create a new service you can configure it to apply to all
       repositories, the repositories in a Nexus Group, or a specific Nexus
@@ -2147,14 +2157,14 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       publish this driver's JAR file in a public Maven repository. In this
       case, you'll want to upload a JAR artifact and supply the Maven
       coordinates so that Nexus can serve it from your 3rd Party hosted
-      repository just like any other artifact. </para>
+      repository just like any other artifact.</para>
 
       <para>To upload an artifact, select the repository in either the browse
       repositories list of repositories or the list of repositories displayed
       when clicking on repositories in the administration menu. Right-click on
       a hosted repository, and select Upload Artifact.... You should then see
-      the Artifact Upload form shown in <xref linkend="fig-repoman-manual" />.
-      </para>
+      the Artifact Upload form shown in <xref
+      linkend="fig-repoman-manual" />.</para>
 
       <figure id="fig-repoman-manual">
         <title>Manual Upload of an Artifact to a Hosted Repository</title>
@@ -2221,7 +2231,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       deployment password to <varname>m@v3nfr33k</varname>. Change the
       deployment password to <varname>m@v3nfr33k</varname>, and then add the
       following server elements to your
-      <filename>~/.m2/settings.xml</filename> file: </para>
+      <filename>~/.m2/settings.xml</filename> file:</para>
 
       <programlisting>&lt;settings&gt;
   ...
@@ -2249,7 +2259,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       the form of a server name, a username, and a password. When you attempt
       to deploy to a server with an identifier of <varname>releases</varname>
       or <varname>snapshots</varname>, Maven will consult your
-      <filename>settings.xml</filename> to find these credentials. </para>
+      <filename>settings.xml</filename> to find these credentials.</para>
     </section>
 
     <section>
