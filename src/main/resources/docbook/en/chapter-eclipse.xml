@@ -259,7 +259,7 @@
       </section>
     </section>
 
-    <section>
+    <section id="sect-eclipse-install">
       <title>Installing m2eclipse</title>
 
       <para>Once you've installed the prerequisites, you can install the
@@ -1343,9 +1343,9 @@
   <section>
     <title>Using the Form-based POM Editor</title>
 
-    <para>As of version 0.9.5, m2eclipse has a form-based
-    <acronym>POM</acronym> editor which allows you to edit every part of a
-    project's <filename>pom.xml</filename> with an easy-to-use
+    <para>The latest development snapshot (0.9.5) of the m2eclipse plugin has
+    a form-based <acronym>POM</acronym> editor which allows you to edit every
+    part of a project's <filename>pom.xml</filename> with an easy-to-use
     <acronym>GUI</acronym> interface. To open the <acronym>POM</acronym>
     Editor, click on a project's <filename>pom.xml</filename> file. If you've
     customized the editors for a pom.xml file, and the POM Editor is not the
@@ -1353,6 +1353,13 @@
     With... / Maven POM Editor". The <acronym>POM</acronym> Editor will then
     display the Overview tab as shown in <xref
     linkend="fig-eclipse-pom-edit-overview" />.</para>
+
+    <warning>
+      <para>You won't be able to see the form-based POM Editor unless you are
+      using the development update site mentioned in <xref
+      linkend="sect-eclipse-install" />. The form-based editor is present in
+      the current development release of 0.9.5.</para>
+    </warning>
 
     <para>One common complaint about Maven is that it forces a developer to
     confront large and often overwhelming <acronym>XML</acronym> documents in
@@ -1395,7 +1402,7 @@
     modules, dependencies, plugins and other elements that have corresponding
     Maven artifacts. Underlined labels in several <acronym>POM</acronym>
     editor sections represent hyperlinks which can be used to open the
-    <acronym>POM</acronym> editor for corresponding Maven artifact. </para>
+    <acronym>POM</acronym> editor for corresponding Maven artifact.</para>
 
     <figure id="fig-eclipse-pom-editor-overview-parent">
       <title>Overview Tab of POM Editor for idiom Parent Project</title>
@@ -1500,14 +1507,15 @@
 
     <para>We only showed a small subset of the <acronym>POM</acronym> editor.
     If you are interested in seeing the rest of the tabs, please download and
-    install the m2eclipse plugin. </para>
+    install the m2eclipse plugin.</para>
   </section>
 
   <section>
     <title>Analyzing Project Dependencies in m2eclipse</title>
 
-    <para>The <acronym>POM</acronym> editor provides some dependency analysis
-    tools that promise to change the way people maintain and monitor a
+    <para>The latest development snapshot of m2eclipse (0.9.5) contains a
+    <acronym>POM</acronym> editor which provides some dependency analysis
+    tools. These tools promise to change the way people maintain and monitor a
     project's transitive dependencies. One of the main attractions to Maven is
     the fact that it manages a project's dependencies. If you are writing an
     application which depends on the Spring Framework's Hibernate3
@@ -1518,6 +1526,13 @@
     feature that attracts people to using Maven in the first place, it can
     often become confusing with a project starts to depend on tens of
     dependencies, each with tens of transitive dependencies.</para>
+
+    <warning>
+      <para>You won't be able to see the form-based POM Editor and dependency
+      graphs unless you are using the development update site mentioned in
+      <xref linkend="sect-eclipse-install" />. The form-based editor is
+      present in the current development release of 0.9.5.</para>
+    </warning>
 
     <para>Problems start to happen when you depend on a project with a poorly
     crafted <acronym>POM</acronym> which fails to flag dependencies as
