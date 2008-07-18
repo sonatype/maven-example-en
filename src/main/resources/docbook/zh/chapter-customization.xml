@@ -1,104 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="customizing">
-  <title>Customizing a Maven Project</title>
+<chapter>
+  <title>定制一个Maven项目</title>
 
-  <section id="custom-intro">
-    <title>Introduction</title>
+  <section>
+    <title>介绍</title>
 
-    <para>This chapter develops on the information introduced in the <xref
-    linkend="simple-project" />. We're going to create a simple project
-    generated with the Maven Archetype plugin, add some dependencies, add some
-    source code, and customize the project to suit our needs. At the end of
-    this chapter, you will know how to start using Maven to create real
-    projects.</para>
+    <para>本章在上一章所介绍信息的基础上进行开发。 你将创建一个由 Maven Archetype
+    插件生成的项目，添加一些依赖和一些源代码，并且根据你的需要定制项目。本章最后，你将知道如何使用 Maven 开始创建真正的项目。</para>
 
     <section>
-      <title>Downloading this Chapter's Example</title>
+      <title>下载本章样例</title>
 
-      <para>In this chapter we'll develop a useful program that interacts with
-      a Yahoo! Weather web service. While you should be able to follow the
-      development of this chapter without the example source code, we
-      recommend downloading a copy of the example code to use as a reference.
-      This chapter's example project may be downloaded with the book's example
-      code at <ulink
+      <para>本章我们将开发一个和 Yahoo! Weather web
+      服务交互的实用程序。虽然没有样例源码你也应该能够理解这个开发过程，但还是推荐你下载本章样例源码以作为参考。
+      本章的样例项目包含在本书的样例代码中，你可以从两个地方下载，<ulink
       url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
-      or <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
-      Unzip this archive in any directory, and then go to the
-      <filename>ch04/</filename> directory. In the <filename>ch04/</filename>
-      directory you will see a directory named
-      <filename>simple-weather/</filename> which contains the Maven project
-      developed in this chapter. If you wish to follow along with the example
-      code in a web browser, go to <ulink
+      或者 <ulink
+      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>
+      。解压存档文件至任意目录，然后到 <filename>ch04/</filename> 目录。 在
+      <filename>ch04/</filename> 目录你会看到一个名为
+      <filename>simple-weather</filename> 的目录，它包含了本章开发出来的 Maven
+      项目。如果你想要在浏览器里看样例代码，访问 <ulink
       url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch04/</filename> directory.</para>
-
-      <!--TODO: Insert a small section with references to technology used in this chapter.-->
+      ，然后点击 <filename>ch04/</filename> 目录。</para>
     </section>
   </section>
 
   <section>
-    <title>Defining the Simple Weather Project</title>
+    <title>定义Simple Weather项目</title>
 
-    <para>Before we start customizing this project, let's take a step back and
-    talk about a simple weather project. What is the simple weather project?
-    The simple weather project is a contrived example which was created to
-    demonstrate some of the features of Maven. It is an application that is
-    representative of the kind of application you might need to build. The
-    simple weather application is a basic command-line driven application
-    which takes a zip code and retrieves some data from the Yahoo! Weather
-    <acronym>RSS</acronym> feed. It parses the result and prints the result to
-    standard output.</para>
-
-    <para>We chose this example for a number of reasons. First, it is
-    straightforward; a user supplies input via the command-line, we take that
-    zip code, make a request to Yahoo! Weather, parse the result, and format
-    some simple data to the screen. This example is a simple
-    <methodname>main()</methodname> function, and some supporting classes;
-    there is no enterprise framework to introduce and explain, just
-    <acronym>XML</acronym> parsing and some logging statements. Second, it
-    gives us a good excuse to introduce some interesting libraries such as
-    Velocity, Dom4J, and Log4J. While this book is focused on Maven, we won't
-    shy away from an opportunity to introduce interesting utilities. Lastly,
-    it is an example which can be introduced, developed, and deployed in a
-    single chapter.</para>
+    <para>在定制本项目之前，让我们退后一步，讨论下这个 simple weather 项目。 这个 simple weather 项目是什么？
+    它是一个被设计成用来示范一些 Maven 特征的样例。 它能代表一类你可能需要构建的应用程序。 这个 simple weather
+    是一个基本的命令行驱动的应用程序，它接受邮政编码输入，然后从 Yahoo! Weather <acronym>RSS</acronym>
+    源获取数据，然后解析数据并把结果打印到标准输出。 我们选择该项目是有许多因素的。 首先，它很直观；用户通过命令行提供输入，程序读取邮政编码，对
+    Yahoo! Weather 提交请求，之后解析结果，格式化之后输入到屏幕。 这个样例是个简单的
+    <function>main()</function> 函数加上一些相关支持的类；没有企业级框架需要介绍或解释，只有
+    <acronym>XML</acronym> 解析和一些日志语句。 其次，它提供很好的机会来介绍一些有趣的类库，如 Velocity, Dom4j
+    和 Log4j。 虽然本书集中于 Maven ，但我们不会回避那些介绍有趣工具的机会。
+    最后，这是一个能在一章内介绍，开发及部署的样例。</para>
 
     <section>
       <title>Yahoo! Weather RSS</title>
 
-      <para>Before you build this application, you should know something about
-      the Yahoo! Weather <acronym>RSS</acronym> feed. To start with, the
-      service is made available under the following terms:</para>
+      <para>在开始构建这个应用之前，你需要了解一下 Yahoo! Weather <acronym>RSS</acronym>
+      源。该服务是基于以下条款提供的：</para>
 
       <blockquote>
-        <para>"The feeds are provided free of charge for use by individuals
-        and non-profit organizations for personal, non-commercial uses. We ask
-        that you provide attribution to Yahoo! Weather in connection with your
-        use of the feeds."</para>
+        <para>“该数据源免费提供给个人和非营利性组织，作为个人或其它非商业用途。 我们要求你提供给 Yahoo! Weather
+        连接你数据源应用的权限。”</para>
       </blockquote>
 
-      <para>In other words, if you were thinking of integrating these feeds
-      into your commercial web site, think again, this feed is for personal,
-      non-commercial use. And, the use we're encouraging in this chapter is
-      personal educational use. For more information about the Yahoo! Weather
-      terms of service, please see the Yahoo Weather! API documentation here:
+      <para>换句话说，如果你考虑集成该数据源到你的商业 web 站点上，请再仔细考虑考虑，该数据源可作为个人或其它非商业性用途。
+      本章我们提倡的使用是个人教育用途。 要了解更多的 Yahoo! Weather 服务条款，请参考 Yahoo! Weather API 文档：
       <ulink
-      url="http://developer.yahoo.com/weather/">http://developer.yahoo.com/weather/</ulink>.</para>
-
-      <!--TODO: Explain a bit more about these feeds.   Link the user to an example.-->
+      url="http://developer.yahoo.com/weather/">http://developer.yahoo.com/weather/</ulink>
+      。</para>
     </section>
   </section>
 
   <section>
-    <title>Creating the Simple Weather Project</title>
+    <title>创建Simple Weather项目</title>
 
-    <para>First, let's use the Maven Archetype plugin to create a basic
-    skeleton for the simple weather project. Execute the following command to
-    create a new project.</para>
-
-    <screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch04 \
+    <para>首先，让我们用 Maven Archetype 插件创建这个 simple weather 项目的基本轮廓。
+    运行下面的命令，创建新项目：<screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch04 \
                                          -DartifactId=simple-weather \
                                          -DpackageName=com.sonatype.maven \
                                          -Dversion=1.0
@@ -116,18 +82,15 @@
 [INFO] Parameter: version, Value: 1.0
 [INFO] Parameter: artifactId, Value: simple-weather
 [INFO] *** End of debug info from resources from generated POM ***
-[INFO] Archetype created in dir: ~/examples/simple-weather</screen>
+[INFO] Archetype created in dir: ~/examples/simple-weather</screen></para>
 
-    <para>Once the Maven Archetype plugin creates the project, change
-    directories into the <filename>simple-weather</filename> directory and
-    take a look at the <filename>pom.xml</filename>. You should see the
-    following <acronym>XML</acronym> document:</para>
+    <para>在 Maven Archetype 插件创建好了这个项目之后，进入到 simple-weather 目录，看一下
+    <filename>pom.xml</filename>。你会看到如下的 <acronym>XML</acronym> 文档：</para>
 
     <example>
-      <title>Initial <acronym>POM</acronym> for the simple-weather
-      project</title>
+      <title>simple-wheather 项目的初始 <acronym>POM</acronym></title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -150,30 +113,24 @@
 </programlisting>
     </example>
 
-    <para>Notice that we passed in the <varname>version</varname> parameter to
-    the <varname>archetype:create</varname> goal. This overrides the default
-    value of <literal>1.0-SNAPSHOT</literal>. In this project, we're
-    developing the <literal>1.0</literal> version of the
-    <varname>simple-weather</varname> project as you can see in the
-    <filename>pom.xml</filename> <varname>version</varname> element.</para>
+    <para>请注意我们给 <varname>archetype:create</varname> 目标传入了
+    <varname>version</varname> 参数。它覆写了默认值 <literal>1.0-SNAPSHOT</literal>
+    。本项目中，正如你从 <filename>pom.xml</filename> 的 <varname>version</varname>
+    元素看到的，我们正在开发 <varname>simple-weather</varname> 项目的 <literal>1.0</literal>
+    版本。</para>
   </section>
 
   <section>
-    <title>Customize Project Information</title>
+    <title>定制项目信息</title>
 
-    <para>Before we get started with writing code, let's customize the project
-    information a bit. What we want to do is add some information about the
-    project's license, the organization and a few of the developers associated
-    with the project. This is all standard information you would expect to see
-    in most projects. The following listing shows the <acronym>XML</acronym>
-    which supplies the organizational information, the licensing information,
-    and the developer information.</para>
+    <para>在开始编写代码之前，让我们先定制一些项目的信息。 我们想要做的是添加一些关于项目许可证，组织以及项目相关开发人员的一些信息。
+    这些都是你期望能在大部分项目中看到的标准信息。下面的文档展示了提供组织信息，许可证信息和开发人员信息的 <acronym>XML</acronym>
+    。</para>
 
     <example id="ex-custom-org-info">
-      <title>Adding Organizational, Legal, and Developer Information to the
-      pom.xml</title>
+      <title>为 pom.xml 添加组织，法律和开发人员信息</title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -215,45 +172,27 @@
 </programlisting>
     </example>
 
-    <para>The ellipses in <xref linkend="ex-custom-org-info" /> are shorthand
-    for an abbreviated listing. When you see a <filename>pom.xml</filename>
-    with "..." and "..." directly after the <varname>project</varname>
-    element's start tag and directly before the <varname>project</varname>
-    element's end tag, this implies that we are not showing the entire
-    <filename>pom.xml</filename> file. In this case the
-    <varname>licenses</varname>, <varname>organization</varname>, and
-    <varname>developers</varname> element were all added before the
-    <varname>dependencies</varname> element.</para>
-
-    <!--TODO: Supply an XRef
-
-TODO: I think we need more development here, but I'm tryin to ignore that which 
-      isn't critical at the moment.
-
-TODO: I could add a section about customizing things like the compiler target and 
-      source levels.-->
+    <para><xref linkend="ex-custom-org-info" /> 中的省略号是为了使代码清单变得简短。 当你在
+    <filename>pom.xml</filename> 中看到 <varname>project</varname> 元素的开始标签后面跟着
+    “…” 或者在 <varname>project</varname> 元素的结束标签前有 “…” ，这说明我们没有展示整个
+    <filename>pom.xml</filename>
+    文件。在上述情况中，<varname>licenses</varname>，<varname>organization</varname> 和
+    <varname>developers</varname> 元素是加在 <varname>dependencies</varname>
+    元素之前的。</para>
   </section>
 
-  <section id="section-add-depend">
-    <title>Add New Dependencies</title>
+  <section>
+    <title>添加新的依赖</title>
 
-    <para>The simple weather application is going to have to complete the
-    following three tasks: retrieve <acronym>XML</acronym> data from Yahoo!
-    Weather, parse the <acronym>XML</acronym> from Yahoo, and then print
-    formatted output to standard output. To accomplish these tasks, we have to
-    introduce some new dependencies to our project's
-    <filename>pom.xml</filename>. To parse the <acronym>XML</acronym> response
-    from Yahoo!, we're going to be using Dom4J and Jaxen, to format the output
-    of this command-line program we are going to be using Velocity, and we
-    will also need to add a dependency for Log4J which we will be using for
-    logging. After we add these dependencies, our
-    <varname>dependencies</varname> element will look like the following
-    example.</para>
+    <para>Simple weather 应用程序必须要完成以下三个任务：从 Yahoo! Weather 获取
+    <acronym>XML</acronym> 数据，解析 <acronym>XML</acronym>
+    数据，打印格式化的输出至标准输出。为了完成这三个任务，我们需要为项目的 <filename>pom.xml</filename> 引入一些新的依赖。
+    为了解析来自 Yahoo! 的 <acronym>XML</acronym> 响应，我们将会使用 Dom4J 和 Jaxen
+    ，为了格式化这个命令行程序的输出，我们将会使用 Velocity ，我们还需要加入对 Log4j 的依赖，用来做日志。加入这些依赖之后，我们的
+    dependencies 元素就成了以下模样：<example>
+        <title>添加 Dom4J, Jaxen, Velocity 和 Log4J 作为依赖</title>
 
-    <example>
-      <title>Adding Dom4J, Jaxen, Velocity, and Log4J as Dependencies</title>
-
-      <programlisting language="xml">&lt;project&gt;
+        <programlisting>&lt;project&gt;
   [...]
   &lt;dependencies&gt;
     &lt;dependency&gt;
@@ -285,56 +224,36 @@ TODO: I could add a section about customizing things like the compiler target an
   &lt;/dependencies&gt;
   [...]
 &lt;/project&gt;</programlisting>
-    </example>
-
-    <para>As you can see above, we've added four more dependency elements in
-    addition to the existing element which was referencing the
-    <varname>test</varname> scoped dependency on JUnit. If you add these
-    dependencies to the project's <filename>pom.xml</filename> file and then
-    run <command>mvn install</command>, you will see Maven downloading all of
-    these dependencies and other transitive dependencies to your local Maven
-    repository.</para>
-
-    <para>How did we find these dependencies? Did we just "know" the
-    appropriate <varname>groupId</varname> and <varname>artifactId</varname>
-    values? Some of the dependencies are so widely used (like Log4J) that
-    you'll just remember what the <varname>groupId</varname> and
-    <varname>artifactId</varname> are every time you need to use them.
-    Velocity, Dom4J, and Jaxen were all located using the helpful web site
+      </example><parameter>正如你从上面所看到的，我们在范围为 <varname>test</varname> 的 JUnit
+    依赖基础上又加了四个依赖元素。如果你把这些依赖添加到项目的 <filename>pom.xml</filename> 文件然后运行
+    <command>mvn install</command> ，你会看到 Maven 下载这些依赖及其它传递性依赖到你的本地 Maven 仓库。
+    我们如何找这些依赖呢？我们都“知道”适当的 <varname>groupId</varname> 和
+    <varname>artifactId</varname> 的值吗？有些依赖 (像 Log4J)
+    被广泛使用，以至于每次你需要使用它们的时候你都会记得它们的 <varname>groupId</varname> 和
+    <varname>artifactId</varname>。 而 Velocity， Dom4J 和 Jaxen 是通过一个十分有用的站点
     <ulink
-    url="http://www.mvnrepository.com">http://www.mvnrepository.com</ulink>.
-    This site provides a search interface to the Maven repository, you can use
-    it to search for dependencies. To test this for yourself, load <ulink
     url="http://www.mvnrepository.com">http://www.mvnrepository.com</ulink>
-    and search for some commonly used libraries such as Hibernate or the
-    Spring Framework. When you search for an artifact on this site, it will
-    show you an <varname>artifactId</varname> and all of the versions known to
-    the central Maven repository. Clicking on the details for a specific
-    version will load a page that contains the dependency element you'll need
-    to copy and paste into your own project's <filename>pom.xml</filename>. If
-    you need to find a dependency, you'll want to check out <ulink
-    url="http://www.mvnrepository.com">mvnrepository.com</ulink>, as you'll
-    often find that certain libraries have more than one
-    <varname>groupId</varname>. With this tool, you can make sense of the
-    Maven repository.</para>
-
-    <!--COMMENT (TIM):  We could do a better job explaining the process for locating a dependency.  
-Also explain the "more than one groupId" comment.-->
+    来定位的。 该站点提供了针对 Maven 仓库的搜索接口，你可以用它来搜索依赖。 你可以自己测试一下，载入 <ulink
+    url="http://www.mvnrepository.com">http://www.mvnrepository.com</ulink>
+    然后搜索一些常用的类库，如 Hibernate 或者 Spring Framework 。当你在这上面搜索构件时，它会显示一个
+    <varname>artifactId</varname> 和所有 Maven 中央仓库所知道的版本。
+    点击某个特定的版本后，它会载入一个页面，这个页面就包括了你需要复制到你自己项目 <filename>pom.xml</filename>
+    中的依赖元素。 你经常会发现某个特定的类库拥有多于一个的 <varname>groupId</varname>，这个时候你需要通过 <ulink
+    url="http://www.mvnrepository.com">mvnrepository.com</ulink>
+    来帮助确定你到底需要怎样配置你的依赖。 </parameter></para>
   </section>
 
   <section>
-    <title>Simple Weather Source Code</title>
+    <title>Simple Weather源码</title>
 
-    <para>The Simple Weather command-line application consists of five Java
-    classes.</para>
+    <para>Simple Weather 命令行应用程序包含五个 Java 类。</para>
 
     <variablelist>
       <varlistentry>
         <term><classname>com.sonatype.maven.weather.Main</classname></term>
 
         <listitem>
-          <para>This class contains a static <methodname>main()</methodname>
-          function, it is the entry point for this system.</para>
+          <para>这个类包含了一个静态的 <methodname>main()</methodname> 函数，即系统的入口。</para>
         </listitem>
       </varlistentry>
 
@@ -342,9 +261,8 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>com.sonatype.maven.weather.Weather</classname></term>
 
         <listitem>
-          <para>The <classname>Weather</classname> class is a straightforward
-          Java bean which holds the location of our weather report and some
-          key facts like the temperature and humidity</para>
+          <para><classname>Weather</classname> 类是个很简单的 Java
+          Bean，它保存了天气报告的地点和其它一些关键元素，如气温和湿度。</para>
         </listitem>
       </varlistentry>
 
@@ -352,9 +270,8 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>com.sonatype.maven.weather.YahooRetriever</classname></term>
 
         <listitem>
-          <para>The <classname>YahooRetriever</classname> connects to Yahoo!
-          Weather and returns an <classname>InputStream</classname> of the
-          data from the feed.</para>
+          <para><classname>YahooRetriever</classname> 连接到 Yahoo! Weather
+          并且返回来自数据源数据的 <classname>InputStream</classname> 。</para>
         </listitem>
       </varlistentry>
 
@@ -362,8 +279,8 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>com.sonatype.maven.weather.YahooParser</classname></term>
 
         <listitem>
-          <para>The YahooParser parses the <acronym>XML</acronym> from Yahoo!
-          Weather, it returns a <classname>Weather</classname> object.</para>
+          <para><classname>YahooParser</classname> 解析来自 Yahoo! Weather 的
+          <acronym>XML</acronym>，返回 <classname>Weather</classname> 对象。</para>
         </listitem>
       </varlistentry>
 
@@ -371,29 +288,22 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>com.sonatype.maven.weather.WeatherFormatter</classname></term>
 
         <listitem>
-          <para>The <classname>WeatherFormatter</classname> takes a
-          <classname>Weather</classname> object, creates a
-          <classname>VelocityContext</classname>, and evaluates a Velocity
-          template</para>
+          <para><classname>WeatherFormatter</classname> 接受
+          <classname>Weather</classname> 对象，创建
+          <classname>VelocityContext</classname> ，根据 Velocity 模板生成结果。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>We're not going to dwell on the code in this example, but we are
-    going to include all the necessary code for you get the example working in
-    the book. We assume that most of you have downloaded the examples which
-    accompany this book, but we're also mindful of those who may wish to
-    follow the example in this chapter step-by-step. The following sections
-    list classes in the <varname>simple-weather</varname> project, each of
-    these classes should be placed in the same package
-    <package>com.sonatype.maven.weather</package>.</para>
+    <para>这里我们不是想要详细阐述样例中的代码，但解释一下程序中使之运行的核心代码还是必要的。
+    我们假设大部分读者已经下载的本书的源码，但也不会忘记那些按着书一步一步往下看的读者。 本小节列出了
+    <varname>simple-weather</varname>
+    项目的类，这些类都放在同一个包下面，<package>com.sonatype.maven.weather</package> 。</para>
 
-    <para>Let's remove the <classname>App</classname> and the
-    <classname>AppTest</classname> classes created by
-    <varname>archetype:create</varname> and add our new package. In a Maven
-    project, all of a project's source code is stored in
-    <filename>src/main/java</filename>. From the base directory of the new
-    project, execute the following commands:</para>
+    <para>让我们删掉由 <varname>archetype:create</varname> 生成
+    <classname>App</classname> 类和 <classname>AppTest</classname> 类，然后加入我们新的包。在
+    Maven 项目中，所有项目的源代码都存储在 <filename>src/main/java</filename> 目录。
+    在新项目的基础目录下，运行下面的命令：</para>
 
     <screen>$ <command>cd src/test/java/com/sonatype/maven</command>
 $ <command>rm AppTest.java</command>
@@ -403,14 +313,12 @@ $ <command>rm App.java</command>
 $ <command>mkdir weather</command>
 $ <command>cd weather</command></screen>
 
-    <para>You have created a new package
-    <package>com.sonatype.maven.weather</package>. Now, we need to put some
-    classes in this directory. Using your favorite text editor, create a new
-    file named <filename>Weather.java</filename> with the following
-    contents.</para>
+    <para>你已经创建了一个新的包 <package>com.sonatype.maven.weather</package> 。
+    现在，我们需要把那些类放到这个目录下面。 用你最喜欢的编辑器，创建一个新文件，名字为
+    <filename>Weather.java</filename>，内容如下：</para>
 
     <example>
-      <title>Simple Weather's Weather Model Object</title>
+      <title>Simple Weather 的 Weather 模型对象</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -450,22 +358,16 @@ public class Weather {
 </programlisting>
     </example>
 
-    <para>The <classname>Weather</classname> class defines a simple bean which
-    is used to hold the weather information parsed from the Yahoo! Weather
-    feed The Yahoo! Weather feed provides a wealth of information from the
-    sunrise and sunset times to the speed and direction of the wind. In the
-    interest of keeping this example as simple as possible, the
-    <classname>Weather</classname> model object only keeps track of the
-    temperature, chill, humidity, and a textual description of current
-    conditions.</para>
+    <para><classname>Weather</classname> 类定义了一个简单的 bean ，用来存储由 Yahoo! Weather
+    数据源解析出来的天气信息。天气数据源提供了丰富的信息，从日出日落时间，到风速和风向。 为了让这个例子保持简单，
+    <classname>Weather</classname> 模型对象只保存温度，湿度和当前天气情况的文字描述等信息。</para>
 
-    <para>In the same directory create a file named
-    <filename>Main.java</filename>. This <classname>Main</classname> class
-    will hold the static <methodname>main()</methodname> function—the entry
-    point for this example.</para>
+    <para>在同一目录下，创建 <filename>Main.java</filename>
+    文件。<classname>Main</classname> 这个类有一个静态的 <function>main()</function>
+    函数——样例程序的入口。</para>
 
     <example>
-      <title>Simple Weather's Main Class</title>
+      <title>Simple Weather 的 Main 类</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -511,29 +413,22 @@ public class Main {
 </programlisting>
     </example>
 
-    <para>The <methodname>main()</methodname> function shown above configures
-    Log4J by retrieving a resource from the classpath, it then tries to read a
-    zip code from the command-line. If an exception is thrown while it is
-    trying to read the zip code, the program will default to a zip code of
-    60202. Once it has a zip code, it instantiates an instance of
-    <classname>Main</classname> and calls the <methodname>start()</methodname>
-    method on an instance of <classname>Main</classname>. The
-    <methodname>start()</methodname> method calls out to the
-    <classname>YahooRetriever</classname> to retrieve the weather
-    <acronym>XML</acronym>. The <classname>YahooRetriever</classname> returns
-    an <classname>InputStream</classname> which is then passed to the
-    <classname>YahooParser</classname>. The <classname>YahooParser</classname>
-    parses the Yahoo! Weather <acronym>XML</acronym> and returns a
-    <classname>Weather</classname> object. Finally, the<classname>
-    WeatherFormatter</classname> takes a <classname>Weather</classname> object
-    and spits out a formatted <classname>String</classname> which is printed
-    to standard output.</para>
+    <para>上例中的 <function>main()</function> 函数通过获取 classpath 中的资源文件来配置 Log4J
+    ，之后它试图从命令行读取邮政编码。 如果在读取邮政编码的时候抛出了异常，程序会设置默认邮政编码为 60202 。 一旦有了邮政编码，它初始化一个
+    <classname>Main</classname> 对象，调用该对象的 <function>start()</function> 方法。而
+    <function>start()</function> 方法会调用 <classname>YahooRetriever</classname>
+    来获取天气的 <acronym>XML</acronym> 数据。 <classname>YahooRetriever</classname>
+    返回一个 <classname>InputStreem</classname> ，传给
+    <classname>YahooParser</classname> 。 <classname>YahooParser</classname> 解析
+    <acronym>XML</acronym> 数据并返回 <classname>Weather</classname> 对象。
+    最后，<classname>WeatherFormatter</classname> 接受一个
+    <classname>Weather</classname> 对象并返回一个格式化的 <classname>String</classname>
+    ，打印到标准输出。</para>
 
-    <para>Create a file named <filename>YahooRetriever.java</filename> in the
-    same directory with the following contents:</para>
+    <para>在相同目录下创建文件 <filename>YahooRetriever.java</filename> ，内容如下：</para>
 
     <example>
-      <title>Simple Weather's YahooRetriever Class</title>
+      <title>Simple Weather 的 YahooRetriever 类</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -557,14 +452,13 @@ public class YahooRetriever {
 </programlisting>
     </example>
 
-    <para>This simple class opens a <classname>URLConnection</classname> to
-    the Yahoo! Weather <acronym>API</acronym> and returns an
-    <classname>InputStream</classname>. To create something to parse this
-    feed, we'll need to create the <filename>YahooParser.java</filename> file
-    in the same directory.</para>
+    <para>这个简单的类打开一个连接到 Yahoo! Weather API 的
+    <classname>URLConnection</classname> 并返回一个
+    <classname>InputStream</classname> 。 我们还需要在该目录下创建文件
+    <filename>YahooParser.java</filename> 用以解析这个数据源。</para>
 
     <example>
-      <title>Simple Weather's YahooParser Class</title>
+      <title>Simple Weather 的 YahooParser 类</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -615,30 +509,22 @@ public class YahooParser {
 </programlisting>
     </example>
 
-    <para>The <classname>YahooParser</classname> is the most complex class in
-    this example, we're not going to dive into the details of Dom4J or Jaxen,
-    but the class deserves some explanation.
-    <classname>YahooParser</classname>'s <methodname>parse()</methodname>
-    method takes an <classname>InputStream</classname> and returns a
-    <classname>Weather</classname> object. To do this, it needs to parse an
-    <acronym>XML</acronym> document with Dom4J. Since we're interested in
-    elements under the Yahoo! Weather <acronym>XML</acronym> namespace, we
-    need to create a namespace-aware <classname>SAXReader</classname> in the
-    <methodname>createXmlReader()</methodname> method. Once we create this
-    reader and parse the document we get a
-    <classname>org.dom4j.Document</classname> object back. Instead of
-    iterating through child elements, we simply address each piece of
-    information we need using an XPath expression. Dom4J provides the
-    <acronym>XML</acronym> Parsing in this example, and Jaxen provides the
-    XPath capabilities.</para>
+    <para><classname>YahooParser</classname> 是本例中最复杂的类，我们不会深入 Dom4J 或者 Jaxen
+    的细节，但是这个类还是需要一些解释。<classname>YahooParser</classname> 的
+    <methodname>parse()</methodname> 方法接受一个 <classname>InputStrem</classname>
+    然后返回一个 <classname>Weather</classname> 对象。 为了完成这一目标，它需要用 Dom4J 来解析
+    <acronym>XML</acronym> 文档。因为我们对 Yahoo! Weather <acronym>XML</acronym>
+    命名空间的元素感兴趣，我们需要用 <methodname>createXmlReader()</methodname>
+    方法创建一个包含命名空间信息的 <classname>SAXReader</classname> 。 一旦我们创建了这个 reader
+    并且解析了文档，得到了返回的 <classname>org.dom4j.Document</classname> ，只需要简单的使用 XPath
+    表达式来获取需要的信息，而不是遍历所有的子元素。 本例中 Dom4J 提供了 <acronym>XML</acronym> 解析功能，而 Jaxen
+    提供了 XPath 功能。</para>
 
-    <para>Once we've created a <classname>Weather</classname> object, we need
-    to format our output for human consumption. Create a file named
-    <filename>WeatherFormatter.java</filename> in the same directory as the
-    other classes.</para>
+    <para>我们已经创建了 <classname>Weather</classname> 对象，我们需要格式化输出以供人阅读。
+    在同一目录中创建一个名为 <filename>WeatherFormatter.java</filename> 的文件。</para>
 
     <example>
-      <title>Simple Weather's WeatherFormatter Class</title>
+      <title>Simple Weather 的 WeatherFormatter 类</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -669,50 +555,42 @@ public class WeatherFormatter {
 </programlisting>
     </example>
 
-    <para>The <classname>WeatherFormatter</classname> uses Velocity to render
-    a template. The <methodname>format()</methodname> method takes a
-    <classname>Weather</classname> bean and spits out a formatted
-    <classname>String</classname>. The first thing the
-    <methodname>format()</methodname> method does is load a Velocity template
-    from the classpath named <filename>output.vm</filename>. We then create a
-    <classname>VelocityContext</classname> which is populated with a single
-    <classname>Weather</classname> object named <varname>weather</varname>. A
-    <classname>StringWriter</classname> is created to hold the results of the
-    template merge. The template is evaluated with a call to
-    <methodname>Velocity.evaluate()</methodname> and the results are returned
-    as a <classname>String</classname>.</para>
+    <para><classname>WeatherFormatter</classname> 使用 Veloticy
+    来呈现一个模板。<methodname>format()</methodname> 方法接受一个
+    <classname>Weather</classname> bean 然后返回格式化好的
+    <classname>String</classname> 。<methodname>format()</methodname>
+    方法做的第一件事是从 classpath 载入名字为 <filename>output.vm</filename> 的 Velocity 模板。
+    然后我们创建一个 <classname>VelocityContext</classname> ，它需要一个
+    <classname>Weather</classname> 对象来填充。
+    一个<classname>StringWriter</classname>被创建用来存放模板生成的结果数据。通过调用
+    <methodname>Velocity.evaluate()</methodname> ，给模板赋值，结果作为 String 返回。</para>
 
-    <para>Before we can run this example, we'll need to add some resources to
-    our classpath.</para>
+    <para>在我们能够运行该样例程序之前，我们需要往 classpath 添加一些资源。</para>
   </section>
 
   <section>
-    <title>Add Resources</title>
+    <title>添加资源</title>
 
-    <para>This project depends on two classpath resources: the
-    <classname>Main</classname> class configures Log4J with a classpath
-    resource named <filename>log4j.properties</filename>, and the
-    <classname>WeatherFormatter</classname> references a Velocity template
-    from the classpath named <filename>output.vm</filename>. Both of these
-    resources need to be in the default package (or the root of the
-    classpath).</para>
+    <para>本项目依赖于两个 classpath 资源： <classname>Main</classname> 类通过 classpath 资源
+    <filename>log4j.preoperties</filename> 来配置 Log4J ，
+    <classname>WeatherFormatter</classname> 引用了一个在 classpath 中的名为
+    <filename>output.vm</filename> 的 Velocity 模板。这两个资源都需要在默认包中（或者 classpath
+    的根目录）。</para>
 
-    <para>To add these resources, we'll need to create a new directory from
-    the base directory of the project—<filename>src/main/resources</filename>.
-    Since this directory was not created by the
-    <varname>archetype:create</varname> task, we need to create it by
-    executing the following commands from the project's base directory:</para>
+    <para>为了添加这些资源，我们需要在项目的基础目录下创建一个新的目录——
+    <filename>src/main/resources</filename>。 由于任务
+    <varname>archetype:create</varname>
+    没有创建这个目录，我们需要通过在项目的基础目录下运行下面的命令来创建它：</para>
 
     <screen>$ <command>cd src/main</command>
 $ <command>mkdir resources</command>
 $ <command>cd resources</command></screen>
 
-    <para>Once the resources directory is created, we can add the two
-    resources. First, add the <filename>log4j.properties</filename> file in
-    the <filename>resources</filename> directory.</para>
+    <para>在这个资源目录创建好之后，我们可以加入这两个资源。首先，往目录 <filename>resources</filename> 加入文件
+    <filename>log4j.properties</filename>。</para>
 
     <example>
-      <title>Simple Weather's Log4J Configuration File</title>
+      <title>Simple Weather 的 Log4J 配置文件</title>
 
       <programlisting language="java"># Set root category priority to INFO and its only appender to CONSOLE.
 log4j.rootCategory=INFO, CONSOLE
@@ -724,16 +602,14 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</programlisting>
     </example>
 
-    <para>This <filename>log4j.properties</filename> file simply configures
-    Log4J to print all log messages to standard output using a
-    <classname>PatternLayout</classname>. Lastly, we need to create the
-    <filename>output.vm</filename> which is the Velocity template used to
-    render the output of this command-line program. Create
-    <filename>output.vm</filename> in the <filename>resources</filename>
-    directory.</para>
+    <para>这个 <filename>log4j.properties</filename> 文件简单配置了 Log4J ，使其使用
+    <classname>PatternLayout</classname> 往标准输出打印所有日志信息。 最后，我们需要创建
+    <filename>output.vm</filename> ，它是这个命令行程序用来呈现输出的 Velocity 模板。 在
+    <filename>resources</filename> 目录创建 <filename>output.vm</filename>
+    。</para>
 
     <example>
-      <title>Simple Weather's Output Velocity Template</title>
+      <title>Simple Weather 的 Output Velocity 模板</title>
 
       <programlisting>*********************************
  Current Weather Conditions for:
@@ -745,25 +621,21 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
   Wind Chill: ${weather.chill}
 *********************************
 </programlisting>
-    </example>
 
-    <para>This template contains a number of references to a variable named
-    <varname>weather</varname>. This <varname>weather</varname> variable is
-    the <classname>Weather</classname> bean which was passed to the
-    <classname>WeatherFormatter</classname>, the
-    <varname>${weather.temp}</varname> syntax is shorthand for retrieving and
-    displaying the value of the <varname>temp</varname> bean property. Now
-    that we have all of our project's code in the right place, we can use
-    Maven to run this example</para>
+      <para>这个模板包含了许多对名为 <varname>weather</varname> 的变量的引用。 这个
+      <varname>weather</varname> 变量是传给 <classname>WeatherFormatter</classname>
+      的 那个 <classname>Weather</classname> bean，
+      <varname>${weather.temp}</varname> 语法简化的表示获取并显示 <varname>temp</varname>
+      这个bean属性的值。 现在我们已经在正确的地方有了我们项目的所有代码，我们可以使用 Maven 来运行这个样例。</para>
+    </example>
   </section>
 
-  <section id="section-custom-exec">
-    <title>Running the Simple Weather Program</title>
+  <section>
+    <title>运行Simple Weather项目</title>
 
-    <para>Using the Exec plugin from the <ulink
-    url="http://mojo.codehaus.org">Codehaus Mojo project</ulink> we can
-    execute this program. To execute the <classname>Main</classname> class,
-    execute the following command from the project's base directory.</para>
+    <para>使用来自 <ulink url="http://mojo.codehaus.org">Codehaus Mojo 项目</ulink>
+    的 Exec 插件，我们可以运行这个程序。在项目的基础目录下运行以下命令，以运行该程序的 <classname>Main</classname>
+    类。</para>
 
     <screen>$ <command>mvn install</command>
 $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</command>
@@ -784,62 +656,43 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 *********************************
 ...</screen>
 
-    <para>We didn't supply a command-line argument to the
-    <classname>Main</classname> class, so we ended up with the default zip
-    code—60202. As you can see, we've sucessfully executed the Simple Weather
-    command-line tool, retrieved some data from Yahoo! Weather, parsed the
-    result, and formatted the resulting data with Velocity. We did all of this
-    without doing much more than writing our project's source code and adding
-    some minimal configuration to the <filename>pom.xml</filename>. Notice
-    that there was no "build process" involved. We didn't need to define how
-    or where the Java compiler compiles our source to byte code, we didn't
-    have to instruct the build system how to locate the bytecode when we
-    executed the example application, and all we needed to do to include a few
-    dependencies was to locate the appropriate Maven Coordinates.</para>
+    <para>我们没有为 <classname>Main</classname> 类提供命令行参数，因此程序按照默认的邮编执行——60202。
+    正如你能看到的，我们已经成功的运行了 SImple Weather 命令行工具，从 Yahoo! Weather
+    获取了一些数据，解析了结果，并且通过 Velocity 格式化了结果数据。 我们仅仅写了项目的源代码，往
+    <filename>pom.xml</filename> 添加了一些最少的配置。 注意我们这里没有引入“构建过程”。 我们不需要定义如何或哪里让
+    Java 编译器编译我们的源代码，我们不需要指导构建系统在运行样例程序的时候如何定位二进制文件， 我们所需要做的是包含一些依赖，用来定位合适的
+    Maven 坐标。</para>
 
     <section>
-      <title>The Maven Exec Plugin</title>
+      <title>Maven Exec 插件</title>
 
-      <para>The Exec plugin allows you to execute Java classes and other
-      scripts. It is not a core Maven plugin, but it is available from the
-      <ulink url="http://mojo.codehaus.org">Mojo</ulink> project hosted by
-      <ulink url="http://www.codehaus.org">Codehaus</ulink>. For a full
-      description of the Exec plugin, run:</para>
+      <para>Exec 插件允许你运行 Java 类和其它脚本。 它不是 Maven 核心插件，但它可以从 <ulink
+      url="http://www.codehaus.org">Codehaus</ulink> 的 <ulink
+      url="http://mojo.codehaus.org">Mojo</ulink> 项目得到。想要查看 Exec
+      插件的完整描述，运行：</para>
 
       <screen>$ <command>mvn help:describe -Dplugin=exec -Dfull</command></screen>
 
-      <para>This will list all of the goals which are available in the Maven
-      Exec plugin. The Help plugin will also list all of the valid parameters
-      for the Exec plugin, if you would like to customize the behavior of the
-      Exec plugin to pass in command-line arguments, you should use the
-      documentation provided by <varname>help:describe</varname> as a guide.
-      While the Exec plugin is useful, you shouldn't rely on it as a way to
-      execute your application outside of running tests during development.
-      For a more robust solution, use the Maven Assembly plugin which is
-      demonstrated in <xref linkend="section-custom-packaged" />.</para>
+      <para>这会列出所有 Maven Exec 插件可用的目标。 Help 插件同时也会列出 Exec 插件的有效参数，如果你想要定制 Exec
+      插件的行为，传入命令行参数，你应该使用 <varname>help:describe</varname> 提供的文档作为指南。 虽然 Exec
+      插件很有用，在开发过程中用来运行测试之外，你不应该依赖它来运行你的应用程序。 想要更健壮的解决方案，使用 Maven Assembly
+      插件，它在<xref linkend="section-custom-packaged" />中被描述。</para>
     </section>
 
     <section>
-      <title>Exploring Your Project Dependencies</title>
+      <title>浏览你的项目依赖</title>
 
-      <para>The Exec plugin made it possible for us to run this program
-      without having to load the appropriate dependencies into the classpath.
-      In any other build system, we would have had to copy all of the program
-      dependencies to some sort of <filename>lib/</filename> directory
-      containing a collection of <acronym>JAR</acronym> files. Then, we would
-      have had to write a simple script which included our program's bytecode
-      and all of our dependencies on a classpath. Only then could we have run
-      <command>java com.sonatype.maven.weather.Main</command>. The Exec plugin
-      leverages the fact that Maven already knows how to create and manage
-      your classpath and your dependencies.</para>
+      <para>Exec 插件让我们能够在不往 classpath 载入适当的依赖的情况下，运行这个程序。
+      在任何其它的构建系统能够中，我们必须复制所有程序依赖到类似于 <filename>lib/</filename> 的目录，这个目录包含一个
+      <acronym>JAR</acronym> 文件的集合。 那样，我们就必须写一个简单的脚本，在 classpath
+      中包含我们程序的二进制代码和我们的依赖。 只有那样我们才能运行 <command>java
+      com.sonatype.maven.weather.Main</command> 。 Exec 能做这样的工作是因为 Maven
+      已经知道如何创建和管理你的 classpath 和你的依赖。</para>
 
-      <para>While this is convenient, it is also nice to know exactly what is
-      being included in your project's classpath. While the project depends on
-      a few libraries like Dom4J, Log4J, Jaxen, and Velocity, it also relies
-      on a few transitive dependencies. If you need to find out what is on the
-      classpath, you can use the Maven Dependency plugin to print out a list
-      of resolved dependencies. To print out this list for the Simple Weather
-      project, execute the <varname>dependency:resolve</varname> goal.</para>
+      <para>了解你项目的 classpath 包含了哪些依赖是很方便也很有用的。这个项目不仅包含了一些类库如 Dom4J， Log4J，
+      Jaxen， 和 Velocity，它同时也引入了一些传递性依赖。 如果你需要找出 classpath 中有什么，你可以使用 Maven
+      Dependency 插件来打印出已解决依赖的列表。 要打印出 Simple Weather 项目的这个列表，运行
+      <varname>dependency:resolve</varname> 目标。</para>
 
       <screen>$ <command>mvn dependency:resolve</command>
 ...
@@ -863,14 +716,10 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 [INFO]    xom:xom:jar:1.0 (scope = compile)
 </screen>
 
-      <para>As you can see, our project has a very large set of dependencies.
-      While we only included direct dependencies on four libraries, we appear
-      to be depending on 15 dependencies in total. Dom4J depends on Xerces and
-      the XML Parser <acronym>API</acronym>s, Jaxen depends on Xalan being
-      available in the classpath. The Dependency plugin is going to print out
-      the final combination of dependencies under which your project is being
-      compiled. If you would like to know about the entire dependency tree of
-      your project, you can run the <varname>dependency:tree</varname> goal</para>
+      <para>正如你能看到的，我们项目拥有一个很大的依赖集合。 虽然我们只是为四个类库引入了直接的依赖，看来我们实际供引入了15个依赖。
+      Dom4J 依赖于 Xerces 和 XML 解析器 API ，Jaxen 依赖于 Xalan，后者也就在 classpath 中可用了。
+      Dependency 插件将会打印出最终的你项目编译所基于的所有依赖的组合。 如果你想知道你项目的整个依赖树，你可以运行
+      <varname>dependency:tree</varname> 目标。</para>
 
       <screen>$ <command>mvn dependency:tree</command>
 ...
@@ -894,11 +743,10 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 [INFO] \- junit:junit:jar:3.8.1:test
 ...</screen>
 
-      <para>If you're truely adventurous or want to see the full dependency
-      trail, including artifacts that were rejected due to conflicts and other
-      reasons, run Maven with the debug flag.</para>
-      
-            <screen>$ <command>mvn install -X</command>
+      <para>如果你还不满足，或者想要查看完整的依赖踪迹，包含那些因为冲突或者其它原因而被拒绝引入的构件，打开 Maven
+      的调试标记运行：</para>
+
+      <screen>$ <command>mvn install -X</command>
 ...
 [DEBUG] com.sonatype.maven.ch04:simple-weather:jar:1.0 (selected for null)
 [DEBUG]   log4j:log4j:jar:1.2.14:compile (selected for compile)
@@ -922,45 +770,35 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 [DEBUG]   junit:junit:jar:3.8.1:test (selected for test)
 </screen>
 
-      <para>In the debug output we see some of the guts of the dependency
-      management system at work. What you see here is the tree of dependencies
-      for this project. Maven is printing out the full Maven coordinates for
-      all of your project's dependencies and the dependencies of your
-      dependencies (and the dependencies of your dependency's dependencies).
-      You can see that <varname>simple-weather</varname> depends on
-      <varname>jaxen</varname> which depends on <varname>xom</varname> which,
-      in turn, depends on <varname>icu4j</varname>. From this output, you can
-      see that Maven is creating a graph of dependencies, eliminating
-      duplicates, and resolving any conflicts between different versions. If
-      you are having problems with dependencies it is often helpful to dig a
-      little deeper than the list generated by
-      <varname>dependency:tree</varname>; turning on the debug output
-      allows you to see Maven's dependency mechanism at work.</para>
+      <para>从调试输出我们看到一些依赖管理系统工作的内部信息。 你在这里看到的是项目的依赖树。 Maven
+      正打印出你项目的所有的依赖，以及这些依赖的依赖（还有依赖的依赖的依赖）的完整的 Maven 坐标。 你能看到
+      <varname>simple-weather</varname> 依赖于 <varname>jaxen</varname> ，
+      <varname>jaxen</varname> 依赖于 <varname>xom</varname> ，
+      <varname>xom</varname> 接着依赖于 <varname>icu4j</varname> 。从该输出你能看到 Maven
+      正在创建一个依赖图，排除重复，解决不同版本之间的冲突。 如果你的依赖有问题，通常在
+      <varname>dependency:tree</varname> 所生成的列表基础上更深入一点会有帮助；开启调试输出允许你看到 Maven
+      工作时的依赖机制。</para>
     </section>
   </section>
 
   <section>
-    <title>Writing Unit Tests</title>
+    <title>编写单元测试</title>
 
-    <para>Maven has built-in support for unit tests, and testing is a part of
-    the default Maven lifecycle. Let's add some unit tests to our Simple
-    Weather project. First, let's create the
-    <package>com.sonatype.maven.weather</package> package under
-    <filename>src/test/java</filename>.</para>
+    <para>Maven 内建了对单元测试的支持，测试是 Maven 默认生命周期的一部分。让我们给 Simple Weather
+    项目添加一些单元测试。 首先，在 <filename>src/test/java</filename> 下面创建包
+    <package>com.sonatype.maven.weather</package>。</para>
 
     <screen>$ <command>cd src/test/java</command>
 $ <command>cd com/sonatype/maven</command>
 $ <command>mkdir -p weather/yahoo</command>
 $ <command>cd weather/yahoo</command></screen>
 
-    <para>At this point, we will create two unit tests. The first unit test
-    will test the <classname>YahooParser</classname> and the second will test
-    the <classname>WeatherFormatter</classname>. In the weather package,
-    create a file named <filename>YahooParserTest.java</filename> with the
-    following contents.</para>
+    <para>目前，我们将会创建两个单元测试。 第一个单元测试会测试 <classname>YahooParser</classname>
+    ，第二个会测试 <classname>WeatherFormatter</classname>。 在 weather
+    包中，创建一个带有一以下内容的文件，名称为 <filename>YahooParserTest.java</filename> 。</para>
 
     <example>
-      <title>Simple Weather's YahooParserTest Unit Test</title>
+      <title>Simple Weather 的 YahooParserTest 单元测试</title>
 
       <programlisting language="java">package com.sonatype.maven.weather.yahoo;
 
@@ -993,35 +831,27 @@ public class YahooParserTest extends TestCase {
 </programlisting>
     </example>
 
-    <para>This <classname>YahooParserTest</classname> extends the
-    <classname>TestCase</classname> class defined by JUnit. It follows the
-    usual pattern for a JUnit test: a constructor that takes a single
-    <classname>String</classname> argument which calls the constructor of the
-    superclass, and a series of public methods which begin with "test" which
-    are invoked as unit tests. We define a single test method,
-    <methodname>testParser</methodname>, which tests the
-    <classname>YahooParser</classname> by parsing an <acronym>XML</acronym>
-    document with known values. The test <acronym>XML</acronym> document is
-    named <filename>ny-weather.xml</filename> and is loaded from the
-    classpath. We'll add test resources in <xref
-    linkend="sect-custom-test-resource" />. In our Maven project's directory
-    layout, the <filename>ny-weather.xml</filename> file is found in the
-    directory which contains test
-    resources—<filename>${basedir}/src/test/resources</filename>
-    under<filename>
-    com/sonatype/maven/weather/yahoo/ny-weather.xml</filename>. The file is
-    read as an <classname>InputStream</classname> and passed to the
-    <methodname>parse()</methodname> method on
-    <classname>YahooParser</classname>. The <methodname>parse()</methodname>
-    method returns a <classname>Weather</classname> object which is then
-    tested with a series of calls to <methodname>assetEquals()</methodname>, a
-    method defined by <classname>TestCase</classname>.</para>
+    <para><classname>YahooParserTest</classname> 继承了 JUnit 定义的
+    <classname>TestCase</classname> 类。 它遵循了 JUnit 测试的惯例模式：一个构造函数接受一个单独的
+    <classname>String</classname> 参数并调用父类的构造函数，还有一系列以“test”开头的公有方法，做为单元测试被调用。
+    我们定义了一个单独的测试方法， <methodname>testParser</methodname> ，通过解析一个值已知的
+    <acronym>XML</acronym> 文档来测试 <classname>YahooParser</classname> 。 测试
+    <acronym>XML</acronym> 文档命名为 <filename>ny-weather.xml</filename> ，从
+    classpath 载入。我们将在<xref linkend="sect-custom-test-resource" />添加测试资源。 在我们这个
+    Maven 项目的目录布局中，文件 <filename>ny-weather.xml</filename> 可以从包含测试资源的目录——
+    <filename>${basedir}/src/test/resources</filename> ——中找到，路径为
+    <filename>com/sonatype/maven/weather/yahoo/ny-weather.xml</filename> 。
+    该文件作为一个 <classname>InputStream</classname> 被读入，传给
+    <classname>YahooParser</classname> 的 <methodname>parse()</methodname> 方法。
+    <methodname>parse()</methodname> 方法返回一个 <classname>Weather</classname>
+    对象，该对象通过一系列 由 <classname>TestCase</classname> 定义的
+    <methodname>assertEquals()</methodname> 调用而被测试。</para>
 
-    <para>In the same directory create a file named
-    <filename>WeatherFormatterTest.java</filename>.</para>
+    <para>在同一目录下创建一个名为 <filename>WeatherFormatterTest.java</filename>
+    的文件。</para>
 
     <example>
-      <title>Simple Weather's WeatherFormatterTest Unit Test</title>
+      <title>Simple Weather 的 WeatherFormatterTest 单元测试</title>
 
       <programlisting language="java">package com.sonatype.maven.weather.yahoo;
 
@@ -1054,59 +884,44 @@ public class WeatherFormatterTest extends TestCase {
 </programlisting>
     </example>
 
-    <para>The second unit test in this simple project tests the
-    <classname>WeatherFormatter</classname>. Like the
-    <classname>YahooParserTest</classname>, the
-    <classname>WeatherFormatterTest</classname> also extends JUnit's
-    <classname>TestCase</classname> class. The single test function reads the
-    same test resource from <filename>${basedir}/src/test/resources</filename>
-    under the <filename>com/sonatype/maven/weather/yahoo</filename> directory
-    via this unit test's classpath. We'll add test resources in <xref
-    linkend="sect-custom-test-resource" />.
-    <classname>WeatherFormatterTest</classname> runs this sample input file
-    through the <classname>YahooParser</classname> which spits out a
-    <classname>Weather</classname> object, and this object is then formatted
-    with the <classname>WeatherFormatter</classname>. Since the
-    <classname>WeatherFormatter</classname> prints out a
-    <classname>String</classname>, we need to test it against some expected
-    input. Our expected input has been captured in a text file named
-    <filename>format-expected.dat</filename> which is in the same directory as
-    <filename>ny-weather.xml</filename>. To compare the test's output to the
-    expected output, we read this expected output in as an
-    <classname>InputStream</classname> and use Commons IO's
-    <classname>IOUtils</classname> class to convert this file to a
-    <classname>String</classname>. This <classname>String</classname> is then
-    compared to the test output using
-    <methodname>assertEquals()</methodname>.</para>
+    <para>该项目中的第二个单元测试测试 <classname>WeatherFormatter</classname>。 和
+    <classname>YahooParserTest</classname>
+    一样，<classname>WeatherFormatter</classname> 同样也继承 JUnit 的
+    <classname>TestCase</classname> 类。 这个单独的测试通过单元测试的 classpath 从
+    <filename>${basedir}/src/test/resources</filename> 的
+    <filename>com/sonatype/maven/weather/yahoo</filename> 目录读取同样的测试资源文件。
+    我们将会在<xref linkend="sect-custom-test-resource" />添加测试资源。
+    <classname>WeatherFormatterTest</classname> 首先调用
+    <classname>YahooParser</classname> 解析出 <classname>Weather</classname>
+    对象，然后用 <classname>WeatherFormatter</classname> 格式化这个对象。 我们的期望输出被存储在一个名为
+    <filename>format-expected.dat</filename> 的文件中，该文件存放在和
+    <filename>ny-weather.xml</filename> 同样的目录中。 要比较测试输出和期望输出，我们将期望输出作为
+    <classname>InputStream</classname> 读入，然后使用 Commons IO 的
+    <classname>IOUtils</classname> 类来把文件转化为 <classname>String</classname> 。
+    然后使用 <methodname>assertEquals()</methodname> 比较这个 String 和测试输出。</para>
   </section>
 
-  <section id="section-test-scope">
-    <title>Adding Test-scoped Dependencies</title>
+  <section>
+    <title>添加测试范围依赖</title>
 
-    <para>In the <classname>WeatherFormatterTest</classname> we used a utility
-    from Apache Commons IO—the <classname>IOUtils</classname> class.
-    <classname>IOUtils</classname> provides a number of helpful static
-    functions that take most of the work out of Input/Output operations. In
-    this particular unit test we use
-    <methodname>IOUtils.toString()</methodname> to copy the
-    <filename>format-expected.dat</filename> classpath resource to a
-    <classname>String</classname>. We could have done this without using
-    Commons IO, but it would have been an extra six or seven lines of code to
-    deal with the various <classname>InputStreamReader</classname> and
-    <classname>StringWriter</classname> objects. The main reason to use
-    Commons IO was to give us an excuse to add a test-scoped dependency on
-    Commons IO.</para>
+    <para>在类 <classname>WeatherFormatterTest</classname> 中我们用了一个来自于 Apache
+    Commons IO 的工具—— <classname>IOUtils</classname> 类。
+    <classname>IOUtils</classname> 提供了许多很有帮助的静态方法，能帮助让很多工作摆脱繁琐的 I/O
+    操作。在这个单元测试中我们使用了 <methodname>IOUtils.toString()</methodname> 来复制 classpath
+    中资源 <filename>format.expected.dat</filename> 中的数据至
+    <classname>String</classname>。 不用 Commons IO 我们也能完成这件事情，但是那需要额外的六七行代码来处理像
+    <classname>InputStreamReader</classname> 和
+    <classname>StringWriter</classname> 这样的对象。我们使用 Commons IO 的主要原因是，能有理由添加对
+    Commons IO 的测试范围依赖。</para>
 
-    <para>A test-scoped dependency is a dependency which is only available on
-    the classpath during test compilation and test execution. If your project
-    has <varname>war</varname> or <varname>ear</varname> packaging, a
-    test-scoped dependency would not be included in the project's output
-    archive. To add a test-scoped dependency, add the following
-    <sgmltag>dependency</sgmltag> element in your project's
-    <sgmltag>dependencies</sgmltag> section.</para>
+    <para>测试范围依赖是一个只在测试编译和测试运行时在 classpath 中有效的依赖。如果你的项目是以
+    <varname>war</varname> 或者 <varname>ear</varname>
+    形式打包的，测试范围依赖就不会被包含在项目的打包输出中。 要添加一个测试范围依赖，在你项目的
+    <varname>dependencies</varname> 小节中添加如下 <varname>dependency</varname>
+    元素。</para>
 
     <example>
-      <title>Adding a Test-scoped Dependency</title>
+      <title>添加一个测试范围依赖</title>
 
       <programlisting language="xml">&lt;project&gt;
   ...
@@ -1123,43 +938,33 @@ public class WeatherFormatterTest extends TestCase {
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>After you add this dependency to the <filename>pom.xml</filename>,
-    run <command>mvn dependency:resolve</command> and you should see that
-    <varname>commons-io</varname> is now listed as a dependency with scope
-    <varname>test</varname>. We need to do one more thing before we are ready
-    to run this project's unit tests. We need to create the classpath
-    resources these unit tests depend on. Dependency scopes are explained in
-    detail in <xref linkend="section-dependency-scope" />.</para>
+    <para>当你往 <filename>pom.xml</filename> 中添加了这个依赖以后，运行 <command>mvn
+    dependency:resolve</command> 你会看到 <varname>commons-io</varname>
+    出现在在依赖列表中，范围是 <varname>test</varname> 。 在我们可以运行该项目的单元测试之前，我们还需要做一件事情。
+    那就是创建单元测试依赖的 classpath 资源。测试范围依赖将在 9.4.1节 “依赖范围” 中详细解释。</para>
   </section>
 
   <section id="sect-custom-test-resource">
-    <title>Adding Unit Test Resources</title>
+    <title>添加单元测试资源</title>
 
-    <para>A unit test has access to a set of resources which are specific to
-    tests. Often you'll store files containing expected results and files
-    containing dummy input in the test classpath. In this project, we're
-    storing a test <acronym>XML</acronym> document for
-    <classname>YahooParserTest</classname> named
-    <filename>ny-weather.xml</filename> and a file containing expected output
-    from the <classname>WeatherFormatter</classname> in
-    <filename>format-expected.dat</filename>.</para>
+    <para>一个单元测试需要访问针对测试的一组资源。 通常你需要在测试 classpath 中存储一些包含期望结果的文件，以及包含模拟输入的文件。
+    在本项目中，我们为 <classname>YahooParserTest</classname> 准备了一个名为
+    <filename>ny-weather.xml</filename> 的测试 <acronym>XML</acronym> 文档，还有一个名为
+    <filename>format-expected.dat</filename> 的文件，包含了
+    <classname>WeatherFormatter</classname> 的期望输出。</para>
 
-    <para>To add test resources, you'll need to create the
-    <filename>src/test/resources</filename> directory. This is the default
-    directory in which Maven looks for unit test resources. To create this
-    directory execute the following commands from your project's base
-    directory.</para>
+    <para>要添加测试资源，你需要创建目录 <filename>src/test/resources</filename> 。 这是 Maven
+    寻找测试资源的默认目录。 在你的项目基础目录下运行下面的命令以创建该目录。</para>
 
     <screen>$ <command>cd src/test</command>
 $ <command>mkdir resources</command>
 $ <command>cd resources</command></screen>
 
-    <para>Once you've create the resources directory, create a file named
-    <filename>format-expected.dat</filename> in the
-    <filename>resources</filename> directory.</para>
+    <para>当你创建好这个资源目录之后，在资源目录下创建一个名为 <filename>format-expected.dat</filename>
+    的文件。</para>
 
     <example>
-      <title>Simple Weather's WeatherFormatterTest Expected Output</title>
+      <title>Simple Weather 的 WeatherFormatterTest 期望输出</title>
 
       <programlisting>*********************************
  Current Weather Conditions for:
@@ -1173,13 +978,11 @@ $ <command>cd resources</command></screen>
 </programlisting>
     </example>
 
-    <para>This file should look familiar, it is the same output which was
-    generated when you ran the Simple Weather project with the Maven Exec
-    plugin. The second file you'll need to add to the resources directory is
-    <filename>ny-weather.xml</filename>.</para>
+    <para>这个文件应该看起来很熟悉了，它和你用 Maven Exec 插件运行 Simple Weather
+    项目得到的输出是一样的。你需要在资源目录添加的第二个文件是 <filename>ny-weather.xml</filename> 。</para>
 
     <example>
-      <title>Simple Weather's YahooParserTest XML Input</title>
+      <title>Simple Weather 的 YahooParserTest XML 输入</title>
 
       <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes" ?&gt;
 &lt;rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" 
@@ -1235,22 +1038,19 @@ $ <command>cd resources</command></screen>
 &lt;/rss&gt;</programlisting>
     </example>
 
-    <para>This file contains a test <acronym>XML</acronym> document for the
-    <classname>YahooParserTest</classname>. We store this file so that we can
-    test the <classname>YahooParser</classname> without having to retrieve and
-    <acronym>XML</acronym> response from Yahoo! Weather.</para>
+    <para>该文件包含了一个给 <classname>YahooParserTest</classname> 用的
+    <acronym>XML</acronym> 文档。有了这个文件，我们不用从 Yahoo! Weather 获取
+    <acronym>XML</acronym> 响应就能测试 <classname>YahooParser</classname> 了。</para>
   </section>
 
-  <section>
-    <title>Executing Unit Tests</title>
+  <section id="section-custom-exec">
+    <title>执行单元测试</title>
 
-    <para>Now that your project has unit tests, let's run them. You don't have
-    to do anything special to run a unit test, the <varname>test</varname>
-    phase is a normal part of the Maven Lifecycle. You run Maven tests
-    whenever you run <command>mvn package</command> or <command>mvn
-    install</command>. If you would like to run all the lifecycle phases up to
-    and including the <varname>test</varname> phase, run <command>mvn
-    test</command>.</para>
+    <para>既然你的项目已经有单元测试了，那么让它们运行起来吧。 你不必为了运行单元测试做什么特殊的事情，
+    <varname>test</varname> 阶段是 Maven 生命周期中常规的一部分。 当你运行 <command>mvn
+    package</command> 或者 <command>mvn install</command> 的时候你也运行了测试。 如果你想要运行到
+    <varname>test</varname> 阶段为止的所有生命周期阶段，运行 <command>mvn test</command>
+    。</para>
 
     <screen>$ <command>mvn test</command>
 ...
@@ -1275,40 +1075,31 @@ Results :
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 </screen>
 
-    <para>Executing <command>mvn test</command> from the command line caused
-    Maven to execute all lifecycle phases up to the <literal>test</literal>
-    phase. The Maven Surefire plugin has a <literal>test</literal> goal which
-    is bound to the <literal>test</literal> phase. This
-    <literal>test</literal> goal executes all of the unit tests this project
-    can find under <filename>src/test/java</filename> with filenames matching
-    <filename>**/Test*.java</filename>, <filename>**/*Test.java</filename> and
-    <filename>**/*TestCase.java</filename>. In the case of this
-    project, you can see that the Surefire plugin's <literal>test</literal>
-    goal executed <classname>WeatherFormatterTest</classname> and
-    <classname>YahooParserTest</classname>. When the Maven Surefire plugin
-    runs the JUnit tests, it also generates <acronym>XML</acronym> and text
-    reports in the <filename>${basedir}/target/surefire-reports</filename>
-    directory. If your tests are failing, you should look in this directory
-    for details like stack traces and error messages generated by your unit
-    tests.</para>
+    <para>从命令行运行 <command>mvn test</command> 使 Maven 执行到
+    <literal>test</literal> 阶段为止的所有生命周期阶段。 Maven Surefire 插件有一个
+    <literal>test</literal> 目标，该目标被绑定在了 <literal>test</literal> 阶段。
+    <literal>test</literal> 目标执行项目中所有能在 <filename>src/test/java</filename>
+    找到的并且文件名与 <filename>**/Test*.java</filename>，
+    <filename>**/*Test.java</filename> 和
+    <filename>**/*TestCase.java</filename> 匹配的所有单元测试。 在本例中，你能看到 Surefire 插件的
+    <literal>test</literal> 目标执行了 <classname>WeatherFormatterTest</classname>
+    和 <classname>YahooParserTest</classname> 。 在 Maven Surefire 插件执行 JUnit
+    测试的时候，它同时也在 <filename>${basedir}/target/surefire-reports</filename> 目录下生成
+    <acronym>XML</acronym> 和常规文本报告。
+    如果你的测试失败了，你可以去查看这个目录，里面有你单元测试生成的异常堆栈信息和错误信息。</para>
 
     <section>
-      <title>Ignoring Test Failures</title>
+      <title>忽略测试失败</title>
 
-      <para>Often, you will be developing on a system which may have failing
-      unit tests. If you are practicing Test-Driven Development
-      (<acronym>TDD</acronym>) you might use test failure as a measure of how
-      close your project is to completeness. If you have failing unit tests,
-      and you would still like to produce build output, you are going to have
-      to tell Maven to ignore build failures. When Maven encounters a build
-      failure, its default behavior is to stop the current build. If you would
-      like to continue building a project even when the Surefire plugin has
-      encountered failed test cases, you'll need to set the
-      <varname>testFailureIgnore</varname> configuration property of the
-      Surefire plugin to <literal>true</literal>.</para> 
+      <para>通常，你会开发一个带有很多失败单元测试的系统。
+      如果你正在实践测试驱动开发(<acronym>TDD</acronym>)，你可能会使用测试失败来衡量你离项目完成有多远。
+      如果你有失败的单元测试，但你仍然希望产生构建输出，你就必须告诉 Maven 让它忽略测试失败。 当 Maven
+      遇到一个测试失败，它默认的行为是停止当前的构建。 如果你希望继续构建项目，即使 Surefire 插件遇到了失败的单元测试，你就需要设置
+      Surefire 的 <varname>testFailureIgnore</varname> 这个配置属性为
+      <literal>true</literal>。</para>
 
       <example>
-        <title>Ignoring Unit Test Failures</title>
+        <title>忽略单元测试失败</title>
 
         <programlisting language="xml">&lt;project&gt;
   [...]
@@ -1326,13 +1117,15 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
   [...]
 &lt;/project&gt;</programlisting>
       </example>
-      
-      <para>The plugin documents (<ulink url="http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html">http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html</ulink>) show that this
-      parameter declares an expression: </para>
-      
+
+      <para>该插件文档 (<ulink
+      url="http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html">http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html</ulink>)
+      说明，这个参数声明为一个表达式：</para>
+
       <example>
-       <title>Plugin Parameter Expressions</title>
-       <programlisting>
+        <title>插件参数表达式</title>
+
+        <programlisting>
        testFailureIgnore  Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
 
     * Type: boolean
@@ -1340,25 +1133,21 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     * Expression: ${maven.test.failure.ignore}
        </programlisting>
       </example>
-      
-      <para>This expression can be set from the command line using the <varname>-D</varname> parameter:</para> <screen>$ <command>mvn test -Dmaven.test.failure.ignore=true</command></screen>
 
-      
+      <para>这个表达式可以从命令行通过 <varname>-D</varname> 参数设置。</para>
+
+      <screen>$ <command>mvn test -Dmaven.test.failure.ignore=true</command></screen>
     </section>
 
     <section>
-      <title>Skipping Unit Tests</title>
+      <title>跳过单元测试</title>
 
-      <para>You may want to configure Maven to skip unit tests altogether.
-      Maybe you have a very large system where the unit tests take minutes to
-      complete and you don't want to wait for unit tests to complete before
-      producing output. You might be working with a legacy system that has a
-      series of failing unit tests, and instead of fixing the unit tests, you
-      might just want to produce a <acronym>JAR</acronym>. Maven provides for
-      the ability to skip unit tests using the <varname>skip</varname>
-      parameter of the Surefire plugin. To skip tests from the command-line,
-      simply add the <varname>maven.test.skip</varname> property to any
-      goal:</para>
+      <para>你可能想要配置 Maven 使其完全跳过单元测试。
+      可能你有一个很大的系统，单元测试需要花好多分钟来完成，而你不想在生成最终输出前等单元测试完成。
+      你可能正工作在一个遗留系统上面，这个系统有一系列的失败的单元测试，你可能仅仅想要生成一个 <acronym>JAR</acronym>
+      而不是去修复所有的单元测试。 Maven 提供了跳过单元测试的能力，只需要使用 Surefire 插件的
+      <varname>skip</varname> 参数。 在命令行，只要简单的给任何目标添加
+      <varname>maven.test.skip</varname> 属性就能跳过测试：</para>
 
       <screen>$ mvn install -Dmaven.test.skip=true
 ...
@@ -1368,16 +1157,14 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Tests are skipped.
 ...</screen>
 
-      <para>When the Surefire plugin reaches the <varname>test</varname> goal,
-      it will skip the unit tests if the <varname>maven.test.skip</varname>
-      properties is set to <literal>true</literal>. Another way to configure
-      Maven to skip unit tests is to add this configuration to your project's
-      <filename>pom.xml</filename>. To do this, you would add a
-      <sgmltag>plugin</sgmltag> element to your <sgmltag>build</sgmltag>
-      configuration.</para>
+      <para>当 Surefire 插件到达 <varname>test</varname> 目标的时候，如果
+      <varname>maven.test.skip</varname> 设置为 <literal>true</literal>
+      ，它就会跳过单元测试。 另一种配置 Maven 跳过单元测试的方法是给你项目的 <filename>pom.xml</filename>
+      添加这个配置。 你需要为你的 <sgmltag>build</sgmltag> 添加 <sgmltag>plugin</sgmltag>
+      元素。</para>
 
       <example>
-        <title>Skipping Unit Tests</title>
+        <title>跳过单元测试</title>
 
         <programlisting language="xml">&lt;project&gt;
   [...]
@@ -1399,33 +1186,24 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
   </section>
 
   <section id="section-custom-packaged">
-    <title>Building a Packaged Command Line Application</title>
+    <title>构建一个打包好的命令行应用程序</title>
 
-    <para>In <xref linkend="section-custom-exec" />, we executed the Simple
-    Weather application using the Maven Exec plugin. While the Maven Exec
-    plugin executed the program and produced some output, you shouldn't look
-    to Maven as an execution container for your applications. If you are
-    distributing this command-line application to others, you will probably
-    want to distribute a <acronym>JAR</acronym> or an archive as a
-    <acronym>ZIP</acronym> or <acronym>TAR</acronym>'d <acronym>GZIP</acronym>
-    file. The following section outlines a process for using a predefined
-    assembly descriptor in the Maven Assembly plugin to produce a
-    distributable <acronym>JAR</acronym> file which contains the project's
-    bytecode and all of the dependencies.</para>
+    <para>在 <xref linkend="section-custom-exec" />，我们使用 Maven Exec 插件运行了
+    Simple Weather 应用程序。虽然 Maven Exec 能运行程序并且产生输出，你不能就把 Maven 当成是你程序运行的容器。
+    如果你把这个命令行程序分发给其他人，你大概就需要分发一个 <acronym>JAR</acronym> 或者一个
+    <acronym>ZIP</acronym> 存档文件或者 <acronym>TAR</acronym> 压缩过的
+    <acronym>GZIP</acronym> 文件。下面的小节介绍了使用 Maven Assembly 插件的预定义装配描述符生成一个可分发的
+    <acronym>JAR</acronym> 文件的过程，该文件包含了项目的二进制文件和所有的依赖。</para>
 
-    <para>The Maven Assembly plugin is a plugin you can use to create
-    arbitrary distributions for your applications. You can use the Maven
-    Assembly plugin to assemble the output of your project in any format you
-    desire by defining a custom assembly descriptor. In a later chapter we
-    will show you how to create a custom assembly descriptor which produces a
-    more complex archive for the Simple Weather application. In this chapter,
-    we're going to use the predefined <varname>jar-with-dependencies</varname>
-    format. To configure the Maven Assembly Plugin, we need to add the
-    following <sgmltag>plugin</sgmltag> configuration to our existing build
-    configuration in the <filename>pom.xml</filename>.</para>
+    <para>Maven Assembly 插件是一个用来创建你应用程序特有分发包的插件。 你可以使用 Maven Assembly
+    插件以你希望的任何形式来装配输出，只需定义一个自定义的装配描述符。 后面的章节我们会说明如何创建一个自定义装配描述符，为 Simple
+    Weather 应用程序生成一个更复杂的存档文件。 本章我们将会使用预定义的
+    <varname>jar-with-dependencies</varname> 格式。 要配置 Maven Assembly 插件， 我们需要在
+    <filename>pom.xml</filename> 中的 build 配置中添加如下的 <sgmltag>plugin</sgmltag>
+    配置。</para>
 
     <example>
-      <title>Configuring the Maven Assembly Descriptor</title>
+      <title>配置 Maven 装配描述符</title>
 
       <programlisting language="xml">&lt;project&gt;
   [...]
@@ -1445,8 +1223,8 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>Once you've added this configuration, you can build the assembly by
-    running <command>mvn assembly:assembly</command>.</para>
+    <para>添加好这些配置以后，你可以通过运行 <command>mvn assembly:assembly</command>
+    来构建这个装配。</para>
 
     <screen>$ <command>mvn install assembly:assembly</command>
 ...
@@ -1464,11 +1242,9 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
        ~/examples/simple-weather/target/simple-weather-1.0-jar-with-dependencies.jar
 </screen>
 
-    <para>Once our assembly is assembled in
-    <filename>target/simple-weather-1.0-jar-with-dependencies.jar</filename>,
-    we can run the <classname>Main</classname> class again from the command
-    line. To run the Simple Weather's <classname>Main</classname> class,
-    execute the following commands from your project's base directory.</para>
+    <para>在
+    <filename>target/simple-weather-1.0-jar-with-dependencies.jar</filename>
+    装配好之后， 我们可以在命令行重新运行 <classname>Main</classname> 类。在你项目的基础目录下运行以下命令：</para>
 
     <screen>$ <command>cd target</command>
 $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar com.sonatype.maven.weather.Main 10002</command>
@@ -1486,18 +1262,9 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar com.sonatype.ma
   Wind Chill: 40
 *********************************</screen>
 
-    <para>The <varname>jar-with-dependencies</varname> format creates a single
-    <acronym>JAR</acronym> file which includes all of the bytecode from the
-    <varname>simple-weather</varname> project and the unpacked bytecode from
-    all of the dependencies. This somewhat unconventional format produces a 9
-    MiB <acronym>JAR</acronym> file containing approximately 5290 classes, but
-    it does provide for an easy distribution format for applications you've
-    developed with Maven. Later in this book, we'll show you how to create a
-    custom assembly descriptor to produce a more standard distribution.</para>
-
-    <!--TODO: We might want to add some instructions for binding the assembly:assembly goal to 
-the lifecycle.
-
-TODO: We need a summary section-->
+    <para><varname>jar-with-dependencies</varname> 格式创建一个包含所有 simple-weather
+    项目的二进制代码以及所有依赖解压出来的二进制代码的 <acronym>JAR</acronym> 文件。 这个略微非常规的格式产生了一个 9 MiB
+    大小的 <acronym>JAR</acronym> 文件，包含了大概 5290 个类。 但是它确实给那些使用 Maven
+    开发的应用程序提供了一个易于分发的格式。本书的后面，我们会说明如何创建一个自定义的装配描述符来生成一个更标准的分发包。</para>
   </section>
 </chapter>
