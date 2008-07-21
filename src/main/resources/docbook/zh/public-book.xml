@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book id="book-hibernate3devNotebook">
-  <title>Maven: The Definitive Guide</title>
+  <title>Maven权威指南</title>
 
   <bookinfo>
     <isbn>9780596517335</isbn>
@@ -55,6 +55,12 @@
           <orgname>Sonatype, Inc.</orgname>
         </affiliation>
       </author>
+
+      <author>
+        <firstname>Juven</firstname>
+
+        <surname>Xu</surname>
+      </author>
     </authorgroup>
 
     <!--    <publisher>
@@ -62,7 +68,7 @@
     </publisher> -->
 
     <abstract role="description-short">
-      <para>Maven: The Definitive Guide is a book about Apache Maven.</para>
+      <para>Maven权威指南是一本关于Apache Maven的书。</para>
     </abstract>
 
     <!--    <bibliomisc role="errata"><ulink
@@ -102,68 +108,25 @@
               xmlns:xi="http://www.w3.org/2001/XInclude" />
 
   <part id="part-example">
-    <title>Maven by Example</title>
+    <title>Maven实战</title>
 
     <partintro>
-      <para>The first Maven book was the <ulink
-      url="http://www.oreilly.com/catalog/9780596007508/">Maven Developer's
-      Notebook</ulink> from <ulink
-      url="http://www.oreilly.com">O'Reilly</ulink>, it was a book that
-      introduced Maven in a series of steps. The idea behind the Developer's
-      Notebook series was that developers learn best when they are sitting
-      next to another developer and going through the thought process that
-      another developer uses to learn and code. While the Developer's Notebook
-      series has been successful, there is a downside to the notebook format:
-      notebooks are, by design, "goal-focused" books that take you through a
-      series of steps to achieve specific goals. Larger reference books, or
-      "Animal" books are there to provide comprehensive material which covers
-      the entirety of the topic. Both books have advantages and disadvantages,
-      but publishing one without the other is a recipe for problems.</para>
+      <para>第一本关于Maven的书是来自<ulink
+      url="http://www.oreilly.com">O'Reilly</ulink>的<ulink
+      url="http://www.oreilly.com/catalog/9780596007508/">Maven开发者笔记</ulink>，这本书通过一系列步骤介绍Maven。开发者笔记系列书籍背后的想法是，当开发人员和另一个开发人员坐在一起，经历他曾经用来学习和编码的整个思考过程，这样会学得最好。虽然开发者笔记系列成功了，但笔记格式有一个缺点：笔记被设计成“集中关注于目标”，它让你通过一系列步骤来完成某个特定的目标。而有大的参考书，或者“动物”书，提供全面的材料，覆盖了整个的课题。两种书都有优缺点，因此只出版一种书是有问题的。</para>
 
-      <para>To illustrate the problem, consider that after ten thousand people
-      read a developer's notebook, they will all know how to create a simple
-      project, say a Maven project that creates a <acronym>WAR</acronym> from
-      a set of source files. But, when they want more details or the specifics
-      for something like the Assembly plugin, they hit something of an
-      impasse. Because there is no well-written reference material for Maven,
-      they have to hunt through plugin documentation on the Maven site or cull
-      through a series of mailing lists. Once people start to really dig into
-      Maven, they start reading through thousands of poorly written
-      <acronym>HTML</acronym> documents on the Maven site written by hundreds
-      of different developers each with a different idea of what it means to
-      document a plugin: hundreds of developers with varying writing styles,
-      tones, and native languages. Despite the best efforts of hundreds of
-      well-meaning volunteers, reading through plugin documentation on the
-      Maven site, is, at best, frustrating and, at worst, a reason to abandon
-      Maven. Quite often Maven users get "stuck" because they just can't find
-      an answer from the site documentation.</para>
+      <para>为了阐明这个问题，考虑如下情形，数万的读者读完开发者笔记后，他们都知道了如何创建一个简单的项目，比方说一个Maven项目从一组源文件创建一个<acronym>WAR</acronym>。但是，当他们想知道更多的细节或者类似于Assembly插件的详细描述的时候，他们会陷入僵局。因为没有关于Maven的写得很好的参考手册，他们需要在Maven站点上搜寻插件文档，或者在一系列邮件列表中不停挑选。当人们真正开始钻研Maven的时候，他们开始在Maven站点上阅读无数的由很多不同的开发人员编写的粗糙的<acronym>HTML</acronym>文档，这些开发人员对为插件编写文档有着完全不同的想法：数百的的开发人员有着不同的书写风格，语气以其方言。除去很多好心的志愿者所做的努力，在Maven站点上阅读插件文档，最好的情况下，令人有受挫感，最坏的情况下，成为了抛弃Maven的理由。很多情况下Maven用户感觉“被骗了”因为他们不能从站点文档上找到答案。</para>
 
-      <para>While the first Maven Developer's Notebook attracted new users to
-      Maven, and trained people on the most basic use case of Maven, this same
-      population of readers grew frustrated when they couldn't find a concise
-      well-written reference manual. This lack of an authoritative (or
-      definitive) reference manual has held Maven back for a few years; it has
-      been something of a dampening force on the Maven user community. This
-      book intends to change this situation by providing both an update to the
-      original Maven Developer Notebook in <xref linkend="part-example" />,
-      and the first attempt at a comprehensive reference in <xref
-      linkend="part-reference" />. What you have in your hands (or on your
-      screen) is really two books in one.</para>
+      <para>虽然第一本Maven开发者笔记吸引了很多Maven的新用户，为很多人培训了最基本的Maven用例，但同样多的读者，当他们不能找到准确的写得很好的参考材料的时候，感觉到了挫败感。很多年来，缺少可靠的（或者权威的）参考资料阻碍了Maven的发展；这也成了一种Maven用户社区成长的阻碍力量。本书想要改变这种情况，通过提供，第一：在<xref
+      linkend="part-example" />中更新原本的Maven开发者笔记，第二：在<xref
+      linkend="part-reference" />中第一次尝试提供全面的参考。在你手里的（或者屏幕上的）实际上是二书合一。</para>
 
-      <para>In this part of the book, we're not abandoning the narrative
-      progression of a Developer's Notebook, it is valuable material that
-      helps people learn Maven "by example". In the first half of the book we
-      "introduce by doing", and in <xref linkend="part-reference" /> we fill
-      in the blanks, dig into the details, and introduce advanced topics which
-      might be distracting to a new Maven user. Where <xref
-      linkend="part-reference" /> might use a reference table and a program
-      listing detached from an example project, <xref
-      linkend="part-example" /> is going to be motivated by a real example and
-      a good story. After reading <xref linkend="part-example" />, you should
-      have everything you need to start using Maven for a few months. You
-      might only need to return to <xref linkend="part-reference" /> when you
-      need to start customizing Maven by writing custom plugins or when you
-      want more detail about specific plugins.</para>
+      <para>本书的这个部分中，我们不会抛弃开发者笔记中的描述性推进方式，这是帮助人们“以实战方式”学习Maven的很有价值的材料。在本书的第一部分中我们“边做边介绍”，然后在<xref
+      linkend="part-reference" />中我们填充空白，钻研细节，介绍那些Maven新手不感兴趣的高级话题。<xref
+      linkend="part-reference" />可能使用与样例项目无关的一个参考列表和一程序列表，而<xref
+      linkend="part-example" />将由实际样例和故事驱动。读完<xref
+      linkend="part-example" />后，你将会拥有几个月内开始使用Maven所需要的一切。只有当你需要通过编写定制插件来开始自定义你的项目，或者想了解特定插件细节的时候，才可能需要回到<xref
+      linkend="part-reference" />。</para>
     </partintro>
 
     <xi:include href="chapter-simple-project.xml"
