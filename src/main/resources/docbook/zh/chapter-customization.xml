@@ -716,7 +716,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 [INFO]    xom:xom:jar:1.0 (scope = compile)
 </screen>
 
-      <para>正如你能看到的，我们项目拥有一个很大的依赖集合。 虽然我们只是为四个类库引入了直接的依赖，看来我们实际供引入了15个依赖。
+      <para>正如你能看到的，我们项目拥有一个很大的依赖集合。 虽然我们只是为四个类库引入了直接的依赖，看来我们实际共引入了15个依赖。
       Dom4J 依赖于 Xerces 和 XML 解析器 API ，Jaxen 依赖于 Xalan，后者也就在 classpath 中可用了。
       Dependency 插件将会打印出最终的你项目编译所基于的所有依赖的组合。 如果你想知道你项目的整个依赖树，你可以运行
       <varname>dependency:tree</varname> 目标。</para>
