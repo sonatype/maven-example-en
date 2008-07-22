@@ -1343,9 +1343,9 @@
   <section>
     <title>Using the Form-based POM Editor</title>
 
-    <para>The latest development snapshot (0.9.5) of the m2eclipse plugin has
-    a form-based <acronym>POM</acronym> editor which allows you to edit every
-    part of a project's <filename>pom.xml</filename> with an easy-to-use
+    <para>The latest release of the m2eclipse plugin has a form-based
+    <acronym>POM</acronym> editor which allows you to edit every part of a
+    project's <filename>pom.xml</filename> with an easy-to-use
     <acronym>GUI</acronym> interface. To open the <acronym>POM</acronym>
     Editor, click on a project's <filename>pom.xml</filename> file. If you've
     customized the editors for a pom.xml file, and the POM Editor is not the
@@ -1353,13 +1353,6 @@
     With... / Maven POM Editor". The <acronym>POM</acronym> Editor will then
     display the Overview tab as shown in <xref
     linkend="fig-eclipse-pom-edit-overview" />.</para>
-
-    <warning>
-      <para>You won't be able to see the form-based POM Editor unless you are
-      using the development update site mentioned in <xref
-      linkend="sect-eclipse-install" />. The form-based editor is present in
-      the current development release of 0.9.5.</para>
-    </warning>
 
     <para>One common complaint about Maven is that it forces a developer to
     confront large and often overwhelming <acronym>XML</acronym> documents in
@@ -1513,26 +1506,19 @@
   <section>
     <title>Analyzing Project Dependencies in m2eclipse</title>
 
-    <para>The latest development snapshot of m2eclipse (0.9.5) contains a
-    <acronym>POM</acronym> editor which provides some dependency analysis
-    tools. These tools promise to change the way people maintain and monitor a
-    project's transitive dependencies. One of the main attractions to Maven is
-    the fact that it manages a project's dependencies. If you are writing an
-    application which depends on the Spring Framework's Hibernate3
-    integration, all you need to do is depend on the
-    <varname>spring-hibernate3</varname> artifact from the Central Maven
-    Repository. Maven then reads this artifact's <acronym>POM</acronym> and
-    adds all of the necessary transitive dependencies. While this is a great
-    feature that attracts people to using Maven in the first place, it can
-    often become confusing with a project starts to depend on tens of
-    dependencies, each with tens of transitive dependencies.</para>
-
-    <warning>
-      <para>You won't be able to see the form-based POM Editor and dependency
-      graphs unless you are using the development update site mentioned in
-      <xref linkend="sect-eclipse-install" />. The form-based editor is
-      present in the current development release of 0.9.5.</para>
-    </warning>
+    <para>The latest release of m2eclipse contains a <acronym>POM</acronym>
+    editor which provides some dependency analysis tools. These tools promise
+    to change the way people maintain and monitor a project's transitive
+    dependencies. One of the main attractions to Maven is the fact that it
+    manages a project's dependencies. If you are writing an application which
+    depends on the Spring Framework's Hibernate3 integration, all you need to
+    do is depend on the <varname>spring-hibernate3</varname> artifact from the
+    Central Maven Repository. Maven then reads this artifact's
+    <acronym>POM</acronym> and adds all of the necessary transitive
+    dependencies. While this is a great feature that attracts people to using
+    Maven in the first place, it can often become confusing with a project
+    starts to depend on tens of dependencies, each with tens of transitive
+    dependencies.</para>
 
     <para>Problems start to happen when you depend on a project with a poorly
     crafted <acronym>POM</acronym> which fails to flag dependencies as
