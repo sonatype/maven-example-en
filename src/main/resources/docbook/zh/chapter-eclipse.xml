@@ -127,51 +127,28 @@
       Site...</guibutton>，它会载入"Add Site"
       对话框。输入更新站点的<acronym>URL</acronym>然后点击<guibutton>OK</guibutton>。在"Software
       Updates and
-      Add-ons"对话框中会出现更新站点上可用的插件。你可以选择你想要安装的模块然后点击<guibutton>Install...</guibutton>按钮。Eclilpse会</para>
-
-      <para>Note that if you are using a recent build of Eclipse 3.4
-      (Ganymede) your plugin installation experience may be slightly
-      different. In Ganymede, you will select <menuchoice>
-          <guimenu>Help</guimenu>
-
-          <guimenuitem>Software Updates...</guimenuitem>
-        </menuchoice> which will load the "Software Updates and Add-ons"
-      dialog. In this dialog, choose the Available Software panel and click on
-      <guibutton>Add Site...</guibutton> which will load the simple "Add Site"
-      dialog. Enter the <acronym>URL</acronym> of the update site you wish to
-      add and click <guibutton>OK</guibutton>. In the "Software Updates and
-      Add-ons" dialog, the available plugins from an update site will appear
-      as soon as the site is added. You can then select the modules you want
-      to install and click the <guibutton>Install... </guibutton>button.
-      Eclipse will then resolve all the dependencies for the selected plugins,
-      and ask you to agree to the plugin license. After Eclipse installs new
-      plugins, it will likely ask you for permission to restart.</para>
+      Add-ons"对话框中会出现更新站点上可用的插件。你可以选择你想要安装的模块然后点击<guibutton>Install...</guibutton>按钮。Eclilpse会解析所选插件的所有依赖，然后要求你同意插件的许可证。在Eclipse安装了新的插件之后，它会征求你的允许以重启。</para>
 
       <section>
         <title>安装 Subclipse</title>
 
-        <para>To install Subclipse, use the Eclipse plugin update site listed
-        below.<itemizedlist>
+        <para>要安装Subclipse，使用下面的Eclipse插件更新站点。<itemizedlist>
             <listitem>
               <para>Subclipse 1.2: <ulink
               url="http://subclipse.tigris.org/update_1.2.x">http://subclipse.tigris.org/update_1.2.x</ulink></para>
             </listitem>
           </itemizedlist></para>
 
-        <para>For other versions of Subclipse, and for more information about
-        the Subclipse plugin, please see the Subclipse project's web site at
-        <ulink
-        url="http://subclipse.tigris.org/">http://subclipse.tigris.org/</ulink>.</para>
+        <para>想要了解其它版本的Subclipse，以及关于Subclipse插件更多的信息，请访问Subclipse项目的web站点：<ulink
+        url="http://subclipse.tigris.org/">http://subclipse.tigris.org/</ulink>。</para>
       </section>
 
       <section>
         <title>安装 Mylyn</title>
 
-        <para>To install JIRA integration with Mylyn, add the Mylyn extras
-        Eclipse update URL, you'll want to do this if your organization uses
-        <ulink url="http://www.atlassian.com/software/jira/">Atlassian's
-        JIRA</ulink> for issue tracking. To install Mylyn use the following
-        update sites:<itemizedlist>
+        <para>要安装集成了JIRA支持的Mylyn，添加Mylyn Extras的Eclipse更新URL，如果你的组织使用<ulink
+        url="http://www.atlassian.com/software/jira/">Atlassian's
+        JIRA</ulink>来跟踪问题，你会需要这么做。使用下面的更新站点来安装Mylyn：<itemizedlist>
             <listitem>
               <para>Mylyn (Eclipse 3.3): <ulink
               url="http://download.eclipse.org/tools/mylyn/update/e3.3">http://download.eclipse.org/tools/mylyn/update/e3.3
@@ -184,14 +161,13 @@
             </listitem>
 
             <listitem>
-              <para>Mylyn Extras (JIRA Support): <ulink
+              <para>Mylyn Extras (JIRA 支持): <ulink
               url="http://download.eclipse.org/tools/mylyn/update/extras">http://download.eclipse.org/tools/mylyn/update/extras</ulink></para>
             </listitem>
           </itemizedlist></para>
 
-        <para>For more information about the Mylyn project, see the Mylyn
-        project's web site at <ulink
-        url="http://www.eclipse.org/mylyn/">http://www.eclipse.org/mylyn/</ulink>.</para>
+        <para>想了解关于Mylyn项目的更多信息，访问Mylyn项目的web站点：<ulink
+        url="http://www.eclipse.org/mylyn/">http://www.eclipse.org/mylyn/</ulink>。</para>
       </section>
 
       <section>
