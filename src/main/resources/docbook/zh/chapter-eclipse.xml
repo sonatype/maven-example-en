@@ -173,110 +173,98 @@
       <section>
         <title>安装 AspectJ Tools Platform (AJDT)</title>
 
-        <para>If you are installing the 0.9.4 release of m2eclipse, you may
-        also want to install both the Web Tools Platform
-        (<acronym>WTP</acronym>) and the AspectJ Development Tools
-        (<acronym>AJDT</acronym>). To install the <acronym>AJDT</acronym> use
-        one of the following update URLs in Eclipse:<itemizedlist>
-            <listitem>
-              <para>AJDT (Eclipse 3.3): <ulink
-              url="http://download.eclipse.org/tools/ajdt/33/update">http://download.eclipse.org/tools/ajdt/33/update</ulink></para>
-            </listitem>
+        <para>如果你正在安装m2eclipse的0.9.4版本，你可能同时也想要安装Web Tools Platform
+        (<acronym>WTP</acronym>) 和 AspectJ Development Tools
+        (<acronym>AJDT</acronym>)。使用如下的eclipse更新URL以安装<acronym>AJDT</acronym>。</para>
 
-            <listitem>
-              <para>AJDT (Eclipse 3.4): <ulink
-              url="http://download.eclipse.org/tools/ajdt/34/dev/update">http://download.eclipse.org/tools/ajdt/34/dev/update</ulink></para>
-            </listitem>
-          </itemizedlist></para>
+        <itemizedlist>
+          <listitem>
+            <para>AJDT (Eclipse 3.3): <ulink
+            url="http://download.eclipse.org/tools/ajdt/33/update">http://download.eclipse.org/tools/ajdt/33/update</ulink></para>
+          </listitem>
 
-        <para>For more information about the AJDT project, see the AJDT
-        project's web site at <ulink
-        url="http://www.eclipse.org/ajdt/">http://www.eclipse.org/ajdt/</ulink>.</para>
+          <listitem>
+            <para>AJDT (Eclipse 3.4): <ulink
+            url="http://download.eclipse.org/tools/ajdt/34/dev/update">http://download.eclipse.org/tools/ajdt/34/dev/update</ulink></para>
+          </listitem>
+        </itemizedlist>
+
+        <para>想要了解更多的关于<acronym>AJDT</acronym>项目的信息，请访问<acronym>AJDT</acronym>项目的web站点<ulink
+        url="http://www.eclipse.org/ajdt/">http://www.eclipse.org/ajdt/</ulink>。</para>
       </section>
 
       <section>
         <title>安装 Web Tools Platform (WTP)</title>
 
-        <para>To install the Web Tools Platform (<acronym>WTP</acronym>). Use
-        one of the following update URLs in Eclipse, or just look for the Web
-        Tools Project in the Discovery Site which should already be in your
-        Eclipse remote update sites list.<itemizedlist>
-            <listitem>
-              <para>WTP: <ulink
-              url="http://download.eclipse.org/webtools/updates/">http://download.eclipse.org/webtools/updates/</ulink></para>
-            </listitem>
-          </itemizedlist></para>
+        <para>要安装Web Tools Platform
+        (<acronym>WTP</acronym>)。使用如下的eclipse更新URL，或者直接在Discovery站点中寻找Web Tool
+        Project，该站点应该已经在你的Eclipse远程更新站点列表中了。</para>
 
-        <para>For more information about the Web Tools Platform, see the Web
-        Tools Platform project's web site at <ulink
-        url="http://www.eclipse.org/webtools/">http://www.eclipse.org/webtools/</ulink>.</para>
+        <itemizedlist>
+          <listitem>
+            <para>WTP: <ulink
+            url="http://download.eclipse.org/webtools/updates/">http://download.eclipse.org/webtools/updates/</ulink></para>
+          </listitem>
+        </itemizedlist>
+
+        <para>关于更多的Web Tools Platform的信息，请访问Web Tools Platform项目的web站点<ulink
+        url="http://www.eclipse.org/webtools/">http://www.eclipse.org/webtools/</ulink>。</para>
       </section>
     </section>
 
     <section id="sect-eclipse-install">
       <title>安装 m2eclipse</title>
 
-      <para>Once you've installed the prerequisites, you can install the
-      m2eclipse plugin from the following Eclipse update URL:<itemizedlist>
-          <listitem>
-            <para>m2eclipse Plugin: <ulink
-            url="http://m2eclipse.sonatype.org/update/">http://m2eclipse.sonatype.org/update/</ulink></para>
-          </listitem>
-        </itemizedlist></para>
+      <para>一旦你已经安装好这些先决条件，你从如下的Eclipse更新URL安装m2eclipse插件：</para>
 
-      <para>If you would like to install the latest snapshot development
-      version of the plugin, you should use the update-dev
-      <acronym>URL</acronym> instead of the previous
-      <acronym>URL</acronym>:<itemizedlist>
-          <listitem>
-            <para>m2eclipse Plugin (Development Snapshot): <ulink
-            url="http://m2eclipse.sonatype.org/update-dev/">http://m2eclipse.sonatype.org/update-dev/</ulink></para>
-          </listitem>
-        </itemizedlist></para>
+      <itemizedlist>
+        <listitem>
+          <para>m2eclipse 插件: <ulink
+          url="http://m2eclipse.sonatype.org/update/">http://m2eclipse.sonatype.org/update/</ulink></para>
+        </listitem>
+      </itemizedlist>
 
-      <para>To install m2eclipse, just add a the appropriate update site for
-      m2eclipse. Go to <menuchoice>
+      <para>如果你想要安装最新的该插件的快照开发版本，你应该使用如下的开发更新URL而非之前的URL。</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>m2eclipse 插件 （开发快照）: <ulink
+          url="http://m2eclipse.sonatype.org/update-dev/">http://m2eclipse.sonatype.org/update-dev/</ulink></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>要安装m2eclipse，只需要添加一个正确的更新站点。至<menuchoice>
           <guiicon>Help</guiicon>
 
           <guisubmenu>Software Updates</guisubmenu>
 
           <guimenuitem>Find and Install...</guimenuitem>
-        </menuchoice>. Selecting this menu item will load the Install/Update
-      dialog box. Choose the "Search for new features to install" option and
-      click <guibutton>Next</guibutton>. You will then be presented with a
-      list of "Update sites to visit". Click <guibutton>New Remote
-      Site...</guibutton>, and add a new update site for m2eclipse. Add a new
-      remote site for m2eclipse and then make sure that the remote site is
-      selected. After you click <guibutton>Finish</guibutton>, Eclipse will
-      then ask you to select plugins components to install. Select the
-      components you want to install and Eclipse will download, install, and
-      configure m2eclipse.</para>
+        </menuchoice>，选择这个菜单项后会载入Install/Update对话框。选择"Search for new features
+      to install"选项然后点击<guibutton>Next</guibutton>。你将会看到一个"Update sites to
+      visit"列表。点击<guibutton>New Remote
+      Site...</guibutton>，然后添加m2eclipse的更新站点。确认这个新添加的站点被选中了。在你点击<guibutton>Finish</guibutton>之后，Eclipse会要求你选择要安装的组件。你选好之后Eclipse会自动下载，安装，和配置m2eclipse。</para>
 
-      <para>If you've installed the plugin successfully, you should see a
-      Maven option in the list of preferences options when you go to
-      <menuchoice>
+      <para>如果你已经成功安装了这个插件，当你打开<menuchoice>
           <guiicon>Window</guiicon>
 
           <guimenuitem>Preferences...</guimenuitem>
-        </menuchoice>.</para>
+        </menuchoice>的时候，你应该能够在一个选项列表中看到一个Maven选项。</para>
     </section>
   </section>
 
   <section>
-    <title>打开 Maven 终端</title>
+    <title>开启 Maven 控制台</title>
 
-    <para>Before we begin to examine the features of m2eclipse, let’s first
-    enable the Maven console. Open the Console View by going to <menuchoice>
+    <para>在我们开始查看m2eclipse的特征之前，首先让我们开启Maven的控制台。通过访问<menuchoice>
         <guimenu>Window</guimenu>
 
         <guisubmenu>Show View</guisubmenu>
 
         <guimenuitem>Console</guimenuitem>
-      </menuchoice>. Then click on the little arrow on the right-hand side of
-    the Open Console icon and select Maven Console as shown below:</para>
+      </menuchoice>来打开控制台视图。然后点击控制台视图右手边的一个小箭头，然后选择Maven控制台，如下显示：</para>
 
     <figure>
-      <title>Enabling the Maven Console in Eclipse</title>
+      <title>在Eclipse中开启Maven控制台</title>
 
       <mediaobject>
         <imageobject>
@@ -285,39 +273,33 @@
       </mediaobject>
     </figure>
 
-    <para>Maven Console shows the Maven output that normally appears on the
-    console when running Maven from the command line. It is useful to be able
-    to see what Maven is doing and to work with Maven debug output to diagnose
-    issues.</para>
+    <para>Maven控制台显示那些当在命令行运行Maven时出现的控制台的Maven输出。能看到Maven正在干什么，以及根据调试输出来诊断问题，都是很实用的。</para>
   </section>
 
   <section>
     <title>创建一个 Maven 项目</title>
 
-    <para>When using Maven, project creation takes place through the use of a
-    Maven archetype. In Eclipse, project creation takes place via the new
-    project wizard. The new project wizard inside of Eclipse offers a plethora
-    of templates for creating new projects. The m2eclipse plugin improves upon
-    this wizard to provide the following additional capabilities:<itemizedlist>
-        <listitem>
-          <para>Checking out a Maven project from a SCM repository</para>
-        </listitem>
+    <para>在Maven中，我们使用archetype来创建项目。在Eclipse中，我们通过新建项目向导视图来创建项目。Eclipse中的新建项目向导为创建新项目提供了大量的模板。m2eclipse插件为这个向导增加如下的功能：</para>
 
-        <listitem>
-          <para>Creating a Maven project using a Maven archetype</para>
-        </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>从SCM仓库签出一个Maven项目</para>
+      </listitem>
 
-        <listitem>
-          <para>Creating a Maven <acronym>POM</acronym> file</para>
-        </listitem>
-      </itemizedlist></para>
+      <listitem>
+        <para>使用Maven archetype创建一个Maven项目</para>
+      </listitem>
 
-    <para>As shown in <xref linkend="fig-eclipse-new" />, all three of these
-    options are important to developers using Maven. Let’s take a look at each
-    one.</para>
+      <listitem>
+        <para>创建一个Maven <acronym>POM</acronym> 文件</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>如 <xref linkend="fig-eclipse-new" />
+    所示，这三个选项对使用Maven的开发人员来说都很重要。让我们逐个看一下。</para>
 
     <figure id="fig-eclipse-new">
-      <title>Creating a New Project with m2eclipse Wizards</title>
+      <title>使用m2eclipse向导来创建一个新项目</title>
 
       <mediaobject>
         <imageobject>
@@ -329,13 +311,11 @@
     <section>
       <title>从 SCM 签出一个 Maven 项目</title>
 
-      <para>m2eclipse provides the ability to check out a project directly
-      from a SCM repository. Simply enter the SCM information for a project
-      and it will check it out for you to a location of your choice as shown
-      in <xref linkend="fig-eclipse-new-checkout" />:</para>
+      <para>m2eclipse提供了直接从SCM仓库签出项目的能力。简单的输入项目的SCM信息，它就会为你签出项目至你所选择的位置，如<xref
+      linkend="fig-eclipse-new-checkout" />：</para>
 
       <figure id="fig-eclipse-new-checkout">
-        <title>Checkout a New Project from Subversion</title>
+        <title>从Subversion签出一个新的项目</title>
 
         <mediaobject>
           <imageobject>
@@ -346,64 +326,60 @@
         </mediaobject>
       </figure>
 
-      <para>There are additional options in this dialog for specifying a
-      particular revision by browsing the revisions in a Subversion repository
-      or by simply entering the revision number manually. These features reuse
-      of some of the features in the Subclipse plugin to interact with the
-      Subversion repository. In addition to Subversion, the m2eclipse plugin
-      also supports the following SCM providers:<itemizedlist>
-          <listitem>
-            <para>Bazaar</para>
-          </listitem>
+      <para>该对话框中还有其它的选项用来浏览Subversion仓库的修订版以指定某个特定的修订版，或者直接手工输入修订版本号。这些特性重用了Subclipse插件的一些特性以和Subversion仓库相互。除了Subversion，m2eclipse插件也支持下面的SCM提供者：</para>
 
-          <listitem>
-            <para>Clearcase</para>
-          </listitem>
+      <itemizedlist>
+        <listitem>
+          <para>Bazaar</para>
+        </listitem>
 
-          <listitem>
-            <para>CVS</para>
-          </listitem>
+        <listitem>
+          <para>Clearcase</para>
+        </listitem>
 
-          <listitem>
-            <para>git</para>
-          </listitem>
+        <listitem>
+          <para>CVS</para>
+        </listitem>
 
-          <listitem>
-            <para>hg</para>
-          </listitem>
+        <listitem>
+          <para>git</para>
+        </listitem>
 
-          <listitem>
-            <para>Perforce</para>
-          </listitem>
+        <listitem>
+          <para>hg</para>
+        </listitem>
 
-          <listitem>
-            <para>Starteam</para>
-          </listitem>
+        <listitem>
+          <para>Perforce</para>
+        </listitem>
 
-          <listitem>
-            <para>Subversion</para>
-          </listitem>
+        <listitem>
+          <para>Starteam</para>
+        </listitem>
 
-          <listitem>
-            <para>Synergy</para>
-          </listitem>
+        <listitem>
+          <para>Subversion</para>
+        </listitem>
 
-          <listitem>
-            <para>Visual SourceSafe</para>
-          </listitem>
-        </itemizedlist></para>
+        <listitem>
+          <para>Synergy</para>
+        </listitem>
+
+        <listitem>
+          <para>Visual SourceSafe</para>
+        </listitem>
+      </itemizedlist>
     </section>
 
     <section id="sect-m2e-create-archetype">
-      <title>用 Maven Archetype 创建一个 Maven项目</title>
+      <title>用Maven Archetype创建一个Maven项目</title>
 
-      <para>m2eclipse offers the ability to create a Maven project using a
-      Maven Archetype. There are many Maven Archetypes provided in the list
-      that comes with m2eclipse as shown in <xref
-      linkend="fig-eclipse-new-archetype" />.</para>
+      <para>m2eclipse提供了使用Maven
+      Archetype创建一个Maven项目的能力。伴随着m2eclipse有许多可用的Maven Archetype，如<xref
+      linkend="fig-eclipse-new-archetype" />：</para>
 
       <figure id="fig-eclipse-new-archetype">
-        <title>Creating a New Project with a Maven Archetype</title>
+        <title>使用Maven Archetype创建一个Maven项目</title>
 
         <mediaobject>
           <imageobject>
@@ -414,202 +390,184 @@
         </mediaobject>
       </figure>
 
-      <para>The list of archetypes in <xref
-      linkend="fig-eclipse-new-archetype" /> is a list generated by something
-      called the Nexus Indexer. Nexus is a repository manager which is
-      introduced in <xref linkend="repository-manager" />. The Nexus indexer
-      is a file which contains an index of the entire Maven repository, and
-      m2eclipse uses it to list all of the available archetypes in the entire
-      Maven repository. When this chapter was last updated, m2eclipse had
-      approximately ninety archetypes in this Archetype dialog. Highlights of
-      this list include:<itemizedlist>
-          <listitem>
-            <para>Standard Maven Archetypes to create</para>
+      <para><xref
+      linkend="fig-eclipse-new-archetype" />中的archetype列表是由一个叫Nexus索引器生成的。Nexus是一个仓库管理器，将会在<xref
+      linkend="repository-manager" />介绍。Nexus索引器是一个包含了整个Maven仓库索引的文件，m2eclipse使用它来罗列出所有Maven仓库中可用的archetype。到本章更新为止，m2eclipse大概在这个对话框中有90个archetype。其中比较突出的有：</para>
 
-            <itemizedlist>
-              <listitem>
-                <para>Maven Plugins</para>
-              </listitem>
+      <itemizedlist>
+        <listitem>
+          <para>标准的 Maven Archetypes 以创建</para>
 
-              <listitem>
-                <para>Simple Web Applications</para>
-              </listitem>
+          <itemizedlist>
+            <listitem>
+              <para>Maven插件</para>
+            </listitem>
 
-              <listitem>
-                <para>Simple Projects</para>
-              </listitem>
+            <listitem>
+              <para>简单Web应用</para>
+            </listitem>
 
-              <listitem>
-                <para>New Maven Archetypes</para>
-              </listitem>
-            </itemizedlist>
-          </listitem>
+            <listitem>
+              <para>简单项目</para>
+            </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://databinder.net/site/show/overview">Databinder</ulink>
-            Archetypes (data-driven Wicket Applications) under
-            <varname>net.databinder</varname></para>
-          </listitem>
+            <listitem>
+              <para>新的Maven Archetypes</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://cocoon.apache.org/">Apache Cocoon</ulink>
-            Archetypes under <varname>org.apache.cocoon</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink type=""
+          url="http://databinder.net/site/show/overview">Databinder</ulink>
+          Archetype (数据驱动的 Wicket 应用程序) 位于
+          <varname>net.databinder</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://directory.apache.org">Apache Directory
-            Server</ulink> Archetypes under
-            <varname>org.apache.directory.server</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://cocoon.apache.org/">Apache Cocoon</ulink>
+          Archetype 位于 <varname>org.apache.cocoon</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://geronimo.apache.org">Apache
-            Geronimo</ulink> Archetypes under
-            <varname>org.apache.geronimo.buildsupport</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://directory.apache.org">Apache Directory
+          Server</ulink> Archetype 位于
+          <varname>org.apache.directory.server</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://myfaces.apache.org">Apache
-            MyFaces</ulink> Archetypes under
-            <varname>org.apache.myfaces.buildtools</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://geronimo.apache.org">Apache
+          Geronimo</ulink> Archetype 位于
+          <varname>org.apache.geronimo.buildsupport</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://tapestry.apache.org">Apache
-            Tapestry</ulink> Archetypes under
-            <varname>org.apache.tapestry</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://myfaces.apache.org">Apache MyFaces</ulink>
+          Archetype 位于 <varname>org.apache.myfaces.buildtools</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://wicket.apache.org">Apache Wicket</ulink>
-            Archetypes under <varname>org.apache.wicket</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://tapestry.apache.org">Apache
+          Tapestry</ulink> Archetype 位于
+          <varname>org.apache.tapestry</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://appfuse.org/display/APF/Home">AppFuse</ulink>
-            Archetypes under <varname>org.appfuse.archetypes</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://wicket.apache.org">Apache Wicket</ulink>
+          Archetype 位于 <varname>org.apache.wicket</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://cargo.codehaus.org/">Codehaus
-            Cargo</ulink> Archetypes under
-            <varname>org.codehaus.cargo</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink
+          url="http://appfuse.org/display/APF/Home">AppFuse</ulink> Archetype
+          位于 <varname>org.appfuse.archetypes</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://castor.codehaus.org/">Codehaus
-            Castor</ulink> Archetypes under
-            <varname>org.codehaus.castor</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://cargo.codehaus.org/">Codehaus Cargo</ulink>
+          Archetype 位于 <varname>org.codehaus.cargo</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://groovy.codehaus.org/GMaven">Groovy-based
-            Maven Plugin</ulink> Archetypes (deprecated)<footnoteref
-            linkend="foot-gmaven" /> under
-            <varname>org.codehaus.mojo.groovy</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://castor.codehaus.org/">Codehaus
+          Castor</ulink> Archetype 位于
+          <varname>org.codehaus.castor</varname></para>
+        </listitem>
 
-          <listitem>
-            <para>Jini Archetypes</para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://groovy.codehaus.org/GMaven">Groovy-based
+          Maven Plugin</ulink> Archetype (不推荐使用)<footnoteref
+          linkend="foot-gmaven" /> 位于
+          <varname>org.codehaus.mojo.groovy</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://mule.mulesource.org/display/MULE/Home">Mule</ulink>
-            Archetypes under <varname>org.mule.tools</varname></para>
-          </listitem>
+        <listitem>
+          <para>Jini Archetype</para>
+        </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://fractal.objectweb.org/index.html">Objectweb
-            Fractal</ulink> Archetypes under
-            <varname>org.objectweb.fractal</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink
+          url="http://mule.mulesource.org/display/MULE/Home">Mule</ulink>
+          Archetype 位于 <varname>org.mule.tools</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://petals.objectweb.org/index.html">Objectweb
-            Petals</ulink> Archetypes under
-            <varname>org.objectweb.petals</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://fractal.objectweb.org/index.html">Objectweb
+          Fractal</ulink> Archetype 位于
+          <varname>org.objectweb.fractal</varname></para>
+        </listitem>
 
-          <listitem>
-            <para>ops4j Archetypes under <varname>org.ops4j</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://petals.objectweb.org/index.html">Objectweb
+          Petals</ulink> Archetype 位于
+          <varname>org.objectweb.petals</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://www.parancoe.org/">Parancoe</ulink> under
-            <varname>org.parancoe</varname></para>
-          </listitem>
+        <listitem>
+          <para>ops4j Archetype 位于 <varname>org.ops4j</varname></para>
+        </listitem>
 
-          <listitem>
-            <para>slf4j Archetypes under <varname>org.slf4j</varname></para>
-          </listitem>
+        <listitem>
+          <para><ulink url="http://www.parancoe.org/">Parancoe</ulink>
+          Archetype 位于 <varname>org.parancoe</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink
-            url="http://www.springframework.org">Springframework</ulink>
-            <acronym>OSGI</acronym> and Web Services Archetypes under
-            <varname>org.springframework</varname></para>
-          </listitem>
+        <listitem>
+          <para>slf4j Archetype 位于 <varname>org.slf4j</varname></para>
+        </listitem>
 
-          <listitem>
-            <para><ulink url="http://www.trailsframework.org/">Trails
-            Framework</ulink> Archetypes under
-            <varname>org.trailsframework</varname></para>
-          </listitem>
-        </itemizedlist></para>
+        <listitem>
+          <para><ulink
+          url="http://www.springframework.org">Springframework</ulink>
+          <acronym>OSGI</acronym> 和 Web Services Archetype 位于
+          <varname>org.springframework</varname></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink url="http://www.trailsframework.org/">Trails
+          Framework</ulink> Archetype 位于
+          <varname>org.trailsframework</varname></para>
+        </listitem>
+      </itemizedlist>
 
       <para><footnote id="foot-gmaven">
-          <para>Don't use the Groovy Maven Plugin in Codehaus' Mojo project.
-          Jason Dillon has moved the Groovy Maven integration to the Groovy
-          project in codehaus. For more information see <ulink
-          url="http://groovy.codehaus.org/GMaven">http://groovy.codehaus.org/GMaven</ulink>.</para>
-        </footnote>And these were just the archetypes that were listed under
-      the Nexus Indexer Catalog, if you switch Catalogs you'll see other
-      archetypes. While your results may vary, the following additional
-      archetypes were available in the Internal Catalog:<itemizedlist>
-          <listitem>
-            <para><ulink url="http://www.atlassian.com">Atlassian
-            Confluence</ulink> Plugin Archetype under
-            <varname>com.atlassian.maven.archetypes</varname></para>
-          </listitem>
+          <para>不要在Codehaus的Mojo项目中使用Groovy Maven插件。Jason Dillon已经将Groovy
+          Maven集成移动到了codehaus的Groovy项目。更多的信息请访问<ulink
+          url="http://groovy.codehaus.org/GMaven">http://groovy.codehaus.org/GMaven</ulink>。</para>
+        </footnote>这些只是由Nexus索引器目录罗列的archetype，如果你切换目录你会看到其它的archetype。虽然你看到的结果会有变化，但是以下额外的archetype能在Internal目录中得到：</para>
 
-          <listitem>
-            <para><ulink url="http://struts.apache.org">Apache Struts</ulink>
-            Archetypes under <varname>org.apache.struts</varname></para>
-          </listitem>
+      <itemizedlist>
+        <listitem>
+          <para><ulink url="http://www.atlassian.com">Atlassian
+          Confluence</ulink> 插件 Archetype 位于
+          <varname>com.atlassian.maven.archetypes</varname></para>
+        </listitem>
 
-          <listitem>
-            <para>Apache Shale Archetypes under
-            <varname>org.apache.shale</varname></para>
-          </listitem>
-        </itemizedlist></para>
+        <listitem>
+          <para><ulink url="http://struts.apache.org">Apache Struts</ulink>
+          Archetype 位于 <varname>org.apache.struts</varname></para>
+        </listitem>
 
-      <para>A catalog is simply a reference to a repository index. You can
-      manage the set of catalogs that the m2eclipse plugin knows about by
-      clicking on the <guibutton>Configure... </guibutton>button next to the
-      catalog drop down. If you have your own archetypes to add to this list,
-      you can click on <guibutton>Add Archetype...</guibutton>.</para>
+        <listitem>
+          <para>Apache Shale Archetype 位于
+          <varname>org.apache.shale</varname></para>
+        </listitem>
+      </itemizedlist>
 
-      <para>Once you choose an archetype, Maven will retrieve the appropriate
-      artifact from the Maven repository and create a new Eclipse project with
-      the selected archetype.</para>
+      <para>一个目录是对于仓库索引的简单引用。你看以通过点击在catalog下拉菜单旁边的<guibutton>Configure...</guibutton>按钮来管理一组m2eclipse已经了解的目录。如果你有你自己的archetype需要加入到这个列表中，可以点击<guibutton>Add
+      Archetype...</guibutton>。</para>
+
+      <para>一旦你选择了一个archetype，Maven会从Maven仓库取得相应的artifact然后使用这个archetype创建一个新的Eclipse项目。</para>
     </section>
 
     <section>
       <title>创建一个 Maven 模块</title>
 
-      <para>m2eclipse provides the ability to create a Maven module. Creating
-      a Maven module is almost identical to creating a Maven project as it
-      also creates a new Maven project using a Maven archetype. However, a
-      Maven module is a subproject of another Maven project typically known as
-      a parent project.</para>
+      <para>m2eclipse提供了创建一个Maven模块的能力。创建一个Maven模块和创建一个Maven项目几乎一样，它也会用Maven
+      archetype创建一个新的Maven项目。然而，一个Maven模块是另一个Maven项目的子项目，后者通常被认为是父项目。</para>
 
       <figure id="fig-eclipse-new-module">
-        <title>Creating a New Maven Module</title>
+        <title>创建一个Maven模块</title>
 
         <mediaobject>
           <imageobject>
@@ -620,13 +578,11 @@
         </mediaobject>
       </figure>
 
-      <para>When creating a new Maven module you must select a parent project
-      that already exists inside of Eclipse. Clicking the browse button
-      displays a list of projects that already exist as shown in <xref
-      linkend="fig-eclipse-select-parent" />:</para>
+      <para>当创建一个新的Maven模块的时候你必须选择一个在Eclipse中存在的父项目。点击浏览按钮，会看到一个已存在的项目的列表，如<xref
+      linkend="fig-eclipse-select-parent" />：</para>
 
       <figure id="fig-eclipse-select-parent">
-        <title>Selecting a Parent Project for a New Maven Module</title>
+        <title>为一个新的Maven模块选择一个父项目</title>
 
         <mediaobject>
           <imageobject>
@@ -637,26 +593,21 @@
         </mediaobject>
       </figure>
 
-      <para>After selecting a parent project from the list, you are returned
-      to the New Maven Module window and the Parent Project field is populated
-      as shown in <xref linkend="fig-eclipse-new-module" />. Clicking
-      <guibutton>Next</guibutton> will then display the standard list of
-      archetypes from <xref linkend="sect-m2e-create-archetype" /> so you can
-      choose which one should be used to create the Maven module.</para>
+      <para>在该列表中选择了一个父项目之后，你回到了创建新Maven模块的窗口，父项目字段已被填充，如<xref
+      linkend="fig-eclipse-new-module" />所示。点击<guibutton>Next</guibutton>你将会看到来自<xref
+      linkend="sect-m2e-create-archetype" />的标准archetype列表，然后你可以选择用哪个archetype来创建Maven模块。</para>
     </section>
   </section>
 
   <section>
-    <title>创建一个 Maven POM 文件</title>
+    <title>创建一个Maven POM文件</title>
 
-    <para>Another important feature m2eclipse offers is the ability to create
-    a new Maven <acronym>POM</acronym> file. m2eclipse provides a wizard to
-    easily create a new <acronym>POM</acronym> file inside of a project that
-    is already in Eclipse. This POM creation wizard is shown in <xref
-    linkend="fig-eclipse-create-pom" />:</para>
+    <para>另外一个m2eclipse提供的重要特性是它能创建一个新的Maven
+    <acronym>POM</acronym>文件。m2eclipse提供了一个向导，可以用来很轻松的为一个已经在Eclipse中的项目创建一个新的<acronym>POM</acronym>文件。这个<acronym>POM</acronym>创建向导如<xref
+    linkend="fig-eclipse-create-pom" />所示：</para>
 
     <figure id="fig-eclipse-create-pom">
-      <title>Creating a New POM</title>
+      <title>创建一个新的POM</title>
 
       <mediaobject>
         <imageobject>
@@ -667,13 +618,12 @@
       </mediaobject>
     </figure>
 
-    <para>Creating a new Maven <acronym>POM</acronym> is just a matter of
-    selecting a project, entering the Group Id, Artifact Id, Version, choosing
-    the Packaging type, and providing a Name into the fields provided and
-    m2eclipse. Click the Next button to start adding dependencies.</para>
+    <para>创建一个新的Maven <acronym>POM</acronym>大概只是选择一个项目，在m2eclipse提供的字段中输入Group
+    Id,，Artifact
+    Id,，Version，选择打包类型，以及提供一个名称。点击<guibutton>Next</guibutton>按钮开始添加依赖。</para>
 
     <figure id="fig-eclipse-add-dependencies">
-      <title>Adding Dependencies to a New POM</title>
+      <title>为新的POM添加依赖</title>
 
       <mediaobject>
         <imageobject>
@@ -684,14 +634,12 @@
       </mediaobject>
     </figure>
 
-    <para>As you can see in <xref linkend="fig-eclipse-add-dependencies" />
-    here are no dependencies in the <acronym>POM</acronym> yet. Just click the
-    <guibutton>Add</guibutton> button to query the central Maven repository
-    for dependencies as shown next in <xref
-    linkend="fig-eclipse-query-depend" />:</para>
+    <para>正如你能在<xref
+    linkend="fig-eclipse-add-dependencies" />看到的，<acronym>POM</acronym>中现在还没有依赖。点击<guibutton>Add</guibutton>按钮以向中央Maven仓库查询依赖，如<xref
+    linkend="fig-eclipse-query-depend" />所示：</para>
 
     <figure id="fig-eclipse-query-depend">
-      <title>Querying the Central Repository for Dependencies</title>
+      <title>向中央仓库查询依赖</title>
 
       <mediaobject>
         <imageobject>
@@ -702,22 +650,10 @@
       </mediaobject>
     </figure>
 
-    <para>Querying for dependencies is as easy as entering the
-    <varname>groupId</varname> for the artifact you need. <xref
-    linkend="fig-eclipse-query-depend" /> shows a query for
-    <varname>org.apache.commons</varname> with <varname>commons-vfs</varname>
-    expanded to see which versions are available. Highlighting the
-    <varname>1.1-SNAPSHOT</varname> version of <varname>commons-vfs</varname>
-    and clicking <guibutton>OK</guibutton> takes you back to the dependency
-    selection where you can either query for more artifacts or just click
-    finish to create the <acronym>POM</acronym>. When you search for
-    dependencies, m2eclipse is making use of the same Nexus repository index
-    that is used in the Nexus Repository Manager from <xref
-    linkend="repository-manager" />.</para>
+    <para>查询依赖只是简单的输入你需要的构件的<varname>groupId</varname>。<xref
+    linkend="fig-eclipse-query-depend" />展示了对<varname>org.apache.commons</varname>的一个查询，其中<varname>commons-vfs</varname>已被展开以查看可用的版本。选中<varname>commons-vfs</varname>的<varname>1.1-SNAPSHOT</varname>版本然后点击<guibutton>OK</guibutton>，你会回到依赖选择界面，你可以查询更多的构件或者直接点击<guibutton>finish</guibutton>按钮以创建<acronym>POM</acronym>。当你搜索依赖的时候，m2eclipse正使用在Nexus仓库管理器中使用的同样的Nexus仓库索引。</para>
 
-    <para>Now that the you’ve seen the m2eclipse features for creating a new
-    project, let’s look at a similar set of features for importing projects
-    into Eclipse.</para>
+    <para>现在你已经看到了m2eclipse创建新项目的特性，让我们看一下一组类似的将项目引入Eclipse的特性。</para>
   </section>
 
   <section>
