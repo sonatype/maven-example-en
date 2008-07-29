@@ -1545,50 +1545,37 @@
       </mediaobject>
     </figure>
 
-    <para>The check boxes in the top section provide the ability
-    to:<itemizedlist>
-        <listitem>
-          <para>Run Maven in Offline mode, disabling any downloads from remote
-          repositories</para>
-        </listitem>
+    <para>顶部的复选框提供的功能有：</para>
 
-        <listitem>
-          <para>Enable Debug output in the Maven Console</para>
-        </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>在离线的状态下运行Maven，关闭从远程仓库进行下载的功能。</para>
+      </listitem>
 
-        <listitem>
-          <para>Download Source jars for artifacts from remote Maven
-          repositories</para>
-        </listitem>
+      <listitem>
+        <para>在Maven控制台中开启调试输出</para>
+      </listitem>
 
-        <listitem>
-          <para>Download JavaDoc jars for artifacts from remote Maven
-          repositories</para>
-        </listitem>
+      <listitem>
+        <para>从远程Maven仓库下载构件的源码jar文件</para>
+      </listitem>
 
-        <listitem>
-          <para>Download and Update local indexes for remote repositories on
-          startup</para>
-        </listitem>
-      </itemizedlist></para>
+      <listitem>
+        <para>从远程Maven仓库下载构件的JavaDoc Jar文件</para>
+      </listitem>
 
-    <para>The next section offers a pop-up menu to select which goal you’d
-    like to be executed when a project is imported and when the source folders
-    for a given project are updated. The default goal is named
-    <varname>process-resources</varname> which copies and process the
-    resources for the project into the destination directory to make the
-    project ready for packaging. Customizing this list of goals can come in
-    handy if you need to run any custom goals which process resources or
-    generate supporting configuration.</para>
+      <listitem>
+        <para>在启动的时候下载并更新本地的对远程仓库的索引</para>
+      </listitem>
+    </itemizedlist>
 
-    <para>If you need help selecting a goal, click the
-    <guibutton>Select...</guibutton> button to see the "Goals" dialog. The
-    dialog on the left-hand side of<xref
-    linkend="fig-eclipse-goal-lifecycle" /> shows the Goals dialog with a list
-    of all the phases in the default Maven lifecycle.</para>
+    <para>下一部分提供了一个弹出式菜单，让你选择当项目被引入以及项目的源码文件夹被更新的时候执行什么Maven目标。默认的目标名为<varname>process-resources</varname>，它会拷贝并处理项目的资源文件至目标目录，以让项目可以随时打包。如果你需要运行一些自定义的目标以处理资源文件或者生成一些支持性配置，那么你迟早需要定制这个目标列表。</para>
+
+    <para>如果你需要m2eclipse帮你选择一个目标，点击按钮<guibutton>Select...</guibutton>，会看到“Goals”对话框。左边的<xref
+    linkend="fig-eclipse-goal-lifecycle" />对话框展示了默认Maven生命周期中所有阶段列表的一个目标对话框。</para>
 
     <figure id="fig-eclipse-goal-lifecycle">
-      <title>Maven Goal Dialogs</title>
+      <title>Maven目标对话框</title>
 
       <mediaobject>
         <imageobject>
@@ -1599,25 +1586,16 @@
       </mediaobject>
     </figure>
 
-    <para>When you see the Goals dialog for the first time, there's a chance
-    you might be overwhelmed by the number of goals it lists. There are
-    literally hundreds of Maven plugins for everything from generating a
-    database, to running integration tests, to performing static analysis, to
-    generating web services with XFire. There are over two hundred plugins
-    with selectable goals in the Goals dialog, the dialog on the right-hand
-    side of<xref linkend="fig-eclipse-goal-lifecycle" /> shows the "Goals"
-    dialog with the Tomcat Maven plugin's goals highlighted. You can always
-    narrow the list of goals shown in this dialog by typing in some text to
-    the search dialog, as you type in text, m2eclipse is going to narrow the
-    list of available goals to goals which contain the text in the search
-    field.</para>
+    <para>当你第一次看到这个目标对话框的号死后，你可能会被它罗列的这么多目标所吓到。事实上，确实有数百个Maven插件做各种各样的事情，从生成数据库，到执行集成测试，到运行静态分析，到使用XFire生成web
+    service。目标对话框中，带有可选的目标的插件有超过200个，右边的对话框<xref
+    linkend="fig-eclipse-goal-lifecycle" />展示了一个Tomcat
+    Maven插件的目标被标亮的“Goals”对话框。你可以通过在搜索框内输入文字来缩小可用目标列表的数量，当你输入文字的时候，m2eclipse会收缩可用目标的列表，当然，这些目标包含了搜索框内的关键字。</para>
 
-    <para>Another Maven preference page is the Maven Installations
-    configuration page shown in <xref
-    linkend="fig-eclipse-maven-installations" />:</para>
+    <para>另外一个Maven选项页面是Maven安装配置页面如<xref
+    linkend="fig-eclipse-maven-installations" />：</para>
 
     <figure id="fig-eclipse-maven-installations">
-      <title>Maven Installations Preference Page</title>
+      <title>Maven安装选项页面</title>
 
       <mediaobject>
         <imageobject>
@@ -1628,37 +1606,18 @@
       </mediaobject>
     </figure>
 
-    <para>This page allows you to add other Maven installations to the Eclipse
-    environment. If you want to use a different version of Maven with the
-    m2eclipse plugin you can configure multiple installations of Maven from
-    this configuration page, this is very similar to the ability to add more
-    than one Java Virtual Machine to be run inside of Eclipse. An embedded
-    version of the Maven known as the Maven Embedder is already specified.
-    This is what is used to execute Maven inside of Eclipse. If you have
-    another installation of Maven which you would like to use instead of the
-    Maven Embedder, you can add another Maven runtime by clicking on the
-    <guibutton>Add..</guibutton> button. <xref
-    linkend="fig-eclipse-maven-installations" /> shows a configuration page
-    that lists the Maven Embedder, Maven 2.0.9, and an installation of Maven
-    2.1-SNAPSHOT.</para>
+    <para>这个页面能让你往Eclipse环境中添加其它的Maven安装。如果你想要让m2eclipse插件使用一个不同版本的Maven，你可以在这个页面配置多个Maven安装，这非常类似于在Eclipse中配置多个可运行的Java虚拟机。一个被成为Maven嵌入器的Maven的嵌入版本已经被指定了。这就是我们在Eclipse中运行Maven的版本。如果你有另外一个Maven安装，而且你想要用它来运行Maven而不是Maven嵌入器，你可以实时的通过点击<guibutton>Add..</guibutton>来添加另外的Maven。<xref
+    linkend="fig-eclipse-maven-installations" />展示了一个列出Maven嵌入器，Maven
+    2.0.9，和Maven 2.1-SNAPSHOT的配置页面。</para>
 
-    <para>The Installations configuration page also allows you to specify the
-    location of the global Maven settings file. If you do not specify the
-    location of this file on this configuration page, Maven will use the
-    default global settings file found in
-    <filename>conf/settings.xml</filename> of the selected Maven installation.
-    You can also customize the location of your user settings file from the
-    default location of <filename>~/.m2/settings.xml</filename>, and you can
-    customized the location of your local Maven repository from the default
-    location of <filename>~/.m2/repository</filename>.</para>
+    <para>安装配置页面也允许你指定全局Maven
+    settings文件的位置。如果你不在这个页面指定该文件的位置，Maven会使用位于所选Maven安装目录的<filename>conf/settings.xml</filename>作为默认全局配置文件。你也可以自定义用户settings文件的位置，默认它位于<filename>~/.m2/settings.xml</filename>，你还可以自定义你的本地Maven仓库位置，其默认值是<filename>~/.m2/repository</filename>。</para>
 
-    <para>Also available in the Eclipse preferences is the ability to enable a
-    decorator named the Maven Version Decorator. This preference provides a
-    given project’s current version on the Eclipse Package Explorer and is
-    shown in <xref linkend="fig-eclipse-mvn-decorate" />.</para>
+    <para>Eclipse选项中还能开启一个装饰器，它的名字是Maven版本装饰器。这个选项可以让你的Eclipse包浏览器中看到项目的当前版本，如<xref
+    linkend="fig-eclipse-mvn-decorate" />：</para>
 
     <figure id="fig-eclipse-mvn-decorate">
-      <title>Enabling the Maven Version Decorator</title>
+      <title>开启Maven版本装饰器</title>
 
       <mediaobject>
         <imageobject>
@@ -1669,14 +1628,12 @@
       </mediaobject>
     </figure>
 
-    <para>To enable this preference, simply check the Maven Version Decorator
-    option that is highlighted in <xref linkend="fig-eclipse-mvn-decorate" />.
-    If the Maven Version Decorator is not enabled, a project will only list
-    it’s name and relative path in the Package Explorer as shown in <xref
-    linkend="fig-eclipse-no-decorate" />:</para>
+    <para>要开启这个选项，只要选中Maven版本修饰器选项，如在<xref
+    linkend="fig-eclipse-mvn-decorate" />中标亮的。如果Maven版本修饰器没有开启，项目只会在包浏览器中列出它的名称和相对路径，如<xref
+    linkend="fig-eclipse-no-decorate" />：</para>
 
     <figure id="fig-eclipse-no-decorate">
-      <title>Package Explorer without Maven Version Decorator</title>
+      <title>没有Maven版本装饰器的包浏览器</title>
 
       <mediaobject>
         <imageobject>
@@ -1687,12 +1644,11 @@
       </mediaobject>
     </figure>
 
-    <para>Upon enabling the Maven Version Decorator, the project name will
-    include the current project version as shown in <xref
-    linkend="fig-eclipse-decorated" />:</para>
+    <para>开启了Maven版本装饰器之后，项目的名称将会包括当前的项目版本，如<xref
+    linkend="fig-eclipse-decorated" />：</para>
 
     <figure id="fig-eclipse-decorated">
-      <title>Package Explorer with Maven Version Decorator Enabled</title>
+      <title>开启了Maven版本装饰器的包浏览器</title>
 
       <mediaobject>
         <imageobject>
@@ -1703,26 +1659,14 @@
       </mediaobject>
     </figure>
 
-    <para>This is a helpful feature that provides the project version at a
-    glance instead of being required to open the <acronym>POM</acronym> to
-    locate the version element.</para>
+    <para>这个特性十分有用，你能很方便的看到项目的版本而不再需要打开<acronym>POM</acronym>去找version元素。</para>
   </section>
 
   <section>
     <title>小结</title>
 
-    <para>m2eclipse is more than just a simple plugin which adds Maven support
-    to Eclipse, it is a comprehensive integration that will make everything
-    from creating new projects to locating third-party dependencies orders of
-    magnitude easier. m2eclipse is the first step toward an
-    <acronym>IDE</acronym> that is aware of the rich semantic treasure that is
-    the central Maven repository. As more people come to use m2eclipse, more
-    projects are going to be releasing Maven Archetypes, and more projects are
-    going to see value in publishing source artifacts to the Maven repository.
-    If you've tried to use Eclipse and Maven together without a tool that can
-    comprehend the hierarchical project relationships that are central to any
-    multi-module Maven project, you will know that the ability to work with
-    nested projects is essential to smooth integration between the Eclipse
-    <acronym>IDE</acronym> and Maven.</para>
+    <para>m2eclipse不仅仅是一个为Eclipse添加Maven支持的简单插件，它集成得非常全面，从创建新项目到定位第三方依赖，难易度的降低都是数量级的。m2eclipse是对于一个通晓中央Maven仓库这一丰富语义资源的<acronym>IDE</acronym>的第一步尝试。随着越来越多的人开始使用m2eclipse，更多的项目将会发布Maven
+    Archetype，更多的项目会看到往Maven仓库发布源码构件的价值。如果你曾经在没有一个能理解Maven层级结构关系的工具的情况下，尝试一起使用Eclipse和Maven，你就会知道支持嵌套工程的这一特性，对于Eclipse
+    <acronym>IDE</acronym>和Maven的继承来说，是至关重要的。</para>
   </section>
 </chapter>
