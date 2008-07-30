@@ -60,7 +60,12 @@
     是Maven2的命令。<varname>archetype:create</varname>称为一个Maven目标
     (goal)。如果你熟悉Apache Ant，一个Maven目标类似于一个Ant目标 (target)；它们都描述了将会在构建中完成的工作单元
     (unit of
-    work)。而像<varname>-Dname=value</varname>这样的对是将会被传到目标中的参数，它们使用<varname>-D</varname>属性这样的形式，类似于你通过命令行向Java虚拟机传递系统属性。<varname>archetype:create</varname>这个目标的目的通过archetype快速创建一个项目。在这里，一个archetype被定义为“一个原始的模型或者类型，在它之后其它类似的东西与之匹配；一个原型(prototype)”。Maven有许多可用的archetype，从生成一个简单的Swing应用，到一个复杂的Web应用。本章我们用最基本的archetype来创建一个入门项目的骨架。这个插件的前缀是“archetype”，目标为”create”。</para>
+    work)。而像<varname>-Dname=value</varname>这样的对是将会被传到目标中的参数，它们使用<varname>-D</varname>属性这样的形式<footnoteref
+    linkend="foot-simple-property" />，类似于你通过命令行向Java虚拟机传递系统属性。<varname>archetype:create</varname>这个目标的目的通过archetype快速创建一个项目。在这里，一个archetype被定义为“一个原始的模型或者类型，在它之后其它类似的东西与之匹配；一个原型(prototype)”。Maven有许多可用的archetype，从生成一个简单的Swing应用，到一个复杂的Web应用。本章我们用最基本的archetype来创建一个入门项目的骨架。这个插件的前缀是“archetype”，目标为”create”。<footnote
+        id="foot-simple-property">
+        <para>"-D&lt;name&gt;=&lt;value&gt;"这种格式不是Maven定义的，它其实是Java用来设置系统属性的方式，可以通过“java
+        -help”查看Java的解释。Maven的bin目录下的脚本文件仅仅是把属性传入Java而已。</para>
+      </footnote></para>
 
     <para>我们已经生成了一个项目，看一下Maven在simple目录下创建的目录结构：</para>
 
@@ -268,7 +273,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <!--TODO: Need an XREF-->
 
-      <para>Maven的核心对你项目构建中特定的任务几乎毫无所知。就它本省来说，Maven不知道如何编译你的代码，它甚至不知道如何制作一个<acronym>JAR</acronym>文件，它把所有这些任务代理给了Maven插件，像Compiler插件和Jar插件，它们在需要的时候被下载下来并且定时的从Maven中央仓库更新。当你下载Maven的时候，你得到的是一个包含了基本躯壳的Maven核心，它知道如何解析命令行，管理classpath，解析<acronym>POM</acronym>文件，在需要的时候下载Maven插件。通过保持Compiler插件和Maven核心分离，并且提供更新机制，用户很容易能使用编译器最新的版本。通过这种方式，Maven插件提供了通用构建逻辑的全局重用性，有不会在构建周期中定义编译任务，有使用了所有Maven用户共享的Compiler插件。如果有个对Compiler插件的改进，每个使用Maven的项目可以立刻从这种变化中得到好处。（并且，如果你不喜欢这个Compiler插件，你可以用你的实现来覆盖它）。</para>
+      <para>Maven的核心对你项目构建中特定的任务几乎毫无所知。就它本身来说，Maven不知道如何编译你的代码，它甚至不知道如何制作一个<acronym>JAR</acronym>文件，它把所有这些任务代理给了Maven插件，像Compiler插件和Jar插件，它们在需要的时候被下载下来并且定时的从Maven中央仓库更新。当你下载Maven的时候，你得到的是一个包含了基本躯壳的Maven核心，它知道如何解析命令行，管理classpath，解析<acronym>POM</acronym>文件，在需要的时候下载Maven插件。通过保持Compiler插件和Maven核心分离，并且提供更新机制，用户很容易能使用编译器最新的版本。通过这种方式，Maven插件提供了通用构建逻辑的全局重用性，有不会在构建周期中定义编译任务，有使用了所有Maven用户共享的Compiler插件。如果有个对Compiler插件的改进，每个使用Maven的项目可以立刻从这种变化中得到好处。（并且，如果你不喜欢这个Compiler插件，你可以用你的实现来覆盖它）。</para>
 
       <!--TODO: This section needs a lot of XREFs-->
     </section>
@@ -309,7 +314,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </mediaobject>
         </figure></para>
 
-      <para>我们知道，在包类型为<varname>jar</varname>的项目中，打包阶段将会创建一个<acronym>JAR</acronym>文件。但是，在它之前的目标做什么呢，像<varname>compiler:compile</varname>和<varname>surefire:test</varname>？在Maven经过它生命周期中<varname>package</varname>之前的阶段的时候，这些目标被运行了；运行一个阶段首先会有序的运行这个阶段之前的所有阶段，以在命令行指定的那个阶段为止。每个阶段对应了零个或者多个目标。我们没有进行任何插件配置或者定制，所以这个例子绑定了一组标准插件的目标到默认的生命周期。当Maven经过以<varname>package</varname>为结尾的默认生命周期的时候，下面的目标按顺序被执行：</para>
+      <para>我们知道，在包类型为<varname>jar</varname>的项目中，打包阶段将会创建一个<acronym>JAR</acronym>文件。但是，在它之前的目标做什么呢，像<varname>compiler:compile</varname>和<varname>surefire:test</varname>？在Maven经过它生命周期中<varname>package</varname>之前的阶段的时候，这些目标被运行了；Maven执行一个阶段的时候，它首先会有序的执行前面的所有阶段，到命令行指定的那个阶段为止。每个阶段对应了零个或者多个目标。我们没有进行任何插件配置或者定制，所以这个例子绑定了一组标准插件的目标到默认的生命周期。当Maven经过以<varname>package</varname>为结尾的默认生命周期的时候，下面的目标按顺序被执行：</para>
 
       <variablelist>
         <varlistentry>
