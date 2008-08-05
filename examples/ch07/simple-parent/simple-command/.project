@@ -1,17 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>simple-command</name>
-  <comment/>
-  <projects>
-    <project>simple-model</project>
-    <project>simple-persist</project>
-    <project>simple-weather</project>
-  </projects>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-  </natures>
+	<name>simple-command</name>
+	<comment></comment>
+	<projects>
+		<project>simple-model</project>
+		<project>simple-persist</project>
+		<project>simple-weather</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+	</natures>
 </projectDescription>
