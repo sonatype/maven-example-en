@@ -11,4 +11,38 @@
   	<groupId>org.sonatype.mavenbook</groupId>
   	<version>1-SNAPSHOT</version>
   </parent>
+  <modules>
+    <module>first-maven-plugin</module>
+  </modules>
+  <build>
+    <plugins>
+<!--      <plugin>
+        <groupId>com.sonatype.maven.plugins</groupId>
+        <artifactId>first-maven-plugin</artifactId>
+        <version>1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>first-execution</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <configuration>
+              <message>The Eagle has Landed!</message>
+            </configuration>
+          </execution>
+          <execution>
+            <id>second-execution</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <configuration>
+              <message>I am printing a message!</message>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin> -->
+    </plugins>
+  </build>
 </project>
