@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+<wb-module deploy-name="com.sonatype.maven.ch08.simple-webapp-1.0">
+<wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.sonatype.maven.ch08.simple-model-1.0/com.sonatype.maven.ch08.simple-model-1.0">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.sonatype.maven.ch08.simple-weather-1.0/com.sonatype.maven.ch08.simple-weather-1.0">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.sonatype.maven.ch08.simple-persist-1.0/com.sonatype.maven.ch08.simple-persist-1.0">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<property name="context-root" value="com.sonatype.maven.ch08.simple-webapp-1.0"/>
+<property name="java-output-path"/>
+</wb-module>
+</project-modules>
