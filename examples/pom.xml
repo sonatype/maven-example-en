@@ -2,12 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.sonatype</groupId>
-    <artifactId>sonatype</artifactId>
-    <version>3</version>
+    <groupId>org.sonatype.mavenbook</groupId>
+    <artifactId>book</artifactId>
+    <version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>book-examples</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>examples</artifactId>
   <packaging>pom</packaging>
   <name>Maven: The Definitive Guide Example Code</name>
   <description>Example Code for Maven: The Definitive Guide</description>
@@ -15,17 +14,24 @@
   <url>http://sonatype.com/book</url>
 
   <modules>
-    <module>ch03</module>
-    <module>ch04</module>
-    <module>ch05</module>
-    <module>ch06</module>
-    <module>ch07</module>
-    <module>ch08</module>
-    <module>ch09</module>
+    <module>ch03-simple</module>
+    <module>ch04-custom</module>
+    <module>ch05-simple-web</module>
+    <module>ch06-multi</module>
+    <module>ch07-multi-spring</module>
+    <module>ch08-optimize</module>
+    <module>ch09-pom</module>
+    <module>ch10-lifecycle</module>
+    <module>ch11-profile</module>
+    <module>ch12-assembly</module>
+    <module>ch13-properties</module>
+    <module>ch15-sitegen</module>
+    <module>ch17-writing-plugins</module>
+    <module>ch18-alternate-plugins</module>
+    <module>examples-assembly</module>
   </modules>
   
   <build>
-    <finalName>mvn-examples-1.0</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
