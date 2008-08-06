@@ -297,12 +297,12 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
     </section>
 
     <section>
-      <title>Startup Scripts for Redhat/Fedora/CentOS</title>
+      <title>Startup Scripts for Linux</title>
 
       <para>You can configure Nexus to start automatically, by copying the
       <filename>app</filename> script to the <filename>/etc/init.d</filename>
-      directory. On a Redhat-variant Linux system (Redhat, Fedora, or CentOS)
-      perform the following operations as the root user:</para>
+      directory. On a Linux system (tested with Redhat, Fedora, Ubuntu, or
+      CentOS) perform the following operations as the root user:</para>
 
       <orderedlist>
         <listitem>
@@ -407,28 +407,50 @@ PIDDIR="/var/run"
 #RUN_AS_USER=nexus
 </programlisting>
 
-      <para>This script has the appropriate <command>chkconfig</command>
-      directives, so all you need to do to add Nexus as a service is run the
-      following commands:</para>
+      <section>
+        <title>Add Nexus as a Service on Redhat, Fedora, and CentOS</title>
 
-      <screen>$ <command>cd /etc/init.d</command>
+        <para>This script has the appropriate <command>chkconfig</command>
+        directives, so all you need to do to add Nexus as a service is run the
+        following commands:</para>
+
+        <screen>$ <command>cd /etc/init.d</command>
 $ <command>chkconfig --add nexus</command>
 $ <command>chkconfig --levels 345 nexus on</command>
 $ <command>service nexus start</command>
 Starting Sonatype Nexus...
 $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command></screen>
 
-      <para>The second command adds nexus as a service to be started and
-      stopped with the <command>service</command> command and managed by
-      <command>chkconfig</command> command. <command>chkconfig</command>
-      manages the symbolic links in <filename>/etc/rc[0-6].d</filename> which
-      control the services which are started and stopped when the operating
-      system restarts or transitions between run-levels. The third command
-      adds nexus to run-levels 3, 4, and 5. The service command starts Nexus,
-      and the last command tails the <filename>wrapper.log</filename> to
-      verify that Nexus has been started successfully. If Nexus has started
-      successfully you should see a message notifying you that Nexus is
-      listening for <acronym>HTTP</acronym> connections on a port.</para>
+        <para>The second command adds nexus as a service to be started and
+        stopped with the <command>service</command> command and managed by
+        <command>chkconfig</command> command. <command>chkconfig</command>
+        manages the symbolic links in <filename>/etc/rc[0-6].d</filename>
+        which control the services which are started and stopped when the
+        operating system restarts or transitions between run-levels. The third
+        command adds nexus to run-levels 3, 4, and 5. The service command
+        starts Nexus, and the last command tails the
+        <filename>wrapper.log</filename> to verify that Nexus has been started
+        successfully. If Nexus has started successfully you should see a
+        message notifying you that Nexus is listening for
+        <acronym>HTTP</acronym> connections on a port.</para>
+      </section>
+
+      <section>
+        <title>Add Nexus as a Service on Ubuntu</title>
+
+        <para>The process for setting Nexus up as a service on Ubuntu differs
+        slightly from the process used on a Redhat variant. Instead of running
+        chkconfig, you should run the following sequence of commands once
+        you've configured the startup script in
+        <filename>/etc/init.d</filename>:</para>
+
+        <screen>$ <command>cd /etc/init.d</command>
+$ <command>update-rc.d nexus defaults</command>
+$ <command>service nexus start</command>
+Starting Sonatype Nexus...
+$ <command>tail -f /usr/local/nexus/logs/wrapper.log</command>
+</screen>
+      </section>
     </section>
 
     <section>
@@ -1938,7 +1960,7 @@ from the specified remote repositories:
             retrieved by a client). This can be a good job to run if you are
             try to conserve storage space. In this service you can specify the
             number of days over which Nexus will look for activity before
-            making the decision to evict an artifact. </para>
+            making the decision to evict an artifact.</para>
           </listitem>
         </varlistentry>
 
