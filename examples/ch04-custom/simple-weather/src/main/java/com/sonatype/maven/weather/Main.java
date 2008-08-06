@@ -12,18 +12,18 @@ public class Main {
 		PropertyConfigurator.configure(Main.class.getClassLoader().getResource("log4j.properties"));
 
 		// Read the Zip Code from the Command-line (if none supplied, use 60202)
-		int zipcode = 60202;
+		String zipcode = "02101";
         try {
-		  zipcode = Integer.parseInt(args[0]);
+		  zipcode = args[0];
         } catch( Exception e ) {}
 
 		// Start the program
 		new Main(zipcode).start();
 	}
 
-	private int zip;
+	private String zip;
 
-	public Main(int zip) {
+	public Main(String zip) {
 		this.zip = zip;
 	}
 	
