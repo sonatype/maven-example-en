@@ -4,6 +4,15 @@
 <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/org.sonatype.mavenbook.ch07.simple-weather/org.sonatype.mavenbook.ch07.simple-weather">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/org.sonatype.mavenbook.ch07.simple-model/org.sonatype.mavenbook.ch07.simple-model">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/org.sonatype.mavenbook.ch07.simple-persist/org.sonatype.mavenbook.ch07.simple-persist">
+<dependency-type>uses</dependency-type>
+</dependent-module>
 <property name="context-root" value="com.sonatype.maven.ch07.simple-webapp-1.0"/>
 <property name="java-output-path"/>
 </wb-module>
