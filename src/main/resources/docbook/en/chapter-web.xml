@@ -110,6 +110,15 @@
   &lt;/dependencies&gt;
   &lt;build&gt;
     &lt;finalName&gt;simple-webapp&lt;/finalName&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;source&gt;1.5&lt;/source&gt;
+          &lt;target&gt;1.5&lt;/target&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
   &lt;/build&gt;
 &lt;/project&gt;
 </programlisting>
@@ -438,10 +447,11 @@ public class SimpleServlet extends HttpServlet {
     Geronimo project, we've assembled a list of available specifications in
     <xref linkend="appendix-enterprise" />.</para>
 
-    <para>It is also worth pointing out that we have used the <literal>provided</literal> scope
-    for this dependency. This tells Maven that the jar is "provided" by the container and thus
-    should not be included in the war.</para>
-    
+    <para>It is also worth pointing out that we have used the
+    <literal>provided</literal> scope for this dependency. This tells Maven
+    that the jar is "provided" by the container and thus should not be
+    included in the war.</para>
+
     <para>If you were interested in writing a custom <acronym>JSP</acronym>
     tag for this simple web application, you would need to add a dependency on
     the <acronym>JSP</acronym> 2.0 spec. Use the following configuration to
