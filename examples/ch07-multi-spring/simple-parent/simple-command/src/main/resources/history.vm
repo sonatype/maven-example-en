@@ -1,0 +1,14 @@
+Weather History for: 
+${location.city}, 
+${location.region}, 
+${location.country}
+
+  
+#foreach( $weather in $weathers )
+****************************************
+ * Temperature: $weather.condition.temp
+ * Condition: $weather.condition.text
+ * Humidity: $weather.atmosphere.humidity
+ * Wind Chill: $weather.wind.chill
+ * Date: $weather.date
+#end
