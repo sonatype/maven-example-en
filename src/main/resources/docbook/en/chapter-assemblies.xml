@@ -714,8 +714,8 @@ second-project-1.0-SNAPSHOT/src/test/java/com/sonatype/maven/AppTest.java</scree
       supported for interpolation within the <acronym>POM</acronym> itself are
       valid for use in assembly descriptors, including <acronym>POM</acronym>
       properties, <acronym>POM</acronym> element values, system properties,
-      user-defined properties, and operating-system environment variables.
-      </para>
+      user-defined properties, and operating-system environment
+      variables.</para>
 
       <para>The only exceptions to this interpolation step are elements in
       various sections of the descriptor named
@@ -952,7 +952,7 @@ second-project-1.0-SNAPSHOT/src/test/java/com/sonatype/maven/AppTest.java</scree
       <para>If we want more control over this file set, we can specify it more
       explicitly. <xref linkend="ex-explicit-fileSet" /> shows a
       <sgmltag>fileSet</sgmltag> element with all of the default elements
-      specified. </para>
+      specified.</para>
 
       <example id="ex-explicit-fileSet">
         <title>Including Files with <sgmltag>fileSet</sgmltag></title>
@@ -1134,7 +1134,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       curse than a source control system). If you need to override these
       default exclusion patterns you set <sgmltag>useDefaultExcludes</sgmltag>
       to false and then define a set of exclusion patterns in your own
-      assembly descriptor. </para>
+      assembly descriptor.</para>
     </section>
 
     <section id="sect-output-algorithm">
@@ -1243,7 +1243,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     &lt;dependencySet&gt;
       &lt;outputDirectory&gt;${artifact.groupId}&lt;/outputDirectory&gt;
       &lt;outputFileNameMapping&gt;
-        ${module.groupId}-${module.artifactId}.${module.extension}
+        ${artifact.artifactId}.${artifact.extension} 
       &lt;/outputFileNameMapping&gt;
     &lt;/dependencySet&gt;
   &lt;/dependencySets&gt;
@@ -1363,7 +1363,8 @@ I can add this back in later.  I didn't want to talk about it without an example
 
         <para>When <sgmltag>outputDirectory</sgmltag> is missing, it is not
         used. When <sgmltag>outputFileNameMapping</sgmltag> is missing, its
-        default value is: <code>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</code></para>
+        default value is:
+        <code>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</code></para>
       </section>
 
       <section>
@@ -1993,8 +1994,8 @@ I can add this back in later.  I didn't want to talk about it without an example
         subdirectories of the project that declares them. If your project has
         a particularly strange directory structure, you may need to resort to
         special <sgmltag>moduleSet</sgmltag> declarations that include
-        specific project and account for your own project's idiosyncracies.
-        </para>
+        specific project and account for your own project's
+        idiosyncracies.</para>
 
         <warning>
           <para>Try to minimize your own project's idiosyncracies, while Maven
@@ -2244,7 +2245,7 @@ doesn't make sense to new users.-->
       versions, and by default it’s set to <varname>false</varname>. At
       present, the only metadata included when this flag is
       <varname>true</varname> is the information downloaded from Maven’s
-      central repository. </para>
+      central repository.</para>
 
       <para>The second feature is called
       <sgmltag>groupVersionAlignments</sgmltag>. Again, this section is a list
@@ -2611,7 +2612,7 @@ doesn't make sense to new users.-->
       <sgmltag>moduleSets</sgmltag> section of the assembly descriptor -
       namely, that the parent-child relationships between
       <acronym>POM</acronym>s in a build can prevent the availability of
-      module artifacts in some cases. </para>
+      module artifacts in some cases.</para>
 
       <para>Specifically, if module <acronym>POM</acronym>s reference as their
       parent the <acronym>POM</acronym> that contains the Assembly-plugin

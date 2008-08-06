@@ -948,18 +948,19 @@ TODO: Fix the figure-->
       and <varname>surefire:test</varname> goals.</para>
 
       <para>When creating a <acronym>JAR</acronym> for a project, dependencies
-      will not be bundled with the generated artifact they are only used for
-      compilation. When Maven is used to create a <acronym>WAR</acronym> or an
-      <acronym>EAR</acronym>, you can configure Maven to bundle dependencies
-      with the generated artifact, and you can also configure Maven to exclude
-      certain dependencies from the <acronym>WAR</acronym> file using the
-      provided scope. The <varname>provided</varname> scope tells Maven that a
-      dependency is needed for compilation, but should not be bundled with the
-      output of a build. The <varname>provided</varname> scope comes in handy
-      when you are developing a web application, you'll need to compile your
-      code against the Servlet specification, but you don't want to include
-      the Servlet <acronym>API</acronym> <acronym>JAR</acronym> in your web
-      application's <filename>WEB-INF/lib</filename> directory.</para>
+      will not be bundled with the generated artifact as they are only used
+      for compilation. When Maven is used to create a <acronym>WAR</acronym>
+      or an <acronym>EAR</acronym>, you can configure Maven to bundle
+      dependencies with the generated artifact, and you can also configure
+      Maven to exclude certain dependencies from the <acronym>WAR</acronym>
+      file using the provided scope. The <varname>provided</varname> scope
+      tells Maven that a dependency is needed for compilation, but should not
+      be bundled with the output of a build. The <varname>provided</varname>
+      scope comes in handy when you are developing a web application, you'll
+      need to compile your code against the Servlet specification, but you
+      don't want to include the Servlet <acronym>API</acronym>
+      <acronym>JAR</acronym> in your web application's
+      <filename>WEB-INF/lib</filename> directory.</para>
 
       <!--TODO: We should add an XREF to a section that deals with building a web application.-->
 
