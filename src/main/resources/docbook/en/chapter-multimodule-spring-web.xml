@@ -2417,8 +2417,31 @@ ${location.country}
     bytecode into a single <acronym>JAR</acronym> in
     <filename>target/</filename> named
     <filename>simple-command-jar-with-dependencies.jar</filename>. This "uber"
-    <acronym>JAR</acronym> weighs in at 15 MB. To run the command-line weather
-    forecaster, run the following from the
+    <acronym>JAR</acronym> weighs in at 15 MB. </para>
+
+    <para>Before you run the command-line tool, you will need to invoke the
+    <varname>hbm2ddl</varname> goal of the Hibernate3 plugin to create the
+    HSQLDB database. Do this by running the following command from the
+    <varname>simple-command</varname> directory:</para>
+
+    <para><screen>$ <command>mvn hibernate3:hbm2ddl</command>
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'hibernate3'.
+[INFO] org.codehaus.mojo: checking for updates from central
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Chapter 7 Simple Command Line Tool
+[INFO]    task-segment: [hibernate3:hbm2ddl]
+[INFO] ------------------------------------------------------------------------
+[INFO] Preparing hibernate3:hbm2ddl
+...
+10:24:56,151  INFO org.hibernate.tool.hbm2ddl.SchemaExport - export complete
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+</screen>Once you run this, you should see a <filename>data/</filename>
+    directory under <varname>simple-command</varname>. This
+    <filename>data/</filename> directory holds the HSQLDB database. To run the
+    command-line weather forecaster, run the following from the
     <filename>simple-command/</filename> project directory:</para>
 
     <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
