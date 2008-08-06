@@ -841,7 +841,11 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>Changing Your Password</title>
 
-      <para>Blah</para>
+      <para>If you have the appropriate security privilege, you will see an
+      option to change your password in the left-hand side of the browser. To
+      change your password, click on change password, supply your current
+      password, and choose a new password. When you click on Change Password,
+      your Nexus password will be changed.</para>
 
       <figure>
         <title>Changing Your Nexus Password</title>
@@ -2172,7 +2176,10 @@ from the specified remote repositories:
       <section>
         <title>Managing Privileges</title>
 
-        <para>Blah</para>
+        <para>Nexus has two types of privileges: application privileges which
+        cover actions a user can execute in Nexus and repository-target
+        privileges which govern the level of access a user has to a particular
+        repository or repository target.</para>
 
         <figure>
           <title>Managing Security Privileges</title>
@@ -2183,12 +2190,161 @@ from the specified remote repositories:
             </imageobject>
           </mediaobject>
         </figure>
+
+        <para>Repository target privileges can apply to individual
+        repositories or repository targets. All of the permissions which ship
+        with Nexus target repository targets. To create a new repository
+        target privilege which targets a specific repository, click on the Add
+        button and select a repository from the repository drop down. The list
+        of application permissions are as follows. Application permissions
+        correspond to areas of the application to which a user has a specific
+        level of access (method). The available methods are create, read,
+        update, and delete.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Administrator Privilege (ALL)</para>
+          </listitem>
+
+          <listitem>
+            <para>Artifact Download</para>
+          </listitem>
+
+          <listitem>
+            <para>Artifact Upload</para>
+          </listitem>
+
+          <listitem>
+            <para>Checksum Search</para>
+          </listitem>
+
+          <listitem>
+            <para>Clear Repository Cache</para>
+          </listitem>
+
+          <listitem>
+            <para>Configuration File</para>
+          </listitem>
+
+          <listitem>
+            <para>Login to UI</para>
+          </listitem>
+
+          <listitem>
+            <para>Logs</para>
+          </listitem>
+
+          <listitem>
+            <para>Nexus Remote Control</para>
+          </listitem>
+
+          <listitem>
+            <para>Read Repository Metadata</para>
+          </listitem>
+
+          <listitem>
+            <para>Read Repository Status</para>
+          </listitem>
+
+          <listitem>
+            <para>Rebuild Repository Attributes</para>
+          </listitem>
+
+          <listitem>
+            <para>Reindex</para>
+          </listitem>
+
+          <listitem>
+            <para>Repositories</para>
+          </listitem>
+
+          <listitem>
+            <para>Repository Groups</para>
+          </listitem>
+
+          <listitem>
+            <para>Repository Routes</para>
+          </listitem>
+
+          <listitem>
+            <para>Repository Targets</para>
+          </listitem>
+
+          <listitem>
+            <para>Repository Templates</para>
+          </listitem>
+
+          <listitem>
+            <para>RSS Feeds</para>
+          </listitem>
+
+          <listitem>
+            <para>Scheduled Tasks</para>
+          </listitem>
+
+          <listitem>
+            <para>Search Repositories</para>
+          </listitem>
+
+          <listitem>
+            <para>Server Settings</para>
+          </listitem>
+
+          <listitem>
+            <para>Server Status</para>
+          </listitem>
+
+          <listitem>
+            <para>Status</para>
+          </listitem>
+
+          <listitem>
+            <para>User Change Password</para>
+          </listitem>
+
+          <listitem>
+            <para>User Forgot Password</para>
+          </listitem>
+
+          <listitem>
+            <para>User Forgot User ID</para>
+          </listitem>
+
+          <listitem>
+            <para>User Privileges</para>
+          </listitem>
+
+          <listitem>
+            <para>User Reset Password</para>
+          </listitem>
+
+          <listitem>
+            <para>User Roles</para>
+          </listitem>
+
+          <listitem>
+            <para>Users</para>
+          </listitem>
+
+          <listitem>
+            <para>Wastebasket</para>
+          </listitem>
+        </itemizedlist>
       </section>
 
       <section>
         <title>Managing Repository Targets</title>
 
-        <para>Blah</para>
+        <para>A repository target is a grouping of repositories to which a
+        privilege can relate. For example, the privilege which allows a user
+        to read all Maven 2 repositories would be targeted at the All (Maven2)
+        target shown below. If you want to create permissions for sets of
+        repositories, you will need to create a new repository target. To
+        create a new repository target, click on Repository Targets under the
+        Administrator menu in the left-hand side of the browser window. This
+        will load up the dialog shown below. To create a new target, click the
+        Add button, supply a name, repository type, and a set of regular
+        expressions to be matched against repository IDs.</para>
 
         <figure>
           <title>Managing Repository Targets</title>
@@ -2204,7 +2360,11 @@ from the specified remote repositories:
       <section>
         <title>Managing Security Roles</title>
 
-        <para>Blah</para>
+        <para>Nexus ships with three roles: Nexus Administrator Role, Nexus
+        Anonymous Role, and Nexus Deployment Role. The administrator role
+        grants all privileges, the anonymous role grants read-only privileges,
+        and the deployment role grants read and update permissions for all
+        repositories.</para>
 
         <figure>
           <title>Managing Security Roles</title>
@@ -2220,7 +2380,15 @@ from the specified remote repositories:
       <section>
         <title>Managing Users</title>
 
-        <para>Blah</para>
+        <para>Nexus ships with three users: admin, anonymous, and deployment.
+        The admin user has all privileges, the anonymous user has read-only
+        privileges, and the deployment user can both read and deploy to
+        repositories. If you need to create users with a more focused set of
+        permissions, you can click on Users under Security in the left-hand
+        navigation menu. Once you see the list of users, you can click on a
+        user to edit that specific user's user ID, name, email, or status. You
+        can also assign or revoke specific roles or permissions for a
+        particular user.</para>
 
         <figure>
           <title>Managing Users</title>
