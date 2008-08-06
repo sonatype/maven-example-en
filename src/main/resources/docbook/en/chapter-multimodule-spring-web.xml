@@ -997,7 +997,8 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
     @SuppressWarnings("unchecked")
     public List&lt;Weather&gt; recentForLocation( final Location location ) {
       return (List&lt;Weather&gt;) getHibernateTemplate().execute(
-        new HibernateCallback() {<co id="coDef-hibDao-4" linkends="coRef-hibDao-4" />
+        new HibernateCallback() {<co id="coDef-hibDao-4"
+          linkends="coRef-hibDao-4" />
         public Object doInHibernate(Session session) {
           Query query = getSession().getNamedQuery("Weather.byLocation");
           query.setParameter("location", location);
@@ -1461,16 +1462,15 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       </callout>
     </calloutlist>
 
-      <note>
-        <para>A common mistake is to use the <sgmltag>extensions</sgmltag>
-        configuration to add dependencies required by a plugin. This is
-        strongly discouraged as the extensions can cause classpath pollution
-        across your project, among other nasty side-effects. Additionally, the
-        extensions behavior is being reworked in 2.1 and you'll eventually
-        need to change it anway. The only normal use for
-        <sgmltag>extensions</sgmltag> is to define new wagon
-        implementations</para>
-      </note>
+    <note>
+      <para>A common mistake is to use the <sgmltag>extensions</sgmltag>
+      configuration to add dependencies required by a plugin. This is strongly
+      discouraged as the extensions can cause classpath pollution across your
+      project, among other nasty side-effects. Additionally, the extensions
+      behavior is being reworked in 2.1 and you'll eventually need to change
+      it anway. The only normal use for <sgmltag>extensions</sgmltag> is to
+      define new wagon implementations</para>
+    </note>
 
     <para>Next, we turn our attention to the two Spring MVC controllers which
     will handle all of the requests. Both of these controllers reference the
@@ -2017,14 +2017,17 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
   <section>
     <title>The Simple Command Module</title>
 
-    <para>The simple-command project is a command-line version of the
-    simple-webapp. It is a utility that relies on the same dependencies:
-    simple-persist and simple-weather. Instead of interacting with this
-    application via a web browser, you would run the simple-command utility
-    from the command-line.</para>
+    <para>The <varname>simple-command</varname> project is a command-line
+    version of the <varname>simple-webapp</varname>. It is a utility that
+    relies on the same dependencies: <varname>simple-persist</varname> and
+    <varname>simple-weather</varname>. Instead of interacting with this
+    application via a web browser, you would run the
+    <classname>simple-command</classname> utility from the
+    command-line.</para>
 
     <figure>
-      <title></title>
+      <title>Command line application referencing simple-weather and
+      simple-persist</title>
 
       <mediaobject>
         <imageobject>
@@ -2035,7 +2038,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
     </figure>
 
     <example>
-      <title></title>
+      <title>POM for simple-command</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -2053,6 +2056,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
   &lt;name&gt;Simple Command Line Tool&lt;/name&gt;
 
   &lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -2060,18 +2064,6 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
         &lt;configuration&gt;
           &lt;source&gt;1.5&lt;/source&gt;
           &lt;target&gt;1.5&lt;/target&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-      &lt;plugin&gt;
-        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-        &lt;configuration&gt;
-          &lt;archive&gt;
-            &lt;manifest&gt;
-              &lt;mainClass&gt;com.sonatype.maven.weather.Main&lt;/mainClass&gt;
-              &lt;addClasspath&gt;true&lt;/addClasspath&gt;
-            &lt;/manifest&gt;
-          &lt;/archive&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
       &lt;plugin&gt;
@@ -2128,15 +2120,29 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
       &lt;artifactId&gt;spring&lt;/artifactId&gt;
       &lt;version&gt;2.0.7&lt;/version&gt;
     &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;hsqldb&lt;/groupId&gt;
+      &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
+      &lt;version&gt;1.8.0.7&lt;/version&gt;
+    &lt;/dependency&gt;
   &lt;/dependencies&gt;
 &lt;/project&gt;
 </programlisting>
     </example>
 
-    <para></para>
+    <para>This <acronym>POM</acronym> creates an <acronym>JAR</acronym> file
+    which will contain the
+    <classname>com.sonatype.maven.weather.Main</classname> class shown in
+    <xref linkend="ex-spring-command-main-class" />. In this
+    <acronym>POM</acronym> we configure the Maven Assembly plugin to use a
+    built-in assembly descriptor named
+    <varname>jar-with-dependencies</varname> which creates a single
+    <acronym>JAR</acronym> file containing all the bytecode a project needs to
+    execute including the bytecode from the project you are building and all
+    the dependency bytecode.</para>
 
-    <example>
-      <title></title>
+    <example id="ex-spring-command-main-class">
+      <title>The Main class for simple-command</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -2214,10 +2220,59 @@ public class Main {
 </programlisting>
     </example>
 
-    <para></para>
+    <para>The <classname>Main</classname> class has a reference to
+    <classname>WeatherDAO</classname>, <classname>LocationDAO</classname>, and
+    <classname>WeatherService</classname>. The static
+    <methodname>main()</methodname> method in this class: </para>
 
-    <example>
-      <title></title>
+    <itemizedlist>
+      <listitem>
+        <para>Reads the Zip Code from the first command line argument</para>
+      </listitem>
+
+      <listitem>
+        <para>Reads the Operation from the second command line argument. If
+        the operation is "weather", the latest weather will be retrieved from
+        the web service. If the operation is "history", the program will fetch
+        historical weather records from the local database.</para>
+      </listitem>
+
+      <listitem>
+        <para>Loads a Spring <classname>ApplicationContext</classname> using
+        two <acronym>XML</acronym> files loaded from
+        <varname>simple-persist</varname> and
+        <varname>simple-weather</varname></para>
+      </listitem>
+
+      <listitem>
+        <para>Creates an instance of <classname>Main</classname></para>
+      </listitem>
+
+      <listitem>
+        <para>Populates the <varname>weatherService</varname>,
+        <varname>weatherDAO</varname>, and <varname>locationDAO</varname> with
+        beans from the Spring <classname>ApplicationContext</classname></para>
+      </listitem>
+
+      <listitem>
+        <para>Runs the appropriate method
+        <methodname>getWeather()</methodname> or
+        <methodname>getHistory()</methodname> depending on the specified
+        operation.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>In the web application we use Spring
+    <classname>VelocityViewResolver</classname> to render a Velocity template.
+    In the stand-alone implementation, we need to write a simple class which
+    renders our weather data with a Velocity template. <xref
+    linkend="ex-spring-weather-formatter" /> is a listing of the
+    <classname>WeatherFormatter</classname>, a class with two methods that
+    render the weather report and the weather history.</para>
+
+    <example id="ex-spring-weather-formatter">
+      <title>WeatherFormatter renders weather data using a Velocity
+      template</title>
 
       <programlisting language="java">package com.sonatype.maven.weather;
 
@@ -2266,35 +2321,159 @@ public class WeatherFormatter {
 </programlisting>
     </example>
 
-    <para></para>
+    <para>The <filename>weather.vm</filename> template simply prints the zip
+    code's city, country, and region as well as the current temperature. The
+    <filename>history.vm</filename> template prints the location and then
+    iterates through the weather forecast records stored in the local
+    database. Both of these templates are in
+    <filename>${basedir}/src/main/resources</filename>.</para>
 
     <example>
-      <title></title>
+      <title>The weather.vm Velocity template</title>
 
-      <programlisting language="java">*********************************
- Current Weather Conditions for:
-  ${weather.location.city}, ${weather.location.region}, 
+      <programlisting language="java">****************************************
+Current Weather Conditions for:
+  ${weather.location.city},
+  ${weather.location.region},
   ${weather.location.country}
-  
- Temperature: ${weather.condition.temp}
-*********************************
+****************************************
+
+ * Temperature: ${weather.condition.temp}
+ * Condition: ${weather.condition.text}
+ * Humidity: ${weather.atmosphere.humidity}
+ * Wind Chill: ${weather.wind.chill}
+ * Date: ${weather.date}
 </programlisting>
+    </example>
+
+    <example>
+      <title>The history.vm Velocity template</title>
+
+      <para><programlisting>Weather History for:
+${location.city},
+${location.region},
+${location.country}
+
+
+#foreach( $weather in $weathers )
+****************************************
+ * Temperature: $weather.condition.temp
+ * Condition: $weather.condition.text
+ * Humidity: $weather.atmosphere.humidity
+ * Wind Chill: $weather.wind.chill
+ * Date: $weather.date
+#end</programlisting></para>
     </example>
   </section>
 
   <section>
     <title>Running the Simple Command</title>
 
-    <!--TODO  fill in this chapter-->
+    <para>The <varname>simple-command</varname> project is configured to
+    create a single <acronym>JAR</acronym> containing the bytecode of the
+    project and all of the bytecode from the dependencies. To create this
+    assembly, run the <varname>assembly</varname> goal of the Maven Assembly
+    plugin from the <varname>simple-command</varname> project
+    directory:</para>
 
-    <para></para>
+    <screen>$ <command>mvn assembly:assembly</command>
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Chapter 7 Simple Command Line Tool
+[INFO]    task-segment: [assembly:assembly] (aggregator-style)
+[INFO] ------------------------------------------------------------------------
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [resources:testResources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+...
+[INFO] [jar:jar]
+[INFO] Building jar: .../simple-parent/simple-command/target/simple-command.jar
+[INFO] [assembly:assembly]
+[INFO] Processing DependencySet (output=)
+[INFO] Expanding: .../.m2/repository/.../simple-weather-1-SNAPSHOT.jar into \
+                                                        /tmp/archived-file-set.93251505.tmp
+[INFO] Expanding: .../.m2/repository/.../simple-model-1-SNAPSHOT.jar into \
+                                                        /tmp/archived-file-set.2012480870.tmp
+[INFO] Expanding: .../.m2/repository/../hibernate-3.2.5.ga.jar into \
+                                                        /tmp/archived-file-set.1296516202.tmp
+... skipping 25 lines of dependency unpacking ...
+[INFO] Expanding: .../.m2/repository/.../velocity-1.5.jar into /tmp/archived-file-set.379482226.tmp
+[INFO] Expanding: .../.m2/repository/.../commons-lang-2.1.jar into \
+                                                        /tmp/archived-file-set.1329200163.tmp
+[INFO] Expanding: .../.m2/repository/.../oro-2.0.8.jar into /tmp/archived-file-set.1993155327.tmp
+[INFO] Building jar: .../simple-parent/simple-command/target/simple-command-jar-with-dependencies.jar
+</screen>
+
+    <para>The build progresses through the lifecycle compiling bytecode,
+    running tests, and finally building a <acronym>JAR</acronym> for the
+    project. Then the <varname>assembly:assembly</varname> goal creates a
+    <acronym>JAR</acronym> with dependencies by unpacking all of the
+    dependencies to temporary directories and then collecting all of the
+    bytecode into a single <acronym>JAR</acronym> in
+    <filename>target/</filename> named
+    <filename>simple-command-jar-with-dependencies.jar</filename>. This "uber"
+    <acronym>JAR</acronym> weighs in at 15 MB. To run the command-line weather
+    forecaster, run the following from the
+    <filename>simple-command/</filename> project directory:</para>
+
+    <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
+           com.sonatype.maven.weather.Main 60202</command>
+2321 INFO  YahooRetriever  - Retrieving Weather Data
+2489 INFO  YahooParser  - Creating XML Reader
+2581 INFO  YahooParser  - Parsing XML Response
+2875 INFO  WeatherFormatter  - Formatting Weather Data
+****************************************
+Current Weather Conditions for:
+  Evanston, 
+  IL, 
+  US
+****************************************
+  
+ * Temperature: 75
+ * Condition: Partly Cloudy
+ * Humidity: 64
+ * Wind Chill: 75
+ * Date: Wed Aug 06 09:35:30 CDT 2008
+</screen>
+
+    <para>To run a history query, execute the following command:</para>
+
+    <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
+           com.sonatype.maven.weather.Main 60202 history</command>
+2470 INFO  WeatherFormatter  - Formatting History Data
+Weather History for: 
+Evanston, IL, US
+  
+****************************************
+ * Temperature: 39
+ * Condition: Heavy Rain
+ * Humidity: 93
+ * Wind Chill: 36
+ * Date: 2007-12-02 13:45:27.187
+****************************************
+ * Temperature: 75
+ * Condition: Partly Cloudy
+ * Humidity: 64
+ * Wind Chill: 75
+ * Date: 2008-08-06 09:24:11.725
+****************************************
+ * Temperature: 75
+ * Condition: Partly Cloudy
+ * Humidity: 64
+ * Wind Chill: 75
+ * Date: 2008-08-06 09:27:28.475 </screen>
   </section>
 
   <section>
     <title>Conclusion</title>
 
-    <para>Alright, we've spent a great deal of time on topics not directly
-    related Maven to get this far. We've done this to present a complete and
+    <para>We've spent a great deal of time on topics not directly related
+    Maven to get this far. We've done this to present a complete and
     meaningful example project which you can use to implement real-world
     systems. We didn't take any short-cuts to produce slick, canned results
     quickly, and we're not going to dazzle you with some Ruby on Rails-esque
@@ -2309,17 +2488,18 @@ public class WeatherFormatter {
     Ant and tries to convince you to adopt Apache Maven.</para>
 
     <para>If you walk away from this chapter wondering what it has to do with
-    Maven, we've succeeded. We've present a complex set of projects, using
-    popular frameworks, and we've tied them together use declarative builds.
-    The fact that more than 60% of this chapter was spent explaining Spring
-    and Hibernate should tell you that Maven, for the most part, stepped out
-    of the way. It worked. It allowed us to focus on the application itself,
-    not so much on the build process. You'll notice that we've created a
-    project that stores data in a database without executing a single SQL
-    statement. Then you wrote a web application without having to deal with
-    the process of writing a build that includes twenty plus dependencies and
-    creates a packaged WAR. Instead of spending time discussing Maven, we
-    spent some time introducing Spring.</para>
+    Maven, we've succeeded. We present a complex set of projects, using
+    popular frameworks, and we tie them together using declarative builds. The
+    fact that more than 60% of this chapter was spent explaining Spring and
+    Hibernate should tell you that Maven, for the most part, stepped out of
+    the way. It worked. It allowed us to focus on the application itself, not
+    on the build process. Instead of spending time discussing Maven, and the
+    work you would have to do to "build a build" that integrated with Spring
+    and Hibernate, we talked almost exclusively about the technologies used in
+    this contrived project. If you start to use Maven, and you take the time
+    to learn it, you really do start to benefit from the fact that you don't
+    have to spend time coding up some procedural build script. You don't have
+    to spend your time worrying about mundane aspects of your build.</para>
 
     <para>You can use the skeleton project introduced in this chapter as the
     foundation for your own, and chances are that when you do, you'll find
@@ -2344,7 +2524,7 @@ public class WeatherFormatter {
       linkend="fig-multimodule-web-spring-projects-complex" />.</para>
 
       <figure id="fig-multimodule-web-spring-projects-complex">
-        <title></title>
+        <title>Programming to Interface Projects</title>
 
         <mediaobject>
           <imageobject>
@@ -2353,6 +2533,25 @@ public class WeatherFormatter {
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>When we use the term interface project we are referring to a Maven
+      project which contains interfaces and constants only. In <xref
+      linkend="fig-multimodule-web-spring-projects-complex" /> the interface
+      projects would be <varname>persist-api</varname> and
+      <varname>parse-api</varname>. If <varname>big-command</varname> and
+      <varname>big-webapp</varname> are written to the interfaces defined in
+      <varname>persist-api</varname>, then it is very easy to just swap in
+      another implementation of the persistence library. This particular
+      diagram shows two implementations of the <varname>persist-api</varname>
+      project, one which stores data in an <acronym>XML</acronym> database,
+      and the other which stores data in a relational database. If you use
+      some of the concepts in this chapter, you can see how you could just
+      pass in a flag to the program that swaps in a different Spring
+      application context <acronym>XML</acronym> file to swap out data sources
+      of persistence implementations. Just like the OO design of the
+      application itself, it is often wise to separate the interfaces of an
+      <acronym>API</acronym> from the implementation of the API into separate
+      Maven projects.</para>
     </section>
   </section>
 </chapter>

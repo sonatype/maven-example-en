@@ -144,7 +144,14 @@
       let's take a quick look at the Super <acronym>POM</acronym>. All Maven
       project <acronym>POM</acronym>s extend this Super
       <acronym>POM</acronym>, it defines a set of defaults shared by all
-      projects. The Super <acronym>POM</acronym> for Maven is shown in <xref
+      projects. This Super <acronym>POM</acronym> is a part of the Maven
+      installation, and can be found in the
+      <filename>maven-2.0.9-uber.jar</filename> file in
+      <filename>${M2_HOME}/lib</filename>. If you look in this
+      <acronym>JAR</acronym> file, you will find a file named
+      <filename>pom-4.0.0.xml</filename> under the
+      <package>org.apache.maven.project</package> package. The Super
+      <acronym>POM</acronym> for Maven is shown in <xref
       linkend="ex-super-pom" />.</para>
 
       <example id="ex-super-pom">

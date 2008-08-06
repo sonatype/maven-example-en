@@ -278,29 +278,34 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     as the Maven coordinates which uniquely identify a project.
     <sgmltag>name</sgmltag> and <sgmltag>url</sgmltag> are descriptive
     elements of the <acronym>POM</acronym> providing a human readable name and
-    associating the project with a project web site. Lastly, the dependencies
-    element defines a single, test-scoped dependency on a unit testing
-    framework called JUnit. These topics will be further introduced in <xref
-    linkend="section-simple-core" />, all you need to know, at this point, is
-    that the <filename>pom.xml</filename> is the file that makes Maven
-    go.</para>
+    associating the project with a web site. The
+    <sgmltag>dependencies</sgmltag> element defines a single, test-scoped
+    dependency on a unit testing framework called JUnit. These topics will be
+    further introduced in <xref linkend="section-simple-core" />, all you need
+    to know, at this point, is that the <filename>pom.xml</filename> is the
+    file that makes Maven go.</para>
 
-    <!--TODO: Insert XREF to the chapter on the POM-->
-
-    <para>When Maven executes, it is going to be executing against a
+    <para>Maven always executes against an effective <acronym>POM</acronym>, a
     combination of settings from this project's <filename>pom.xml</filename>,
-    a super-<acronym>POM</acronym> defined in Maven's installation directory
-    which defines global defaults, and (possibly) some user-defined settings.
-    To see the "effective" <acronym>POM</acronym>, or the
-    <acronym>POM</acronym> that Maven is actually executing against, run the
-    following command in the simple project's base directory.</para>
+    all parent <acronym>POM</acronym>s, a super-<acronym>POM</acronym> defined
+    within Maven, user-defined settings, and active profiles. All projects
+    ultimately extend the super-<acronym>POM</acronym>, which defines a set of
+    sensible default configuration settings and which is fully explained in
+    <xref linkend="pom-relationships" />. While your project might have a
+    relatively minimal <filename>pom.xml</filename>, the contents of your
+    project's <acronym>POM</acronym> are interpolated with the contents of all
+    parent <acronym>POM</acronym>s, user settings, and any active profiles. To
+    see this "effective" <acronym>POM</acronym>, run the following command in
+    the simple project's base directory.</para>
 
     <screen>$ <command>mvn help:effective-pom</command></screen>
 
     <para>When you run this, you should see a much larger
-    <acronym>POM</acronym> which exposes the default settings of Maven.</para>
-
-    <!--TODO: INSERT AN XREF TO an example that deals with the help plugin-->
+    <acronym>POM</acronym> which exposes the default settings of Maven. This
+    goal can come in handy if you are trying to debug a build and want to see
+    how all of the current project's ancestor POMs are contributing to the
+    effective POM. For more information about the Maven Help plugin, see <xref
+    linkend="sect-help-plugin-install" />.</para>
   </section>
 
   <section id="section-simple-core">
