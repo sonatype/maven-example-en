@@ -37,8 +37,8 @@
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
-              <imgSrcPath>${basedir}/src/main/resources/docbook/en/</imgSrcPath>
-              <foCustomization>src/main/resources/xsl/en/fopdf.xsl</foCustomization>
+              <imgSrcPath>content/src/main/resources/docbook/en/</imgSrcPath>
+              <foCustomization>content/src/main/resources/xsl/en/fopdf.xsl</foCustomization>
               <postProcess>
                 <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
@@ -53,9 +53,9 @@
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
-   	          <sourceDirectory>${basedir}/src/main/resources/docbook/de</sourceDirectory>
-              <imgSrcPath>${basedir}/src/main/resources/docbook/de/</imgSrcPath>
-              <foCustomization>src/main/resources/xsl/de/fopdf.xsl</foCustomization>
+   	          <sourceDirectory>content/src/main/resources/docbook/de</sourceDirectory>
+              <imgSrcPath>content/src/main/resources/docbook/de/</imgSrcPath>
+              <foCustomization>content/src/main/resources/xsl/de/fopdf.xsl</foCustomization>
               <postProcess>
                 <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_de.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
@@ -70,9 +70,9 @@
               <goal>generate-pdf</goal>
             </goals>
             <configuration>
-   	          <sourceDirectory>${basedir}/src/main/resources/docbook/zh</sourceDirectory>
-              <imgSrcPath>${basedir}/src/main/resources/docbook/zh/</imgSrcPath>
-              <foCustomization>src/main/resources/xsl/zh/fopdf.xsl</foCustomization>
+   	          <sourceDirectory>content/src/main/resources/docbook/zh</sourceDirectory>
+              <imgSrcPath>content/src/main/resources/docbook/zh/</imgSrcPath>
+              <foCustomization>content/src/main/resources/xsl/zh/fopdf.xsl</foCustomization>
               <postProcess>
                 <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_zh.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
@@ -89,7 +89,7 @@
             <configuration>
               <chunkedOutput>true</chunkedOutput>
               <useIdAsFilename>1</useIdAsFilename>
-              <htmlCustomization>src/main/resources/xsl/en/html_chunk.xsl</htmlCustomization>
+              <htmlCustomization>content/src/main/resources/xsl/en/html_chunk.xsl</htmlCustomization>
               <postProcess>
                 <copy todir="${project.build.directory}/site/reference">
                   <fileset dir="${project.build.directory}/docbkx/html"/>
@@ -128,10 +128,10 @@
               <goal>generate-html</goal>
             </goals>
             <configuration>
-   	          <sourceDirectory>${basedir}/src/main/resources/docbook/de</sourceDirectory>
+   	          <sourceDirectory>content/src/main/resources/docbook/de</sourceDirectory>
               <chunkedOutput>true</chunkedOutput>
               <useIdAsFilename>1</useIdAsFilename>
-              <htmlCustomization>src/main/resources/xsl/de/html_chunk.xsl</htmlCustomization>
+              <htmlCustomization>content/src/main/resources/xsl/de/html_chunk.xsl</htmlCustomization>
               <postProcess>
                 <copy todir="${project.build.directory}/site/reference_de">
                   <fileset dir="${project.build.directory}/docbkx/html"/>
@@ -155,10 +155,10 @@
               <goal>generate-html</goal>
             </goals>
             <configuration>
-   	          <sourceDirectory>${basedir}/src/main/resources/docbook/zh</sourceDirectory>
+   	          <sourceDirectory>content/src/main/resources/docbook/zh</sourceDirectory>
               <chunkedOutput>true</chunkedOutput>
               <useIdAsFilename>1</useIdAsFilename>
-              <htmlCustomization>src/main/resources/xsl/zh/html_chunk.xsl</htmlCustomization>
+              <htmlCustomization>content/src/main/resources/xsl/zh/html_chunk.xsl</htmlCustomization>
               <postProcess>
                 <copy todir="${project.build.directory}/site/reference_zh">
                   <fileset dir="${project.build.directory}/docbkx/html"/>
@@ -208,6 +208,13 @@
   <profiles>
     <profile>
         <id>publish</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/book/</url>
+        </site>
+        </distributionManagement>
         <properties>
            <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
         </properties>
@@ -218,6 +225,7 @@
       <artifactId>examples</artifactId>
       <groupId>${project.groupId}</groupId>
       <version>${project.version}</version>
+      <type>pom</type>
     </dependency>
   </dependencies>
 </project>
