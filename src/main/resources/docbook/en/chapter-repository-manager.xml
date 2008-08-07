@@ -236,33 +236,15 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
         </varlistentry>
 
         <varlistentry>
-          <term>Change the Anonymous Password and Email Address</term>
+          <term>Configure the SMTP Settings</term>
 
           <listitem>
-            <para>The anonymous password defaults to . After changing the
-            administrator password, go to the dialog shown in <xref
-            linkend="sect-repoman-server-conf" /> and change the anonymous
-            password.</para>
-
-            <!--What is the default anonymous password?-->
-
-            <!--Put in instructions for email address-->
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>Change the Deployment Password and Email Address</term>
-
-          <listitem>
-            <para>The default deployment user password is. You'll want to
-            change this to something secure. To change the deployment user
-            password, login as the deployment user and select "Change
-            Password" under the Security menu in the left-hand side of the
-            browser window.</para>
-
-            <!--What is the default deployment password?-->
-
-            <!--Put in instructions for email address-->
+            <para>Nexus can send username and password recovery emails, to
+            enable this feature, you will need to configure Nexus with a SMTP
+            Host and Port as well as any necessary authentication parameters
+            that Nexus needs to connect to a mail server. To configure the
+            SMTP settings, load the server configuration dialog shown in <xref
+            linkend="sect-repoman-server-conf" />.</para>
           </listitem>
         </varlistentry>
 
@@ -300,19 +282,6 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
             <para>It might take Nexus a few minutes to download the entire
             index, but once you have it, you'll be able to search the entire
             contents of the Maven repository.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>Configure the SMTP Settings</term>
-
-          <listitem>
-            <para>Nexus can send username and password recovery emails, to
-            enable this feature, you will need to configure Nexus with a SMTP
-            Host and Port as well as any necessary authentication parameters
-            that Nexus needs to connect to a mail server. To configure the
-            SMTP settings, load the server configuration dialog shown in <xref
-            linkend="sect-repoman-server-conf" />.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -2605,15 +2574,10 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     <section>
       <title>Configuring Deployment Security</title>
 
-      <para>Nexus ships with a deployment user that has a blank password.
-      Before you start deploying artifacts to your Nexus hosted repositories,
-      you will certainly want to change the deployment password. To change the
-      deployment password, load the dialog described in <xref
-      linkend="sect-repoman-server-conf" />, and change the deployment
-      password. For this chapter, we'll assume that you are changing the
-      deployment password to <varname>m@v3nfr33k</varname>. Change the
-      deployment password to <varname>m@v3nfr33k</varname>, and then add the
-      following server elements to your
+      <para>Nexus ships with a deployment user that has a default password of
+      <varname>deployment123</varname>. For this chapter, we'll assume that
+      you are using the default deployment password. To configure Maven to
+      deploy to Nexus, add the following server elements to your
       <filename>~/.m2/settings.xml</filename> file:</para>
 
       <programlisting>&lt;settings&gt;
@@ -2622,17 +2586,17 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     &lt;server&gt;
       &lt;id&gt;releases&lt;/id&gt;
       &lt;username&gt;deployment&lt;/username&gt;
-      &lt;password&gt;m@v3nfr33k&lt;/password&gt;
+      &lt;password&gt;deployment123&lt;/password&gt;
     &lt;/server&gt;  
     &lt;server&gt;
       &lt;id&gt;releases&lt;/id&gt;
       &lt;username&gt;deployment&lt;/username&gt;
-      &lt;password&gt;m@v3nfr33k&lt;/password&gt;
+      &lt;password&gt;deployment123&lt;/password&gt;
     &lt;/server&gt;  
     &lt;server&gt;
       &lt;id&gt;thirdparty&lt;/id&gt;
       &lt;username&gt;deployment&lt;/username&gt;
-      &lt;password&gt;m@v3nfr33k&lt;/password&gt;
+      &lt;password&gt;deployment123&lt;/password&gt;
     &lt;/server&gt; 
   &lt;/servers&gt;
   ...
