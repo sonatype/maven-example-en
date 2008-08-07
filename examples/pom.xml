@@ -1,12 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.sonatype.mavenbook</groupId>
-    <artifactId>book</artifactId>
-    <version>1-SNAPSHOT</version>
-  </parent>
   <artifactId>examples</artifactId>
+  <groupId>org.sonatype.mavenbook</groupId>
+  <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven: The Definitive Guide Example Code</name>
   <description>Example Code for Maven: The Definitive Guide</description>
@@ -77,4 +74,16 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <repositories>
+    <repository>
+      <id>sonatype-forge</id>
+      <name>Sonatype Forge</name>
+      <url>http://repository.sonatype.com/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
 </project>
