@@ -2,159 +2,78 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="repository-manager">
-  <title>Repository Manager</title>
+  <title>仓库管理器</title>
 
   <section>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>Repository managers serve two purposes: they act as highly
-    configurable proxies between your organization and the public Maven
-    repositories and they also provide an organization with a deployment
-    destination for your internally generated artifacts.</para>
+    <para>仓库管理器有两个服务目的：首先它的角色是一个高度可配置的介于你的组织与公开Maven仓库之间的代理，其次它为你的组织提供了一个部署你组织内部生成的构件的地方。</para>
 
-    <para>Proxying a Maven repository brings a number of benefits. For
-    starters, you are going to speed up builds throughout your organization by
-    installing a local cache for all artifacts from the Central Maven
-    repository. If a developer in your organization needs to download version
-    2.5 of the Spring Framework and you are using Nexus, the dependencies (and
-    the dependency's dependencies) only need to be downloaded from the remote
-    repository once. With a high-speed connection to the Internet this might
-    seem like a minor concern, but if you are constantly asking your
-    developers to download hundreds of megabytes of third-party dependencies,
-    the real cost savings are going to be the time it takes Maven to check for
-    new versions of dependencies and to download dependencies. Serving Maven
-    dependencies from a local repository can save you hundreds of requests
-    over HTTP, and, in very large multi-project builds, this can shave minutes
-    from a build.</para>
+    <para>代理Maven仓库有很多好处。对于一开始使用Maven的情况来说，通过为所有的来自中央Maven仓库的构件安装一个本地的缓存，你将加速组织内部的所有构建。如果有开发人员想要下载
+    Spring Framework 的2.5版本，并且你在使用Nexus，那些依赖（以及依赖的依赖）至需要从远程仓库下载一次。如果有一个高速的
+    Internet
+    网络连接，这看起来没什么大不了的，但是如果你一直要求你的开发人员去下载几百兆的第三方依赖，那么真正节省的时间将会是Maven检查依赖新版本以及下载依赖的时间。通过本地仓库提供Maven依赖服务可以节省数百的HTTP请求，在大型的多项目构建中，这样为一次构件节省几分钟的时间。</para>
 
-    <para>In addition to the simple savings in time and bandwidth, a
-    repository manager provides an organization with control over what is
-    downloaded by Maven. You can specifically include or exclude certain
-    artifacts from the public repository. Having control over what is
-    downloaded from the central Maven repository is often a prerequisite for
-    using Maven in most organizations which need to maintain very strict
-    control over what dependencies are used throughout the organization. An
-    organization which wants to standardize on a specific version of a
-    dependency like Hibernate or Spring can enforce this standardization by
-    only providing access to a specific version of an artifact in a repository
-    manager. Other organizations might be concerned with making sure that
-    every external dependency has a license compatible with the legal
-    standards of that organization. If a corporation is producing a
-    application which is distributed, they might want to make sure that no one
-    inadvertently adds a dependency on a third-party library which is covered
-    under the GPL license. Repository managers provide for the level of
-    control that an organization needs to make sure that overall architecture
-    and policy can be enforced.</para>
+    <para>除了简单的节省时间和贷款，仓库管理器为组织提供了一种控制Maven下载的机制。你可以详细的设置从公开仓库包含或排除特定的构件。能够控制从核心Maven仓库的下载对于很多组织来说是经常是一个必要前提，它们需要维护一个组织中使用依赖的严格控制。一个想要标准化某个如Hibernate或者Spring依赖版本的组织可以通过在仓库管理器中仅仅提供一个特殊版本的构件来加强这种标准。还有一些组织可能关心确保所有外部的依赖拥有和组织的法律规范相容的许可证。如果一个企业生产了一个分发应用程序，它们可能想要确定没有人不小心添加了一个涉及GPL许可证的依赖。仓库管理器为那些需要确信总体架构和政策实施的组织提供了这一层次的控制。</para>
 
-    <para>Aside from the benefits of mediating access to remote repositories,
-    a repository manager also provides something essential to full adoption of
-    Maven. Unless you expect every member of your organization to download and
-    build every single internal project, you will want to provide a mechanism
-    for developers and departments to share both SNAPSHOT and releases for
-    internal project artifacts. Nexus provides your organization with such a
-    deployment target. Once you install Nexus, you can start using Maven to
-    deploy snapshots and releases to a custom repository managed by
-    Nexus.</para>
+    <para>除了控制对远程仓库的访问以外，仓库管理器也为完全采用Maven提供了一些很至关重要的东西。除非你希望你组织的每一个成员下载并构建一个单独的内部项目，否则你会希望为开发人员和部门之间提供一种共享内部项目构件的快照版本和发布版本的机制。Nexus为你的组织提供了这样的部署目标。在你安装了Nexus之后，你可以开始使用Maven让它部署快照版和发布版至一个有Nexus管理的定制仓库。</para>
 
     <section>
-      <title>History of Nexus</title>
+      <title>Nexus历史</title>
 
-      <para>Tamas Cservenak stated working on Proximity in December 2005 as he
-      was trying to find a way to isolate his own systems from an incredibly
-      slow <acronym>ADSL</acronym> connection provided by a Hungarian
-      <acronym>ISP</acronym>. Proximity started as a simple web application to
-      proxy artifacts for a small organization with connectivity issues.
-      Creating a local on-demand cache for Maven artifacts from the central
-      Maven repository gave an organization access to the artifacts on the
-      Central Maven Repository, but it also made sure that these artifacts
-      weren't downloaded over a very slow <acronym>ADSL</acronym> connection
-      used by a number of developers. In 2007, Sonatype asked Tamas to help
-      create a similar product named Nexus. Nexus is currently considered the
-      logical next step to Proximity.</para>
+      <para>Tamas Cservenak 在2005年12月开始为Proximity工作，当时他正想办法将它自己的系统和由Hungarian
+      <acronym>ISP</acronym>提供的慢得难以置信的<acronym>ADSL</acronym>连接隔离开。Proximity以一个简单web应用的形式启动，用来为有网络连接问题的小型组织代理构件。为Maven构件创建一个对于中央核心仓库的本地的命令驱动的缓存，能让组织访问来自中央核心仓库的构件，而且它同时也能确保这些构件不会通过很慢的<acronym>ADSL</acronym>连接来下载，要知道很多开发人员在使用这个连接。在2007年，Sonatype请求Tamas帮助创建一个类似的名为Nexus的产品。Nexus目前可以被认为是Proximity逻辑上的下一个步伐。</para>
 
-      <para>Nexus currently has an active development team consisting of Tamas
-      Cservenak, Max Powers, Dmitry Platonoff and Brian Fox. Portions of the indexing code
-      from Nexus are also being used in m2eclipse which is being actively
-      developed by Eugene Kuleshov.</para>
+      <para>Nexus目前有一个活动的开发团队包括Tamas Cservenak，Max Powers，Dmitry Platonoff
+      和Brian Fox。Nexus的关于索引的部分代码也同时在m2eclipse中被使用，这些代码目前由Eugene
+      Kuleshov开发。</para>
     </section>
   </section>
 
   <section>
-    <title>Installing Nexus</title>
+    <title>安装Nexus</title>
 
     <section>
-      <title>Downloading Nexus from Sonatype</title>
+      <title>从Sonatype下载Nexus</title>
 
-      <para>You can find information about Nexus at <ulink
-      url="http://nexus.sonatype.org">http://nexus.sonatype.org</ulink>. To
-      download Nexus, go to <ulink
-      url="http://nexus.sonatype.org/downloads/">http://nexus.sonatype.org/downloads/</ulink>.
-      Click on the download link an download the appropriate archive for your
-      platform. Nexus is available as a <acronym>ZIP</acronym> and a Gzip'd
-      <acronym>TAR</acronym> file.</para>
+      <para>你可以从<ulink
+      url="http://nexus.sonatype.org">http://nexus.sonatype.org</ulink>找到关于Nexus的信息。要下载Nexus，访问<ulink
+      url="http://nexus.sonatype.org/downloads/">http://nexus.sonatype.org/downloads/</ulink>。点击下载链接，下载适用于你平台的存档文件。Nexus目前有<acronym>ZIP</acronym>和Gzip归档的<acronym>TAR</acronym>两种可用形式。</para>
     </section>
 
     <section>
-      <title>Installing Nexus</title>
+      <title>安装Nexus</title>
 
-      <para>Installing Nexus is straightforward, unpack the Nexus archive in a
-      directory. If you are installing Nexus on a local workstation to give it
-      a test run, you can install it in your home directory or whenever you
-      like; Nexus doesn't have any hard coded directories, it will run from
-      any directory. If you downloaded the <acronym>ZIP</acronym> archive,
-      run:</para>
+      <para>安装Nexus很简单，打开Nexus归档文件至一个目录。如果你正在本地工作站上安装Nexus，以测试它的运行，你可以将其安装至你的用户目录，或者随便什么你喜欢的地方；Nexus没有任何硬编码的目录，它能在任意目录运行。如果你下载了一个<acronym>ZIP</acronym>归档文件，运行：</para>
 
       <screen>$ <command>unzip nexus-1.0.0-beta-3-bundle.zip</command></screen>
 
-      <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
-      run:</para>
+      <para>如果你下载了GZip归档的<acronym>TAR</acronym>文件，运行：</para>
 
       <screen>$ <command>tar xvzf nexus-1.0.0-beta-3-bundle.tgz</command></screen>
 
-      <para>If you are installing Nexus on a server, you might want to use a
-      directory other than your home directory. On a Unix machine, this could
-      be under <filename>/usr/local/nexus-1.0.0-beta-3</filename> with a
-      symbolic link <filename>/usr/local/nexus</filename> to the nexus
-      directory. Using a generic symbolic link nexus to a specific version is
-      a common practice which makes it easier to upgrade when a newer version
-      of Nexus is made available.</para>
+      <para>如果你正在一个服务器上安装Nexus，你可能想要使用的目录不是你的用户目录。在Unix机器上，这可能是<filename>/usr/local/nexus-1.0.0-beta-3</filename>和一个指向Nexus目录的符号链接<filename>/usr/local/nexus</filename>。使用一个通用的符号链接来指向Nexus的某个特定版本是一个普遍的实践，它能让你更容易的将Nexus更新至更新的版本。</para>
 
       <screen>$ <command>sudo cp nexus-1.0.0-beta-3-bundle.tgz /usr/local</command>
 $ <command>cd /usr/local</command>
 $ <command>sudo tar xvzf nexus-1.0.0-beta-3-bundle.tgz</command>
 $ <command>ln -s nexus-1.0.0-beta-3 nexus</command></screen>
 
-      <para>Although it isn't required for Nexus to run, you may want to set
-      an environment variable <varname>NEXUS_HOME</varname> in your
-      environment which points to the installation directory of Nexus. This
-      chapter will refer to this location as
-      <varname>${NEXUS_HOME}</varname>.</para>
+      <para>虽然对于Nexus的运行来说这不是必要的，你可能想要设置一个环境变量<varname>NEXUS_HOME</varname>，指向Nexus的安装目录。本章通过<varname>${NEXUS_HOME}</varname>的形式来引用这个位置。</para>
     </section>
 
     <section>
-      <title>Running Nexus</title>
+      <title>运行Nexus</title>
 
-      <para>When you start Nexus, you are starting a web server on the default
-      port of <varname>localhost:8081</varname>. Nexus runs within a servlet
-      container called Jetty and it is started with a native service wrapper
-      called the <ulink
+      <para>当你启动Nexus，启动过了一个web服务器，它的默认地址是<varname>localhost:8081</varname>。Nexus在一个名为Jetty的servlet容器中运行，它使用一个名为<ulink
       url="http://wrapper.tanukisoftware.org/doc/english/introduction.html">Tanuki
-      Java Service Wrapper</ulink>. This service wrapper can be configured to
-      run Nexus as a Windows service or a Unix daemon. To start Nexus, you
-      will need to find the appropriate startup script for your platform. To
-      see the list of available platforms, list the contents of the
-      <filename>${NEXUS_HOME}/bin/jsw</filename> directory.</para>
+      Java Service
+      Wrapper</ulink>的本地服务包裹器启动。这个服务包裹器可以被配置成以Windows服务或Unix守护线程的形式运行Nexus。要启动Nexus，你需要为你的平台找到合适的启动脚本。要查看可用平台的列表，查看<filename>${NEXUS_HOME}/bin/jsw</filename>目录的内容。</para>
 
-      <para>The following example listing starts Nexus using the script for
-      Mac OSX. First we list the contents of the
-      <filename>${NEXUS_HOME}/bin/jsw</filename> to show you the available
-      platforms, then we make the contents of the bin directory executable
-      with <command>chmod</command>. The Mac OSX wrapper is started with a
-      call to <command>app start</command>, and then we tail the
-      <filename>wrapper.log</filename> in
-      <filename>${NEXUS_HOME}/container/logs</filename>. Nexus will initialize
-      itself and print a message that it is listening on
-      <varname>localhost:8081</varname>.</para>
+      <para>下面的例子展示了使用Mac
+      OSX的脚本启动Nexus。首先我们列出<filename>${NEXUS_HOME}/bin/jsw</filename>的内容以查看可用的平台，然后我们用<command>chmod</command>命令使这个bin目录的内容可执行。Mac
+      OSX包裹器通过调用<command>app
+      start</command>启动，然后我们tail在<filename>${NEXUS_HOME}/container/logs</filename>中的<filename>wrapper.log</filename>。Nexus会初始化自己然后打印出一条信息说明它正在监听<varname>localhost:8081</varname>。</para>
 
       <screen>$ <command>cd Nexus</command>
 $ <command>ls ./bin/jsw/</command>
@@ -169,23 +88,17 @@ $ <command>tail -f container/logs/wrapper.log</command>
 INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:8081
 </screen>
 
-      <para>At this point, Nexus will be running and listening on port 8081.
-      To use Nexus, fire up a web browser and type in the URL: <ulink
-      url="http://localhost:8081/nexus">http://localhost:8081/nexus</ulink>.
-      Click on the "Log In" link in the upper right-hand corner of the web
-      page, and you should see the following login dialog.</para>
+      <para>到目前为止，Nexus已经开始运行并监听端口8081。要使用Nexus，启动一个web浏览器然后舒服URL：<ulink
+      url="http://localhost:8081/nexus">http://localhost:8081/nexus</ulink>。点击web页面右上角的“Log
+      In”链接，你应该看到如下的登陆对话框。</para>
 
-      <para><emphasis>THE DEFAULT NEXUS USERNAME AND PASSWORD IS "admin" AND
-      "admin123".</emphasis></para>
+      <para><emphasis>默认的NEXUS用户名和密码是"admin" 和 "admin123"。</emphasis></para>
 
       <figure>
-        <title>Nexus Login Window (default login/password is
-        admin/admin123)</title>
+        <title>Nexus登陆窗口(默认 用户名/密码 是 admin/admin123)</title>
 
         <screenshot>
-          <screeninfo>This is the initial login screen for Nexus. The default
-          administrative login for Nexus is "admin", and the default password
-          for Nexus is "admin123"</screeninfo>
+          <screeninfo>这是Nexus的初始屏幕。默认的管理员登陆用户名是“admin”，默认的密码是“admin123”</screeninfo>
 
           <mediaobject>
             <imageobject>
@@ -196,103 +109,180 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
       </figure>
     </section>
 
-    <section>
-      <title>Startup Scripts for Redhat/Fedora/CentOS</title>
+    <section id="sect-repoman-post-install">
+      <title>Post-Install Checklist</title>
 
-      <para>You can configure Nexus to start automatically, by copying the
-      <filename>app</filename> script to the <filename>/etc/init.d</filename>
-      directory. On a Redhat-variant Linux system (Redhat, Fedora, or CentOS)
-      perform the following operations as the root user:</para>
+      <para>Nexus ships with some default passwords and settings for
+      repository indexing that need to be changed for your installation to be
+      useful (and secure). After installing and running Nexus, you need to
+      make sure that you complete the following tasks:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Change the Administrative Password and Email Address</term>
+
+          <listitem>
+            <para>The administrative password defaults to
+            <varname>admin123</varname>. The first thing you should do to your
+            new Nexus installation is change this password. To change the
+            administrative password login as "admin" with the password
+            "admin123", and click on Change Password under the Security menu
+            in the left-hand side of the browser window.</para>
+
+            <!--Put in instructions for email address-->
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Configure the SMTP Settings</term>
+
+          <listitem>
+            <para>Nexus can send username and password recovery emails, to
+            enable this feature, you will need to configure Nexus with a SMTP
+            Host and Port as well as any necessary authentication parameters
+            that Nexus needs to connect to a mail server. To configure the
+            SMTP settings, load the server configuration dialog shown in <xref
+            linkend="sect-repoman-server-conf" />.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Enable Remote Index Downloads</term>
+
+          <listitem>
+            <para>Nexus ships with three important proxy repositories for the
+            Central Maven Repository, Apache Snapshot Repository, and the
+            Codehaus Snapshot Repository. Each of these repositories contains
+            thousands (or tens of thousands) of artifacts and it would be
+            impractical to download the entire contents of each. To that end,
+            most repositories maintain a Lucene index which catalogs the
+            entire contents and provides for fast and efficient searching.
+            Nexus uses these remote indexes to search for artifacts, but we've
+            disabled the index download as a default setting. To download
+            remote indexes,</para>
+
+            <orderedlist>
+              <listitem>
+                <para>Click on Repositories under the Administration menu and
+                change Download Remote Indexes to true for the three proxy
+                repositories. You'll need to load the dialog shown in <xref
+                linkend="sect-manage-repo" /> for each of the three
+                repositories.</para>
+              </listitem>
+
+              <listitem>
+                <para>Right-click on each proxy repository and select
+                Re-index. This will trigger Nexus to download the remote index
+                files.</para>
+              </listitem>
+            </orderedlist>
+
+            <para>It might take Nexus a few minutes to download the entire
+            index, but once you have it, you'll be able to search the entire
+            contents of the Maven repository.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <note>
+        <para>Sonatype wanted to make sure that we were not creating a product
+        that would cause massive congestion on the Central repository by
+        default. While most users will want to enable remote index downloads,
+        we didn't want to make it the default setting and thereby manufacture
+        our very own denial-of-service attack when millions of developers
+        download a new release of Nexus and proceed to repeatedly download the
+        21 MB Central index. If you want Nexus to return full search results,
+        you are going to have to enable remote index downloads
+        explicitly.</para>
+      </note>
+    </section>
+
+    <section>
+      <title>为Redhat/Fedora/CentOS设置启动脚本</title>
+
+      <para>你可以将Nexus配置成自动启动，通过将<filename>app</filename>脚本拷贝到<filename>/etc/init.d</filename>目录。在一个Redhat变种的Linux系统上（Redhat,
+      Fedora, or CentOS），以root用户执行下列操作：</para>
 
       <orderedlist>
         <listitem>
-          <para>Copy either
-          <filename>${NEXUS_HOME}/bin/jsw/linux-ppc-64/app</filename>,
-          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-32/app</filename>, or
-          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-64/app</filename> to
-          <filename>/etc/init.d/nexus</filename>.</para>
+          <para>复制<filename>${NEXUS_HOME}/bin/jsw/linux-ppc-64/app</filename>，或<filename>${NEXUS_HOME}/bin/jsw/linux-x86-32/app</filename>，或<filename>${NEXUS_HOME}/bin/jsw/linux-x86-64/app</filename>至<filename>/etc/init.d/nexus</filename>。</para>
         </listitem>
 
         <listitem>
+          <para>使<filename>/etc/init.d/nexus</filename>脚本可运行 —— <command>chmod
+          755 /etc/init.d/nexus</command>。</para>
+
           <para>Make the <filename>/etc/init.d/nexus</filename> script
-          executable - <command>chmod 755 /etc/init.d/nexus</command></para>
+          卡executable - <command>chmod 755 /etc/init.d/nexus</command></para>
         </listitem>
 
         <listitem>
-          <para>Edit this script changing the following variables:</para>
+          <para>编辑该脚本，更改下列变量。</para>
 
           <itemizedlist>
             <listitem>
-              <para>Change <varname>APP_NAME</varname> to "nexus"</para>
+              <para>更改 <varname>APP_NAME</varname> 为 "nexus"</para>
             </listitem>
 
             <listitem>
-              <para>Change <varname>APP_LONG_NAME</varname> to "Sonatype
+              <para>更改 <varname>APP_LONG_NAME</varname> 为 "Sonatype
               Nexus"</para>
             </listitem>
 
             <listitem>
-              <para>Add a variable <varname>NEXUS_HOME</varname> which points
-              to your Nexus installation directory</para>
+              <para>添加一个变量 <varname>NEXUS_HOME</varname> 指向你的 Nexus
+              安装目录</para>
             </listitem>
 
             <listitem>
-              <para>Add a variable <varname>PLATFORM</varname> which contains
-              either <varname>linux-x86-32</varname>,
-              <varname>linux-x86-64</varname>, or
+              <para>添加一个变量 <varname>PLATFORM</varname> 内容包含
+              <varname>linux-x86-32</varname>，
+              <varname>linux-x86-64</varname>， 或
               <varname>linux-ppc-64</varname></para>
             </listitem>
 
             <listitem>
-              <para>Change <varname>WRAPPER_CMD</varname> to
+              <para>更改 <varname>WRAPPER_CMD</varname> 为
               <filename>${NEXUS_HOME}/bin/jsw/${PLATFORM}/wrapper</filename></para>
             </listitem>
 
             <listitem>
-              <para>Change <varname>WRAPPER_CONF</varname> to
+              <para>更改 <varname>WRAPPER_CONF</varname> 为
               <filename>${NEXUS_HOME}/conf/wrapper.conf</filename></para>
             </listitem>
 
             <listitem>
-              <para>Change <varname>PIDDIR</varname> to
+              <para>更改 <varname>PIDDIR</varname> 为
               <filename>/var/run</filename>.</para>
             </listitem>
 
             <listitem>
-              <para>Add a <varname>JAVA_HOME</varname> variable which points
-              to your local Java installation</para>
+              <para>添加一个 <varname>JAVA_HOME</varname> 变量指向你的本地 Java 安装</para>
             </listitem>
 
             <listitem>
-              <para>Add a <filename>${JAVA_HOME}/bin</filename> to the
+              <para>添加 <filename>${JAVA_HOME}/bin</filename> 至
               <varname>PATH</varname></para>
             </listitem>
           </itemizedlist>
         </listitem>
 
         <listitem>
-          <para>(Optional) Set the RUN_AS_USER to "nexus". If you do this, you
-          will need to:</para>
+          <para>(可选) 设置 RUN_AS_USER 为 "nexus". 如果你这么做，你需要：</para>
 
           <itemizedlist>
             <listitem>
-              <para>Create a nexus user</para>
+              <para>创建一个 nexus 用户</para>
             </listitem>
 
             <listitem>
-              <para>Change the Owner and Group of your nexus install directory
-              to nexus</para>
+              <para>更改你的 nexus 安装目录的 Owner 和 Group 为 nexus</para>
             </listitem>
           </itemizedlist>
         </listitem>
       </orderedlist>
 
-      <para>At the end of this you should have a file in
-      <filename>/etc/init.d/nexus</filename> which starts with a series of
-      configuration properties which look something like this (assuming that
-      you've installed Nexus in <filename>/usr/local/nexus</filename> and that
-      you have Java installed in
-      <filename>/usr/java/latest</filename>):</para>
+      <para>最后你应该有一个文件<filename>/etc/init.d/nexus</filename>，它拥有如下的一些列配置属性（假设你在<filename>/usr/local/nexus</filename>安装Nexus，你在<filename>/usr/java/latest</filename>安装了Java）：</para>
 
       <programlisting>JAVA_HOME=/usr/java/latest
 PATH=${PATH}:${JAVA_HOME}/bin
@@ -307,9 +297,7 @@ PIDDIR="/var/run"
 #RUN_AS_USER=nexus
 </programlisting>
 
-      <para>This script has the appropriate <command>chkconfig</command>
-      directives, so all you need to do to add Nexus as a service is run the
-      following commands:</para>
+      <para>这个脚本有一个适当的<command>chkconfig</command>指令，因此要添加Nexus为一个服务，你要做的是运行如下的命令：</para>
 
       <screen>$ <command>cd /etc/init.d</command>
 $ <command>chkconfig --add nexus</command>
@@ -318,109 +306,349 @@ $ <command>service nexus start</command>
 Starting Sonatype Nexus...
 $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command></screen>
 
-      <para>The second command adds nexus as a service to be started and
-      stopped with the <command>service</command> command and managed by
-      <command>chkconfig</command> command. <command>chkconfig</command>
-      manages the symbolic links in <filename>/etc/rc[0-6].d</filename> which
-      control the services which are started and stopped when the operating
-      system restarts or transitions between run-levels. The third command
-      adds nexus to run-levels 3, 4, and 5. The service command starts Nexus,
-      and the last command tails the <filename>wrapper.log</filename> to
-      verify that Nexus has been started successfully. If Nexus has started
-      successfully you should see a message notifying you that Nexus is
-      listening for <acronym>HTTP</acronym> connections on a port.</para>
+      <para>第二个命令添加nexus为一个服务，可以由<command>service</command>命令启动和停止，可以有<command>chkconfig</command>命令管理。<command>chkconfig</command>管理<filename>/etc/rc[0-6].d</filename>中的符号链接，当操作系统重启或者在运行级别中转换时，它们控制服务的启动和停止。第三个命令添加nexus至运行级别3，4，和5
+      。service命令启动Nexus，最后的命令追踪<filename>wrapper.log</filename>以验证Nexus成功启动。如果Nexus成功启动了你应该看到一个信息告诉你Nexus正在端口8001监听<acronym>HTTP</acronym>连接。</para>
     </section>
 
     <section>
-      <title>Upgrading from a Previous Version</title>
+      <title>升级Nexus版本</title>
 
-      <para>Upgrading from a previously installed version of Nexus is
-      relatively easy. There are two archives available for download for each
-      Nexus release. The full archive contains the Nexus application, the
-      Nexus startup scripts, and a work area to hold Nexus data which may
-      include repository indexes and the local caches for each repository. If
-      you've made heavy use of Nexus, this work directory could contain
-      gigabytes of artifacts and hosted repositories that you wouldn't want to
-      have to recreate every time you upgraded to a newer version of Nexus.
-      The upgrade download was created to provide people with an easy way to
-      upgrade just the application while preserving the Nexus data; the
-      upgrade download contains just the Nexus application code. You download
-      the complete Nexus distribution the first time you install Nexus, and
-      you download the upgrade distribution whenever you want to upgrade your
-      Nexus installation while preserving your repository data.</para>
+      <para>升级一个已安装的Nexus版本十分容易。每个Nexus版本有两个可用的归档文件可下载。完整的归档文件包含Nexus应用程序，Nexus启动脚本，以及用来保存仓库索引和远程仓库本地缓存的工作目录。如果你用Nexus用得很厉害，这个工作目录会包含数G的构件，你不会希望在每次升级Nexus的时候必须重新创建这个仓库。升级下载文件被创建成给用户提供一个方便的形式升级Nexus，它会保存Nexus数据；升级下载文件只包含Nexus应用程序代码。第一次你安装Nexus的时候，你下载完全的Nexus分发包，当你想要安装你的Nexus安装，同时保留你的仓库数据的时候，你只要下载升级分发包。</para>
 
-      <para>To upgrade Nexus download the "upgrade" archive instead of the
-      "bundle" archive. The contents of the upgrade bundle are stored in a
-      folder which contains the nexus version number (i.e.
-      <filename>nexus-1.0.0-beta-3</filename>). This folder may be unpacked to
-      <filename>$NEXUS_HOME/runtime/apps</filename> without overriding the
-      currently installed version's contents.</para>
+      <para>要升级Nexus，只要下载“upgrade”分发包，而非“bundle”分发包。升级分发包的内容存储在一个包含nexus版本号（如<filename>nexus-1.0.0-beta-3</filename>）的文件夹中。这个文件夹可以解开至<filename>$NEXUS_HOME/runtime/apps</filename>，不用覆盖当前安装版本的内容。</para>
 
       <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
 $ <command>unzip nexus-1.0.0-beta-3-upgrade.zip</command></screen>
 
-      <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
-      run:</para>
+      <para>如果你下载了GZip归档的<acronym>TAR</acronym>文件，运行：</para>
 
       <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
 $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
 
-      <para>Once the contents of the upgrade archive have been unpacked to
-      <filename>$NEXUS_HOME/runtime/apps</filename>, you must then copy the
-      configuration from the previous version of Nexus to the newly installed
-      version. To do this, copy <filename>nexus.xml</filename> from
-      <filename>$NEXUS_HOME/runtime/apps/nexus/conf/nexus.xml</filename> to
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-3/conf</filename>.
-      You should also copy any of the logging configuration files which you
-      have customized including <filename>log4j.properties</filename> and
-      <filename>jul-logging.properties</filename>. Once you have copied the
-      configuration from your current version of Nexus to the new version of
-      Nexus, stop the Nexus server.</para>
+      <para>当升级归档文件解压至<filename>$NEXUS_HOME/runtime/apps</filename>后，你必须从之前的Nexus版本复制配置文件至新安装的版本。从<filename>$NEXUS_HOME/runtime/apps/nexus/conf/nexus.xml</filename>复制<filename>nexus.xml</filename>至<filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-3/conf</filename>。你应该也复制所有你自定义的日志配置文件<filename>log4j.properties</filename>和<filename>jul-logging.properties</filename>。在你从当前的Nexus版本复制了配置文件至新版本的Nexus后，停止Nexus服务器。</para>
 
-      <para>At this point, you will need to rename the
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> directory to a name
-      that reflects the old version number. For example, in this example
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> would become
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-3</filename>. Then
-      you will need to expose the new version as
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. On a Unix system,
-      you should create a symbolic link
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> which points to
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-2</filename>. On a
-      Windows system, you may need to copy
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-2</filename> to
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. Once you have
-      swapped the old version of Nexus with the new version of Nexus, you
-      should be able to start Nexus with the startup script. Once Nexus has
-      started, check the <filename>$NEXUS_HOME/logs/wrapper.log</filename>.
-      When Nexus is initialized it will print out the Nexus version
-      number.</para>
+      <para>现在，你需要重命名<filename>$NEXUS_HOME/runtime/apps/nexus</filename>目录为一个反映它旧版本号的名称。比如，在这个例子中<filename>$NEXUS_HOME/runtime/apps/nexus</filename>将成为<filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-3</filename>。然后，将你新版本改为<filename>$NEXUS_HOME/runtime/apps/nexus</filename>。在Unix系统上，你需要创建一个符号链接<filename>$NEXUS_HOME/runtime/apps/nexus</filename>指向<filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-2</filename>。在Windows系统上，你可能需要复制<filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-2</filename>至<filename>$NEXUS_HOME/runtime/apps/nexus</filename>。在你用新版本的Nexus交换了旧版本的Nexus后，你应该能使用启动脚本启动Nexus。Nexus启动之后，检查<filename>$NEXUS_HOME/logs/wrapper.log</filename>。Nexus初始化之后，它会打印出Nexus版本号。</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Using Nexus</title>
+
+    <para>Nexus provides for anonymous access for users who only need to
+    search repositories, browse repositories, and peruse the system feeds.
+    This anonymous access level changes the navigation menu and some of the
+    options available when you right-click on a repository. This read-only
+    access displays a user interface shown in <xref
+    linkend="fig-repoman-anonymous-interface" />.</para>
+
+    <figure id="fig-repoman-anonymous-interface">
+      <title>Nexus Interface for Anonymous Users</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figs/web/repository-manager_public-interface.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <section>
+      <title>Browsing Repositories</title>
+
+      <para>One of the most straight-forward uses of the Nexus is to browse
+      the structure of a Maven repository. If you click on the Browse
+      Repositories menu item in the Views menu, you should see the following
+      display. The top-half of <xref linkend="fig-nexus-browse-repo" /> shows
+      you a list of groups and repositories along with the type of the
+      repository and the repository status.</para>
+
+      <figure id="fig-nexus-browse-repo">
+        <title>Browsing a Nexus Repository</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_browse-repositories.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>When you are browsing a repository, you can right click on any
+      file and download it directly to your browser. This allows you to
+      retrieve specific artifacts manually, or examine a
+      <acronym>POM</acronym> file in the browser.</para>
+    </section>
+
+    <section>
+      <title>Browsing Groups</title>
+
+      <para>Nexus contains ordered groups of repositories which allow you to
+      expose a series of repositories through a single <acronym>URL</acronym>.
+      More often than not, an organization is going to point Maven at the two
+      default Nexus groups: Public Repositories and Public Snapshot
+      Repositories. Most end-users of Nexus are not going to know what
+      artifacts are being served from what specific repository, and they are
+      going to want to be able to browse the Public Repository. To support
+      this use case, Maven allows you to browse the contents of a Nexus Group
+      as if it were a single merged repository with a tree structure. <xref
+      linkend="fig-nexus-browse-group" /> shows the browsing interface with a
+      Nexus Group selected for browsing. There is no difference to the user
+      experience of browsing a Nexus Group vs. browsing a Nexus
+      Repository.</para>
+
+      <figure id="fig-nexus-browse-group">
+        <title>Browsing a Nexus Group</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_browse-group.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Searching for Artifacts</title>
+
+      <para>In the left-hand navigation area, there is a Artifact Search text
+      field next to a magnifying glass. To search for an artifact by groupId
+      or artifactId, type in some text and click the magnifying glass. Typing
+      in the the search term "maven" and clicking the magnifying glass should
+      yield a search result similar to <xref
+      linkend="fig-nexus-search" />.</para>
+
+      <figure id="fig-nexus-search">
+        <title>Results of an Artifact Search for "maven"</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_artifact-search.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Once you've located the artifact you were looking for you can
+      click on the Download link to download the artifact. Nexus is going to
+      show you 50 results at a time, and provide links on the bottom of the
+      search result panel for you to navigate through the search results. If
+      you would prefer to see a list of all of the matching artifacts, you can
+      select Fetch All from the drop down at the bottom of the search result
+      panel.</para>
+
+      <para>In addition to searching by a groupId or an artifactId, Nexus has
+      a feature which allows you to search for an artifact by a
+      checksum.</para>
+
+      <warning>
+        <para>Let me guess? You installed Nexus, ran to the search box, typed
+        in the name of a group or an artifact, pressed search, and saw
+        absolutely nothing. No results. Nexus isn't going to retrieve the
+        remote repository indexes by default, you need to activate downloading
+        of remote indexes for the three proxy repositories that Nexus ships
+        with. Without these indexes, Nexus has nothing to search. Find
+        instructions for activating index downloads in <xref
+        linkend="sect-repoman-post-install" />.</para>
+      </warning>
+    </section>
+
+    <section>
+      <title>Browsing System Feeds</title>
+
+      <para>Nexus provides feeds that capture system events, you can browse
+      these feeds by clicking on System Feeds under the View menu. Clicking on
+      System Feeds will show the panel in <xref
+      linkend="fig-repoman-system-feeds" />. You can use these simple
+      interface to browse the most recent reports of artifact deployments,
+      cached artifacts, broken artifacts, and storage changes that have
+      occurred in Nexus.</para>
+
+      <figure id="fig-repoman-system-feeds">
+        <title>Browsing Nexus System Feeds</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_system-feed.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>These feeds can come in handy if you are working at a large
+      organization with multiple development teams deploying to the same
+      instance of Nexus. If such an arrangement, all developers in an
+      organization can subscribe to the <acronym>RSS</acronym> feeds for New
+      Deployed Artifacts as a way to ensure that everyone is aware when a new
+      release has been pushed to Nexus. Exposing these system events as
+      <acronym>RSS</acronym> feeds also opens to the door to other, more
+      creative uses of this information, such as connecting Nexus to external
+      automated testing systems. To access the <acronym>RSS</acronym> feeds
+      for a specific feed, select the feed in the System Feeds view panel and
+      then click on the Subscribe button. Nexus will then load the
+      <acronym>RSS</acronym> feed in your browse and you can subscribe to the
+      feed in your favorite <acronym>RSS</acronym> reader.</para>
+
+      <para>There are six system feeds available in the System Feeds view, and
+      each has a <acronym>URL</acronym> which resembles the following
+      <acronym>URL</acronym>:</para>
+
+      <screen>http://localhost:8081/nexus/service/local/feeds/recentChanges</screen>
+
+      <para>Where <varname>recentChanges</varname> would be replaced with the
+      identifier of the feed you were attempting to read. Available system
+      feeds include:</para>
+
+      <table>
+        <title>Available System Feeds</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Feed Identifier</entry>
+
+              <entry>Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><varname>brokenArtifacts</varname></entry>
+
+              <entry>Checksum mismatch, missing checksums, invalid
+              POMs</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentCacheOrDeployments</varname></entry>
+
+              <entry>New artifacts in all repositories (cached or
+              deployed)</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentlyCached</varname></entry>
+
+              <entry>New cached artifacts in all repositories</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentlyDeployed</varname></entry>
+
+              <entry>New deployed artifacts in all repositories</entry>
+            </row>
+
+            <row>
+              <entry><varname>recentChanges</varname></entry>
+
+              <entry>All caches, deployments, or deletions</entry>
+            </row>
+
+            <row>
+              <entry><varname>systemRepositoryStatusChanges</varname></entry>
+
+              <entry>Automatic or User-initiated status changes
+              (out-of-service and blocked proxies)</entry>
+            </row>
+
+            <row>
+              <entry><varname>systemChanges</varname></entry>
+
+              <entry>Booting nexus, changing configuration, re-indexing, and
+              rebuilding of attributes</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+
+    <section>
+      <title>Browsing Log Files and Configuration</title>
+
+      <para>Logs and Config Files is only visible to Administrative users
+      under the Views menu. Click on this option brings up the dialog shown in
+      <xref linkend="fig-nexus-logs" />. From this screen you can view the
+      following log and configuration files by clicking on the drop down
+      selection next to the Download button.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term><filename>nexus.log</filename></term>
+
+          <listitem>
+            <para>Think of this as the general application log for Nexus.
+            Unless you are an administrative user, you might not have must
+            interest in the information in this log. If you are trying to
+            debug an error, or if you have uncovered a bug in Nexus, you'll
+            use this log viewer to diagnose problems with Nexus.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><filename>nexus-rest-0.log</filename></term>
+
+          <listitem>
+            <para>The core Nexus server is really just a bunch of
+            <acronym>REST</acronym> services, and the <acronym>UI</acronym>
+            that you are using simply interacts with these
+            <acronym>REST</acronym> services to configure and view Nexus
+            Groups and Repositories. This log file is going to reflect
+            activity generated by the Nexus <acronym>UI</acronym> interacting
+            with the Nexus <acronym>REST</acronym> services.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><filename>nexus.xml</filename></term>
+
+          <listitem>
+            <para>This XML file contains most of the configuration data for
+            your instance of Nexus. It is stored in
+            <filename>${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <figure id="fig-nexus-logs">
+        <title>Browsing Nexus Logs and Configuration</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_log-file.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Changing Your Password</title>
+
+      <para>If you have the appropriate security privilege, you will see an
+      option to change your password in the left-hand side of the browser. To
+      change your password, click on change password, supply your current
+      password, and choose a new password. When you click on Change Password,
+      your Nexus password will be changed.</para>
+
+      <figure>
+        <title>Changing Your Nexus Password</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/repository-manager_change-password.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
     </section>
   </section>
 
   <section id="sect-conf-maven-nexus">
-    <title>Configuring Maven to Use Nexus</title>
+    <title>配置Maven使用Nexus</title>
 
-    <para>To use Nexus, you will configure Maven to check Nexus instead of the
-    public repositories. To do this, you'll need to edit your mirror settings
-    in your <filename>~/.m2/settings.xml</filename> file. First, we're going
-    to demonstrate how to configure Maven to consult your Nexus installation
-    instead of retrieving artifacts directly from the Central Maven
-    repository. After we override the central repository and demonstrate that
-    Nexus is working, we'll circle back to provide a more sensible set of
-    settings that will cover both releases and snapshots.</para>
+    <para>要使用，你需要配置Maven去检查Nexus而非公共的仓库。为此，你需要编辑在你的<filename>~/.m2/settings.xml</filename>文件中的mirror配置。首先，我们会演示如何配置Maven去检查你的Nexus安装而非直接从中央Maven仓库获取构件。在我们覆盖了中央仓库并演示了Nexus可以工作之后，我们会转回来，提供一个更实际的，包含发布版和快照版的配置集合。</para>
 
     <section id="sect-simple-maven-nexus">
-      <title>Using the Nexus Central Proxy Repository</title>
+      <title>使用Nexus中央代理仓库</title>
 
-      <para>To configure Maven to consult Nexus instead of the Central Maven
-      repository, add the mirror settings from <xref
-      linkend="ex-override-central" /> to your
-      <filename>~/.m2/settings.xml</filename> file.</para>
+      <para>要配置Maven去查阅Nexus而非中央Maven仓库，在你的<filename>~/.m2/settings.xml</filename>文件中添加如<xref
+      linkend="ex-override-central" />的mirror配置。</para>
 
       <example id="ex-override-central">
-        <title>Configuring Maven Settings for Nexus
-        (~/.m2/settings.xml)</title>
+        <title>为Nexus配置Maven Settings (~/.m2/settings.xml)</title>
 
         <programlisting language="xml">&lt;?xml version="1.0"?&gt;
 &lt;settings&gt;
@@ -438,19 +666,10 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
 </programlisting>
       </example>
 
-      <para>Once you've configured Nexus to be the mirror for all
-      repositories, Maven will now consult the local installation of Nexus
-      instead of going out to the central Maven repository. If Nexus has the
-      artifact requested, the artifact will be served from the local Nexus
-      installation. If Nexus does not have the artifact, Nexus will retrieve
-      it from the remote repository and then add it to the local mirror of
-      that remote repository.</para>
+      <para>在你将Nexus配置成所有仓库的镜像之后，Maven现在会从本地的Nexus安装查阅，而非去外面查阅中央Maven仓库。如果对Nexus有一个构件请求，本地的Nexus安装会提供这个构件。如果Nexus没有这个构件，Nexus会从远程仓库获取这个构件，然后添加至远程仓库的本地镜像。</para>
 
-      <para>To test how Nexus is working, try deleting a directory from your
-      local Maven repository, and then running a Maven build. If you delete
-      <filename>~/.m2/repository/org</filename>, you'll be deleting a large
-      number of dependencies (including Maven plugins). The next time you run
-      Maven, you should see the following:</para>
+      <para>要测试Nexus如何工作的，从你的本地Maven仓库中删除一个目录，然后运行Maven构建。如果你删除了<filename>~/.m2/repository/org</filename>，你会删除一大堆的依赖（包括Maven
+      插件）。下次你运行Maven的时候，你应该看到如下的信息：</para>
 
       <screen>$ <command>mvn clean install</command>
 ...
@@ -458,18 +677,10 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
 3K downloaded
 </screen>
 
-      <para>This output should convince you that Maven is communicating with
-      your local installation of Nexus instead of going out to the Central
-      Maven repository to retrieve an artifact. After you've run a few builds
-      against your local Nexus installation, you can then start to browse the
-      contents cached in your local instance of Maven. After you run a build
-      against Nexus, log into Nexus and click on Artifact Search in the
-      left-hand navigation menu. Type the search term "maven" into the Search
-      box, and you should see something similar to the following
-      screenshot.</para>
+      <para>这个输出应该能让你相信Maven正和你本地的Nexus通讯，而非向外面的中央Maven仓库获取构件。在你基于本地的Nexus运行过一些构建之后，你就可以浏览缓存在你本地Nexus中的内容。登陆Nexus然后点击导航菜单的左边的构件搜索。在搜索框中输入"maven"，你应该能看到一些像下面的内容。</para>
 
       <figure>
-        <title>Results of an Artifact Search for "maven"</title>
+        <title>用"maven"搜索构件的结果</title>
 
         <screenshot>
           <mediaobject>
@@ -482,20 +693,13 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
     </section>
 
     <section>
-      <title>Using Nexus for Snapshot Repositories</title>
+      <title>使用Nexus作为快照仓库</title>
 
-      <para>The Maven Settings from <xref linkend="sect-simple-maven-nexus" />
-      will allow you to use the Nexus public group which resolves artifacts
-      from four repositories managed by Nexus, but it won't allow you to
-      reference the <varname>public-snapshots</varname> group which includes
-      the Apache and Codehaus snapshots. To configure Maven to use Nexus for
-      both releases and plugins, you will have to configure Maven to reference
-      the Nexus groups by adding the following mirror configuration to your
-      Maven settings in <filename>~/.m2/settings.xml</filename>.</para>
+      <para><xref
+      linkend="sect-simple-maven-nexus" />中的Maven配置能让你使用Nexus公共组，这个组从4个由Nexus管理的仓库解析构件，但是它不让你查阅<varname>public-snapshots</varname>组，该组包括了Apache和Codehaus的快照版。要配置Maven让它为发布版和插件都使用Nexus，你必须配置Maven，通过往你的Maven文件<filename>~/.m2/settings.xml</filename>中添加如下的镜像配置，使其查阅Nexus的组。</para>
 
       <example id="ex-maven-nexus-snap">
-        <title>Configuring Maven to Use Nexus for Releases and
-        Snapshots</title>
+        <title>配置Maven使其为发布版和快照版使用Nexus</title>
 
         <programlisting language="xml">&lt;settings&gt;
   &lt;mirrors&gt;
@@ -559,60 +763,33 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
   &lt;/activeProfiles&gt;
 &lt;/settings&gt;</programlisting>
 
-        <para>In <xref linkend="ex-maven-nexus-snap" /> we have defined two
-        profiles: <varname>development</varname> and
-        <varname>public-snapshots</varname>. The development profile is
-        configured to download from the central repository with a bogus
-        <acronym>URL</acronym> of <varname>http://central</varname>. The
-        public-snapshots profile is configured to download from the
-        public-snapshots repository with a bogus URL of
-        <varname>http://public-snapshots</varname>. These bogus
-        <acronym>URL</acronym>s are overridden by two mirror settings in the
-        same <filename>settings.xml</filename> file. The first mirror is
-        configured to override the public-snapshots repository to the
-        <varname>public-snapshots</varname> Nexus group. The second mirror
-        overrides all other repositories to the public Nexus group. With these
-        settings, all builds will include the <varname>public</varname> Nexus
-        group, if you want to include the <varname>public-snapshots</varname>
-        group, you would have to add the profile public-snapshots by using the
-        -P flag on the command line as follows:</para>
+        <para>在<xref
+        linkend="ex-maven-nexus-snap" />中我们定义了两个profile：<varname>development</varname>和<varname>public-snapshots</varname>。<varname>development</varname>
+        profile被配置成从central仓库下载构件，通过一个假的<acronym>URL</acronym>
+        <varname>http://central</varname>。<varname>public-snapshots</varname>被配置成从public-snapshot仓库下载构件，通过一个假的<acronym>URL</acronym>
+        <varname>http://public-snapshots</varname>。这些假的<acronym>URL</acronym>被同一<filename>settings.xml</filename>文件中的两个mirror配置重写。第一个镜像被配置成覆盖public-snapshots仓库，而使用<varname>public-snapshots</varname>
+        Nexus组。第二个镜像覆盖所有其它的仓库，而使用<varname>public</varname>
+        Nexus组。有了这些配置，所有的构建都会包含<varname>public</varname>
+        Nexus组，如果你想包含<varname>public-snapshots</varname>组，你必须添加profile的public-snapshots，通过在命令行使用如下的
+        -P 标志。</para>
 
         <screen>$ mvn -Ppublic-snapshots clean install</screen>
       </example>
     </section>
 
     <section>
-      <title>Adding Repositories for Missing Dependencies</title>
+      <title>为缺少的依赖添加仓库</title>
 
-      <para>If you've configured your Maven <filename>settings.xml</filename>
-      to list Nexus as a mirror for all public repositories and all
-      public-snapshot repository, you might encounter projects which are
-      unable to retrieve artifacts from your local Nexus installation. This
-      usually happens because you are trying to build a project which has
-      defined a custom set of <varname>repositories</varname> and
-      <varname>snapshotRepositories</varname> in a
-      <filename>pom.xml</filename>. This is definitely going to happen if you
-      are building open source projects or if you've added custom third-party
-      Maven repositories to your configuration.</para>
+      <para>如果你已经将你的Maven
+      <filename>settings.xml</filename>配置成使用Nexus作为所有公共仓库和所有公共快照仓库的镜像，你可能会遇到一些项目不能够从你的本地Nexus获取需要的构件。这很常见，因为你经常会构建一些在<filename>pom.xml</filename>中自定义一组<varname>repositories</varname>和<varname>snapshotRepositories</varname>的项目。如果你正在构建开源项目，或者往你的配置中添加了自定义的第三方Maven仓库，那么这种情况就会发生。</para>
 
-      <para>As an example, let's try to build Apache Shindig from source we've
-      checked out of the Apache Incubator. What is Apache Shindig? It doesn't
-      matter to this example; all we need is an example project we can easily
-      checkout from source control and build. If you really want to know,
-      Shindig is a project in the Apache Incubator that revolves around the
-      OpenSocial API from Google. Shindig aims to provide a container that
-      will allow people to execute OpenSocial gadgets. It provides us with an
-      interesting example project, because it depends on some custom Maven
-      repositories for components which have yet to be added to the Central
-      Maven repository. Using Shindig we can show you what happens when Nexus
-      doesn't have your artifacts and what steps you can take to add
-      repositories to Nexus.</para>
+      <para>作为一个例子，让我们试试从我们签出的源代码构件Apache Shindig。什么是Apache
+      Shindig?对该例来说这不重要；我们需要的是一个能很容易签出和构建的样例项目。如果你实在很想知道，Shindig是在Apache
+      Incubator中的一个围绕Google的OpenSocial
+      API的项目。Shindig目标是提供一个允许人们运行OpenSocial小工具的容器。它给我们提供了一个有趣的样例工程，因为它有一些没有被加入到中央Maven仓库的组建，于是依赖于一些自定义的Mavne仓库，使用Shindig我们可以向你展示当Nexus没有你要的构件的时候会发生什么，以及你能够使用怎样的步骤来给Nexus添加仓库。</para>
 
-      <para>The following example assumes that you have Subversion installed
-      and that you are running Subversion from the command-line. Let's
-      checkout Apache Shindig from the Apache Incubator with Subversion and
-      attempt to build it from source. To do this, execute the following
-      commands:</para>
+      <para>下面的样例假设你已经安装了Subversion，并且你正在命令行运行Subversion。我们使用Subversion从Apache
+      Incubator签出Apache Shindig然后尝试构建它。为此，执行下面的命令：</para>
 
       <screen>$ <command>svn co http://svn.apache.org/repos/asf/incubator/shindig/trunk shindig</command>
 ... Subversion will checkout the trunk of Apache Shindig ...
@@ -694,7 +871,7 @@ from the specified remote repositories:
     </section>
 
     <section>
-      <title>Adding a New Repository</title>
+      <title>添加一个新的仓库</title>
 
       <para>To add the caja repository, log into Nexus as an Administrator,
       and click on the Repositories link in the left-hand navigation menu in
@@ -733,7 +910,7 @@ from the specified remote repositories:
     </section>
 
     <section>
-      <title>Adding a Repository to a Group</title>
+      <title>添加一个仓库至一个组</title>
 
       <para>Next you will need to add both of these new repositories to the
       public Nexus Group. To do this, click on the Groups link in the
@@ -771,7 +948,7 @@ from the specified remote repositories:
   </section>
 
   <section>
-    <title>Configuring Nexus</title>
+    <title>配置Nexus</title>
 
     <para>Many of the configuration screens shown in this section are only
     available to administrative users. Nexus allows the admin user to
@@ -780,7 +957,7 @@ from the specified remote repositories:
     include or exclude artifacts from a repository.</para>
 
     <section>
-      <title>Customizing Server Configuration</title>
+      <title>定制服务器配置</title>
 
       <para>In a real installation of Nexus, you'll probably want to customize
       the administrative password to something other than "admin123", and you
@@ -909,7 +1086,7 @@ from the specified remote repositories:
     </section>
 
     <section>
-      <title>Managing Repositories</title>
+      <title>管理仓库</title>
 
       <para>To manage the repositories which Nexus provides, log in as the
       administrative user and click on Repositories in the Configuration menu
@@ -1294,7 +1471,7 @@ from the specified remote repositories:
     </section>
 
     <section>
-      <title>Managing Groups</title>
+      <title>管理组</title>
 
       <para>Groups are a powerful feature of Nexus, they allow you to combine
       multiple repositories in a single URL. Nexus ships with two groups:
@@ -1481,7 +1658,7 @@ from the specified remote repositories:
     </section>
 
     <section>
-      <title>Network Configuration</title>
+      <title>网络配置</title>
 
       <para>By default, Nexus listens on port 8081. You can change this port,
       by changing the value in
@@ -1506,7 +1683,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
   </section>
 
   <section id="sect-manage-repo">
-    <title>Maintaining Repositories</title>
+    <title>维护仓库</title>
 
     <para>Once you've setup a series of repositories and grouped those
     repositories into Nexus Groups, users will be able to see a list of
@@ -1591,7 +1768,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
   </section>
 
   <section>
-    <title>Deploying Artifacts to Nexus</title>
+    <title>部署构件至Nexus</title>
 
     <para>Different organizations have different reasons for deploying
     artifacts to an internal repository. In large organizations with hundreds
@@ -1619,7 +1796,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     <varname>wagon-http-lightweight</varname>.</para>
 
     <section>
-      <title>Deploying Releases</title>
+      <title>部署发布版</title>
 
       <para>To deploy a release artifact to Nexus you need to configure a
       <sgmltag>repository</sgmltag> in the
@@ -1680,7 +1857,7 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
     </section>
 
     <section>
-      <title>Deploying Snapshots</title>
+      <title>部署快照版</title>
 
       <para>To deploy a snapshot artifact to Nexus you need to configure a
       <sgmltag>snapshotRepository</sgmltag> in the
@@ -1737,7 +1914,7 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
     </section>
 
     <section>
-      <title>Deploying Third-party Artifacts</title>
+      <title>部署第三方构件</title>
 
       <para>Your Maven projects may start depending on an artifacts which are
       not available from the Central Maven repository or any other public
