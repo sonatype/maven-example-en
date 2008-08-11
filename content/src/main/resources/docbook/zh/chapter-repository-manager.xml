@@ -110,90 +110,55 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
     </section>
 
     <section id="sect-repoman-post-install">
-      <title>Post-Install Checklist</title>
+      <title>安装后检查单</title>
 
-      <para>Nexus ships with some default passwords and settings for
-      repository indexing that need to be changed for your installation to be
-      useful (and secure). After installing and running Nexus, you need to
-      make sure that you complete the following tasks:</para>
+      <para>Nexus带有默认的密码和仓库索引设置，它们都需要更改以满足你的安装需要（以及安全）。安装完并运行了Nexus后，你需要确认你完成了下列任务：</para>
 
       <variablelist>
         <varlistentry>
-          <term>Change the Administrative Password and Email Address</term>
+          <term>更改管理员密码和Email地址</term>
 
           <listitem>
-            <para>The administrative password defaults to
-            <varname>admin123</varname>. The first thing you should do to your
-            new Nexus installation is change this password. To change the
-            administrative password login as "admin" with the password
-            "admin123", and click on Change Password under the Security menu
-            in the left-hand side of the browser window.</para>
+            <para>默认的管理密码是<varname>admin123</varname>。对一个全新的Nexus安装，你首先要做的是更改这个密码。要更改默认的管理员登陆名"admin"及密码"admin123"，在浏览窗口的左边安全菜单中点击更改密码。</para>
 
             <!--Put in instructions for email address-->
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Configure the SMTP Settings</term>
+          <term>配置SMTP设置</term>
 
           <listitem>
-            <para>Nexus can send username and password recovery emails, to
-            enable this feature, you will need to configure Nexus with a SMTP
-            Host and Port as well as any necessary authentication parameters
-            that Nexus needs to connect to a mail server. To configure the
-            SMTP settings, load the server configuration dialog shown in <xref
-            linkend="sect-repoman-server-conf" />.</para>
+            <para>Nexus可以发送用户名和密码获取email，要开启这个特性，你需要用SMTP主机和端口配置Nexus，以及相关的Nexus用来连接邮件服务器的认证参数。为此，载入如<xref
+            linkend="sect-repoman-server-conf" />中的服务器配置对话框。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Enable Remote Index Downloads</term>
+          <term>开启远程索引下载</term>
 
           <listitem>
-            <para>Nexus ships with three important proxy repositories for the
-            Central Maven Repository, Apache Snapshot Repository, and the
-            Codehaus Snapshot Repository. Each of these repositories contains
-            thousands (or tens of thousands) of artifacts and it would be
-            impractical to download the entire contents of each. To that end,
-            most repositories maintain a Lucene index which catalogs the
-            entire contents and provides for fast and efficient searching.
-            Nexus uses these remote indexes to search for artifacts, but we've
-            disabled the index download as a default setting. To download
-            remote indexes,</para>
+            <para>Nexus带有三个重要的代理仓库，有中央Maven仓库，Apache快照仓库，和Codehaus快照仓库。它们中的每一个仓库都包含了数千（或数万）的构件，下载每个仓库的所有内容是不切实际的。处于这个原因，大部分仓库维护了一个编录了整个内容的Lucene索引，以提供快速和有效的搜索。Nexus使用这些远程索引搜索构件，但是默认设置我们关闭了索引下载。要下载远程索引，</para>
 
             <orderedlist>
               <listitem>
-                <para>Click on Repositories under the Administration menu and
-                change Download Remote Indexes to true for the three proxy
-                repositories. You'll need to load the dialog shown in <xref
-                linkend="sect-manage-repo" /> for each of the three
-                repositories.</para>
+                <para>点击管理菜单下面的Repositories，更改三个代理仓库的Download Remote
+                Indexes为ture。你需要为此载入如<xref lang=""
+                linkend="sect-manage-repo" />中的对话框。</para>
               </listitem>
 
               <listitem>
-                <para>Right-click on each proxy repository and select
-                Re-index. This will trigger Nexus to download the remote index
-                files.</para>
+                <para>在每个代理仓库上右击然后选择Re-index。这会触发Nexus下咋远程的索引文件。</para>
               </listitem>
             </orderedlist>
 
-            <para>It might take Nexus a few minutes to download the entire
-            index, but once you have it, you'll be able to search the entire
-            contents of the Maven repository.</para>
+            <para>Nexus下载整个索引可能需要好几分钟，但是一旦你下载好之后，你就能够搜索Maven仓库的所有内容了。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <note>
-        <para>Sonatype wanted to make sure that we were not creating a product
-        that would cause massive congestion on the Central repository by
-        default. While most users will want to enable remote index downloads,
-        we didn't want to make it the default setting and thereby manufacture
-        our very own denial-of-service attack when millions of developers
-        download a new release of Nexus and proceed to repeatedly download the
-        21 MB Central index. If you want Nexus to return full search results,
-        you are going to have to enable remote index downloads
-        explicitly.</para>
+        <para>Sonatype想要确信没有创建一个会在默认情况下对中央仓库造成大量拥挤的产品。虽然大部分用户会想要开启远程索引下载，我们还是不想使之成为默认设置，当数百万用户下载一个新版本的Nexus继而不断的下载这个21MB的中央索引的时候，会制造对我们自己的拒绝服务攻击。如果你想要Nexus返回全部的搜索结果，你就必须显式的开启远程索引下载。</para>
       </note>
     </section>
 
@@ -332,7 +297,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
   </section>
 
   <section>
-    <title>Using Nexus</title>
+    <title>使用Nexus</title>
 
     <para>Nexus provides for anonymous access for users who only need to
     search repositories, browse repositories, and peruse the system feeds.
@@ -956,7 +921,7 @@ from the specified remote repositories:
     server settings, and create routes or "rule" that Maven will use to
     include or exclude artifacts from a repository.</para>
 
-    <section>
+    <section id="sect-repoman-server-conf" label="">
       <title>定制服务器配置</title>
 
       <para>In a real installation of Nexus, you'll probably want to customize
