@@ -148,7 +148,7 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
               </listitem>
 
               <listitem>
-                <para>在每个代理仓库上右击然后选择Re-index。这会触发Nexus下咋远程的索引文件。</para>
+                <para>在每个代理仓库上右击然后选择Re-index。这会触发Nexus下载远程的索引文件。</para>
               </listitem>
             </orderedlist>
 
@@ -299,15 +299,11 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
   <section>
     <title>使用Nexus</title>
 
-    <para>Nexus provides for anonymous access for users who only need to
-    search repositories, browse repositories, and peruse the system feeds.
-    This anonymous access level changes the navigation menu and some of the
-    options available when you right-click on a repository. This read-only
-    access displays a user interface shown in <xref
-    linkend="fig-repoman-anonymous-interface" />.</para>
+    <para>Nexus为那些只需要搜索，浏览构件，以及查阅系统RSS源的用户提供了匿名访问。匿名访问级别更改了导航菜单，以及当你在一个仓库上右击时可用的选项。这种只读访问显示了如<xref
+    linkend="fig-repoman-anonymous-interface" />的用户界面。</para>
 
     <figure id="fig-repoman-anonymous-interface">
-      <title>Nexus Interface for Anonymous Users</title>
+      <title>匿名用户的Nexus界面</title>
 
       <mediaobject>
         <imageobject>
@@ -317,17 +313,14 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     </figure>
 
     <section>
-      <title>Browsing Repositories</title>
+      <title>浏览仓库</title>
 
-      <para>One of the most straight-forward uses of the Nexus is to browse
-      the structure of a Maven repository. If you click on the Browse
-      Repositories menu item in the Views menu, you should see the following
-      display. The top-half of <xref linkend="fig-nexus-browse-repo" /> shows
-      you a list of groups and repositories along with the type of the
-      repository and the repository status.</para>
+      <para>Nexus最直接的用途之一就是浏览Maven仓库的结构。如果你点击Views菜单下的Browse
+      Repositories菜单项。<xref
+      linkend="fig-nexus-browse-repo" />中的上面一半给你显示了带有仓库类型和仓库状态的组列表和仓库列表。</para>
 
       <figure id="fig-nexus-browse-repo">
-        <title>Browsing a Nexus Repository</title>
+        <title>浏览一个Nexus仓库</title>
 
         <mediaobject>
           <imageobject>
@@ -336,31 +329,17 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
         </mediaobject>
       </figure>
 
-      <para>When you are browsing a repository, you can right click on any
-      file and download it directly to your browser. This allows you to
-      retrieve specific artifacts manually, or examine a
-      <acronym>POM</acronym> file in the browser.</para>
+      <para>当你浏览一个仓库的时候，你可以在任意一个文件上右击然后直接下载到你本地。这能让你手工获取某个特定的构件，或者在浏览器中检查一个<acronym>POM</acronym>文件。</para>
     </section>
 
     <section>
-      <title>Browsing Groups</title>
+      <title>浏览组</title>
 
-      <para>Nexus contains ordered groups of repositories which allow you to
-      expose a series of repositories through a single <acronym>URL</acronym>.
-      More often than not, an organization is going to point Maven at the two
-      default Nexus groups: Public Repositories and Public Snapshot
-      Repositories. Most end-users of Nexus are not going to know what
-      artifacts are being served from what specific repository, and they are
-      going to want to be able to browse the Public Repository. To support
-      this use case, Maven allows you to browse the contents of a Nexus Group
-      as if it were a single merged repository with a tree structure. <xref
-      linkend="fig-nexus-browse-group" /> shows the browsing interface with a
-      Nexus Group selected for browsing. There is no difference to the user
-      experience of browsing a Nexus Group vs. browsing a Nexus
-      Repository.</para>
+      <para>Nexus包含排序好的仓库组，它们能让你通过一个单独的<acronym>URL</acronym>来暴露一系列的仓库。通常情况下，一个组织会指向两个默认的Nexus组：公共仓库组和公共快照仓库组。很多最终用户不需要知道哪些构件来自哪个特定的仓库，他们只需要能够浏览公共仓库组就可以了。为了支持这个用例，Maven允许你浏览一个Nexus组的内容，它就像是一归并而来的树状的仓库。<xref
+      linkend="fig-nexus-browse-group" />显示了这个浏览界面，其中一个Nexus组被选中以浏览。对用户体验来说，浏览一个Nexus组和浏览一个Nexus仓库没任何区别。</para>
 
       <figure id="fig-nexus-browse-group">
-        <title>Browsing a Nexus Group</title>
+        <title>浏览一个Nexus组</title>
 
         <mediaobject>
           <imageobject>
@@ -371,17 +350,13 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     </section>
 
     <section>
-      <title>Searching for Artifacts</title>
+      <title>搜索构件</title>
 
-      <para>In the left-hand navigation area, there is a Artifact Search text
-      field next to a magnifying glass. To search for an artifact by groupId
-      or artifactId, type in some text and click the magnifying glass. Typing
-      in the the search term "maven" and clicking the magnifying glass should
-      yield a search result similar to <xref
-      linkend="fig-nexus-search" />.</para>
+      <para>在左边的导航区域，紧靠放大镜有一个构件搜索输入框。要通过groupId或者artifactId搜索一个构件，输入一些文本然后点击放大镜。输入字段"maven"然后点击放大镜会产生如<xref
+      linkend="fig-nexus-search" />的搜索结果。</para>
 
       <figure id="fig-nexus-search">
-        <title>Results of an Artifact Search for "maven"</title>
+        <title>关键词为"maven"的构件搜索结果</title>
 
         <mediaobject>
           <imageobject>
@@ -390,32 +365,19 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
         </mediaobject>
       </figure>
 
-      <para>Once you've located the artifact you were looking for you can
-      click on the Download link to download the artifact. Nexus is going to
-      show you 50 results at a time, and provide links on the bottom of the
-      search result panel for you to navigate through the search results. If
-      you would prefer to see a list of all of the matching artifacts, you can
-      select Fetch All from the drop down at the bottom of the search result
-      panel.</para>
+      <para>在你找出你在要找的构件之后，你可以点击Download链接来下载这个构件。Nexus每次为你显示50条结果，并且为你浏览其它搜索结果在底部提供了链接。如果你更喜欢看到所有匹配构件的列表，你可以在搜索结果面板底部的下拉菜单中选择Fetch
+      All。</para>
 
-      <para>In addition to searching by a groupId or an artifactId, Nexus has
-      a feature which allows you to search for an artifact by a
-      checksum.</para>
+      <para>除了通过一个groupId或者一个artifactId搜索，Nexus还有一个功能能让你通过checksum来搜索一个构件。</para>
 
       <warning>
-        <para>Let me guess? You installed Nexus, ran to the search box, typed
-        in the name of a group or an artifact, pressed search, and saw
-        absolutely nothing. No results. Nexus isn't going to retrieve the
-        remote repository indexes by default, you need to activate downloading
-        of remote indexes for the three proxy repositories that Nexus ships
-        with. Without these indexes, Nexus has nothing to search. Find
-        instructions for activating index downloads in <xref
-        linkend="sect-repoman-post-install" />.</para>
+        <para>让我来猜一下？你安装了Nexus，使用了搜索框，输入了一个构件的group的名字，按下搜索，然后什么都没看见。没有结果。Nexus默认不会去获取远程仓库索引，你需要为那三个Nexus自带的仓库激活远程索引的下载。没有这些索引，没有没东西可以搜索。你可以在<xref
+        linkend="sect-repoman-post-install" />中查找激活索引下载的指令。</para>
       </warning>
     </section>
 
     <section>
-      <title>Browsing System Feeds</title>
+      <title>浏览系统RSS源</title>
 
       <para>Nexus provides feeds that capture system events, you can browse
       these feeds by clicking on System Feeds under the View menu. Clicking on
@@ -523,7 +485,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     </section>
 
     <section>
-      <title>Browsing Log Files and Configuration</title>
+      <title>浏览日志文件和配置</title>
 
       <para>Logs and Config Files is only visible to Administrative users
       under the Views menu. Click on this option brings up the dialog shown in
@@ -581,7 +543,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     </section>
 
     <section>
-      <title>Changing Your Password</title>
+      <title>更改你的密码</title>
 
       <para>If you have the appropriate security privilege, you will see an
       option to change your password in the left-hand side of the browser. To
