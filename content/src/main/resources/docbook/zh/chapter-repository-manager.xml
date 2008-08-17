@@ -7,22 +7,22 @@
   <section>
     <title>简介</title>
 
-    <para>仓库管理器有两个服务目的：首先它的角色是一个高度可配置的介于你的组织与公开Maven仓库之间的代理，其次它为你的组织提供了一个部署你组织内部生成的构件的地方。</para>
+    <para>仓库管理器有两个服务目的：首先它的角色是一个高度可配置的介于你的组织与公开Maven仓库之间的代理，其次它为你的组织提供了一个可部署你组织内部生成的构件的地方。</para>
 
     <para>代理Maven仓库有很多好处。对于一开始使用Maven的情况来说，通过为所有的来自中央Maven仓库的构件安装一个本地的缓存，你将加速组织内部的所有构建。如果有开发人员想要下载
-    Spring Framework 的2.5版本，并且你在使用Nexus，那些依赖（以及依赖的依赖）至需要从远程仓库下载一次。如果有一个高速的
+    Spring Framework 的2.5版本，并且你在使用Nexus，那些依赖（以及依赖的依赖）只需要从远程仓库下载一次。如果有一个高速的
     Internet
-    网络连接，这看起来没什么大不了的，但是如果你一直要求你的开发人员去下载几百兆的第三方依赖，那么真正节省的时间将会是Maven检查依赖新版本以及下载依赖的时间。通过本地仓库提供Maven依赖服务可以节省数百的HTTP请求，在大型的多项目构建中，这样为一次构件节省几分钟的时间。</para>
+    网络连接，这看起来没什么大不了，但是如果你一直要求你的开发人员去下载几百兆的第三方依赖，那么真正节省的时间将会是Maven检查依赖新版本以及下载依赖的时间。通过本地仓库提供Maven依赖服务可以节省数百的HTTP请求，在大型的多项目构建中，这样可以为一次构件节省几分钟的时间。</para>
 
-    <para>除了简单的节省时间和贷款，仓库管理器为组织提供了一种控制Maven下载的机制。你可以详细的设置从公开仓库包含或排除特定的构件。能够控制从核心Maven仓库的下载对于很多组织来说是经常是一个必要前提，它们需要维护一个组织中使用依赖的严格控制。一个想要标准化某个如Hibernate或者Spring依赖版本的组织可以通过在仓库管理器中仅仅提供一个特殊版本的构件来加强这种标准。还有一些组织可能关心确保所有外部的依赖拥有和组织的法律规范相容的许可证。如果一个企业生产了一个分发应用程序，它们可能想要确定没有人不小心添加了一个涉及GPL许可证的依赖。仓库管理器为那些需要确信总体架构和政策实施的组织提供了这一层次的控制。</para>
+    <para>除了简单的时间和带宽的节省，仓库管理器为组织提供了一种控制Maven下载的机制。你可以详细的设置从公开仓库包含或排除特定的构件。能够控制从核心Maven仓库的下载对于很多组织来说是经常是一个必要前提，它们需要维护一个组织中使用依赖的严格控制。一个想要标准化某个如Hibernate或者Spring依赖版本的组织可以通过在仓库管理器中仅仅提供一个特殊版本的构件来加强这种标准。还有一些组织可能关心确保所有外部的依赖拥有和组织的法律规范相容的许可证。如果一个企业生产了一个分发应用程序，它们可能想要确定没有人不小心添加了一个涉及GPL许可证的依赖。仓库管理器为那些需要确信总体架构和政策实施的组织提供了这一层次的控制。</para>
 
-    <para>除了控制对远程仓库的访问以外，仓库管理器也为完全采用Maven提供了一些很至关重要的东西。除非你希望你组织的每一个成员下载并构建一个单独的内部项目，否则你会希望为开发人员和部门之间提供一种共享内部项目构件的快照版本和发布版本的机制。Nexus为你的组织提供了这样的部署目标。在你安装了Nexus之后，你可以开始使用Maven让它部署快照版和发布版至一个有Nexus管理的定制仓库。</para>
+    <para>除了控制对远程仓库的访问以外，仓库管理器也为Maven的全面使用提供了一些很至关重要的东西。除非你希望你组织的每一个成员下载并构建一个单独的内部项目，否则你会希望为开发人员和部门之间提供一种共享内部项目构件的快照版本和发布版本的机制。Nexus为你的组织提供了这样的部署目标。在你安装了Nexus之后，你可以开始使用Maven让它部署快照版和发布版至一个由Nexus管理的定制仓库。</para>
 
     <section>
       <title>Nexus历史</title>
 
       <para>Tamas Cservenak 在2005年12月开始为Proximity工作，当时他正想办法将它自己的系统和由Hungarian
-      <acronym>ISP</acronym>提供的慢得难以置信的<acronym>ADSL</acronym>连接隔离开。Proximity以一个简单web应用的形式启动，用来为有网络连接问题的小型组织代理构件。为Maven构件创建一个对于中央核心仓库的本地的命令驱动的缓存，能让组织访问来自中央核心仓库的构件，而且它同时也能确保这些构件不会通过很慢的<acronym>ADSL</acronym>连接来下载，要知道很多开发人员在使用这个连接。在2007年，Sonatype请求Tamas帮助创建一个类似的名为Nexus的产品。Nexus目前可以被认为是Proximity逻辑上的下一个步伐。</para>
+      <acronym>ISP</acronym>提供的慢得难以置信的<acronym>ADSL</acronym>连接隔离开。Proximity以一个简单web应用的形式启动，用来为有网络连接问题的小型组织代理构件。为Maven构件创建一个对中央核心仓库的本地的命令驱动的缓存，能让组织访问来自中央核心仓库的构件，而且它同时也能确保这些构件不会通过很慢的<acronym>ADSL</acronym>连接来下载，要知道很多开发人员在使用这个连接。在2007年，Sonatype请求Tamas帮助创建一个类似的名为Nexus的产品。Nexus目前可以被认为是Proximity逻辑上的下一个步伐。</para>
 
       <para>Nexus目前有一个活动的开发团队包括Tamas Cservenak，Max Powers，Dmitry Platonoff
       和Brian Fox。Nexus的关于索引的部分代码也同时在m2eclipse中被使用，这些代码目前由Eugene
@@ -52,7 +52,7 @@
 
       <screen>$ <command>tar xvzf nexus-1.0.0-beta-3-bundle.tgz</command></screen>
 
-      <para>如果你正在一个服务器上安装Nexus，你可能想要使用的目录不是你的用户目录。在Unix机器上，这可能是<filename>/usr/local/nexus-1.0.0-beta-3</filename>和一个指向Nexus目录的符号链接<filename>/usr/local/nexus</filename>。使用一个通用的符号链接来指向Nexus的某个特定版本是一个普遍的实践，它能让你更容易的将Nexus更新至更新的版本。</para>
+      <para>如果你正在一个服务器上安装Nexus，你可能想要使用的目录不是你的用户目录。在Unix机器上，这可能是<filename>/usr/local/nexus-1.0.0-beta-3</filename>和一个指向Nexus目录的符号链接<filename>/usr/local/nexus</filename>。使用一个通用的符号链接来指向Nexus的某个特定版本是一个普遍的实践，它能让你更容易的将Nexus更新至最新的版本。</para>
 
       <screen>$ <command>sudo cp nexus-1.0.0-beta-3-bundle.tgz /usr/local</command>
 $ <command>cd /usr/local</command>
@@ -65,7 +65,7 @@ $ <command>ln -s nexus-1.0.0-beta-3 nexus</command></screen>
     <section>
       <title>运行Nexus</title>
 
-      <para>当你启动Nexus，启动过了一个web服务器，它的默认地址是<varname>localhost:8081</varname>。Nexus在一个名为Jetty的servlet容器中运行，它使用一个名为<ulink
+      <para>当你启动Nexus，就是启动一个web服务器，它的默认地址是<varname>localhost:8081</varname>。Nexus在一个名为Jetty的servlet容器中运行，它使用一个名为<ulink
       url="http://wrapper.tanukisoftware.org/doc/english/introduction.html">Tanuki
       Java Service
       Wrapper</ulink>的本地服务包裹器启动。这个服务包裹器可以被配置成以Windows服务或Unix守护线程的形式运行Nexus。要启动Nexus，你需要为你的平台找到合适的启动脚本。要查看可用平台的列表，查看<filename>${NEXUS_HOME}/bin/jsw</filename>目录的内容。</para>
@@ -88,7 +88,7 @@ $ <command>tail -f container/logs/wrapper.log</command>
 INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:8081
 </screen>
 
-      <para>到目前为止，Nexus已经开始运行并监听端口8081。要使用Nexus，启动一个web浏览器然后舒服URL：<ulink
+      <para>到目前为止，Nexus已经开始运行并监听端口8081。要使用Nexus，启动一个web浏览器然后输入URL：<ulink
       url="http://localhost:8081/nexus">http://localhost:8081/nexus</ulink>。点击web页面右上角的“Log
       In”链接，你应该看到如下的登陆对话框。</para>
 
@@ -119,7 +119,8 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
           <term>更改管理员密码和Email地址</term>
 
           <listitem>
-            <para>默认的管理密码是<varname>admin123</varname>。对一个全新的Nexus安装，你首先要做的是更改这个密码。要更改默认的管理员登陆名"admin"及密码"admin123"，在浏览窗口的左边安全菜单中点击更改密码。</para>
+            <para>默认的管理密码是<varname>admin123</varname>。对一个全新的Nexus安装，你首先要做的是更改这个密码。要更改默认的管理员登陆名"admin"及密码"admin123"，在浏览窗口的左边导航菜单中的Security部分点击Change
+            Password。</para>
 
             <!--Put in instructions for email address-->
           </listitem>
@@ -129,7 +130,7 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
           <term>配置SMTP设置</term>
 
           <listitem>
-            <para>Nexus可以发送用户名和密码获取email，要开启这个特性，你需要用SMTP主机和端口配置Nexus，以及相关的Nexus用来连接邮件服务器的认证参数。为此，载入如<xref
+            <para>Nexus可以发送用来用户名和密码的email，要开启这个特性，你需要用SMTP主机和端口配置Nexus，以及相关的Nexus用来连接邮件服务器的认证参数。为此，载入如<xref
             linkend="sect-repoman-server-conf" />中的服务器配置对话框。</para>
           </listitem>
         </varlistentry>
@@ -142,8 +143,8 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
 
             <orderedlist>
               <listitem>
-                <para>点击管理菜单下面的Repositories，更改三个代理仓库的Download Remote
-                Indexes为ture。你需要为此载入如<xref lang=""
+                <para>点击Administration菜单下面的Repositories，更改三个代理仓库的Download
+                Remote Indexes为true。你需要为此载入如<xref lang=""
                 linkend="sect-manage-repo" />中的对话框。</para>
               </listitem>
 
@@ -166,7 +167,7 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
       <title>为Redhat/Fedora/CentOS设置启动脚本</title>
 
       <para>你可以将Nexus配置成自动启动，通过将<filename>app</filename>脚本拷贝到<filename>/etc/init.d</filename>目录。在一个Redhat变种的Linux系统上（Redhat,
-      Fedora, or CentOS），以root用户执行下列操作：</para>
+      Fedora, 或者 CentOS），以root用户执行下列操作：</para>
 
       <orderedlist>
         <listitem>
@@ -176,9 +177,6 @@ INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:80
         <listitem>
           <para>使<filename>/etc/init.d/nexus</filename>脚本可运行 —— <command>chmod
           755 /etc/init.d/nexus</command>。</para>
-
-          <para>Make the <filename>/etc/init.d/nexus</filename> script
-          卡executable - <command>chmod 755 /etc/init.d/nexus</command></para>
         </listitem>
 
         <listitem>
@@ -271,14 +269,14 @@ $ <command>service nexus start</command>
 Starting Sonatype Nexus...
 $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command></screen>
 
-      <para>第二个命令添加nexus为一个服务，可以由<command>service</command>命令启动和停止，可以有<command>chkconfig</command>命令管理。<command>chkconfig</command>管理<filename>/etc/rc[0-6].d</filename>中的符号链接，当操作系统重启或者在运行级别中转换时，它们控制服务的启动和停止。第三个命令添加nexus至运行级别3，4，和5
+      <para>第二个命令添加nexus为一个服务，可以由<command>service</command>命令启动和停止，可以由<command>chkconfig</command>命令管理。<command>chkconfig</command>管理<filename>/etc/rc[0-6].d</filename>中的符号链接，当操作系统重启或者在运行级别中转换时，它们控制服务的启动和停止。第三个命令添加nexus至运行级别3，4，和5
       。service命令启动Nexus，最后的命令追踪<filename>wrapper.log</filename>以验证Nexus成功启动。如果Nexus成功启动了你应该看到一个信息告诉你Nexus正在端口8001监听<acronym>HTTP</acronym>连接。</para>
     </section>
 
     <section>
       <title>升级Nexus版本</title>
 
-      <para>升级一个已安装的Nexus版本十分容易。每个Nexus版本有两个可用的归档文件可下载。完整的归档文件包含Nexus应用程序，Nexus启动脚本，以及用来保存仓库索引和远程仓库本地缓存的工作目录。如果你用Nexus用得很厉害，这个工作目录会包含数G的构件，你不会希望在每次升级Nexus的时候必须重新创建这个仓库。升级下载文件被创建成给用户提供一个方便的形式升级Nexus，它会保存Nexus数据；升级下载文件只包含Nexus应用程序代码。第一次你安装Nexus的时候，你下载完全的Nexus分发包，当你想要安装你的Nexus安装，同时保留你的仓库数据的时候，你只要下载升级分发包。</para>
+      <para>升级一个已安装的Nexus版本十分容易。每个Nexus版本有两个可用的归档文件可下载。完整的归档文件包含Nexus应用程序，Nexus启动脚本，以及用来保存仓库索引和远程仓库本地缓存的工作目录。如果你大量的使用Nexus，这个工作目录会包含数G的构件，你不会希望在每次升级Nexus的时候必须重新创建这个仓库。升级下载文件被创建成为用户提供一个方便的形式升级Nexus，它会保存Nexus数据；升级下载文件只包含Nexus应用程序代码。第一次你安装Nexus的时候，你下载完全的Nexus分发包，当你想要升级你的Nexus安装，同时保留你的仓库数据的时候，你只要下载升级分发包。</para>
 
       <para>要升级Nexus，只要下载“upgrade”分发包，而非“bundle”分发包。升级分发包的内容存储在一个包含nexus版本号（如<filename>nexus-1.0.0-beta-3</filename>）的文件夹中。这个文件夹可以解开至<filename>$NEXUS_HOME/runtime/apps</filename>，不用覆盖当前安装版本的内容。</para>
 
@@ -335,7 +333,9 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>浏览组</title>
 
-      <para>Nexus包含排序好的仓库组，它们能让你通过一个单独的<acronym>URL</acronym>来暴露一系列的仓库。通常情况下，一个组织会指向两个默认的Nexus组：公共仓库组和公共快照仓库组。很多最终用户不需要知道哪些构件来自哪个特定的仓库，他们只需要能够浏览公共仓库组就可以了。为了支持这个用例，Maven允许你浏览一个Nexus组的内容，它就像是一归并而来的树状的仓库。<xref
+      <para>Nexus包含排序好的仓库组，它们能让你通过一个单独的<acronym>URL</acronym>来暴露一系列的仓库。通常情况下，一个组织会指向两个默认的Nexus组：Public
+      Repositories组和Public Snapshot
+      Repositories组。很多最终用户不需要知道哪些构件来自哪个特定的仓库，他们只需要能够浏览公共仓库组就可以了。为了支持这个用例，Maven允许你浏览一个Nexus组的内容，它就像是一归并而来的树状的仓库。<xref
       linkend="fig-nexus-browse-group" />显示了这个浏览界面，其中一个Nexus组被选中以浏览。对用户体验来说，浏览一个Nexus组和浏览一个Nexus仓库没任何区别。</para>
 
       <figure id="fig-nexus-browse-group">
@@ -368,7 +368,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
       <para>在你找出你在要找的构件之后，你可以点击Download链接来下载这个构件。Nexus每次为你显示50条结果，并且为你浏览其它搜索结果在底部提供了链接。如果你更喜欢看到所有匹配构件的列表，你可以在搜索结果面板底部的下拉菜单中选择Fetch
       All。</para>
 
-      <para>除了通过一个groupId或者一个artifactId搜索，Nexus还有一个功能能让你通过checksum来搜索一个构件。</para>
+      <para>除了通过一个groupId或者一个artifactId搜索，Nexus还有一个功能能让你通过校验和来搜索一个构件。</para>
 
       <warning>
         <para>让我来猜一下？你安装了Nexus，使用了搜索框，输入了一个构件的group的名字，按下搜索，然后什么都没看见。没有结果。Nexus默认不会去获取远程仓库索引，你需要为那三个Nexus自带的仓库激活远程索引的下载。没有这些索引，没有没东西可以搜索。你可以在<xref
@@ -379,16 +379,11 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>浏览系统RSS源</title>
 
-      <para>Nexus provides feeds that capture system events, you can browse
-      these feeds by clicking on System Feeds under the View menu. Clicking on
-      System Feeds will show the panel in <xref
-      linkend="fig-repoman-system-feeds" />. You can use these simple
-      interface to browse the most recent reports of artifact deployments,
-      cached artifacts, broken artifacts, and storage changes that have
-      occurred in Nexus.</para>
+      <para>Nexus提供了一些捕捉系统事件的RSS源，你可以通过点击View菜单下的System Feeds来浏览它们。如<xref
+      linkend="fig-repoman-system-feeds" />中的面板。你可以使用这些简单的界面来浏览最近Nexus中发生的关于构件部署，构件缓存，存储变化的报告。</para>
 
       <figure id="fig-repoman-system-feeds">
-        <title>Browsing Nexus System Feeds</title>
+        <title>浏览Nexus系统信息源</title>
 
         <mediaobject>
           <imageobject>
@@ -397,39 +392,24 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
         </mediaobject>
       </figure>
 
-      <para>These feeds can come in handy if you are working at a large
-      organization with multiple development teams deploying to the same
-      instance of Nexus. If such an arrangement, all developers in an
-      organization can subscribe to the <acronym>RSS</acronym> feeds for New
-      Deployed Artifacts as a way to ensure that everyone is aware when a new
-      release has been pushed to Nexus. Exposing these system events as
-      <acronym>RSS</acronym> feeds also opens to the door to other, more
-      creative uses of this information, such as connecting Nexus to external
-      automated testing systems. To access the <acronym>RSS</acronym> feeds
-      for a specific feed, select the feed in the System Feeds view panel and
-      then click on the Subscribe button. Nexus will then load the
-      <acronym>RSS</acronym> feed in your browse and you can subscribe to the
-      feed in your favorite <acronym>RSS</acronym> reader.</para>
+      <para>如果你正在一个很大的组织工作，很多开发团队往同样一个Nexus实例部署构件，这些信息源就非常拥有。有了这样的准备，所有组织开发人员可以为新部署的构件订阅<acronym>RSS</acronym>信息源，以确保当一个新的发布版提交到Nexus后所有的人都知道。将系统事件暴露成<acronym>RSS</acronym>信息源也将大门向其他人开启，包括一些对该信息更富创意的使用，如将Nexus与外部的自动测试系统想连。要访问某个特定信息源的<acronym>RSS</acronym>，在System
+      Feeds观察面板中选择一个信息源然后点击Subscribe按钮。Nexus会在你浏览器中载入这个<acronym>RSS</acronym>信息源，然后你可以在你最喜欢的<acronym>RSS</acronym>阅读器中订阅这个信息源。</para>
 
-      <para>There are six system feeds available in the System Feeds view, and
-      each has a <acronym>URL</acronym> which resembles the following
-      <acronym>URL</acronym>:</para>
+      <para>在系统信息源视图中有6个可用的信息源，每一个信息源都有一个类似于下面的<acronym>URL</acronym>：</para>
 
       <screen>http://localhost:8081/nexus/service/local/feeds/recentChanges</screen>
 
-      <para>Where <varname>recentChanges</varname> would be replaced with the
-      identifier of the feed you were attempting to read. Available system
-      feeds include:</para>
+      <para>其中<varname>recentChanges</varname>将会被你试图阅读的信息源标识所替换。可能的系统信息源包括：</para>
 
       <table>
-        <title>Available System Feeds</title>
+        <title>可用的系统信息源</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Feed Identifier</entry>
+              <entry>信息源标识符</entry>
 
-              <entry>Description</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -437,47 +417,43 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
             <row>
               <entry><varname>brokenArtifacts</varname></entry>
 
-              <entry>Checksum mismatch, missing checksums, invalid
-              POMs</entry>
+              <entry>校验和不匹配，找不到校验和，不可用的POM</entry>
             </row>
 
             <row>
               <entry><varname>recentCacheOrDeployments</varname></entry>
 
-              <entry>New artifacts in all repositories (cached or
-              deployed)</entry>
+              <entry>所有仓库中有新的构件（从远程缓存的或者部署上去的）</entry>
             </row>
 
             <row>
               <entry><varname>recentlyCached</varname></entry>
 
-              <entry>New cached artifacts in all repositories</entry>
+              <entry>所有仓库中有新的缓存构件</entry>
             </row>
 
             <row>
               <entry><varname>recentlyDeployed</varname></entry>
 
-              <entry>New deployed artifacts in all repositories</entry>
+              <entry>所有仓库中有新的部署的构件</entry>
             </row>
 
             <row>
               <entry><varname>recentChanges</varname></entry>
 
-              <entry>All caches, deployments, or deletions</entry>
+              <entry>所有缓存，部署，或者删除动作</entry>
             </row>
 
             <row>
               <entry><varname>systemRepositoryStatusChanges</varname></entry>
 
-              <entry>Automatic or User-initiated status changes
-              (out-of-service and blocked proxies)</entry>
+              <entry>自动或者用户发起的变更（服务失效和阻塞的代理）</entry>
             </row>
 
             <row>
               <entry><varname>systemChanges</varname></entry>
 
-              <entry>Booting nexus, changing configuration, re-indexing, and
-              rebuilding of attributes</entry>
+              <entry>启动Nexus，更改配置，重新编制索引，以及属性重建</entry>
             </row>
           </tbody>
         </tgroup>
@@ -487,22 +463,15 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>浏览日志文件和配置</title>
 
-      <para>Logs and Config Files is only visible to Administrative users
-      under the Views menu. Click on this option brings up the dialog shown in
-      <xref linkend="fig-nexus-logs" />. From this screen you can view the
-      following log and configuration files by clicking on the drop down
-      selection next to the Download button.</para>
+      <para>日志和配置文件只有在管理员用户的Views菜单中可见。点击该选项会看到如<xref
+      linkend="fig-nexus-logs" />中的对话框。在这个屏幕你可以通过点击Download按钮旁边的下拉选择菜单来查看一下的日志和配置文件。</para>
 
       <variablelist>
         <varlistentry>
           <term><filename>nexus.log</filename></term>
 
           <listitem>
-            <para>Think of this as the general application log for Nexus.
-            Unless you are an administrative user, you might not have must
-            interest in the information in this log. If you are trying to
-            debug an error, or if you have uncovered a bug in Nexus, you'll
-            use this log viewer to diagnose problems with Nexus.</para>
+            <para>把它想成是一个Nexus的总体的应用程序日志。除非你是管理员用户，否则你可能不会对这个日志的信息有什么兴趣。如果你正试图调试一个错误，或者你有Nexus中未发现的bug。你会使用这个日志查看器来诊断Nexus的问题。</para>
           </listitem>
         </varlistentry>
 
@@ -510,13 +479,9 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
           <term><filename>nexus-rest-0.log</filename></term>
 
           <listitem>
-            <para>The core Nexus server is really just a bunch of
-            <acronym>REST</acronym> services, and the <acronym>UI</acronym>
-            that you are using simply interacts with these
-            <acronym>REST</acronym> services to configure and view Nexus
-            Groups and Repositories. This log file is going to reflect
-            activity generated by the Nexus <acronym>UI</acronym> interacting
-            with the Nexus <acronym>REST</acronym> services.</para>
+            <para>核心的Nexus服务实际上是一堆<acronym>REST</acronym>服务，你正使用的<acronym>UI</acronym>只是和这些<acronym>REST</acronym>服务交互以配置和查看Nexus的组及仓库。这个日志文件反映了由Nexus
+            <acronym>UI</acronym>和Nexus
+            <acronym>REST</acronym>服务交互所生成的活动。</para>
           </listitem>
         </varlistentry>
 
@@ -524,15 +489,13 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
           <term><filename>nexus.xml</filename></term>
 
           <listitem>
-            <para>This XML file contains most of the configuration data for
-            your instance of Nexus. It is stored in
-            <filename>${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>.</para>
+            <para>这个XML文件包含了大部分你所使用的Nexus实例的配置数据。它被存储在<filename>${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <figure id="fig-nexus-logs">
-        <title>Browsing Nexus Logs and Configuration</title>
+        <title>浏览Nexus日志和配置文件</title>
 
         <mediaobject>
           <imageobject>
@@ -545,14 +508,11 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
     <section>
       <title>更改你的密码</title>
 
-      <para>If you have the appropriate security privilege, you will see an
-      option to change your password in the left-hand side of the browser. To
-      change your password, click on change password, supply your current
-      password, and choose a new password. When you click on Change Password,
-      your Nexus password will be changed.</para>
+      <para>如果你拥有适当的安全权限，你还会在浏览器的左边看到一个可以更改你密码的选项。要更改你的密码，点击change
+      password，提供你现在的密码，然后输入一个新密码。当你点击Change Password后，你的Nexus密码就被更改了。</para>
 
       <figure>
-        <title>Changing Your Nexus Password</title>
+        <title>更改你的Nexus密码</title>
 
         <mediaobject>
           <imageobject>
@@ -566,7 +526,7 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
   <section id="sect-conf-maven-nexus">
     <title>配置Maven使用Nexus</title>
 
-    <para>要使用，你需要配置Maven去检查Nexus而非公共的仓库。为此，你需要编辑在你的<filename>~/.m2/settings.xml</filename>文件中的mirror配置。首先，我们会演示如何配置Maven去检查你的Nexus安装而非直接从中央Maven仓库获取构件。在我们覆盖了中央仓库并演示了Nexus可以工作之后，我们会转回来，提供一个更实际的，包含发布版和快照版的配置集合。</para>
+    <para>要使用Nexus，你需要配置Maven去检查Nexus而非公共的仓库。为此，你需要编辑在你的<filename>~/.m2/settings.xml</filename>文件中的mirror配置。首先，我们会演示如何配置Maven去检查你的Nexus安装而非直接从中央Maven仓库获取构件。在我们覆盖了中央仓库并演示了Nexus可以工作之后，我们会转回来，提供一个更实际的，包含发布版和快照版的配置集合。</para>
 
     <section id="sect-simple-maven-nexus">
       <title>使用Nexus中央代理仓库</title>
@@ -605,18 +565,6 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
 </screen>
 
       <para>这个输出应该能让你相信Maven正和你本地的Nexus通讯，而非向外面的中央Maven仓库获取构件。在你基于本地的Nexus运行过一些构建之后，你就可以浏览缓存在你本地Nexus中的内容。登陆Nexus然后点击导航菜单的左边的构件搜索。在搜索框中输入"maven"，你应该能看到一些像下面的内容。</para>
-
-      <figure>
-        <title>用"maven"搜索构件的结果</title>
-
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figs/web/repository-manager_artifact-search.png" />
-            </imageobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
     </section>
 
     <section>
@@ -697,7 +645,7 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
         <varname>http://public-snapshots</varname>。这些假的<acronym>URL</acronym>被同一<filename>settings.xml</filename>文件中的两个mirror配置重写。第一个镜像被配置成覆盖public-snapshots仓库，而使用<varname>public-snapshots</varname>
         Nexus组。第二个镜像覆盖所有其它的仓库，而使用<varname>public</varname>
         Nexus组。有了这些配置，所有的构建都会包含<varname>public</varname>
-        Nexus组，如果你想包含<varname>public-snapshots</varname>组，你必须添加profile的public-snapshots，通过在命令行使用如下的
+        Nexus组，如果你想包含<varname>public-snapshots</varname>组，你必须添加public-snapshots这个Profile，通过在命令行使用如下的
         -P 标志。</para>
 
         <screen>$ mvn -Ppublic-snapshots clean install</screen>
@@ -713,7 +661,7 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
       <para>作为一个例子，让我们试试从我们签出的源代码构件Apache Shindig。什么是Apache
       Shindig?对该例来说这不重要；我们需要的是一个能很容易签出和构建的样例项目。如果你实在很想知道，Shindig是在Apache
       Incubator中的一个围绕Google的OpenSocial
-      API的项目。Shindig目标是提供一个允许人们运行OpenSocial小工具的容器。它给我们提供了一个有趣的样例工程，因为它有一些没有被加入到中央Maven仓库的组建，于是依赖于一些自定义的Mavne仓库，使用Shindig我们可以向你展示当Nexus没有你要的构件的时候会发生什么，以及你能够使用怎样的步骤来给Nexus添加仓库。</para>
+      API的项目。Shindig目标是提供一个允许人们运行OpenSocial小工具的容器。它给我们提供了一个有趣的样例工程，因为它有一些没有被加入到中央Maven仓库的组件，于是依赖于一些自定义的Maven仓库，使用Shindig我们可以向你展示当Nexus没有你要的构件的时候会发生什么，以及你能够使用怎样的步骤来给Nexus添加仓库。</para>
 
       <para>下面的样例假设你已经安装了Subversion，并且你正在命令行运行Subversion。我们使用Subversion从Apache
       Incubator签出Apache Shindig然后尝试构建它。为此，执行下面的命令：</para>
@@ -750,74 +698,31 @@ from the specified remote repositories:
   caja (http://google-caja.googlecode.com/svn/maven)
 </screen>
 
-      <para>The build fails because it is unable to download an artifact. The
-      artifact it was trying to download has a group identifier of
-      <varname>caja</varname>, and artifactId of <varname>caja</varname>, and
-      a version of <varname>r820</varname>. It is an artifact that is hosted
-      on a custom repository <ulink
-      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>.
-      Maven failed to download this artifact because your
-      <filename>settings.xml</filename> was configured to direct all mirrors
-      to the <varname>public</varname> and <varname>public-snapshots</varname>
-      groups hosted on our Nexus installation. Even though the
-      <filename>pom.xml</filename> for Apache Shindig defined a repository and
-      pointed it at <ulink
-      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>,
-      Nexus won't retrieve an artifact from a repository it doesn't know
-      about. In fact, there are two repositories that Nexus doesn't know about
-      in this build: <varname>caja</varname> and <varname>oauth</varname>.
-      <ulink url="http://code.google.com/p/google-caja/">Caja</ulink> and
-      <ulink url="http://code.google.com/p/oauth/">OAuth</ulink> are two
-      libraries which are still in development. Both projects have been
-      "released", and the versions that Shindig depends upon are certainly not
-      SNAPSHOT releases, but these projects have not been published to the
-      Central Maven Repository. We need to find a way to let Nexus know about
-      these repositories before we can build this project.</para>
+      <para>这个构建失败了因为它下载不到一个构件。这个构件有一个group标识符为<varname>caja</varname>，artifactId是<varname>caja</varname>，版本是<varname>r820</varname>。这是一个存在于自定义仓库<ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>中的一个构件。Maven没能够下载到这个构件是因为你的<filename>settings.xml</filename>被配置成指引所有的镜像至位于我们Nexus安装的<varname>public</varname>和<varname>public-snapshots</varname>组。即使Apache
+      Shindig的<filename>pom.xml</filename>定义了一个仓库并且将其指向了<ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>，Nexus不会从一个它不知道的仓库中去获取构件。事实上，关于这次构建有两个仓库Nexus不知道：<varname>caja</varname>和<varname>oauth</varname>。<ulink
+      url="http://code.google.com/p/google-caja/">Caja</ulink>和<ulink
+      url="http://code.google.com/p/oauth/">OAuth</ulink>是两个仍然处于开发中的类库。两个项目都被“发布”了，而且Shindig所依赖的版本当然不是快照版，但是这些项目没有被发布到中央Maven仓库。在我们能构建这个项目之前，我们需要想办法让Nexus知道这些仓库。</para>
 
-      <para>There are two ways to fix this problem. First, you can change your
-      <filename>settings.xml</filename> to override specific repository
-      identifiers. Instead of listing the Nexus public group as a
-      <sgmltag>mirrorOf</sgmltag> all repositories, you could change the
-      <sgmltag>mirrorOf</sgmltag> element in your
-      <filename>settings.xml</filename> to "central". If you did this, Maven
-      would then attempt to download the dependencies directly from the
-      <varname>oauth</varname> and <varname>caja</varname> repositories at the
-      <acronym>URL</acronym>s listed in the previous screen listing. This
-      would work because Maven is only going to consult Nexus for repositories
-      which match the repositories specified in the
-      <sgmltag>mirrorOf</sgmltag> element in
-      <filename>settings.xml</filename>. If Maven sees the repositories
-      identifier <varname>caja</varname> or <varname>oauth</varname>, and
-      doesn't see a mirror configured in your
-      <filename>settings.xml</filename>, it is going to attempt to connect to
-      the repository directly.</para>
+      <para>有两种方法可以解决这个问题。首先，你可以更改你的以<filename>settings.xml</filename>覆盖特定的仓库定义符。你可以更改<filename>settings.xml</filename>中的<sgmltag>mirrorOf</sgmltag>元素为"central"，而非让Nexus
+      public组
+      <sgmltag>mirrorOf</sgmltag>所有的仓库。如果你这么做了，Maven就会试图直接从<varname>oauth</varname>和<varname>caja</varname>仓库下载依赖。这行得通，因为Maven只会为那些匹配<filename>settings.xml</filename>中<sgmltag>mirrorOf</sgmltag>元素的仓库去查阅Nexus。如果Maven看到一个仓库定义符<varname>caja</varname>或者<varname>oauth</varname>，而且没有在你的<filename>settings.xml</filename>中看到一个镜像，它会直接去连接这个仓库。</para>
 
-      <para>The second, more interesting option is to add both of these
-      repositories to Nexus and then add these repositories to the public
-      group.</para>
+      <para>第二种方法，更有趣的选择是添加这些仓库至Nexus，并且添加这些仓库至public组。</para>
     </section>
 
     <section>
       <title>添加一个新的仓库</title>
 
-      <para>To add the caja repository, log into Nexus as an Administrator,
-      and click on the Repositories link in the left-hand navigation menu in
-      the Configuration section. Clicking on this link should bring up a
-      window that lists all of the repositories which Nexus knows about.
-      You'll then want to create a new proxy repository. To do this, click on
-      the Add link which is directly above the list of repositories. When you
-      click the Add button, click the down arrow directly to the right of the
-      word Add, this will show a drop-down which has the options: Hosted,
-      Proxy, and Virtual. Since you are creating a proxy repository, click on
-      Proxy. Once you do this, you will see a screen resembling <xref
-      linkend="fig-add-repo" />. Populate the required fields Repository ID
-      and the Repository Name with "caja" and "Google Caja". Set the
-      Repository Policy to "Release", and the Remote Storage Location to
-      <ulink
-      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>.</para>
+      <para>要添加caja仓库，以管理员登陆Nexus，在左边导航菜单Configuration部分中点击Repositories链接。点击这个链接后会看到一个窗口列出了所有Nexus所知道的仓库。之后你想要创建一个新的代理仓库。为此，点击在仓库列表正上方的Add链接。点击单词Add右边的朝下的箭头，会看到一个下拉菜单，带有选项：Hosted，Proxy，和Vitual。既然你要创建一个代理仓库，点击Proxy。之后，你会看到一个如<xref
+      linkend="fig-add-repo" />的页面。填充那些必填字段，Repository ID为"caja"，Repository
+      Name为"Google Caja"。设置Repository Policy为"Release"，以及Remote Storage
+      Location为<ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>。</para>
 
       <figure id="fig-add-repo">
-        <title>Adding a Nexus Repository</title>
+        <title>添加一个Nexus仓库</title>
 
         <screenshot>
           <mediaobject>
@@ -828,26 +733,20 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para>Once, you've filled out this screen, click on the Save button.
-      Nexus will then be configured with the caja proxy repository. Do the
-      same thing for the oauth repository. Create a repository with the
-      Repository ID of oauth, with a Release policy, and the Remote Storage
-      Location of <ulink
-      url="http://oauth.googlecode.com/svn/code/maven">http://oauth.googlecode.com/svn/code/maven</ulink>.</para>
+      <para>在你填写完这个页面之后，点击Save按钮。Nexus就会接受这个caja代理仓库的配置。为oauth仓库重复同样的工作。创建一个仓库，Repository
+      ID为oauth，选择Release policy，Remote Storage Location为<ulink
+      url="http://oauth.googlecode.com/svn/code/maven">http://oauth.googlecode.com/svn/code/maven</ulink>。</para>
     </section>
 
     <section>
       <title>添加一个仓库至一个组</title>
 
-      <para>Next you will need to add both of these new repositories to the
-      public Nexus Group. To do this, click on the Groups link in the
-      left-hand navigation menu in the Configuration section. When you see the
-      Group management screen, click on the public group. Clicking on the
-      public group should bring up a screen which resembles <xref
-      linkend="fig-add-to-group" />.</para>
+      <para>下一步你需要做的是添加这些新的仓库至public
+      Nexus组。为此，点击左边导航菜单中Configuration部分的Groups链接。当你看到组管理页面后，点击public
+      repositories 组，你应该能看到如<xref linkend="fig-add-to-group" />的页面。</para>
 
       <figure id="fig-add-to-group">
-        <title>Adding New Repositories to a Nexus Group</title>
+        <title>添加新的仓库至一个Nexus组</title>
 
         <screenshot>
           <mediaobject>
@@ -858,44 +757,29 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para>Nexus makes use of an interesting Javascript widget library named
-      <ulink url="http://extjs.com/">ExtJS</ulink>. ExtJS provides for a
-      number of interesting UI widgets that allow for rich interaction. To add
-      the two new repositories to the <varname>public</varname> Nexus Group,
-      find the repositories in the Available Repositories list, click on the
-      repository you want to add and drag it to the Ordered Group
-      Repositories. Once the repository is in the Ordered Group Repositories
-      list you can click and drag the repository within that list to alter the
-      order in which a repository will be searched for a matching artifact.
-      Once the Google Caja and Google OAuth project repositories are added to
-      the public Nexus Group, you should be able to build Apache Shindig and
-      watch Maven download the Caja and OAuth artifacts from the respective
-      repositories.</para>
+      <para>Nexus使用了一个十分有趣的，名为<ulink
+      url="http://extjs.com/">ExtJS</ulink>的Javascript小工具类库。ExtJS提供了许多有趣的UI小工具，能为用户提供丰富的交互体验。要添加这两个新的仓库至<varname>public</varname>
+      Nexus组，在可用仓库列表中找到仓库，点击你想要添加的仓库然后拖拉进Ordered Group
+      Repositories。一旦仓库在Ordered Group
+      Repositories列表中，你可以点击并拖拉列表中的仓库，以改变为匹配构件进行搜索的仓库的顺序。在Google Caja和Google
+      OAuth项目仓库被添加到public Nexus组之后，你应该能够构建Apache
+      Shindig并观察到Maven从各自的仓库下载Caja和OAuth。</para>
     </section>
   </section>
 
   <section>
     <title>配置Nexus</title>
 
-    <para>Many of the configuration screens shown in this section are only
-    available to administrative users. Nexus allows the admin user to
-    customize the list of repositories, create repository groups, customize
-    server settings, and create routes or "rule" that Maven will use to
-    include or exclude artifacts from a repository.</para>
+    <para>本节展示的很多配置页面只对管理员可用。Nexus允许管理员用户自定义仓库列表，创建仓库组，自定义服务器设置，以及创建Maven用来包含或排除某个仓库构件的路线或者“规则”。</para>
 
     <section id="sect-repoman-server-conf" label="">
       <title>定制服务器配置</title>
 
-      <para>In a real installation of Nexus, you'll probably want to customize
-      the administrative password to something other than "admin123", and you
-      might want to override the default directories that Nexus uses to store
-      repository data. To do this, log in as the administrative user and click
-      on Server under Configuration in the left-hand navigation menu. The
-      server configuration screen is shown in <xref
-      linkend="fig-nexus-server-config" />.</para>
+      <para>在一个实际的Nexus安装中，你可能会想要自定义管理员密码，而非使用“admin123”，你可能会想要复写Nexus用来存储仓库数据的默认目录。为此，以管理员用户登陆然后点击左边导航菜单Administration下面的Server。服务器配置界面如<xref
+      linkend="fig-nexus-server-config" />显示。</para>
 
       <figure id="fig-nexus-server-config">
-        <title>Nexus Server Configuration</title>
+        <title>Nexus服务器配置</title>
 
         <screenshot>
           <mediaobject>
@@ -906,47 +790,31 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para>This screen allows you to change:</para>
+      <para>该页面能让你更改：</para>
 
       <variablelist>
         <varlistentry>
-          <term>Admin Password</term>
+          <term>管理员密码</term>
 
           <listitem>
-            <para>The default admin password is <varname>admin123</varname>.
-            If you fill out this field and click on the Save button, you can
-            change the admin password for this installation of Nexus.</para>
+            <para>默认的管理员密码是<varname>admin123</varname>。如果你填写这个字段并点击了Save按钮，你及更改了这个Nexus安装的管理员密码。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Working Directory</term>
+          <term>工作目录</term>
 
           <listitem>
-            <para>Under the File Settings group, you can customize the working
-            directory. You may wish to customize the working directory if your
-            Nexus installation is going to be mirroring very large
-            repositories and you want to put your working directory on another
-            partition.</para>
+            <para>在File
+            Settings组下面，你可以自定义工作目录。如果你的Nexus安装将要作为很大的仓库的镜像，而且你想要将你的工作目录放到另外一个硬盘分区，你可能会想要自定义工作目录。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Log Directory</term>
+          <term>日志目录</term>
 
           <listitem>
-            <para>You can change where Nexus looks for logs. On a Unix
-            machine, a common practice is to place all log files under
-            <filename>/var/log</filename>. If you wanted to follow this
-            practice, you could create a <filename>/var/log/nexus</filename>
-            directory with the appropriate permissions. Note that this setting
-            does not change the logging directory used by Nexus, it simply
-            tells Nexus where to look for the logs. To change the location of
-            the logs, you will need to change the
-            <filename>jul-logging.properties</filename> and
-            <filename>log4j.properties</filename> files in the
-            <filename>runtime/apps/nexus/conf</filename> directory of your
-            Nexus installation.</para>
+            <para>你可以改变Nexus寻找日志的位置。在一个Unix机器上，一个通常的实践是将日志文件放到<filename>/var/log</filename>。如果你遵循这个实践，你可以使用适当的权限来创建一个<filename>/var/log/nexus</filename>目录。注意这个设置并不会更改Nexus记日志的目录，它仅仅是告诉Nexus去哪里寻找日志。要更改写日志的位置，你需要修改在你Nexus安装的<filename>runtime/apps/nexus/conf</filename>目录下<filename>jul-logging.properties</filename>的和<filename>log4j.properties</filename>文件。</para>
           </listitem>
         </varlistentry>
 
@@ -954,59 +822,48 @@ from the specified remote repositories:
           <term>User Agent</term>
 
           <listitem>
-            <para>This is the identifier which Nexus uses when it is making an
-            <acronym>HTTP</acronym> request. You may want to change this if
-            Nexus needs to use an <acronym>HTTP</acronym> Proxy, and the Proxy
-            will only work if the User Agent is set to a specific
-            value.</para>
+            <para>这是Nexus用来生成<acronym>HTTP</acronym>请求的标识符。如果Nexus需要用一个<acronym>HTTP</acronym>代理，而且这个代理只有当User
+            Agent设置成某个特定值才能工作，你就要更改这个设置。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Additional <acronym>URL</acronym> Parameters</term>
+          <term>额外的<acronym>URL参数</acronym></term>
 
           <listitem>
-            <para>This is a list of extra parameters to place on a
-            <acronym>GET</acronym> request to a remote repository. You could
-            use this to add identifying information to requests.</para>
+            <para>这是一列放在对远程仓库的<acronym>GET</acronym>请求后面的附加参数。你可以用它来添加对请求的定义信息。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Request Timeout</term>
+          <term>请求超时</term>
 
           <listitem>
-            <para>The amount of time Nexus will wait for a request to succeed
-            when interacting with an external, remote repository.</para>
+            <para>这是当Nexus和外部，远程的仓库交互时等待一个请求成功的时间。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Request Retry Attempts</term>
+          <term>请求重试次数</term>
 
           <listitem>
-            <para>The number of times Nexus will retry a failed
-            <acronym>HTTP</acronym> request.</para>
+            <para>当遇到一个失败的<acronym>HTTP</acronym>请求时，Nexus会重试的次数。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Proxy Host and Proxy Post</term>
+          <term>代理主机和代理端口</term>
 
           <listitem>
-            <para>If your organization requires that you use an
-            <acronym>HTTP</acronym> proxy server, you can supply the proxy
-            host and port in these configuration fields.</para>
+            <para>如果你的组织需要使用一个<acronym>HTTP</acronym>代理服务器，你可以在这里提供代理主机和代理端口。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Proxy Authentication</term>
+          <term>代理认证</term>
 
           <listitem>
-            <para>This configuration section allows you to provide proxy
-            authentication information such as a username and password or a
-            key used to access an <acronym>HTTP</acronym> Proxy.</para>
+            <para>这一部分配置能让你提供代理认证信息，如用户名和密码，或者用来访问<acronym>HTTP</acronym>代理的密钥。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1015,28 +872,21 @@ from the specified remote repositories:
     <section>
       <title>管理仓库</title>
 
-      <para>To manage the repositories which Nexus provides, log in as the
-      administrative user and click on Repositories in the Configuration menu
-      in the left-hand navigation menu. Nexus provides for three different
-      kinds of repositories:</para>
+      <para>要管理Nexus提供的仓库，以管理员用户登陆然后点击左边导航菜单Administration下面的Repositories。Nexus提供了三种不同的仓库。</para>
 
       <variablelist>
         <varlistentry>
-          <term>Proxy Repository</term>
+          <term>代理仓库</term>
 
           <listitem>
-            <para>A proxy repository is a proxy of a remote repository. By
-            default, Nexus ships with the following configured proxy
-            repositories:</para>
+            <para>一个代理仓库是对远程仓库的一个代理。默认情况下，Nexus自带了如下配置的代理仓库：</para>
 
             <variablelist>
               <varlistentry>
                 <term>Apache Snapshots</term>
 
                 <listitem>
-                  <para>This repository contains snapshot releases from the
-                  Apache Software Foundation
-                  http://people.apache.org/repo/m2-snapshot-repository</para>
+                  <para>这个仓库包含了来自于Apache软件基金会的快照版本。http://people.apache.org/repo/m2-snapshot-repository</para>
                 </listitem>
               </varlistentry>
 
@@ -1044,8 +894,8 @@ from the specified remote repositories:
                 <term>Codehaus Snapshots</term>
 
                 <listitem>
-                  <para>This repository contains snapshot released from
-                  Codehaus http://snapshots.repository.codehaus.org/</para>
+                  <para>这个仓库包含了来自于Codehaus的快照版本。
+                  http://snapshots.repository.codehaus.org/</para>
                 </listitem>
               </varlistentry>
 
@@ -1053,7 +903,7 @@ from the specified remote repositories:
                 <term>Central Maven Repository</term>
 
                 <listitem>
-                  <para>This is the central Maven repository (for releases).
+                  <para>这是中央Maven仓库（发布版本）。
                   http://repo1.maven.org/maven2/</para>
                 </listitem>
               </varlistentry>
@@ -1062,23 +912,18 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>Hosted Repository</term>
+          <term>宿主仓库</term>
 
           <listitem>
-            <para>A hosted repository is a repository which is hosted by
-            Nexus. Maven ships with the following configured hosted
-            repositories:</para>
+            <para>一个宿主仓库是由Nexus托管的仓库。Maven自带了如下配置的宿主仓库。</para>
 
             <variablelist>
               <varlistentry>
                 <term>3rd Party</term>
 
                 <listitem>
-                  <para>This hosted repository should be used for third-party
-                  dependencies not available in the public Maven repositories.
-                  Examples of these dependencies could be commercial,
-                  proprietary libraries such as an Oracle JDBC driver that may
-                  be referenced by your organization.</para>
+                  <para>这个宿主仓库应该用来存储在公共Maven仓库中找不到的第三方依赖。这种依赖的样例有：你组织使用的，商业的，私有的类库如Oracle
+                  JDBC驱动。</para>
                 </listitem>
               </varlistentry>
 
@@ -1086,8 +931,7 @@ from the specified remote repositories:
                 <term>Releases</term>
 
                 <listitem>
-                  <para>This hosted repository is where your organization will
-                  publish internal releases.</para>
+                  <para>这个宿主仓库是你组织公布内部发布版本的地方。</para>
                 </listitem>
               </varlistentry>
 
@@ -1095,8 +939,7 @@ from the specified remote repositories:
                 <term>Snapshots</term>
 
                 <listitem>
-                  <para>This hosted repository is where your organization will
-                  publish internal snapshots.</para>
+                  <para>这个宿主仓库是你组织发布内部快照版本的地方。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1104,17 +947,16 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>Virtual Repository</term>
+          <term>虚拟仓库</term>
 
           <listitem>
-            <para>A virtual repository exists as an adapter to Maven 1. Nexus
-            ships with a central-m1 virtual repository.</para>
+            <para>一个虚拟仓库作为Maven 1的适配器存在。Nexus自带了一个central-m1虚拟仓库。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <figure id="fig-repo-config">
-        <title>Repository Configuration Screen for a Proxy Repository</title>
+        <title>代理仓库的配置页面</title>
 
         <screenshot>
           <mediaobject>
@@ -1125,156 +967,119 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para><xref linkend="fig-repo-config" /> shows the Repository
-      configuration screen for a Proxy repository in Nexus. From this screen,
-      you can manage the settings for proxying an external repository. From
-      this screen, you can configure:</para>
+      <para><xref linkend="fig-repo-config" />
+      展示了Nexus中代理仓库的配置页面。在这个页面中，你可以管理一个外部仓库的设置。本页面中，你可以配置：</para>
 
       <variablelist>
         <varlistentry>
-          <term>Repository ID</term>
+          <term>仓库ID</term>
 
           <listitem>
-            <para>The repository ID is the identifier which will be used in
-            the Nexus URL. For example, the central proxy repository has an ID
-            of "central", this means that maven can access the repository
-            directly at
-            http://localhost:8081/nexus/content/repositories/central. The
-            Repository ID must be unique in a given Nexus installation. ID is
-            required.</para>
+            <para>仓库ID是将会被用在Nexus
+            URL中的标识符。例如，中央代理仓库有一个ID为"central"，这就意味着Maven可以直接在http://localhost:8081/nexus/content/repositories/central访问这个仓库。在一个给定的Nexus安装中，仓库ID必须是唯一的。ID是必需的。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Repository Name</term>
+          <term>仓库名称</term>
 
           <listitem>
-            <para>The display name for a repository. Name is required.</para>
+            <para>仓库的显示名称。名称是必需的。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Repository Type</term>
+          <term>仓库类型</term>
 
           <listitem>
-            <para>The type of repository (proxy, hosted, or virtual). You
-            can't change the type of a repository, it is selected when you
-            create a repository.</para>
+            <para>仓库类型（代理，宿主，或者虚拟）。你不能改变仓库的类型，在你创建一个仓库的时候它就被指定了。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Repository Policy</term>
+          <term>仓库策略</term>
 
           <listitem>
-            <para>If a proxy repository has a policy of release than it will
-            only access released versions from the remote repository. If a
-            proxy repository has a policy of snapshot, it will download
-            snapshots from the remote repository.</para>
+            <para>如果一个代理仓库的策略是release，那么它只会访问远程仓库的发布版本构件。如果一个代理仓库的策略是snapshot，它只会下载远程仓库的快照版本构件。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Default Storage Location</term>
+          <term>默认存储位置</term>
 
           <listitem>
-            <para>Not editable, shown for reference. This is the default
-            storage location for the local cached contents of the
-            repository.</para>
+            <para>它不可编辑的，显示出来只是为了参考。这是仓库本地缓存内容的默认存储位置。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Override Storage Location</term>
+          <term>覆写存储位置</term>
 
           <listitem>
-            <para>You can choose to override the storage location for a
-            specific repository. You would do this if you were concerned about
-            storage and wanted to put the contents of a specific repository
-            (such as central) in a different location.</para>
+            <para>你可以选择为某个特定的仓库覆写存储位置。如果你关心存储空间，或者想要将某个特定仓库（如中央仓库）的内容放到一个不同的位置，你就可以覆写存储位置。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Remote Repository Access</term>
+          <term>远程仓库访问</term>
 
           <listitem>
-            <para>This section tells Nexus where to look for and how to
-            interact with the remote Maven repository being proxied.</para>
+            <para>这一部分告诉Nexus去哪里寻找远程仓库，以及如何与这个被代理的仓库交互。</para>
 
             <variablelist>
               <varlistentry>
-                <term>Remote Storage Location</term>
+                <term>远程存储位置</term>
 
                 <listitem>
-                  <para>This is the URL of the remote Maven repository.</para>
+                  <para>这是远程Maven仓库的URL。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Download Remote Indexes (Not shown in figure)</term>
+                <term>下载远程索引（本图未显示）</term>
 
                 <listitem>
-                  <para>This field controls the downloading of the remote
-                  indexes. Currently only central has an index at <ulink
-                  url="http://repo1.maven.org/maven2/.index">http://repo1.maven.org/maven2/.index</ulink>.
-                  If enabled, Nexus will download the index and use that for
-                  its searches as well as serve that up to any clients which
-                  ask for the index (like m2eclipse). The default for new
-                  proxy repositories is enabled, but all of the default
-                  repositories included in Nexus have this option disabled. To
-                  change this setting for one of the proxy repositories that
-                  ship with Nexus, change the option, save the repository, and
-                  then re-index the repository. Once this is done, artifact
-                  search will return every artifact available on the Central
-                  Maven repository. <xref linkend="sect-manage-repo" />
-                  details the process for re-indexing a repository.</para>
+                  <para>这个字段控制下载远程索引。目前只有中央仓库在<ulink
+                  url="http://repo1.maven.org/maven2/.index">http://repo1.maven.org/maven2/.index</ulink>有一个索引。如果开启它，Nexus会下载这个索引，并使用它用来搜索，以及为任何要求索引的客户（如m2eclipse）服务。新的代理仓库的默认值是开启的，但是Nexus自带的所有仓库的这个默认值是关闭的。要改变Nexus自带的代理仓库设置，更改此选项，保存至仓库，然后给仓库重新编制索引。在这之后，构件搜索会返回中央Maven仓库中可用的每一个构件。<xref
+                  linkend="sect-manage-repo" />详细描述了为仓库重新编制索引的过程。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Checksum Policy</term>
+                <term>校验和策略</term>
 
                 <listitem>
-                  <para>Sets the checksum policy for a remote repository. This
-                  option is set to <varname>Warn</varname> by default. The
-                  possible values of this setting are:</para>
+                  <para>为一个远程仓库设置校验和策略。这个选项默认设置成<varname>Warn</varname>。该设置可能的值包括：</para>
 
                   <itemizedlist>
                     <listitem>
-                      <para><varname>Ignore</varname> - Ignore the checksums
-                      entirely</para>
+                      <para><varname>Ignore</varname> - 完全忽略校验和</para>
                     </listitem>
 
                     <listitem>
-                      <para><varname>Warn</varname> - Print a warning in the
-                      log if a checksum is not correct</para>
+                      <para><varname>Warn</varname> -
+                      如果校验和不正确，在日志中打印一个警告</para>
                     </listitem>
 
                     <listitem>
-                      <para><varname>StrictIfExists</varname> - Refuse to
-                      cache an artifact if the calculated checksum is
-                      inconsistent with a checksum in the repository. Only
-                      perform this check if the checksum file is
-                      present.</para>
+                      <para><varname>StrictIfExists</varname> -
+                      如果计算出来的校验和与仓库中的校验和不一致，那就拒绝缓存这个构件。只有校验和文件存在的时候才进行检查。</para>
                     </listitem>
 
                     <listitem>
-                      <para><varname>Strict</varname> - Refuse to cache an
-                      artifact if the calculated checksum is inconsistent or
-                      if there is no checksum for an artifact.</para>
+                      <para><varname>Strict</varname> -
+                      如果计算出来的校验和与仓库中的校验和不一致，或者如果构件没有校验和文件，就拒绝缓存这个构件。</para>
                     </listitem>
                   </itemizedlist>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Authentication</term>
+                <term>认证</term>
 
                 <listitem>
-                  <para>This section allows you to set a Username, Password,
-                  Private Key, Key Passphrase, NT LAN Host, and NT Lan Manager
-                  Domain for a remote repository.</para>
+                  <para>这一部分允许你为一个远程仓库设置用户名，密码，私钥，密钥口令，NT LAN HOST，以及NT LAN
+                  Manager Domain。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1282,40 +1087,34 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>Access Settings</term>
+          <term>访问设置</term>
 
           <listitem>
-            <para>This section configures access settings for a
-            repository.</para>
+            <para>这一部分为一个仓库配置访问设置。</para>
 
             <variablelist>
               <varlistentry>
-                <term>Allow Deployment</term>
+                <term>允许部署</term>
 
                 <listitem>
-                  <para>If allow deployment is set to true, Nexus will allow
-                  Maven to deploy artifacts to this repository. Allow
-                  deployment only makes sense for Hosted repositories.</para>
+                  <para>如果允许部署设置成true，Nexus会允许Maven部署构件至这个仓库。允许部署只有对于宿主仓库有意义。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Allow File Browsing</term>
+                <term>允许文件浏览</term>
 
                 <listitem>
-                  <para>When set to true, users can browse the contents of the
-                  repository with a web browser.</para>
+                  <para>如果设置成true，用户可以通过web浏览器来浏览这个仓库的内容。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Include in Search</term>
+                <term>包含在搜索范围中</term>
 
                 <listitem>
-                  <para>When set to true, this repository is search when you
-                  perform an Artifact Search in Nexus. If this setting is
-                  false, the contents of the repository are excluded from a
-                  search.</para>
+                  <para>如果设置成true，当你在Nexus中执行构件搜索的时候，该仓库会被搜索。
+                  如果设置成false，在搜索时该仓库的内容会被排除。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1323,47 +1122,33 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>Expiration Settings</term>
+          <term>过期失效设置</term>
 
           <listitem>
-            <para>Nexus maintains a local cache of artifacts and metadata, you
-            can configure expiration parameters for a proxy repository. The
-            expiration settings are:</para>
+            <para>Nexus为构件和元数据维护一份本地的缓存，你可以为代理仓库配置过期失效参数。过期失效设置有：</para>
 
             <variablelist>
               <varlistentry>
-                <term>Not Found Cache TTL</term>
+                <term>未找到缓存TTL</term>
 
                 <listitem>
-                  <para>If Nexus fails to locate an artifact, it will cache
-                  this result for a given number of minutes. In other words,
-                  if Nexus can't find an artifact in a remote repository, it
-                  will not repeated attempt to resolve this artifact until the
-                  Not Found Cache TTL time has been exceeded. The default for
-                  this setting is 1440 minutes (or 24 hours).</para>
+                  <para>如果Nexus找不到一个构件，它会在一个给定的时间内缓存这个结果。换句话说，如果Nexus不能在远程仓库中找到一个构件，它不会重复的尝试去解析这个构件，除非超过了这个未找到缓存TTL时间。默认值是1140分钟（或者24小时）。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Artifact Max Age</term>
+                <term>构件最大年龄</term>
 
                 <listitem>
-                  <para>Tells Nexus when that maximum age of an artifact is
-                  before it retrieves a new version from the remote
-                  repository. The default for this setting is -1 for a
-                  repository with a Release policy and 1440 for a repository
-                  with Snapshot policy.</para>
+                  <para>在Nexus从远程仓库获取一个新版本的构件前，告诉它构件的最大年龄是多少。带有release策略的仓库的默认设置是-1，带有snapshot策略的仓库的默认值是1140。</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term>Metadata Max Age</term>
+                <term>元数据最大年龄</term>
 
                 <listitem>
-                  <para>Nexus retrieves metadata from the remote repository.
-                  It will only retrieve updates to metadata after the Metadata
-                  Max Age has been exceeded. The default value for this
-                  setting is 1440 minutes (or 24 hours).</para>
+                  <para>Nexus从远程仓库获取元数据。只有在超过了元数据最大年龄之后，它才会去获取元数据的更新。该设置的默认值是1140分钟（或者24小时）。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1371,27 +1156,19 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>HTTP Request Settings</term>
+          <term>HTTP请求设置</term>
 
           <listitem>
-            <para>This section lets you change the properties of the HTTP
-            request to the remote repository. In this section you can
-            configure the User Agent of the request, add parameters to a
-            request, and set the timeout and retry behavior. This section
-            refers to the HTTP request made from Nexus to the remote Maven
-            repository being proxied.</para>
+            <para>这一部分能让你更改对于远程仓库的HTTP请求的属性。该部分中你可以配置请求的User
+            Agent，为请求添加参数，设置超时和重试行为。这一部分涉及的是由Nexus对远程被代理Maven仓库的HTTP请求。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>HTTP Proxy Settings</term>
+          <term>HTTP代理设置</term>
 
           <listitem>
-            <para>This section lets you configure the HTTP Proxy for the
-            request from Nexus to the remote repository. You can configure a
-            proxy host and port plus an authentication settings you need tell
-            Nexus to use an HTTP Proxy for all requests to a remote
-            repository.</para>
+            <para>该部分能让你为从Nexus到远程仓库的请求配置HTTP代理。你可以配置一个代理主机，端口和认证设置，以告诉Nexus为所有对远程仓库的请求使用HTTP代理。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1400,21 +1177,14 @@ from the specified remote repositories:
     <section>
       <title>管理组</title>
 
-      <para>Groups are a powerful feature of Nexus, they allow you to combine
-      multiple repositories in a single URL. Nexus ships with two groups:
-      public and public-snapshots. The public group combines the three hosted
-      repositories: 3rd Party, Releases, and Snapshots with the Central Maven
-      repository. The public-snapshots repository combines the Apache
-      Snapshots and Codehaus Snapshots repositories. In <xref
-      linkend="sect-conf-maven-nexus" /> we configured Maven via the
-      <filename>settings.xml</filename> to look for artifacts in the
-      <varname>public</varname> group managed by Nexus. <xref
-      linkend="fig-group-config" /> shows the group configuration screen in
-      Nexus, in this figure you can see the contents of the
-      <varname>public</varname> group.</para>
+      <para>组是Nexus一个强大的特性，它允许你在一个单独的URL中组合多个仓库。Nexus自带了两个组：public和public-snapshots。public组中组合了三个宿主仓库：3rd
+      Party, Releases, 和Snapshots，还有中央Maven仓库。而public-snapshots组中组合了Apache
+      Snapshots和Codehaus Snapshots仓库。在<xref
+      linkend="sect-conf-maven-nexus" />中我们通过<filename>settings.xml</filename>配置Maven从Nexus管理的public组中寻找构件。<xref
+      linkend="fig-group-config" />显示了Nexus中的组配置页面，在该图中你可以看到public组的内容。</para>
 
       <figure id="fig-group-config">
-        <title>Group Configuration Screen in Nexus</title>
+        <title>Nexus中的组配置页面</title>
 
         <screenshot>
           <mediaobject>
@@ -1425,32 +1195,17 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para>Note that the order of the repositories listed in Order Group
-      Repositories is important. When Nexus searches for an artifact in a
-      group of repositories it will return the first match. To reorder a
-      repository in this list, click and the drag the repositories in the
-      Ordered Group Repositories selection list.</para>
+      <para>注意在图中有序组仓库中列出的仓库的顺序是很重要的。当Nexus在一组仓库中搜索一个构件的时候，它会返回第一个匹配的结果。要更改列表中仓库的顺序，在有序组仓库选择列表中点击并拖拉仓库即可。</para>
     </section>
 
     <section>
-      <title>Managing Routes</title>
+      <title>管理路由</title>
 
-      <para>Nexus Routes are like filters you can apply to Nexus Groups, they
-      allow you to configure Nexus to include or exclude repositories from a
-      particular artifact search when Nexus is trying to locate an artifact in
-      a Nexus Group. There are a number of different scenarios in which you
-      might configure a route in Nexus, the most common is when you want to
-      make sure that you are retrieving artifacts in a particular group ID
-      from a particular repository. This is especially useful when you want to
-      make sure that you are trying to retrieve your own organization's
-      artifacts from the hosted Release and Snapshot repositories. Nexus
-      Routes are applicable when you are trying to resolve an artifact from a
-      Nexus Group; using Routes allow you to modify the repositories Nexus
-      will consult when it tries to resolve an artifact from a group of
-      repositories.</para>
+      <para>Nexus
+      路由就像是你可以应用到Nexus组上的过滤器，当Nexus尝试在一个Nexus组中寻找构件的时候，路由允许你在一个特定的构件搜索中包含或者排除一些仓库。有很多不同的场景中你可能需要配置路由，最平常的是当你想要确信你正从一个特定组的特定的仓库中获取构件。特别是当你想要确信你正从宿主Releases及Snapshots仓库中获取你自己组织的构件的时候，路由功能很有用。当你正尝试从一个Nexus组中解析一个构件的时候，Nexus路由十分适用；当Nexus从一组仓库中解析一个构件的时候，使用路由允许你更改Nexus将查阅的仓库。</para>
 
       <figure id="fig-route-config">
-        <title>Routes Configuration Screen in Nexus</title>
+        <title>Nexus中的路由配置页面</title>
 
         <screenshot>
           <mediaobject>
@@ -1461,34 +1216,24 @@ from the specified remote repositories:
         </screenshot>
       </figure>
 
-      <para><xref linkend="fig-route-config" /> shows the Route Configuration
-      screen. Clicking on a route will bring up a screen which will allow you
-      to configure the properties of a route. The configuration options
-      available for a route are:</para>
+      <para><xref
+      linkend="fig-route-config" />显示了路由配置页面。在路由上点击会看到一个页面，能让你配置路由的属性。路由的可用配置选项是：</para>
 
       <variablelist>
         <varlistentry>
-          <term>URL Pattern</term>
+          <term>URL模式</term>
 
           <listitem>
-            <para>This is the pattern which Nexus will use to match a request
-            to Nexus. If the regular expression in this pattern is matched,
-            Nexus will either include or exclude the listed repositories from
-            a particular artifact query. In <xref
-            linkend="fig-route-config" /> the two patterns are:</para>
+            <para>这是Nexus用来匹配请求的模式。如果这个模式与请求表达式匹配，Nexus就会在特定的构件查询中包含或者排除所列出的仓库。在<xref
+            linkend="fig-route-config" />中的两个模式是：</para>
 
             <variablelist>
               <varlistentry>
                 <term>.*/(com|org)/somecompany/.*</term>
 
                 <listitem>
-                  <para>This pattern would match all of the paths which
-                  included either "/com/somecompany/" or "/org/somecompany".
-                  The expression in the parenthesis matches either com or org,
-                  and the ".*" matches one or more characters. You would use a
-                  route like this to match your own organization's artifacts
-                  and map these requests to the hosted Nexus Releases and
-                  Snapshots repositories.</para>
+                  <para>这个模式会匹配所有包含"/com/somecompany/"或者"/org/somecompany"的路径。圆括弧中的表达式匹配com或者org，"*"匹配一个或多个字符。你可以使用一个像这样的路由来匹配你自己组织的构件，并且将这样的请求对应到宿主的Nexus
+                  Releases及Snapshots仓库。</para>
                 </listitem>
               </varlistentry>
 
@@ -1496,13 +1241,7 @@ from the specified remote repositories:
                 <term>.*/org/some-oss/.*</term>
 
                 <listitem>
-                  <para>This pattern is used in an exclusive route. It matches
-                  every path that contains "/org/some-oss/". This particular
-                  exclusive route excludes the local hosted Releases and
-                  Snapshots directory for all artifacts which match this path.
-                  When Nexus tries to resolve artifacts that match this path,
-                  it will exclude the Releases and Snapshots
-                  repositories.</para>
+                  <para>这个模式用作一个排除路由。它匹配所有包含"/org/some-oss/"的路径。这个特殊的排除路由为所有与该路径匹配的构件排除宿主的Releases和Snapshots仓库。当Nexus尝试解析与该路劲匹配的构件时，它会排除Releases和Snapshots仓库。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -1510,94 +1249,40 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
-          <term>Rule Type</term>
+          <term>路由类型</term>
 
           <listitem>
-            <para>Rule Type can be either "inclusive" or "exclusive". An
-            inclusive rule type defines the set of repositories which should
-            be searched for artifacts when the <varname>URL</varname> pattern
-            has been matched. An exclusive rule type defines repositories
-            which should not be searched for a particular artifact.</para>
+            <para>路由类型可以是“包含”或者“排除”。一个包含路由类型定义了一组仓库，当URL模式匹配的时候这些仓库将被搜索。同样的情况下，一个排除路由定义的仓库则将不会被搜索。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Ordered Route Repositories</term>
+          <term>有序路由仓库</term>
 
           <listitem>
-            <para>This is an ordered list of repositories which Nexus will
-            search to locate a particular artifact. Nexus searches top to
-            bottom; if it’s looking for an artifact, it will return the first
-            match. When Nexus is looking for metadata, all repositories in a
-            group are checked and the results are merged. The merging is
-            applied giving preference to the earlier repositories. This is
-            relevant when a project is looking for a <varname>LATEST</varname>
-            or a <varname>RELEASE</varname> version. Within a Nexus Group, you
-            should define the release repositories before the snapshot
-            repositories, otherwise <varname>LATEST</varname> may incorrectly
-            resolve to a snapshot version.</para>
+            <para>这是一个Nexus用来搜索以寻找某个特殊构件的一个有序仓库列表。Nexus从上至下搜索；当它找某个构件的时候，会返回第一个匹配的结果。当它寻找元数据的时候，同一组中所有的仓库会被检查，并且最后返回一个归并的结果。归并的时候，前面的仓库拥有较高的优先权。当一个项目正在寻找<varname>LATEST</varname>或者<varname>RELEASE</varname>版本的时候，这可能会影响结果。在一个Nexus组中，你应该在快照版仓库前定义发布版仓库，否则<varname>LATEST</varname>可能会错误的解析成一个快照版本。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>In this figure you can see the two dummy Routes that Nexus has as
-      default routes. The first route is an inclusive route, it is provided as
-      an example of a custom route an organization might use to make sure that
-      internally generated artifacts are resolved from the Releases and
-      Snapshots repositories. If your organization's group IDs all start with
-      com.somecompany, and if you deploy internally generated artifacts to the
-      Releases and Snapshots repositories, this Route will make sure that
-      Nexus doesn't waste time trying to resolve these artifacts from public
-      Maven repositories like the Central Maven Repository or the Apache
-      Snapshots repository.</para>
+      <para>在该图中你你能看到两个Nexus默认带有的假路由。第一个路由是一个包含路由，它是一个自定义路由的例子，一个组织可能用来确信内部生成的构件是从Releases和Snapshots仓库解析的。如果你组织的groupId都由com.somecompany开头，并且你们将内部生成的构件部署到了Releases和Snapshots仓库，该路由让Nexus不浪费时间去从公共的Maven仓库，如中央Maven仓库或者Apache
+      Snapshots仓库，去解析构件。</para>
 
-      <para>The second dummy route is an exclusive route. This route excludes
-      the Releases and Snapshots repositories when the request path contains
-      "/org/some-oss". This example might make more sense if we replaced
-      "some-oss" with "apache" or "codehaus". If the pattern was
-      "/org/apache", this rule is telling Nexus to exclude the internal
-      Releases and Snapshots repositories when it is trying to resolve these
-      dependencies. In other words, don't bother looking for an Apache
-      dependency in your organization's internal repositories.</para>
+      <para>第二个假路由是一个排除路由。当请求路径包含"/org/some-oss"的时候，路由会排除Releases和Snapshots仓库。如果我们使用"apache"或者"codehaus"替换"some-oss"，这个例子就可能更有意义了。如果这个模式是"/org/apache"，该规则告诉Nexus，当试图解析这些依赖的时候，排除内部的Releases和Snapshots仓库。换句话说，不要浪费时间从你组织的内部仓库中去寻找Apache依赖。</para>
 
-      <para>What if there is a conflict between two routes? Nexus will process
-      inclusive routes before it will process the exclusive routes. Remember
-      that Nexus Routes only affect Nexus' resolution of artifacts when it is
-      searching a Group. When Nexus starts to resolve an artifact from a Nexus
-      Group it will start with the list of repositories in a group. If there
-      are matching inclusive routes, Nexus will then take the intersection of
-      the repositories in the Group and the repositories in the inclusive
-      Nexus Route. The order as defined in the Nexus Group will not be
-      affected by the Inclusive routes. Nexus will then take the result of
-      applying the inclusive routes and apply the exclusive routes to this new
-      group. The resulting list is then searched for a matching
-      artifact.</para>
+      <para>如果两个路由有冲突在怎么办？Nexus会在它处理排除路由之前处理包含路由。记住Nexus路由只会在当搜索一个组的时候影响Nexus解析构件。当Nexus开始从一个Nexus组中解析一个构件，它开始于组中的一个仓库列表。如果有匹配的包含路由，Nexus就会使用组中仓库和包含路由中仓库的交集。在Nexus组中定义的顺序不会受包含路由的影响。Nexus之后就会在这个新的组中应用排除路由。最后在这个结果列表中搜索匹配构件。</para>
 
-      <para>To summarize, there are creative possibilities with Routes that
-      the designers of Nexus may not have anticipated, but we advise you to
-      proceed with caution if you start relying on conflicting or overlapping
-      Routes. Use Routes sparingly, and use course URL patterns, as Nexus
-      evolves there will be more features which allow for more fine grained
-      rules to allow you to prohibit requests for specific artifacts and
-      specific versions of artifacts. Remember that routes are only applied to
-      Nexus Groups, routes are not used when an artifact is requested from a
-      specific repository.</para>
+      <para>总结来说，路由还有很多Nexus的设计者们未预期到的创新可能性，但是，如果你开始信赖冲突或者重叠路由，我们还是建议你小心。保守使用路由，使用教程中的URL模式，随着Nexus的发展，将会有更多的特性允许更细类度的规则以让你阻止特定构件和特定构件版本的请求。记住路由只能用在Nexus组中，当从某个特定仓库中请求一个构件的时候，路由不会被用到。</para>
     </section>
 
     <section>
       <title>网络配置</title>
 
-      <para>By default, Nexus listens on port 8081. You can change this port,
-      by changing the value in
-      <filename>${NEXUS_HOME}/conf/plexus.properties</filename> this file is
-      shown in <xref linkend="ex-plexus-props" />. To change the port, stop
-      Nexus, change the value of <varname>applicationPort</varname> in this
-      file, and then restart Nexus. Once you do this, you should see a log
-      statement in <filename>${NEXUS_HOME}/logs/wrapper.log</filename> telling
-      you that Nexus is listening on the altered port.</para>
+      <para>默认情况下，Nexus监听端口8081。你可以更改这个端口，通过更改<filename>${NEXUS_HOME}/conf/plexus.properties</filename>的值，如<xref
+      linkend="ex-plexus-props" />。为此，停止Nexus，更改文件中<varname>applicationPort</varname>的值，然后重启Nexus。在这之后，你应该能够在<filename>${NEXUS_HOME}/logs/wrapper.log</filename>中看到一条日志记录，告诉你Nexus在监听更改过的端口。</para>
 
       <example id="ex-plexus-props">
-        <title>Contents of ${NEXUS_HOME}/conf/plexus.properties</title>
+        <title>${NEXUS_HOME}/conf/plexus.properties的内容</title>
 
         <programlisting>applicationPort=8081
 runtime=${basedir}/runtime
@@ -1612,83 +1297,49 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
   <section id="sect-manage-repo">
     <title>维护仓库</title>
 
-    <para>Once you've setup a series of repositories and grouped those
-    repositories into Nexus Groups, users will be able to see a list of
-    repositories in the Nexus UI by clicking on the Repositories link in the
-    left-hand navigation menu in the Maintenance section. This will bring up a
-    list of repositories. This list will show you the status of the remote
-    repository; to test this, edit one of your repositories to have a garbage
-    Remote Storage Location URL, you will then notice that the status of this
-    repository will change on the Manage Repositories screen. Clicking on a
-    repository will bring up a tree view that provides users with a way to
-    navigate through the contents of a repository.</para>
+    <para>在你设置了一系列仓库并且将这些仓库组织成组之后，用户就能够通过点击左边菜单Views部分的Repositories链接，在Neuxs
+    UI上看到一个仓库的列表。Nexus会显示一个仓库列表。这个列表会显示远程仓库的状态；如果要测试一下，可以编辑你的一个仓库，让它拥有一个垃圾远程存储位置URL，你会在仓库管理页面上注意到该仓库的状态变化了。点击一个仓库会显示一个树状视图，以让用户能够浏览仓库的内容。</para>
 
-    <para>Right-clicking on a repository will bring up a series of actions
-    which can be applied to a repository. The available actions for each
-    repository are:</para>
+    <para>在一个仓库上右击，会看到一系列能用到仓库上的动作。每个仓库上可用的动作有：</para>
 
     <variablelist>
       <varlistentry>
-        <term>View</term>
+        <term>查看</term>
 
         <listitem>
-          <para>Loads the Tree View of a Repository. This view lets you
-          drill-down into specific directories to view the contents of a
-          repository.</para>
+          <para>载入一个仓库的树状视图。该视图能让你深化到特定的目录以查看仓库的内容。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Clear Cache</term>
+        <term>清空缓存</term>
 
         <listitem>
-          <para>Clears the cache for the repository. This causes Nexus to
-          check the remote repository for new updates or snapshots. It also
-          resets the Not Found Cache.</para>
+          <para>为仓库清空缓存。它促使Maven去远程仓库检查更新或者快照版本。它也会重置未找到缓存。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Re-Index</term>
+        <term>重新编制索引</term>
 
         <listitem>
-          <para>Causes Maven to re-index a repository. Nexus will recreate the
-          index it uses to search for a request artifact. If the repository
-          has been configured to download the remote index, this option will
-          cause Nexus to download the remote index from the remote repository.
-          Note that if you have enabled the remote index download, the remote
-          index may take some time to download from the remote repository. You
-          will know that the remote repository has been updated for a large
-          remote repository like Central when the Artifact Search results
-          start showing artifacts which haven't been cached or
-          requested.</para>
+          <para>促使Maven为一个仓库重新编制索引。Nexus会重新创建它用来搜索构件请求的索引。如果仓库已被配置了下载远程索引，这一选项促使Nexus从远程仓库下载远程索引。注意如果你开启了远程索引下载，可能需要花一些时间从远程仓库下载索引。当构件搜索结果开始显示没有缓存或请求过的构件，你会知道远程仓库已经更新了。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Block Proxy / Allow Proxy</term>
+        <term>阻塞代理/允许代理</term>
 
         <listitem>
-          <para>This toggles requests to the remote repository. If the proxy
-          is blocked, Nexus will not connect to the remote repository for
-          updates. To re-enable remote access, right click on a repository and
-          select Allow Proxy. This option is useful when you want to control
-          what is being served from a proxy repository. If you want to
-          maintain strict control over what is being downloaded from a remote
-          repository, you can run your organization's build against Nexus, and
-          then Block all Proxy repositories.</para>
+          <para>这可以封锁对远程仓库的请求。如果代理被阻塞了，Nexus就不会连接到远程仓库去请求更新。要重新开启远程访问，在仓库上右击然后选择允许代理。当你想要控制代理仓库提供的内容的时候，该选项十分有用。如果你想维护从远程仓库下载内容的严格控制，你可以先基于Nexus运行你组织的构建，然后阻塞所有的代理仓库。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Put Out of Service / Put In Service</term>
+        <term>服务失效/服务生效</term>
 
         <listitem>
-          <para>This option allows you to bring a repository out of service
-          and make it unavailable. Nexus will refuse to serve artifacts to
-          Maven from a repository which is not in service. One you've made a
-          repository unavailable, you can bring it back by right-clicking on a
-          repository and selecting "Put In Service".</para>
+          <para>该选项允许你让一个仓库失效，使之不可用。Nexus就会拒绝所有对失效仓库的服务。在你将一个仓库置为不可用之后，你可以通过在一个仓库上右击，选择“服务生效”，来回到可用状态。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -1697,44 +1348,24 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
   <section>
     <title>部署构件至Nexus</title>
 
-    <para>Different organizations have different reasons for deploying
-    artifacts to an internal repository. In large organizations with hundreds
-    (or thousands) of developers, an internal Maven repository can be an
-    efficient way for different departments to share releases and development
-    snapshots with one another. Most organizations which use Maven will
-    eventually want to start deploying both releases and artifacts to a
-    shared, internal repository. Using Nexus, it is easy to deploy artifacts
-    to Nexus hosted repositories.</para>
+    <para>不同的组织有不同的理由将构件部署至内部仓库。在有数百（或数千）开发人员的大型组织内，一个内部Maven仓库可以是不同部门之间共享发布版和开发快照版本的有效手段。大部分使用Maven的组织最终都会开始将发布版本和构件部署到一个共享的内部仓库。使用Nexus，可以很容易的部署构件至一个宿主仓库。</para>
 
-    <para>To deploy artifacts to Nexus supply the repository
-    <acronym>URL</acronym> in <sgmltag>distributionManagement</sgmltag> and
-    run <command>mvn deploy</command>. Maven will push project
-    <acronym>POM</acronym>s and artifacts to your Nexus installation with a
-    simple <acronym>HTTP</acronym> PUT. The initial release of Nexus does not
-    provide for any security for hosted repositories. If you've enabled
-    deployment for a hosted repository, anyone can connect to and deploy an
-    artifact to the repository. If your Nexus installation is accessible from
-    the public Internet, you will definitely want to disable deployment to
-    these repositories or place your Nexus installation behind a web-server
-    like Apache <acronym>HTTPD</acronym>.</para>
+    <para>要部署构件至Nexus，在<sgmltag>distributionManagement</sgmltag>中提供仓库<acronym>URL</acronym>，然后运行<command>mvn
+    deploy</command>。Maven会通过一个简单的<acronym>HTTP</acronym>
+    PUT将项目<acronym>POM</acronym>和构件推入至你的Nexus安装。最初版本的Nexus没有为宿主仓库提供任何的安全措施。如果你为宿主仓库开启了部署功能，任何人可以连接并部署构件至这个仓库。如果你的Nexus安装能够从公共Internet访问，你绝对会想要将这些仓库的部署功能关闭，或者将你的Nexus安装放到一个如Apache
+    <acronym>HTTPD</acronym>的web服务器背后。</para>
 
-    <para>No extra wagon extension is needed in your project's
-    <acronym>POM</acronym>. Nexus works with Maven's built in
-    <varname>wagon-http-lightweight</varname>.</para>
+    <para>你项目的<acronym>POM</acronym>不再需要额外的wagon扩展。Nexus可以和Maven内置的<varname>wagon-http-lightweight</varname>一起工作。</para>
 
     <section>
       <title>部署发布版</title>
 
-      <para>To deploy a release artifact to Nexus you need to configure a
-      <sgmltag>repository</sgmltag> in the
-      <sgmltag>distributionManagement</sgmltag> section of your project's
-      <acronym>POM</acronym>. <xref linkend="fig-deploy-release" /> shows an
-      example of a release deployment repository which is configured to point
-      to the releases repository at <ulink
-      url="http://localhost:8081/nexus/content/repositories/releases">http://localhost:8081/nexus/content/repositories/releases</ulink>.</para>
+      <para>要部署一个发布版构件至Nexus，你需要配置你项目<acronym>POM</acronym>中<sgmltag>distributionManagement</sgmltag>部分的<sgmltag>repository</sgmltag>。<xref
+      linkend="fig-deploy-release" />显示了一个发布版部署仓库的样例，这个发布版本仓库的地址是<ulink
+      url="http://localhost:8081/nexus/content/repositories/releases">http://localhost:8081/nexus/content/repositories/releases</ulink>。</para>
 
       <example id="fig-deploy-release">
-        <title>Configuring Release Repository for Deployment</title>
+        <title>为部署配置发布版本仓库</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -1751,10 +1382,8 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>You would replace <varname>localhost:8081</varname> with the host
-      and port of your Nexus installation. Once your project has this
-      configuration, you can deploy an artifact by executing mvn
-      deploy:</para>
+      <para>你可以使用你Nexus安装的主机和端口来替换<varname>localhost:8081</varname>。你的项目有了这个配置之后，你就可以通过执行<command>mvn
+      deploy</command>命令部署构件。</para>
 
       <screen>$ <command>mvn deploy</command>
 [INFO] Scanning for projects...
@@ -1776,26 +1405,18 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
 24K uploaded
 </screen>
 
-      <para>Note that Nexus can support multiple hosted repositories; you
-      don't need to stick with the default <varname>releases</varname> and
-      <varname>snapshots</varname> repositories. You can create different
-      hosted repositories for different departments and then combine multiple
-      repositories into a single Nexus group.</para>
+      <para>注意Nexus可以支持多个宿主仓库；你不需要坚持在默认的<varname>releases</varname>和<varname>snapshots</varname>仓库上。你可以为不同的部门创建不同的宿主仓库，然后将多个仓库组合成一个单独的Nexus组。</para>
     </section>
 
     <section>
       <title>部署快照版</title>
 
-      <para>To deploy a snapshot artifact to Nexus you need to configure a
-      <sgmltag>snapshotRepository</sgmltag> in the
-      <sgmltag>distributionManagement</sgmltag> section of your project's
-      <acronym>POM</acronym>. <xref linkend="fig-deploy-snapshot" /> shows an
-      example of a snapshot deployment repository which is configured to point
-      to the <varname>snapshots</varname> repository at <ulink
-      url="http://localhost:8081/nexus/content/repositories/snapshots">http://localhost:8081/nexus/content/repositories/snapshots</ulink>.</para>
+      <para>要部署快照版本构件至Nexus，你需要配置你项目<acronym>POM</acronym>的<sgmltag>distributionManagement</sgmltag>部分的<sgmltag>snapshotRepository</sgmltag>。<xref
+      linkend="fig-deploy-snapshot" />显示了快照版本部署仓库的样例，该<varname>snapshots</varname>仓库配置的地址是<ulink
+      url="http://localhost:8081/nexus/content/repositories/snapshots">http://localhost:8081/nexus/content/repositories/snapshots</ulink>。</para>
 
       <example id="fig-deploy-snapshot">
-        <title>Configuring Snapshot Repository for Deployment</title>
+        <title>为部署配置快照版本仓库</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -1812,12 +1433,8 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>You would replace <varname>localhost:8081</varname> with the host
-      and port of your Nexus installation. Once your project has this
-      configuration, you can deploy an artifact by executing <command>mvn
-      deploy</command>. Maven will deploy to the
-      <sgmltag>snapshotRepository</sgmltag> if your project's has a snapshot
-      version (i.e. <varname>1.0-SNAPSHOT</varname>):</para>
+      <para>你可以使用你Nexus安装的主机和端口来替换<varname>localhost:8081</varname>。你的项目有了这个配置之后，你就可以通过执行<command>mvn
+      deploy</command>命令部署构件。如果你项目的版本是快照版本（如1.0-SNAPSHOT）Maven就会将其部署至<sgmltag>snapshotRepository</sgmltag>：</para>
 
       <screen>$ <command>mvn deploy</command>
 [INFO] Scanning for projects...
@@ -1843,29 +1460,15 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
     <section>
       <title>部署第三方构件</title>
 
-      <para>Your Maven projects may start depending on an artifacts which are
-      not available from the Central Maven repository or any other public
-      Maven repository. This can happen for a number of reasons: maybe the
-      artifact in question is a <acronym>JDBC</acronym> driver for a
-      proprietary database like Oracle, or maybe you are depending on another
-      <acronym>JAR</acronym> that is neither open-source nor freely available.
-      In these cases, you are going to have to get your hands on the artifact
-      in question in publish it to your own repository. Nexus provides a
-      hosted "third-party" repository for just this purpose.</para>
+      <para>你的Maven项目可以依赖于一个构件，这个构件不能从中央Maven仓库或任何其它公开Maven仓库找到。有很多原因可能导致这种情形发生：这个构件可能是私有数据库的<acronym>JDBC</acronym>驱动如Oracle，或者你依赖于另一个<acronym>JAR</acronym>，它既不开源也无法免费获得。在这样的情况下，你就需要手动拿来这些构件然后发布到你自己的仓库中。Nexus提供宿主的"third-party"仓库，就是为了这个目的。</para>
 
-      <para>To illustrate the process of publishing an artifact to the
-      third-party repository, we will use a real artifact: the Oracle
-      <acronym>JDBC</acronym> Drivers. Oracle publishes a widely-used
-      commercial database product which has a <acronym>JDBC</acronym> driver
-      that is not present in the Central Maven repository. While the Central
-      Maven repository maintains some <acronym>POM</acronym> information for
-      the Oracle <acronym>JDBC</acronym> driver at <ulink
-      url="http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/">http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/</ulink>,
-      there is only a <acronym>POM</acronym> which references the Oracle site.
-      If you add the following dependency to your project:</para>
+      <para>为了阐明发布一个构件至第三方仓库的过程，我们使用一个真实的构件：Oracle
+      <acronym>JDBC</acronym>驱动。Oracle发布一个广泛使用的商业数据库产品，该产品带有一个中央Maven仓库没有的<acronym>JDBC</acronym>驱动。虽然中央Maven仓库在<ulink
+      url="http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/">http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/</ulink>维护了一些Oracle
+      <acronym>JDBC</acronym>驱动的<acronym>POM</acronym>信息，但这些只是指向Oracle站点的<acronym>POM</acronym>。如果你将下列的依赖添加到你的项目。</para>
 
       <example>
-        <title>Oracle JDBC JAR Dependency</title>
+        <title>Oracle JDBC JAR 依赖</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -1882,8 +1485,7 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>Running a Maven build with this dependency, will produce the
-      following output:</para>
+      <para>用这个依赖运行一个Maven构建，将会产生如下的输出：</para>
 
       <screen>$ <command>mvn install</command>
 ...
@@ -1916,15 +1518,11 @@ Missing:
 1 required artifact is missing.
 </screen>
 
-      <para>The Maven build fails because it can't find the Oracle
-      <acronym>JDBC</acronym> driver in the Maven repository. To remedy this
-      situation, you are going to need to publish the Oracle
-      <acronym>JDBC</acronym> artifact to your Nexus third-party repository.
-      To do this, download the Oracle <acronym>JDBC</acronym> driver from
-      <ulink
-      url="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html</ulink>
-      and save it to the file <filename>ojdbc.jar</filename>. To deploy this
-      file to Nexus, execute the following command:</para>
+      <para>Maven构建失败了因为它不能在Maven仓库中找到Oracle
+      <acronym>JDBC</acronym>驱动。要补救这种情况，你将需要发布Oracle
+      <acronym>JDBC</acronym>构件至你的Nexus third-party仓库。为此，从<ulink
+      url="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html</ulink>下载Oracle
+      <acronym>JDBC</acronym>驱动，然后保存至文件<filename>ojdbc.jar</filename>。使用以下命令发布该文件至Nexus：</para>
 
       <screen>$ <command>mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc14 \</command>
 &gt; <command>-Dversion=10.2.0.3.0 -Dpackaging=jar -Dfile=ojdbc.jar \</command>
@@ -1941,9 +1539,8 @@ Uploading: http://localhost:8081/nexus/content/repositories/thirdparty/\
 [INFO] Uploading project information for ojdbc14 10.2.0.3.0
 </screen>
 
-      <para>After you run <command>mvn deploy:deploy-file</command>, this
-      artifact will be published to the third-party repository in
-      Nexus.</para>
+      <para>在你运行<command>mvn
+      deploy:deploy-file</command>之后，该构件会被发布至Nexus的third-party仓库。</para>
     </section>
   </section>
 </chapter>
