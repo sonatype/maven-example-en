@@ -370,7 +370,7 @@
 
         <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch08&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch08&lt;/groupId&gt;
   &lt;artifactId&gt;simplest-project&lt;/artifactId&gt;
   &lt;version&gt;1&lt;/version&gt;
 &lt;/project&gt;</programlisting>
@@ -598,7 +598,7 @@
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;project-a&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
@@ -613,7 +613,7 @@
       line:</para>
 
       <programlisting language="xml">...
-&lt;finalName&gt;com.sonatype.maven-project-a&lt;/finalName&gt;
+&lt;finalName&gt;org.sonatype.mavenbook-project-a&lt;/finalName&gt;
 ...</programlisting>
 
       <para>When Maven reads a <acronym>POM</acronym>, it replaces references
@@ -885,7 +885,7 @@
 
         <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;my-project&lt;/artifactId&gt;
   &lt;version&gt;1.0.0&lt;/version&gt;
   &lt;dependencies&gt;
@@ -919,12 +919,12 @@
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;my-application&lt;/artifactId&gt;
   &lt;version&gt;1.0.0&lt;/version&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
       &lt;artifactId&gt;my-project&lt;/artifactId&gt;
       &lt;version&gt;1.0.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -1177,12 +1177,12 @@
           <title>Excluding a Transitive Dependency</title>
 
           <programlisting language="xml">&lt;dependency&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;project-a&lt;/artifactId&gt;
   &lt;version&gt;1.0&lt;/version&gt;
   &lt;exclusions&gt;
     &lt;exclusion&gt;
-      &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
       &lt;artifactId&gt;project-b&lt;/artifactId&gt;
     &lt;/exclusion&gt;
   &lt;/exclusions&gt;
@@ -1314,7 +1314,7 @@
 
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;a-parent&lt;/artifactId&gt;
   &lt;version&gt;1.0.0&lt;/version&gt;
   ...
@@ -1337,7 +1337,7 @@
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
     &lt;artifactId&gt;a-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -1538,7 +1538,7 @@ top-group/project-c/pom.xml</programlisting>
       <para>The projects are related to one another because
       <varname>top-group</varname> and <varname>sub-group</varname> are
       referencing <varname>sub-modules</varname> in a <acronym>POM</acronym>.
-      For example, the <varname>com.sonatype.maven:top-group</varname> project
+      For example, the <varname>org.sonatype.mavenbook:top-group</varname> project
       is a multi-module project with packaging of type <varname>pom</varname>.
       <varname>top-group</varname>'s <filename>pom.xml</filename> would
       include the following modules element:</para>
@@ -1547,7 +1547,7 @@ top-group/project-c/pom.xml</programlisting>
         <title>top-group modules element</title>
 
         <programlisting language="xml">&lt;project&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;top-group&lt;/artifactId&gt;
   ...
   &lt;modules&gt;
@@ -1723,7 +1723,7 @@ top-group/project-c/pom.xml</programlisting>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
     &lt;artifactId&gt;a-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
     &lt;relativePath&gt;../a-parent/pom.xml&lt;/relativePath&gt;
@@ -1765,7 +1765,7 @@ top-group/project-c/pom.xml</programlisting>
           <title>Consolidating Dependencies in a Single POM Project</title>
 
           <programlisting language="xml">&lt;project&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;persistence-deps&lt;/artifactId&gt;
   &lt;version&gt;1.0&lt;/version&gt;
   &lt;packaging&gt;pom&lt;/packaging&gt;
@@ -1819,7 +1819,7 @@ top-group/project-c/pom.xml</programlisting>
   &lt;dependencies&gt;
     ...
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
       &lt;artifactId&gt;persistence-deps&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
       &lt;type&gt;pom&lt;/type&gt;

@@ -740,12 +740,12 @@
       <para>To create a plugin project, you should use the Maven Archetype
       plugin. The following command-line will create a plugin with a
       <varname>groupId</varname> of
-      <varname>com.sonatype.maven.plugins</varname> and the
+      <varname>org.sonatype.mavenbook.plugins</varname> and the
       <varname>artifactId</varname> of
       <varname>first-maven-plugin</varname>:</para>
 
       <screen>$ <command>mvn archetype:create \
-  -DgroupId=com.sonatype.maven.plugins \
+  -DgroupId=org.sonatype.mavenbook.plugins \
   -DartifactId=first-maven-plugin \
   -DarchetypeGroupId=org.apache.maven.archetypes \
   -DarchetypeArtifactId=maven-archetype-mojo</command></screen>
@@ -758,7 +758,7 @@
 
         <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;first-maven-plugin&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;maven-plugin&lt;/packaging&gt;
@@ -870,7 +870,7 @@
       <example id="ex-simple-echomojo">
         <title>A Simple EchoMojo</title>
 
-        <programlisting language="java">package com.sonatype.maven.plugins;
+        <programlisting language="java">package org.sonatype.mavenbook.plugins;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -904,7 +904,7 @@ public class EchoMojo extends AbstractMojo
       install</command>, you should be able to invoke this goal directly from
       the command-line with:</para>
 
-      <screen>$ <command>mvn com.sonatype.maven.plugins:first-maven-plugin:1.0-SNAPSHOT:echo</command></screen>
+      <screen>$ <command>mvn org.sonatype.mavenbook.plugins:first-maven-plugin:1.0-SNAPSHOT:echo</command></screen>
 
       <para>That large command-line is <command>mvn</command> followed by the
       <varname>groupId:artifactId:version:goal</varname>. When you run this
@@ -913,7 +913,7 @@ public class EchoMojo extends AbstractMojo
       customize the message, you can pass the value of the message parameter
       with the following command-line:</para>
 
-      <screen>$ <command>mvn com.sonatype.maven.plugins:first-maven-plugin:1.0-SNAPSHOT:echo \
+      <screen>$ <command>mvn org.sonatype.mavenbook.plugins:first-maven-plugin:1.0-SNAPSHOT:echo \
              -Decho.message="The Eagle has Landed"</command></screen>
 
       <para>The previous command-line is going to execute the
@@ -1007,10 +1007,10 @@ public class EchoMojo extends AbstractMojo
       <para>If you wanted to be able to run the
       <varname>first-maven-plugin</varname>'s echo goal by running
       <varname>first:echo</varname>, add the
-      <varname>com.sonatype.maven.plugins</varname> groupId to your
+      <varname>org.sonatype.mavenbook.plugins</varname> groupId to your
       <filename>~/.m2/settings.xml</filename> as shown in <xref
       linkend="ex-plugin-groups" />. This will prepend the
-      <varname>com.sonatype.maven.plugins</varname> to the list of groups
+      <varname>org.sonatype.mavenbook.plugins</varname> to the list of groups
       which Maven scans for Maven plugins.</para>
 
       <example id="ex-plugin-groups">
@@ -1019,7 +1019,7 @@ public class EchoMojo extends AbstractMojo
         <programlisting language="xml">&lt;settings&gt;
   ...
   &lt;pluginGroups&gt;
-    &lt;pluginGroup&gt;com.sonatype.maven.plugins&lt;/pluginGroupd&gt;
+    &lt;pluginGroup&gt;org.sonatype.mavenbook.plugins&lt;/pluginGroupd&gt;
   &lt;/pluginGroups&gt;
 &lt;/settings&gt;</programlisting>
       </example>
@@ -1063,7 +1063,7 @@ public class EchoMojo extends AbstractMojo
 
         <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;first-maven-plugin&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;maven-plugin&lt;/packaging&gt;
@@ -1098,7 +1098,7 @@ public class EchoMojo extends AbstractMojo
 
       <para><xref linkend="ex-plugin-prefix" /> sets the plugin prefix to
       <varname>blah</varname>. If you've added the
-      <varname>com.sonatype.maven.plugins</varname> to the
+      <varname>org.sonatype.mavenbook.plugins</varname> to the
       <sgmltag>pluginGroups</sgmltag> in your
       <filename>~/.m2/settings.xml</filename>, you should be able to execute
       the <classname>EchoMojo</classname> by running <command>mvn
@@ -1438,7 +1438,7 @@ private Object message;
       <para>There are a few ways to populate the message parameter in the
       <classname>EchoMojo</classname>. First we can pass in a value from the
       command-line like this (assuming that you've added
-      <varname>com.sonatype.maven.plugins</varname> to your
+      <varname>org.sonatype.mavenbook.plugins</varname> to your
       <sgmltag>pluginGroups</sgmltag>):</para>
 
       <screen>$ mvn first:echo -Decho.message="Hello Everybody"</screen>
@@ -1467,7 +1467,7 @@ private Object message;
   &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
-        &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+        &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
         &lt;artifactId&gt;first-maven-plugin&lt;/artifactId&gt;
         &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
         &lt;configuration&gt;
@@ -1488,7 +1488,7 @@ private Object message;
   &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
-        &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+        &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
         &lt;artifactId&gt;first-maven-plugin&lt;/artifactId&gt;
         &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
         &lt;executions&gt;
@@ -1546,7 +1546,7 @@ private Object message;
       <example id="ex-plugin-multivalue">
         <title>A Plugin with Multi-valued Parameters</title>
 
-        <programlisting language="java">package com.sonatype.maven.plugins
+        <programlisting language="java">package org.sonatype.mavenbook.plugins
 
 /**
  * Zips up the output directory.
@@ -1622,7 +1622,7 @@ public class ZipMojo extends AbstractMojo
   &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
-        &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+        &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
         &lt;artifactId&gt;zip-maven-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
           &lt;excludes&gt;
@@ -1993,7 +1993,7 @@ public class ZipForkMojo extends AbstractMojo
           &lt;compile&gt;
             org.apache.maven.plugins:maven-compiler-plugin:compile
           &lt;/compile&gt;
-          &lt;package&gt;com.sonatype.maven.plugins:maven-zip-plugin:zip&lt;/package&gt;
+          &lt;package&gt;org.sonatype.mavenbook.plugins:maven-zip-plugin:zip&lt;/package&gt;
         &lt;/phases&gt;
       &lt;/configuration&gt;
     &lt;/component&gt;

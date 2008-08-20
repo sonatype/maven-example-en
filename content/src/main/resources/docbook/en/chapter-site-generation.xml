@@ -55,7 +55,7 @@
     <para>To illustrate the process of building a project website, create a
     sample Maven project with the archetype plugin:</para>
 
-    <screen>$ mvn archetype:create -DgroupId=com.sonatype.maven -DartifactId=sample-project
+    <screen>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook -DartifactId=sample-project
 </screen>
 
     <para>This creates the simplest possible Maven project with a one Java
@@ -1031,7 +1031,7 @@ $ <command>cp -rf \
       <varname>sample-project</varname> project's root directory:</para>
 
       <screen>$ <command>mvn archetype:create -DartifactId=sample-site-skin 
-        -DgroupId=com.sonatyp.maven</command>
+        -DgroupId=org.sonatype.mavenbook</command>
 </screen>
 
       <para>This will create a project (and a directory) called
@@ -1116,7 +1116,7 @@ $ <command>mkdir src/main/resources</command>
           <programlisting language="xml">&lt;project name="Sample Project"&gt;
   ...
   &lt;skin&gt;
-    &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
     &lt;artifactId&gt;sample-site-skin&lt;/artifactId&gt;
   &lt;/skin&gt;
   ...

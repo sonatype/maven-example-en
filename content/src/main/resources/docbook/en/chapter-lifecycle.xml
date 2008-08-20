@@ -1127,7 +1127,7 @@ jdbc.password=
           <title>Filtering Script Resources</title>
 
           <programlisting language="xml">&lt;build&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;simple-cmd&lt;/artifactId&gt;
   &lt;version&gt;2.3.1&lt;/version&gt;
   ...
@@ -1389,7 +1389,7 @@ java -jar simple-cmd-2.3.1.jar %*
       almost always bound to the <varname>install</varname> lifecycle phase.
       This <varname>install:install</varname> goal simply installs a project's
       main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>com.sonatype.maven</package>, an
+      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>, an
       <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and a
       <sgmltag>version</sgmltag> of 1.0.2, the
       <varname>install:install</varname> goal is going to copy the

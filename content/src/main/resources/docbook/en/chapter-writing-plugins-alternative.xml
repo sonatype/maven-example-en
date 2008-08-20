@@ -51,7 +51,7 @@
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;firstant-maven-plugin&lt;/artifactId&gt;
   &lt;name&gt;Example Ant Mojo - firstant-maven-plugin&lt;/name&gt;
   &lt;packaging&gt;maven-plugin&lt;/packaging&gt;
@@ -138,7 +138,7 @@
 
     <para>If you've configured your plugin groups in
     <filename>~/.m2/settings.xml</filename> to include
-    <varname>com.sonatype.maven.plugins</varname>, you can install this Ant
+    <varname>org.sonatype.mavenbook.plugins</varname>, you can install this Ant
     plugin by executing the following command at the command-line:</para>
 
     <screen>$ <command>mvn install</command>
@@ -210,7 +210,7 @@ echotarget:
 
         <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;firstruby-maven-plugin&lt;/artifactId&gt;
   &lt;name&gt;Example Ruby Mojo - firstruby-maven-plugin&lt;/name&gt;
   &lt;packaging&gt;maven-plugin&lt;/packaging&gt;
@@ -299,7 +299,7 @@ run_mojo Echo
       descriptor goal applies the JRuby extractor to create a
       <filename>plugin.xml</filename> which captures the annotations in the
       <classname>Echo</classname> class. If you've configured your default
-      plugin groups to include <varname>com.sonatype.maven.plugins</varname>,
+      plugin groups to include <varname>org.sonatype.mavenbook.plugins</varname>,
       you should be able to run this echo goal with the following
       command-line:</para>
 
@@ -690,7 +690,7 @@ run_mojo TestPlexus
         <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.plugins&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.plugins&lt;/groupId&gt;
   &lt;artifactId&gt;firstgroovy-maven-plugin&lt;/artifactId&gt;
   &lt;name&gt;Example Groovy Mojo - firstgroovy-maven-plugin&lt;/name&gt;
   &lt;packaging&gt;maven-plugin&lt;/packaging&gt;
@@ -745,7 +745,7 @@ run_mojo TestPlexus
       <example>
         <title></title>
 
-        <programlisting language="java">package com.sonatype.maven.plugins
+        <programlisting language="java">package org.sonatype.mavenbook.plugins
 
 import org.codehaus.mojo.groovy.GroovyMojo
 
