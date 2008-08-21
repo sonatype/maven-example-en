@@ -119,25 +119,31 @@
       any directory. If you downloaded the <acronym>ZIP</acronym> archive,
       run:</para>
 
-      <screen>$ <command>unzip nexus-1.0.0-beta-5-bundle.zip</command></screen>
+      <screen>$ <command>unzip nexus-1.0.0-bundle.zip</command></screen>
 
       <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
       run:</para>
 
-      <screen>$ <command>tar xvzf nexus-1.0.0-beta-5-bundle.tgz</command></screen>
+      <screen>$ <command>tar xvzf nexus-1.0.0-bundle.tgz</command></screen>
 
-      <para>If you are installing Nexus on a server, you might want to use a
-      directory other than your home directory. On a Unix machine, this could
-      be under <filename>/usr/local/nexus-1.0.0-beta-5</filename> with a
+      <para><note>
+          <para>There are some known incompatibilities with the version of tar
+          provided by Solaris and the gzip tar format. If you are installing
+          Nexus on Solaris, you must use the GNU tar application, or you will
+          end up with corrupted files. Please see <ulink
+          url="http://sunsolarisadmin.blogspot.com/2007/03/how-to-install-gnu-tar-in-solaris.html">http://sunsolarisadmin.blogspot.com/2007/03/how-to-install-gnu-tar-in-solaris.html</ulink>.</para>
+        </note>If you are installing Nexus on a server, you might want to use
+      a directory other than your home directory. On a Unix machine, this
+      could be under <filename>/usr/local/nexus-1.0.0</filename> with a
       symbolic link <filename>/usr/local/nexus</filename> to the nexus
       directory. Using a generic symbolic link nexus to a specific version is
       a common practice which makes it easier to upgrade when a newer version
       of Nexus is made available.</para>
 
-      <screen>$ <command>sudo cp nexus-1.0.0-beta-5-bundle.tgz /usr/local</command>
+      <screen>$ <command>sudo cp nexus-1.0.0-bundle.tgz /usr/local</command>
 $ <command>cd /usr/local</command>
-$ <command>sudo tar xvzf nexus-1.0.0-beta-5-bundle.tgz</command>
-$ <command>ln -s nexus-1.0.0-beta-5 nexus</command></screen>
+$ <command>sudo tar xvzf nexus-1.0.0-bundle.tgz</command>
+$ <command>ln -s nexus-1.0.0 nexus</command></screen>
 
       <para>Although it isn't required for Nexus to run, you may want to set
       an environment variable <varname>NEXUS_HOME</varname> in your
@@ -282,21 +288,18 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
             <para>It might take Nexus a few minutes to download the entire
             index, but once you have it, you'll be able to search the entire
             contents of the Maven repository.</para>
+
+            <para>Once you've enabled remote index downloads, you still won't
+            be able to browse the complete contents of a remote repository.
+            Downloading the remote index allows you to search for artifacts in
+            a repository, but until you download those artifacts from the
+            remote repository they will not show in the repository tree when
+            you are browsing a repository. When browsing a repository, you
+            will only be shown artifacts which have been downloaded from the
+            remote repository.</para>
           </listitem>
         </varlistentry>
       </variablelist>
-
-      <note>
-        <para>Sonatype wanted to make sure that we were not creating a product
-        that would cause massive congestion on the Central repository by
-        default. While most users will want to enable remote index downloads,
-        we didn't want to make it the default setting and thereby manufacture
-        our very own denial-of-service attack when millions of developers
-        download a new release of Nexus and proceed to repeatedly download the
-        21 MB Central index. If you want Nexus to return full search results,
-        you are going to have to enable remote index downloads
-        explicitly.</para>
-      </note>
     </section>
 
     <section>
@@ -455,72 +458,6 @@ $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command>
 </screen>
       </section>
     </section>
-
-    <section>
-      <title>Upgrading from a Previous Version</title>
-
-      <para>Upgrading from a previously installed version of Nexus is
-      relatively easy. There are two archives available for download for each
-      Nexus release. The full archive contains the Nexus application, the
-      Nexus startup scripts, and a work area to hold Nexus data which may
-      include repository indexes and the local caches for each repository. If
-      you've made heavy use of Nexus, this work directory could contain
-      gigabytes of artifacts and hosted repositories that you wouldn't want to
-      have to recreate every time you upgraded to a newer version of Nexus.
-      The upgrade download was created to provide people with an easy way to
-      upgrade just the application while preserving the Nexus data; the
-      upgrade download contains just the Nexus application code. You download
-      the complete Nexus distribution the first time you install Nexus, and
-      you download the upgrade distribution whenever you want to upgrade your
-      Nexus installation while preserving your repository data.</para>
-
-      <para>To upgrade Nexus download the "upgrade" archive instead of the
-      "bundle" archive. The contents of the upgrade bundle are stored in a
-      folder which contains the nexus version number (i.e.
-      <filename>nexus-1.0.0-beta-34</filename>). This folder may be unpacked
-      to <filename>$NEXUS_HOME/runtime/apps</filename> without overriding the
-      currently installed version's contents.</para>
-
-      <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
-$ <command>unzip nexus-1.0.0-beta-3-upgrade.zip</command></screen>
-
-      <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
-      run:</para>
-
-      <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
-$ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
-
-      <para>Once the contents of the upgrade archive have been unpacked to
-      <filename>$NEXUS_HOME/runtime/apps</filename>, you must then copy the
-      configuration from the previous version of Nexus to the newly installed
-      version. To do this, copy <filename>nexus.xml</filename> from
-      <filename>$NEXUS_HOME/runtime/apps/nexus/conf/nexus.xml</filename> to
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-5/conf</filename>.
-      You should also copy any of the logging configuration files which you
-      have customized including <filename>log4j.properties</filename> and
-      <filename>jul-logging.properties</filename>. Once you have copied the
-      configuration from your current version of Nexus to the new version of
-      Nexus, stop the Nexus server.</para>
-
-      <para>At this point, you will need to rename the
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> directory to a name
-      that reflects the old version number. For example, in this example
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> would become
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-5</filename>. Then
-      you will need to expose the new version as
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. On a Unix system,
-      you should create a symbolic link
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> which points to
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-5</filename>. On a
-      Windows system, you may need to copy
-      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0-beta-34</filename> to
-      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. Once you have
-      swapped the old version of Nexus with the new version of Nexus, you
-      should be able to start Nexus with the startup script. Once Nexus has
-      started, check the <filename>$NEXUS_HOME/logs/wrapper.log</filename>.
-      When Nexus is initialized it will print out the Nexus version
-      number.</para>
-    </section>
   </section>
 
   <section>
@@ -567,6 +504,20 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
       file and download it directly to your browser. This allows you to
       retrieve specific artifacts manually, or examine a
       <acronym>POM</acronym> file in the browser.</para>
+
+      <note>
+        <para>When browsing a remote repository you might notice that the tree
+        doesn't contain all of the artifacts in a repository. When you browse
+        a proxy repository, Nexus is displaying the artifacts which have been
+        cached locally from the remote repository. If you don't see an
+        artifact you expected to see through Nexus, it only means that Nexus
+        has yet to cache the artifact locally. If you have enabled remote
+        repository index downloads, Nexus will return search results that may
+        include artifacts not yet downloaded from the remote repository. <xref
+        linkend="fig-nexus-browse-repo" /> is just an example, and you may or
+        may not have the <varname>maven-default-skin</varname> artifact
+        available in your installation of Nexus.</para>
+      </note>
     </section>
 
     <section>
@@ -768,20 +719,6 @@ $ <command>tar xvzf nexus-1.0.0-beta-3-upgrade.tgz</command></screen>
             interest in the information in this log. If you are trying to
             debug an error, or if you have uncovered a bug in Nexus, you'll
             use this log viewer to diagnose problems with Nexus.</para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term><filename>nexus-rest-0.log</filename></term>
-
-          <listitem>
-            <para>The core Nexus server is really just a bunch of
-            <acronym>REST</acronym> services, and the <acronym>UI</acronym>
-            that you are using simply interacts with these
-            <acronym>REST</acronym> services to configure and view Nexus
-            Groups and Repositories. This log file is going to reflect
-            activity generated by the Nexus <acronym>UI</acronym> interacting
-            with the Nexus <acronym>REST</acronym> services.</para>
           </listitem>
         </varlistentry>
 
@@ -1212,7 +1149,7 @@ from the specified remote repositories:
     <para>Many of the configuration screens shown in this section are only
     available to administrative users. Nexus allows the admin user to
     customize the list of repositories, create repository groups, customize
-    server settings, and create routes or "rule" that Maven will use to
+    server settings, and create routes or "rules" that Maven will use to
     include or exclude artifacts from a repository.</para>
 
     <section id="sect-repoman-server-conf">
@@ -1346,7 +1283,14 @@ from the specified remote repositories:
             disable anonymous access, and set the username and password for
             anonymous access. If you choose to enable security, you are
             telling Nexus to enforce role-based access control to enforce read
-            and write access to repositories.</para>
+            and write access to repositories. </para>
+
+            <para>The anonymous username and password is used to integrate
+            with other realms that may need a special username for anonymous
+            access. In other words, the username and password here is what we
+            attempt to authorize when someone makes an anonymous request. You
+            would change the anonymous username to “guest” if you wanted to
+            integrate Nexus with Microsoft's Active Directory.</para>
           </listitem>
         </varlistentry>
 
@@ -1355,13 +1299,11 @@ from the specified remote repositories:
 
           <listitem>
             <para>This section allows you to change the Base URL for your
-            Nexus installation. This particular setting is important if you
-            are proxying Nexus through a web server like Apache HTTPd and you
-            want to change the path on which Nexus is made available. The
-            Sonatype Nexus repository is available on
+            Nexus installation. It is used when generating links in emails and
+            RSS feeds. The Sonatype Nexus repository is available on
             http://respository.sonatype.org, and it makes use of this Base URL
-            field to ensure that links with Nexus point to the correct
-            URL.</para>
+            field to ensure that links in emails and RSS feeds point to the
+            correct URL.</para>
           </listitem>
         </varlistentry>
 
@@ -1473,8 +1415,9 @@ from the specified remote repositories:
           <term>Virtual Repository</term>
 
           <listitem>
-            <para>A virtual repository exists as an adapter to Maven 1. Nexus
-            ships with a central-m1 virtual repository.</para>
+            <para>This serves as an adapter to and from different types of
+            repositories. Currently Nexus supports conversion to and from
+            Maven 1 repositories and Maven 2 repositories.</para>
           </listitem>
         </varlistentry>
       </variablelist>
