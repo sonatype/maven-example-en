@@ -35,8 +35,18 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    </repositories>
-      </profile>
+	<repository>
+	  <id>Codehaus Snapshots</id>
+	  <url>http://snapshots.repository.codehaus.org</url>
+	  <snapshots>
+		<enabled>true</enabled>
+	  </snapshots>
+	  <releases>
+		<enabled>false</enabled>
+	  </releases>
+	</repository>
+        </repositories>
+    </profile>
   </profiles>
 
   <repositories>
@@ -48,6 +58,16 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+	<repository>
+	  <id>Codehaus Snapshots</id>
+	  <url>http://snapshots.repository.codehaus.org</url>
+	  <snapshots>
+		<enabled>true</enabled>
+	  </snapshots>
+	  <releases>
+		<enabled>false</enabled>
+	  </releases>
+	</repository>
   </repositories>
 
 </project>
