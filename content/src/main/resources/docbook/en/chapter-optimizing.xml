@@ -21,10 +21,10 @@
     chapter, we take a step back from the examples you've seen in <xref
     linkend="part-example" />, and we ask ourselves if there are any
     optimizations that might make more sense given what we now know of Maven.
-    Maven is a very capable and tool which can be as simple or as complex as
-    you need it to be. Because of this, there are often a million ways to
-    accomplish the same task, and there is often no one, "right" way to
-    configure your Maven project.</para>
+    Maven is a capable tool which can be as simple or as complex as you need
+    it to be. Because of this, there are often a million ways to accomplish
+    the same task, and there is often no one, "right" way to configure your
+    Maven project.</para>
 
     <para>Don't misinterpret that last sentence as a license to go off and ask
     Maven to do something it wasn't designed for. While Maven allows for a
@@ -88,7 +88,7 @@
     second pattern of duplication to note is that sometimes several
     dependencies are related and share the same version. This is often the
     case when a project's release consists of several closely coupled
-    component. For example, look at the dependencies on
+    components. For example, look at the dependencies on
     <varname>hibernate-annotations</varname> and
     <varname>hibernate-commons-annotations</varname>, both are listed as
     version <varname>3.3.0.ga</varname>, and we can expect the version of both
@@ -354,14 +354,13 @@
     the <acronym>HSQLDB</acronym> dependencies duplicated in several places.
     Unfortunately, <sgmltag>dependencyManagement</sgmltag> doesn’t apply to
     plugin dependencies, but we can still use a property to consolidate the
-    versions. Most complex Maven multi-module projects tend to define all
-    version in the top-level <acronym>POM</acronym>. This top-level
-    <acronym>POM</acronym> then becomes a focal point for changes that affect
-    the entire project. Think of version numbers as string literals in a Java
-    class, if you are constantly repeating a literal, you'll likely want to
-    make it a variable so that when it needs to be change, you only have to
-    change it in one place. Rolling up the version of
-    <acronym>HSQLDB</acronym> into a property in the top-level
+    versions. Most complex Maven multi-module projects declare all versions in
+    the top-level <acronym>POM</acronym> making the top-level POM a focal
+    point for changes that affect the entire project. Think of version numbers
+    as string literals in a Java class, if you are constantly repeating a
+    literal, you'll likely want to make it a variable so that when it needs to
+    be change, you only have to change it in one place. Rolling up the version
+    of <acronym>HSQLDB</acronym> into a property in the top-level
     <acronym>POM</acronym> yields the following properties element:</para>
 
     <programlisting language="xml">&lt;project&gt;
@@ -561,8 +560,7 @@
     project's version of Hibernate, listing the
     <varname>persistence-api</varname> dependency version near the Hibernate
     dependency version will make it more obvious later when your team modifies
-    the parent <acronym>POM</acronym> to upgrade the Hibernate version.
-    </para>
+    the parent <acronym>POM</acronym> to upgrade the Hibernate version.</para>
 
     <para>If you look at the <varname>dependency:analyze</varname> output from
     the <varname>simple-web</varname> module, you will see that we also need
@@ -599,7 +597,7 @@
     that the Velocity and Servlet API dependencies are listed in this list for
     the simple-web module. This is also expected because, while the project
     doesn't have any direct references to the classes of these artifacts, they
-    are still essential during runtime. </para>
+    are still essential during runtime.</para>
 
     <para>Be careful when removing any Unused, Declared Dependencies unless
     you have very good test coverage, or you might introduce a runtime error.

@@ -336,7 +336,7 @@
     class. Atmospheric conditions such as the humidity, maximum visibility,
     barometric pressure, and whether the pressure is rising or falling is
     stored in an <classname>Atmosphere</classname> class. A textual
-    description of conditions, the temperature, and the data of the
+    description of conditions, the temperature, and the date of the
     observation is stored in a <classname>Condition</classname> class.</para>
 
     <figure>
@@ -1455,7 +1455,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
         an existing database, you would use an implementation of
         jdbcconfiguration. In this case, we're simply using an existing
         annotated object model to generate a database. In other words, we have
-        out Hibernate mapping, but we don't yet have a database. In this usage
+        our Hibernate mapping, but we don't yet have a database. In this usage
         scenario, the appropriate implementation value is
         annotationconfiguration. The Maven Hibernate3 Plugin is discussed in
         more detail in <xref linkend="sect-spring-running-web" />.</para>
@@ -2223,7 +2223,7 @@ public class Main {
     <para>The <classname>Main</classname> class has a reference to
     <classname>WeatherDAO</classname>, <classname>LocationDAO</classname>, and
     <classname>WeatherService</classname>. The static
-    <methodname>main()</methodname> method in this class: </para>
+    <methodname>main()</methodname> method in this class:</para>
 
     <itemizedlist>
       <listitem>
@@ -2417,7 +2417,7 @@ ${location.country}
     bytecode into a single <acronym>JAR</acronym> in
     <filename>target/</filename> named
     <filename>simple-command-jar-with-dependencies.jar</filename>. This "uber"
-    <acronym>JAR</acronym> weighs in at 15 MB. </para>
+    <acronym>JAR</acronym> weighs in at 15 MB.</para>
 
     <para>Before you run the command-line tool, you will need to invoke the
     <varname>hbm2ddl</varname> goal of the Hibernate3 plugin to create the

@@ -62,14 +62,16 @@
         <properties>
            <sonatype.site>file:///var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
         </properties>
-    <repository>
-      <id>sonatype-forge</id>
-      <name>Sonatype Forge</name>
-      <url>http://repository.sonatype.com/groups/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
+        <repositories>
+          <repository>
+            <id>sonatype-forge</id>
+            <name>Sonatype Forge</name>
+            <url>http://repository.sonatype.com/groups/public</url>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </repository>
+        </repositories>
       </profile>
   </profiles>
 

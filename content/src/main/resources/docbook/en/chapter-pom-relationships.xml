@@ -142,11 +142,10 @@
 
       <para>Before we dive into some examples of <acronym>POM</acronym>s,
       let's take a quick look at the Super <acronym>POM</acronym>. All Maven
-      project <acronym>POM</acronym>s extend this Super
-      <acronym>POM</acronym>, it defines a set of defaults shared by all
-      projects. This Super <acronym>POM</acronym> is a part of the Maven
-      installation, and can be found in the
-      <filename>maven-2.0.9-uber.jar</filename> file in
+      project <acronym>POM</acronym>s extend the Super <acronym>POM</acronym>
+      which defines a set of defaults shared by all projects. This Super
+      <acronym>POM</acronym> is a part of the Maven installation, and can be
+      found in the <filename>maven-2.0.9-uber.jar</filename> file in
       <filename>${M2_HOME}/lib</filename>. If you look in this
       <acronym>JAR</acronym> file, you will find a file named
       <filename>pom-4.0.0.xml</filename> under the
@@ -1538,10 +1537,11 @@ top-group/project-c/pom.xml</programlisting>
       <para>The projects are related to one another because
       <varname>top-group</varname> and <varname>sub-group</varname> are
       referencing <varname>sub-modules</varname> in a <acronym>POM</acronym>.
-      For example, the <varname>org.sonatype.mavenbook:top-group</varname> project
-      is a multi-module project with packaging of type <varname>pom</varname>.
-      <varname>top-group</varname>'s <filename>pom.xml</filename> would
-      include the following modules element:</para>
+      For example, the <varname>org.sonatype.mavenbook:top-group</varname>
+      project is a multi-module project with packaging of type
+      <varname>pom</varname>. <varname>top-group</varname>'s
+      <filename>pom.xml</filename> would include the following modules
+      element:</para>
 
       <example>
         <title>top-group modules element</title>
