@@ -4,21 +4,21 @@
 <chapter id="introduction">
   <title>Introducing Apache Maven</title>
 
-  <para>While there are a number of references for Maven online, there is no
-  single, well-written narrative for introducing Maven that can serve as both
-  a well-worn reference book and an introduction. What we've tried to do with
-  this effort is provide such a narrative coupled with useful reference
+  <para>Although there are a number of references for Maven online, there is
+  no single, well-written narrative for introducing Maven that can serve as
+  both an authoritative reference and an introduction. What we’ve tried to do
+  with this effort is provide such a narrative coupled with useful reference
   material.</para>
 
   <section id="section-whatIsMaven">
     <title>Maven... What is it?</title>
 
     <para>The answer to this question depends on your own perspective. The
-    great majority of Maven users are going to call Maven a "build tool": a
+    great majority of Maven users are going to call Maven a “build tool”: a
     tool used to build deployable artifacts from source code. Build engineers
     and project managers might refer to Maven as something more comprehensive:
     a project management tool. What is the difference? A build tool such as
-    Ant is solely focused on preprocessing, compilation, packaging, testing,
+    Ant is focused solely on preprocessing, compilation, packaging, testing,
     and distribution. A project management tool such as Maven provides a
     superset of features found in a build tool. In addition to providing build
     capabilities, Maven can also run reports, generate a web site, and
@@ -199,7 +199,7 @@
   <section>
     <title>Conceptual Model of a "Project"</title>
 
-    <para>Maven maintains a model of a project, you are not just compiling
+    <para>Maven maintains a model of a project: you are not just compiling
     source code into bytecode, you are developing a description of a software
     project and assigning a unique set of coordinates to a project. You are
     describing the attributes of the project. What is the project's license?
@@ -408,7 +408,7 @@
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;my-project&lt;/artifactId&gt;
   &lt;version&gt;1.0&lt;/version&gt;
 &lt;/project&gt;</programlisting>
@@ -550,9 +550,9 @@
     <title>Summary</title>
 
     <para>This introduction has been kept purposefully short. We have covered
-    a basic outline of what Maven is, and how it stacks up to, and improves
-    upon, other build tools throughout time. The next chapter will dive into a
-    simple project and how Maven can perform phenomenal tasks with the
+    a basic outline of what Maven is, and how it stacks up to and improves
+    upon other build tools throughout time. The next chapter will dive into a
+    simple project and show how Maven can perform phenomenal tasks with the
     smallest amount of configuration.</para>
   </section>
 </chapter>

@@ -127,65 +127,52 @@
     <title>Maven by Example</title>
 
     <partintro>
-      <para>The first Maven book was the <ulink
-      url="http://www.oreilly.com/catalog/9780596007508/">Maven Developer's
-      Notebook</ulink> from <ulink
-      url="http://www.oreilly.com">O'Reilly</ulink>, it was a book that
-      introduced Maven in a series of steps. The idea behind the Developer's
-      Notebook series was that developers learn best when they are sitting
-      next to another developer and going through the thought process that
-      another developer uses to learn and code. While the Developer's Notebook
-      series has been successful, there is a downside to the notebook format:
-      notebooks are, by design, "goal-focused" books that take you through a
-      series of steps to achieve specific goals. Larger reference books, or
-      "Animal" books are there to provide comprehensive material which covers
-      the entirety of the topic. Both books have advantages and disadvantages,
-      but publishing one without the other is a recipe for problems.</para>
+      <para>The first Maven book was <emphasis>Maven: A Developer’s
+      Notebook</emphasis> (O’Reilly). That book introduced Maven in a series
+      of steps via a conversation between you and a colleague who already knew
+      how to use Maven. The idea behind the (now-retired) Developer’s Notebook
+      series was that developers learn best when they are sitting next to
+      other developers and going through the same thought processes, learning
+      to code by doing and experimenting. Although the series was successful,
+      the Notebook format had limitations. Notebooks are, by design,
+      “goal-focused” books that take you through a series of steps to achieve
+      very specific goals. By contrast, larger reference books (such as
+      O’Reilly’s animal books) provide comprehensive reference material that
+      cover the entirety of the topic.</para>
 
-      <para>To illustrate the problem, consider that after ten thousand people
-      read a developer's notebook, they will all know how to create a simple
-      project, say a Maven project that creates a <acronym>WAR</acronym> from
-      a set of source files. But, when they want more details or the specifics
-      for something like the Assembly plugin, they hit something of an
-      impasse. Because there is no well-written reference material for Maven,
-      they have to hunt through plugin documentation on the Maven site or cull
-      through a series of mailing lists. Once people start to really dig into
-      Maven, they start reading through thousands of poorly written
-      <acronym>HTML</acronym> documents on the Maven site written by hundreds
-      of different developers each with a different idea of what it means to
-      document a plugin: hundreds of developers with varying writing styles,
-      tones, and native languages. Despite the best efforts of hundreds of
-      well-meaning volunteers, reading through plugin documentation on the
-      Maven site, is, at best, frustrating and, at worst, a reason to abandon
-      Maven. Quite often Maven users get "stuck" because they just can't find
-      an answer from the site documentation.</para>
+      <para>If you read <emphasis>Maven: A Developer’s Notebook</emphasis>,
+      you’ll learn how to create a simple project or a project that creates a
+      WAR from a set of source files. But if you want to find out the
+      specifics for something like the Assembly plugin, you’ll hit an impasse.
+      Because there is no well-written reference material for Maven, you have
+      to hunt through plugin documentation on the Maven web site or cull from
+      a series of mailing lists. Once you really dig into Maven, you end up
+      reading through thousands of HTML pages on the Maven site written by
+      hundreds of different developers, each with a different idea of what it
+      means to document a plugin. Despite the best efforts of well-meaning
+      volunteers, reading through plugin documentation on the Maven site is,
+      at best, frustrating, and at worst, a reason to abandon Maven. Quite
+      often, Maven users get stuck because they just can’t find an
+      answer.</para>
 
-      <para>While the first Maven Developer's Notebook attracted new users to
-      Maven, and trained people on the most basic use case of Maven, this same
-      population of readers grew frustrated when they couldn't find a concise
-      well-written reference manual. This lack of an authoritative (or
-      definitive) reference manual has held Maven back for a few years; it has
-      been something of a dampening force on the Maven user community. This
-      book intends to change this situation by providing both an update to the
-      original Maven Developer Notebook in <xref linkend="part-example" />,
-      and the first attempt at a comprehensive reference in <xref
-      linkend="part-reference" />. What you have in your hands (or on your
-      screen) is really two books in one.</para>
+      <para>This lack of an authoritative (or definitive) reference manual has
+      held Maven back for a few years, and it has been something of a
+      dampening force on Maven adoption. With <emphasis>Maven: The Definitive
+      Guide,</emphasis> we intend to change that situation by providing a
+      comprehensive reference in <xref linkend="part-reference" />. In Part
+      II, we’re preserving the narrative progression of a Developer’s
+      Notebook; it is valuable material that helps people learn Maven by
+      example. Thus, in this part, we “introduce by doing,” and in <xref
+      linkend="part-reference" />, we fill in the blanks and dig into the
+      details. Where <xref linkend="part-reference" /> might use a reference
+      table and a program listing detached from an example project, Part II is
+      motivated by real examples.</para>
 
-      <para>In this part of the book, we're not abandoning the narrative
-      progression of a Developer's Notebook, it is valuable material that
-      helps people learn Maven "by example". In the first half of the book we
-      "introduce by doing", and in <xref linkend="part-reference" /> we fill
-      in the blanks, dig into the details, and introduce advanced topics which
-      might be distracting to a new Maven user. Where <xref
-      linkend="part-reference" /> might use a reference table and a program
-      listing detached from an example project, <xref
-      linkend="part-example" /> is going to be motivated by a real example and
-      a good story. After reading <xref linkend="part-example" />, you should
-      have everything you need to start using Maven for a few months. You
-      might only need to return to <xref linkend="part-reference" /> when you
-      need to start customizing Maven by writing custom plugins or when you
-      want more detail about specific plugins.</para>
+      <para>After reading this part, you should have everything you need to
+      start using Maven. You might need to refer to <xref
+      linkend="part-reference" /> only when you start customizing Maven by
+      writing custom plugins or when you want more detail about specific
+      plugins.</para>
     </partintro>
 
     <xi:include href="chapter-simple-project.xml"

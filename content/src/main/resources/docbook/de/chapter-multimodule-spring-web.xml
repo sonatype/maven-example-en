@@ -260,7 +260,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-  &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
   &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
   &lt;packaging&gt;pom&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -366,7 +366,7 @@
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -391,7 +391,7 @@
 </programlisting>
 
       <para>In
-      <filename>src/main/java/com/sonatype/maven/weather/model</filename> we
+      <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename> we
       have <filename>Weather.java</filename> which contains the annotated
       <classname>Weather</classname> model object. The
       <classname>Weather</classname> object is a simple Java Bean, this means
@@ -411,7 +411,7 @@
     <example>
       <title>Annotated Weather Model Object</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.model;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.model;
 
 import javax.persistence.*;
 
@@ -535,12 +535,12 @@ public class Weather {
 
     <para>Next, take a look at one of the secondary model objects,
     <classname>Condition</classname>. This class also resides in
-    <filename>src/main/java/com/sonatype/maven/weather/model</filename>.</para>
+    <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>.</para>
 
     <example>
       <title>simple-model's Condition model object.</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.model;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.model;
 
 import javax.persistence.*;
 
@@ -613,7 +613,7 @@ public class Condition {
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -624,7 +624,7 @@ public class Condition {
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-model&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -662,7 +662,7 @@ public class Condition {
 
     <variablelist>
       <varlistentry>
-        <term>com.sonatype.maven.ch07:simple-model:1.0</term>
+        <term>org.sonatype.mavenbook.ch07:simple-model:1.0</term>
 
         <listitem>
           <para><varname>simple-weather</varname> parses the Yahoo! Weather
@@ -715,11 +715,11 @@ public class Condition {
     <example>
       <title>The WeatherService class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherService {
 
@@ -790,14 +790,14 @@ public class WeatherService {
              http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
     default-lazy-init="true"&gt;
 
-    &lt;bean id="weatherService" class="com.sonatype.maven.weather.WeatherService"&gt;
+    &lt;bean id="weatherService" class="org.sonatype.mavenbook.weather.WeatherService"&gt;
       &lt;property name="yahooRetriever" ref="yahooRetriever"/&gt;
       &lt;property name="yahooParser" ref="yahooParser"/&gt;
     &lt;/bean&gt;    
 
-    &lt;bean id="yahooRetriever" class="com.sonatype.maven.weather.YahooRetriever"/&gt;    
+    &lt;bean id="yahooRetriever" class="org.sonatype.mavenbook.weather.YahooRetriever"/&gt;    
 
-    &lt;bean id="yahooParser" class="com.sonatype.maven.weather.YahooParser"/&gt;
+    &lt;bean id="yahooParser" class="org.sonatype.mavenbook.weather.YahooParser"/&gt;
 &lt;/beans&gt;</programlisting>
     </example>
 
@@ -840,7 +840,7 @@ public class WeatherService {
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -851,7 +851,7 @@ public class WeatherService {
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-model&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -898,7 +898,7 @@ public class WeatherService {
 
     <variablelist>
       <varlistentry>
-        <term>com.sonatype.maven.ch07:simple-model:1.0</term>
+        <term>org.sonatype.mavenbook.ch07:simple-model:1.0</term>
 
         <listitem>
           <para>Just like the <varname>simple-weather</varname> module, this
@@ -961,7 +961,7 @@ public class WeatherService {
     <example>
       <title>simple-persist's WeatherDAO Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.persist;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.persist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -971,8 +971,8 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
           linkends="coRef-hibDao-2" /> {
@@ -1100,11 +1100,11 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"&gt;
         &lt;property name="annotatedClasses"&gt;
             &lt;list&gt;
-                &lt;value&gt;com.sonatype.maven.weather.model.Atmosphere&lt;/value&gt;
-                &lt;value&gt;com.sonatype.maven.weather.model.Condition&lt;/value&gt;
-                &lt;value&gt;com.sonatype.maven.weather.model.Location&lt;/value&gt;
-                &lt;value&gt;com.sonatype.maven.weather.model.Weather&lt;/value&gt;
-                &lt;value&gt;com.sonatype.maven.weather.model.Wind&lt;/value&gt;
+                &lt;value&gt;org.sonatype.mavenbook.weather.model.Atmosphere&lt;/value&gt;
+                &lt;value&gt;org.sonatype.mavenbook.weather.model.Condition&lt;/value&gt;
+                &lt;value&gt;org.sonatype.mavenbook.weather.model.Location&lt;/value&gt;
+                &lt;value&gt;org.sonatype.mavenbook.weather.model.Weather&lt;/value&gt;
+                &lt;value&gt;org.sonatype.mavenbook.weather.model.Wind&lt;/value&gt;
             &lt;/list&gt;
         &lt;/property&gt;
         &lt;property name="hibernateProperties"&gt;
@@ -1128,11 +1128,11 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
         &lt;/property&gt;
     &lt;/bean&gt;
 
-    &lt;bean id="locationDAO" class="com.sonatype.maven.weather.persist.LocationDAO"&gt;
+    &lt;bean id="locationDAO" class="org.sonatype.mavenbook.weather.persist.LocationDAO"&gt;
         &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
     &lt;/bean&gt;
     
-    &lt;bean id="weatherDAO" class="com.sonatype.maven.weather.persist.WeatherDAO"&gt;
+    &lt;bean id="weatherDAO" class="org.sonatype.mavenbook.weather.persist.WeatherDAO"&gt;
         &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
     &lt;/bean&gt;
  &lt;/beans&gt;</programlisting>
@@ -1240,11 +1240,11 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
     &lt;property name="jdbc.batch_size"&gt;0&lt;/property&gt;
     
     &lt;!-- List all the mapping documents we're using --&gt;
-    &lt;mapping class="com.sonatype.maven.weather.model.Atmosphere"/&gt;
-    &lt;mapping class="com.sonatype.maven.weather.model.Condition"/&gt;
-    &lt;mapping class="com.sonatype.maven.weather.model.Location"/&gt;
-    &lt;mapping class="com.sonatype.maven.weather.model.Weather"/&gt;
-    &lt;mapping class="com.sonatype.maven.weather.model.Wind"/&gt;
+    &lt;mapping class="org.sonatype.mavenbook.weather.model.Atmosphere"/&gt;
+    &lt;mapping class="org.sonatype.mavenbook.weather.model.Condition"/&gt;
+    &lt;mapping class="org.sonatype.mavenbook.weather.model.Location"/&gt;
+    &lt;mapping class="org.sonatype.mavenbook.weather.model.Weather"/&gt;
+    &lt;mapping class="org.sonatype.mavenbook.weather.model.Wind"/&gt;
         
   &lt;/session-factory&gt;
 &lt;/hibernate-configuration&gt;</programlisting>
@@ -1307,7 +1307,7 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -1322,12 +1322,12 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
       &lt;version&gt;1.1.1&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-persist&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -1467,11 +1467,11 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
     <example>
       <title>simple-webapp WeatherController</title>
 
-      <programlisting language="java">package com.sonatype.maven.web;
+      <programlisting language="java">package org.sonatype.mavenbook.web;
 
-import com.sonatype.maven.weather.model.Weather;
-import com.sonatype.maven.weather.persist.WeatherDAO;
-import com.sonatype.maven.weather.WeatherService;
+import org.sonatype.mavenbook.weather.model.Weather;
+import org.sonatype.mavenbook.weather.persist.WeatherDAO;
+import org.sonatype.mavenbook.weather.WeatherService;
 import javax.servlet.http.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -1578,14 +1578,14 @@ public class WeatherController implements Controller {
     <example id="ex-spring-history">
       <title>simple-web HistoryController</title>
 
-      <programlisting language="java">package com.sonatype.maven.web;
+      <programlisting language="java">package org.sonatype.mavenbook.web;
 
 import java.util.*;
 import javax.servlet.http.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import com.sonatype.maven.weather.model.*;
-import com.sonatype.maven.weather.persist.*;
+import org.sonatype.mavenbook.weather.model.*;
+import org.sonatype.mavenbook.weather.persist.*;
 
 public class HistoryController implements Controller {
 
@@ -1704,13 +1704,13 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
       <programlisting id="ex-spring-weather-servlet" language="xml">&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
           linkends="coRef-weather-servlet-1" />
-           class="com.sonatype.maven.web.WeatherController"&gt;
+           class="org.sonatype.mavenbook.web.WeatherController"&gt;
        &lt;property name="weatherService" ref="weatherService"/&gt;
        &lt;property name="weatherDAO" ref="weatherDAO"/&gt;
      &lt;/bean&gt;
 
      &lt;bean id="historyController" 
-           class="com.sonatype.maven.web.HistoryController"&gt;
+           class="org.sonatype.mavenbook.web.HistoryController"&gt;
        &lt;property name="weatherDAO" ref="weatherDAO"/&gt;
        &lt;property name="locationDAO" ref="locationDAO"/&gt;
      &lt;/bean&gt;
@@ -2026,7 +2026,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -2051,7 +2051,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
         &lt;configuration&gt;
           &lt;archive&gt;
             &lt;manifest&gt;
-              &lt;mainClass&gt;com.sonatype.maven.weather.Main&lt;/mainClass&gt;
+              &lt;mainClass&gt;org.sonatype.mavenbook.weather.Main&lt;/mainClass&gt;
               &lt;addClasspath&gt;true&lt;/addClasspath&gt;
             &lt;/manifest&gt;
           &lt;/archive&gt;
@@ -2097,12 +2097,12 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.ch07&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
       &lt;artifactId&gt;simple-persist&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -2121,7 +2121,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
     <example>
       <title></title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.util.List;
 
@@ -2129,10 +2129,10 @@ import org.apache.log4j.PropertyConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
-import com.sonatype.maven.weather.persist.LocationDAO;
-import com.sonatype.maven.weather.persist.WeatherDAO;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
+import org.sonatype.mavenbook.weather.persist.LocationDAO;
+import org.sonatype.mavenbook.weather.persist.WeatherDAO;
 
 public class Main {
 
@@ -2202,7 +2202,7 @@ public class Main {
     <example>
       <title></title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -2213,8 +2213,8 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherFormatter {
 

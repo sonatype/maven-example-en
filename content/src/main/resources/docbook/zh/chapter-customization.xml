@@ -64,9 +64,9 @@
     <title>创建Simple Weather项目</title>
 
     <para>首先，让我们用 Maven Archetype 插件创建这个 simple weather 项目的基本轮廓。
-    运行下面的命令，创建新项目：<screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch04 \
+    运行下面的命令，创建新项目：<screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch04 \
                                          -DartifactId=simple-weather \
-                                         -DpackageName=com.sonatype.maven \
+                                         -DpackageName=org.sonatype.mavenbook \
                                          -Dversion=1.0
 </command>[INFO] [archetype:create]
 [INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
@@ -75,10 +75,10 @@
 [INFO] Using following parameters for creating Archetype: \
        maven-archetype-quickstart:RELEASE
 [INFO] ------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: com.sonatype.maven.ch04
-[INFO] Parameter: packageName, Value: com.sonatype.maven
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch04
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: com.sonatype.maven
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0
 [INFO] Parameter: artifactId, Value: simple-weather
 [INFO] *** End of debug info from resources from generated POM ***
@@ -95,7 +95,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch04&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch04&lt;/groupId&gt;
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -250,7 +250,7 @@
 
     <variablelist>
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.Main</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.Main</classname></term>
 
         <listitem>
           <para>这个类包含了一个静态的 <methodname>main()</methodname> 函数，即系统的入口。</para>
@@ -258,7 +258,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.Weather</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.Weather</classname></term>
 
         <listitem>
           <para><classname>Weather</classname> 类是个很简单的 Java
@@ -267,7 +267,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.YahooRetriever</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.YahooRetriever</classname></term>
 
         <listitem>
           <para><classname>YahooRetriever</classname> 连接到 Yahoo! Weather
@@ -276,7 +276,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.YahooParser</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.YahooParser</classname></term>
 
         <listitem>
           <para><classname>YahooParser</classname> 解析来自 Yahoo! Weather 的
@@ -285,7 +285,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.WeatherFormatter</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.WeatherFormatter</classname></term>
 
         <listitem>
           <para><classname>WeatherFormatter</classname> 接受
@@ -298,29 +298,29 @@
     <para>这里我们不是想要详细阐述样例中的代码，但解释一下程序中使之运行的核心代码还是必要的。
     我们假设大部分读者已经下载的本书的源码，但也不会忘记那些按着书一步一步往下看的读者。 本小节列出了
     <varname>simple-weather</varname>
-    项目的类，这些类都放在同一个包下面，<package>com.sonatype.maven.weather</package> 。</para>
+    项目的类，这些类都放在同一个包下面，<package>org.sonatype.mavenbook.weather</package> 。</para>
 
     <para>让我们删掉由 <varname>archetype:create</varname> 生成
     <classname>App</classname> 类和 <classname>AppTest</classname> 类，然后加入我们新的包。在
     Maven 项目中，所有项目的源代码都存储在 <filename>src/main/java</filename> 目录。
     在新项目的基础目录下，运行下面的命令：</para>
 
-    <screen>$ <command>cd src/test/java/com/sonatype/maven</command>
+    <screen>$ <command>cd src/test/java/org/sonatype/mavenbook</command>
 $ <command>rm AppTest.java</command>
 $ <command>cd ../../../../../..</command>
-$ <command>cd src/main/java/com/sonatype/maven</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook</command>
 $ <command>rm App.java</command>
 $ <command>mkdir weather</command>
 $ <command>cd weather</command></screen>
 
-    <para>你已经创建了一个新的包 <package>com.sonatype.maven.weather</package> 。
+    <para>你已经创建了一个新的包 <package>org.sonatype.mavenbook.weather</package> 。
     现在，我们需要把那些类放到这个目录下面。 用你最喜欢的编辑器，创建一个新文件，名字为
     <filename>Weather.java</filename>，内容如下：</para>
 
     <example>
       <title>Simple Weather 的 Weather 模型对象</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 
 public class Weather {
@@ -369,7 +369,7 @@ public class Weather {
     <example>
       <title>Simple Weather 的 Main 类</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 
@@ -430,7 +430,7 @@ public class Main {
     <example>
       <title>Simple Weather 的 YahooRetriever 类</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -460,7 +460,7 @@ public class YahooRetriever {
     <example>
       <title>Simple Weather 的 YahooParser 类</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -526,7 +526,7 @@ public class YahooParser {
     <example>
       <title>Simple Weather 的 WeatherFormatter 类</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -638,7 +638,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     类。</para>
 
     <screen>$ <command>mvn install</command>
-$ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</command>
+$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
 ...
 [INFO] [exec:java]
 0    INFO  YahooRetriever  - Retrieving Weather Data
@@ -686,7 +686,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
       在任何其它的构建系统能够中，我们必须复制所有程序依赖到类似于 <filename>lib/</filename> 的目录，这个目录包含一个
       <acronym>JAR</acronym> 文件的集合。 那样，我们就必须写一个简单的脚本，在 classpath
       中包含我们程序的二进制代码和我们的依赖。 只有那样我们才能运行 <command>java
-      com.sonatype.maven.weather.Main</command> 。 Exec 能做这样的工作是因为 Maven
+      org.sonatype.mavenbook.weather.Main</command> 。 Exec 能做这样的工作是因为 Maven
       已经知道如何创建和管理你的 classpath 和你的依赖。</para>
 
       <para>了解你项目的 classpath 包含了哪些依赖是很方便也很有用的。这个项目不仅包含了一些类库如 Dom4J， Log4J，
@@ -724,7 +724,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
       <screen>$ <command>mvn dependency:tree</command>
 ...
 [INFO] [dependency:tree]
-[INFO] com.sonatype.maven.ch04:simple-weather:jar:1.0
+[INFO] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0
 [INFO] +- log4j:log4j:jar:1.2.14:compile
 [INFO] +- dom4j:dom4j:jar:1.6.1:compile
 [INFO] |  \- xml-apis:xml-apis:jar:1.0.b2:compile
@@ -748,7 +748,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 
       <screen>$ <command>mvn install -X</command>
 ...
-[DEBUG] com.sonatype.maven.ch04:simple-weather:jar:1.0 (selected for null)
+[DEBUG] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0 (selected for null)
 [DEBUG]   log4j:log4j:jar:1.2.14:compile (selected for compile)
 [DEBUG]   dom4j:dom4j:jar:1.6.1:compile (selected for compile)
 [DEBUG]     xml-apis:xml-apis:jar:1.0.b2:compile (selected for compile)
@@ -786,10 +786,10 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 
     <para>Maven 内建了对单元测试的支持，测试是 Maven 默认生命周期的一部分。让我们给 Simple Weather
     项目添加一些单元测试。 首先，在 <filename>src/test/java</filename> 下面创建包
-    <package>com.sonatype.maven.weather</package>。</para>
+    <package>org.sonatype.mavenbook.weather</package>。</para>
 
     <screen>$ <command>cd src/test/java</command>
-$ <command>cd com/sonatype/maven</command>
+$ <command>cd org/sonatype/mavenbook</command>
 $ <command>mkdir -p weather/yahoo</command>
 $ <command>cd weather/yahoo</command></screen>
 
@@ -800,14 +800,14 @@ $ <command>cd weather/yahoo</command></screen>
     <example>
       <title>Simple Weather 的 YahooParserTest 单元测试</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.yahoo;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.yahoo;
 
 import java.io.InputStream;
 
 import junit.framework.TestCase;
 
-import com.sonatype.maven.weather.Weather;
-import com.sonatype.maven.weather.YahooParser;
+import org.sonatype.mavenbook.weather.Weather;
+import org.sonatype.mavenbook.weather.YahooParser;
 
 public class YahooParserTest extends TestCase {
 
@@ -840,7 +840,7 @@ public class YahooParserTest extends TestCase {
     classpath 载入。我们将在<xref linkend="sect-custom-test-resource" />添加测试资源。 在我们这个
     Maven 项目的目录布局中，文件 <filename>ny-weather.xml</filename> 可以从包含测试资源的目录——
     <filename>${basedir}/src/test/resources</filename> ——中找到，路径为
-    <filename>com/sonatype/maven/weather/yahoo/ny-weather.xml</filename> 。
+    <filename>org/sonatype/mavenbook/weather/yahoo/ny-weather.xml</filename> 。
     该文件作为一个 <classname>InputStream</classname> 被读入，传给
     <classname>YahooParser</classname> 的 <methodname>parse()</methodname> 方法。
     <methodname>parse()</methodname> 方法返回一个 <classname>Weather</classname>
@@ -853,15 +853,15 @@ public class YahooParserTest extends TestCase {
     <example>
       <title>Simple Weather 的 WeatherFormatterTest 单元测试</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.yahoo;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.yahoo;
 
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import com.sonatype.maven.weather.Weather;
-import com.sonatype.maven.weather.WeatherFormatter;
-import com.sonatype.maven.weather.YahooParser;
+import org.sonatype.mavenbook.weather.Weather;
+import org.sonatype.mavenbook.weather.WeatherFormatter;
+import org.sonatype.mavenbook.weather.YahooParser;
 
 import junit.framework.TestCase;
 
@@ -889,7 +889,7 @@ public class WeatherFormatterTest extends TestCase {
     一样，<classname>WeatherFormatter</classname> 同样也继承 JUnit 的
     <classname>TestCase</classname> 类。 这个单独的测试通过单元测试的 classpath 从
     <filename>${basedir}/src/test/resources</filename> 的
-    <filename>com/sonatype/maven/weather/yahoo</filename> 目录读取同样的测试资源文件。
+    <filename>org/sonatype/mavenbook/weather/yahoo</filename> 目录读取同样的测试资源文件。
     我们将会在<xref linkend="sect-custom-test-resource" />添加测试资源。
     <classname>WeatherFormatterTest</classname> 首先调用
     <classname>YahooParser</classname> 解析出 <classname>Weather</classname>
@@ -1060,12 +1060,12 @@ $ <command>cd resources</command></screen>
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running com.sonatype.maven.weather.yahoo.WeatherFormatterTest
+Running org.sonatype.mavenbook.weather.yahoo.WeatherFormatterTest
 0    INFO  YahooParser  - Creating XML Reader
 177  INFO  YahooParser  - Parsing XML Response
 239  INFO  WeatherFormatter  - Formatting Weather Data
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.547 sec
-Running com.sonatype.maven.weather.yahoo.YahooParserTest
+Running org.sonatype.mavenbook.weather.yahoo.YahooParserTest
 475  INFO  YahooParser  - Creating XML Reader
 483  INFO  YahooParser  - Parsing XML Response
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec
@@ -1247,7 +1247,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     装配好之后， 我们可以在命令行重新运行 <classname>Main</classname> 类。在你项目的基础目录下运行以下命令：</para>
 
     <screen>$ <command>cd target</command>
-$ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar com.sonatype.maven.weather.Main 10002</command>
+$ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar org.sonatype.mavenbook.weather.Main 10002</command>
 0    INFO  YahooRetriever  - Retrieving Weather Data
 221  INFO  YahooParser  - Creating XML Reader
 399  INFO  YahooParser  - Parsing XML Response

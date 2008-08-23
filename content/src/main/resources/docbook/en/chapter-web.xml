@@ -251,11 +251,11 @@
     create a new package under <filename>src/main/java</filename> named
     <package>org.sonatype.mavenbook.web</package>.</para>
 
-    <screen>$ <command>mkdir -p src/main/java/com/sonatype/maven/web</command>
-$ <command>cd src/main/java/com/sonatype/maven/web</command></screen>
+    <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
 
     <para>Once you've created this package, change to the
-    <filename>src/main/java/com/sonatype/maven/web</filename> directory and
+    <filename>src/main/java/org/sonatype/mavenbook/web</filename> directory and
     create a class named <classname>SimpleServlet</classname> in
     <filename>SimpleServlet.java</filename> which contains the following
     code.</para>
@@ -326,28 +326,28 @@ public class SimpleServlet extends HttpServlet {
 [INFO] ------------------------------------------------------------------------
 [INFO] Compilation failure
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[4,0] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[4,0] \
   package javax.servlet does not exist
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[5,0] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[5,0] \
   package javax.servlet.http does not exist
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[7,35] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[7,35] \
   cannot find symbol
   symbol: class HttpServlet
   public class SimpleServlet extends HttpServlet {
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[8,22] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[8,22] \
   cannot find symbol
   symbol  : class HttpServletRequest
   location: class org.sonatype.mavenbook.web.SimpleServlet
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[9,22] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[9,22] \
   cannot find symbol
   symbol  : class HttpServletResponse
   location: class org.sonatype.mavenbook.web.SimpleServlet
 
-/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[10,15] \
+/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[10,15] \
   cannot find symbol
   symbol  : class ServletException
   location: class org.sonatype.mavenbook.web.SimpleServlet

@@ -182,7 +182,7 @@ public class WeatherService {
 </programlisting>
     </example>
 
-    <para><classname>WeatherService</classname>类在<filename>src/main/java/com/sonatype/maven/weather</filename>中定义，它简单的调用<xref
+    <para><classname>WeatherService</classname>类在<filename>src/main/java/org/sonatype/mavenbook/weather</filename>中定义，它简单的调用<xref
     linkend="customizing" />中定义的三个对象。在本章的样例中，我们正创建一个单独的项目，它包含了将会在web应用项目中被引用的service对象。这是一个在企业级Java开发中常见的模型，通常一个复杂的应用包含了不止一个的简单web应用。你可能拥有一个企业应用，它包含了多个web应用，以及一些命令行应用。通常你会想要重构那些通用的逻辑至一个service类，以被很多项目重用。这就是我们创建<classname>WeatherService</classname>类的理由，在此之后，你就能看到<varname>simple-webapp</varname>项目是如何引用在<varname>simple-weather</varname>中定义的service对象。</para>
 
     <para><methodname>retrieveForecast()</methodname>方法接受一个包含邮政编码的<classname>String</classname>。之后这个邮政编码参数被传给<classname>YahooRetriever</classname>的<methodname>retrieve()</methodname>方法，后者从Yahoo!

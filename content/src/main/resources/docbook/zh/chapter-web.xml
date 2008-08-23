@@ -51,18 +51,18 @@
     <varname>maven-archetype-webapp</varname>。 如此便创建了恰到好处的目录结构和 Maven
     <acronym>POM</acronym>。</para>
 
-    <screen>~/examples$ <command>mvn archetype:create -DgroupId=com.sonatype.maven.ch05 \
+    <screen>~/examples$ <command>mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch05 \
                                                              -DartifactId=simple-webapp \
-                                                             -DpackageName=com.sonatype.maven \
+                                                             -DpackageName=org.sonatype.mavenbook \
                                                              -DarchetypeArtifactId=maven-archetype-webapp</command>
 [INFO] [archetype:create]
 [INFO] ----------------------------------------------------------------------------
 [INFO] Using following parameters for creating Archetype: maven-archetype-webapp:RELEASE
 [INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: com.sonatype.maven.ch05
-[INFO] Parameter: packageName, Value: com.sonatype.maven
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch05
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: com.sonatype.maven
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
 [INFO] Parameter: artifactId, Value: simple-webapp
 [INFO] ********************* End of debug info from resources from generated POM *******
@@ -80,7 +80,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch05&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch05&lt;/groupId&gt;
   &lt;artifactId&gt;simple-webapp&lt;/artifactId&gt;
   &lt;packaging&gt;war&lt;/packaging&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
@@ -213,19 +213,19 @@
     <para>一个只有一个单独的 JSP 页面而没有任何配置好的 servlet 的 web 应用程序基本是没用的。 让我们为这个应用添加一个简单的
     servlet ，同时为 <filename>pom.xml</filename> 和 <filename>web.xml</filename>
     做些改动以支持这个变化。 首先，我们需要在目录 <filename>src/main/java</filename> 下创建一个名为
-    <package>com.sonatype.maven.web</package> 的新的包。</para>
+    <package>org.sonatype.mavenbook.web</package> 的新的包。</para>
 
-    <screen>$ <command>mkdir -p src/main/java/com/sonatype/maven/web</command>
-$ <command>cd src/main/java/com/sonatype/maven/web</command></screen>
+    <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
 
     <para>包创建好之后，切换目录至
-    <filename>src/main/java/com/sonatype/maven/web</filename> ，创建一个名为
+    <filename>src/main/java/org/sonatype/mavenbook/web</filename> ，创建一个名为
     <filename>SimpleServlet.java</filename> 的 servlet 类，代码如下：</para>
 
     <example>
       <title>SimpleServlet 类</title>
 
-      <programlisting language="java">package com.sonatype.maven.web;
+      <programlisting language="java">package org.sonatype.mavenbook.web;
 
 import java.io.*;
 import javax.servlet.*;                                                         
@@ -262,7 +262,7 @@ public class SimpleServlet extends HttpServlet {
   &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
   &lt;servlet&gt;
     &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.sonatype.maven.web.SimpleServlet&lt;/servlet-class&gt;
+    &lt;servlet-class&gt;org.sonatype.mavenbook.web.SimpleServlet&lt;/servlet-class&gt;
   &lt;/servlet&gt;
   &lt;servlet-mapping&gt;
     &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
@@ -284,31 +284,31 @@ public class SimpleServlet extends HttpServlet {
 [INFO] ------------------------------------------------------------------------
 [INFO] Compilation failure
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[4,0] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[4,0] \
   package javax.servlet does not exist
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[5,0] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[5,0] \
   package javax.servlet.http does not exist
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[7,35] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[7,35] \
   cannot find symbol
   symbol: class HttpServlet
   public class SimpleServlet extends HttpServlet {
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[8,22] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[8,22] \
   cannot find symbol
   symbol  : class HttpServletRequest
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[9,22] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[9,22] \
   cannot find symbol
   symbol  : class HttpServletResponse
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[10,15] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[10,15] \
   cannot find symbol
   symbol  : class ServletException
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 </screen>
 
     <para>编译失败了，因为你的 Maven 项目没有对 Servlet <acronym>API</acronym> 的依赖。

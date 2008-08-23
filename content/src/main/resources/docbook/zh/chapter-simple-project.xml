@@ -32,9 +32,9 @@
 
     <!--TODO: this needs to be replaced with the 2.0 example-->
 
-    <screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch03 \
+    <screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch03 \
                                          -DartifactId=simple \
-                                         -DpackageName=com.sonatype.maven
+                                         -DpackageName=org.sonatype.mavenbook
 </command>[INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.               
 [INFO] artifact org.apache.maven.plugins:maven-archetype-plugin: checking for \
@@ -46,10 +46,10 @@
 [INFO] [archetype:create]
 [INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
        checking for updates from central
-[INFO] Parameter: groupId, Value: com.sonatype.maven.ch03
-[INFO] Parameter: packageName, Value: com.sonatype.maven
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch03
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: /Users/tobrien/svnw/sonatype/examples
-[INFO] Parameter: package, Value: com.sonatype.maven
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
 [INFO] Parameter: artifactId, Value: simple
 [INFO] * End of debug info from resources from generated POM *
@@ -103,9 +103,9 @@ simple/pom.xml<co id="coDef-simple-fs-pom" linkends="coRef-simple-fs-pom" />
     </calloutlist>
 
     <para>Maven
-    Archtype插件生成了一个简单的类<classname>com.sonatype.maven.App</classname>，它是一个仅有13行代码的Java，所做的只是在main方法中输出一行消息：</para>
+    Archtype插件生成了一个简单的类<classname>org.sonatype.mavenbook.App</classname>，它是一个仅有13行代码的Java，所做的只是在main方法中输出一行消息：</para>
 
-    <programlisting language="java">package com.sonatype.maven;
+    <programlisting language="java">package org.sonatype.mavenbook;
 
 /**
  * Hello world!
@@ -154,7 +154,7 @@ violation of the "no hello world" rule.-->
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running com.sonatype.maven.AppTest
+Running org.sonatype.mavenbook.AppTest
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 sec
 
 Results :
@@ -165,13 +165,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Building jar: /simple/target/simple-1.0-SNAPSHOT.jar
 [INFO] [install:install]
 [INFO] Installing /simple/target/simple-1.0-SNAPSHOT.jar to \
-  ~/.m2/repository/com/sonatype/maven/ch03/simple/1.0-SNAPSHOT/ \
+  ~/.m2/repository/org/sonatype/mavenbook/ch03/simple/1.0-SNAPSHOT/ \
   simple-1.0-SNAPSHOT.jar
 </screen>
 
     <para>你已经创建了，编译了，测试了，打包了，并且安装了(installed)最简单的Maven项目。在命令行运行它以向你自己验证这个程序能工作。</para>
 
-    <screen><command>$ java -cp target/simple-1.0-SNAPSHOT.jar com.sonatype.maven.App
+    <screen><command>$ java -cp target/simple-1.0-SNAPSHOT.jar org.sonatype.mavenbook.App
 </command>Hello World!
 </screen>
   </section>
@@ -189,7 +189,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch03&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch03&lt;/groupId&gt;
   &lt;artifactId&gt;simple&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
@@ -235,9 +235,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       –<varname>install</varname>。为了运行单个的Maven插件目标，我们使用<command>mvn
       archetype:create</command>这样的语法，这里<varname>archetype</varname>是一个插件标识而<varname>create</varname>是目标标识。当Maven运行一个插件目标，它向标准输出打印出插件标识和目标标识：</para>
 
-      <screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch03 \
+      <screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch03 \
                                         -DartifactId=simple \
-                                        -DpackageName=com.sonatype.maven
+                                        -DpackageName=org.sonatype.mavenbook
 </command>...
 <emphasis>[INFO] [archetype:create]</emphasis>
 [INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
@@ -260,7 +260,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <para>一个目标是一个明确的任务，它可以作为单独的目标运行，或者作为一个大的构建的一部分和其它目标一起运行。一个目标是Maven中的一个“工作单元(unit
       of
-      work)”。目标的例子包括Compiler插件中的<varname>compile</varname>目标，它用来编译项目中的所有源文件，或者Surefire插件中的<varname>test</varname>目标，用来运行单元测试。目标通过配置属性进行配置，以用来定制行为。例如，Compiler插件的<varname>compile</varname>目标定义了一组配置参数，它们允许你设置目标JDK版本或者选择是否用编译优化。在之前的例子中，我们通过命令行参数<command>-DgroupId=com.sonatype.maven.ch03</command>和<command>-DartifactId=simple</command>向Archetype插件的<varname>create</varname>目标传入了<varname>groupId</varname>和<varname>artifactId</varname>配置参数。我们也向<varname>create</varname>目标传入了<varname>packageName</varname>参数，它的值为<package>com.sonatype.maven</package>。如果我们忽略了<varname>packageName</varname>参数，那么包名的默认值为<package>com.sonatype.maven.ch03</package>。</para>
+      work)”。目标的例子包括Compiler插件中的<varname>compile</varname>目标，它用来编译项目中的所有源文件，或者Surefire插件中的<varname>test</varname>目标，用来运行单元测试。目标通过配置属性进行配置，以用来定制行为。例如，Compiler插件的<varname>compile</varname>目标定义了一组配置参数，它们允许你设置目标JDK版本或者选择是否用编译优化。在之前的例子中，我们通过命令行参数<command>-DgroupId=org.sonatype.mavenbook.ch03</command>和<command>-DartifactId=simple</command>向Archetype插件的<varname>create</varname>目标传入了<varname>groupId</varname>和<varname>artifactId</varname>配置参数。我们也向<varname>create</varname>目标传入了<varname>packageName</varname>参数，它的值为<package>org.sonatype.mavenbook</package>。如果我们忽略了<varname>packageName</varname>参数，那么包名的默认值为<package>org.sonatype.mavenbook.ch03</package>。</para>
 
       <para><note>
           <para>当提到一个插件目标的时候，我们常常用速记符号：<varname>pluginId:goalId</varname>。例如，当提到Archetype插件的create目标的时候，我们写成<varname>archetype:create</varname>。</para>
@@ -514,7 +514,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ...
 [INFO] [install:install]
 [INFO] Installing .../simple-1.0-SNAPSHOT.jar to \
-       ~/.m2/repository/com/sonatype/maven/simple/1.0-SNAPSHOT/ \
+       ~/.m2/repository/org/sonatype/mavenbook/simple/1.0-SNAPSHOT/ \
        simple-1.0-SNAPSHOT.jar
 ...</screen>
 

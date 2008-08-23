@@ -98,9 +98,9 @@
     skeleton for the simple weather project. Execute the following command to
     create a new project.</para>
 
-    <screen><command>$ mvn archetype:create -DgroupId=com.sonatype.maven.ch04 \
+    <screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch04 \
                                          -DartifactId=simple-weather \
-                                         -DpackageName=com.sonatype.maven \
+                                         -DpackageName=org.sonatype.mavenbook \
                                          -Dversion=1.0
 </command>[INFO] [archetype:create]
 [INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
@@ -109,10 +109,10 @@
 [INFO] Using following parameters for creating Archetype: \
        maven-archetype-quickstart:RELEASE
 [INFO] ------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: com.sonatype.maven.ch04
-[INFO] Parameter: packageName, Value: com.sonatype.maven
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch04
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: com.sonatype.maven
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0
 [INFO] Parameter: artifactId, Value: simple-weather
 [INFO] *** End of debug info from resources from generated POM ***
@@ -132,7 +132,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch04&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch04&lt;/groupId&gt;
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -341,7 +341,7 @@ Also explain the "more than one groupId" comment.-->
 
     <variablelist>
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.Main</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.Main</classname></term>
 
         <listitem>
           <para>This class contains a static <methodname>main()</methodname>
@@ -350,7 +350,7 @@ Also explain the "more than one groupId" comment.-->
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.Weather</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.Weather</classname></term>
 
         <listitem>
           <para>The <classname>Weather</classname> class is a straightforward
@@ -360,7 +360,7 @@ Also explain the "more than one groupId" comment.-->
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.YahooRetriever</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.YahooRetriever</classname></term>
 
         <listitem>
           <para>The <classname>YahooRetriever</classname> connects to Yahoo!
@@ -370,7 +370,7 @@ Also explain the "more than one groupId" comment.-->
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.YahooParser</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.YahooParser</classname></term>
 
         <listitem>
           <para>The YahooParser parses the <acronym>XML</acronym> from Yahoo!
@@ -379,7 +379,7 @@ Also explain the "more than one groupId" comment.-->
       </varlistentry>
 
       <varlistentry>
-        <term><classname>com.sonatype.maven.weather.WeatherFormatter</classname></term>
+        <term><classname>org.sonatype.mavenbook.weather.WeatherFormatter</classname></term>
 
         <listitem>
           <para>The <classname>WeatherFormatter</classname> takes a
@@ -397,7 +397,7 @@ Also explain the "more than one groupId" comment.-->
     follow the example in this chapter step-by-step. The following sections
     list classes in the <varname>simple-weather</varname> project, each of
     these classes should be placed in the same package
-    <package>com.sonatype.maven.weather</package>.</para>
+    <package>org.sonatype.mavenbook.weather</package>.</para>
 
     <para>Let's remove the <classname>App</classname> and the
     <classname>AppTest</classname> classes created by
@@ -406,16 +406,16 @@ Also explain the "more than one groupId" comment.-->
     <filename>src/main/java</filename>. From the base directory of the new
     project, execute the following commands:</para>
 
-    <screen>$ <command>cd src/test/java/com/sonatype/maven</command>
+    <screen>$ <command>cd src/test/java/org/sonatype/mavenbook</command>
 $ <command>rm AppTest.java</command>
 $ <command>cd ../../../../../..</command>
-$ <command>cd src/main/java/com/sonatype/maven</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook</command>
 $ <command>rm App.java</command>
 $ <command>mkdir weather</command>
 $ <command>cd weather</command></screen>
 
     <para>You have created a new package
-    <package>com.sonatype.maven.weather</package>. Now, we need to put some
+    <package>org.sonatype.mavenbook.weather</package>. Now, we need to put some
     classes in this directory. Using your favorite text editor, create a new
     file named <filename>Weather.java</filename> with the following
     contents.</para>
@@ -423,7 +423,7 @@ $ <command>cd weather</command></screen>
     <example>
       <title>Simple Weather's Weather Model Object</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 
 public class Weather {
@@ -478,7 +478,7 @@ public class Weather {
     <example>
       <title>Simple Weather's Main Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 
@@ -546,7 +546,7 @@ public class Main {
     <example>
       <title>Simple Weather's YahooRetriever Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -577,7 +577,7 @@ public class YahooRetriever {
     <example>
       <title>Simple Weather's YahooParser Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -651,7 +651,7 @@ public class YahooParser {
     <example>
       <title>Simple Weather's WeatherFormatter Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather;
+      <programlisting language="java">package org.sonatype.mavenbook.weather;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -777,7 +777,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     execute the following command from the project's base directory.</para>
 
     <screen>$ <command>mvn install</command>
-$ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</command>
+$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
 ...
 [INFO] [exec:java]
 0    INFO  YahooRetriever  - Retrieving Weather Data
@@ -840,7 +840,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
       containing a collection of <acronym>JAR</acronym> files. Then, we would
       have had to write a simple script which included our program's bytecode
       and all of our dependencies on a classpath. Only then could we have run
-      <command>java com.sonatype.maven.weather.Main</command>. The Exec plugin
+      <command>java org.sonatype.mavenbook.weather.Main</command>. The Exec plugin
       leverages the fact that Maven already knows how to create and manage
       your classpath and your dependencies.</para>
 
@@ -887,7 +887,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
       <screen>$ <command>mvn dependency:tree</command>
 ...
 [INFO] [dependency:tree]
-[INFO] com.sonatype.maven.ch04:simple-weather:jar:1.0
+[INFO] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0
 [INFO] +- log4j:log4j:jar:1.2.14:compile
 [INFO] +- dom4j:dom4j:jar:1.6.1:compile
 [INFO] |  \- xml-apis:xml-apis:jar:1.0.b2:compile
@@ -912,7 +912,7 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
 
       <screen>$ <command>mvn install -X</command>
 ...
-[DEBUG] com.sonatype.maven.ch04:simple-weather:jar:1.0 (selected for null)
+[DEBUG] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0 (selected for null)
 [DEBUG]   log4j:log4j:jar:1.2.14:compile (selected for compile)
 [DEBUG]   dom4j:dom4j:jar:1.6.1:compile (selected for compile)
 [DEBUG]     xml-apis:xml-apis:jar:1.0.b2:compile (selected for compile)
@@ -957,11 +957,11 @@ $ <command>mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main</comma
     <para>Maven has built-in support for unit tests, and testing is a part of
     the default Maven lifecycle. Let's add some unit tests to our Simple
     Weather project. First, let's create the
-    <package>com.sonatype.maven.weather</package> package under
+    <package>org.sonatype.mavenbook.weather</package> package under
     <filename>src/test/java</filename>.</para>
 
     <screen>$ <command>cd src/test/java</command>
-$ <command>cd com/sonatype/maven</command>
+$ <command>cd org/sonatype/mavenbook</command>
 $ <command>mkdir -p weather/yahoo</command>
 $ <command>cd weather/yahoo</command></screen>
 
@@ -974,14 +974,14 @@ $ <command>cd weather/yahoo</command></screen>
     <example>
       <title>Simple Weather's YahooParserTest Unit Test</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.yahoo;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.yahoo;
 
 import java.io.InputStream;
 
 import junit.framework.TestCase;
 
-import com.sonatype.maven.weather.Weather;
-import com.sonatype.maven.weather.YahooParser;
+import org.sonatype.mavenbook.weather.Weather;
+import org.sonatype.mavenbook.weather.YahooParser;
 
 public class YahooParserTest extends TestCase {
 
@@ -1021,7 +1021,7 @@ public class YahooParserTest extends TestCase {
     directory which contains test
     resources—<filename>${basedir}/src/test/resources</filename>
     under<filename>
-    com/sonatype/maven/weather/yahoo/ny-weather.xml</filename>. The file is
+    org/sonatype/mavenbook/weather/yahoo/ny-weather.xml</filename>. The file is
     read as an <classname>InputStream</classname> and passed to the
     <methodname>parse()</methodname> method on
     <classname>YahooParser</classname>. The <methodname>parse()</methodname>
@@ -1035,15 +1035,15 @@ public class YahooParserTest extends TestCase {
     <example>
       <title>Simple Weather's WeatherFormatterTest Unit Test</title>
 
-      <programlisting language="java">package com.sonatype.maven.weather.yahoo;
+      <programlisting language="java">package org.sonatype.mavenbook.weather.yahoo;
 
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import com.sonatype.maven.weather.Weather;
-import com.sonatype.maven.weather.WeatherFormatter;
-import com.sonatype.maven.weather.YahooParser;
+import org.sonatype.mavenbook.weather.Weather;
+import org.sonatype.mavenbook.weather.WeatherFormatter;
+import org.sonatype.mavenbook.weather.YahooParser;
 
 import junit.framework.TestCase;
 
@@ -1073,7 +1073,7 @@ public class WeatherFormatterTest extends TestCase {
     <classname>WeatherFormatterTest</classname> also extends JUnit's
     <classname>TestCase</classname> class. The single test function reads the
     same test resource from <filename>${basedir}/src/test/resources</filename>
-    under the <filename>com/sonatype/maven/weather/yahoo</filename> directory
+    under the <filename>org/sonatype/mavenbook/weather/yahoo</filename> directory
     via this unit test's classpath. We'll add test resources in <xref
     linkend="sect-custom-test-resource" />.
     <classname>WeatherFormatterTest</classname> runs this sample input file
@@ -1274,12 +1274,12 @@ $ <command>cd resources</command></screen>
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running com.sonatype.maven.weather.yahoo.WeatherFormatterTest
+Running org.sonatype.mavenbook.weather.yahoo.WeatherFormatterTest
 0    INFO  YahooParser  - Creating XML Reader
 177  INFO  YahooParser  - Parsing XML Response
 239  INFO  WeatherFormatter  - Formatting Weather Data
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.547 sec
-Running com.sonatype.maven.weather.yahoo.YahooParserTest
+Running org.sonatype.mavenbook.weather.yahoo.YahooParserTest
 475  INFO  YahooParser  - Creating XML Reader
 483  INFO  YahooParser  - Parsing XML Response
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec
@@ -1493,7 +1493,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
     <screen>$ <command>cd target</command>
 $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
-                    com.sonatype.maven.weather.Main 10002</command>
+                    org.sonatype.mavenbook.weather.Main 10002</command>
 0    INFO  YahooRetriever  - Retrieving Weather Data
 221  INFO  YahooParser  - Creating XML Reader
 399  INFO  YahooParser  - Parsing XML Response

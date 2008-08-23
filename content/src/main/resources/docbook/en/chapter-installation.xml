@@ -64,26 +64,36 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
   <section id="section-maven-install">
     <title>Installing Maven</title>
 
-    <para>There are wide differences between operating systems like Mac
-    <acronym>OSX</acronym> and Microsoft Windows, and there are subtle
-    differences between different versions of Windows. Luckily, the process
-    for installing Maven on all of these operating systems is relatively
-    painless and straightforward. The following sections outline the
-    recommended best-practice for installing Maven on a variety of operating
+    <para>There are wide differences between operating systems such as Mac
+    <acronym>OS X</acronym> and Microsoft Windows, and there are subtle
+    differences between different versions of Windows. Luckily, the process of
+    installing Maven on all of these operating systems is relatively painless
+    and straightforward. The following sections outline the recommended
+    best-practice for installing Maven on a variety of operating
     systems.</para>
 
     <section id="section-installation-maven-osx">
       <title>Installing Maven on Mac OSX</title>
 
-      <para>You can download a binary release of Maven from <ulink
-      url="http://maven.apache.org/download.html"><uri>http://maven.apache.org/download.html</uri></ulink>.
-      Download the current release of Maven in a format that is convenient for
-      you to work with. Pick an appropriate place for it to live, and expand
-      the archive there. If you expanded the archive into the directory
-      <filename moreinfo="none">/usr/local/maven-2.0.9</filename>; you may
-      want to create a symbolic link to make it easier to work with and to
-      avoid the need to change any environment configuration when you upgrade
-      to a newer version</para>
+      <para>You can download a binary release of Maven<indexterm>
+          <primary>installing Maven</primary>
+
+          <secondary sortas="Mac OS X">on Mac OS X</secondary>
+        </indexterm><indexterm>
+          <primary sortas="maven @installing">Maven, installing</primary>
+
+          <secondary sortas="Mac OS X">on Mac OS X</secondary>
+        </indexterm><indexterm>
+          <primary>Mac OS X, installing Maven on</primary>
+        </indexterm> from <ulink
+      url="http://maven.apache.org/download.html"></ulink>. Download the
+      current release of Maven in a format that is convenient for you to work
+      with. Pick an appropriate place for it to live, and expand the archive
+      there. If you expanded the archive into the directory
+      <filename>/usr/local/maven-2.0.9</filename>, you may want to create a
+      symbolic link to make it easier to work with and to avoid the need to
+      change any environment configuration when you upgrade to a newer
+      version:</para>
 
       <screen>/usr/local % <command moreinfo="none">ln -s maven-2.0.9 maven
 </command>/usr/local % <command>export M2_HOME=/usr/local/maven</command>
@@ -94,7 +104,13 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
       moreinfo="none">bin</filename> directory in the distribution (in this
       example, <filename moreinfo="none">/usr/local/maven/bin</filename>) to
       your command path. You also need to set the environment variable
-      <varname>M2_HOME</varname> to the top-level directory you installed (in
+      <varname>M2_HOME<indexterm>
+          <primary>M2_HOME environment variable</primary>
+
+          <secondary>Maven installation and</secondary>
+        </indexterm><indexterm>
+          <primary>PATH variable, Maven installation and</primary>
+        </indexterm></varname> to the top-level directory you installed (in
       this example, <filename
       moreinfo="none">/usr/local/maven</filename>).</para>
 
@@ -118,7 +134,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
 export PATH=${M2_HOME}/bin:${PATH}</programlisting>
 
       <para>Once you've added these lines to your own environment, you will be
-      able to run Maven from the command-line.</para>
+      able to run Maven from the command line.</para>
 
       <note>
         <para>These installation instructions assume that you are running
@@ -217,23 +233,36 @@ boot/
 conf/
 lib/</screen>
 
-    <para>The <filename>LICENSE.txt</filename> contains the software license
-    for Apache Maven. This license is described in some detail in <xref
-    linkend="section-installation-license" />. <filename>NOTICE.txt</filename>
-    contains some notices and attributions required by libraries that Maven
-    depends upon. <filename>README.txt</filename> contains some installation
-    instructions. <filename>bin/</filename> contains the
-    <filename>mvn</filename> script that executes Maven.
-    <filename>boot/</filename> contains a <acronym>JAR</acronym> file
-    (<filename>classwords-1.1.jar</filename>) which is responsible for
-    creating the classloader in which Maven executes.
-    <filename>conf/</filename> contains a global
-    <filename>settings.xml</filename> that can be used to customize the
-    behavior of you Maven installation. If you need to customize Maven, it is
-    customary to override any settings in a <filename>settings.xml</filename>
-    file stored in <filename>~/.m2</filename>. <filename>lib/</filename>
-    contains a single <acronym>JAR</acronym> file
-    (<filename>maven-2.0.9-uber.jar</filename>) which contains the core of
+    <para><filename>LICENSE.txt</filename> contains the software license for
+    <indexterm>
+        <primary>LICENSE.txt file</primary>
+      </indexterm>Apache Maven. This license is described in some detail later
+    in the section <xref linkend="section-installation-license" />.”
+    <filename>NOTICE.txt</filename> contains some notices and attributions
+    <indexterm>
+        <primary>NOTICE.txt file</primary>
+      </indexterm>required by libraries that Maven depends on.<indexterm>
+        <primary>README.txt file</primary>
+      </indexterm> <filename role="keep-together">README.txt</filename>
+    contains some installation instructions. <filename>bin/</filename>
+    contains the <filename>mvn</filename> script <indexterm>
+        <primary>mvn script</primary>
+      </indexterm>that executes Maven. <filename>boot/</filename> contains a
+    JAR file (<filename>classwords-1.1.jar</filename>) that is responsible for
+    creating <indexterm>
+        <primary>classwords-1.1.jar file</primary>
+      </indexterm>the Class Loader in which Maven executes.
+    <filename>conf/</filename> contains a global <filename
+    role="keep-together">settings.xml</filename> that can be used to
+    <indexterm>
+        <primary>settings.xml file</primary>
+      </indexterm>customize the behavior of your Maven installtion. If you
+    need to customize Maven, it is customary to override any settings in a
+    <filename>settings.xml</filename> file stored in<indexterm>
+        <primary>m2 directory, contents of</primary>
+      </indexterm> <filename>~/.m2</filename>. <filename>lib/</filename>
+    contains a single JAR file
+    (<filename>maven-core-2.0.9-uber.jar</filename>) that contains the core of
     Maven.</para>
 
     <section id="section-installation-user">
@@ -357,7 +386,7 @@ lib/</screen>
 
         <listitem>
           <para>Sonatype maintains an online copy of this book and other
-          tutorials related to Apache Maven. </para>
+          tutorials related to Apache Maven.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -388,7 +417,7 @@ lib/</screen>
     attributes of a Maven plugin.</para>
 
     <note>
-      <para>For a conceptual overview of the POM and plugins see Chapter <xref
+      <para>For a conceptual overview of the POM and plugins see <xref
       linkend="simple-project" xrefstyle="style:title" />.</para>
     </note>
 
@@ -398,7 +427,8 @@ lib/</screen>
     <varname>effective-settings</varname>—describe a particular project and
     must be run in the base directory of a project. The last
     goal—<varname>describe</varname>—is slightly more complex, showing you
-    information about a plugin or a plugin goal.</para>
+    information about a plugin or a plugin goal. The following commands
+    provide some general information about the four goals:</para>
 
     <variablelist>
       <varlistentry>
@@ -573,7 +603,7 @@ This mojo doesn't have any component requirements.
     mean?"</para>
 
     <para><blockquote>
-        <para><emphasis>It allows you to:</emphasis></para>
+        <para><emphasis>[This license] allows you to:</emphasis></para>
 
         <itemizedlist>
           <listitem>
@@ -639,5 +669,8 @@ This mojo doesn't have any component requirements.
           </listitem>
         </itemizedlist>
       </blockquote></para>
+
+    <para>This ends the installation information. The next part of the book
+    contains Maven examples.</para>
   </section>
 </chapter>

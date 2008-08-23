@@ -64,18 +64,18 @@
     <varname>maven-archetype-webapp</varname>. Running this will create the
     appropriate directory structure and Maven <acronym>POM</acronym>.</para>
 
-    <screen>~/examples$ <command>mvn archetype:create -DgroupId=com.sonatype.maven.ch05 \
+    <screen>~/examples$ <command>mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch05 \
                                                              -DartifactId=simple-webapp \
-                                                             -DpackageName=com.sonatype.maven \
+                                                             -DpackageName=org.sonatype.mavenbook \
                                                              -DarchetypeArtifactId=maven-archetype-webapp</command>
 [INFO] [archetype:create]
 [INFO] ----------------------------------------------------------------------------
 [INFO] Using following parameters for creating Archetype: maven-archetype-webapp:RELEASE
 [INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: com.sonatype.maven.ch05
-[INFO] Parameter: packageName, Value: com.sonatype.maven
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch05
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: com.sonatype.maven
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
 [INFO] Parameter: artifactId, Value: simple-webapp
 [INFO] ********************* End of debug info from resources from generated POM *******
@@ -94,7 +94,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.ch05&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch05&lt;/groupId&gt;
   &lt;artifactId&gt;simple-webapp&lt;/artifactId&gt;
   &lt;packaging&gt;war&lt;/packaging&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
@@ -241,13 +241,13 @@
     make some changes to the <filename>pom.xml</filename> and
     <filename>web.xml</filename> to support this change. First, we'll need to
     create a new package under <filename>src/main/java</filename> named
-    <package>com.sonatype.maven.web</package>.</para>
+    <package>org.sonatype.mavenbook.web</package>.</para>
 
-    <screen>$ <command>mkdir -p src/main/java/com/sonatype/maven/web</command>
-$ <command>cd src/main/java/com/sonatype/maven/web</command></screen>
+    <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
 
     <para>Once you've created this package, change to the
-    <filename>src/main/java/com/sonatype/maven/web</filename> directory and
+    <filename>src/main/java/org/sonatype/mavenbook/web</filename> directory and
     create a class named <classname>SimpleServlet</classname> in
     <filename>SimpleServlet.java</filename> which contains the following
     code.</para>
@@ -255,7 +255,7 @@ $ <command>cd src/main/java/com/sonatype/maven/web</command></screen>
     <example>
       <title>SimpleServlet Class</title>
 
-      <programlisting language="java">package com.sonatype.maven.web;
+      <programlisting language="java">package org.sonatype.mavenbook.web;
 
 import java.io.*;
 import javax.servlet.*;                                                         
@@ -295,7 +295,7 @@ public class SimpleServlet extends HttpServlet {
   &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
   &lt;servlet&gt;
     &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.sonatype.maven.web.SimpleServlet&lt;/servlet-class&gt;
+    &lt;servlet-class&gt;org.sonatype.mavenbook.web.SimpleServlet&lt;/servlet-class&gt;
   &lt;/servlet&gt;
   &lt;servlet-mapping&gt;
     &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
@@ -318,31 +318,31 @@ public class SimpleServlet extends HttpServlet {
 [INFO] ------------------------------------------------------------------------
 [INFO] Compilation failure
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[4,0] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[4,0] \
   package javax.servlet does not exist
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[5,0] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[5,0] \
   package javax.servlet.http does not exist
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[7,35] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[7,35] \
   cannot find symbol
   symbol: class HttpServlet
   public class SimpleServlet extends HttpServlet {
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[8,22] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[8,22] \
   cannot find symbol
   symbol  : class HttpServletRequest
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[9,22] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[9,22] \
   cannot find symbol
   symbol  : class HttpServletResponse
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 
-~/ch05/simple-webapp/src/main/java/com/sonatype/maven/web/SimpleServlet.java:[10,15] \
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[10,15] \
   cannot find symbol
   symbol  : class ServletException
-  location: class com.sonatype.maven.web.SimpleServlet
+  location: class org.sonatype.mavenbook.web.SimpleServlet
 </screen>
 
     <para>The compilation fails because your Maven project doesn't have a

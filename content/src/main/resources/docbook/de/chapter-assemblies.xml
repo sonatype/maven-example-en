@@ -215,7 +215,7 @@
       <acronym>JAR</acronym> goes along with it.</para>
 
       <para>Assuming the main class for the project is
-      <classname>com.sonatype.maven.App</classname>, the following
+      <classname>org.sonatype.mavenbook.App</classname>, the following
       <acronym>POM</acronym> configuration will create an executable
       <acronym>JAR</acronym>:</para>
 
@@ -227,7 +227,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
 
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
   &lt;artifactId&gt;executable-jar&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
@@ -260,7 +260,7 @@
               &lt;/descriptorRefs&gt;
               &lt;archive&gt;
                 &lt;manifest&gt;
-                  &lt;mainClass&gt;com.sonatype.maven.App&lt;/mainClass&gt;
+                  &lt;mainClass&gt;org.sonatype.mavenbook.App&lt;/mainClass&gt;
                 &lt;/manifest&gt;
               &lt;/archive&gt;
            &lt;/configuration&gt;
@@ -450,17 +450,17 @@ Hello, World!</screen>
 ...
 [INFO] Installing ~/mvn-examples-1.0/assemblies/as-dependencies/project-parent/\
                   second-project/target/second-project-1.0-SNAPSHOT-project.tar.gz to 
-       ~/.m2/repository/com/sonatype/maven/assemblies/second-project/1.0-SNAPSHOT/\
+       ~/.m2/repository/org/sonatype/mavenbook/assemblies/second-project/1.0-SNAPSHOT/\
                   second-project-1.0-SNAPSHOT-project.tar.gz
 ...
 [INFO] Installing ~/mvn-examples-1.0/assemblies/as-dependencies/project-parent/\
                   second-project/target/second-project-1.0-SNAPSHOT-project.tar.bz2 to 
-       ~/.m2/repository/com/sonatype/maven/assemblies/second-project/1.0-SNAPSHOT/\
+       ~/.m2/repository/org/sonatype/mavenbook/assemblies/second-project/1.0-SNAPSHOT/\
                   second-project-1.0-SNAPSHOT-project.tar.bz2
 ...
 [INFO] Installing ~/mvn-examples-1.0/assemblies/as-dependencies/project-parent/\
                   second-project/target/second-project-1.0-SNAPSHOT-project.zip to 
-       ~/.m2/repository/com/sonatype/maven/assemblies/second-project/1.0-SNAPSHOT/\\
+       ~/.m2/repository/org/sonatype/mavenbook/assemblies/second-project/1.0-SNAPSHOT/\\
                   second-project-1.0-SNAPSHOT-project.zip
 ...</screen>
 
@@ -482,7 +482,7 @@ Hello, World!</screen>
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
   &lt;artifactId&gt;project-bundle&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;pom&lt;/packaging&gt;
@@ -490,14 +490,14 @@ Hello, World!</screen>
   &lt;url&gt;http://sonatype.com/book&lt;/url&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
       &lt;artifactId&gt;first-project&lt;/artifactId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
       &lt;classifier&gt;project&lt;/classifier&gt;
       &lt;type&gt;zip&lt;/type&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
       &lt;artifactId&gt;second-project&lt;/artifactId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
       &lt;classifier&gt;project&lt;/classifier&gt;
@@ -578,12 +578,12 @@ Hello, World!</screen>
   target/project-bundle-1.0-SNAPSHOT-jar-with-dependencies.jar</command>
 ...
 first-project-1.0-SNAPSHOT/pom.xml
-first-project-1.0-SNAPSHOT/src/main/java/com/sonatype/maven/App.java
-first-project-1.0-SNAPSHOT/src/test/java/com/sonatype/maven/AppTest.java
+first-project-1.0-SNAPSHOT/src/main/java/org/sonatype/mavenbook/App.java
+first-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java
 ...
 second-project-1.0-SNAPSHOT/pom.xml
-second-project-1.0-SNAPSHOT/src/main/java/com/sonatype/maven/App.java
-second-project-1.0-SNAPSHOT/src/test/java/com/sonatype/maven/AppTest.java</screen>
+second-project-1.0-SNAPSHOT/src/main/java/org/sonatype/mavenbook/App.java
+second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</screen>
 
       <para>After reading this section, the title should make more sense.
       You've assembled assemblies from two projects into an assembly using a
@@ -2485,7 +2485,7 @@ doesn't make sense to new users.-->
 (...)
 [INFO] [install:install]
 [INFO] Installing (...)/web-fragment-descriptor/target/web-fragment-descriptor-1.0-SNAPSHOT.jar 
-       to /Users/~/.m2/repository/com/sonatype/maven/assemblies/\
+       to /Users/~/.m2/repository/org/sonatype/mavenbook/assemblies/\
           web-fragment-descriptor/1.0-SNAPSHOT/web-fragment-descriptor-1.0-SNAPSHOT.jar
 [INFO] ---------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
@@ -2509,7 +2509,7 @@ doesn't make sense to new users.-->
         &lt;version&gt;2.2-beta-2&lt;/version&gt;
         &lt;dependencies&gt;
           &lt;dependency&gt;
-            &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+            &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
             &lt;artifactId&gt;web-fragment-descriptor&lt;/artifactId&gt;
             &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
           &lt;/dependency&gt;
@@ -2686,7 +2686,7 @@ doesn't make sense to new users.-->
 [ERROR] BUILD ERROR
 [INFO] ---------------------------------------------------------------
 [INFO] Failed to create assembly: Artifact:
-com.sonatype.maven.assemblies:app-web:jar:1.0-SNAPSHOT (included by module) does not have \
+org.sonatype.mavenbook.assemblies:app-web:jar:1.0-SNAPSHOT (included by module) does not have \
   an artifact with a file. Please ensure the package phase is run before the assembly is \
   generated.
 ...</screen>
@@ -2749,7 +2749,7 @@ com.sonatype.maven.assemblies:app-web:jar:1.0-SNAPSHOT (included by module) does
       <programlisting language="xml">&lt;project&gt;
   &lt;parent&gt;
     &lt;artifactId&gt;app-parent&lt;/artifactId&gt;
-    &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
     &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;/parent&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -2759,19 +2759,19 @@ com.sonatype.maven.assemblies:app-web:jar:1.0-SNAPSHOT (included by module) does
   &lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;artifactId&gt;app-web&lt;/artifactId&gt;
-      &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
       &lt;type&gt;war&lt;/type&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;artifactId&gt;app-addons&lt;/artifactId&gt;
-      &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;!-- Not necessary since it's brought in via app-web.
     &lt;dependency&gt; [2]
       &lt;artifactId&gt;app-core&lt;/artifactId&gt;
-      &lt;groupId&gt;com.sonatype.maven.assemblies&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.assemblies&lt;/groupId&gt;
       &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     --&gt;

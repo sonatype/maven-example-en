@@ -903,7 +903,7 @@
           &lt;debug&gt;true&lt;/debug&gt;
           &lt;flexHome&gt;${flex.home}&lt;/flexHome&gt;
           &lt;useNetwork&gt;true&lt;/useNetwork&gt;
-          &lt;main&gt;com/sonatype/maven/Main.mxml&lt;/main&gt;
+          &lt;main&gt;org/sonatype/mavenbook/Main.mxml&lt;/main&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -1126,7 +1126,7 @@ jdbc.password=
           <title>Filtering Script Resources</title>
 
           <programlisting language="xml">&lt;build&gt;
-  &lt;groupId&gt;com.sonatype.maven&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;simple-cmd&lt;/artifactId&gt;
   &lt;version&gt;2.3.1&lt;/version&gt;
   ...
@@ -1388,13 +1388,13 @@ java -jar simple-cmd-2.3.1.jar %*
       almost always bound to the <varname>install</varname> lifecycle phase.
       This <varname>install:install</varname> goal simply installs a project's
       main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>com.sonatype.maven</package>, an
+      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>, an
       <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and a
       <sgmltag>version</sgmltag> of 1.0.2, the
       <varname>install:install</varname> goal is going to copy the
       <acronym>JAR</acronym> file from
       <filename>target/simple-test-1.0.2.jar</filename> to
-      <filename>~/.m2/repository/com/sonatype/maven/simple-test/1.0.2/simple-test-1.0.2.jar</filename>.
+      <filename>~/.m2/repository/org/sonatype/mavenbook/simple-test/1.0.2/simple-test-1.0.2.jar</filename>.
       If the project has <acronym>POM</acronym> packaging, this goal will copy
       the <acronym>POM</acronym> to the local repository.</para>
     </section>
