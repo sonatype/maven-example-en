@@ -458,6 +458,83 @@ $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command>
 </screen>
       </section>
     </section>
+
+    <section>
+      <title>Running Nexus Behind a Proxy</title>
+
+      <para>This section is entirely optional. Nexus is based on Jetty which
+      is a very high-performance servlet container based on Java NIO. From a
+      performance perspective, there is no reason for you not to run Nexus by
+      itself without a proxy. Yet, more often than not, organizations run
+      applications behind a proxy for security concerns and to consolidate
+      multiple disparate applications using tools like
+      <varname>mod_rewrite</varname> and <varname>mod_proxy</varname>. For
+      this reason, we've included some brief instructions for configuration
+      <varname>mod_proxy</varname> in Apache HTTPd. We assume that you've
+      already installed Apache 2, and that you are using a Virtual Host for
+      www.somecompany.com.</para>
+
+      <para>Let's assume that you wanted to host Nexus behind Apache HTTPd at
+      the <acronym>URL</acronym> <ulink
+      url="http://www.somecompany.com">http://www.somecompany.com</ulink>. To
+      do this, you'll need to change the context path that Nexus is served
+      from.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Edit <filename>plexus.xml</filename> in
+          <filename>${NEXUS_HOME}/conf</filename>. You'll see an element named
+          <sgmltag>webappInfos</sgmltag> which contains the relevant elements.
+          Change the <sgmltag>contextPath</sgmltag> element from "/nexus" to
+          "/"</para>
+        </listitem>
+
+        <listitem>
+          <para>Restart Nexus and Verify that it is available on <ulink
+          url="http://localhost:8081/">http://localhost:8081/</ulink>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Clear the Base <acronym>URL</acronym> in Nexus as shown in
+          <xref linkend="sect-repoman-server-conf" /> under Application Server
+          Settings.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>At this point, edit the HTTPd configuration file for the
+      www.somecompany.com virtual host. Include the following to expose Nexus
+      via <varname>mod_proxy</varname> at <ulink
+      url="http://www.somecompany.com/">http://www.somecompany.com/</ulink>.</para>
+
+      <programlisting>ProxyRequests Off 
+ProxyPreserveHost On 
+
+&lt;VirtualHost *:80&gt; 
+  ServerName www.somecompany.com 
+  ServerAdmin admin@somecompany.com 
+  ProxyPass / http://localhost:8081/
+  ProxyPassReverse / http://localhost:8081/
+  ErrorLog logs/somecompany/nexus/error.log 
+  CustomLog logs/somecompany/nexus/access.log common 
+&lt;/VirtualHost&gt;</programlisting>
+
+      <para>Alternatively, if you just wanted to continue to serve Nexus at
+      the <filename>/nexus</filename> context path, you would not change the
+      <sgmltag>contextPath</sgmltag> in
+      <filename>${NEXUS_HOME}/conf/plexus.xml</filename> and you would include
+      the context path in your <varname>ProxyPass</varname> and
+      <varname>ProxyPassReverse</varname> directives as follows:</para>
+
+      <programlisting>  ProxyPass /nexus/ http://localhost:8081/nexus/
+  ProxyPassReverse /nexus/ http://localhost:8081/nexus/
+</programlisting>
+
+      <para>Apache configuration is going to vary based on your own
+      application's requirements and the way you intend to expose Nexus to the
+      outside world. If you need more details about Apache HTTPd and
+      <varname>mod_proxy</varname>, please see <ulink
+      url="http://httpd.apache.org">http://httpd.apache.org</ulink>.</para>
+    </section>
   </section>
 
   <section>
@@ -1283,7 +1360,7 @@ from the specified remote repositories:
             disable anonymous access, and set the username and password for
             anonymous access. If you choose to enable security, you are
             telling Nexus to enforce role-based access control to enforce read
-            and write access to repositories. </para>
+            and write access to repositories.</para>
 
             <para>The anonymous username and password is used to integrate
             with other realms that may need a special username for anonymous
@@ -1739,6 +1816,18 @@ from the specified remote repositories:
       group of repositories it will return the first match. To reorder a
       repository in this list, click and the drag the repositories in the
       Ordered Group Repositories selection list.</para>
+
+      <para>The order of repositories in a group can be used to influence the
+      effective metadata that will be retrieved by Maven from a Nexus
+      Repository Group. We recommend placing release repositories higher in
+      the list than snapshot repositories so that LATEST and RELEASE versions
+      are merged appropriately. We also recommend placing repositories with a
+      higher probability of matching the majority of artifacts higher in this
+      list. If most of your artifacts are going to be retrieved from the
+      Central Maven Repository, putting Central higher in this list than a
+      smaller, more focused repository is going to be better for performance
+      as Nexus is not going to interrogate the smaller remote repository for
+      as many missing artifacts.</para>
     </section>
 
     <section>
@@ -1882,6 +1971,19 @@ from the specified remote repositories:
       group. The resulting list is then searched for a matching
       artifact.</para>
 
+      <para>One straightforward use of routes is to create a route that
+      excludes the Central Maven repository from all searches for your own
+      organization's hosted artifacts. If you are deploying your own artifacts
+      to Nexus under a <varname>groupId</varname> of
+      <varname>org.mycompany</varname>, and if you are not deploying these
+      artifacts to a public repository, you can create a rule that tells Nexus
+      not to interrogate Central for your own organization's artifacts. This
+      will improve performance because Nexus will not need to communicate with
+      a remote repository when it serves your own organization's artifacts. In
+      addition to the performance benefits, excluding Central from searches
+      for your own artifacts will reduce needless queries to the public
+      repositories.</para>
+
       <para>To summarize, there are creative possibilities with Routes that
       the designers of Nexus may not have anticipated, but we advise you to
       proceed with caution if you start relying on conflicting or overlapping
@@ -1931,10 +2033,12 @@ from the specified remote repositories:
 
           <listitem>
             <para>Nexus maintains information about a proxied remote
-            repository to avoid unnecessary network traffic. This scheduled
-            job clears all cached information about a remote repository, and
-            forces Nexus to retrieve artifacts and information from the remote
-            repository.</para>
+            repository to avoid unnecessary network traffic. Clear cache
+            simply expires the artifacts so next time they are requested,
+            Nexus will recheck the remote. This scheduled job clears all
+            cached information about a remote repository stored in your
+            installation of Nexus, and forces Nexus to retrieve artifacts and
+            information from the remote repository.</para>
           </listitem>
         </varlistentry>
 
@@ -1947,7 +2051,8 @@ from the specified remote repositories:
             retrieved by a client). This can be a good job to run if you are
             try to conserve storage space. In this service you can specify the
             number of days over which Nexus will look for activity before
-            making the decision to evict an artifact.</para>
+            making the decision to evict an artifact. (See note about
+            deletion.)</para>
           </listitem>
         </varlistentry>
 
@@ -1971,7 +2076,7 @@ from the specified remote repositories:
             clients on Nexus. While this information can be important for
             purposes of auditing, it can also take up storage space. Using
             this scheduled service you can tell Nexus to periodically purge
-            this information.</para>
+            this information. (See note about deletion.)</para>
           </listitem>
         </varlistentry>
 
@@ -1995,7 +2100,7 @@ from the specified remote repositories:
       </variablelist>
 
       <note>
-        <para>The Evict and Clear services do not delete data from the Nexus
+        <para>The Evict and Purge actions do not delete data from the Nexus
         working directory. They simply move data to be cleared or evicted to a
         trash directory under the Nexus work directory. If you want to reclaim
         disk space, you need to clear the Trash on the Browse Repositories
@@ -2031,11 +2136,22 @@ from the specified remote repositories:
     <section>
       <title>Managing Security</title>
 
-      <para>The latest release of Nexus has a role-based access control (RBAC)
-      which gives aministrators very fine-grained control over who can read
-      from a repository, who can administer the server, and who can deploy to
-      repositories. In any role-based access control system there are four
-      main concepts involved in security:</para>
+      <para>The latest release of Nexus has role-based access control (RBAC)
+      which gives administrators very fine-grained control over who can read
+      from a repository (or a subset of repositories), who can administer the
+      server, and who can deploy to repositories. The security model in Nexus
+      is also so flexible as to allow you to specify that only certain users
+      or roles can deploy and manage artifacts in a specific repository under
+      a specific groupId or asset class. The default configuration of Nexus
+      ships with three roles and three users with a standard set of
+      permissions that will make sense for most users. As your security
+      requirements evolve, you'll likely need to customize security settings
+      to create protected repositories for multiple departments, or
+      development groups. Nexus provides a security model which can adapt to
+      almost anything.</para>
+
+      <para>Nexus' Role-based access control (RBAC) system is designed around
+      the following four security concepts:</para>
 
       <variablelist>
         <varlistentry>
@@ -2057,7 +2173,9 @@ from the specified remote repositories:
             <para>Privileges are usually associated with resources or targets.
             In the case of Nexus, a target can be a specific repository or a
             set of repositories grouped in something called a repository
-            target.</para>
+            target. A target can also be a subset of a repository or a
+            specific asset classes within a repository. Using a target you can
+            apply to a specific privilege to apply to a single groupId.</para>
           </listitem>
         </varlistentry>
 
@@ -2070,7 +2188,8 @@ from the specified remote repositories:
             classes of users. For example, deployment users will all have
             similar sets of permissions. Instead of assigning individual
             privileges to individual users, you use Roles to make it easier to
-            manage users with similar sets of privileges.</para>
+            manage users with similar sets of privileges. A role has one or
+            more privilege and/or one or more roles.</para>
           </listitem>
         </varlistentry>
 
@@ -2091,7 +2210,9 @@ from the specified remote repositories:
         <para>Nexus has two types of privileges: application privileges which
         cover actions a user can execute in Nexus and repository-target
         privileges which govern the level of access a user has to a particular
-        repository or repository target.</para>
+        repository or repository target. Behind the scenes, a privilege is
+        related to a single REST operation and method like create, update,
+        delete, read.</para>
 
         <figure>
           <title>Managing Security Privileges</title>
@@ -2247,16 +2368,15 @@ from the specified remote repositories:
       <section>
         <title>Managing Repository Targets</title>
 
-        <para>A repository target is a grouping of repositories to which a
-        privilege can relate. For example, the privilege which allows a user
-        to read all Maven 2 repositories would be targeted at the All (Maven2)
-        target shown below. If you want to create permissions for sets of
-        repositories, you will need to create a new repository target. To
-        create a new repository target, click on Repository Targets under the
-        Administrator menu in the left-hand side of the browser window. This
-        will load up the dialog shown below. To create a new target, click the
-        Add button, supply a name, repository type, and a set of regular
-        expressions to be matched against repository IDs.</para>
+        <para>A target is a set of regular expressions to match on a path
+        (exactly how the route rules work now). This allows you to define for
+        example a target called Apache Maven which is "org/apache/maven/.*"
+        You can then add a new privilege that relates to the target and
+        controls the CRUD operations for artifacts matching that path (the
+        privilege can span multiple repositories if you want). You could thus
+        delegate all control of org.apache.maven targets to a "Maven" team. In
+        this way, you don't need to create separate repositories for each
+        logical division of your artifacts.</para>
 
         <figure>
           <title>Managing Repository Targets</title>
@@ -2287,6 +2407,13 @@ from the specified remote repositories:
             </imageobject>
           </mediaobject>
         </figure>
+
+        <para>With the Repository Targets, you have fine grained control over
+        every action in the system. For example you could make a target that
+        includes everything except sources (.*(?!-sources)\.*) and assign that
+        to one group while giving yet another group access to everything. This
+        means you can host your public and private artifacts in a single
+        repository without giving up control of your private artifacts.</para>
       </section>
 
       <section>
@@ -2439,7 +2566,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       </mediaobject>
     </figure>
 
-    <section>
+    <section id="sect-upload-asset-ui">
       <title>Uploading Artifacts to Hosted Repositories</title>
 
       <para>If you are using Nexus Hosted repositories, the best way to deploy
@@ -2502,16 +2629,8 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     <acronym>URL</acronym> in <sgmltag>distributionManagement</sgmltag> and
     run <command>mvn deploy</command>. Maven will push project
     <acronym>POM</acronym>s and artifacts to your Nexus installation with a
-    simple <acronym>HTTP</acronym> PUT. The initial release of Nexus does not
-    provide for any security for hosted repositories. If you've enabled
-    deployment for a hosted repository, anyone can connect to and deploy an
-    artifact to the repository. If your Nexus installation is accessible from
-    the public Internet, you will definitely want to disable deployment to
-    these repositories or place your Nexus installation behind a web-server
-    like Apache <acronym>HTTPD</acronym>.</para>
-
-    <para>No extra wagon extension is needed in your project's
-    <acronym>POM</acronym>. Nexus works with Maven's built-in
+    simple <acronym>HTTP</acronym> PUT. No extra wagon extension is needed in
+    your project's <acronym>POM</acronym>. Nexus works with Maven's built-in
     <varname>wagon-http-lightweight</varname>.</para>
 
     <section>
@@ -2755,8 +2874,14 @@ Alternatively, if you host your own repository you can deploy the file there:
       To do this, download the Oracle <acronym>JDBC</acronym> driver from
       <ulink
       url="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html</ulink>
-      and save it to the file <filename>ojdbc.jar</filename>. To deploy this
-      file to Nexus, execute the following command:</para>
+      and save it to the file <filename>ojdbc.jar</filename>. </para>
+
+      <para>Once you have downloaded the file for this third-party asset, we
+      recommend that you use the UI-based upload which was shown in <xref
+      linkend="sect-upload-asset-ui" />. Uploading via the UI is easier and
+      less error-prone than calling the <varname>deploy:deploy-file</varname>
+      goal from the command line. If you prefer to upload this third-party
+      from the command-line, execute the following command:</para>
 
       <screen>$ <command>mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc14 \</command>
 &gt; <command>-Dversion=10.2.0.3.0 -Dpackaging=jar -Dfile=ojdbc.jar \</command>
