@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather;
+package org.sonatype.mavenbook.weather;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.apache.log4j.PropertyConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
-import com.sonatype.maven.weather.persist.LocationDAO;
-import com.sonatype.maven.weather.persist.WeatherDAO;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
+import org.sonatype.mavenbook.weather.persist.LocationDAO;
+import org.sonatype.mavenbook.weather.persist.WeatherDAO;
 
 public class Main {
 

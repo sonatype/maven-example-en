@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather.model;
+package org.sonatype.mavenbook.weather.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

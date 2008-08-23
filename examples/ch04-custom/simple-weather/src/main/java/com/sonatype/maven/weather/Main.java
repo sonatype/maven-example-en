@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather;
+package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 

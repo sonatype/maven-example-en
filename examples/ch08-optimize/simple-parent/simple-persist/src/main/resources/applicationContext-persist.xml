@@ -23,11 +23,11 @@
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="annotatedClasses">
             <list>
-                <value>com.sonatype.maven.weather.model.Atmosphere</value>
-                <value>com.sonatype.maven.weather.model.Condition</value>
-                <value>com.sonatype.maven.weather.model.Location</value>
-                <value>com.sonatype.maven.weather.model.Weather</value>
-                <value>com.sonatype.maven.weather.model.Wind</value>
+                <value>org.sonatype.mavenbook.weather.model.Atmosphere</value>
+                <value>org.sonatype.mavenbook.weather.model.Condition</value>
+                <value>org.sonatype.mavenbook.weather.model.Location</value>
+                <value>org.sonatype.mavenbook.weather.model.Weather</value>
+                <value>org.sonatype.mavenbook.weather.model.Wind</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -47,11 +47,11 @@
         </property>
     </bean>
 
-    <bean id="locationDAO" class="com.sonatype.maven.weather.persist.LocationDAO">
+    <bean id="locationDAO" class="org.sonatype.mavenbook.weather.persist.LocationDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <bean id="weatherDAO" class="com.sonatype.maven.weather.persist.WeatherDAO">
+    <bean id="weatherDAO" class="org.sonatype.mavenbook.weather.persist.WeatherDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
  </beans>

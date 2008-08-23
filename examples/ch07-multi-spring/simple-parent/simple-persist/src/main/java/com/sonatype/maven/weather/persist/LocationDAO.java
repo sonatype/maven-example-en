@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather.persist;
+package org.sonatype.mavenbook.weather.persist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.sonatype.maven.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Location;
 
 public class LocationDAO extends HibernateDaoSupport {
 

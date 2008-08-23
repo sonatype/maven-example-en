@@ -3,13 +3,13 @@
 
 <beans>  
      <bean id="weatherController" 
-           class="com.sonatype.maven.web.WeatherController">
+           class="org.sonatype.mavenbook.web.WeatherController">
        <property name="weatherService" ref="weatherService"/>
        <property name="weatherDAO" ref="weatherDAO"/>
      </bean>
 
      <bean id="historyController" 
-           class="com.sonatype.maven.web.HistoryController">
+           class="org.sonatype.mavenbook.web.HistoryController">
        <property name="weatherDAO" ref="weatherDAO"/>
        <property name="locationDAO" ref="locationDAO"/>
      </bean>

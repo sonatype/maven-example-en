@@ -19,12 +19,12 @@
              http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
     default-lazy-init="true">
 
-    <bean id="weatherService" class="com.sonatype.maven.weather.WeatherService">
+    <bean id="weatherService" class="org.sonatype.mavenbook.weather.WeatherService">
       <property name="yahooRetriever" ref="yahooRetriever"/>
       <property name="yahooParser" ref="yahooParser"/>
     </bean>    
 
-    <bean id="yahooRetriever" class="com.sonatype.maven.weather.YahooRetriever"/>    
+    <bean id="yahooRetriever" class="org.sonatype.mavenbook.weather.YahooRetriever"/>    
 
-    <bean id="yahooParser" class="com.sonatype.maven.weather.YahooParser"/>    
+    <bean id="yahooParser" class="org.sonatype.mavenbook.weather.YahooParser"/>    
 </beans>

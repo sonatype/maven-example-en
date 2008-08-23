@@ -1,8 +1,8 @@
-package com.sonatype.maven.weather;
+package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherService {
 

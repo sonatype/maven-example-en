@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather;
+package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.util.Date;
@@ -10,11 +10,11 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.io.SAXReader;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Condition;
-import com.sonatype.maven.weather.model.Atmosphere;
-import com.sonatype.maven.weather.model.Wind;
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Condition;
+import org.sonatype.mavenbook.weather.model.Atmosphere;
+import org.sonatype.mavenbook.weather.model.Wind;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class YahooParser {
 

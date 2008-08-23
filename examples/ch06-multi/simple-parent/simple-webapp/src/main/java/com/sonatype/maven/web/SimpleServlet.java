@@ -1,4 +1,4 @@
-package com.sonatype.maven.web;
+package org.sonatype.mavenbook.web;
 
 import java.io.*;
 import javax.servlet.*;

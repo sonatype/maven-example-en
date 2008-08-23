@@ -1,4 +1,4 @@
-package com.sonatype.maven;
+package org.sonatype.mavenbook;
 
 /**
  * Hello world!

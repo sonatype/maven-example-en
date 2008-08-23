@@ -1,12 +1,12 @@
-package com.sonatype.maven.weather.yahoo;
+package org.sonatype.mavenbook.weather.yahoo;
 
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import com.sonatype.maven.weather.Weather;
-import com.sonatype.maven.weather.WeatherFormatter;
-import com.sonatype.maven.weather.YahooParser;
+import org.sonatype.mavenbook.weather.Weather;
+import org.sonatype.mavenbook.weather.WeatherFormatter;
+import org.sonatype.mavenbook.weather.YahooParser;
 
 import junit.framework.TestCase;
 

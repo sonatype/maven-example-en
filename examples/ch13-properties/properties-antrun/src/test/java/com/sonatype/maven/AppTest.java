@@ -1,4 +1,4 @@
-package com.sonatype.maven;
+package org.sonatype.mavenbook;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

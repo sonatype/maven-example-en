@@ -1,8 +1,8 @@
-package com.sonatype.maven.web;
+package org.sonatype.mavenbook.web;
 
-import com.sonatype.maven.weather.model.Weather;
-import com.sonatype.maven.weather.persist.WeatherDAO;
-import com.sonatype.maven.weather.WeatherService;
+import org.sonatype.mavenbook.weather.model.Weather;
+import org.sonatype.mavenbook.weather.persist.WeatherDAO;
+import org.sonatype.mavenbook.weather.WeatherService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.sonatype.maven.plugins;
+package org.sonatype.mavenbook.plugins;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

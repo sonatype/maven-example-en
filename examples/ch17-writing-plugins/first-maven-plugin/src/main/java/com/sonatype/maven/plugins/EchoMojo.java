@@ -1,4 +1,4 @@
-package com.sonatype.maven.plugins;
+package org.sonatype.mavenbook.plugins;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

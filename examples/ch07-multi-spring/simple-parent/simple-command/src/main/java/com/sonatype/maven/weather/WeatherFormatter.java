@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather;
+package org.sonatype.mavenbook.weather;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherFormatter {
 

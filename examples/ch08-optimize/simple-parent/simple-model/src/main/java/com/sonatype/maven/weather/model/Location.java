@@ -1,4 +1,4 @@
-package com.sonatype.maven.weather.model;
+package org.sonatype.mavenbook.weather.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

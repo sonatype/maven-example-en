@@ -1,4 +1,4 @@
-package com.sonatype.maven.web;
+package org.sonatype.mavenbook.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.sonatype.maven.weather.model.Location;
-import com.sonatype.maven.weather.model.Weather;
-import com.sonatype.maven.weather.persist.LocationDAO;
-import com.sonatype.maven.weather.persist.WeatherDAO;
+import org.sonatype.mavenbook.weather.model.Location;
+import org.sonatype.mavenbook.weather.model.Weather;
+import org.sonatype.mavenbook.weather.persist.LocationDAO;
+import org.sonatype.mavenbook.weather.persist.WeatherDAO;
 
 public class HistoryController implements Controller {
 
