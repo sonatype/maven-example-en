@@ -7,96 +7,140 @@
   <section id="custom-intro">
     <title>Introduction</title>
 
-    <para>This chapter develops on the information introduced in the <xref
-    linkend="simple-project" />. We're going to create a simple project
-    generated with the Maven Archetype plugin, add some dependencies, add some
-    source code, and customize the project to suit our needs. At the end of
-    this chapter, you will know how to start using Maven to create real
-    projects.</para>
+    <para>This chapter expands on the information introduced in <xref
+    linkend="simple-project" />. We’re going to create a simple
+    project<indexterm class="startofrange" id="customproj1">
+        <primary>customizing projects</primary>
+      </indexterm><indexterm class="startofrange" id="customproj2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+      </indexterm> generated with the Maven Archetype plugin, add some
+    dependencies, add some source code, and customize the project to suit our
+    needs. By the end of this chapter, you will know how to start using Maven
+    to create real projects.</para>
 
     <section>
       <title>Downloading this Chapter's Example</title>
 
-      <para>In this chapter we'll develop a useful program that interacts with
-      a Yahoo! Weather web service. While you should be able to follow the
-      development of this chapter without the example source code, we
-      recommend downloading a copy of the example code to use as a reference.
-      This chapter's example project may be downloaded with the book's example
-      code at <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
-      or <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
+      <para>We’ll be developing a useful program that interacts with a Yahoo!
+      Weather web service. Although you should be able to follow along with
+      this chapter without the example source code, we recommend that you
+      download a copy of the code to use as a reference. This chapter’s
+      example project may be downloaded with the book’s example code at <ulink
+      url="http://www.sonatype.com/book/mvn-examples-1.0.zip"></ulink> or
+      <ulink
+      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz"></ulink>.
       Unzip this archive in any directory, and then go to the
-      <filename>ch04/</filename> directory. In the <filename>ch04/</filename>
-      directory you will see a directory named
-      <filename>simple-weather/</filename> which contains the Maven project
-      developed in this chapter. If you wish to follow along with the example
-      code in a web browser, go to <ulink
+      <filename>ch04/</filename> directory. There you will see a directory
+      named <filename>simple-weather/</filename>, which contains the Maven
+      project developed in this chapter. If you wish to follow along with the
+      example code in a web browser, go to <ulink
       url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
       and click on the <filename>ch04/</filename> directory.</para>
-
-      <!--TODO: Insert a small section with references to technology used in this chapter.-->
     </section>
   </section>
 
   <section>
     <title>Defining the Simple Weather Project</title>
 
-    <para>Before we start customizing this project, let's take a step back and
-    talk about a simple weather project. What is the simple weather project?
-    The simple weather project is a contrived example which was created to
-    demonstrate some of the features of Maven. It is an application that is
-    representative of the kind of application you might need to build. The
-    simple weather application is a basic command-line driven application
-    which takes a zip code and retrieves some data from the Yahoo! Weather
-    <acronym>RSS</acronym> feed. It parses the result and prints the result to
-    standard output.</para>
+    <para>Before we start customizing this project, let’s take a step back
+    and<indexterm>
+        <primary>simple weather application</primary>
+
+        <see>weather project (example)</see>
+      </indexterm><indexterm class="startofrange" id="weather03a">
+        <primary>weather project (example)</primary>
+
+        <secondary>defining</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03a1">
+        <primary>customizing projects</primary>
+
+        <secondary>defining the project</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03a2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>defining the project</tertiary>
+      </indexterm> talk about the simple weather project. What is it? It’s a
+    contrived example, created to demonstrate some of the features of Maven.
+    It is an application that is representative of the kind you might need to
+    build. The simple weather application is a basic command-line-driven
+    application that takes a zip code and retrieves some data from the Yahoo!
+    Weather <acronym>RSS</acronym> feed. It then parses the result and prints
+    the result to standard output.</para>
 
     <para>We chose this example for a number of reasons. First, it is
-    straightforward; a user supplies input via the command-line, we take that
-    zip code, make a request to Yahoo! Weather, parse the result, and format
-    some simple data to the screen. This example is a simple
-    <methodname>main()</methodname> function, and some supporting classes;
+    straightforward. A user supplies input via the command line, the app takes
+    that zip code, makes a request to Yahoo! Weather, parses the result, and
+    formats some simple data to the screen. This example is a simple
+    <methodname>main()</methodname> function and some supporting classes;
     there is no enterprise framework to introduce and explain, just
     <acronym>XML</acronym> parsing and some logging statements. Second, it
     gives us a good excuse to introduce some interesting libraries such as
-    Velocity, Dom4J, and Log4J. While this book is focused on Maven, we won't
-    shy away from an opportunity to introduce interesting utilities. Lastly,
-    it is an example which can be introduced, developed, and deployed in a
-    single chapter.</para>
+    Velocity, Dom4J, and Log4J. Although this book is focused on Maven, we
+    won’t shy away from an opportunity to introduce interesting utilities.
+    Lastly, it is an example that can be introduced, developed, and deployed
+    in a single chapter.</para>
 
     <section>
       <title>Yahoo! Weather RSS</title>
 
-      <para>Before you build this application, you should know something about
-      the Yahoo! Weather <acronym>RSS</acronym> feed. To start with, the
-      service is made available under the following terms:</para>
+      <para>Before you build this application, you should know something
+      about<indexterm>
+          <primary>Yahoo! Weather RSS feed, about</primary>
+        </indexterm> the Yahoo! Weather <acronym>RSS</acronym> feed. To start
+      with, the service is made available under the following terms:</para>
 
       <blockquote>
-        <para>"The feeds are provided free of charge for use by individuals
-        and non-profit organizations for personal, non-commercial uses. We ask
-        that you provide attribution to Yahoo! Weather in connection with your
-        use of the feeds."</para>
+        <para>The feeds are provided free of charge for use by individuals and
+        nonprofit organizations for personal, noncommercial uses. We ask that
+        you provide attribution to Yahoo! Weather in connection with your use
+        of the feeds.</para>
       </blockquote>
 
-      <para>In other words, if you were thinking of integrating these feeds
-      into your commercial web site, think again, this feed is for personal,
-      non-commercial use. And, the use we're encouraging in this chapter is
-      personal educational use. For more information about the Yahoo! Weather
-      terms of service, please see the Yahoo Weather! API documentation here:
-      <ulink
-      url="http://developer.yahoo.com/weather/">http://developer.yahoo.com/weather/</ulink>.</para>
-
-      <!--TODO: Explain a bit more about these feeds.   Link the user to an example.-->
+      <para>In other words, if you are thinking of integrating these feeds
+      into your commercial web site, think again—this feed is for personal,
+      noncommercial use. The use we’re encouraging in this chapter is personal
+      educational use. For more information about these terms of service,
+      <indexterm class="endofrange"
+      startref="weather03a"></indexterm><indexterm class="endofrange"
+      startref="weather03a1"></indexterm><indexterm class="endofrange"
+      startref="weather03a2"></indexterm>see the Yahoo Weather! API
+      documentation here: <ulink
+      url="http://developer.yahoo.com/weather/"></ulink>.</para>
     </section>
   </section>
 
   <section>
     <title>Creating the Simple Weather Project</title>
 
-    <para>First, let's use the Maven Archetype plugin to create a basic
-    skeleton for the simple weather project. Execute the following command to
-    create a new project.</para>
+    <para>First, let’s use the Maven Archetype plugin to create a
+    basic<indexterm class="startofrange" id="weather03b">
+        <primary>weather project (example)</primary>
+
+        <secondary>creating</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03b1">
+        <primary>customizing projects</primary>
+
+        <secondary>creating the project</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03b2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>creating the project</tertiary>
+      </indexterm><indexterm>
+        <primary>Archetype plugin</primary>
+
+        <secondary>creating simple weather application with</secondary>
+      </indexterm><indexterm>
+        <primary>Maven Archetype plugin</primary>
+
+        <secondary>creating simple weather application with</secondary>
+      </indexterm> skeleton for the simple weather project. Execute the
+    following command to create a new project:</para>
 
     <screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch04 \
                                          -DartifactId=simple-weather \
@@ -118,10 +162,11 @@
 [INFO] *** End of debug info from resources from generated POM ***
 [INFO] Archetype created in dir: ~/examples/simple-weather</screen>
 
-    <para>Once the Maven Archetype plugin creates the project, change
-    directories into the <filename>simple-weather</filename> directory and
-    take a look at the <filename>pom.xml</filename>. You should see the
-    following <acronym>XML</acronym> document:</para>
+    <para>Once the Maven Archetype plugin creates the project, go into the
+    <filename>simple-weather</filename> directory and take a look at the
+    <filename>pom.xml</filename> file. You should see the
+    <acronym>XML</acronym> document that’s shown in <xref
+    linkend="ex-initial-pom-for-simple-weather" />.</para>
 
     <example>
       <title>Initial <acronym>POM</acronym> for the simple-weather
@@ -172,13 +217,50 @@
   <section>
     <title>Customize Project Information</title>
 
-    <para>Before we get started with writing code, let's customize the project
-    information a bit. What we want to do is add some information about the
-    project's license, the organization and a few of the developers associated
-    with the project. This is all standard information you would expect to see
-    in most projects. The following listing shows the <acronym>XML</acronym>
-    which supplies the organizational information, the licensing information,
-    and the developer information.</para>
+    <para>Before we start writing code, let’s customize the project<indexterm
+        class="startofrange" id="weather03c">
+        <primary>weather project (example)</primary>
+
+        <secondary>adding project information to pom.xml</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03c1">
+        <primary>customizing projects</primary>
+
+        <secondary>adding project information to pom.xml</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03c2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>adding project information to pom.xml</tertiary>
+      </indexterm><indexterm>
+        <primary>project information (in pom.xml)</primary>
+
+        <secondary>adding to project</secondary>
+      </indexterm><indexterm>
+        <primary>licensing information (project information)</primary>
+
+        <secondary>adding to project</secondary>
+      </indexterm><indexterm>
+        <primary>organizational information (project information)</primary>
+
+        <secondary>adding to project</secondary>
+      </indexterm><indexterm>
+        <primary>developer information (project information)</primary>
+
+        <secondary>adding to project</secondary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>project information in</secondary>
+
+        <tertiary>adding</tertiary>
+      </indexterm> information a bit. We want to add some information about
+    the project’s license, the organization, and a few of the developers
+    associated with the project. This is all standard information you would
+    expect to see in most projects. <xref linkend="ex-custom-org-info" />
+    shows the <acronym>XML</acronym> that supplies the organizational
+    information, the licensing information, and the developer
+    information.</para>
 
     <example id="ex-custom-org-info">
       <title>Adding Organizational, Legal, and Developer Information to the
@@ -235,14 +317,6 @@
     <varname>licenses</varname>, <varname>organization</varname>, and
     <varname>developers</varname> element were all added before the
     <varname>dependencies</varname> element.</para>
-
-    <!--TODO: Supply an XRef
-
-TODO: I think we need more development here, but I'm tryin to ignore that which 
-      isn't critical at the moment.
-
-TODO: I could add a section about customizing things like the compiler target and 
-      source levels.-->
   </section>
 
   <section id="section-add-depend">
@@ -328,9 +402,6 @@ TODO: I could add a section about customizing things like the compiler target an
     often find that certain libraries have more than one
     <varname>groupId</varname>. With this tool, you can make sense of the
     Maven repository.</para>
-
-    <!--COMMENT (TIM):  We could do a better job explaining the process for locating a dependency.  
-Also explain the "more than one groupId" comment.-->
   </section>
 
   <section>
@@ -344,8 +415,9 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>org.sonatype.mavenbook.weather.Main</classname></term>
 
         <listitem>
-          <para>This class contains a static <methodname>main()</methodname>
-          function, it is the entry point for this system.</para>
+          <para>The <literal>Main</literal> class contains a static
+          <methodname>main()</methodname> function, and is the entry point for
+          this system.</para>
         </listitem>
       </varlistentry>
 
@@ -354,8 +426,8 @@ Also explain the "more than one groupId" comment.-->
 
         <listitem>
           <para>The <classname>Weather</classname> class is a straightforward
-          Java bean which holds the location of our weather report and some
-          key facts like the temperature and humidity</para>
+          Java bean that holds the location of our weather report and some key
+          facts, such as the temperature and humidity.</para>
         </listitem>
       </varlistentry>
 
@@ -363,9 +435,10 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>org.sonatype.mavenbook.weather.YahooRetriever</classname></term>
 
         <listitem>
-          <para>The <classname>YahooRetriever</classname> connects to Yahoo!
-          Weather and returns an <classname>InputStream</classname> of the
-          data from the feed.</para>
+          <para>The <classname>YahooRetriever</classname> class connects to
+          Yahoo! Weather and returns an <classname
+          role="keep-together">InputStream</classname> of the data from the
+          feed.</para>
         </listitem>
       </varlistentry>
 
@@ -373,8 +446,9 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>org.sonatype.mavenbook.weather.YahooParser</classname></term>
 
         <listitem>
-          <para>The YahooParser parses the <acronym>XML</acronym> from Yahoo!
-          Weather, it returns a <classname>Weather</classname> object.</para>
+          <para>The <classname>YahooParser</classname> class parses the
+          <acronym>XML</acronym> from Yahoo! Weather, and returns a
+          <classname>Weather</classname> object.</para>
         </listitem>
       </varlistentry>
 
@@ -382,21 +456,21 @@ Also explain the "more than one groupId" comment.-->
         <term><classname>org.sonatype.mavenbook.weather.WeatherFormatter</classname></term>
 
         <listitem>
-          <para>The <classname>WeatherFormatter</classname> takes a
+          <para>The <classname>WeatherFormatter</classname> class takes a
           <classname>Weather</classname> object, creates a
           <classname>VelocityContext</classname>, and evaluates a Velocity
-          template</para>
+          template.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>We're not going to dwell on the code in this example, but we are
-    going to include all the necessary code for you get the example working in
-    the book. We assume that most of you have downloaded the examples which
-    accompany this book, but we're also mindful of those who may wish to
-    follow the example in this chapter step-by-step. The following sections
-    list classes in the <varname>simple-weather</varname> project, each of
-    these classes should be placed in the same package
+    <para>Although we won’t dwell on the code here, we will provide all the
+    necessary code for you to get the example working. We assume that most
+    readers have downloaded the examples that accompany this book, but we’re
+    also mindful of those who may wish to follow the example in this chapter
+    step-by-step. The sections that follow list classes in the
+    <varname>simple-weather</varname> project. Each of these classes should be
+    placed in the same package:
     <package>org.sonatype.mavenbook.weather</package>.</para>
 
     <para>Let's remove the <classname>App</classname> and the
@@ -414,17 +488,20 @@ $ <command>rm App.java</command>
 $ <command>mkdir weather</command>
 $ <command>cd weather</command></screen>
 
-    <para>You have created a new package
-    <package>org.sonatype.mavenbook.weather</package>. Now, we need to put some
+    <para>This creates a new package named
+    <package>org.sonatype.mavenbook.weather</package>. Now we need to put some
     classes in this directory. Using your favorite text editor, create a new
-    file named <filename>Weather.java</filename> with the following
-    contents.</para>
+    file named <filename>Weather.java</filename> with the contents shown
+    in<indexterm>
+        <primary>classes</primary>
+
+        <secondary>creating new</secondary>
+      </indexterm> <xref linkend="ex-simple-weather-model-object" />.</para>
 
     <example>
       <title>Simple Weather's Weather Model Object</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
-
 
 public class Weather {
   private String city;
@@ -461,19 +538,19 @@ public class Weather {
 </programlisting>
     </example>
 
-    <para>The <classname>Weather</classname> class defines a simple bean which
+    <para>The <classname>Weather</classname> class defines a simple bean that
     is used to hold the weather information parsed from the Yahoo! Weather
-    feed The Yahoo! Weather feed provides a wealth of information from the
-    sunrise and sunset times to the speed and direction of the wind. In the
-    interest of keeping this example as simple as possible, the
-    <classname>Weather</classname> model object only keeps track of the
-    temperature, chill, humidity, and a textual description of current
-    conditions.</para>
+    feed. This feed provides a wealth of information, from the sunrise and
+    sunset times to the speed and direction of the wind. To keep this example
+    as simple as possible, the <classname>Weather</classname> model object
+    keeps track of only the temperature, chill, humidity, and a textual
+    description of current conditions.</para>
 
-    <para>In the same directory create a file named
+    <para>Now, in the same directory, create a file named
     <filename>Main.java</filename>. This <classname>Main</classname> class
     will hold the static <methodname>main()</methodname> function—the entry
-    point for this example.</para>
+    point for this example. See <xref
+    linkend="ex-simple-weather-main-class" />.</para>
 
     <example>
       <title>Simple Weather's Main Class</title>
@@ -541,7 +618,8 @@ public class Main {
     to standard output.</para>
 
     <para>Create a file named <filename>YahooRetriever.java</filename> in the
-    same directory with the following contents:</para>
+    same directory with the contents shown in <xref
+    linkend="ex-simple-weather-yahoo-retriever-class" />.</para>
 
     <example>
       <title>Simple Weather's YahooRetriever Class</title>
@@ -571,8 +649,10 @@ public class YahooRetriever {
     <para>This simple class opens a <classname>URLConnection</classname> to
     the Yahoo! Weather <acronym>API</acronym> and returns an
     <classname>InputStream</classname>. To create something to parse this
-    feed, we'll need to create the <filename>YahooParser.java</filename> file
-    in the same directory.</para>
+    feed, we’ll need to create the <filename
+    role="keep-together">YahooParser.java</filename> file in the same
+    directory. See <xref
+    linkend="ex-simple-weather-yahooparser-class" />.</para>
 
     <example>
       <title>Simple Weather's YahooParser Class</title>
@@ -627,26 +707,27 @@ public class YahooParser {
     </example>
 
     <para>The <classname>YahooParser</classname> is the most complex class in
-    this example, we're not going to dive into the details of Dom4J or Jaxen,
-    but the class deserves some explanation.
-    <classname>YahooParser</classname>'s <methodname>parse()</methodname>
+    this example. We’re not going to dive into the details of Dom4J or Jaxen
+    here, but the class deserves some explanation.
+    <classname>YahooParser</classname>’s <methodname>parse()</methodname>
     method takes an <classname>InputStream</classname> and returns a
     <classname>Weather</classname> object. To do this, it needs to parse an
-    <acronym>XML</acronym> document with Dom4J. Since we're interested in
+    <acronym>XML</acronym> document with Dom4J. Since we’re interested in
     elements under the Yahoo! Weather <acronym>XML</acronym> namespace, we
     need to create a namespace-aware <classname>SAXReader</classname> in the
     <methodname>createXmlReader()</methodname> method. Once we create this
-    reader and parse the document we get a
+    reader and parse the document, we get an
     <classname>org.dom4j.Document</classname> object back. Instead of
     iterating through child elements, we simply address each piece of
     information we need using an XPath expression. Dom4J provides the
-    <acronym>XML</acronym> Parsing in this example, and Jaxen provides the
+    <acronym>XML</acronym> parsing in this example, and Jaxen provides the
     XPath capabilities.</para>
 
-    <para>Once we've created a <classname>Weather</classname> object, we need
+    <para>Once we’ve created a <classname>Weather</classname> object, we need
     to format our output for human consumption. Create a file named
     <filename>WeatherFormatter.java</filename> in the same directory as the
-    other classes.</para>
+    other classes. See <xref
+    linkend="ex-simple-weather-weatherformatter-class" />.</para>
 
     <example>
       <title>Simple Weather's WeatherFormatter Class</title>
@@ -700,19 +781,40 @@ public class WeatherFormatter {
   <section>
     <title>Add Resources</title>
 
-    <para>This project depends on two classpath resources: the
-    <classname>Main</classname> class configures Log4J with a classpath
-    resource named <filename>log4j.properties</filename>, and the
-    <classname>WeatherFormatter</classname> references a Velocity template
-    from the classpath named <filename>output.vm</filename>. Both of these
-    resources need to be in the default package (or the root of the
+    <para>This project depends on two classpath resources: the<indexterm
+        class="startofrange" id="weather03f">
+        <primary>weather project (example)</primary>
+
+        <secondary>adding resources</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03f1">
+        <primary>customizing projects</primary>
+
+        <secondary>adding resources</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03f2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>adding resources</tertiary>
+      </indexterm><indexterm class="startofrange" id="weather03f3">
+        <primary>resources</primary>
+
+        <secondary>adding to packages</secondary>
+      </indexterm> <classname>Main</classname> class that configures Log4J
+    with a classpath resource named <filename>log4j.properties</filename>, and
+    the <classname>WeatherFormatter</classname> that references a Velocity
+    template from the classpath named <filename>output.vm</filename>. Both of
+    these resources need to be in the default package (or the root of the
     classpath).</para>
 
-    <para>To add these resources, we'll need to create a new directory from
-    the base directory of the project—<filename>src/main/resources</filename>.
-    Since this directory was not created by the
-    <varname>archetype:create</varname> task, we need to create it by
-    executing the following commands from the project's base directory:</para>
+    <para>To add these resources, we’ll need to create a new directory
+    from<indexterm>
+        <primary>resources directory, creating</primary>
+      </indexterm> the base directory of the project:
+    <filename>src/main/resources</filename>. Since this directory was not
+    created by the <varname role="keep-together">archetype:create</varname>
+    task, we need to create it by executing the following commands from the
+    project’s base directory:</para>
 
     <screen>$ <command>cd src/main</command>
 $ <command>mkdir resources</command>
@@ -720,7 +822,8 @@ $ <command>cd resources</command></screen>
 
     <para>Once the resources directory is created, we can add the two
     resources. First, add the <filename>log4j.properties</filename> file in
-    the <filename>resources</filename> directory.</para>
+    the <filename>resources</filename> directory, as shown in <xref
+    linkend="ex-simple-weather-log4j-config" />.</para>
 
     <example>
       <title>Simple Weather's Log4J Configuration File</title>
@@ -738,10 +841,11 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     <para>This <filename>log4j.properties</filename> file simply configures
     Log4J to print all log messages to standard output using a
     <classname>PatternLayout</classname>. Lastly, we need to create the
-    <filename>output.vm</filename> which is the Velocity template used to
+    <filename>output.vm</filename>, which is the Velocity template used to
     render the output of this command-line program. Create
-    <filename>output.vm</filename> in the <filename>resources</filename>
-    directory.</para>
+    <filename>output.vm</filename> in the <filename>resources/</filename>
+    directory. See <xref
+    linkend="ex-simple-weather-output-velocity-template" />.</para>
 
     <example>
       <title>Simple Weather's Output Velocity Template</title>
@@ -759,22 +863,40 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     </example>
 
     <para>This template contains a number of references to a variable named
-    <varname>weather</varname>. This <varname>weather</varname> variable is
-    the <classname>Weather</classname> bean which was passed to the
-    <classname>WeatherFormatter</classname>, the
+    <varname>weather</varname>, which is the <classname>Weather</classname>
+    bean that was passed to the <classname>WeatherFormatter</classname>. The
     <varname>${weather.temp}</varname> syntax is shorthand for retrieving and
     displaying the value of the <varname>temp</varname> bean property. Now
-    that we have all of our project's code in the right place, we can use
-    Maven to run this example</para>
+    that we have all of our project’s code in the right place, we can use
+    <indexterm class="endofrange" startref="weather03f"></indexterm><indexterm
+    class="endofrange" startref="weather03f1"></indexterm><indexterm
+    class="endofrange" startref="weather03f2"></indexterm><indexterm
+    class="endofrange" startref="weather03f3"></indexterm>Maven to run the
+    example.</para>
   </section>
 
   <section id="section-custom-exec">
     <title>Running the Simple Weather Program</title>
 
     <para>Using the Exec plugin from the <ulink
-    url="http://mojo.codehaus.org">Codehaus Mojo project</ulink> we can
-    execute this program. To execute the <classname>Main</classname> class,
-    execute the following command from the project's base directory.</para>
+    url="http://mojo.codehaus.org">Codehaus Mojo project</ulink>, we
+    can<indexterm class="startofrange" id="weather03g">
+        <primary>weather project (example)</primary>
+
+        <secondary>running (executing)</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03g1">
+        <primary>customizing projects</primary>
+
+        <secondary>running (executing)</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03g2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>running (executing)</tertiary>
+      </indexterm> execute this program. To execute the
+    <classname>Main</classname> class, run the following command from the
+    project’s base directory:</para>
 
     <screen>$ <command>mvn install</command>
 $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
@@ -795,18 +917,18 @@ $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</c
 *********************************
 ...</screen>
 
-    <para>We didn't supply a command-line argument to the
+    <para>We didn’t supply a command-line argument to the
     <classname>Main</classname> class, so we ended up with the default zip
-    code—60202. As you can see, we've sucessfully executed the Simple Weather
-    command-line tool, retrieved some data from Yahoo! Weather, parsed the
-    result, and formatted the resulting data with Velocity. We did all of this
-    without doing much more than writing our project's source code and adding
-    some minimal configuration to the <filename>pom.xml</filename>. Notice
-    that there was no "build process" involved. We didn't need to define how
-    or where the Java compiler compiles our source to byte code, we didn't
-    have to instruct the build system how to locate the bytecode when we
-    executed the example application, and all we needed to do to include a few
-    dependencies was to locate the appropriate Maven Coordinates.</para>
+    code, 60202. As you can see, we’ve successfully executed the simple
+    weather command-line tool, retrieved some data from Yahoo! Weather, parsed
+    the result, and formatted the resulting data with Velocity. We achieved
+    all of this without doing much more than writing our project’s source code
+    and adding some minimal configuration to the <filename>pom.xml</filename>.
+    Notice that no “build process” was involved. We didn’t need to define how
+    or where the Java compiler compiles our source to bytecode, and we didn’t
+    need to instruct the build system how to locate the bytecode when we
+    executed the example application. All we needed to do to include a few
+    dependencies was locate the appropriate Maven coordinates.</para>
 
     <section>
       <title>The Maven Exec Plugin</title>
@@ -819,38 +941,49 @@ $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</c
 
       <screen>$ <command>mvn help:describe -Dplugin=exec -Dfull</command></screen>
 
-      <para>This will list all of the goals which are available in the Maven
+      <para>This will list all of the goals that are available in the Maven
       Exec plugin. The Help plugin will also list all of the valid parameters
-      for the Exec plugin, if you would like to customize the behavior of the
+      for the Exec plugin. If you would like to customize the behavior of the
       Exec plugin to pass in command-line arguments, you should use the
       documentation provided by <varname>help:describe</varname> as a guide.
-      While the Exec plugin is useful, you shouldn't rely on it as a way to
+      Although the Exec plugin is useful, you shouldn’t rely on it as a way to
       execute your application outside of running tests during development.
-      For a more robust solution, use the Maven Assembly plugin which is
-      demonstrated in <xref linkend="section-custom-packaged" />.</para>
+      For a more robust solution, use the Maven <phrase
+      role="keep-together">Assembly</phrase> plugin that is demonstrated in
+      the section <xref linkend="section-custom-packaged" />,” later in this
+      chapter.</para>
     </section>
 
     <section>
       <title>Exploring Your Project Dependencies</title>
 
-      <para>The Exec plugin made it possible for us to run this program
-      without having to load the appropriate dependencies into the classpath.
-      In any other build system, we would have had to copy all of the program
-      dependencies to some sort of <filename>lib/</filename> directory
-      containing a collection of <acronym>JAR</acronym> files. Then, we would
-      have had to write a simple script which included our program's bytecode
-      and all of our dependencies on a classpath. Only then could we have run
-      <command>java org.sonatype.mavenbook.weather.Main</command>. The Exec plugin
-      leverages the fact that Maven already knows how to create and manage
-      your classpath and your dependencies.</para>
+      <para>The Exec plugin makes it possible for us to run the simplest
+      weather program without having to load the appropriate dependencies into
+      the classpath. In any other build system, we would have to copy all of
+      the program dependencies into some sort of <filename>lib/</filename>
+      directory containing a collection of <acronym>JAR</acronym> files. Then,
+      we would have to write a simple script that includes our program’s
+      bytecode and all of our dependencies in a classpath. Only then could we
+      run <command>java org.sonatype.mavenbook.weather.Main</command>. The
+      Exec plugin leverages the fact that Maven already knows how to create
+      and manage your classpath and dependencies.</para>
 
-      <para>While this is convenient, it is also nice to know exactly what is
-      being included in your project's classpath. While the project depends on
-      a few libraries like Dom4J, Log4J, Jaxen, and Velocity, it also relies
-      on a few transitive dependencies. If you need to find out what is on the
-      classpath, you can use the Maven Dependency plugin to print out a list
-      of resolved dependencies. To print out this list for the Simple Weather
-      project, execute the <varname>dependency:resolve</varname> goal.</para>
+      <para>This is convenient, but it’s also nice to know exactly what is
+      being included in your project’s classpath. Although the project depends
+      on a few libraries such as Dom4J, Log4J, Jaxen, and Velocity, it also
+      relies on a few transitive dependencies. If you need to find out what is
+      on the classpath, you can use the Maven Dependency plugin to print out
+      a<indexterm>
+          <primary>Dependency plugin</primary>
+        </indexterm><indexterm>
+          <primary>Maven Dependency plugin</primary>
+        </indexterm><indexterm>
+          <primary>dependencies</primary>
+
+          <secondary>exploring with Dependency plugin</secondary>
+        </indexterm> list of resolved dependencies. To print out this list for
+      the simple weather project, execute the
+      <varname>dependency:resolve</varname> goal:</para>
 
       <screen>$ <command>mvn dependency:resolve</command>
 ...
@@ -934,42 +1067,75 @@ $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</c
 [DEBUG]   junit:junit:jar:3.8.1:test (selected for test)
 </screen>
 
-      <para>In the debug output we see some of the guts of the dependency
+      <para>In the debug output, we see some of the guts of the dependency
       management system at work. What you see here is the tree of dependencies
       for this project. Maven is printing out the full Maven coordinates for
-      all of your project's dependencies and the dependencies of your
-      dependencies (and the dependencies of your dependency's dependencies).
-      You can see that <varname>simple-weather</varname> depends on
-      <varname>jaxen</varname> which depends on <varname>xom</varname> which,
-      in turn, depends on <varname>icu4j</varname>. From this output, you can
-      see that Maven is creating a graph of dependencies, eliminating
-      duplicates, and resolving any conflicts between different versions. If
-      you are having problems with dependencies it is often helpful to dig a
-      little deeper than the list generated by
-      <varname>dependency:tree</varname>; turning on the debug output allows
-      you to see Maven's dependency mechanism at work.</para>
+      all of your project’s dependencies and the <phrase
+      role="keep-together">dependencies</phrase> of your dependencies (and the
+      dependencies of your dependencies’ dependencies). You can see that
+      <varname>simple-weather</varname> depends on <varname>jaxen</varname>,
+      which depends on <varname>xom</varname>, which in turn depends on
+      <varname>icu4j</varname>. You can also see that Maven is creating a
+      graph of dependencies, eliminating duplicates, and resolving any
+      conflicts between different versions. If you are having problems with
+      dependencies, it is often helpful to dig a little deeper than the list
+      generated by <varname>dependency:resolve</varname>. Turning on the debug
+      output allows you to see Maven’s dependency <indexterm
+      class="endofrange" startref="weather03g"></indexterm><indexterm
+      class="endofrange" startref="weather03g1"></indexterm><indexterm
+      class="endofrange" startref="weather03g2"></indexterm>mechanism at
+      work.</para>
     </section>
   </section>
 
   <section>
     <title>Writing Unit Tests</title>
 
-    <para>Maven has built-in support for unit tests, and testing is a part of
-    the default Maven lifecycle. Let's add some unit tests to our Simple
-    Weather project. First, let's create the
+    <para>Maven has built-in support for unit tests, and testing is a part
+    of<indexterm class="startofrange" id="weather03h">
+        <primary>weather project (example)</primary>
+
+        <secondary>writing unit tests</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03h1">
+        <primary>customizing projects</primary>
+
+        <secondary>writing unit tests</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03h2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>writing unit tests</tertiary>
+      </indexterm><indexterm class="startofrange" id="weather03h3">
+        <primary>unit tests</primary>
+
+        <secondary>writing</secondary>
+      </indexterm><indexterm>
+        <primary>testing</primary>
+
+        <secondary>unit tests</secondary>
+
+        <see>unit tests</see>
+      </indexterm><indexterm>
+        <primary>testing</primary>
+
+        <seealso>debugging</seealso>
+      </indexterm> the default Maven lifecycle. Let’s add some unit tests to
+    our simple weather project. First, let’s create the
     <package>org.sonatype.mavenbook.weather</package> package under
-    <filename>src/test/java</filename>.</para>
+    <filename>src/test/java</filename>:</para>
 
     <screen>$ <command>cd src/test/java</command>
 $ <command>cd org/sonatype/mavenbook</command>
 $ <command>mkdir -p weather/yahoo</command>
 $ <command>cd weather/yahoo</command></screen>
 
-    <para>At this point, we will create two unit tests. The first unit test
-    will test the <classname>YahooParser</classname> and the second will test
-    the <classname>WeatherFormatter</classname>. In the weather package,
-    create a file named <filename>YahooParserTest.java</filename> with the
-    following contents.</para>
+    <para>At this point, we will create two unit tests. The first will test
+    the <classname>YahooParser</classname>, and the second will test the
+    <classname>WeatherFormatter</classname>. In the <literal>weather</literal>
+    package, create a file named <filename>YahooParserTest.java</filename>
+    with the contents shown in <xref
+    linkend="ex-simple-weather-yahoooparsertest-unit-test" />.</para>
 
     <example>
       <title>Simple Weather's YahooParserTest Unit Test</title>
@@ -1008,29 +1174,30 @@ public class YahooParserTest extends TestCase {
     <para>This <classname>YahooParserTest</classname> extends the
     <classname>TestCase</classname> class defined by JUnit. It follows the
     usual pattern for a JUnit test: a constructor that takes a single
-    <classname>String</classname> argument which calls the constructor of the
-    superclass, and a series of public methods which begin with "test" which
-    are invoked as unit tests. We define a single test method,
-    <methodname>testParser</methodname>, which tests the
+    <classname>String</classname> argument that calls the constructor of the
+    superclass, and a series of public methods that begin with
+    “<literal>test</literal>” that are invoked as unit tests. We define a
+    single test method, <methodname>testParser</methodname>, which tests the
     <classname>YahooParser</classname> by parsing an <acronym>XML</acronym>
     document with known values. The test <acronym>XML</acronym> document is
     named <filename>ny-weather.xml</filename> and is loaded from the
-    classpath. We'll add test resources in <xref
-    linkend="sect-custom-test-resource" />. In our Maven project's directory
+    classpath. We’ll add test resources in <xref
+    linkend="sect-custom-test-resource" />.” In our Maven project’s directory
     layout, the <filename>ny-weather.xml</filename> file is found in the
-    directory which contains test
+    directory that contains test
     resources—<filename>${basedir}/src/test/resources</filename>
     under<filename>
-    org/sonatype/mavenbook/weather/yahoo/ny-weather.xml</filename>. The file is
-    read as an <classname>InputStream</classname> and passed to the
+    org/sonatype/mavenbook/weather/yahoo/ny-weather.xml</filename>. The file
+    is read as an <classname>InputStream</classname> and passed to the
     <methodname>parse()</methodname> method on
     <classname>YahooParser</classname>. The <methodname>parse()</methodname>
-    method returns a <classname>Weather</classname> object which is then
+    method returns a <classname>Weather</classname> object, which is then
     tested with a series of calls to <methodname>assetEquals()</methodname>, a
     method defined by <classname>TestCase</classname>.</para>
 
-    <para>In the same directory create a file named
-    <filename>WeatherFormatterTest.java</filename>.</para>
+    <para>In the same directory, create a file named
+    <filename>WeatherFormatterTest.java</filename>. See <xref
+    linkend="ex-simple-weather-weatherformattertest" />.</para>
 
     <example>
       <title>Simple Weather's WeatherFormatterTest Unit Test</title>
@@ -1073,9 +1240,9 @@ public class WeatherFormatterTest extends TestCase {
     <classname>WeatherFormatterTest</classname> also extends JUnit's
     <classname>TestCase</classname> class. The single test function reads the
     same test resource from <filename>${basedir}/src/test/resources</filename>
-    under the <filename>org/sonatype/mavenbook/weather/yahoo</filename> directory
-    via this unit test's classpath. We'll add test resources in <xref
-    linkend="sect-custom-test-resource" />.
+    under the <filename>org/sonatype/mavenbook/weather/yahoo</filename>
+    directory via this unit test's classpath. We'll add test resources in
+    <xref linkend="sect-custom-test-resource" />.
     <classname>WeatherFormatterTest</classname> runs this sample input file
     through the <classname>YahooParser</classname> which spits out a
     <classname>Weather</classname> object, and this object is then formatted
@@ -1096,27 +1263,59 @@ public class WeatherFormatterTest extends TestCase {
   <section id="section-test-scope">
     <title>Adding Test-scoped Dependencies</title>
 
-    <para>In the <classname>WeatherFormatterTest</classname> we used a utility
-    from Apache Commons IO—the <classname>IOUtils</classname> class.
-    <classname>IOUtils</classname> provides a number of helpful static
-    functions that take most of the work out of Input/Output operations. In
-    this particular unit test we use
-    <methodname>IOUtils.toString()</methodname> to copy the
+    <para>In <classname>WeatherFormatterTest</classname>, we used a
+    utility<indexterm class="startofrange" id="weather03i">
+        <primary>weather project (example)</primary>
+
+        <secondary>adding test-scoped dependencies</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03i1">
+        <primary>customizing projects</primary>
+
+        <secondary>adding test-scoped dependencies</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03i2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>adding test-scoped dependencies</tertiary>
+      </indexterm><indexterm class="startofrange" id="weather03i3">
+        <primary>dependencies</primary>
+
+        <secondary>test-scoped</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03i6">
+        <primary>test-scoped dependencies</primary>
+      </indexterm><indexterm class="startofrange" id="weather03i4">
+        <primary>unit tests</primary>
+
+        <secondary>test-scoped dependencies</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03i5">
+        <primary>testing</primary>
+
+        <secondary>using test-scoped dependencies</secondary>
+      </indexterm> from Apache Commons IO—the <classname>IOUtils</classname>
+    class. <classname>IOUtils</classname> provides a number of helpful static
+    functions that take most of the work out of input/output operations. In
+    this particular unit test, we used <methodname
+    role="keep-together">IOUtils.toString()</methodname> to copy the
     <filename>format-expected.dat</filename> classpath resource to a
     <classname>String</classname>. We could have done this without using
-    Commons IO, but it would have been an extra six or seven lines of code to
-    deal with the various <classname>InputStreamReader</classname> and
-    <classname>StringWriter</classname> objects. The main reason to use
-    Commons IO was to give us an excuse to add a test-scoped dependency on
-    Commons IO.</para>
+    Commons IO, but it would have required an extra six or seven lines of code
+    to deal with the various <classname>InputStreamReader</classname> and
+    <classname role="keep-together">StringWriter</classname> objects. The main
+    reason we used Commons IO was to give us an excuse to add a
+    <literal>test</literal>-scoped dependency on Commons IO.</para>
 
-    <para>A test-scoped dependency is a dependency which is only available on
-    the classpath during test compilation and test execution. If your project
-    has <varname>war</varname> or <varname>ear</varname> packaging, a
-    test-scoped dependency would not be included in the project's output
-    archive. To add a test-scoped dependency, add the following
-    <sgmltag>dependency</sgmltag> element in your project's
-    <sgmltag>dependencies</sgmltag> section.</para>
+    <para>A <literal>test</literal>-scoped dependency is a dependency that is
+    available on the classpath only during test compilation and test
+    execution. If your project has <varname>war</varname> or
+    <varname>ear</varname> packaging, a <literal>test</literal>-scoped
+    dependency would not be included in the project’s output archive. To add a
+    <literal>test</literal>-scoped dependency, add the
+    <sgmltag>dependency</sgmltag> element to your project’s<indexterm>
+        <primary sortas="scope element">&lt;scope&gt; element
+        (%lt;dependency&gt; element)</primary>
+      </indexterm> <sgmltag>dependencies</sgmltag> section, as shown in <xref
+    linkend="ex-adding-test-scoped-dep" />.</para>
 
     <example>
       <title>Adding a Test-scoped Dependency</title>
@@ -1186,10 +1385,11 @@ $ <command>cd resources</command></screen>
 </programlisting>
     </example>
 
-    <para>This file should look familiar, it is the same output which was
-    generated when you ran the Simple Weather project with the Maven Exec
-    plugin. The second file you'll need to add to the resources directory is
-    <filename>ny-weather.xml</filename>.</para>
+    <para>This file should look familiar. It is the same output that was
+    generated previously when you ran the simple weather project with the
+    Maven Exec plugin. The second file you’ll need to add to the resources
+    directory is <filename>ny-weather.xml</filename>. See <xref
+    linkend="ex-simple-weather-yahooparsertest-input" />.</para>
 
     <example>
       <title>Simple Weather's YahooParserTest XML Input</title>
@@ -1257,13 +1457,31 @@ $ <command>cd resources</command></screen>
   <section>
     <title>Executing Unit Tests</title>
 
-    <para>Now that your project has unit tests, let's run them. You don't have
-    to do anything special to run a unit test, the <varname>test</varname>
-    phase is a normal part of the Maven Lifecycle. You run Maven tests
-    whenever you run <command>mvn package</command> or <command>mvn
-    install</command>. If you would like to run all the lifecycle phases up to
-    and including the <varname>test</varname> phase, run <command>mvn
-    test</command>.</para>
+    <para>Now that your project has unit tests, let’s run them. You don’t
+    have<indexterm class="startofrange" id="weather03l">
+        <primary>weather project (example)</primary>
+
+        <secondary>unit tests, executing</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03l1">
+        <primary>customizing projects</primary>
+
+        <secondary>unit tests, executing</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03l2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>unit tests, executing</tertiary>
+      </indexterm><indexterm class="startofrange" id="weather03l3">
+        <primary>unit tests</primary>
+
+        <secondary>executing</secondary>
+      </indexterm> to do anything special to run a unit test; the
+    <varname>test</varname> phase is a normal part of the Maven lifecycle. You
+    run Maven tests whenever you run <command>mvn package</command> or
+    <command>mvn install</command>. If you would like to run all the lifecycle
+    phases up to and including the <varname>test</varname> phase, run
+    <command>mvn test</command>:</para>
 
     <screen>$ <command>mvn test</command>
 ...
@@ -1309,17 +1527,33 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     <section>
       <title>Ignoring Test Failures</title>
 
-      <para>Often, you will be developing on a system which may have failing
-      unit tests. If you are practicing Test-Driven Development
-      (<acronym>TDD</acronym>) you might use test failure as a measure of how
+      <para>You will often find yourself developing on a system that has
+      failing unit tests. If you are practicing Test-Driven Development
+      (<acronym>TDD</acronym>), you might use test failure as a measure of how
       close your project is to completeness. If you have failing unit tests,
       and you would still like to produce build output, you are going to have
       to tell Maven to ignore build failures. When Maven encounters a build
-      failure, its default behavior is to stop the current build. If you would
-      like to continue building a project even when the Surefire plugin has
-      encountered failed test cases, you'll need to set the
+      failure, its default behavior is to stop the current build. To continue
+      building a project even when the Surefire plugin encounters failed
+      test<indexterm>
+          <primary>testFailureIgnore configuration property (Surefire
+          plugin)</primary>
+        </indexterm><indexterm>
+          <primary>Surefire plugin</primary>
+
+          <secondary>testFailureIgnore configuration property</secondary>
+        </indexterm><indexterm>
+          <primary>Maven Surefire plugin</primary>
+
+          <secondary>testFailureIgnore configuration property</secondary>
+        </indexterm><indexterm>
+          <primary>unit tests</primary>
+
+          <secondary>ignoring test failures</secondary>
+        </indexterm> cases, you’ll need to set the
       <varname>testFailureIgnore</varname> configuration property of the
-      Surefire plugin to <literal>true</literal>.</para>
+      Surefire plugin to <literal>true</literal>. See <xref
+      linkend="ex-ignoring-unit-test-failures" />.</para>
 
       <example>
         <title>Ignoring Unit Test Failures</title>
@@ -1420,16 +1654,44 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
   <section id="section-custom-packaged">
     <title>Building a Packaged Command Line Application</title>
 
-    <para>In <xref linkend="section-custom-exec" />, we executed the Simple
-    Weather application using the Maven Exec plugin. While the Maven Exec
-    plugin executed the program and produced some output, you shouldn't look
-    to Maven as an execution container for your applications. If you are
-    distributing this command-line application to others, you will probably
-    want to distribute a <acronym>JAR</acronym> or an archive as a
-    <acronym>ZIP</acronym> or <acronym>TAR</acronym>'d <acronym>GZIP</acronym>
-    file. The following section outlines a process for using a predefined
-    assembly descriptor in the Maven Assembly plugin to produce a
-    distributable <acronym>JAR</acronym> file which contains the project's
+    <para>In the <xref linkend="section-custom-exec" />” section earlier in
+    <indexterm class="startofrange" id="weather03m">
+        <primary>weather project (example)</primary>
+
+        <secondary>building packaged command-line application</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03m1">
+        <primary>customizing projects</primary>
+
+        <secondary>building packaged command-line application</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03m2">
+        <primary>projects</primary>
+
+        <secondary>customizing</secondary>
+
+        <tertiary>building packaged command-line application</tertiary>
+      </indexterm><indexterm class="startofrange" id="weather03m3">
+        <primary>command-line application, packaging</primary>
+      </indexterm><indexterm class="startofrange" id="weather03m4">
+        <primary>packaging applications</primary>
+
+        <secondary>command-line applications</secondary>
+      </indexterm><indexterm class="startofrange" id="weather03m5">
+        <primary>applications, building and packaging</primary>
+
+        <secondary>command-line applications</secondary>
+      </indexterm>this chapter, we executed our application using the Maven
+    Exec plugin. Although that plugin executed the program and produced some
+    output, you shouldn’t look to Maven as an execution container for your
+    applications. If you are distributing this command-line application to
+    others, you will probably want to distribute a <acronym>JAR</acronym> or
+    an archive as a <acronym>ZIP</acronym> or <acronym>TAR</acronym>’d
+    <acronym>GZIP</acronym> file. This section outlines a process for using a
+    predefined assembly<indexterm>
+        <primary>Assembly plugin</primary>
+      </indexterm><indexterm>
+        <primary>Maven Assembly plugin</primary>
+      </indexterm> descriptor in the Maven Assembly plugin to produce a
+    distributable <acronym>JAR</acronym> file, which contains the project’s
     bytecode and all of the dependencies.</para>
 
     <para>The Maven Assembly plugin is a plugin you can use to create
@@ -1464,8 +1726,8 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>Once you've added this configuration, you can build the assembly by
-    running <command>mvn assembly:assembly</command>.</para>
+    <para>Once you’ve added this configuration, you can build the assembly by
+    running <command>mvn assembly:assembly</command>, like so:</para>
 
     <screen>$ <command>mvn install assembly:assembly</command>
 ...
@@ -1486,10 +1748,11 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 </screen>
 
     <para>Once our assembly is assembled in
-    <filename>target/simple-weather-1.0-jar-with-dependencies.jar</filename>,
+    <filename>target/</filename><filename>simple-weather-1.0-jar-with-</filename><filename>dependencies.jar</filename>,
     we can run the <classname>Main</classname> class again from the command
-    line. To run the Simple Weather's <classname>Main</classname> class,
-    execute the following commands from your project's base directory.</para>
+    line. To run the simple weather application’s <classname>Main</classname>
+    class, execute the following commands from your project’s base
+    directory:</para>
 
     <screen>$ <command>cd target</command>
 $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
@@ -1509,17 +1772,21 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
 *********************************</screen>
 
     <para>The <varname>jar-with-dependencies</varname> format creates a single
-    <acronym>JAR</acronym> file which includes all of the bytecode from the
-    <varname>simple-weather</varname> project and the unpacked bytecode from
-    all of the dependencies. This somewhat unconventional format produces a 9
-    MiB <acronym>JAR</acronym> file containing approximately 5290 classes, but
-    it does provide for an easy distribution format for applications you've
-    developed with Maven. Later in this book, we'll show you how to create a
-    custom assembly descriptor to produce a more standard distribution.</para>
-
-    <!--TODO: We might want to add some instructions for binding the assembly:assembly goal to 
-the lifecycle.
-
-TODO: We need a summary section-->
+    <acronym>JAR</acronym> file that includes all of the bytecode from the
+    <varname>simple-weather</varname> project as well as the unpacked bytecode
+    from all of the dependencies. This somewhat unconventional format produces
+    a 9 MiB <acronym>JAR</acronym> file containing approximately 5,290
+    classes, but it does provide for an easy distribution format for
+    applications you’ve developed with Maven. Later in this book, we’ll show
+    you how to create a custom assembly descriptor to produce a more standard
+    <indexterm class="endofrange" startref="weather03m"></indexterm><indexterm
+    class="endofrange" startref="weather03m1"></indexterm><indexterm
+    class="endofrange" startref="weather03m2"></indexterm><indexterm
+    class="endofrange" startref="weather03m3"></indexterm><indexterm
+    class="endofrange" startref="weather03m4"></indexterm><indexterm
+    class="endofrange" startref="weather03m5"></indexterm><indexterm
+    class="endofrange" startref="customproj1"></indexterm><indexterm
+    class="endofrange" startref="customproj2"></indexterm><phrase
+    role="keep-together">distribution</phrase>.</para>
   </section>
 </chapter>
