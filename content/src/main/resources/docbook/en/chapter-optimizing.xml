@@ -7,24 +7,44 @@
   <section id="multimodule-web-optimizing-intro">
     <title>Introduction</title>
 
-    <para>In <xref linkend="multimodule-web-spring" />, we showed how many
-    pieces of Maven come together to produce a fully functional multi-module
-    build. While the example from that chapter suggests a real application -
-    one which interacts with a database, a web service, and which, itself,
-    presents two interfaces: one in a web application, and one on the
-    command-line; the example project presented in that chapter is still
-    contrived. To present the complexity of a real project would require a
-    book far larger than the one you are now reading. Real life applications
-    evolve over years and are often maintained by large diverse groups of
-    developers each with a different focus. In a real world project, you are
-    often evaluating decisions and designs made and created by others. In this
-    chapter, we take a step back from the examples you've seen in <xref
+    <para>In <xref linkend="multimodule-web-spring" />, we showed how
+    many<indexterm class="startofrange" id="optref1a">
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>optimizing and refactoring</secondary>
+      </indexterm><indexterm class="startofrange" id="optref1b">
+        <primary>optimizing POMs</primary>
+      </indexterm><indexterm>
+        <primary>refactoring POMs</primary>
+
+        <see>optimizing POMs</see>
+      </indexterm><indexterm>
+        <primary>object model</primary>
+
+        <see>POM; pom.xml file</see>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>optimizing</secondary>
+
+        <see>optimizing POMs</see>
+      </indexterm> pieces of Maven come together to produce a fully functional
+    multimodule build. Although the example from that chapter suggests a real
+    application—one that interacts with a database, a web service, and that
+    itself presents two interfaces: one in a web application, and one on the
+    command line—that example project is still contrived. To present the
+    complexity of a real project would require a book far larger than the one
+    you are now reading. Real-life applications evolve over years and are
+    often maintained by large, diverse groups of developers, each with a
+    different focus. In a real-world project, you are often evaluating
+    decisions and designs made and created by others. In this chapter, we take
+    a step back from the examples you’ve seen in <xref
     linkend="part-example" />, and we ask ourselves if there are any
-    optimizations that might make more sense given what we now know of Maven.
-    Maven is a capable tool which can be as simple or as complex as you need
-    it to be. Because of this, there are often a million ways to accomplish
-    the same task, and there is often no one, "right" way to configure your
-    Maven project.</para>
+    optimizations that might make more sense given what we now know about
+    Maven. Maven is a very capable tool that can be as simple or as complex as
+    you need it to be. Because of this, there are often a million ways to
+    accomplish the same task, and there is often no one “right” way to
+    configure your Maven project.</para>
 
     <para>Don't misinterpret that last sentence as a license to go off and ask
     Maven to do something it wasn't designed for. While Maven allows for a
@@ -45,122 +65,189 @@
     <sgmltag>dependencyManagement</sgmltag> element introduced in this
     chapter.</para>
 
-    <para>There are often instances in <xref linkend="part-example" /> when
-    the authors of this book took a short-cut or glossed over an important
-    detail to shuffle you along to the main point of a specific chapter. You
-    learned how to create a Maven project and you compiled and installed it
-    without having to wade through hundreds of pages introducing every last
-    switch and dial available to you. We've done this because we believe it is
-    important to deliver the new Maven user to a result faster rather than
-    meandering our way through a very long, seemingly interminable story. Once
-    you've started to use Maven, you should know how to analyze your own
-    projects and <acronym>POM</acronym>s. In this chapter, we take a step
-    back, and take a look at what we're left with after the example from <xref
+    <para>There are many instances in <xref linkend="part-example" /> when the
+    authors of this book took a shortcut or glossed over an important detail
+    to shuffle you along to the main point of a specific chapter. You learned
+    how to create a Maven project, and you compiled and installed it without
+    having to wade through hundreds of pages introducing every last switch and
+    dial available to you. We’ve done this because we believe it is important
+    to deliver the new Maven user to a result faster rather than meandering
+    our way through a very long, seemingly interminable story. Once you’ve
+    started to use Maven, you should know how to analyze your own projects and
+    <acronym>POM</acronym>s. In this chapter, we take a step back and look at
+    what we are left with after the example from <xref
     linkend="multimodule-web-spring" />.</para>
   </section>
 
   <section>
     <title>POM Cleanup</title>
 
-    <para>Optimizing a Multi-Module project’s <acronym>POM</acronym> is best
-    done in several passes as there are many areas to focus on. In general, we
-    are looking for repetition within a <acronym>POM</acronym> and across the
-    sibling <acronym>POM</acronym>s. When you are starting out, or when a
-    project is still evolving very rapidly, it is acceptable to duplicate some
-    dependencies and plugin configurations here and there, but as the project
-    matures and as the number of modules increases, you will want to take some
-    time to refactor common dependencies and configuration points. Making your
-    <acronym>POM</acronym>s more efficient will go a long way to helping you
-    manage complexity as your project grows. Whenever there is duplication of
-    some piece of information, there is usually a better way.</para>
+    <para>Optimizing a multimodule project’s <acronym>POM</acronym> is
+    best<indexterm>
+        <primary>multimodule projects, optimizing POMs for</primary>
+      </indexterm><indexterm>
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>optimizing and refactoring</secondary>
+
+        <tertiary>about cleaning up POMs</tertiary>
+      </indexterm><indexterm>
+        <primary>optimizing POMs</primary>
+
+        <secondary>about cleaning up POMs</secondary>
+      </indexterm><indexterm>
+        <primary>cleaning up POMs</primary>
+
+        <seealso>optimizing POMs</seealso>
+      </indexterm> done in several passes, as there are many areas to focus
+    on. In general, we are looking for repetition within a
+    <acronym>POM</acronym> and across the sibling <acronym>POM</acronym>s.
+    When you are starting out, or when a project is still evolving rapidly, it
+    is acceptable to duplicate some dependencies and plugin configurations
+    here and there, but as the project matures and as the number of modules
+    increases, you will want to take some time to refactor common dependencies
+    and configuration points. Making your <acronym>POM</acronym>s more
+    efficient will go a long way to helping you manage complexity as your
+    project grows. Whenever there is duplication of some piece of information,
+    there is usually a better way.</para>
   </section>
 
   <section>
     <title>Optimizing Dependencies</title>
 
-    <para>If you take a look through the various <acronym>POM</acronym>s
-    created in <xref linkend="multimodule-web-spring" />, note several
-    patterns of replication. The first pattern we can see is that some
+    <para>If you look through the various <acronym>POM</acronym>s<indexterm
+        class="startofrange" id="optref2a">
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>optimizing and refactoring</secondary>
+
+        <tertiary>dependency optimization</tertiary>
+      </indexterm><indexterm class="startofrange" id="optref2b">
+        <primary>optimizing POMs</primary>
+
+        <secondary>dependency optimization</secondary>
+      </indexterm><indexterm class="startofrange" id="optref2c">
+        <primary>dependencies</primary>
+
+        <secondary>optimizing</secondary>
+      </indexterm> created in <xref linkend="multimodule-web-spring" />, note
+    several patterns of replication. The first pattern we can see is that some
     dependencies such as <varname>spring</varname> and
     <varname>hibernate-annotations</varname> are declared in several modules.
-    The hibernate dependency also has the exclusion on
-    <package>javax.transaction</package> replicated in each definition. The
-    second pattern of duplication to note is that sometimes several
-    dependencies are related and share the same version. This is often the
-    case when a project's release consists of several closely coupled
+    The <varname>hibernate</varname> dependency also has the exclusion on
+    <package>javax.transaction</package> replicated in each definition.
+    The<indexterm>
+        <primary>duplicated dependency declarations</primary>
+      </indexterm><indexterm>
+        <primary>replicated dependencies</primary>
+      </indexterm> second pattern of duplication to note is that sometimes
+    several dependencies are related and share the same version. This is often
+    the case when a project’s release consists of several closely coupled
     components. For example, look at the dependencies on
-    <varname>hibernate-annotations</varname> and
-    <varname>hibernate-commons-annotations</varname>, both are listed as
-    version <varname>3.3.0.ga</varname>, and we can expect the version of both
-    these dependencies to change together going forward. Both the
+    <varname>hibernate-</varname><varname>annotations</varname> and
+    <varname>hibernate-commons-annotations</varname>. Both are listed as
+    version <varname>3.3.0.ga</varname>, and we can expect the versions of
+    both these dependencies to change together going forward. Both the
     <varname>hibernate-annotations</varname> and
     <varname>hibernate-commons-annotations</varname> are components of the
-    same project released by JBoss, when there is a new project release, both
-    of these dependencies will change. The last pattern of duplication is the
-    duplication of sibling module dependencies and sibling module versions.
-    Maven provides simple mechanisms that let you factor all of this
-    duplication into a parent <acronym>POM</acronym>.</para>
+    same project released by JBoss, and so when there is a new project
+    release, both of these dependencies will change. The third and last
+    pattern of duplication is the<indexterm>
+        <primary>sibling module dependency duplication</primary>
+      </indexterm> duplication of sibling module dependencies and sibling
+    module versions. Maven provides simple mechanisms that let you factor all
+    of this<indexterm>
+        <primary>POM (Project Object Model)</primary>
 
-    <para>Just like in your project's source code, any time you have
-    duplication in your <acronym>POM</acronym>s, you open the door a bit for
-    trouble down the road. Duplicated dependency declarations make it
-    difficult to ensure consistent versions across a large project. When
-    you've only got two or three modules, this might not be a primary issue,
-    but when your organization is using a large, multi-module Maven build to
-    manage hundreds of components across multiple departments, one single
-    mismatch between dependencies can cause chaos and confusion. A simple
-    version mismatch in a project's dependency on a bytecode manipulation
-    package called <acronym>ASM</acronym> three levels deep in the project
-    hierarchy could throw a wrench into a web application maintained by a
-    completely different group of developers which depend on that particular
-    module. Unit tests could pass because they are being run with one version
-    of a dependency, but they could fail disastrously in production where the
-    bundle (war in this case) was packaged up with a different version. If you
-    have tens of projects using something like Hibernate Annotations each
-    repeating and duplicating the dependencies and exclusions, the mean time
-    between someone screwing up a build is going to be very short. As your
-    Maven projects become more complex, your dependency lists are going to
-    grow, and you are going to want to consolidate versions and dependency
-    declarations in parent <acronym>POM</acronym>s.</para>
+        <secondary>parent (top-level)</secondary>
 
-    <para>The duplication of the sibling module versions can introduce a
-    particularly nasty problem that is not directly caused by Maven and is
-    only learned after you've been bitten by this bug a few times. If you use
-    the Maven Release plugin to perform your releases, all these sibling
-    dependency versions will be updated automatically for you, so maintaining
-    them is not the concern. If <varname>simple-web</varname> version
-    <varname>1.3-SNAPSHOT</varname> depends on
+        <tertiary>resolving dependency duplication</tertiary>
+      </indexterm><indexterm>
+        <primary>top-level POM</primary>
+
+        <secondary>resolving dependency duplication</secondary>
+      </indexterm><indexterm>
+        <primary>parent POM</primary>
+
+        <secondary>resolving dependency duplication</secondary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>parent (top-level)</secondary>
+
+        <tertiary>resolving dependency duplication</tertiary>
+      </indexterm> duplication into a parent <acronym>POM</acronym>.</para>
+
+    <para>Just as in your project’s source code, any time you have duplication
+    in your <acronym>POM</acronym>s, you open the door a bit for trouble down
+    the road. Duplicated dependency declarations make it difficult to ensure
+    consistent versions across a large project. When you only have two or
+    three modules, this might not be a primary issue, but when your
+    organization is using a large, multimodule Maven build to manage hundreds
+    of components across multiple departments, one single mismatch between
+    dependencies can cause chaos and confusion. A simple version mismatch in a
+    project’s dependency on a bytecode <phrase
+    role="keep-together">manipulation</phrase> package called
+    <acronym>ASM</acronym> three levels deep in the project hierarchy could
+    throw a wrench into a web application maintained by a completely different
+    group of developers who depend on that particular<indexterm>
+        <primary>unit tests</primary>
+
+        <secondary>dependency duplication and</secondary>
+      </indexterm> module. Unit tests could pass because they are being run
+    with one version of a dependency, but they could fail disastrously in
+    production where the bundle (WAR, in this case) was packaged up with a
+    different version. If you have tens of projects using something like
+    Hibernate Annotations, each repeating and duplicating the dependencies and
+    exclusions, the mean time between someone screwing up a build is going to
+    be very short. As your Maven projects become more complex, your dependency
+    lists are going to grow, and you are going to want to consolidate versions
+    and dependency declarations in parent <acronym>POM</acronym>s.</para>
+
+    <para>The duplication of the sibling module versions can introduce
+    a<indexterm>
+        <primary>sibling module dependency duplication</primary>
+      </indexterm> particularly nasty problem that is not directly caused by
+    Maven and is learned only after you’ve been bitten by this bug a few
+    times. If you use the Maven Release plugin to perform your releases, all
+    these sibling dependency versions will be updated automatically for you,
+    so maintaining them is not the concern. If <varname>simple-web</varname>
+    version <varname>1.3-SNAPSHOT</varname> depends on
     <varname>simple-persist</varname> version <varname>1.3-SNAPSHOT</varname>,
-    and you are performing a release of the <varname>1.3</varname> version of
-    both projects, the Maven Release plugin is smart enough to change the
-    versions throughout your multi-module project's <acronym>POM</acronym>s
-    automatically. Running the release with the Release plugin will
-    automatically increment all of the version in your build to
-    <varname>1.4-SNAPSHOT</varname>, and the release plugin will commit the
-    code change to the repository. Releasing a huge multi-module project
-    couldn't be more easy, until...</para>
+    and if you are performing a release of the 1.3 version of both projects,
+    the Maven Release plugin is smart enough to change the versions throughout
+    your multimodule project’s <acronym>POM</acronym>s automatically. Running
+    the release with the Release plugin will automatically increment all of
+    the versions in your build to <varname>1.4-SNAPSHOT</varname>, and the
+    release plugin will commit the code change to the repository. Releasing a
+    huge multimodule project couldn’t be easier, until...</para>
 
-    <para>Problems occur when developers merge changes to the
-    <acronym>POM</acronym> and interferes with a release which is in progress.
-    Often a developer merges and occasionally mishandles the conflict on the
-    sibling dependency, inadvertently reverting that version to a previous
-    release. Since the consecutive versions of the dependency are often
-    compatible, it does not show up when the developer builds and won’t show
-    up in any continuous integration build system as a failed build. Imagine a
-    very complex build where the trunk is full of components at
-    <varname>1.4-SNAPSHOT</varname>, and now imagine that developer A has
-    updated a component A deep within the project's hierarchy to depend on
-    version <varname>1.3-SNAPSHOT</varname> of component B. Even though most
-    developers are going to have <varname>1.4-SNAPSHOT</varname>, the build is
-    going to succeed if version <varname>1.3-SNAPSHOT</varname> and
-    <varname>1.4-SNAPSHOT</varname> of component B are compatible. Maven will
-    continue to build the project using the <varname>1.3-SNAPSHOT</varname>
-    version of component B from developer's local repositories. Everything
-    seems to be going quite smoothly, the project builds, the continuous
-    integration build works fine, someone might have had a mystifying bug
-    related to component B, but they marked it up to malevolent gremlins and
-    moved on. Meanwhile, there is a pump in the reactor room steadily building
-    up pressure until something blows...</para>
+    <para>Problems occur when developers merge changes to the<indexterm>
+        <primary>merging POM changes</primary>
+      </indexterm><indexterm>
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>merging POMs</secondary>
+      </indexterm> <acronym>POM</acronym> and interfere with a release that is
+    in progress. Often a developer merges and occasionally mishandles the
+    conflict on the sibling dependency, inadvertently reverting that version
+    to a previous release. Since the consecutive versions of the dependency
+    are often compatible, it does not show up when the developer builds, and
+    won’t show up in any continuous integration build system as a failed
+    build. Imagine a very complex build where the trunk is full of components
+    at <varname>1.4-SNAPSHOT</varname>, and now imagine that Developer A has
+    updated Component A deep within the project’s hierarchy to depend on
+    version <varname>1.3-SNAPSHOT</varname> of Component B. Even though most
+    developers have <varname>1.4-SNAPSHOT</varname>, the build succeeds if
+    version <varname>1.3-SNAPSHOT</varname> and
+    <varname>1.4-SNAPSHOT</varname> of Component B are compatible. Maven
+    continues to build the project using the <varname>1.3-SNAPSHOT</varname>
+    version of Component B from the developer’s local repositories. Everything
+    seems to be going quite smoothly—the project builds, the continuous
+    integration build works fine, and so on. Someone might have a mystifying
+    bug related to Component B, but she chalks it up to malevolent gremlins
+    and moves on. Meanwhile, a pump in the reactor room is steadily building
+    up pressure, until something blows....</para>
 
     <para>Someone, let's call them Mr. Inadvertent, had a merge conflict in
     component A, and mistakenly pegged component A's dependency on component B
@@ -225,10 +312,10 @@
 &lt;/project&gt;</programlisting>
 
     <para>Once these are moved up, we need to remove the versions for these
-    dependencies from each of the <acronym>POM</acronym>s, otherwise they will
-    override the <sgmltag>dependencyManagement</sgmltag> defined in the parent
-    project. I will only show <varname>simple-model</varname> for
-    brevity:</para>
+    dependencies from each of the <acronym>POM</acronym>s; otherwise, they
+    will override the <sgmltag>dependencyManagement</sgmltag> defined in the
+    parent project. Let’s look at only <varname>simple-model</varname> for
+    brevity’s sake:</para>
 
     <programlisting language="xml">&lt;project&gt;
   ...
@@ -275,21 +362,38 @@
   ...
 &lt;/project</programlisting>
 
-    <para>The last issue we have to resolve is with the sibling dependencies.
-    One technique we could use is to also move these up to the
-    <sgmltag>dependencyManagement</sgmltag> section just like all the others
-    and define the versions of sibling projects in the top-level parent
-    project. This is certainly a valid approach but we can also solve the
-    version problem just by using two built-in
-    properties-<varname>${project.groupId}</varname> and
+    <para>The last issue we have to resolve is with the sibling
+    dependencies.<indexterm>
+        <primary>sibling module dependency duplication</primary>
+      </indexterm> One technique we could use is to move these up to the
+    <sgmltag>dependencyManagement</sgmltag> section, just like all the
+    others,<indexterm>
+        <primary>version attribute (pom.xml)</primary>
+
+        <secondary>built-in, to avoid dependency duplication</secondary>
+      </indexterm><indexterm>
+        <primary>groupId attribute (pom.xml)</primary>
+
+        <secondary>built-in, to avoid dependency duplication</secondary>
+      </indexterm><indexterm>
+        <primary>dependencies</primary>
+
+        <secondary>plugin</secondary>
+
+        <see>plugins</see>
+      </indexterm> and define the versions of sibling projects in the
+    top-level parent project. This is certainly a valid approach, but we can
+    also solve the version problem just by using two built-in
+    properties—<varname>${project.groupId}</varname> and
     <varname>${project.version}</varname>. Since they are sibling
     dependencies, there is not much value to be gained by enumerating them in
     the parent, so we’ll rely on the built-in
-    <varname>${project.version}</varname> property. Since they all share the
+    <varname>${project.version}</varname> property. Because they all share the
     same group, we can further future-proof these declarations by referring to
     the current <acronym>POM</acronym>’s group using the built-in
     <varname>${project.groupId}</varname> property. The
-    <varname>simple-command</varname> dependency section now looks like
+    <varname>simple-command</varname> <phrase
+    role="keep-together">dependency</phrase> section now looks like
     this:</para>
 
     <programlisting language="xml">&lt;project&gt;
@@ -311,19 +415,19 @@
   ...
 &lt;/project&gt;</programlisting>
 
-    <para>To summarize the two optimizations we completed that reduce
+    <para>Here’s a summary of the two optimizations we completed that reduce
     duplication of dependencies:</para>
 
     <variablelist>
       <varlistentry>
-        <term>Pull-up Common Dependencies to
+        <term role="plain">Pull-up common dependencies to
         <sgmltag>dependencyManagement</sgmltag></term>
 
         <listitem>
           <para>If more than one project depends on a specific dependency, you
           can list the dependency in <sgmltag>dependencyManagement</sgmltag>.
           The parent <acronym>POM</acronym> can contain a version and a set of
-          exclusions, all the child <acronym>POM</acronym> needs to do to
+          exclusions; all the child <acronym>POM</acronym> needs to do to
           reference this dependency is use the <varname>groupId </varname>and
           <varname>artifactId</varname>. Child projects can omit the version
           and exclusions if the dependency is listed in
@@ -332,16 +436,20 @@
       </varlistentry>
 
       <varlistentry>
-        <term>Use built-in project version and groupId for sibling
-        projects</term>
+        <term role="plain">Use built-in project <literal>version</literal> and
+        <literal>groupId</literal> for sibling projects</term>
 
         <listitem>
           <para>Use $<varname>{project.version}</varname> and
           <varname>${project.groupId}</varname> when referring to a sibling
-          project. Sibling projects almost always share the same groupId and
-          they almost always share the same release version. Using
-          <varname>${project.version}</varname> will help you avoid the
-          sibling version mismatch problem discussed above.</para>
+          project. Sibling projects almost always share the same
+          <literal>groupId</literal>, and they almost always share the same
+          release version. Using <varname>${project.version}</varname> will
+          help you avoid the <indexterm class="endofrange"
+          startref="optref2a"></indexterm><indexterm class="endofrange"
+          startref="optref2b"></indexterm><indexterm class="endofrange"
+          startref="optref2c"></indexterm>sibling version mismatch problem
+          discussed previously.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -350,18 +458,34 @@
   <section>
     <title>Optimizing Plugins</title>
 
-    <para>If we take a look at the various plugin configurations, we can see
-    the <acronym>HSQLDB</acronym> dependencies duplicated in several places.
-    Unfortunately, <sgmltag>dependencyManagement</sgmltag> doesn’t apply to
-    plugin dependencies, but we can still use a property to consolidate the
-    versions. Most complex Maven multi-module projects declare all versions in
-    the top-level <acronym>POM</acronym> making the top-level POM a focal
-    point for changes that affect the entire project. Think of version numbers
-    as string literals in a Java class, if you are constantly repeating a
-    literal, you'll likely want to make it a variable so that when it needs to
-    be change, you only have to change it in one place. Rolling up the version
+    <para>If we take a look at the various plugin configurations, we can
+    see<indexterm class="startofrange" id="optref3a">
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>optimizing and refactoring</secondary>
+
+        <tertiary>plugin optimization</tertiary>
+      </indexterm><indexterm class="startofrange" id="optref3b">
+        <primary>optimizing POMs</primary>
+
+        <secondary>plugin optimization</secondary>
+      </indexterm><indexterm class="startofrange" id="optref3c">
+        <primary>plugins</primary>
+
+        <secondary>optimizing</secondary>
+      </indexterm> the <acronym>HSQLDB</acronym> dependencies duplicated in
+    several places. Unfortunately, <sgmltag>dependencyManagement</sgmltag>
+    doesn’t apply to plugin dependencies, but we can still use a property to
+    consolidate the versions. Most complex Maven multimodule projects tend to
+    define all versions in the top-level <acronym>POM</acronym>. This
+    top-level <acronym>POM</acronym> then becomes a focal point for changes
+    that affect the entire project. Think of version numbers as string
+    literals in a Java class; if you are constantly repeating a literal,
+    you’ll likely want to make it a variable so that when it needs to be
+    changed, you have to change it in only one place. Rolling up the version
     of <acronym>HSQLDB</acronym> into a property in the top-level
-    <acronym>POM</acronym> yields the following properties element:</para>
+    <acronym>POM</acronym> yields the following <literal>properties</literal>
+    element:</para>
 
     <programlisting language="xml">&lt;project&gt;
   ...
@@ -376,11 +500,19 @@
     <varname>hibernate3-maven-plugin</varname> configuration is duplicated in
     the <varname>simple-webapp</varname> and <varname>simple-command</varname>
     modules. We can manage the plugin configuration in the top-level
-    <acronym>POM</acronym> just like we managed the dependencies in the
+    <acronym>POM</acronym> just as we managed the dependencies in the
     top-level <acronym>POM</acronym> with the
-    <sgmltag>dependencyManagement</sgmltag> section. To do this, we use the
-    <sgmltag>pluginManagement</sgmltag> element the top-level
-    <acronym>POM</acronym>'s build element.</para>
+    <sgmltag>dependencyManagement</sgmltag> section. To do this, we use
+    the<indexterm>
+        <primary
+        sortas="pluginManagement element (pom.xml)">&lt;pluginManagement&gt;
+        element (pom.xml)</primary>
+      </indexterm> <sgmltag role="keep-together">pluginManagement</sgmltag>
+    element in the top-level<indexterm class="endofrange"
+    startref="optref3a"></indexterm><indexterm class="endofrange"
+    startref="optref3b"></indexterm><indexterm class="endofrange"
+    startref="optref3c"></indexterm> <acronym>POM</acronym>’s build
+    element:</para>
 
     <programlisting language="xml">&lt;project&gt;
   ...
@@ -426,30 +558,53 @@
   <section>
     <title>Optimizing with the Maven Dependency Plugin</title>
 
-    <para>On larger projects, additional dependencies often tend to creep into
-    a POM as the number of dependencies grow. As dependencies change, you are
-    often left with dependencies which are not being used, and just as often,
-    you may forget to declare explicit dependencies for libraries you require.
-    Because Maven 2.x includes transitive dependencies in the compile scope,
-    your project may compile properly, but fail to run in production. Consider
-    a case where a project uses classes from a widely used project like
-    Jakarta Commons Beanutils. Instead of declaring an explicit dependency on
-    Beanutils, your project simply relies on a project like Hibernate which
-    references Beanutils as a transitive dependency. You project may compile
+    <para>On larger projects, additional dependencies often tend to creep
+    into<indexterm class="startofrange" id="optref4a">
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>optimizing and refactoring</secondary>
+
+        <tertiary sortas=" Maven Dependency plugin">with Maven Dependency
+        plugin</tertiary>
+      </indexterm><indexterm class="startofrange" id="optref4b">
+        <primary>optimizing POMs</primary>
+
+        <secondary sortas="Maven Dependency plugin">Maven Dependency
+        plugin</secondary>
+      </indexterm><indexterm class="startofrange" id="optref4c">
+        <primary>Maven Dependency plugin</primary>
+
+        <secondary>optimizing POMs with</secondary>
+      </indexterm><indexterm class="startofrange" id="optref4d">
+        <primary>dependencies</primary>
+
+        <secondary>optimizing</secondary>
+
+        <tertiary>Maven Dependency plugin for</tertiary>
+      </indexterm> a POM as the number of dependencies grow. As dependencies
+    change, you are often left with dependencies that are not being used, and
+    just as often, you may forget to declare explicit dependencies for
+    libraries you require. Because Maven 2.x includes transitive dependencies
+    in the compile scope, your project may compile properly but fail to run in
+    production. Consider a case where a project uses classes from a widely
+    used project such as Jakarta Commons BeanUtils. Instead of declaring an
+    explicit dependency on <phrase role="keep-together">BeanUtils</phrase>,
+    your project simply relies on a project like Hibernate that references
+    BeanUtils as a transitive dependency. Your project may compile
     successfully and run just fine, but if you upgrade to a new version of
-    Hibernate which doesn't depend on Beanutils, you'll start to have compile
-    and runtime errors, and it won't be immediately obvious why your project
-    stopped compiling. Also, because you haven't explicitly listed a
-    dependency version, Maven cannot resolve any version conflicts which may
+    Hibernate that doesn’t depend on BeanUtils, you’ll start to get compile
+    and runtime errors, and it won’t be immediately obvious why your project
+    stopped compiling. Also, because you haven’t explicitly listed a
+    dependency version, Maven cannot resolve any version conflicts that may
     arise.</para>
 
     <para>A good rule of thumb in Maven is to always declare explicit
     dependencies for classes referenced in your code. If you are going to be
-    importing Commons Beanutils classes, you should also be declaring a direct
-    dependency on Commons Beanutils. Fortunately, via bytecode analysis, the
-    Maven Dependency Plugin is able to assist you in uncovering direct
+    importing Commons BeanUtils classes, you should also be declaring a direct
+    dependency on Commons BeanUtils. Fortunately, via bytecode analysis, the
+    Maven Dependency plugin is able to assist you in uncovering direct
     references to dependencies. Using the updated POMs we previously
-    optimized, lets look to see if any errors pop up.</para>
+    optimized, let’s look to see if any errors pop up:</para>
 
     <screen>$ <command>mvn dependency:analyze</command>
 [INFO] Scanning for projects...
@@ -510,16 +665,24 @@
 [WARNING]    taglibs:standard:jar:1.1.2:compile
 [WARNING]    junit:junit:jar:3.8.1:test</screen>
 
-    <para>In the truncated output shown above, you can see the output of the
-    <varname>dependency:analyze</varname> goal. This goal analyzes the project
-    to see if there are any indirect dependencies, or dependencies which are
-    being referenced but are not directly declared. In the
-    <varname>simple-model</varname> project, the dependency plugin indicates a
-    "used undeclared dependency" on
+    <para>In the truncated output just shown, you can see the output of
+    the<indexterm>
+        <primary>Dependency plugin</primary>
+
+        <secondary>analyze goal</secondary>
+      </indexterm><indexterm>
+        <primary>Maven Dependency plugin</primary>
+
+        <secondary>analyze goal</secondary>
+      </indexterm> <varname>dependency:</varname><varname>analyze</varname>
+    goal. This goal analyzes the project to see whether there are any indirect
+    dependencies, or dependencies that are being referenced but are not
+    directly declared. In the <varname>simple-model</varname> project, the
+    Dependency plugin indicates a “used undeclared dependency” on
     <varname>javax.persistence:persistence-api</varname>. To investigate
     further, go to the <varname>simple-model</varname> directory and run the
-    <varname>dependency:tree</varname> goal which will list all of the
-    project's direct and transitive dependencies.</para>
+    <varname>dependency:tree</varname> goal, which will list all of the
+    project’s direct and transitive dependencies:</para>
 
     <screen>$ <command>mvn dependency:tree</command>
 [INFO] Scanning for projects...
@@ -547,17 +710,17 @@
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-    <para>From this output, we can see above that the
+    <para>From this output, we can see that the
     <varname>persistence-api</varname> dependency is coming from
     <varname>hibernate</varname>. A cursory scan of the source in this module
-    will reveal many <varname>javax.persistence</varname> import statements
-    confirming that we are, indeed, directly referencing this dependency. The
-    simple fix is to add a direct reference to the dependency. In this
-    example, we put the dependency version in
-    <varname>simple-parent</varname>'s<sgmltag> dependencyManagement</sgmltag>
+    will reveal many <varname>javax.</varname><varname>persistence</varname>
+    import statements confirming that we are, indeed, directly referencing
+    this dependency. The simple fix is to add a direct reference to the
+    dependency. In this example, we put the dependency version in
+    <varname>simple-parent</varname>’s <sgmltag>dependencyManagement</sgmltag>
     section because the dependency is linked to Hibernate, and the Hibernate
     version is declared here. Eventually you are going to want to upgrade your
-    project's version of Hibernate, listing the
+    project’s version of Hibernate. Listing the
     <varname>persistence-api</varname> dependency version near the Hibernate
     dependency version will make it more obvious later when your team modifies
     the parent <acronym>POM</acronym> to upgrade the Hibernate version.</para>
@@ -569,57 +732,83 @@
     references the model objects in <varname>simple-model</varname>, and the
     <varname>simple-model</varname> is exposed to
     <varname>simple-webapp</varname> as a transitive dependency via
-    <varname>simple-persist</varname>. Since this is a sibling dependency
-    which shares both the <varname>version</varname> and
-    <varname>groupId</varname>, the dependency can be defined in
-    <varname>simple-webapp</varname>'s <filename>pom.xml</filename> using the
-    <varname>${project.groupId}</varname> and
-    <varname>${project.version}</varname>.</para>
+    <varname>simple-persist</varname>. Since this is a sibling dependency that
+    shares both the <varname>version</varname> and <varname>groupId</varname>,
+    the dependency can be defined in <varname>simple-webapp</varname>’s
+    <filename moreinfo="none">pom.xml</filename> using the
+    <varname>${project.groupId}</varname> and <varname
+    role="keep-together">${project.version}</varname>.</para>
 
     <para>How did the Maven Dependency plugin uncover these issues? How does
-    <varname>dependency:analyze</varname> know what classes and dependencies
-    are directly referenced by your project's bytecode? The Dependency plugin
-    uses the <ulink url="http://asm.objectweb.org/">ObjectWeb ASM</ulink>
-    toolkit to analyze the raw bytecode. The Dependency plugin uses ASM to
-    walk through all the classes in the current project and it builds a list
-    of every other class referenced. It then walks through all the
-    dependencies, direct and transitive, and marks off the classes discovered
-    in the direct dependencies. Any classes not located in the direct
-    dependencies are discovered in the transitive dependencies, and the list
-    of "used, undeclared dependencies" is produced.</para>
+    <varname role="keep-together">dependency:analyze</varname> know which
+    classes and dependencies are directly referenced by your project’s
+    bytecode? The Dependency plugin uses the ObjectWeb ASM (<ulink
+    url="http://asm.objectweb.org/">http://asm.objectweb.org/</ulink>)
+    <indexterm>
+        <primary>ObjectWeb ASM toolkit</primary>
+      </indexterm><indexterm>
+        <primary>bytecode analysis (Dependency plugin)</primary>
+      </indexterm>toolkit to analyze the raw bytecode. The Dependency plugin
+    uses ASM to walk through all the classes in the current project, and it
+    builds a list of every other class referenced. It then walks through all
+    the dependencies, direct and transitive, and marks off the classes
+    discovered in the direct dependencies. Any classes not located in the
+    direct dependencies are discovered in the transitive dependencies, and the
+    list<indexterm>
+        <primary>used, undeclared dependencies (Dependency plugin)</primary>
+      </indexterm> of “used, undeclared dependencies” is produced.</para>
 
-    <para>In contrast, the list of Unused, Declared dependencies is a little
-    trickier to validate, and less useful than the "Used, Undeclared
-    Dependencies". For one, some dependencies are used only at runtime or for
-    tests and they won't be found in the bytecode. These are pretty obvious
-    when you see them in the output; for example, JUnit appears in this list,
-    but this is expected as it is only used for unit tests. You'll also notice
-    that the Velocity and Servlet API dependencies are listed in this list for
-    the simple-web module. This is also expected because, while the project
-    doesn't have any direct references to the classes of these artifacts, they
-    are still essential during runtime.</para>
+    <para>In contrast, the list of unused, declared dependencies is a
+    little<indexterm>
+        <primary>unused, undeclared dependencies (Dependency plugin)</primary>
+      </indexterm> trickier to validate, and less useful than the “used,
+    undeclared dependencies.” For one, some dependencies are used only at
+    runtime or for tests, and they won’t be found in the bytecode. These are
+    pretty obvious when you see them in the output; for example, JUnit appears
+    in this list, but this is expected because it is used only for unit tests.
+    You’ll also notice that the Velocity and Servlet API dependencies are
+    listed in this list for the <literal>simple-web</literal> module. This is
+    also expected because, although the project doesn’t have any direct
+    references to the classes of these artifacts, they are still essential
+    during runtime.</para>
 
-    <para>Be careful when removing any Unused, Declared Dependencies unless
+    <para>Be careful when removing any unused, declared dependencies unless
     you have very good test coverage, or you might introduce a runtime error.
     A more sinister issue pops up with bytecode optimization. For example, it
     is legal for a compiler to substitute the value of a constant and optimize
     away the reference. Removing this dependency will cause the compile to
     fail, yet the tool shows it as unused. Future versions of the Maven
-    Dependency Plugin will provide better techniques for detecting and/or
+    Dependency plugin will provide better techniques for detecting and/or
     ignoring these types of issues.</para>
 
     <para>You should use the <varname>dependency:analyze</varname> tool
     periodically to detect these common errors in your projects. It can be
     configured to fail the build if certain conditions are found, and it is
-    also available as a report.</para>
+    <indexterm class="endofrange" startref="optref4a"></indexterm><indexterm
+    class="endofrange" startref="optref4b"></indexterm><indexterm
+    class="endofrange" startref="optref4c"></indexterm><indexterm
+    class="endofrange" startref="optref4d"></indexterm>also available as a
+    report.</para>
   </section>
 
   <section>
     <title>Final POMs</title>
 
-    <para>As a final overview, the final <acronym>POM</acronym> files are
-    listed as a reference for this chapter. Here is the top-level
-    <acronym>POM</acronym> for <varname>simple-parent</varname>:</para>
+    <para>As an overview, the final <acronym>POM</acronym> files are<indexterm>
+        <primary>simple-parent POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-parent POM</tertiary>
+      </indexterm><indexterm>
+        <primary>simple parent project (example)</primary>
+
+        <secondary>final POM for (for reference)</secondary>
+      </indexterm> listed as a reference for this chapter. <xref
+    linkend="ex-final-pom-for-simple-parent" /> shows the top-level
+    <acronym>POM</acronym> for <varname>simple-parent</varname>.</para>
 
     <example>
       <title>Final POM for simple-parent</title>
@@ -735,9 +924,18 @@
 &lt;/project&gt;      </programlisting>
     </example>
 
-    <para>The following <acronym>POM</acronym> captures the
-    <acronym>POM</acronym> for <varname>simple-command</varname>, the
-    command-line version of the tool.</para>
+    <para>The <acronym>POM</acronym> shown in <xref
+    linkend="ex-final-pom-for-simple-command" /> captures the<indexterm>
+        <primary>simple-command POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-command POM</tertiary>
+      </indexterm> <acronym>POM</acronym> for
+    <varname>simple-command</varname>, the command-line version of the
+    tool.</para>
 
     <example>
       <title>Final POM for simple-command</title>
@@ -815,10 +1013,18 @@
 </programlisting>
     </example>
 
-    <para>This next <acronym>POM</acronym> is the
-    <varname>simple-model</varname> project's <acronym>POM</acronym>. The
-    <varname>simple-model</varname> project contains all of the model objects
-    used throughout the application.</para>
+    <para>The <acronym>POM</acronym> shown in <xref
+    linkend="ex-final-pom-for-simple-model" /> is the<indexterm>
+        <primary>simple-model POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-model POM</tertiary>
+      </indexterm> <varname>simple-model</varname> project’s
+    <acronym>POM</acronym>. The <varname>simple-model</varname> project
+    contains all of the model objects used throughout the application.</para>
 
     <example>
       <title>Final POM for simple-model</title>
@@ -856,10 +1062,19 @@
 </programlisting>
     </example>
 
-    <para>This next <acronym>POM</acronym> is the
-    <varname>simple-persist</varname> project's <acronym>POM</acronym>. The
-    <varname>simple-persist</varname> project contains all of the persistence
-    logic which is implemented using Hibernate.</para>
+    <para>The <acronym>POM</acronym> shown in <xref
+    linkend="ex-final-pom-for-simple-persist" /> is the<indexterm>
+        <primary>simple-persist POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-persist POM</tertiary>
+      </indexterm> <varname>simple-persist</varname> project’s
+    <acronym>POM</acronym>. The <varname>simple-persist</varname> project
+    contains all of the persistence logic that is implemented using <phrase
+    role="keep-together">Hibernate</phrase>.</para>
 
     <example>
       <title>Final POM for simple-persist</title>
@@ -911,8 +1126,22 @@
 </programlisting>
     </example>
 
-    <para>The <varname>simple-weather</varname> project is the project which
-    contains all of the logic to parse the Yahoo! Weather
+    <para>The <acronym>POM</acronym> shown in <xref
+    linkend="ex-final-pom-for-simple-weather" /> is the<indexterm>
+        <primary>simple-weather POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-weather POM</tertiary>
+      </indexterm><indexterm>
+        <primary>weather project (example)</primary>
+
+        <secondary>final simple-weather POM</secondary>
+      </indexterm> <varname>simple-weather</varname> project’s
+    <acronym>POM</acronym>. The <varname>simple-weather</varname> project is
+    the project that contains all of the logic to parse the Yahoo! Weather
     <acronym>RSS</acronym> feed. This project depends on the
     <varname>simple-model</varname> project.</para>
 
@@ -966,9 +1195,23 @@
 </programlisting>
     </example>
 
-    <para>Finally, the <varname>simple-webapp</varname> project contains a web
-    application which stores retrieved weather forecasts in an
-    <acronym>HSQLDB</acronym> database and which also interacts with the
+    <para>Finally, the <acronym>POM</acronym> shown in <xref
+    linkend="ex-final-pom-for-simple-webapp" /> is the<indexterm>
+        <primary>simple-webapp POM (for reference)</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
+
+        <secondary>final POMs (for reference)</secondary>
+
+        <tertiary>simple-webapp POM</tertiary>
+      </indexterm><indexterm>
+        <primary>Web applications</primary>
+
+        <secondary>final simple-weather POM</secondary>
+      </indexterm> <varname>simple-webapp</varname> project’s
+    <acronym>POM</acronym>. The <varname>simple-webapp</varname> project
+    contains a web application that stores retrieved weather forecasts in an
+    <acronym>HSQLDB</acronym> database and that also interacts with the
     libraries generated by the <varname>simple-weather</varname>
     project.</para>
 
@@ -1054,13 +1297,16 @@
   <section>
     <title>Conclusion</title>
 
-    <para>This chapter has shown you several techniques to improve the control
-    of your dependencies and plugins to ease future maintenance of your
-    builds. We recommend periodically reviewing your builds in this way to
-    ensure that duplication and thus potential trouble spots are minimized. As
-    a project matures, new dependencies are inevitably introduced and you may
-    find that a dependency previously used in one place is now used in 10 and
+    <para>This chapter has shown you several techniques for improving the
+    control of your dependencies and plugins to ease future maintenance of
+    your builds. We recommend periodically reviewing your builds in this way
+    to ensure that duplication and thus <phrase
+    role="keep-together">potential</phrase> trouble spots are minimized. As a
+    project matures, new dependencies are inevitably introduced, and you may
+    find that a dependency previously used in 1 place is now used in 10 and
     should be moved up. The used and unused dependencies list changes over
-    time and can easily be cleaned up with the Maven Dependency Plugin</para>
+    <indexterm class="endofrange" startref="optref1a"></indexterm><indexterm
+    class="endofrange" startref="optref1b"></indexterm>time and can easily be
+    cleaned up with the Maven Dependency plugin.</para>
   </section>
 </chapter>
