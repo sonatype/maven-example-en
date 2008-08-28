@@ -277,7 +277,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <filename>pom.xml</filename> file created by the Maven Archetype plugin’s
     create goal.</para>
 
-    <example>
+    <example id="example_simple-project-pom">
       <title>Simple project's <filename>pom.xml</filename> file</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -532,9 +532,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <varname>package</varname> phase in a project that produces a
       <acronym>JAR</acronym>, means “package this project into a JAR”; in a
       project that produces a web application, the <varname>package</varname>
-      phase may produce a <acronym>WAR</acronym> file. <xref
-      linkend="fig-simple-lifecycle" /> shows a simplified representation of
-      the default Maven lifecycle.</para>
+      phase may produce a <acronym>WAR</acronym> file. </para>
 
       <para>Plugin goals can be attached<indexterm>
           <primary>plugin goals</primary>
@@ -555,8 +553,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       goal in the Jar plugin. Since our simple Quickstart project has (by
       default) a <varname>jar</varname> packaging type, the
       <varname>jar:jar</varname> goal is bound to the
-      <varname>package</varname> phase (see <xref
-      linkend="fig-goal-binds-to-phase" />).</para>
+      <varname>package</varname> phase.</para>
 
       <para><figure>
           <title>A Goal Binds to a Phase</title>
@@ -856,9 +853,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       </variablelist>
 
       <para>These four elements become the key to locating and using one
-      particular project in the vast space of other “Mavenized” projects (see
-      <xref linkend="fig-maven-space" />). Maven repositories
-      (public,<indexterm>
+      particular project in the vast space of other “Mavenized” projects .
+      Maven repositories (public,<indexterm>
           <primary>repositories</primary>
         </indexterm><indexterm>
           <primary>Maven repositories</primary>
@@ -1028,9 +1024,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       dependencies on other artifacts. These dependencies of dependencies are
       called transitive dependencies, and they are made possible by the fact
       that the Maven repository stores more than just bytecode; it stores
-      metadata about artifacts. <xref
-      linkend="fig-maven-resolves-transitive-dependencies" /> shows a possible
-      scenario for transitive dependencies.</para>
+      metadata about artifacts. </para>
 
       <figure>
         <title>Maven Resolves Transitive Dependencies</title>
@@ -1077,10 +1071,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       application. You’ll need to compile your code against the Servlet
       specification, but you don’t want to include the Servlet
       <acronym>API</acronym> <acronym>JAR</acronym> in your web
-      application’s<indexterm class="endofrange"
-      startref="depend1"></indexterm><indexterm class="endofrange"
-      startref="depend2"></indexterm><indexterm class="endofrange"
-      startref="depend3"></indexterm> <filename>WEB-INF/lib</filename>
+      application’s <filename>WEB-INF/lib</filename>
       directory.</para>
     </section>
 
@@ -1129,7 +1120,6 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       code for various coding problems, and the JDepend report that analyzes
       the dependencies between packages in a codebase. You can customize site
       reports by configuring which reports are included in a build via the
-      <indexterm class="endofrange" startref="core"></indexterm>
       <filename>pom.xml</filename> file.</para>
     </section>
   </section>

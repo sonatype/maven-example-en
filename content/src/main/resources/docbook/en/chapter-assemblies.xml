@@ -89,13 +89,13 @@
     <varname>assembly:assembly</varname>, <varname>single</varname> will never
     force the execution of another lifecycle phase ahead of itself.</para>
 
-    <para>Aside from these two goals, the Assembly plugin provides several
-    others; however, discussion of these mojos is beyond the scope of this
-    chapter, largely because they serve exotic or obsolete use cases, and
-    because they are almost never needed. Whenever possible, you should
-    definitely stick to using <varname>assembly:assembly</varname> for
-    assemblies generated from the command-line, and <varname>single</varname>
-    for assemblies bound to lifecycle phases.</para>
+    <para>The Assembly plugin provides several other goals in addition to
+    these two. However, discussion of these other mojos is beyond the scope of
+    this chapter, because they serve exotic or obsolete use cases, and because
+    they are almost never needed. Whenever possible, you should definitely
+    stick to using <varname>assembly:assembly</varname> for assemblies
+    generated from the command line, and to <varname>single</varname> for
+    assemblies bound to lifecycle phases.</para>
 
     <section>
       <title>Predefined Assembly Descriptors</title>

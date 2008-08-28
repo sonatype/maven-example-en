@@ -168,7 +168,7 @@
     <acronym>XML</acronym> document that’s shown in <xref
     linkend="ex-initial-pom-for-simple-weather" />.</para>
 
-    <example>
+    <example id="ex-initial-pom-for-simple-weather">
       <title>Initial <acronym>POM</acronym> for the simple-weather
       project</title>
 
@@ -498,7 +498,7 @@ $ <command>cd weather</command></screen>
         <secondary>creating new</secondary>
       </indexterm> <xref linkend="ex-simple-weather-model-object" />.</para>
 
-    <example>
+    <example id="ex-simple-weather-model-object">
       <title>Simple Weather's Weather Model Object</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
@@ -549,8 +549,7 @@ public class Weather {
     <para>Now, in the same directory, create a file named
     <filename>Main.java</filename>. This <classname>Main</classname> class
     will hold the static <methodname>main()</methodname> function—the entry
-    point for this example. See <xref
-    linkend="ex-simple-weather-main-class" />.</para>
+    point for this example. </para>
 
     <example>
       <title>Simple Weather's Main Class</title>
@@ -621,7 +620,7 @@ public class Main {
     same directory with the contents shown in <xref
     linkend="ex-simple-weather-yahoo-retriever-class" />.</para>
 
-    <example>
+    <example id="ex-simple-weather-yahoo-retriever-class">
       <title>Simple Weather's YahooRetriever Class</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
@@ -651,8 +650,7 @@ public class YahooRetriever {
     <classname>InputStream</classname>. To create something to parse this
     feed, we’ll need to create the <filename
     role="keep-together">YahooParser.java</filename> file in the same
-    directory. See <xref
-    linkend="ex-simple-weather-yahooparser-class" />.</para>
+    directory. </para>
 
     <example>
       <title>Simple Weather's YahooParser Class</title>
@@ -726,8 +724,7 @@ public class YahooParser {
     <para>Once we’ve created a <classname>Weather</classname> object, we need
     to format our output for human consumption. Create a file named
     <filename>WeatherFormatter.java</filename> in the same directory as the
-    other classes. See <xref
-    linkend="ex-simple-weather-weatherformatter-class" />.</para>
+    other classes.</para>
 
     <example>
       <title>Simple Weather's WeatherFormatter Class</title>
@@ -825,7 +822,7 @@ $ <command>cd resources</command></screen>
     the <filename>resources</filename> directory, as shown in <xref
     linkend="ex-simple-weather-log4j-config" />.</para>
 
-    <example>
+    <example id="ex-simple-weather-log4j-config">
       <title>Simple Weather's Log4J Configuration File</title>
 
       <programlisting language="java"># Set root category priority to INFO and its only appender to CONSOLE.
@@ -844,8 +841,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     <filename>output.vm</filename>, which is the Velocity template used to
     render the output of this command-line program. Create
     <filename>output.vm</filename> in the <filename>resources/</filename>
-    directory. See <xref
-    linkend="ex-simple-weather-output-velocity-template" />.</para>
+    directory. </para>
 
     <example>
       <title>Simple Weather's Output Velocity Template</title>
@@ -1134,8 +1130,7 @@ $ <command>cd weather/yahoo</command></screen>
     the <classname>YahooParser</classname>, and the second will test the
     <classname>WeatherFormatter</classname>. In the <literal>weather</literal>
     package, create a file named <filename>YahooParserTest.java</filename>
-    with the contents shown in <xref
-    linkend="ex-simple-weather-yahoooparsertest-unit-test" />.</para>
+    with the contents shown in the next example.</para>
 
     <example>
       <title>Simple Weather's YahooParserTest Unit Test</title>
@@ -1196,8 +1191,7 @@ public class YahooParserTest extends TestCase {
     method defined by <classname>TestCase</classname>.</para>
 
     <para>In the same directory, create a file named
-    <filename>WeatherFormatterTest.java</filename>. See <xref
-    linkend="ex-simple-weather-weatherformattertest" />.</para>
+    <filename>WeatherFormatterTest.java</filename>. </para>
 
     <example>
       <title>Simple Weather's WeatherFormatterTest Unit Test</title>
@@ -1314,8 +1308,8 @@ public class WeatherFormatterTest extends TestCase {
     <sgmltag>dependency</sgmltag> element to your project’s<indexterm>
         <primary sortas="scope element">&lt;scope&gt; element
         (%lt;dependency&gt; element)</primary>
-      </indexterm> <sgmltag>dependencies</sgmltag> section, as shown in <xref
-    linkend="ex-adding-test-scoped-dep" />.</para>
+      </indexterm> <sgmltag>dependencies</sgmltag> section, as shown in the
+    following example:</para>
 
     <example>
       <title>Adding a Test-scoped Dependency</title>
@@ -1388,8 +1382,7 @@ $ <command>cd resources</command></screen>
     <para>This file should look familiar. It is the same output that was
     generated previously when you ran the simple weather project with the
     Maven Exec plugin. The second file you’ll need to add to the resources
-    directory is <filename>ny-weather.xml</filename>. See <xref
-    linkend="ex-simple-weather-yahooparsertest-input" />.</para>
+    directory is <filename>ny-weather.xml</filename>. </para>
 
     <example>
       <title>Simple Weather's YahooParserTest XML Input</title>
@@ -1552,8 +1545,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
           <secondary>ignoring test failures</secondary>
         </indexterm> cases, you’ll need to set the
       <varname>testFailureIgnore</varname> configuration property of the
-      Surefire plugin to <literal>true</literal>. See <xref
-      linkend="ex-ignoring-unit-test-failures" />.</para>
+      Surefire plugin to <literal>true</literal>.</para>
 
       <example>
         <title>Ignoring Unit Test Failures</title>

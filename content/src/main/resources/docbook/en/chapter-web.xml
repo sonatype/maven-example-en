@@ -113,8 +113,8 @@
         <primary>pom.xml file</primary>
 
         <secondary>for simple Web project (example)</secondary>
-      </indexterm> <acronym>XML</acronym> document shown in <xref
-    linkend="ex-initial-pom-for-simple-web" />.</para>
+      </indexterm> <acronym>XML</acronym> document shown in the following
+    example:</para>
 
     <example>
       <title>Initial <acronym>POM</acronym> for the simple-web project</title>
@@ -203,7 +203,7 @@
     use the Maven Jetty plugin to run your web application within Maven. To do
     this, we’ll need to configure the Maven Jetty plugin in our project’s
     <filename>pom.xml</filename>. Add the <literal>plugin</literal> element
-    shown in <xref linkend="ex-config-jetty-plugin" /> to your project’s build
+    shown in the following example to your project’s build
     configuration.</para>
 
     <example>
@@ -278,7 +278,7 @@
     startref="webapp3a"></indexterm><indexterm class="endofrange"
     startref="webapp3b"></indexterm><indexterm class="endofrange"
     startref="webapp3c"></indexterm> <filename>web.xml</filename>, shown in
-    <xref linkend="ex-web.xml" />.</para>
+    this next example:</para>
 
     <example>
       <title>Contents of src/main/webapp/WEB-INF/web.xml</title>
@@ -318,7 +318,7 @@ $ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
     <filename>src/main/java/org/sonatype/mavenbook/web</filename> directory
     and create a class named <classname>SimpleServlet</classname> in
     <filename>SimpleServlet.java</filename>, which contains the code shown in
-    <xref linkend="ex-simpleservlet-class" />.</para>
+    the <classname>SimpleServlet</classname> class:</para>
 
     <example>
       <title>SimpleServlet Class</title>
@@ -347,8 +347,8 @@ public class SimpleServlet extends HttpServlet {
     servlet that prints a simple message to the response’s
     <classname>Writer</classname>. To add this servlet to your web application
     and map it to a request path, add the <sgmltag>servlet</sgmltag> and
-    <sgmltag>servlet-mapping</sgmltag> elements shown in <xref
-    linkend="ex-mapping-simple-servlet" /> to your project’s<indexterm>
+    <sgmltag>servlet-mapping</sgmltag> elements shown in the following
+    <filename>web.xml</filename> to your project’s<indexterm>
         <primary>web.xml file</primary>
 
         <secondary>servlet and servlet-mapping attributes</secondary>
@@ -512,9 +512,8 @@ public class SimpleServlet extends HttpServlet {
     and <varname>version</varname> to use to reference the appropriate Apache
     Geronimo implementation. To add the Servlet specification
     <acronym>API</acronym> as a dependency to your project’s
-    <acronym>POM</acronym>, add the dependency element shown in <xref
-    linkend="ex-add-servlet-2.4-spec-as-dep" /> to
-    <filename>pom.xml</filename>.</para>
+    <acronym>POM</acronym>, add the dependency element as shown in this next
+    example:</para>
 
     <example>
       <title>Add the Servlet 2.4 Specification as a Dependency</title>
@@ -567,8 +566,7 @@ public class SimpleServlet extends HttpServlet {
         specification</secondary>
       </indexterm> tag for this simple web application, you would need to add
     a dependency on the <acronym>JSP</acronym> 2.0 spec. Use the configuration
-    shown in <xref linkend="ex-adding-jsp-2.0-spec-as-dep" /> to add this
-    dependency.</para>
+    shown in this example:</para>
 
     <example>
       <title>Adding the JSP 2.0 Specification as a Dependency</title>

@@ -7,49 +7,63 @@
   <section>
     <title>Introduction</title>
 
-    <para>This chapter covers the central concept of Maven—The Project Object
-    Model or <acronym>POM</acronym>. The <acronym>POM</acronym> is where a
-    project's identity and structure are declared, builds are configured, and
-    projects are related to one another. The presence of a
-    <filename>pom.xml</filename> file defines a Maven project.</para>
+    <para>This chapter covers the central concept of Maven—the Project
+    Object<indexterm class="startofrange" id="pom1">
+        <primary>POM (Project Object Model)</primary>
+      </indexterm> Model. The <acronym>POM</acronym> is where a project’s
+    identity and structure are declared, builds are configured, and projects
+    are related to one another. The presence of a <filename
+    moreinfo="none">pom.xml</filename> file defines a Maven project.</para>
   </section>
 
   <section id="pom-relationships-pom">
     <title>The POM</title>
 
     <para>Maven projects, dependencies, builds, artifacts: all of these are
-    objects to be modeled and described. These projects, dependencies, builds,
-    and artifacts are described by an <acronym>XML</acronym> file called a
-    Project Object Model. The <acronym>POM</acronym> tells Maven what sort of
-    project it is dealing with and how to modify default behavior to generate
-    output from source. In the same way a Java Web Application has a
-    <filename>web.xml</filename> which describes, configures, and customizes
-    the application, a Maven project is defined by the presence of a
-    <filename>pom.xml</filename>. It is a descriptive declaration of a project
-    for Maven, it is the figurative "map" which Maven needs to understand what
-    it is looking at when it builds your project.</para>
+    objects to be modeled and described. These objects are described by an
+    <acronym>XML</acronym> file called a Project Object Model. The
+    <acronym>POM</acronym> tells Maven what sort of project it is dealing with
+    and how to modify default behavior to generate output from source. In the
+    same way a Java web application has a <filename
+    moreinfo="none">web.xml</filename> that describes, configures, and
+    customizes the application, a Maven project is defined by the presence
+    of<indexterm>
+        <primary>pom.xml file</primary>
+      </indexterm><indexterm>
+        <primary>pom.xml file</primary>
 
-    <para>You could also think of the <filename>pom.xml</filename> as being
-    analogous to a <filename>Makefile</filename> or an Ant
-    <filename>build.xml</filename>. When you are using <acronym>GNU</acronym>
-    make to build something like MySQL, you'll usually have a file named
-    <filename>Makefile</filename> which contains explicit instructions for
-    building a binary from source. When you are using Apache Ant, you likely
-    have a file named <filename>build.xml</filename> which contains explicit
-    instructions for cleaning, compiling, packaging, and deploying an
-    application. Make, Ant, and Maven are similar in that they rely on the
-    presence of a commonly named file like <filename>Makefile</filename>,
-    <filename>build.xml</filename>, or <filename>pom.xml</filename>, but this
-    is where the similarities end. If you look at a Maven
-    <filename>pom.xml</filename>, the majority of the <acronym>POM</acronym>
-    is going to deal with descriptions: Where is the source code? Where are
-    the resources? What is the packaging? If you look at an Ant
-    <filename>build.xml</filename> file, you see something entirely different.
-    You'll see explicit instructions for tasks like compiling a set of Java
-    classes. The Maven <acronym>POM</acronym> is declarative, and while you
-    can certainly choose to include some procedural customizations via the
-    Maven Ant plugin, for the most part, you will not need to get into the
-    gritty procedural details of your project's build.</para>
+        <seealso>POM</seealso>
+      </indexterm> a <filename moreinfo="none">pom.xml</filename>. It is a
+    descriptive declaration of a project for Maven; it is the figurative “map”
+    that Maven needs to understand what it is looking at when it builds your
+    project.</para>
+
+    <para>You could also think of the <filename
+    moreinfo="none">pom.xml</filename> as analogous to a <filename
+    moreinfo="none">Makefile</filename> or an Ant <filename
+    moreinfo="none">build.xml</filename>. When you are using
+    <acronym>GNU</acronym> <emphasis>make</emphasis> to build something like
+    MySQL, you’ll usually have a file named <filename
+    moreinfo="none">Makefile</filename> that contains explicit instructions
+    for building a binary from source. When you are using Apache Ant, you
+    likely have a file named <filename moreinfo="none">build.xml</filename>
+    that contains explicit instructions for cleaning, compiling, packaging,
+    and deploying an application. <emphasis>make</emphasis>, Ant, and Maven
+    are similar in that they rely on the presence of a commonly named file
+    such as <filename moreinfo="none">Makefile</filename>, <filename
+    moreinfo="none">build.xml</filename>, or <filename
+    moreinfo="none">pom.xml</filename>, but that is where the similarities
+    end. If you look at a Maven <filename moreinfo="none">pom.xml</filename>,
+    the majority of the <acronym>POM</acronym> is going to deal with
+    descriptions: Where is the source code? Where are the resources? What is
+    the packaging? If you look at an Ant <filename
+    moreinfo="none">build.xml</filename> file, you’ll see something entirely
+    different. You’ll see explicit instructions for tasks such as compiling a
+    set of Java classes. The Maven <acronym>POM</acronym> is declarative, and
+    although you can certainly choose to include some procedural
+    customizations via the Maven Ant plugin, for the most part you will not
+    need to get into the gritty procedural details of your project’s
+    build.</para>
 
     <para>The <acronym>POM</acronym> is also not specific to building Java
     projects. While most of the examples in this book are geared towards Java
@@ -85,52 +99,83 @@
         </mediaobject>
       </figure></para>
 
-    <para>The <acronym>POM</acronym> contains four-categories of description
-    and configuration, they are:</para>
+    <para>The <acronym>POM</acronym> contains four categories of description
+    and configuration:</para>
 
     <variablelist>
       <varlistentry>
-        <term>General Project Information</term>
+        <term>General project information</term>
 
         <listitem>
-          <para>This includes a project's name, the <acronym>URL</acronym> for
-          a project, the sponsoring organization, a list of developers and
-          contributors along with the license for a project.</para>
+          <para>This includes a project’s name, the <acronym>URL</acronym>
+          for<indexterm>
+              <primary>project information (in pom.xml)</primary>
+            </indexterm><indexterm>
+              <primary>licensing information (project information)</primary>
+            </indexterm><indexterm>
+              <primary>organizational information (project
+              information)</primary>
+            </indexterm><indexterm>
+              <primary>developer information (project information)</primary>
+            </indexterm><indexterm>
+              <primary>pom.xml file</primary>
+
+              <secondary>project information in</secondary>
+            </indexterm> a project, the sponsoring organization, and a list of
+          developers and contributors along with the license for a
+          project.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Build Settings</term>
+        <term>Build settings</term>
 
         <listitem>
-          <para>In this section, we customize the behavior of the default
-          Maven build. We can change the location of source and tests, we can
-          add new plugins, we can attach plugin goals to the lifecycle, and we
-          can customize the site generation parameters.</para>
+          <para>In this section, we customize the behavior of the
+          default<indexterm>
+              <primary>build information (in pom.xml)</primary>
+            </indexterm><indexterm>
+              <primary>pom.xml file</primary>
+
+              <secondary>build information in</secondary>
+            </indexterm> Maven build. We can change the location of source and
+          tests, we can add new plugins, we can attach plugin goals to the
+          lifecycle, and we can customize the site generation
+          parameters.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Build Environment</term>
+        <term>Build environment</term>
 
         <listitem>
-          <para>The build environment consists of profiles which can be
-          activated for use in different environments. For example, during
-          development you may want to deploy to a development server, while in
-          production you want to deploy to a production server. The build
-          environment customizes the build settings for specific environments
-          and is often supplemented by a custom
-          <filename>settings.xml</filename> in <filename>~/.m2</filename>.
-          This settings file is discussed in <xref linkend="profiles" /> and
-          <xref linkend="appendix-settings-details" />.</para>
+          <para>The build environment consists of profiles that can
+          be<indexterm>
+              <primary>build environment</primary>
+            </indexterm><indexterm>
+              <primary>pom.xml file</primary>
+
+              <secondary>build environment</secondary>
+            </indexterm> activated for use in different environments. For
+          example, during development you may want to deploy to a development
+          server, whereas in production you want to deploy to a production
+          server. The build environment customizes the build settings for
+          specific environments and is often supplemented by a
+          custom<indexterm>
+              <primary>settings.xml file</primary>
+            </indexterm> <filename moreinfo="none">settings.xml</filename> in
+          <filename moreinfo="none">~/.m2</filename>. This settings file is
+          discussed in <xref linkend="profiles" /> and in the section <xref
+          linkend="appendix-settings-details" />” in <xref
+          linkend="settings-details" />.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>POM Relationships</term>
+        <term>POM relationships</term>
 
         <listitem>
-          <para>A project rarely stands alone, it depends on other projects,
+          <para>A project rarely stands alone; it depends on other projects,
           inherits <acronym>POM</acronym> settings from parent projects,
           defines its own coordinates, and may include submodules.</para>
         </listitem>
@@ -297,31 +342,32 @@
       </example>
 
       <para>The Super <acronym>POM</acronym> defines some standard
-      configuration variables which are inherited by all projects. Those
-      values are captured in the annotated sections:</para>
+      configuration variables that are inherited by all projects. Those values
+      are captured in the annotated sections:</para>
 
       <calloutlist>
         <callout arearefs="coDef-super-1" id="coRef-super-1">
           <para>The default Super <acronym>POM</acronym> defines a single
-          remote Maven Repository with an id of central. This is the central
-          Maven repository that all Maven clients are configured to read from
-          by default. This setting can be overridden by a custom
-          <filename>settings.xml</filename> file. Note that the default Super
-          <acronym>POM</acronym> has disabled snapshot artifacts on the
-          central Maven repository. If you need to use a snapshot repository,
-          you will need to customize repository settings in your
-          <filename>pom.xml</filename> or in your
-          <filename>settings.xml</filename>. Settings and profiles are covered
-          in <xref linkend="profiles" /> and <xref
-          linkend="appendix-settings-details" />.</para>
+          remote Maven repository with an ID of <literal>central</literal>.
+          This is the central Maven repository that all Maven clients are
+          configured to read from by default. This setting can be overridden
+          by a custom <filename moreinfo="none">settings.xml</filename> file.
+          Note that the default Super <acronym>POM</acronym> has disabled
+          snapshot artifacts on the central Maven repository. If you need to
+          use a snapshot repository, you will need to customize repository
+          settings in your <filename moreinfo="none">pom.xml</filename> or in
+          your <filename moreinfo="none">settings.xml</filename>. Settings and
+          profiles are covered in <xref linkend="profiles" /> and in the
+          section <xref linkend="appendix-settings-details" />” in <xref
+          linkend="settings-details" />.</para>
         </callout>
 
         <callout arearefs="coDef-super-2" id="coRef-super-2">
-          <para>The central Maven Repository also contains Maven plugins. The
+          <para>The central Maven repository also contains Maven plugins. The
           default plugin repository is the central Maven repository. Snapshots
-          are disabled, and the update policy is set to never. When the update
-          policy is set to never, this means that Maven will never
-          automatically update a plugin if a new version is released.</para>
+          are disabled, and the update policy is set to “never,” which means
+          that Maven will never automatically update a plugin if a new version
+          is released.</para>
         </callout>
 
         <callout arearefs="coDef-super-3" id="coRef-super-3">
@@ -352,17 +398,18 @@
       <title>The Simplest POM</title>
 
       <para>All Maven <acronym>POM</acronym>s inherit defaults from the Super
-      <acronym>POM</acronym> which is introduced in <xref
-      linkend="section-super-pom" />. If you are just writing a simple project
-      that produces a <acronym>JAR</acronym> from some source in
-      <filename>src/main/java</filename>, you want to run your JUnit tests in
-      <filename>src/test/java</filename>, and you want to build a project site
-      using <command>mvn site</command>, you don't have to customize anything.
-      All you would need, in this case, is the simplest possible
-      <acronym>POM</acronym> shown in <xref linkend="ex-simplest-pom" />. This
-      <acronym>POM</acronym> defines a <varname>groupId</varname>,
-      <varname>artifactId</varname>, and <varname>version</varname>: the three
-      required coordinates for every project.</para>
+      <acronym>POM</acronym> (introduced earlier in the section <xref
+      linkend="section-super-pom" />”). If you are just writing a simple
+      project that produces a <acronym>JAR</acronym> from some source in
+      <filename moreinfo="none">src/main/java</filename>, want to run your
+      JUnit tests in <filename moreinfo="none">src/test/java</filename>, and
+      want to build a project site using <command moreinfo="none">mvn
+      site</command>, you don’t have to customize anything. All you would
+      need, in this case, is the simplest possible <acronym>POM</acronym>
+      shown in <xref linkend="ex-simplest-pom" />. This <acronym>POM</acronym>
+      defines a <varname>groupId</varname>, <varname>artifactId</varname>, and
+      <varname>version</varname>: the three required coordinates for every
+      project.</para>
 
       <example id="ex-simplest-pom">
         <title>The Simplest POM</title>
@@ -376,36 +423,41 @@
       </example>
 
       <para>Such a simple <acronym>POM</acronym> would be more than adequate
-      for a simple project—a Java library that produces a
-      <acronym>JAR</acronym> file. It isn't related to any other projects, it
+      for a simple project—e.g., a Java library that produces a
+      <acronym>JAR</acronym> file. It isn’t related to any other projects, it
       has no dependencies, and it lacks basic information such as a name and a
       <acronym>URL</acronym>. If you were to create this file and then create
-      the subdirectory <filename>src/main/java</filename> with some source
-      core, running <command>mvn package</command> would produce a
-      <acronym>JAR</acronym> in
-      <filename>target/simple-project-1.jar</filename>.</para>
+      the subdirectory <filename moreinfo="none">src/main/java</filename> with
+      some source code, running <command moreinfo="none">mvn package</command>
+      would produce a <acronym>JAR</acronym> in <filename
+      moreinfo="none">target/simple-project-1.jar</filename>.</para>
     </section>
 
     <section>
       <title>The Effective POM</title>
 
       <para>This simplest <acronym>POM</acronym> brings us to the concept of
-      the "effective <acronym>POM</acronym>". Since <acronym>POM</acronym>s
-      can inherit configuration from other <acronym>POM</acronym>s, you must
-      always think of a Maven <acronym>POM</acronym> in terms of the
-      combination of the Super <acronym>POM</acronym>, plus any parent
-      <acronym>POM</acronym>s, and finally the current project's
-      <acronym>POM</acronym>. Maven starts with the Super
-      <acronym>POM</acronym> and then overrides default configuration with one
-      or more parent <acronym>POM</acronym>s. Then it overrides the resulting
-      configuration with the current project's <acronym>POM</acronym>. You end
-      up with an effective <acronym>POM</acronym> that is a mixture of various
-      <acronym>POM</acronym>s. If you want to see a project's effective
-      <acronym>POM</acronym>, you'll need to run the
-      <varname>effective-pom</varname> goal in the Maven Help plugin which was
-      introduced in <xref linkend="sect-help-plugin-install" />. To run the
+      <indexterm>
+          <primary>effective POMs</primary>
+        </indexterm>the “effective <acronym>POM</acronym>.” Since
+      <acronym>POM</acronym>s can inherit configuration from other
+      <acronym>POM</acronym>s, you must always think of a Maven
+      <acronym>POM</acronym> in terms of the combination of the Super
+      <acronym>POM</acronym>, plus any parent <acronym>POM</acronym>s, and
+      finally the current project’s <acronym>POM</acronym>. Maven starts with
+      the Super <acronym>POM</acronym> and then overrides default
+      configuration with one or more parent <acronym>POM</acronym>s. Then it
+      overrides the resulting configuration with the current project’s
+      <acronym>POM</acronym>. You end up with an effective
+      <acronym>POM</acronym> that is a mixture of various
+      <acronym>POM</acronym>s. If you want to see a project’s effective
+      <acronym>POM</acronym>, you’ll need to run the
+      <varname>effective-pom</varname> goal in the Maven Help plugin, which
+      was introduced earlier in the section <xref
+      linkend="sect-help-plugin-install" />.” To run the
       <varname>effective-pom</varname> goal, execute the following in a
-      directory with a <filename>pom.xml</filename> file.</para>
+      directory with a <filename moreinfo="none">pom.xml</filename>
+      file:</para>
 
       <screen>$ <command>mvn help:effective-pom</command></screen>
 
@@ -419,43 +471,65 @@
       <title>Real POMs</title>
 
       <para>Instead of typing up a contrived set of <acronym>POM</acronym>s to
-      walk you through step-by-step, you should take a look at the examples in
-      <xref linkend="part-example" />. Maven is something of a chameleon, you
-      can pick and choose the features you want to take advantage of. Some
-      open source projects may value the ability to list developers and
-      contributors, generate clean project documentation, and manage releases
-      automatically using the Maven Release plugin. On the other hand, someone
-      working in a corporate environment on a small team, might not be
-      interested in the distribution management capabilities of Maven nor the
-      ability to list developers. The remainder of this chapter is going to
-      discuss features of the <acronym>POM</acronym> in isolation. Instead of
-      bombarding you with a ten page listing of a set of related
-      <acronym>POM</acronym>s, we're going to focus on creating a good
+      <indexterm>
+          <primary>real POMs</primary>
+        </indexterm>walk you through step-by-step, you should take a look at
+      the examples in <xref linkend="part-example" />. Maven is something of a
+      chameleon; you can pick and choose the features you want to take
+      advantage of. Some open source projects may value the ability to list
+      developers and contributors, generate clean project documentation, and
+      manage releases automatically using the Maven Release plugin. On the
+      other hand, someone working in a corporate environment on a small team
+      might not be interested in the distribution management capabilities of
+      Maven nor the ability to list developers. The remainder of this chapter
+      is going to discuss features of the <acronym>POM</acronym> in isolation.
+      Instead of bombarding you with a 10-page listing of a set of related
+      <acronym>POM</acronym>s, we’re going to focus on creating a good
       reference for specific sections of the <acronym>POM</acronym>. In this
       chapter, we discuss relationships between <acronym>POM</acronym>s, but
-      we don't illustrate such a project here. If you are looking for such an
-      illustration refer to <xref linkend="multimodule-web-spring" />.</para>
+      we don’t illustrate such a project here. If you are looking for such an
+      illustration, refer to <xref linkend="multimodule-web-spring" />.</para>
     </section>
   </section>
 
   <section>
     <title>POM Syntax</title>
 
-    <para>The <acronym>POM</acronym> is always in a file named
-    <filename>pom.xml</filename> in the base directory of a Maven project.
-    This <acronym>XML</acronym> document can start with the
-    <acronym>XML</acronym> declaration or you can choose to omit it. All
-    values in a <acronym>POM</acronym> are captured as <acronym>XML</acronym>
-    elements.</para>
+    <para>The <acronym>POM</acronym> is always <indexterm class="startofrange"
+        id="pom2">
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>syntax</secondary>
+      </indexterm>in a file named <filename moreinfo="none">pom.xml</filename>
+    in the base directory of a Maven project. This <acronym>XML</acronym>
+    document can start with the <acronym>XML</acronym> declaration, or you can
+    choose to omit it. All values in a <acronym>POM</acronym> are captured as
+    <acronym>XML</acronym> elements.</para>
 
     <section id="sect-versions">
       <title>Project Versions</title>
 
-      <para>A Maven project's <sgmltag>version</sgmltag> encodes a release
-      version number which is used to group and order releases. Maven versions
-      contain the following parts: major version, minor version, incremental
-      version, and qualifier. In a version, these parts correspond to the
-      following format:</para>
+      <para>A Maven project’s <sgmltag>version</sgmltag> encodes a
+      release<indexterm>
+          <primary>major versions (projects)</primary>
+        </indexterm><indexterm>
+          <primary>minor versions (projects)</primary>
+        </indexterm><indexterm>
+          <primary>incremental versions (projects)</primary>
+        </indexterm><indexterm>
+          <primary>qualifiers for project versions</primary>
+        </indexterm><indexterm>
+          <primary>project versions, about</primary>
+
+          <seealso>version attribute</seealso>
+        </indexterm><indexterm>
+          <primary>version attribute (pom.xml)</primary>
+        </indexterm><indexterm>
+          <primary>project versions, about</primary>
+        </indexterm> version number that is used to group and order releases.
+      Maven versions contain the following parts: major version, minor
+      version, incremental version, and qualifier. In a version, these parts
+      correspond to the following format:</para>
 
       <screen>&lt;major version&gt;.&lt;minor version&gt;.&lt;incremental version&gt;-&lt;qualifier&gt;
 </screen>
@@ -489,12 +563,19 @@
         <title>Version Build Numbers</title>
 
         <para>One gotcha for release version numbers is the ordering of the
-        qualifiers. Take the version release number "1.2.3-alpha-2" and the
-        number "1.2.3-alpha-10". Where the "alpha-10" build corresponds to the
-        tenth alpha build and the "alpha-2" build corresponds to the second
-        alpha build. Even though "alpha-10" should be considered more recent
-        than "alpha-2", Maven is going to sort "alpha-10" before "alpha-2" due
-        to a known issue in the way Maven handles version numbers.</para>
+        <indexterm>
+            <primary>ordering of version qualifiers</primary>
+          </indexterm><indexterm>
+            <primary>qualifiers for project versions</primary>
+
+            <secondary>ordering of</secondary>
+          </indexterm>qualifiers. Take the version release numbers
+        “1.2.3-alpha-2” and “1.2.3-alpha-10,” where the “<phrase
+        role="keep-together">alpha-2</phrase>” build corresponds to the 2nd
+        alpha build, and the “alpha-10” build corresponds to the 10th alpha
+        build. Even though “alpha-10” should be considered more recent than
+        “alpha-2,” Maven is going to sort “alpha-10” before “alpha-2” due to a
+        known issue in the way Maven handles version numbers.</para>
 
         <para>Maven is supposed to treat the number after the qualifier as a
         build number. In other words, the qualifier should be "alpha", and the
@@ -512,15 +593,18 @@
         <title>SNAPSHOT Versions</title>
 
         <para>Maven versions can contain a string literal to signify that a
-        project is currently under active development. If a version contains
-        the string "SNAPSHOT", then Maven will expand this token to a date and
-        time value converted to <acronym>UTC</acronym> when you install or
-        release this component. For example, if your project has a version of
-        "1.0-SNAPSHOT", and you deploy this project's artifacts to a Maven
-        repository, Maven will expand this version to "1.0-20080207-230803-1"
-        if you were to deploy a release at 11:08 PM on February, 7th 2008
+        <indexterm>
+            <primary>snapshot versions</primary>
+          </indexterm>project is currently under active development. If a
+        version contains the string “SNAPSHOT,” then Maven will expand this
+        token to a date and time value converted to <acronym>UTC</acronym>
+        (Coordinated Universal Time) when you install or release this
+        component. For example, if your project has a version of
+        “1.0-SNAPSHOT” and you deploy this project’s artifacts to a Maven
+        repository, Maven would expand this version to “1.0-20080207-230803-1”
+        if you were to deploy a release at 11:08 PM on February 7th, 2008
         <acronym>UTC</acronym>. In other words, when you deploy a snapshot,
-        you are not making a release of a software component, you are
+        you are not making a release of a software component; you are
         releasing a snapshot of a component at a specific time.</para>
 
         <para>Why would you use this? SNAPSHOT versions are used for projects
@@ -538,11 +622,11 @@
         <sgmltag>repository</sgmltag> or <sgmltag>pluginRepository</sgmltag>
         element in the <acronym>POM</acronym>.</para>
 
-        <para><!--TODO: We need an XREF to this section - for repository snapshot-->When
-        releasing a project you should resolve all dependencies on SNAPSHOT
-        versions to dependencies on released versions. If a project depends on
-        a SNAPSHOT, it is not stable as the dependencies may change over time.
-        Artifacts published to non-snapshot Maven repositories such as <ulink
+        <para>When releasing a project you should resolve all dependencies on
+        SNAPSHOT versions to dependencies on released versions. If a project
+        depends on a SNAPSHOT, it is not stable as the dependencies may change
+        over time. Artifacts published to non-snapshot Maven repositories such
+        as <ulink
         url="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</ulink>
         cannot depend on SNAPSHOT versions, as Maven's Super
         <acronym>POM</acronym> has snapshot's disabled from the Central
@@ -592,8 +676,15 @@
       <title>Property References</title>
 
       <para>A <acronym>POM</acronym> can include references to properties
-      preceded by a dollar sign and surrounded by two curly braces. For
-      example, consider the following <acronym>POM</acronym>.</para>
+      <indexterm>
+          <primary>properties</primary>
+
+          <secondary>referencing in pom.xml</secondary>
+        </indexterm><indexterm>
+          <primary>references to properties, in pom.xml</primary>
+        </indexterm>preceded by a dollar sign and surrounded by two curly
+      braces. For example, consider the following
+      <acronym>POM</acronym>:</para>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -630,9 +721,13 @@
 
           <listitem>
             <para>The <varname>env</varname> variable exposes environment
-            variables exposed by either your operating system or shell. For
-            example, a reference to <varname>${env.PATH}</varname> in a Maven
-            <acronym>POM</acronym> would be replaced by the
+            <indexterm>
+                <primary>env variable</primary>
+              </indexterm><indexterm>
+                <primary>implicit variables, list of</primary>
+              </indexterm>variables exposed by your operating system or shell.
+            For example, a reference to <varname>${env.PATH}</varname> in a
+            Maven <acronym>POM</acronym> would be replaced by the
             <varname>${PATH}</varname> environment variable (or
             <varname>%PATH%</varname> in Windows).</para>
           </listitem>
@@ -642,14 +737,16 @@
           <term>project</term>
 
           <listitem>
-            <para>The <varname>project</varname> variable exposes the
-            <acronym>POM</acronym>. You can use a dot (.) notated path to
-            reference the value of a <acronym>POM</acronym> element. For
-            example, in this section we used the <varname>groupId</varname>
-            and <varname>artifactId</varname> to set the
-            <sgmltag>finalName</sgmltag> element in the build configuration.
-            The syntax for this property reference was:
-            <code>${project.groupId}-${project.artifactId}</code>.</para>
+            <para>The <varname>project</varname> variable exposes
+            the<indexterm>
+                <primary>project variable</primary>
+              </indexterm> <acronym>POM</acronym>. You can use a dot-notated
+            (.) path to reference the value of a <acronym>POM</acronym>
+            element. For example, in this section we used the
+            <varname>groupId</varname> and <varname>artifactId</varname> to
+            set the <sgmltag>finalName</sgmltag> element in the build
+            configuration. The syntax for this property reference was:
+            <code>${project.groupId}-${project.</code><code>artifactId}</code>.</para>
           </listitem>
         </varlistentry>
 
@@ -657,12 +754,15 @@
           <term>settings</term>
 
           <listitem>
-            <para>The settings variable exposes Maven settings information.
-            You can use a dot (.) notated path to reference the value of an
-            element in a <filename>settings.xml</filename> file. For example,
+            <para>The <varname>settings</varname> variable exposes Maven
+            <indexterm>
+                <primary>settings variable</primary>
+              </indexterm>settings information. You can use a dot-notated (.)
+            path to reference the value of an element in a <filename
+            moreinfo="none">settings.xml</filename> file. For example,
             <varname>${settings.offline}</varname> would reference the value
-            of the <sgmltag>offline</sgmltag> element in
-            <filename>~/.m2/settings.xml</filename>.</para>
+            of the <sgmltag>offline</sgmltag> element in <filename
+            moreinfo="none">~/.m2/settings.xml</filename>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -675,23 +775,27 @@
       </note>
 
       <para>In addition to the three implicit variables, you can reference
-      system properties and any custom properties set in the Maven
-      <acronym>POM</acronym> or in a build profile.</para>
+      <indexterm>
+          <primary>system properties, referencing</primary>
+        </indexterm>system properties and any custom properties set in the
+      Maven <acronym>POM</acronym> or in a build profile:</para>
 
       <variablelist>
         <varlistentry>
           <term>Java System Properties</term>
 
           <listitem>
-            <para>All properties accessible via
-            <methodname>getProperties()</methodname> on
+            <para>All properties accessible via<indexterm>
+                <primary>Java system properties, referencing</primary>
+              </indexterm> <methodname>getProperties()</methodname> on
             <classname>java.lang.System</classname> are exposed as
             <acronym>POM</acronym> properties. Some examples of system
-            properties are: <varname>${user.name}</varname>,
-            <varname>${user.home}</varname>, <varname>${java.home}</varname>,
-            and <varname>${os.name}</varname>. A full list of system
-            properties can be found in the Javadoc for the
-            j<classname>ava.lang.System</classname> class.</para>
+            properties are: <varname>${user.name}</varname>, <varname
+            role="keep-together">${user.home}</varname>,
+            <varname>${java.home}</varname>, and
+            <varname>${os.name}</varname>. A full list of system properties
+            can be found in the Javadoc for the
+            <classname>java.lang.System</classname> class.</para>
           </listitem>
         </varlistentry>
 
@@ -699,16 +803,19 @@
           <term>x</term>
 
           <listitem>
-            <para>Arbitrary properties can be set with a
-            <varname>properties</varname> element in a
-            <filename>pom.xml</filename> or <filename>settings.xml</filename>,
-            or properties can be loaded from external files. If you set a
-            property named <varname>fooBar</varname> in your
-            <filename>pom.xml</filename>, that same property is referenced
-            with <varname>${fooBar}</varname>. Custom properties come in handy
-            when you are building a system that filters resources and targets
-            different deployment platforms. The syntax for setting ${foo}=bar
-            in a pom is shown below.</para>
+            <para>Arbitrary properties can be set with a<indexterm>
+                <primary>arbitrary properties, referencing</primary>
+              </indexterm> <varname>properties</varname> element in a
+            <filename moreinfo="none">pom.xml</filename> or <filename
+            moreinfo="none" role="keep-together">settings.xml</filename>, or
+            properties can be loaded from external files. If you set a
+            property named <varname>fooBar</varname> in your <filename
+            moreinfo="none">pom.xml</filename>, that same property is
+            referenced with <varname>${fooBar}</varname>. Custom properties
+            come in handy when you are building a system that filters
+            resources and targets different deployment platforms. Here is the
+            syntax for setting <literal>${foo}=bar</literal> in a
+            <acronym>POM</acronym>:</para>
 
             <programlisting language="xml">&lt;properties&gt;
   &lt;foo&gt;bar&lt;/foo&gt;
@@ -725,11 +832,33 @@
   <section>
     <title>Project Dependencies</title>
 
-    <para>Maven can manage both internal and external dependencies. An
-    external dependency for a Java project might be a library such as Plexus,
-    the Spring Framework, or Log4J. An internal dependency is illustrated by a
-    web application project depending on another project which contains
-    service classes, model objects, or persistence logic. <xref
+    <para>Maven can manage both internal and external dependencies.
+    An<indexterm class="startofrange" id="pom3a">
+        <primary>dependencies</primary>
+      </indexterm><indexterm>
+        <primary>POM (Project Object Model)</primary>
+
+        <secondary>project dependencies</secondary>
+
+        <see>dependencies</see>
+      </indexterm><indexterm>
+        <primary>project dependencies</primary>
+
+        <see>dependencies</see>
+      </indexterm><indexterm>
+        <primary>external dependencies</primary>
+      </indexterm><indexterm>
+        <primary>internal dependencies</primary>
+
+        <seealso>dependencies</seealso>
+      </indexterm><indexterm>
+        <primary>internal dependencies</primary>
+
+        <seealso>dependencies</seealso>
+      </indexterm> external dependency for a Java project might be a library
+    such as Plexus, the Spring Framework, or Log4J. An internal dependency is
+    illustrated by a web application project depending on another project that
+    contains service classes, model objects, or persistence logic. <xref
     linkend="ex-dependency" /> shows some examples of project
     dependencies.</para>
 
@@ -765,10 +894,11 @@
     <para>The first dependency is a compile dependency on the XFire
     <acronym>SOAP</acronym> library from Codehaus. You would use this type of
     dependency if your project depended on this library for compilation,
-    testing, and during execution. The second dependency is a test scoped
-    dependency on JUnit. You would use a test-scoped dependency when you only
-    need to reference this library during testing. The last dependency in
-    <xref linkend="ex-dependency" /> is a dependency on the Servlet 2.4
+    testing, and during execution. The second dependency is a
+    <literal>test</literal>-scoped dependency on JUnit. You would use a
+    <literal>test</literal>-scoped dependency when you need to reference this
+    library only during testing. The last dependency in <xref
+    linkend="ex-dependency" /> is a dependency on the Servlet 2.4
     <acronym>API</acronym> as implemented by the Apache Geronimo project. The
     last dependency is scoped as a provided dependency. You would use a
     provided scope when the application you are developing needs a library for
@@ -779,9 +909,16 @@
       <title>Dependency Scope</title>
 
       <para><xref linkend="ex-dependency" /> briefly introduced three of the
-      five dependency scopes: compile, test, and provided. Scope controls
+      <indexterm>
+          <primary>scope, dependency</primary>
+        </indexterm><indexterm>
+          <primary>dependencies</primary>
+
+          <secondary>scope of</secondary>
+        </indexterm>five dependency scopes: <literal>compile</literal>,
+      <literal>test</literal>, and <literal>provided</literal>. Scope controls
       which dependencies are available in which classpath, and which
-      dependencies are included with an application. Let's explore each scope
+      dependencies are included with an application. Let’s explore each scope
       in detail:</para>
 
       <variablelist>
@@ -789,9 +926,12 @@
           <term>compile</term>
 
           <listitem>
-            <para>Compile is the default scope; all dependencies are compile
-            scoped if a scope is not supplied. Compile dependencies are
-            available in all classpaths and they are packaged.</para>
+            <para><literal>compile</literal> is the default scope; all
+            dependencies are <indexterm>
+                <primary>compile dependencies</primary>
+              </indexterm><literal>compile</literal>-scoped if a scope is not
+            supplied. <literal>compile</literal> dependencies are available in
+            all classpaths, and they are packaged.</para>
           </listitem>
         </varlistentry>
 
@@ -799,16 +939,18 @@
           <term>provided</term>
 
           <listitem>
-            <para>Provided dependencies are used when you expect the
-            <acronym>JDK</acronym> or a container to provide them. For
-            example, if you were developing a web application, you would need
-            the Servlet <acronym>API</acronym> available on the compile
-            classpath to compile a servlet, but you wouldn't want to include
-            the Servlet <acronym>API</acronym> in the packaged
+            <para><literal>provided</literal> dependencies are used when you
+            expect the <acronym>JDK</acronym> or a container to provide them.
+            For <indexterm>
+                <primary>provided dependencies</primary>
+              </indexterm>example, if you were developing a web application,
+            you would need the Servlet <acronym>API</acronym> available on the
+            compile classpath to compile a servlet, but you wouldn’t want to
+            include the Servlet <acronym>API</acronym> in the packaged
             <acronym>WAR</acronym>; the Servlet <acronym>API</acronym>
             <acronym>JAR</acronym> is supplied by your application server or
-            servlet container. Provided dependencies are available on the
-            compilation classpath (not runtime), provided dependencies are not
+            servlet container. <literal>provided</literal> dependencies are
+            available on the compilation classpath (not runtime). They are not
             transitive, nor are they packaged.</para>
           </listitem>
         </varlistentry>
@@ -817,11 +959,13 @@
           <term>runtime</term>
 
           <listitem>
-            <para>Runtime dependencies are required to execute and test the
-            system, but they are not required for compilation. For example,
-            you may need a <acronym>JDBC</acronym> <acronym>API</acronym>
-            <acronym>JAR</acronym> at compile time and the
-            <acronym>JDBC</acronym> driver implementation only at
+            <para><literal>runtime</literal> dependencies are required to
+            execute and test the <indexterm>
+                <primary>runtime dependencies</primary>
+              </indexterm>system, but they are not required for compilation.
+            For example, you may need a <acronym>JDBC</acronym>
+            <acronym>API</acronym> <acronym>JAR</acronym> at compile time and
+            the <acronym>JDBC</acronym> driver implementation only at
             runtime.</para>
           </listitem>
         </varlistentry>
@@ -830,10 +974,25 @@
           <term>test</term>
 
           <listitem>
-            <para>Test scoped dependencies are not required during the normal
-            operation of an application, and are only available during test
-            compilation and execution phases. The test scope was previously
-            introduced in <xref linkend="section-test-scope" />.</para>
+            <para><literal>test</literal>-scoped dependencies are not required
+            during the normal<indexterm>
+                <primary>dependencies</primary>
+
+                <secondary>test-scoped</secondary>
+              </indexterm><indexterm>
+                <primary>test-scoped dependencies</primary>
+              </indexterm><indexterm>
+                <primary>unit tests</primary>
+
+                <secondary>test-scoped dependencies</secondary>
+              </indexterm><indexterm>
+                <primary>testing</primary>
+
+                <secondary>using test-scoped dependencies</secondary>
+              </indexterm> operation of an application, and they are available
+            only during test compilation and execution phases. The
+            <literal>test</literal> scope was previously introduced in <xref
+            linkend="section-test-scope" />.”</para>
           </listitem>
         </varlistentry>
 
@@ -841,15 +1000,18 @@
           <term>system</term>
 
           <listitem>
-            <para>This scope is similar to provided except that you have to
-            provide an explicit path to the <acronym>JAR</acronym> on the
-            local file system. This is intended to allow compilation against
-            native objects that may be part of the system libraries. The
-            artifact is assumed to always be available and is not looked up in
-            a repository. If you declare the scope to be system you must also
-            provide the <sgmltag>systemPath</sgmltag> element. Note that this
-            scope is not recommended (you should always try to reference
-            dependencies in a public or custom Maven repository).</para>
+            <para>The <literal>system</literal> scope is similar to
+            <literal>provided</literal> except that you have to <indexterm>
+                <primary>system-scope dependencies</primary>
+              </indexterm>provide an explicit path to the
+            <acronym>JAR</acronym> on the local file system. This is intended
+            to allow compilation against native objects that may be part of
+            the system libraries. The artifact is assumed to always be
+            available and is not looked up in a repository. If you declare the
+            scope to be <literal>system</literal>, you must also provide the
+            <sgmltag>systemPath</sgmltag> element. Note that this scope is not
+            recommended (you should always try to reference dependencies in a
+            public or custom Maven repository).</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -858,20 +1020,28 @@
     <section>
       <title>Optional Dependencies</title>
 
-      <para>Assume that you were working on a library which provides caching
-      behavior. Instead of writing a caching system from scratch you want to
-      use some of the existing libraries which provide caching on the file
-      system and distributed caches. Also assume that you want to give the end
-      user an option to cache on the file system or to use an in-memory
-      distributed cache. To cache on the file system you'll want to use a
-      freely available library called <ulink
-      url="http://ehcache.sourceforge.net/">EHCache</ulink>, and to cache in a
-      distributed in-memory cache, you use another freely available caching
-      library named <ulink
-      url="http://swarmcache.sourceforge.net/">SwarmCache</ulink>. You'll code
-      an interface and create a library that can be configured to use either
-      EHCache or SwarmCache, but you want to avoid adding a dependency on both
-      caching libraries to any project that depends on your library.</para>
+      <para>Assume that you are working on a library that provides caching
+      <indexterm>
+          <primary>optional dependencies</primary>
+        </indexterm><indexterm>
+          <primary>dependencies</primary>
+
+          <secondary>optional</secondary>
+        </indexterm>behavior. Instead of writing a caching system from
+      scratch, you want to use some of the existing libraries that provide
+      caching on the file system and distributed caches. Also assume that you
+      want to give the end user an option to cache on the file system or to
+      use an in-memory distributed cache. To cache on the file system, you’ll
+      want to use a freely available library called EHCache (<ulink
+      url="http://ehcache.sourceforge.net/">http://ehcache.sourceforge.net/</ulink>),
+      and to cache in a distributed <phrase
+      role="keep-together">in-memory</phrase> cache, you want to use another
+      freely available caching library named SwarmCache (<ulink
+      url="http://swarmcache.sourceforge.net/">http://swarmcache.sourceforge.net/</ulink>).
+      You’ll code an interface and create a library that can be configured to
+      use either EHCache or SwarmCache, but you want to avoid adding a
+      dependency on both caching libraries to any project that depends on your
+      library.</para>
 
       <para>In other words, you need both libraries to compile this library
       project, but you don't want both libraries to show up as transitive
@@ -935,42 +1105,60 @@
   &lt;/dependencies&gt;
 &lt;/project&gt;</programlisting>
 
-      <para>In an ideal world, you wouldn't have to use optional dependencies.
+      <para>In an ideal world, you wouldn’t have to use optional dependencies.
       Instead of having one large project with a series of optional
-      dependencies you would separate the EHCache-specific code to a
+      dependencies, you would separate the <phrase
+      role="keep-together">EHCache-specific</phrase> code to a
       <varname>my-project-ehcache</varname> submodule and the
       SwarmCache-specific code to a <varname>my-project-swarmcache</varname>
       submodule. This way, instead of requiring projects that reference
       <varname>my-project</varname> to specifically add a dependency, projects
-      could just reference a particular implementation project and benefit
-      from the transitive dependency.</para>
+      can just reference a particular implementation project and benefit from
+      the transitive dependency.</para>
     </section>
 
     <section id="section-version-ranges">
       <title>Dependency Version Ranges</title>
 
-      <para>You don't just have to depend on a specific version of a
-      dependency, you can specify a range of versions that would satisfy a
-      given dependency. For example, you can specify that your project depends
-      on version 3.8 or greater of JUnit, or anything between version 1.2.10
-      and 1.2.14 of Log4J. You do this by surrounding one or more version
-      numbers with the following characters:</para>
+      <para>You don’t just have to depend on a specific version of a<indexterm>
+          <primary>version attribute (pom.xml)</primary>
 
-      <itemizedlist>
-        <listitem>
-          <para><code>(, )</code> - exclusive quantifiers</para>
-        </listitem>
+          <secondary>dependency version ranges</secondary>
+        </indexterm><indexterm>
+          <primary>project versions, about</primary>
 
-        <listitem>
-          <para>[, ] - inclusive quantifiers</para>
-        </listitem>
-      </itemizedlist>
+          <secondary>dependency version ranges</secondary>
+        </indexterm><indexterm>
+          <primary>ranges for dependency versions</primary>
+        </indexterm> dependency; you can specify a range of versions that
+      would satisfy a given dependency. For example, you can specify that your
+      project depends on version 3.8 or greater of JUnit, or anything between
+      versions 1.2.10 and 1.2.14 of JUnit. You do this by surrounding one or
+      more version numbers with the following characters:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term role="plain">(, )</term>
+
+          <listitem>
+            <para>Exclusive quantifiers</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term role="plain">[, ]</term>
+
+          <listitem>
+            <para>Inclusive quantifiers</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
       <para>For example, if you wished to access any <code>JUnit</code>
-      version greater than or equal to 3.8, but less than 4.0, your dependency
-      would be thus:</para>
+      version greater than or equal to 3.8 but less than 4.0, your dependency
+      would be as shown in <xref linkend="ex-dep-range" />.</para>
 
-      <para><example>
+      <para><example id="ex-dep-range">
           <title>Specifying a Dependency Range: JUnit 3.8 - JUnit 4.0</title>
 
           <programlisting language="xml">&lt;dependency&gt;
@@ -982,16 +1170,27 @@
 </programlisting>
         </example></para>
 
-      <para>If you want to depend on any version of JUnit no higher than
-      3.8.1, you would only specify an upper inclusive boundary.</para>
+      <para>If you want to depend on any version of JUnit no higher
+      than<indexterm>
+          <primary>upper boundaries (version ranges)</primary>
+        </indexterm><indexterm>
+          <primary>inclusive boundaries (version ranges)</primary>
+        </indexterm><indexterm>
+          <primary>lower boundaries (version ranges)</primary>
+        </indexterm><indexterm>
+          <primary>exclusive boundaries (version ranges)</primary>
+        </indexterm><indexterm>
+          <primary>boundaries for version ranges, specifying</primary>
+        </indexterm> 3.8.1, you would specify only an upper inclusive
+      boundary, as shown in <xref linkend="ex-dep-range-2" />.</para>
 
-      <example>
+      <example id="ex-dep-range-2">
         <title>Specifying a Dependency Range: JUnit &lt;= 3.8.1</title>
 
         <programlisting language="xml">&lt;dependency&gt;
   &lt;groupId&gt;junit&lt;/groupId&gt;
   &lt;artifactId&gt;junit&lt;/artifactId&gt;
-  &lt;version&gt;[,3.8.1]&lt;/version&gt;
+  &lt;version&gt;[,3.8.1]&lt;/version&gt;ex-de
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 </programlisting>
@@ -1019,45 +1218,58 @@
     <section>
       <title>Transitive Dependencies</title>
 
-      <para>A transitive dependency is a dependency of a dependency. If
-      <varname>project-a</varname> depends on <varname>project-b</varname>
-      which, in turn, depends on <varname>project-c</varname>, then
-      <varname>project-c</varname> is considered a transitive dependency of
-      <varname>project-a</varname>. If <varname>project-c</varname> depended
-      on <varname>project-d</varname>, then <varname>project-d</varname> would
-      also be considered a transitive dependency of
-      <varname>project-a</varname>. Part of Maven's appeal is that it can
-      manage transitive dependencies and shield the developer from having to
-      keep track of all of the dependencies required to compile and run an
-      application. You can just depend on something like the Spring Framework,
-      and not have to worry about tracking down every last dependency of the
-      Spring Framework.</para>
+      <para>A transitive dependency is a dependency of a dependency.
+      If<indexterm>
+          <primary>transitive dependencies</primary>
+        </indexterm><indexterm>
+          <primary>dependencies</primary>
+
+          <secondary>transitive</secondary>
+
+          <see>transitive dependencies</see>
+        </indexterm> <varname>project-a</varname> depends on
+      <varname>project-b</varname>, which in turn depends on
+      <varname>project-c</varname>, then <varname>project-c</varname> is
+      considered a transitive dependency of <varname>project-a</varname>. If
+      <varname>project-c</varname> depended on <varname>project-d</varname>,
+      then <varname>project-d</varname> would also be considered a transitive
+      dependency of <varname>project-a</varname>. Part of Maven’s appeal is
+      that it can manage transitive dependencies and shield the developer from
+      having to keep track of all of the dependencies required to compile and
+      run an application. You can just depend on something like the Spring
+      Framework and not have to worry about tracking down every last
+      dependency of the Spring Framework.</para>
 
       <para>Maven accomplishes this by building a graph of dependencies and
-      dealing with any conflicts and overlaps which might occur. For example,
+      dealing with any conflicts and overlaps that might occur. For example,
       if Maven sees that two projects depend on the same
       <varname>groupId</varname> and <varname>artifactId</varname>, it will
       sort out which dependency to use automatically, always favoring the more
-      recent version of a dependency. While this sounds convenient, there are
-      some edge cases where transitive dependencies can cause some
+      recent version of a dependency. Although this sounds convenient, there
+      are some edge cases where transitive dependencies can cause some
       configuration issues. For these scenarios, you can use a dependency
       exclusion.</para>
 
       <section>
         <title>Transitive Dependencies and Scope</title>
 
-        <para>Each of the scopes outlined in <xref
-        linkend="section-dependency-scope" /> affects more than just the scope
-        of the dependency in the declaring project, but also how it acts as a
-        transitive dependency. The easiest way to convey this information is
-        through a table. Scopes in the top row represent the scope of a
-        transitive dependency. Scopes in the left-most column represent the
-        scope of a direct dependency. The intersection of the row and column
-        is the scope that is assigned to a transitive dependency. A blank cell
-        in this table means that the transitive dependency will be
-        omitted.</para>
+        <para>Each of the scopes outlined earlier in the section <xref
+        linkend="section-dependency-scope" />” affects not just the scope of
+        <indexterm>
+            <primary>scope, dependency</primary>
 
-        <para><table>
+            <secondary>transitive dependencies and</secondary>
+          </indexterm>the dependency in the declaring project, but also how it
+        acts as a transitive dependency. The easiest way to convey this
+        information is through a table, as in <xref
+        linkend="table-transitive-dep-and-scope" />. Scopes in the top row
+        represent the scope of a transitive dependency. Scopes in the leftmost
+        column represent the scope of a direct dependency. The intersection of
+        the row and column is the scope that is assigned to a transitive
+        dependency. A blank cell in this table means that the transitive
+        dependency will be omitted.</para>
+
+        <para><table id="table-transitive-dep-and-scope">
             <title>How Scope Affects Transitive Dependencies</title>
 
             <tgroup cols="5">
@@ -1155,22 +1367,36 @@
         scope of compile. When a transitive dependency is runtime scoped and a
         direct is compile scoped the direct dependency the transitive
         dependency will have an effective scope of runtime.</para>
-
-        <!--TODO: Can you think of a simpler way to communicate this?-->
       </section>
     </section>
 
     <section>
       <title>Conflict Resolution</title>
 
-      <para>There are times when you will need to exclude a transitive
-      dependency. When you are depending on a project which depends on another
-      project but you would like to either exclude the dependency altogether
-      or replace the transitive dependency with another dependency which
-      provides the same functionality. <xref linkend="ex-exclude" /> shows an
-      example of a dependency element which adds a dependency on
-      <varname>project-a </varname>but excludes the transitive dependency
-      <varname>project-b</varname>.</para>
+      <para>There will be times when you need to exclude a
+      transitive<indexterm>
+          <primary>conflict, dependency</primary>
+        </indexterm><indexterm>
+          <primary>resolving dependency conflicts</primary>
+        </indexterm><indexterm>
+          <primary>dependencies</primary>
+
+          <secondary>conflicts with, resolving</secondary>
+        </indexterm><indexterm>
+          <primary>transitive dependencies</primary>
+
+          <secondary>resolving conflicts with</secondary>
+        </indexterm><indexterm>
+          <primary>excluding transitive dependencies</primary>
+        </indexterm><indexterm>
+          <primary>replacing transitive dependencies</primary>
+        </indexterm> dependency, such as when you are depending on a project
+      that depends on another project, but you would like to either exclude
+      the dependency altogether or replace the transitive dependency with
+      another dependency that provides the same functionality. <xref
+      linkend="ex-exclude" /> shows an example of a dependency element that
+      adds a dependency on <varname>project-a</varname>, but excludes the
+      transitive dependency <varname>project-b</varname>.</para>
 
       <para><example id="ex-exclude">
           <title>Excluding a Transitive Dependency</title>
@@ -1188,15 +1414,15 @@
 &lt;/dependency&gt;</programlisting>
         </example></para>
 
-      <para>Often you will want to replace a transitive dependency with
+      <para>Often, you will want to replace a transitive dependency with
       another implementation. For example, if you are depending on a library
-      which depends on the Sun <acronym>JTA</acronym> <acronym>API</acronym>,
+      that depends on the Sun <acronym>JTA</acronym> <acronym>API</acronym>,
       you may want to replace the declared transitive dependency. Hibernate is
-      one example, Hibernate depends on the Sun <acronym>JTA</acronym>
-      <acronym>API</acronym> <acronym>JAR</acronym> which is not available in
-      the central Maven repository as it can not be freely redistributed.
+      one example. Hibernate depends on the Sun <acronym>JTA</acronym>
+      <acronym>API</acronym> <acronym>JAR</acronym>, which is not available in
+      the central Maven repository because it cannot be freely redistributed.
       Fortunately, the Apache Geronimo project has created an independent
-      implementation of this library which can be freely redistributed. To
+      implementation of this library that can be freely redistributed. To
       replace a transitive dependency with another dependency, you would
       exclude the transitive dependency and declare a dependency on the
       project you wanted instead. <xref linkend="ex-exclude-replace" /> shows
@@ -1830,23 +2056,24 @@ top-group/project-c/pom.xml</programlisting>
         </example></para>
 
       <para>If you later decide to switch to a different
-      <acronym>JDBC</acronym> driver, for example, <acronym>JTDS</acronym>,
+      <acronym>JDBC</acronym> driver (for example, <acronym>JTDS</acronym>),
       just replace the dependencies in the <varname>persistence-deps</varname>
-      project to use <varname>net.sourceforge.jtds:jtds</varname> instead of
-      <varname>mysql:mysql-java-connector</varname> and update the version
+      project to use
+      <varname>net.</varname><varname>sourceforge.jtds:jtds</varname> instead
+      of <varname>mysql:mysql-java-connector</varname> and update the version
       number. All projects depending on <varname>persistence-deps</varname>
       will use <acronym>JTDS</acronym> if they decide to update to the newer
       version. Consolidating related dependencies is a good way to cut down on
-      the length of pom.xml files that start having to depend on a large
-      number of dependencies. If you need to share a large number of
-      dependencies between projects, you could also just establish
+      the length of <filename>pom.xml</filename> files that start having to
+      depend on a large number of dependencies. If you need to share a large
+      number of dependencies between projects, you could also just establish
       parent-child relationships between projects and refactor all common
-      dependencies to the parent project, but the disadvantage to the
-      parent-child approach is that a project can only have one parent.
+      dependencies to the parent project, but the disadvantage of the
+      parent-child approach is that a project can have only one parent.
       Sometimes it makes more sense to group similar dependencies together and
-      reference a pom dependency, this way your project can reference as many
-      of these consolidated dependency <acronym>POM</acronym>s as it needs to
-      .</para>
+      reference a <literal>pom</literal> dependency. This way, your project
+      can reference as many of these consolidated dependency
+      <acronym>POM</acronym>s as it needs.</para>
 
       <note>
         <para>Maven uses the depth of a dependency in the tree when resolving
@@ -1861,18 +2088,34 @@ top-group/project-c/pom.xml</programlisting>
     <section id="sect-multi-vs-inherit">
       <title>Multi-module vs. Inheritance</title>
 
-      <para>There is a difference between inheriting from a parent project,
-      and being managed by an multi-module project. A parent project is one
-      that passes its values to its children. A multi-module project simply
-      manages a group of other sub-projects or modules. The multi-module
-      relationship is defined from the top-most level downwards. When setting
-      up a multi-module project, you are simply telling a project that its
-      build should include the specified modules. Multi-module builds are to
-      be used to group modules together in a single build. The parent/child
-      relationship is defined from the leaf node upwards. The parent/child
+      <para>There is a difference between inheriting from a parent project
+      and<indexterm>
+          <primary>multimodule projects, in general</primary>
+
+          <secondary>inheritance versus</secondary>
+        </indexterm><indexterm>
+          <primary>project inheritance</primary>
+
+          <secondary>choosing multimodule projects instead of</secondary>
+        </indexterm><indexterm>
+          <primary>inheritance between projects or modules</primary>
+
+          <secondary>choosing multimodule projects instead of</secondary>
+        </indexterm><indexterm>
+          <primary>module inheritance</primary>
+
+          <secondary>choosing multimodule projects instead of</secondary>
+        </indexterm> being managed by a multimodule project. A parent project
+      is one that passes its values to its children. A multimodule project
+      simply manages a group of other subprojects or modules. The multimodule
+      relationship is defined from the topmost level downwards. When setting
+      up a multimodule project, you are simply telling a project that its
+      build should include the specified modules. Multimodule builds are to be
+      used to group modules together in a single build. The parent-child
+      relationship is defined from the leaf node upwards. The parent-child
       relationship deals more with the definition of a particular project.
       When you associate a child with its parent, you are telling Maven that a
-      project's <acronym>POM</acronym> is derived from another.</para>
+      project’s <acronym>POM</acronym> is derived from another.</para>
 
       <para>To illustrate the decision process that goes into choosing a
       design that uses inheritance vs. multi-module or both approaches

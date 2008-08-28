@@ -501,38 +501,84 @@
       They come in five different styles, all accessible from the settings.xml
       file:</para>
 
-      <orderedlist>
-        <listitem>
-          <para><varname>env.X</varname>: Prefixing a variable with "env."
-          will return the shells environment variable. For example,
-          <varname>${env.PATH}</varname> contains the <varname>$path</varname>
-          environment variable (<varname>%PATH%</varname> in Windows).</para>
-        </listitem>
+      <variablelist>
+        <varlistentry>
+          <term><literal>env.</literal><replaceable>X</replaceable></term>
 
-        <listitem>
-          <para><varname>project.x</varname>: A dot (.) notated path in the
-          <acronym>POM</acronym> will contain the corresponding elements
-          value. </para>
-        </listitem>
+          <listitem>
+            <para>Prefixing a variable with <literal>env.</literal> will
+            <indexterm>
+                <primary>env.* properties</primary>
+              </indexterm><indexterm>
+                <primary>environment variables, referencing</primary>
+              </indexterm>return the shell’s environment variable. For
+            example, <varname>${env.PATH}</varname> contains the
+            <varname>$path</varname> environment variable.
+            (<varname>%PATH%</varname> in Windows.)</para>
+          </listitem>
+        </varlistentry>
 
-        <listitem>
-          <para><varname>settings.x</varname>: A dot (.) notated path in the
-          settings.xml will contain the corresponding elements value.</para>
-        </listitem>
+        <varlistentry>
+          <term><literal>project.</literal><replaceable>x</replaceable></term>
 
-        <listitem>
-          <para>Java System Properties: All properties accessible via
-          <methodname>java.lang.System.getProperties()</methodname> are
-          available as POM properties, such as
-          <varname>${java.home}</varname>.</para>
-        </listitem>
+          <listitem>
+            <para>A dot-notated (.) path in the <acronym>POM</acronym> will
+            <indexterm>
+                <primary>project.* properties</primary>
+              </indexterm><indexterm>
+                <primary>POM (Project Object Model)</primary>
 
-        <listitem>
-          <para><varname>x</varname>: Set within a &lt;properties /&gt;
-          element or an external files, the value may be used as
-          <varname>${someVar}</varname>.</para>
-        </listitem>
-      </orderedlist>
+                <secondary>referencing properties in</secondary>
+              </indexterm><indexterm>
+                <primary>pom.xml file</primary>
+
+                <secondary>referencing properties in</secondary>
+              </indexterm>contain the corresponding elements value.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><literal>settings.</literal><replaceable>x</replaceable></term>
+
+          <listitem>
+            <para>A dot-notated (.) path in the<indexterm>
+                <primary>settings.* properties</primary>
+              </indexterm><indexterm>
+                <primary>settings.xml file</primary>
+
+                <secondary>properties in</secondary>
+
+                <tertiary>referencing</tertiary>
+              </indexterm> <filename>settings.xml</filename> will contain the
+            corresponding elements value.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Java system properties</term>
+
+          <listitem>
+            <para>All properties accessible via<indexterm>
+                <primary>system properties, referencing</primary>
+              </indexterm><indexterm>
+                <primary>Java system properties, referencing</primary>
+              </indexterm>
+            <methodname>java.lang.System.getProperties()</methodname> are
+            available as <acronym>POM</acronym> properties, such as
+            <varname>${java.home}</varname>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><replaceable>x</replaceable></term>
+
+          <listitem>
+            <para>Set within a <literal>properties</literal> element or an
+            external file, the value may be used as <varname
+            role="keep-together">${someVar}</varname>.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
 
       <para><example>
           <title>Setting the ${user.install} property in settings.xml</title>

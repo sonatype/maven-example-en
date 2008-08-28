@@ -396,7 +396,7 @@
     linkend="example_simple-model_pom.xml" />, and then look at the next few
     examples for some illustrations of these annotations.</para>
 
-    <example>
+    <example id="example_simple-model_pom.xml">
       <title>simple-model pom.xml</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -449,7 +449,7 @@
       linkend="example_weather_model_object" />.</para>
     </example>
 
-    <example>
+    <example id="example_weather_model_object">
       <title>Annotated Weather Model Object</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.model;
@@ -595,7 +595,7 @@ public class Weather {
     linkend="example_condition_model_object" />. This class also resides in
     <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>.</para>
 
-    <example>
+    <example id="example_condition_model_object">
       <title>simple-model's Condition model object.</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.model;
@@ -679,7 +679,7 @@ public class Condition {
     <classname>WeatherService</classname>, which takes a zip code as an
     argument and which returns a <classname>Weather</classname> object.</para>
 
-    <example>
+    <example id="example_simple-weather_module_pom">
       <title>simple-weather Module POM</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -790,7 +790,7 @@ public class Condition {
     and <classname>YahooParser</classname> are both bean properties of the
     <classname>WeatherService</classname> bean.</para>
 
-    <example>
+    <example id="example_weatherservice_class">
       <title>The WeatherService class</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
@@ -857,8 +857,7 @@ public class WeatherService {
     <classname>ClasspathXmlApplicationContext</classname> in the Spring
     Framework. They can then reference a named instance of the
     <classname>WeatherService</classname> named
-    <varname>weatherService</varname>. See <xref
-    linkend="ex-spring-application-context-for-simple-weather" />.</para>
+    <varname>weatherService</varname>. </para>
 
     <example>
       <title>Spring Application Context for the simple-weather Module</title>
@@ -938,10 +937,10 @@ public class WeatherService {
     <literal>simple-persist</literal> POM in <xref
     linkend="ex-simple-persist-POM" />.</para>
 
-    <example>
+    <example id="ex-simple-persist-POM">
       <title>simple-persist POM</title>
 
-      <programlisting langauge="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -1082,7 +1081,7 @@ public class WeatherService {
     a look at the code for the <classname>WeatherDAO</classname> in <xref
     linkend="ex-persist-weatherdao-class" />.</para>
 
-    <example>
+    <example id="ex-persist-weatherdao-class">
       <title>simple-persist's WeatherDAO Class</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.persist;
@@ -1347,7 +1346,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <example id="ex-hibernate-cfg">
       <title>simple-persist hibernate.cfg.xml</title>
 
-      <programlisting langauge="xml">&lt;!DOCTYPE hibernate-configuration PUBLIC
+      <programlisting language="xml">&lt;!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;
         
@@ -1457,7 +1456,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <para>The POM for <varname>simple-webapp</varname> is shown in <xref
     linkend="example_pom-for-simple-webapp" />.</para>
 
-    <example>
+    <example id="example_pom-for-simple-webapp">
       <title>POM for simple-webapp</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -1559,23 +1558,6 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       </callout>
 
       <callout arearefs="coDef-spring-web-2" id="coRef-spring-web-2">
-        <para>In our build configuration, we’re going to be configuring the
-        <indexterm>
-            <primary>Maven Hibernate3 plugin</primary>
-          </indexterm><indexterm>
-            <primary>Hibernate3 plugin</primary>
-          </indexterm>Maven Hibernate3 plugin to hit an embedded HSQLDB
-        instance. For the Maven Hibernate 3 plugin to successfully connect to
-        this database using JDBC, the plugin will need to reference the HSQLDB
-        JDBC driver on the classpath. To make a dependency available for a
-        <phrase role="keep-together">plugin</phrase>, we add a reference to
-        the dependency as an extension. You can think about extensions as
-        providing you with the ability to add something to the classpath for
-        plugin execution. In this case, we’re referencing
-        <literal>hsqldb:hsqldb:1.8.0.7</literal>.</para>
-      </callout>
-
-      <callout arearefs="coDef-spring-web-2" id="coRef-spring-web-2">
         <para>The Maven Jetty plugin couldn’t be easier to add to this
         <indexterm>
             <primary>Maven Jetty plugin</primary>
@@ -1650,8 +1632,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <para>Next, we turn our attention to the two Spring MVC controllers that
     will handle all of the requests. Both of these controllers reference the
     beans defined in <varname>simple-weather</varname> and
-    <varname>simple-persist</varname>. See <xref
-    linkend="ex-simple-webapp-weathercontroller" />.</para>
+    <varname>simple-persist</varname>.</para>
 
     <example>
       <title>simple-webapp WeatherController</title>
@@ -1736,7 +1717,7 @@ public class WeatherController implements Controller {
     <example>
       <title>weather.vm template rendered by WeatherController</title>
 
-      <programlisting id="ex-weather-vm" langauge="xml">&lt;b&gt;Current Weather Conditions for:
+      <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Current Weather Conditions for:
   ${weather.location.city}, ${weather.location.region}, 
   ${weather.location.country}&lt;/b&gt;&lt;br/&gt;
   
