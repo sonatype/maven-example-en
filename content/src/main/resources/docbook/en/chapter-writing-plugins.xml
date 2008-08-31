@@ -1170,7 +1170,7 @@ public class EchoMojo extends AbstractMojo
       events and errors that your Mojo can cope with. If you were trying to
       run a plugin that compiled Ruby source code, and there was no Ruby
       source code available, you might want to just print a warning message
-      and move on Warnings are not fatal, but errors are usually
+      and move on.  Warnings are not fatal, but errors are usually
       build-stopping conditions. For the completely unexpected error
       condition, there is the error logging level. You would use error if you
       couldn't continue executing a Mojo. If you were writing a Mojo to
