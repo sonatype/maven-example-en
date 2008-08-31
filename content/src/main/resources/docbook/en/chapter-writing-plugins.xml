@@ -879,6 +879,7 @@ import org.apache.maven.plugin.MojoFailureException;
 /**
  * Echos an object string to the output screen.
  * @goal echo
+ * @requiresProject false
  */
 public class EchoMojo extends AbstractMojo
 {
