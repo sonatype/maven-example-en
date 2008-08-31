@@ -2043,6 +2043,17 @@ from the specified remote repositories:
         </varlistentry>
 
         <varlistentry>
+          <term>Empty Trash</term>
+
+          <listitem>
+            <para>The Evict and Purge actions do not delete data from the
+            Nexus working directory. They simply move data to be cleared or
+            evicted to a trash directory under the Nexus work directory. This
+            service deletes the data in this trash directory.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>Evict Unused Proxied Items From Repository Caches</term>
 
           <listitem>
@@ -2097,6 +2108,15 @@ from the specified remote repositories:
             <para>This service tells Nexus to reindex a repository.</para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>Synchronize Shadow Repository</term>
+
+          <listitem>
+            <para>This service synchronizes a shadow (or virtual) repository
+            with its master repository.</para>
+          </listitem>
+        </varlistentry>
       </variablelist>
 
       <note>
@@ -2105,8 +2125,9 @@ from the specified remote repositories:
         trash directory under the Nexus work directory. If you want to reclaim
         disk space, you need to clear the Trash on the Browse Repositories
         screen. If something goes wrong with a evict of clear service, you can
-        move the data back to the appropriate storage location from the
-        trash.</para>
+        move the data back to the appropriate storage location from the trash.
+        You can also schedule the Empty Trash service to clear this directory
+        on a periodic basis. </para>
       </note>
 
       <para>When you create a new service you can configure it to apply to all
@@ -2874,7 +2895,7 @@ Alternatively, if you host your own repository you can deploy the file there:
       To do this, download the Oracle <acronym>JDBC</acronym> driver from
       <ulink
       url="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html</ulink>
-      and save it to the file <filename>ojdbc.jar</filename>. </para>
+      and save it to the file <filename>ojdbc.jar</filename>.</para>
 
       <para>Once you have downloaded the file for this third-party asset, we
       recommend that you use the UI-based upload which was shown in <xref
