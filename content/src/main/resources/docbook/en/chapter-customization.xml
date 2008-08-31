@@ -549,7 +549,7 @@ public class Weather {
     <para>Now, in the same directory, create a file named
     <filename>Main.java</filename>. This <classname>Main</classname> class
     will hold the static <methodname>main()</methodname> function—the entry
-    point for this example. </para>
+    point for this example.</para>
 
     <example>
       <title>Simple Weather's Main Class</title>
@@ -650,7 +650,7 @@ public class YahooRetriever {
     <classname>InputStream</classname>. To create something to parse this
     feed, we’ll need to create the <filename
     role="keep-together">YahooParser.java</filename> file in the same
-    directory. </para>
+    directory.</para>
 
     <example>
       <title>Simple Weather's YahooParser Class</title>
@@ -841,7 +841,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     <filename>output.vm</filename>, which is the Velocity template used to
     render the output of this command-line program. Create
     <filename>output.vm</filename> in the <filename>resources/</filename>
-    directory. </para>
+    directory.</para>
 
     <example>
       <title>Simple Weather's Output Velocity Template</title>
@@ -895,7 +895,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     project’s base directory:</para>
 
     <screen>$ <command>mvn install</command>
-$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
+/$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
 ...
 [INFO] [exec:java]
 0    INFO  YahooRetriever  - Retrieving Weather Data
@@ -915,11 +915,33 @@ $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</c
 
     <para>We didn’t supply a command-line argument to the
     <classname>Main</classname> class, so we ended up with the default zip
-    code, 60202. As you can see, we’ve successfully executed the simple
-    weather command-line tool, retrieved some data from Yahoo! Weather, parsed
-    the result, and formatted the resulting data with Velocity. We achieved
-    all of this without doing much more than writing our project’s source code
-    and adding some minimal configuration to the <filename>pom.xml</filename>.
+    code, 60202. To supply a zip code, we would use the
+    <varname>-Dexec.args</varname> argument and pass in a zip code:</para>
+
+    <screen>$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main -Dexec.args="70112"</command>
+...
+[INFO] [exec:java]
+0    INFO  YahooRetriever  - Retrieving Weather Data
+134  INFO  YahooParser  - Creating XML Reader
+333  INFO  YahooParser  - Parsing XML Response
+420  INFO  WeatherFormatter  - Formatting Weather Data
+*********************************
+ Current Weather Conditions for:
+  New Orleans, LA, US
+  
+ Temperature: 82
+   Condition: Fair
+    Humidity: 71
+  Wind Chill: 82
+*********************************
+[INFO] Finished at: Sun Aug 31 09:33:34 CDT 2008
+...</screen>
+
+    <para>As you can see, we’ve successfully executed the simple weather
+    command-line tool, retrieved some data from Yahoo! Weather, parsed the
+    result, and formatted the resulting data with Velocity. We achieved all of
+    this without doing much more than writing our project’s source code and
+    adding some minimal configuration to the <filename>pom.xml</filename>.
     Notice that no “build process” was involved. We didn’t need to define how
     or where the Java compiler compiles our source to bytecode, and we didn’t
     need to instruct the build system how to locate the bytecode when we
@@ -940,14 +962,13 @@ $ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</c
       <para>This will list all of the goals that are available in the Maven
       Exec plugin. The Help plugin will also list all of the valid parameters
       for the Exec plugin. If you would like to customize the behavior of the
-      Exec plugin to pass in command-line arguments, you should use the
-      documentation provided by <varname>help:describe</varname> as a guide.
-      Although the Exec plugin is useful, you shouldn’t rely on it as a way to
-      execute your application outside of running tests during development.
-      For a more robust solution, use the Maven <phrase
-      role="keep-together">Assembly</phrase> plugin that is demonstrated in
-      the section <xref linkend="section-custom-packaged" />,” later in this
-      chapter.</para>
+      Exec plugin you should use the documentation provided by
+      <varname>help:describe</varname> as a guide. Although the Exec plugin is
+      useful, you shouldn’t rely on it as a way to execute your application
+      outside of running tests during development. For a more robust solution,
+      use the Maven <phrase role="keep-together">Assembly</phrase> plugin that
+      is demonstrated in the section <xref
+      linkend="section-custom-packaged" />,” later in this chapter.</para>
     </section>
 
     <section>
@@ -1191,7 +1212,7 @@ public class YahooParserTest extends TestCase {
     method defined by <classname>TestCase</classname>.</para>
 
     <para>In the same directory, create a file named
-    <filename>WeatherFormatterTest.java</filename>. </para>
+    <filename>WeatherFormatterTest.java</filename>.</para>
 
     <example>
       <title>Simple Weather's WeatherFormatterTest Unit Test</title>
@@ -1382,7 +1403,7 @@ $ <command>cd resources</command></screen>
     <para>This file should look familiar. It is the same output that was
     generated previously when you ran the simple weather project with the
     Maven Exec plugin. The second file you’ll need to add to the resources
-    directory is <filename>ny-weather.xml</filename>. </para>
+    directory is <filename>ny-weather.xml</filename>.</para>
 
     <example>
       <title>Simple Weather's YahooParserTest XML Input</title>
