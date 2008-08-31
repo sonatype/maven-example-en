@@ -1047,10 +1047,8 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
 $ <command>cd shindig</command>
 $ <command>mvn install</command>
 ... Maven will build Shindig ...
-Downloading: http://localhost:8081/nexus/content/groups/public/\
-  caja/caja/r820/caja-r820.pom
-Downloading: http://localhost:8081/nexus/content/groups/public/\
-  caja/caja/r820/caja-r820.jar
+Downloading: http://localhost:8081/nexus/content/groups/public/caja/caja/r2178/caja-r2178.jar
+...
 [INFO] ------------------------------------------------------------------------
 [ERROR] BUILD ERROR
 [INFO] ------------------------------------------------------------------------
@@ -1058,29 +1056,26 @@ Downloading: http://localhost:8081/nexus/content/groups/public/\
 
 Missing:
 ----------
-1) caja:caja:jar:r820
+1) caja:caja:jar:r2178
 
   Try downloading the file manually from the project website.
 
 ...
 ----------
-1 required artifact is missing.
+3 required artifacts are missing.
 
 for artifact: 
-  org.apache.shindig:gadgets:war:1-SNAPSHOT
+  org.apache.shindig:shindig-gadgets:jar:1-SNAPSHOT
 
 from the specified remote repositories:
-  oauth (http://oauth.googlecode.com/svn/code/maven),
-  central (http://central),
-  apache.snapshots (http://people.apache.org/repo/m2-snapshot-repository),
-  caja (http://google-caja.googlecode.com/svn/maven)
+  nexus (http://localhost:8081/nexus/content/groups/public)
 </screen>
 
-      <para>The build fails because it is unable to download an artifact. The
-      artifact it was trying to download has a group identifier of
-      <varname>caja</varname>, and artifactId of <varname>caja</varname>, and
-      a version of <varname>r820</varname>. It is an artifact that is hosted
-      on a custom repository <ulink
+      <para>The build fails because it is unable to download three artifacts.
+      One of the artifacts Maven was trying to download has a group identifier
+      of <varname>caja</varname>, and artifactId of <varname>caja</varname>,
+      and a version of <varname>r2178</varname>. It is an artifact that is
+      hosted on a custom repository <ulink
       url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>.
       Maven failed to download this artifact because your
       <filename>settings.xml</filename> was configured to direct all mirrors
@@ -1089,8 +1084,9 @@ from the specified remote repositories:
       <filename>pom.xml</filename> for Apache Shindig defined a repository and
       pointed it at <ulink
       url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>,
-      Nexus won't retrieve an artifact from a repository it doesn't know
-      about. In fact, there are two repositories that Nexus doesn't know about
+      Nexus won't retrieve an artifact from a repository it doesn't know about
+      and you've configured all requests for remote artifacts to pass through
+      Nexus. In fact, there are two repositories that Nexus doesn't know about
       in this build: <varname>caja</varname> and <varname>oauth</varname>.
       <ulink url="http://code.google.com/p/google-caja/">Caja</ulink> and
       <ulink url="http://code.google.com/p/oauth/">OAuth</ulink> are two
