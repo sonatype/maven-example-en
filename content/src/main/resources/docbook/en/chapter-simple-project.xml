@@ -532,7 +532,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <varname>package</varname> phase in a project that produces a
       <acronym>JAR</acronym>, means “package this project into a JAR”; in a
       project that produces a web application, the <varname>package</varname>
-      phase may produce a <acronym>WAR</acronym> file. </para>
+      phase may produce a <acronym>WAR</acronym> file.</para>
 
       <para>Plugin goals can be attached<indexterm>
           <primary>plugin goals</primary>
@@ -1024,7 +1024,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       dependencies on other artifacts. These dependencies of dependencies are
       called transitive dependencies, and they are made possible by the fact
       that the Maven repository stores more than just bytecode; it stores
-      metadata about artifacts. </para>
+      metadata about artifacts.</para>
 
       <figure>
         <title>Maven Resolves Transitive Dependencies</title>
@@ -1042,7 +1042,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       full set of direct and transitive dependencies for project A would be
       projects B, C, D, and E, but all project A had to do was define a
       dependency on B and C. Transitive dependencies can come in handy when
-      your project relies on another projects with several small dependencies
+      your project relies on other projects with several small dependencies
       (like Hibernate, Apache Struts, or the Spring Framework). Maven also
       provides you with the ability to exclude transitive dependencies from
       being included in a project's classpath.</para>
@@ -1070,9 +1070,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       build. This scope comes in handy when you are developing a web
       application. You’ll need to compile your code against the Servlet
       specification, but you don’t want to include the Servlet
-      <acronym>API</acronym> <acronym>JAR</acronym> in your web
-      application’s <filename>WEB-INF/lib</filename>
-      directory.</para>
+      <acronym>API</acronym> <acronym>JAR</acronym> in your web application’s
+      <filename>WEB-INF/lib</filename> directory.</para>
     </section>
 
     <section>
