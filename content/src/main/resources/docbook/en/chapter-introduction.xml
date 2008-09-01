@@ -36,7 +36,7 @@
     <para>Don't let the fact that Maven is a "project management" tool scare
     you away. If you were just looking for a build tool, Maven will do the
     job. In fact, the first few chapters of this book will deal with the most
-    common use case: Using Maven to build and distribute your project.</para>
+    common use case: using Maven to build and distribute your project.</para>
   </section>
 
   <section id="section-conventionConfiguration">
@@ -50,7 +50,7 @@
     principles in reaction to the configuration complexity of frameworks such
     as the initial <acronym>EJB</acronym> 2.1 specifications. An illustration
     of convention over configuration is something like <acronym>EJB3</acronym>
-    persistence, all you need to do to make a particular bean persistent is to
+    persistence: all you need to do to make a particular bean persistent is to
     annotate that class with <classname>@Entity</classname> the framework
     assumes table and column names based on the name of the class and the
     names of the properties. Hooks are provided for you to override these
@@ -98,7 +98,7 @@
 
     <para>Before Maven provided a common interface for building software,
     every single project had someone dedicated to managing a completely custom
-    build systems and developers had to take time away from developing
+    build system, and developers had to take time away from developing
     software to learn about the idiosyncracies of each new project they wanted
     to contribute to. In 2001, you'd have a completely different approach to
     building a project like <ulink
@@ -130,7 +130,7 @@
     implementation in the Jakarta Project), a project's build was so difficult
     it would take multiple hours just to get to the point where a new
     contributor could edit source and compile the project. These days, you
-    check it out from source, and you run: <command>mvn
+    check it out from source, and you run <command>mvn
     install</command>.</para>
 
     <para>While Maven provides an array of benefits including dependency
@@ -155,7 +155,7 @@
     in plugin goals which take care of things like compiling source, packaging
     bytecode, publishing sites, and any other task which need to happen in a
     build. The Maven you download from Apache doesn't know much about
-    packaging a <acronym>WAR</acronym> file or running JUnit tests, most of
+    packaging a <acronym>WAR</acronym> file or running JUnit tests; most of
     the intelligence of Maven is implemented in the plugins and the plugins
     are retrieved from the Maven Repository. In fact, the first time you ran
     something like <command>mvn install</command> with a brand-new Maven
@@ -199,7 +199,7 @@
   <section>
     <title>Conceptual Model of a "Project"</title>
 
-    <para>Maven maintains a model of a project: you are not just compiling
+    <para>Maven maintains a model of a project. You are not just compiling
     source code into bytecode, you are developing a description of a software
     project and assigning a unique set of coordinates to a project. You are
     describing the attributes of the project. What is the project's license?
@@ -216,8 +216,8 @@
 
         <listitem>
           <para>Because a project is defined a unique coordinate which
-          consists of a group identifier, artifact identifier, and version.
-          Projects can now use these coordinates to declare
+          consists of a group identifier, artifact identifier, and version,
+          projects can now use these coordinates to declare
           dependencies.</para>
         </listitem>
       </varlistentry>
@@ -237,7 +237,7 @@
 
         <listitem>
           <para>Plugins are coded to work with the Project Object Model
-          (<acronym>POM</acronym>), they are not designed to operate upon
+          (<acronym>POM</acronym>); they are not designed to operate upon
           specific files in known locations. Everything is abstracted into the
           Model, plugin configuration and customization happens in the
           model.</para>
@@ -295,8 +295,8 @@
     the various tasks in your build as much as it is about encouraging a set
     of standards, a common interface, a life-cycle, a standard repository
     format, a standard directory layout, etc. It certainly isn't about what
-    format the <acronym>POM</acronym> happens to be in <acronym>XML</acronym>
-    vs. <acronym>YAML</acronym> vs. Ruby. Maven is much larger than that, and
+    format the <acronym>POM</acronym> happens to be in <acronym>(XML</acronym>
+    vs. <acronym>YAML</acronym> vs. Ruby). Maven is much larger than that, and
     Maven refers to much more than the tool itself. When this book talks of
     Maven, it is referring to the constellation of software, systems, and
     standards that support it. Buildr, Ivy, Gradle, all of these tools
@@ -328,7 +328,7 @@
 
     <para>While the previous section should convince you that the authors of
     this book have no interest in create a feud between Apache Ant and Apache
-    Maven, we cognizant of the fact that most organizations have to make a
+    Maven, we are cognizant of the fact that most organizations have to make a
     decision between the Apache Ant and Apache Maven. In this section, we
     compare and contrast the tools.</para>
 
