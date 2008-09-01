@@ -513,7 +513,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <primary>phases, lifecycle</primary>
 
           <see>build lifecycle</see>
-        </indexterm> was <command>mvn package</command>. This command didn’t
+        </indexterm> was <command>mvn install</command>. This command didn’t
       specify a plugin goal; instead, it specified a Maven lifecycle phase. A
       phase is a step in what Maven calls the “build lifecycle.” The build
       lifecycle is an ordered sequence of phases involved in building a
@@ -545,9 +545,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </indexterm> to a lifecycle phase. As Maven moves through the phases
       in a lifecycle, it will execute the goals attached to each particular
       phase. Each phase may have zero or more goals bound to it. In the
-      previous section, when you ran <command>mvn package</command>, you might
+      previous section, when you ran <command>mvn install</command>, you might
       have noticed that more than one goal was executed. Examine the output
-      after running <command>mvn package</command> and take note of the
+      after running <command>mvn install</command> and take note of the
       various goals that are executed. When this simple example reached the
       <varname>package</varname> phase, it executed the <varname>jar</varname>
       goal in the Jar plugin. Since our simple Quickstart project has (by
@@ -697,25 +697,27 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </mediaobject>
         </figure></para>
 
-      <para>To summarize, when we executed <command>mvn package</command>,
-      Maven executes all phases up to package, and in the process of stepping
-      through the life cycle phases it executes all goals bound to each phase.
-      Instead of executing a Maven lifecycle goal you could achieve the same
-      results by specifying a sequence of plugin goals as follows:</para>
+      <para>To summarize, when we executed <command>mvn install</command>,
+      Maven executes all phases up to the install phase, and in the process of
+      stepping through the life cycle phases it executes all goals bound to
+      each phase. Instead of executing a Maven lifecycle goal you could
+      achieve the same results by specifying a sequence of plugin goals as
+      follows:</para>
 
       <screen><command>mvn resources:resources \
     compiler:compile \
     resources:testResources \
     compiler:testCompile \
     surefire:test \
-    jar:jar</command>
+    jar:jar \
+    install:install</command> 
 </screen>
 
-      <para>Executing the <varname>package</varname> phase is preferable to
-      keeping track of all of the goals involved in a particular build, it
-      also allows every project that uses Maven to adhere to a well-defined
-      set of standards. The lifecycle is what allows a developer to jump from
-      one Maven project to another without having to know very much about the
+      <para>It is much easier to execute lifecycle phases that it is to
+      specify explicit goals on the command line, and the common lifecycle
+      allows every project that uses Maven to adhere to a well-defined set of
+      standards. The lifecycle is what allows a developer to jump from one
+      Maven project to another without having to know very much about the
       details of each particular project's build. If you can build one Maven
       project, you can build them all.</para>
     </section>
