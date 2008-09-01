@@ -1611,9 +1611,9 @@
 
     <para>One of the compelling reasons to use Maven is that it makes the
     process of tracking down dependencies (and dependencies of dependencies)
-    very easy. When a project depends on an artifact artifact of another
-    project we can say that this artifact is a dependency. In the case of a
-    Java project, this can be as simple as a project depending on an external
+    very easy. When a project depends on an artifact produced by another
+    project we say that this artifact is a dependency. In the case of a Java
+    project, this can be as simple as a project depending on an external
     dependency like Log4J or JUnit. While dependencies can model external
     dependencies, they can also manage the dependencies between a set of
     related projects, if <varname>project-a</varname> depends on
@@ -1910,7 +1910,7 @@ top-group/project-c/pom.xml</programlisting>
         </listitem>
 
         <listitem>
-          <para>plugin executions. (executions with matching ids are
+          <para>plugin executions (executions with matching ids are
           merged)</para>
         </listitem>
 

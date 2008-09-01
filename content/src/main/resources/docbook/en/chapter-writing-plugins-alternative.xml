@@ -6,8 +6,8 @@
 
   <para>You can write a Mojo in Java, or you can write a Mojo in an
   alternative language. Maven has support for a number of implementation
-  languages, and this chapter is going show you how to create plugins in three
-  languages: Groovy, Ant, and Ruby plugins.</para>
+  languages, and this chapter is going to show you how to create plugins in
+  three languages: Groovy, Ant, and Ruby plugins.</para>
 
   <section>
     <title>Writing Plugins in Ant</title>
@@ -138,8 +138,8 @@
 
     <para>If you've configured your plugin groups in
     <filename>~/.m2/settings.xml</filename> to include
-    <varname>org.sonatype.mavenbook.plugins</varname>, you can install this Ant
-    plugin by executing the following command at the command-line:</para>
+    <varname>org.sonatype.mavenbook.plugins</varname>, you can install this
+    Ant plugin by executing the following command at the command-line:</para>
 
     <screen>$ <command>mvn install</command>
 [INFO] ------------------------------------------------------------------------
@@ -299,9 +299,9 @@ run_mojo Echo
       descriptor goal applies the JRuby extractor to create a
       <filename>plugin.xml</filename> which captures the annotations in the
       <classname>Echo</classname> class. If you've configured your default
-      plugin groups to include <varname>org.sonatype.mavenbook.plugins</varname>,
-      you should be able to run this echo goal with the following
-      command-line:</para>
+      plugin groups to include
+      <varname>org.sonatype.mavenbook.plugins</varname>, you should be able to
+      run this echo goal with the following command-line:</para>
 
       <screen>$ <command>mvn firstruby:echo</command>
 ...
