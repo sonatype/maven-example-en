@@ -899,29 +899,18 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
  &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>In this application context, we're accomplishing a few things. The
-    <varname>sessionFactory</varname> bean is the bean from which the
-    <acronym>DAO</acronym>s retrieve Hibernate <classname>Session</classname>
-    objects. This bean is an instance of
-    <classname>AnnotationSessionFactoryBean</classname> and is supplied with a
-    list of <varname>annotatedClasses</varname>. Note that the list of
-    annotated classes is the list of classes defined in our
-    <varname>simple-model</varname> module. Next, the
-    <varname>sessionFactory</varname> is configured with a set of Hibernate
-    configuration properties (<varname>hibernateProperties</varname>). In this
-    example, our HIbernate properties define a number of settings:</para>
+    <para>在这个application
+    context中，我们完成了一些事情。<acronym>DAO</acronym>从<varname>sessionFactory</varname>
+    bean获取Hibernate
+    <classname>Session</classname>对象。这个bean是一个<classname>AnnotationSessionFactoryBean</classname>的实例，并由一列<varname>annotatedClasses</varname>填充。注意这列标注类就是定义在我们<varname>simple-model</varname>模块中的那些类。接下来，<varname>sessionFactory</varname>通过一组Hibernate配置属性(<varname>hibernateProperties</varname>)配置。该例中，我们的Hibernate属性定义了许多设置：</para>
 
     <variablelist>
       <varlistentry>
         <term><literal>hibernate.dialect</literal></term>
 
         <listitem>
-          <para>This setting controls how <acronym>SQL</acronym> is to be
-          generated for our database. Since we are using the
-          <acronym>HSQLDB</acronym> database, our database dialect is set to
-          <classname>org.</classname><classname>hibernate.</classname><classname>dialect.</classname><classname>HSQLDialect</classname>.
-          Hibernate has dialects for all major databases such as Oracle,
-          MySQL, Postgres, and SQL Server.</para>
+          <para>该设置控制如何生成数据库的<acronym>SQL</acronym>。由于我们正在使用<acronym>HSQLDB</acronym>数据库，我们的数据库方言设置成<classname>org.</classname><classname>hibernate.</classname><classname>dialect.</classname><classname>HSQLDialect</classname>。Hibernate有所有主流数据库的方言，如Oracle，MySQL，Postgres和SQL
+          Server。</para>
         </listitem>
       </varlistentry>
 
@@ -929,52 +918,31 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
         <term><literal>hibernate.connection.*</literal></term>
 
         <listitem>
-          <para>In this example, we’re configuring the <acronym>JDBC</acronym>
-          connection properties from the Spring configuration. Our
-          applications are configured to run against a
-          <acronym>HSQLDB</acronym> in the <filename
-          role="keep-together">./data/weather</filename> directory. In a real
-          enterprise application, it is more likely you would use something
-          like <acronym>JNDI</acronym> to externalize database configuration
-          from your application’s code.</para>
+          <para>该例中，我们从Spring配置中配置<acronym>JDBC</acronym>连接属性。我们的应用被配置成运行在<filename
+          role="keep-together">./data/weather</filename>目录下的<acronym>HSQLDB</acronym>上。在实际的企业应用中，你更可能会使用如<acronym>JNDI</acronym>的东西以从你的应用程序代码中抽出数据库配置。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Lastly, in this bean definition file, both of the
-    <varname>simple-persist</varname> <acronym>DAO</acronym> objects are
-    created and given a reference to the <varname>sessionFactory</varname>
-    bean just defined. Just like the Spring application context in
-    <varname>simple-weather</varname>, this
-    <filename>applicationContext-persist.xml</filename> file defines the
-    architecture of a submodule in a larger enterprise design. If you were
-    working with a larger collection of persistence classes, you might find it
-    useful to capture them in an application context which is separate from
-    your application.</para>
+    <para>最后，在这个bean定义文件中，两个<varname>simple-persist</varname>
+    <acronym>DAO</acronym>对象被创建并给予了对于刚定义的<varname>sessionFactory</varname>
+    bean的引用。就像<varname>simple-weather</varname>中的Spring application
+    context，这个<filename>applicationContext-persist.xml</filename>文件定义了一个大型企业应用设计中一个子模块的架构。如果你曾经从事过大量持久化类的集合相关的工作，你可能会发现，这些与你应用程序独立的application
+    context文件，能帮助你快速的理解所有类的关系。</para>
 
-    <para>There’s one last piece of the puzzle in
-    <varname>simple-persist</varname>. Later in this chapter, we’re going to
-    <indexterm>
+    <para><varname>simple-persist</varname>中还有最后一块不清楚的地方。本章后面，我们将看到<indexterm>
         <primary>Maven Hibernate3 plugin</primary>
       </indexterm><indexterm>
         <primary>Hibernate3 plugin</primary>
-      </indexterm>see how we can use the Maven Hibernate3 plugin to generate
-    our database schema from the annotated model objects. For this to work
-    properly, the Maven Hibernate3 plugin needs to read the
-    <acronym>JDBC</acronym> connection configuration parameters, the list of
-    annotated classes, and other Hibernate configuration from a file
-    named<indexterm>
+      </indexterm>如何使用Maven Hibernate3插件，根据标注的模型对象来生成数据库schema。为了使它正确工作，Maven
+    Hibernate3插件需要读取<acronym>JDBC</acronym>连接配置参数，那一列标注的类，以及<filename>src/main/resources</filename>中名为<filename><indexterm>
         <primary>hibernate.cfg.xml file</primary>
-      </indexterm> <filename>hibernate.cfg.xml</filename> in
-    <filename>src/main/resources</filename>. The purpose of this file (which
-    duplicates some of the configuration in
-    <filename>applicationContext-persist.xml</filename>) is to allow us to
-    leverage the Maven Hibernate3 <phrase role="keep-together">plugin</phrase>
-    to generate Data Definition Language (<acronym>DDL</acronym>) from nothing
-    more than our annotations. See <xref linkend="ex-hibernate-cfg" />.</para>
+      </indexterm>hibernate.cfg.xml</filename>文件的Hibernate配置。该文件（它重复了一些<filename>applicationContext-persist.xml</filename>中的配置）的目的是能让Maven
+    Hibernate3插件能仅仅依靠标注就能生成数据定义语言（<acronym>DDL</acronym>）。如<xref
+    linkend="ex-hibernate-cfg" />。</para>
 
     <example id="ex-hibernate-cfg">
-      <title>simple-persist hibernate.cfg.xml</title>
+      <title>simple-persist 的 hibernate.cfg.xml</title>
 
       <programlisting language="xml">&lt;!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -1021,26 +989,20 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 &lt;/hibernate-configuration&gt;</programlisting>
     </example>
 
-    <para>The contents of <xref linkend="ex-persist-spring" /> and <xref
-    linkend="ex-multimodule-web-spring-parent" /> are redundant. While the
-    Spring Application Context <acronym>XML</acronym> is going to be used by
-    the web application and the command-line application, the
-    <filename>hibernate.cfg.xml</filename> exists only to support the Maven
-    Hibernate3 plugin. Later in this chapter, we'll see how to use this
-    <filename>hibernate.cfg.xml</filename> and the Maven Hibernate3 plugin to
-    generate a database schema based on the annotated object model defined in
-    <varname>simple-model</varname>. This
-    <filename>hibernate.cfg.xml</filename> file is the file that will
-    configure the <acronym>JDBC</acronym> connection properties and enumerate
-    the list of annotated model classes for the Maven Hibernate3
-    plugin.</para>
+    <para><xref linkend="ex-persist-spring" />和<xref
+    linkend="ex-multimodule-web-spring-parent" />的内容是冗余的。Spring Application
+    Context
+    <acronym>XML</acronym>是被web引用和命令行应用使用的，而<filename>hibernate.cfg.xml</filename>的存在只是为了支持Maven
+    Hibernate3插件。本章的后面，我们将会看到如何使用<filename>hibernate.cfg.xml</filename>和Maven
+    Hibernate3插件，根据<varname>simple-model</varname>中定义的标注对象模型，来生成一个数据库schema。<filename>hibernate.cfg.xml</filename>会配置JDBC连接属性并且为Maven
+    Hibernate3插件枚举标注模型类的列表。</para>
   </section>
 
   <section>
     <title>simple-webapp模块</title>
 
-    <para>The web application is defined in a <varname>simple-webapp</varname>
-    <indexterm class="startofrange" id="enterprise6a">
+    <para>该web应用中项目<varname>simple-webapp</varname><indexterm
+        class="startofrange" id="enterprise6a">
         <primary>multimodule project (example)</primary>
 
         <secondary>multimodule enterprise project</secondary>
@@ -1056,24 +1018,14 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
         <primary>enterprise project, multimodule (example)</primary>
 
         <secondary>Simple Web Application of</secondary>
-      </indexterm>project. This simple web application project is going to
-    define two Spring <acronym>MVC</acronym> Controllers:
-    <classname>WeatherController</classname> and <classname
-    role="keep-together">HistoryController</classname>. Both of these
-    controllers are going to reference components defined in
-    <varname>simple-weather</varname> and <varname>simple-persist</varname>.
-    The Spring container is configured in this application’s
-    <filename>web.xml</filename>, which references the
-    <filename>applicationContext-weather.xml</filename> file in <varname
-    role="keep-together">simple-weather</varname> and the
-    <filename>applicationContext-persist.xml</filename> file in
-    <varname>simple-persist</varname>. The component architecture of this
-    simple web application is shown in <xref
-    linkend="fig-web-components" />.</para>
+      </indexterm>中定义。这个简单web应用项目将会定义两个Spring
+    <acronym>MVC</acronym>控制器：<classname>WeatherController</classname>和<classname
+    role="keep-together">HistoryController</classname>。两者都会引用<varname>simple-weather</varname>和<varname>simple-persist</varname>中定义的组件。Spring容器在应用程序的<filename>web.xml</filename>中配置，该文件引用了<varname
+    role="keep-together">simple-weather</varname>中的<filename>applicationContext-weather.xml</filename>文件和<varname>simple-persist</varname>中的<filename>applicationContext-persist.xml</filename>文件。这个简单web应用的组件架构如<xref
+    linkend="fig-web-components" />显示。</para>
 
     <figure id="fig-web-components">
-      <title>Spring MVC Controllers Referencing Components in simple-weather
-      and simple-persist.</title>
+      <title>Spring MVC 控制器引用simple-weather和simple-persist中的组件</title>
 
       <mediaobject>
         <imageobject>
@@ -1083,11 +1035,11 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       </mediaobject>
     </figure>
 
-    <para>The POM for <varname>simple-webapp</varname> is shown in <xref
-    linkend="example_pom-for-simple-webapp" />.</para>
+    <para><varname>simple-webapp</varname>的POM如<xref
+    linkend="example_pom-for-simple-webapp" />显示。</para>
 
     <example id="example_pom-for-simple-webapp">
-      <title>POM for simple-webapp</title>
+      <title>simple-webapp的POM</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1173,96 +1125,53 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 </programlisting>
     </example>
 
-    <para>As this book progresses and the examples become more and more
-    substantial, you’ll notice that the <filename>pom.xml</filename> begins to
-    take on some weight. In this POM, we’re configuring four dependencies and
-    two plugins. Let’s go through this POM in detail and dwell on some of the
-    important configuration points:</para>
+    <para>随着书本的推进以及样例变得越来越大，你会注意到<filename>pom.xml</filename>开始呈现得有一些笨重，这里我们配置了四个依赖和两个插件。让我们详细查看一下这个POM然后详述其中一些重要的配置点：</para>
 
     <calloutlist>
       <callout arearefs="coDef-spring-web-1" id="coRef-spring-web-1">
-        <para>This <varname>simple-webapp</varname> project defines four
-        dependencies: the Servlet 2.4 specification implementation from Apache
-        Geronimo, the simple-weather service library, the simple-persist
-        persistence library, and the entire Spring Framework 2.0.7.</para>
+        <para><varname>simple-webapp</varname>项目定义了四个依赖：来自于Apache
+        Geronimo的Servlet
+        2.4规格说明实现，simple-weather服务类库，simple-persist持久化类库，以及整个Spring Framework
+        2.0.7。</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-2" id="coRef-spring-web-2">
-        <para>The Maven Jetty plugin couldn’t be easier to add to this
-        <indexterm>
+        <para>Maven Jetty插件<indexterm>
             <primary>Maven Jetty plugin</primary>
           </indexterm><indexterm>
             <primary>Jetty plugin</primary>
-          </indexterm>project; we simply add a <literal>plugin</literal>
-        element that references the appropriate <literal>groupId</literal> and
-        <literal>artifactId</literal>. The fact that this plugin is so trivial
-        to configure means that the plugin developers did a good job of
-        providing adequate defaults that don’t need to be overridden in most
-        cases. If you did need to override the configuration of the Jetty
-        plugin, you would do so by providing a
-        <literal>configuration</literal> element.</para>
+          </indexterm>以最简单的方式加入到该项目，我们只是添加一个引用了对应<literal>groupId</literal>和<literal>artifactId</literal>的<literal>plugin</literal>元素。配置这个插件如此平常意味着这个插件的开发者做了很好的工作提供了足够的默认值，在大部分情况下不需要被重写。如果你需要重写一些Jetty插件的配置，那么就需要提供<literal>configuration</literal>元素。</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-3" id="coRef-spring-web-3">
-        <para>In our build configuration, we're going to be configuring the
-        Maven Hibernate3 Plugin to hit an embedded HSQLDB instance. For the
-        Maven Hibernate 3 plugin to successfully connect to this database
-        using JDBC, the plugin will need reference the HSQLDB JDBC driver on
-        the classpath. To make a dependency available for a plugin, we add a
-        <sgmltag>dependency</sgmltag> declaration right inside
-        <sgmltag>plugin</sgmltag> declaration. In this case, we're referencing
-        hsqldb:hsqldb:1.8.0.7. The Hibernate plugin also needs the JDBC driver
-        to create the database, so we have also added this dependency to its
-        configuration.</para>
+        <para>在我们的build配置中，我们还配置了Maven Hibernate3插件来访问内嵌的HSQLDB实例。要让Maven
+        Hibernate3插件能成功的使用JDBC连接该数据库，该插件需要引用classpath中的HSQLDB
+        JDBC驱动。为了让这个插件能使用该依赖，我们在<sgmltag>plugin</sgmltag>声明下面添加了一个<sgmltag>dependency</sgmltag>声明。在该例中，我们引用了hsqldb:hsqldb:1.8.0.7。这个Hibernate插件也需要JDBC驱动来创建数据库，所以我们也在它的配置中添加了这个依赖。</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-4" id="coRef-spring-web-4">
-        <para>The Maven Hibernate plugin is when this POM starts to get
-        <indexterm>
+        <para>这个Maven Hibernate插件<indexterm>
             <primary>Maven Hibernate plugin</primary>
           </indexterm><indexterm>
             <primary>Hibernate plugin</primary>
-          </indexterm>interesting. In the next section, we’re going to run the
-        <literal>hbm2ddl</literal> goal to generate a HSQLDB database. In this
-        <filename>pom.xml</filename>, we’re including a reference to version
-        2.0 of the <literal>hibernate3-maven-plugin</literal> hosted by the
-        Codehaus Mojo plugin.</para>
+          </indexterm>正是该POM变得有趣的地方。在下一节，我们将会运行<literal>hbm2ddl</literal>目标来生成HSQLDB数据库。在这个中，我们包含了对<literal>hibernate3-maven-plugin</literal>版本2.0的引用，该插件由Codehaus
+        Mojo维护。</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-5" id="coRef-spring-web-5">
-        <para>The Maven Hibernate3 plugin has different ways to obtain
-        Hibernate mapping information that are appropriate for different usage
-        scenarios of the Hibernate3 plugin. If you were using Hibernate
-        Mapping XML (<filename>.hbm.xml</filename>) files, and you wanted to
-        generate model classes using the <literal>hbm2java</literal> goal, you
-        would set your implementation to configuration. If you were using the
-        Hibernate3 plugin to reverse engineer a database to produce
-        <filename>.hbm.xml</filename> files and model classes from an existing
-        database, you would use an implementation of
-        <literal>jdbcconfiguration</literal>. In this case, we’re simply using
-        an existing annotated object model to generate a database. In other
-        words, we have our Hibernate mapping, but we don’t yet have a
-        database. In this usage scenario, the appropriate implementation value
-        is <literal>annotationconfiguration</literal>. The Maven Hibernate3
-        plugin is discussed in more detail in the later section <xref
-        linkend="sect-spring-running-web" />.”</para>
+        <para>Maven
+        Hibernate3插件有不同的方法获取Hibernate映射信息，这些信息适用于Hibernate3插件的不同用例。如果你正在使用Hibernate映射XML文件(<filename>.hbm.xml</filename>)，你会要使用<literal>hbm2java</literal>目标生成模型类，你会将implementation设置成<literal>configuration</literal>。如果你使用Hibernate3插件逆向工程从一个数据库产生<filename>.hbm.xml</filename>文件和模型类，你会需要一个<literal>jdbcconfiguration</literal>的implementation。在本例中，我们使用现存的标注对象模型来生辰给一个数据库。换句话说，我们有我们的Hibernate映射，但我们还没有数据库。在这种用例中，正确的implementation值应该是<literal>annotationconfiguration</literal>。Maven
+        Hibernate3插件在后面的一节<xref
+        linkend="sect-spring-running-web" />中详细讨论。</para>
       </callout>
     </calloutlist>
 
     <note>
-      <para>A common mistake is to use the <sgmltag>extensions</sgmltag>
-      configuration to add dependencies required by a plugin. This is strongly
-      discouraged as the extensions can cause classpath pollution across your
-      project, among other nasty side-effects. Additionally, the extensions
-      behavior is being reworked in 2.1 and you'll eventually need to change
-      it anway. The only normal use for <sgmltag>extensions</sgmltag> is to
-      define new wagon implementations</para>
+      <para>一个常见的错误是使<sgmltag>extensions</sgmltag>用配置添加一个插件需要的依赖。这是强烈不推荐的因为extensions会在你的项目中造成classpath污染，以及其它令人讨厌的副作用。此外，extensions行为正在2.1中被重做，最后你都会要改变它。唯一的对<sgmltag>extensions</sgmltag>的正常使用是定义新的wagon实现。</para>
     </note>
 
-    <para>Next, we turn our attention to the two Spring MVC controllers that
-    will handle all of the requests. Both of these controllers reference the
-    beans defined in <varname>simple-weather</varname> and
-    <varname>simple-persist</varname>.</para>
+    <para>接下来，我们将我们的注意力转移到两个处理所有请求的Spring
+    MVC控制器。两个控制器都引用了在<varname>simple-weather</varname>和<varname>simple-persist</varname>中定义的bean。</para>
 
     <example>
       <title>simple-webapp WeatherController</title>
