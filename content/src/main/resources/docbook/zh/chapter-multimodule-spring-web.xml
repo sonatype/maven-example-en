@@ -1217,44 +1217,18 @@ public class WeatherController implements Controller {
 }</programlisting>
     </example>
 
-    <para><varname>WeatherController</varname> implements the Spring MVC
-    Controller interface that mandates the presence of a
-    <methodname>handleRequest()</methodname> method with the signature shown
-    in the example. If you look at the meat of this method, you’ll see that it
-    invokes the <methodname>retrieveForecast()</methodname> method on the
-    <varname>weatherService</varname> instance variable. Unlike the previous
-    chapter, which had a Servlet that instantiated the
-    <classname>WeatherService</classname> class, the
-    <classname>WeatherController</classname> is a bean with a
-    <varname>weatherService</varname> property. The Spring IoC container is
-    responsible for wiring the controller to the
-    <varname>weatherService</varname> component. Also notice that we’re not
-    using the <classname role="keep-together">WeatherFormatter</classname> in
-    this Spring controller implementation; instead, we’re passing the
-    <classname>Weather</classname> object returned by
-    <methodname>retrieveForecast()</methodname> to the constructor of
-    <classname>ModelAndView</classname>. This
-    <classname>ModelAndView</classname> class is going to be used to render a
-    <indexterm>
+    <para><varname>WeatherController</varname>实现了MVC
+    Controller接口，该接口强制要求实现如上例中的<methodname>handleRequest()</methodname>方法。如果你看一下该方法的主要内容，你会看到它调用了<varname>weatherService</varname>实例变量的<methodname>retrieveForecast()</methodname>方法。不像前面的章节中，有一个Servlet来初始化<classname>WeatherService</classname>类，<classname>WeatherController</classname>是一个带有<varname>weatherService</varname>属性的bean。Spring
+    Ioc容器会负责将<varname>weatherService</varname>组件注入到控制器。同时也注意我们并没有在这个控制器实现中使用<classname
+    role="keep-together">WeatherFormatter</classname>；而是将<methodname>retrieveForecast()</methodname>返回的<classname>Weather</classname>对象传递给了<classname>ModelAndView</classname>的构造函数。<classname>ModelAndView</classname>类将被用来呈现<indexterm>
         <primary>Velocity template</primary>
-      </indexterm>Velocity template, and this template will have references to
-    a <varname>${weather}</varname> variable. The
-    <filename>weather.vm</filename> template is stored in
-    <filename>src/main/webapp/WEB-INF/vm</filename> and is shown in <xref
-    linkend="ex-weather-vm" />.</para>
+      </indexterm>Velocity模板，这个模板有对<varname>${weather}</varname>变量的引用。<filename>weather.vm</filename>模板存储在<filename>src/main/webapp/WEB-INF/vm</filename>，如<xref
+    linkend="ex-weather-vm" />所示。</para>
 
-    <para>In the <classname>WeatherController</classname>, before we render
-    the output of the forecast, we pass the <classname>Weather</classname>
-    object returned by the <classname>WeatherService</classname> to the
-    <methodname>save()</methodname> method on
-    <classname>WeatherDAO</classname>. Here we are saving this
-    <classname>Weather</classname> object—using Hibernate—to an HSQLDB
-    database. Later, in <classname>HistoryController</classname>, we will see
-    how we can retrieve a history of weather forecasts that were saved by the
-    <classname>WeatherController</classname>.</para>
+    <para>在这个<classname>WeatherController</classname>中，在我们呈现天气预报输出之前，我们将<classname>WeatherService</classname>返回的<classname>Weather</classname>对象传递给<classname>WeatherDAO</classname>的<methodname>save()</methodname>方法。这里我们使用Hibernate将<classname>Weather</classname>对象保存到HSQLDB数据库。之后，在<classname>HistoryController</classname>中，我们将看如何能够获取由<classname>WeatherController</classname>保存的天气预报历史信息。</para>
 
     <example>
-      <title>weather.vm template rendered by WeatherController</title>
+      <title>由 WeatherController 呈现的 weather.vm 模板</title>
 
       <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Current Weather Conditions for:
   ${weather.location.city}, ${weather.location.region}, 
@@ -1270,25 +1244,13 @@ public class WeatherController implements Controller {
 </programlisting>
     </example>
 
-    <para>The syntax for this Velocity template is straightforward, variables
-    are referenced using <code>${}</code> notation. The expression between the
-    curly braces references a property, or a property of a property on the
-    <varname>weather</varname> variable which was passed to this template by
-    the <classname>WeatherController</classname>.</para>
+    <para>Velocity模板的语法简单易懂，变量通过<code>${}</code>标记引用。大括弧里面的表达式引用<varname>weather</varname>变量的一个属性，或者该变量属性的属性。<varname>weather</varname>变量是由<classname>WeatherController</classname>传递给该模板的。</para>
 
-    <para>The <classname>HistoryController</classname> is used to retrieve
-    recent forecasts that have been requested by the
-    <classname>WeatherController</classname>. Whenever we retrieve a forecast
-    from the <classname>WeatherController</classname>, that controller saves
-    the <classname>Weather</classname> object to the database via the
-    <classname>WeatherDAO</classname>. <classname>WeatherDAO</classname> then
-    uses Hibernate to dissect the <classname>Weather</classname> object into a
-    series of rows in a set of related database tables. The
-    <classname>HistoryController</classname> is shown in <xref
-    linkend="ex-spring-history" />.</para>
+    <para><classname>HistoryController</classname>用来获取那些已经由<classname>WeatherController</classname>请求过的最近历史天气预报信息。任何时候当我们从<classname>WeatherController</classname>获取预报的时候，该控制器通过<classname>WeatherDAO</classname>将<classname>Weather</classname>对象保存至数据库。<classname>WeatherDAO</classname>然后使用Hibernate将<classname>Weather</classname>对象剖析成一组相关数据库表的记录行。<classname>HistoryController</classname>如<xref
+    linkend="ex-spring-history" />所示。</para>
 
     <example id="ex-spring-history">
-      <title>simple-web HistoryController</title>
+      <title>simple-web 的 HistoryController</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.web;
 
@@ -1335,37 +1297,14 @@ public class HistoryController implements Controller {
 }</programlisting>
     </example>
 
-    <para>The <classname>HistoryController</classname> is wired to two
-    <acronym>DAO</acronym> objects defined in
-    <varname>simple-persist</varname>. The <acronym>DAO</acronym>s are bean
-    properties of the <classname>HistoryController</classname>:
-    <classname>WeatherDAO</classname> and <classname>LocationDAO</classname>.
-    The goal of the <classname>HistoryController</classname> is to retrieve a
-    <classname>List</classname> of <classname>Weather</classname> objects
-    which correspond to the <varname>zip</varname> parameter. When the
-    <classname>WeatherDAO</classname> saves the <classname>Weather</classname>
-    object to the database, it doesn't just store the zip code, it stores a
-    <classname>Location</classname> object which is related to the
-    <classname>Weather</classname> object in the
-    <varname>simple-model</varname>. To retrieve a <classname>List</classname>
-    of <classname>Weather</classname> objects, the
-    <classname>HistoryController</classname> first retrieves the
-    <classname>Location</classname> object that corresponds to the
-    <varname>zip</varname> parameter. It does this by invoking the
-    <methodname>findByZip()</methodname> method on
-    <classname>LocationDAO</classname>.</para>
+    <para><classname>HistoryController</classname>被注入了两个定义<varname>simple-persist</varname>在中的<acronym>DAO</acronym>对象。这两个<acronym>DAO</acronym>是<classname>HistoryController</classname>的bean属性：<classname>WeatherDAO</classname>和<classname>LocationDAO</classname>。<classname>HistoryController</classname>的目标是获取一个与<varname>zip</varname>参数对应的<classname>Weather</classname>对象列表。当<classname>WeatherDAO</classname>将<classname>Weather</classname>对象保存至数据库，它不只是保存邮编，它保存了一个与<varname>simple-model</varname>中<classname>Weather</classname>对象相关的<classname>Location</classname>对象。为了获取一个<classname>Weather</classname>对象的<classname>List</classname>，首先获取与<varname>zip</varname>参数对应的<classname>Location</classname>对象，通过调用<classname>LocationDAO</classname>的<methodname>findByZip()</methodname>方法。</para>
 
-    <para>Once the <classname>Location</classname> object has been retrieved,
-    the <classname>HistoryController</classname> will then attempt to retrieve
-    recent <classname>Weather</classname> objects that match the given
-    <classname>Location</classname>. Once the
-    <classname>List&lt;Weather&gt;</classname> has been retrieved, a
-    <classname>HashMap</classname> is created to hold two variables for the
-    <filename>history.vm</filename> Velocity template shown in <xref
-    linkend="ex-spring-history-velocity" />.</para>
+    <para>一旦获得了<classname>Location</classname>对象，<classname>HistoryController</classname>之后就会尝试获取与给定的<classname>Location</classname>相匹配的<classname>Weather</classname>对象。在获取了<classname>List&lt;Weather&gt;</classname>之后，一个<classname>HashMap</classname>被创建以存储两个变量，供如<xref
+    linkend="ex-spring-history-velocity" />中显示的<filename>history.vm</filename>
+    Velocity模板使用。</para>
 
     <example>
-      <title>history.vm rendered by the HistoryController</title>
+      <title>由 HistoryController 呈现的 history.vm </title>
 
       <programlisting id="ex-spring-history-velocity" language="java">&lt;b&gt;
 Weather History for: ${location.city}, ${location.region}, ${location.country}
@@ -1384,34 +1323,15 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 </programlisting>
     </example>
 
-    <para>The <filename>history.vm</filename> template in
-    <filename>src/main/webapp/WEB-INF/vm</filename> references the
-    <varname>location</varname> variable to print out information about the
-    location of the forecasts retrieved from the
-    <classname>WeatherDAO</classname>. This template then uses a Velocity
-    control structure, <code>#foreach</code>, to loop through each element in
-    the <varname>weathers</varname> variable. Each element in
-    <varname>weathers</varname> is assigned to a variable named
-    <varname>weather</varname> and the template between <code>#foreach</code>
-    and <code>#end</code> is rendered for each forecast.</para>
+    <para><filename>src/main/webapp/WEB-INF/vm</filename>中的<filename>history.vm</filename>模板引用了<varname>location</varname>变量以输出天气预报位置的相关信息。该模板使用了一个Velocity的控制结构，为了循环<varname>weathers</varname>变量中的每个元素。<varname>weathers</varname>中的每个元素被赋给了一个名为<varname>weather</varname>的变量，<code>#foreach</code>和<code>#end</code>中间的模板用来呈现每个预报输出。</para>
 
-    <para>You've seen these <classname>Controller</classname> implementations,
-    and you've seen that they reference other beans defined in
-    <varname>simple-weather</varname> and <varname>simple-persist</varname>,
-    they respond to <acronym>HTTP</acronym> requests, and they yield control
-    to some mysterious templating system that knows how to render Velocity
-    templates. All of this magic is configured in a Spring application context
-    in <filename>src/main/webapp/WEB-INF/weather-servlet.xml</filename>. This
-    <acronym>XML</acronym> configures the controllers and references other
-    Spring-managed beans, it is loaded by a
-    <classname>ServletContextListener</classname> which is also configured to
-    load the <filename>applicationContext-weather.xml</filename> and
-    <filename>applicationContext-persist.xml</filename> from the classpath.
-    Let's take a closer look at the <filename>weather-servlet.xml</filename>
-    shown in <xref linkend="ex-spring-weather-servlet" />.</para>
+    <para>你已经看到了这些<classname>Controller</classname>实现，以及它们如何引用定义在<varname>simple-weather</varname>和<varname>simple-persist</varname>中的其它bean，它们相应HTTP请求，让那些知道如何呈现Velocity模板的神奇的模板系统来控制输出。所有的魔法都在位于<filename>src/main/webapp/WEB-INF/weather-servlet.xml</filename>的Spring
+    appliction
+    context中配置。这个XML配置控制器以及引用其它Spring管理的bean，它由<classname>ServletContextListener</classname>载入，后者同时也配置从classpath中载入了<filename>applicationContext-weather.xml</filename>和<filename>applicationContext-persist.xml</filename>。让我们仔细看一下<xref
+    linkend="ex-spring-weather-servlet" />中展示的<filename>weather-servlet.xml</filename>。</para>
 
     <example>
-      <title>Spring Controller configuration weather-servlet.xml</title>
+      <title>weather-servlet.xml 中的 Spring 控制器配置</title>
 
       <programlisting id="ex-spring-weather-servlet" language="xml">&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
@@ -1464,62 +1384,31 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
     <calloutlist>
       <callout arearefs="coDef-weather-servlet-1" id="coRef-weather-servlet-1">
-        <para>The <filename>weather-servlet.xml</filename> defines the two
-        controllers as Spring-managed beans.
-        <varname>weatherController</varname> has two properties which are
-        references to <varname>weatherService</varname> and
-        <varname>weatherDAO</varname>. <varname>historyController</varname>
-        references the beans <varname>weatherDAO</varname> and
-        <varname>locationDAO</varname>. When this
-        <classname>ApplicationContext</classname> is created, it is created in
-        an environment that has access to the
-        <classname>ApplicationContext</classname>s defined in both
-        <varname>simple-persist</varname> and
-        <varname>simple-weather</varname>. In <xref
-        linkend="ex-spring-webxml" /> you will see how Spring is configured to
-        merge components from multiple Spring configuration files.</para>
+        <para><filename>weather-servlet.xml</filename>定义了两个控制器作为Spring管理的bean。<varname>weatherController</varname>有两个属性，引用至<varname>weatherService</varname>和<varname>weatherDAO</varname>。<varname>historyController</varname>引用了<varname>weatherDAO</varname>和<varname>locationDAO</varname>
+        bean。当<classname>ApplicationContext</classname>被创建的时候，它所处的环境能够访问<varname>simple-persist</varname>和<varname>simple-weather</varname>中定义的<classname>ApplicationContext</classname>。在<xref
+        linkend="ex-spring-webxml" />中你将看到如何配置Spring以归并多个Spring配置文件的组件。</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-2" id="coRef-weather-servlet-2">
-        <para>The <varname>urlMapping</varname> bean defines the
-        <acronym>URL</acronym> patterns which invoke the
-        <classname>WeatherController</classname> and the
-        <classname>HistoryController</classname>. In this example, we are
-        using the <classname>SimpleUrlHandlerMapping</classname> and mapping
-        <filename>/weather.x</filename> to
-        <classname>WeatherController</classname> and
-        <filename>/history.x</filename> to
-        <classname>HistoryController</classname>.</para>
+        <para><varname>urlMapping</varname>
+        bean定义了调用<classname>WeatherController</classname>和<classname>HistoryController</classname>的<acronym>URL</acronym>模式。该例中，我们使用<classname>SimpleUrlHandlerMapping</classname>，将<filename>/weather.x</filename>映射到<classname>WeatherController</classname>，将<filename>/history.x</filename>映射到<classname>HistoryController</classname>。</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-3" id="coRef-weather-servlet-3">
-        <para>Since we are using the Velocity templating engine, we will need
-        to pass in some configuration options. In the
-        <varname>velocityConfig</varname> bean, we are telling Velocity to
-        look for all templates in the <filename>/WEB-INF/vm</filename>
-        directory.</para>
+        <para>由于我们正使用Velocity模板引擎，我们需要传入一些配置选项。在<varname>velocityConfig</varname>
+        bean中，我们告诉Velocity从<filename>/WEB-INF/vm</filename>目录中寻找所有的模板。</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-4" id="coRef-weather-servlet-4">
-        <para>Last, the <varname>viewResolver</varname> is configured with the
-        class <classname>VelocityViewResolver</classname>. There are a number
-        of <classname>ViewResolver</classname> implementations in Spring from
-        a standard ViewResolver to render <acronym>JSP</acronym> or
-        <acronym>JSTL</acronym> pages to a resolver which can render
-        Freemarker templates. In this example, we're configuring the Velocity
-        templating engine and setting the default prefix and suffix which will
-        be automatically appended to the names of the template passed to
-        <classname>ModelAndView</classname>.</para>
+        <para>最后，<varname>viewResolver</varname>使用<classname>VelocityViewResolver</classname>类配置。Spring中有很多<varname>viewResolver</varname>实现，从用来呈现<acronym>JSP</acronym>或者<acronym>JSTL</acronym>页面的标准<varname>viewResolver</varname>，到用来呈现Freemarker模板的<varname>viewResolver</varname>。本例中，我们配置Velocity模板引擎，设置默认的前缀和后缀，它们将被自动附加到那些传给<classname>ModelAndView</classname>的模板名前后。</para>
       </callout>
     </calloutlist>
 
-    <para>Finally, the <varname>simple-webapp</varname> project was a
-    <filename>web.xml</filename> which provides the basic configuration for
-    the web application. The <filename>web.xml</filename> file is shown in
-    <xref linkend="ex-spring-webxml" />.</para>
+    <para>最后，<varname>simple-webapp</varname>项目中有一个<filename>web.xml</filename>，提供了这个web应用的基本配置。<filename>web.xml</filename>文件如<xref
+    linkend="ex-spring-webxml" />所示：</para>
 
     <example>
-      <title>web.xml for simple-webapp</title>
+      <title>simple-webapp 的 web.xml</title>
 
       <programlisting id="ex-spring-webxml" language="xml">&lt;web-app id="simple-webapp" version="2.4" 
      xmlns="http://java.sun.com/xml/ns/j2ee" 
@@ -1575,72 +1464,32 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
     <calloutlist>
       <callout arearefs="coDef-spring-webx-1" id="coRef-spring-webx-1">
-        <para>Here's a bit of magic which allows us to reuse the
-        <filename>applicationContext-weather.xml</filename> and
-        <filename>applicationContext-persist.xml</filename> in this project.
-        The <varname>contextConfigLocation</varname> is used by the
-        <classname>ContextLoaderListener</classname> to create an
-        <classname>ApplicationContext</classname>. When the weather servlet is
-        created, the <filename>weather-servlet.xml</filename> from <xref
-        linkend="ex-spring-weather-servlet" /> is going to be evaluated with
-        the <classname>ApplicationContext</classname> created from this
-        <varname>contextConfigLocation</varname>. In this way, you can define
-        a set of beans in another project and you can reference these beans
-        via the classpath. Since the <varname>simple-persist</varname> and
-        <varname>simple-weather</varname> <acronym>JAR</acronym>s are going to
-        be in <filename>WEB-INF/lib</filename>, all we do is use the
-        <literal>classpath:</literal> prefix to reference these files.
-        (Another option would have been to copy these files to
-        <filename>/WEB-INF</filename> and reference them with something like
-        <filename>/WEB-INF/applicationContext-persist.xml</filename>).</para>
+        <para>这里有一些魔法能让我们在项目中重用<filename>applicationContext-weather.xml</filename>和<filename>applicationContext-persist.xml</filename>。<varname>contextConfigLocation</varname>由<classname>ContextLoaderListener</classname>用来创建一个<classname>ApplicationContext</classname>。当一个weather
+        servlet被创建的时候，<xref
+        linkend="ex-spring-weather-servlet" />中的<filename>weather-servlet.xml</filename>将由此<varname>contextConfigLocation</varname>中创建的<classname>ApplicationContext</classname>赋值。用这种方式，你可以在另外的项目中定义一组bean，然后可以通过classpath引用这些bean。由于<varname>simple-persist</varname>和<varname>simple-weather</varname>的<acronym>JAR</acronym>将会位于<filename>WEB-INF/lib</filename>，我们所要做的只是使用<literal>classpath:</literal>前缀来引用这些文件。（另一种选择是将所有这些文件拷贝到<filename>/WEB-INF</filename>，然后用过如<filename>/WEB-INF/applicationContext-persist.xml</filename>的方式引用它们）。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-2" id="coRef-spring-webx-2">
-        <para>The <varname>log4jConfigLocation</varname> is used to tell the
-        <classname>Log4JConfigListener</classname> where to look for Log4J
-        logging configuration. In this example, we tell Log4J to look in
-        <filename>/WEB-INF/log4j.properties</filename>.</para>
+        <para><varname>log4jConfigLocation</varname>用来告诉<classname>Log4JConfigListener</classname>哪里去寻找Log4J日志配置。该例中，我们告诉Log4J在<filename>/WEB-INF/log4j.properties</filename>中寻找。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-3" id="coRef-spring-webx-3">
-        <para>This makes sure that the Log4J system is configured when the web
-        application starts. It is important to put this
-        <classname>Log4JConfigListener</classname> before the<classname>
-        ContextLoaderListener</classname>; otherwise, you may miss important
-        logging messages which point to a problem preventing application
-        startup. If you have a particularly large set of beans managed by
-        Spring, and one of them happens to blow up on application startup,
-        your application will fail. If you have logging initialized before
-        Spring starts, you might have a chance to catch a warning or an error.
-        If you don't have logging initialized before Spring starts up, you'll
-        have no idea why your application refuses to start.</para>
+        <para>这里确保当web应用启动的时候Log4J系统被配置。将<classname>Log4JConfigListener</classname>放在<classname>ContextLoaderListener</classname>前面十分重要；否则你可能丢失那些指向阻止应用启动问题的重要日志信息。如果你有一个特别大的Spring管理的bean集合，而其中一个碰巧在应用启动的时候出问题了，应用更可能会不能启动。如果你在Spring启动之前有了日志，你就有机会看到警告或错误信息。如果你在Spring启动之前没有配置日志，你就不知道为什么你的应用不能启动了。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-4" id="coRef-spring-webx-4">
-        <para>The <classname>ContextLoaderListener</classname> is essentially
-        the Spring container. When the application starts, this listener will
-        build an <classname>ApplicationContext</classname> from the
-        <varname>contextConfigLocation</varname> parameter.</para>
+        <para><classname>ContextLoaderListener</classname>本质上是一个Spring容器。当应用启动的时候，这个监听器会根据<varname>contextConfigLocation</varname>参数构造一个<classname>ApplicationContext</classname>。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-5" id="coRef-spring-webx-5">
-        <para>We define a Spring <acronym>MVC</acronym>
-        <classname>DispatcherServlet</classname> with a name of
-        <varname>weather</varname>. This will cause Spring to look for a
-        Spring configuration file in
-        <filename>/WEB-INF/weather-servlet.xml</filename>. You can have as
-        many <classname>DispatcherServlet</classname>s as you need, a
-        <classname>DispatcherServlet</classname> can contain one or more
-        Spring <acronym>MVC</acronym> <classname>Controller</classname>
-        implementations.</para>
+        <para>我们定义一个名为<varname>weather</varname>的Spring <acronym>MVC</acronym>
+        <classname>DispatcherServlet</classname>。这会让Spring从<filename>/WEB-INF/weather-servlet.xml</filename>寻找Spring配置文件。你可以拥有任意多的<classname>DispatcherServlet</classname>，一个<classname>DispatcherServlet</classname>可以包含一个或多个Spring
+        <acronym>MVC</acronym> <classname>Controller</classname>实现。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-6" id="coRef-spring-webx-6">
-        <para>All requests ending in <filename>.x</filename> will be routed to
-        the <varname>weather</varname> servlet. Note that the
-        <filename>.x</filename> extension has no particular meaning, it is an
-        arbitrary choice and you can use whatever <acronym>URL</acronym>
-        pattern you like.</para>
+        <para>所有以<filename>.x</filename>结尾的请求都会被路由至<varname>weather</varname>
+        servlet。注意<filename>.x</filename>扩展名没有任何特殊的意义，这是一个随意的选择，你可以使用任意你喜欢的<acronym>URL</acronym>模式。</para>
       </callout>
     </calloutlist>
   </section>
@@ -1648,8 +1497,8 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
   <section id="sect-spring-running-web">
     <title>运行这个Web应用</title>
 
-    <para>To run the web application, you’ll first need to build the database
-    <indexterm class="startofrange" id="enterprise7a">
+    <para>为了运行这个web应用，你首先需要使用Hibernate3插件<indexterm class="startofrange"
+        id="enterprise7a">
         <primary>multimodule project (example)</primary>
 
         <secondary>multimodule enterprise project</secondary>
@@ -1673,8 +1522,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
         <primary>Hibernate3 plugin</primary>
 
         <secondary>building database using</secondary>
-      </indexterm>using the Hibernate3 plugin. To do this, run the following
-    from the <varname>simple-webapp</varname> project directory:</para>
+      </indexterm>构造数据库。为此，在项目<varname>simple-webapp</varname>目录下运行如下命令：</para>
 
     <screen>$ <command>mvn hibernate3:hbm2ddl</command>
 [INFO] Scanning for projects...
@@ -1692,9 +1540,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-    <para>Once you've done this, there should be a
-    <filename>${basedir}/data</filename> directory which will contain the
-    HSQLDB database. You can then start the web application with:</para>
+    <para>在此之后，应该有一个<filename>${basedir}/data</filename>目录包含了HSQLDB数据库。你可以使用jetty启动web应用：</para>
 
     <screen>$ <command>mvn jetty:run</command>
 [INFO] Scanning for projects...
@@ -1721,11 +1567,9 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 [INFO] Started Jetty Server
 </screen>
 
-    <para>Once Jetty is started, you can load <ulink
-    url="http://localhost:8080/simple-webapp/weather.x?zip=60202">http://localhost:8080/simple-webapp/weather.x?zip=60202</ulink>
-    and you should see the weather for Evanston, IL in your web browser.
-    Change the ZIP code and you should be able to get your own weather
-    report.</para>
+    <para>Jetty启动之后，你可以载入<ulink
+    url="http://localhost:8080/simple-webapp/weather.x?zip=60202">http://localhost:8080/simple-webapp/weather.x?zip=60202</ulink>，然后就能在你的浏览器中看到Evanston,
+    IL的天气。更改邮编你就能看到你自己的天气报告了。</para>
 
     <screen>Current Weather Conditions for: Evanston, IL, US
 
@@ -1740,17 +1584,10 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
   <section>
     <title>simple-command模块</title>
 
-    <para>The <varname>simple-command</varname> project is a command-line
-    version of the <varname>simple-webapp</varname>. It is a utility that
-    relies on the same dependencies: <varname>simple-persist</varname> and
-    <varname>simple-weather</varname>. Instead of interacting with this
-    application via a web browser, you would run the
-    <classname>simple-command</classname> utility from the
-    command-line.</para>
+    <para><varname>simple-command</varname>项目是<varname>simple-webapp</varname>的一个命令行版本。这个命令行工具有这同样的模块依赖：<varname>simple-persist</varname>和<varname>simple-weather</varname>。现在你需要从命令行运行这个<classname>simple-command</classname>工具，而非通过web浏览器与该应用交互。</para>
 
     <figure>
-      <title>Command line application referencing simple-weather and
-      simple-persist</title>
+      <title>引用 simple-weather 和 simple-persist 的命令行应用</title>
 
       <mediaobject>
         <imageobject>
@@ -1761,7 +1598,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
     </figure>
 
     <example>
-      <title>POM for simple-command</title>
+      <title>simple-command 的 POM</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1853,19 +1690,12 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 </programlisting>
     </example>
 
-    <para>This <acronym>POM</acronym> creates an <acronym>JAR</acronym> file
-    which will contain the
-    <classname>org.sonatype.mavenbook.weather.Main</classname> class shown in
-    <xref linkend="ex-spring-command-main-class" />. In this
-    <acronym>POM</acronym> we configure the Maven Assembly plugin to use a
-    built-in assembly descriptor named
-    <varname>jar-with-dependencies</varname> which creates a single
-    <acronym>JAR</acronym> file containing all the bytecode a project needs to
-    execute including the bytecode from the project you are building and all
-    the dependency bytecode.</para>
+    <para>这个<acronym>POM</acronym>创建一个包含了如<xref
+    linkend="ex-spring-command-main-class" />所示的<classname>org.sonatype.mavenbook.weather.Main</classname>类的<acronym>JAR</acronym>文件。在这个<acronym>POM</acronym>中我们配置了Maven
+    Assembly插件使用内置的名为<varname>jar-with-dependencies</varname>的装配描述符来创建一个<acronym>JAR</acronym>文件，该文件包含了运行应用所需要的所有二进制代码，包括项目本身的字节码以及所有依赖文件的字节码。</para>
 
     <example id="ex-spring-command-main-class">
-      <title>The Main class for simple-command</title>
+      <title>simple-command 的 Main 类</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -1943,59 +1773,46 @@ public class Main {
 </programlisting>
     </example>
 
-    <para>The <classname>Main</classname> class has a reference to
-    <classname>WeatherDAO</classname>, <classname>LocationDAO</classname>, and
-    <classname>WeatherService</classname>. The static
-    <methodname>main()</methodname> method in this class:</para>
+    <para>这个<classname>Main</classname>类有对于<classname>WeatherDAO</classname>,
+    <classname>LocationDAO</classname>, 以及
+    <classname>WeatherService</classname>的引用。该类的静态<methodname>main()</methodname>方法：</para>
 
     <itemizedlist>
       <listitem>
-        <para>Reads the Zip Code from the first command line argument</para>
+        <para>从第一个命令行参数读取邮编。</para>
       </listitem>
 
       <listitem>
-        <para>Reads the Operation from the second command line argument. If
-        the operation is "weather", the latest weather will be retrieved from
-        the web service. If the operation is "history", the program will fetch
-        historical weather records from the local database.</para>
+        <para>从第二个命令行参数读取操作。如果操作是“weather”，最新的天气将会从web服务获得。如果操作是“history”，该程序会从本地数据库获取历史天气记录。</para>
       </listitem>
 
       <listitem>
-        <para>Loads a Spring <classname>ApplicationContext</classname> using
-        two <acronym>XML</acronym> files loaded from
-        <varname>simple-persist</varname> and
-        <varname>simple-weather</varname></para>
+        <para>根据来自于<varname>simple-persist</varname>和<varname>simple-weather</varname>的两个<acronym>XML</acronym>文件载入Spring
+        <classname>ApplicationContext</classname>。</para>
       </listitem>
 
       <listitem>
-        <para>Creates an instance of <classname>Main</classname></para>
+        <para>创建一个<classname>Main</classname>的实例。</para>
       </listitem>
 
       <listitem>
-        <para>Populates the <varname>weatherService</varname>,
-        <varname>weatherDAO</varname>, and <varname>locationDAO</varname> with
-        beans from the Spring <classname>ApplicationContext</classname></para>
+        <para>使用来自于Spring
+        <classname>ApplicationContext</classname>的bean填充<varname>weatherService</varname>,
+        <varname>weatherDAO</varname>, 和
+        <varname>locationDAO</varname>。</para>
       </listitem>
 
       <listitem>
-        <para>Runs the appropriate method
-        <methodname>getWeather()</methodname> or
-        <methodname>getHistory()</methodname> depending on the specified
-        operation.</para>
+        <para>根据特定的操作运行相应的<methodname>getWeather()</methodname>或者<methodname>getHistory()</methodname>方法。</para>
       </listitem>
     </itemizedlist>
 
-    <para>In the web application we use Spring
-    <classname>VelocityViewResolver</classname> to render a Velocity template.
-    In the stand-alone implementation, we need to write a simple class which
-    renders our weather data with a Velocity template. <xref
-    linkend="ex-spring-weather-formatter" /> is a listing of the
-    <classname>WeatherFormatter</classname>, a class with two methods that
-    render the weather report and the weather history.</para>
+    <para>在web应用中我们使用Spring
+    <classname>VelocityViewResolver</classname>来呈现一个Velocity模板。在这个单机实现中给我们需要编写一个简单的类来通过Velocity模板呈现天气数据。<xref
+    linkend="ex-spring-weather-formatter" />是<classname>WeatherFormatter</classname>的代码清单，这个类有两个方法来呈现天气报告和天气历史信息。</para>
 
     <example id="ex-spring-weather-formatter">
-      <title>WeatherFormatter renders weather data using a Velocity
-      template</title>
+      <title>WeatherFormatter 使用 Velocity 模板呈现天气数据</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -2044,15 +1861,10 @@ public class WeatherFormatter {
 </programlisting>
     </example>
 
-    <para>The <filename>weather.vm</filename> template simply prints the zip
-    code's city, country, and region as well as the current temperature. The
-    <filename>history.vm</filename> template prints the location and then
-    iterates through the weather forecast records stored in the local
-    database. Both of these templates are in
-    <filename>${basedir}/src/main/resources</filename>.</para>
+    <para><filename>weather.vm</filename>模板简单的打印邮编对应的城市，国家，区域以及当前的气温。<filename>history.vm</filename>模板打印位置信息并遍历存储在本地数据库中的天气预报记录。两者都位于<filename>${basedir}/src/main/resources</filename>。</para>
 
     <example>
-      <title>The weather.vm Velocity template</title>
+      <title>weather.vm Velocity 模板</title>
 
       <programlisting language="java">****************************************
 Current Weather Conditions for:
@@ -2070,7 +1882,7 @@ Current Weather Conditions for:
     </example>
 
     <example>
-      <title>The history.vm Velocity template</title>
+      <title>history.vm Velocity 模板</title>
 
       <para><programlisting>Weather History for:
 ${location.city},
@@ -2092,12 +1904,8 @@ ${location.country}
   <section>
     <title>运行这个命令行程序</title>
 
-    <para>The <varname>simple-command</varname> project is configured to
-    create a single <acronym>JAR</acronym> containing the bytecode of the
-    project and all of the bytecode from the dependencies. To create this
-    assembly, run the <varname>assembly</varname> goal of the Maven Assembly
-    plugin from the <varname>simple-command</varname> project
-    directory:</para>
+    <para><varname>simple-command</varname>项目被配置成创建一个单独的包含项目本身字节码以及所有依赖字节码的<acronym>JAR</acronym>文件。要创建这个装配制品，从<varname>simple-command</varname>项目目录运行Maven
+    Assembly插件的<varname>assembly</varname>目标：</para>
 
     <screen>$ <command>mvn assembly:assembly</command>
 [INFO] ------------------------------------------------------------------------
@@ -2132,20 +1940,9 @@ ${location.country}
 [INFO] Building jar: .../simple-parent/simple-command/target/simple-command-jar-with-dependencies.jar
 </screen>
 
-    <para>The build progresses through the lifecycle compiling bytecode,
-    running tests, and finally building a <acronym>JAR</acronym> for the
-    project. Then the <varname>assembly:assembly</varname> goal creates a
-    <acronym>JAR</acronym> with dependencies by unpacking all of the
-    dependencies to temporary directories and then collecting all of the
-    bytecode into a single <acronym>JAR</acronym> in
-    <filename>target/</filename> named
-    <filename>simple-command-jar-with-dependencies.jar</filename>. This "uber"
-    <acronym>JAR</acronym> weighs in at 15 MB.</para>
+    <para>构建过程经过了生命周期中编译字节码，运行测试，然后最终为该项目构建一个<acronym>JAR</acronym>。然后<varname>assembly:assembly</varname>目标创建一个带有依赖的<acronym>JAR</acronym>，它将所有依赖解压到一个临时目录，然后将所有字节码收集到<filename>target/</filename>目录下一个名为<filename>simple-command-jar-with-dependencies.jar</filename>的<acronym>JAR</acronym>中。这个“超级的”<acronym>JAR的</acronym>体重为15MB。</para>
 
-    <para>Before you run the command-line tool, you will need to invoke the
-    <varname>hbm2ddl</varname> goal of the Hibernate3 plugin to create the
-    HSQLDB database. Do this by running the following command from the
-    <varname>simple-command</varname> directory:</para>
+    <para>在你运行这个命令行工具之前，你需要调用Hibernate3插件的<varname>hbm2ddl</varname>目标来创建HSQLDB数据库。在<varname>simple-command</varname>目录运行如下的命令：</para>
 
     <para><screen>$ <command>mvn hibernate3:hbm2ddl</command>
 [INFO] Scanning for projects...
@@ -2161,11 +1958,9 @@ ${location.country}
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
 [INFO] ------------------------------------------------------------------------
-</screen>Once you run this, you should see a <filename>data/</filename>
-    directory under <varname>simple-command</varname>. This
-    <filename>data/</filename> directory holds the HSQLDB database. To run the
-    command-line weather forecaster, run the following from the
-    <filename>simple-command/</filename> project directory:</para>
+</screen></para>
+
+    <para>在此之后，你应该能在<varname>simple-command</varname>下看到<filename>data/</filename>目录。该<filename>data/</filename>目录包含了HSQLDB数据库。要运行这个命令行天气预报器，在<filename>simple-command/</filename>项目目录下运行如下命令：</para>
 
     <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
            org.sonatype.mavenbook.weather.Main 60202</command>
@@ -2187,7 +1982,7 @@ Current Weather Conditions for:
  * Date: Wed Aug 06 09:35:30 CDT 2008
 </screen>
 
-    <para>To run a history query, execute the following command:</para>
+    <para>要运行历史查询，运行如下命令：</para>
 
     <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
            org.sonatype.mavenbook.weather.Main 60202 history</command>
