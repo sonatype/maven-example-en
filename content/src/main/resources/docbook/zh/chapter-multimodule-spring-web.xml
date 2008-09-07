@@ -21,7 +21,7 @@
     linkend="web" />的样例演化成一个使用了Spring Framework和Hibernate创建的，从Yahoo!
     Weather信息源读取数据，包含一个简单web应用和一个命令行工具的项目。<xref
     linkend="customizing" />中开发的<varname>simple-weather</varname>代码将会和<xref
-    linkend="web" />中开发的<varname>simple-weather</varname>项目结合。在创建这个多模块项目的过程中，我们将会探索Maven并且讨论用它来创建模块化项目以鼓励重用的不同方式。</para>
+    linkend="web" />中开发的<varname>simple-weather</varname>项目结合。在创建这个多模块项目的过程中，我们将会探索Maven并且讨论用不同方式来创建模块化项目以鼓励重用。</para>
 
     <section>
       <title>下载本章样例</title>
@@ -37,10 +37,10 @@
     <section>
       <title>多模块企业级项目</title>
 
-      <para>展示一个巨大企业级项目的复杂度远远超出了本书的范围。这样的项目的特征有，多数据库，与外部系统的集成，子项目通过部分来划分。这些项目通常跨越了数千行代码，牵涉了数十或数百软件开发者的努力。虽然这样的完整样例超出了本书的范围，我们仍然可以为你提供一个能让你想起大型企业应用的样例项目。在小结中我们提议了一些在本章描述之外的模块化可能性。</para>
+      <para>展示一个巨大企业级项目的复杂度远远超出了本书的范围。这样的项目的特征有，多数据库，与外部系统的集成，子项目通过部门来划分。这些项目通常跨越了数千行代码，牵涉了数十或数百软件开发者的努力。虽然这样的完整样例超出了本书的范围，我们仍然可以为你提供一个能让你想起大型企业应用的样例项目。在小结中我们提议了一些在本章描述之外的模块化可能性。</para>
 
       <para>本章，我们将会看一个多模块Maven项目，它将产生两个应用程序：一个对于Yahoo!
-      Weather信息源命令行查询工具，以及查询同样信息源的一个web应用。两个应用都会将查询结果存储到一个嵌入式数据库中。都允许用户从嵌入式数据库中获取历史天气数据。都会重用应用程序逻辑，并且共享一个持久化类库。本章样例基于在<xref
+      Weather信息源的命令行查询工具，以及查询同样信息源的一个web应用。两个应用都会将查询结果存储到一个内嵌数据库中。都允许用户从内嵌数据库中获取历史天气数据。都会重用应用程序逻辑，并且共享一个持久化类库。本章样例基于在<xref
       linkend="customizing" />中介绍的Yahoo! Weather解析代码构建。该项目被划分成如<xref
       linkend="fig-multimodule-web-spring-projects" />所示的五个子项目。</para>
 
@@ -66,7 +66,7 @@
             <para>该模块定义了一个简单的对象模型，对从Yashoo!
             Weather信息源返回的数据建模。该对象模型包含了<classname>Weather</classname>，<classname>Condition</classname>，<classname>Atmosphere</classname>，<classname>Location</classname>，和<classname>Wind</classname>对象。当我们的应用程序解析Yahoo!
             Weather信息源的时候，<varname>simple-weather</varname>中定义的解析器会解析<acronym>XML</acronym>并创建供应用程序使用的<classname>Weather</classname>对象。该项目还包含了使用Hibernate
-            3标注符标注的模型对象，它们在<varname>simple-persist</varname>的逻辑中被用来匹配每个模型对象至关系数据库中对应的表。</para>
+            3标注符标注的模型对象，它们在<varname>simple-persist</varname>的逻辑中被用来映射每个模型对象至关系数据库中对应的表。</para>
           </listitem>
         </varlistentry>
 
@@ -106,7 +106,7 @@
         </varlistentry>
       </variablelist>
 
-      <para>本章设计的项目一方面够简单，以能在一本书中介绍，又够复杂，能提供一组五个子模块。该样例有一个带有五个类的模型项目，带有两个服务类的持久化类库，带有五六个类的天气解析类库，但是一个现实系统可能有一个带有数百对象的模型项目，很多持久化类库，以及跨越多个部门的服务类库。虽然我们试图确保本例中的代码尽可能的直接以能在短时间内理解，但我们也不麻烦的以模块化的方式构建了这个项目。你可能会要看一下本章的样例，然后会认为Maven为我们这个只有五个类的模型项目带来了太多的复杂度。虽然使用Maven确实建议一定程度的模块化，但这里我们不怕麻烦的将样例项目弄得复杂，目的是展示Maven的多模块特性。</para>
+      <para>本章设计的项目一方面够简单，以能在一本书中介绍，又够复杂，能提供一组五个子模块。该样例有一个带有五个类的模型项目，带有两个服务类的持久化类库，带有五六个类的天气解析类库，但是一个现实系统可能有一个带有数百对象的模型项目，很多持久化类库，以及跨越多个部门的服务类库。虽然我们试图确保本例中的代码尽可能的直接以能在短时间内理解，但我们也不怕麻烦的以模块化的方式构建了这个项目。你可能会要看一下本章的样例，然后会认为Maven为我们这个只有五个类的模型项目带来了太多的复杂度。虽然使用Maven确实建议一定程度的模块化，但这里我们不怕麻烦的将样例项目弄得复杂，目的是展示Maven的多模块特性。</para>
     </section>
 
     <section>
@@ -207,7 +207,7 @@
     </example>
 
     <para>注意这个父<acronym>POM</acronym>和<xref
-    linkend="ex-multimodule-parent-pom" />中定义的父<acronym>POM</acronym>的相似度。这两个<acronym>POM</acronym>唯一真正不同的地方是子模块列表。前面的样例中至列出了两个子模块，而这里的父<acronym>POM</acronym>列出了五个子模块。下面的小节会详细讨论所有这五个子模块。因为我们的样例使用了Java标注，我们将编译器的目标配置成Java
+    linkend="ex-multimodule-parent-pom" />中定义的父<acronym>POM</acronym>的相似度。这两个<acronym>POM</acronym>唯一真正不同的地方是子模块列表。前面的样例中只列出了两个子模块，而这里的父<acronym>POM</acronym>列出了五个子模块。下面的小节会详细讨论所有这五个子模块。因为我们的样例使用了Java标注，我们将编译器的目标配置成Java
     5 <acronym>JVM</acronym>。</para>
   </section>
 
@@ -215,7 +215,7 @@
     <title>simple-model模块</title>
 
     <para>大多数企业项目需要做的第一件事情是建立对象模型。一个对象模型抓取了系统中一组核心的领域对象。一个银行系统可能会有包括<classname>Account</classname>，<classname>Customer</classname>，<classname>Transaction</classname>
-    的对象模型。或者有一个对运动比赛比分建模系统，有一个<classname>Team</classname>和一个<classname>Game</classname>对象。不管它是什么，你都需要将你系统中的概念建模成对象模型。在Maven项目中，将这个对象模型分割成单独的项目以被广泛引用，是一种常用的实践。在我们这个系统中，我们将每个对Yahoo!
+    的对象模型。或者有一个对体育比赛比分建模的系统，有一个<classname>Team</classname>和一个<classname>Game</classname>对象。不管它是什么，你都需要将你系统中的概念建模成对象模型。在Maven项目中，将这个对象模型分割成单独的项目以被广泛引用，是一种常用的实践。在我们这个系统中，我们将每个对Yahoo!
     Weather数据源的查询建模成为<classname>Weather</classname>对象，它本身又引用了四个其它的对象。风向，风速等存储<classname>Wind</classname>在对象中。地址信息包括邮编，城市等信息存储在<classname>Location</classname>类中。大气信息如湿度，可见度，气压等存储在<classname>Atmosphere</classname>类中。而对环境，气温，以及观察日期的文本描述存储在<classname>Condition</classname>类中。</para>
 
     <figure>
@@ -269,8 +269,8 @@
 &lt;/project&gt;
 </programlisting>
 
-      <para>在<filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>中，有<filename>Weather.java</filename>，它包含了一个注解的模<classname>Weather</classname>型对象。这个<classname>Weather</classname>对象是一个简单的Java
-      bean。这意味着它有私有成员变量如<varname>id</varname>, <varname>location</varname>,
+      <para>在<filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>中，有<filename>Weather.java</filename>，它是一个标注过的<classname>Weather</classname>型对象。这个<classname>Weather</classname>对象是一个简单的Java
+      bean。这意味着它的私有成员变量如<varname>id</varname>, <varname>location</varname>,
       <varname>condition</varname>, <varname>wind</varname>,
       <varname>atmosphere</varname>, 和
       <varname>date</varname>，通过公共的getter和setter方法暴露，并且遵循这样的模式：如果一个属性名为<literal>name</literal>，那么会有一个公有的无参数方法<methodname>getName()</methodname>，还有一个带有一个参数的setter方法<methodname
@@ -420,7 +420,8 @@ public class Condition {
   <section>
     <title>simple-weather模块</title>
 
-    <para>我们将要检查的下一个模块是一个<indexterm class="startofrange" id="enterprise4a">
+    <para>我们将要检查的下一个模块可以被认为是一个<indexterm class="startofrange"
+        id="enterprise4a">
         <primary>multimodule project (example)</primary>
 
         <secondary>multimodule enterprise project</secondary>
@@ -437,7 +438,7 @@ public class Condition {
 
         <secondary>Simple Weather module of</secondary>
       </indexterm>“服务”。这个simple-weather模块包含了所有从Yahoo! Weather
-    <acronym>RSS</acronym>数据源获取数据并解析的必要逻辑。虽然simple-weather只包含了三个Java类和一个JUnit测试，它还将展现为一个单独的组件，<classname>WeatherService</classname>，同时为简单web应用和简单命令行工具服务。经常一个企业级项目会包含一些<acronym>API</acronym>模块，这写模块包含了重要的业务逻辑，或者与外部系统交互的逻辑。一个银行系统可能有一个模块，从第三方数据提供者获取并解析数据，而一个显示赛事比分的系统可能会与一个提供实时篮球或足球比分的<acronym>XML</acronym>数据源进行交互。在<xref
+    <acronym>RSS</acronym>数据源获取数据并解析的必要逻辑。虽然simple-weather只包含了三个Java类和一个JUnit测试，它还将展现为一个单独的组件，<classname>WeatherService</classname>，同时为简单web应用和简单命令行工具服务。通常来说一个企业级项目会包含一些<acronym>API</acronym>模块，这写模块包含了重要的业务逻辑，或者与外部系统交互的逻辑。一个银行系统可能有一个模块，从第三方数据提供者获取并解析数据，而一个显示赛事比分的系统可能会与一个提供实时篮球或足球比分的<acronym>XML</acronym>数据源进行交互。在<xref
     linkend="example_simple-weather_module_pom" />中，该模块封装了所有的网络活动，以及与Yahoo!
     Weather交互涉及的<acronym>XML</acronym>解析活动。其它依赖于该模块的项目只要简单的调用<classname>WeatherService</classname>的<methodname
     role="keep-together">retrieveForecast()</methodname>方法，该方法接受一个邮政编码作为参数，返回一个<classname>Weather</classname>对象。</para>
@@ -585,11 +586,11 @@ public class WeatherService {
 </programlisting>
     </example>
 
-    <para>最后，在这个项目中我们有一个被Spring Framework用来创建<indexterm>
+    <para>最后，在这个项目中我们有一个由Spring Framework用来创建<indexterm>
         <primary>ApplicationContext (Spring Framework)</primary>
       </indexterm><classname>ApplicationContext</classname>的<acronym>XML</acronym>文件。首先，一些解释：两个应用程序，web应用和命令行工具，都需要和<classname>WeatherService</classname>类交互，而且它们都使用名字<varname>weatherService</varname>从Spring
     <classname>ApplicationContext</classname>获取此类的一个实例。我们的web应用使用一个与<classname>WeatherService</classname>实例关联的Spring
-    <acronym>MVC</acronym>控制器，我们的命令行应用在静态的<methodname>main()</methodname>方法中从<classname>ApplicationContext</classname>载入这个<classname>WeatherService</classname>。为了鼓励重用，我们已经在<filename>src/main/resources</filename>中包含了一个<filename>applicationContext-weather.xml</filename>文件，这样便在classpath中可用。依赖于<varname>simple-weather</varname>模块的模块可以使用Spring
+    <acronym>MVC</acronym>控制器，我们的命令行应用在静态<methodname>main()</methodname>方法中从<classname>ApplicationContext</classname>载入这个<classname>WeatherService</classname>。为了鼓励重用，我们已经在<filename>src/main/resources</filename>中包含了一个<filename>applicationContext-weather.xml</filename>文件，这样便在classpath中可用。依赖于<varname>simple-weather</varname>模块的模块可以使用Spring
     Framework中的<classname>ClasspathXmlApplicationContext</classname>载入这个Application
     Context。之后它们就能引用名为<varname>weatherService</varname>的<classname>WeatherService</classname>实例。</para>
 
@@ -619,7 +620,7 @@ public class WeatherService {
     </example>
 
     <para>该文档定义了三个bean：<varname>yahooParser</varname>，<varname>yahooRetriever</varname>，和<varname>weatherService</varname>。<varname>weatherService</varname>
-    bean是<classname>WeatherService</classname>的一个实例，这个<acronym>XML</acronym>文档通过引用对应类的命名实例来填充<varname>yahooParser</varname>和<varname>yahooRetriever</varname>属性。将这个<filename>applicationContext-weather.xml</filename>文件看作是定义了这个多模块项目中一个子系统的架构。其它项目如<varname>simple-webapp</varname>和<varname>simple-command</varname>可以引用这个上下文，获取一个已经建立好与<classname>YahooRetriever</classname>和<classname>YahooParser</classname>实例关系的<classname>WeatherService</classname>实例。</para>
+    bean是<classname>WeatherService</classname>的一个实例，这个<acronym>XML</acronym>文档通过引用对应类的命名实例来填充<varname>yahooParser</varname>和<varname>yahooRetriever</varname>属性。可以将这个<filename>applicationContext-weather.xml</filename>文件看作是定义了这个多模块项目中一个子系统的架构。其它项目如<varname>simple-webapp</varname>和<varname>simple-command</varname>可以引用这个上下文，获取一个已经建立好与<classname>YahooRetriever</classname>和<classname>YahooParser</classname>实例关系的<classname>WeatherService</classname>实例。</para>
   </section>
 
   <section>
@@ -723,7 +724,7 @@ public class WeatherService {
         <term><literal>org.hibernate:hibernate:3.2.5.ga</literal></term>
 
         <listitem>
-          <para>我们定义了一个对HIbernate版本3.2.5ga的依赖，但注意我们排除Hibernate的一个依赖。这么做是因为<varname>javax.</varname><varname>transaction:</varname><varname>javax</varname><indexterm>
+          <para>我们定义了一个对HIbernate版本3.2.5ga的依赖，但注意我们排除了Hibernate的一个依赖。这么做是因为<varname>javax.</varname><varname>transaction:</varname><varname>javax</varname><indexterm>
               <primary>dependencies</primary>
 
               <secondary>javax.transaction:javax (unavailable)</secondary>
@@ -815,7 +816,7 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
       <callout arearefs="coDef-hibDao-1" id="coRef-hibDao-1">
         <para>继承<classname>HibernateDaoSupport</classname>的类。这个类会和Hibernate
         <classname>SessionFactory</classname>关联，后者将被用来创建Hibernate
-        <classname>Session</classname>对象。在Hibernate中，每个对象都涉及<classname>Session</classname>对象，一个<classname>Session</classname>是访问下层数据库的中介，它也负责管理对<classname>DataSource</classname>的JDBC连接。继承<classname>HibernateDaoSupport</classname>也意味着我们能够使用<methodname>getHibernateTemplate()</methodname>访问<classname>HibernateTemplate</classname>。能使用<classname>HibernateTemplate</classname>完成的操作例子有……</para>
+        <classname>Session</classname>对象。在Hibernate中，每个操作都涉及<classname>Session</classname>对象，一个<classname>Session</classname>是访问下层数据库的中介，它也负责管理对<classname>DataSource</classname>的JDBC连接。继承<classname>HibernateDaoSupport</classname>也意味着我们能够使用<methodname>getHibernateTemplate()</methodname>访问<classname>HibernateTemplate</classname>。能使用<classname>HibernateTemplate</classname>完成的操作例子有……</para>
       </callout>
 
       <callout arearefs="coDef-hibDao-2" id="coRef-hibDao-2">
@@ -928,7 +929,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <acronym>DAO</acronym>对象被创建并给予了对于刚定义的<varname>sessionFactory</varname>
     bean的引用。就像<varname>simple-weather</varname>中的Spring application
     context，这个<filename>applicationContext-persist.xml</filename>文件定义了一个大型企业应用设计中一个子模块的架构。如果你曾经从事过大量持久化类的集合相关的工作，你可能会发现，这些与你应用程序独立的application
-    context文件，能帮助你快速的理解所有类的关系。</para>
+    context文件，能帮助你快速的理解所有类之间的关系。</para>
 
     <para><varname>simple-persist</varname>中还有最后一块不清楚的地方。本章后面，我们将看到<indexterm>
         <primary>Maven Hibernate3 plugin</primary>
@@ -992,7 +993,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <para><xref linkend="ex-persist-spring" />和<xref
     linkend="ex-multimodule-web-spring-parent" />的内容是冗余的。Spring Application
     Context
-    <acronym>XML</acronym>是被web引用和命令行应用使用的，而<filename>hibernate.cfg.xml</filename>的存在只是为了支持Maven
+    <acronym>XML</acronym>是被web应用和命令行应用使用的，而<filename>hibernate.cfg.xml</filename>的存在只是为了支持Maven
     Hibernate3插件。本章的后面，我们将会看到如何使用<filename>hibernate.cfg.xml</filename>和Maven
     Hibernate3插件，根据<varname>simple-model</varname>中定义的标注对象模型，来生成一个数据库schema。<filename>hibernate.cfg.xml</filename>会配置JDBC连接属性并且为Maven
     Hibernate3插件枚举标注模型类的列表。</para>
@@ -1154,20 +1155,20 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
             <primary>Maven Hibernate plugin</primary>
           </indexterm><indexterm>
             <primary>Hibernate plugin</primary>
-          </indexterm>正是该POM变得有趣的地方。在下一节，我们将会运行<literal>hbm2ddl</literal>目标来生成HSQLDB数据库。在这个中，我们包含了对<literal>hibernate3-maven-plugin</literal>版本2.0的引用，该插件由Codehaus
+          </indexterm>正是该POM变得有趣的地方。在下一节，我们将会运行<literal>hbm2ddl</literal>目标来生成HSQLDB数据库。在这个<filename>pom.xml</filename>中，我们包含了对<literal>hibernate3-maven-plugin</literal>版本2.0的引用，该插件由Codehaus
         Mojo维护。</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-5" id="coRef-spring-web-5">
         <para>Maven
-        Hibernate3插件有不同的方法获取Hibernate映射信息，这些信息适用于Hibernate3插件的不同用例。如果你正在使用Hibernate映射XML文件(<filename>.hbm.xml</filename>)，你会要使用<literal>hbm2java</literal>目标生成模型类，你会将implementation设置成<literal>configuration</literal>。如果你使用Hibernate3插件逆向工程从一个数据库产生<filename>.hbm.xml</filename>文件和模型类，你会需要一个<literal>jdbcconfiguration</literal>的implementation。在本例中，我们使用现存的标注对象模型来生辰给一个数据库。换句话说，我们有我们的Hibernate映射，但我们还没有数据库。在这种用例中，正确的implementation值应该是<literal>annotationconfiguration</literal>。Maven
+        Hibernate3插件有不同的方法获取Hibernate映射信息，这些信息适用于Hibernate3插件的不同用例。如果你正在使用Hibernate映射XML文件(<filename>.hbm.xml</filename>)，你会要使用<literal>hbm2java</literal>目标生成模型类，你会将implementation设置成<literal>configuration</literal>。如果你使用Hibernate3插件逆向工程从一个数据库产生<filename>.hbm.xml</filename>文件和模型类，你会需要一个<literal>jdbcconfiguration</literal>的implementation。在本例中，我们使用现存的标注对象模型来生成一个数据库。换句话说，我们有我们的Hibernate映射，但我们还没有数据库。在这种用例中，正确的implementation值应该是<literal>annotationconfiguration</literal>。Maven
         Hibernate3插件在后面的一节<xref
         linkend="sect-spring-running-web" />中详细讨论。</para>
       </callout>
     </calloutlist>
 
     <note>
-      <para>一个常见的错误是使<sgmltag>extensions</sgmltag>用配置添加一个插件需要的依赖。这是强烈不推荐的因为extensions会在你的项目中造成classpath污染，以及其它令人讨厌的副作用。此外，extensions行为正在2.1中被重做，最后你都会要改变它。唯一的对<sgmltag>extensions</sgmltag>的正常使用是定义新的wagon实现。</para>
+      <para>一个常见的错误是使用<sgmltag>extensions</sgmltag>配置添加一个插件需要的依赖。这是强烈不推荐的因为extensions会在你的项目中造成classpath污染，以及其它令人讨厌的副作用。此外，extensions行为正在2.1中被重做，最后你都会要改变它。唯一的对<sgmltag>extensions</sgmltag>的正常使用是定义新的wagon实现。</para>
     </note>
 
     <para>接下来，我们将我们的注意力转移到两个处理所有请求的Spring
@@ -1297,7 +1298,7 @@ public class HistoryController implements Controller {
 }</programlisting>
     </example>
 
-    <para><classname>HistoryController</classname>被注入了两个定义<varname>simple-persist</varname>在中的<acronym>DAO</acronym>对象。这两个<acronym>DAO</acronym>是<classname>HistoryController</classname>的bean属性：<classname>WeatherDAO</classname>和<classname>LocationDAO</classname>。<classname>HistoryController</classname>的目标是获取一个与<varname>zip</varname>参数对应的<classname>Weather</classname>对象列表。当<classname>WeatherDAO</classname>将<classname>Weather</classname>对象保存至数据库，它不只是保存邮编，它保存了一个与<varname>simple-model</varname>中<classname>Weather</classname>对象相关的<classname>Location</classname>对象。为了获取一个<classname>Weather</classname>对象的<classname>List</classname>，首先获取与<varname>zip</varname>参数对应的<classname>Location</classname>对象，通过调用<classname>LocationDAO</classname>的<methodname>findByZip()</methodname>方法。</para>
+    <para><classname>HistoryController</classname>被注入了两个定义在<varname>simple-persist</varname>中的<acronym>DAO</acronym>对象。这两个<acronym>DAO</acronym>是<classname>HistoryController</classname>的bean属性：<classname>WeatherDAO</classname>和<classname>LocationDAO</classname>。<classname>HistoryController</classname>的目标是获取一个与<varname>zip</varname>参数对应的<classname>Weather</classname>对象列表。当<classname>WeatherDAO</classname>将<classname>Weather</classname>对象保存至数据库，它不只是保存邮编，它保存了一个与<varname>simple-model</varname>中<classname>Weather</classname>对象相关的<classname>Location</classname>对象。为了获取一个<classname>Weather</classname>对象的<classname>List</classname>，首先通过调用<classname>LocationDAO</classname>的<methodname>findByZip()</methodname>方法，获取与<varname>zip</varname>参数对应的<classname>Location</classname>对象。</para>
 
     <para>一旦获得了<classname>Location</classname>对象，<classname>HistoryController</classname>之后就会尝试获取与给定的<classname>Location</classname>相匹配的<classname>Weather</classname>对象。在获取了<classname>List&lt;Weather&gt;</classname>之后，一个<classname>HashMap</classname>被创建以存储两个变量，供如<xref
     linkend="ex-spring-history-velocity" />中显示的<filename>history.vm</filename>
@@ -1327,7 +1328,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
     <para>你已经看到了这些<classname>Controller</classname>实现，以及它们如何引用定义在<varname>simple-weather</varname>和<varname>simple-persist</varname>中的其它bean，它们相应HTTP请求，让那些知道如何呈现Velocity模板的神奇的模板系统来控制输出。所有的魔法都在位于<filename>src/main/webapp/WEB-INF/weather-servlet.xml</filename>的Spring
     appliction
-    context中配置。这个XML配置控制器以及引用其它Spring管理的bean，它由<classname>ServletContextListener</classname>载入，后者同时也配置从classpath中载入了<filename>applicationContext-weather.xml</filename>和<filename>applicationContext-persist.xml</filename>。让我们仔细看一下<xref
+    context中配置。这个XML文件配置了控制器并引用了其它Spring管理的bean，它由<classname>ServletContextListener</classname>载入，后者同时也被配置从classpath中载入了<filename>applicationContext-weather.xml</filename>和<filename>applicationContext-persist.xml</filename>。让我们仔细看一下<xref
     linkend="ex-spring-weather-servlet" />中展示的<filename>weather-servlet.xml</filename>。</para>
 
     <example>
@@ -1384,7 +1385,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
     <calloutlist>
       <callout arearefs="coDef-weather-servlet-1" id="coRef-weather-servlet-1">
-        <para><filename>weather-servlet.xml</filename>定义了两个控制器作为Spring管理的bean。<varname>weatherController</varname>有两个属性，引用至<varname>weatherService</varname>和<varname>weatherDAO</varname>。<varname>historyController</varname>引用了<varname>weatherDAO</varname>和<varname>locationDAO</varname>
+        <para><filename>weather-servlet.xml</filename>定义了两个控制器作为Spring管理的bean。<varname>weatherController</varname>有两个属性，引用<varname>weatherService</varname>和<varname>weatherDAO</varname>。<varname>historyController</varname>引用了<varname>weatherDAO</varname>和<varname>locationDAO</varname>
         bean。当<classname>ApplicationContext</classname>被创建的时候，它所处的环境能够访问<varname>simple-persist</varname>和<varname>simple-weather</varname>中定义的<classname>ApplicationContext</classname>。在<xref
         linkend="ex-spring-webxml" />中你将看到如何配置Spring以归并多个Spring配置文件的组件。</para>
       </callout>
@@ -1474,7 +1475,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
       </callout>
 
       <callout arearefs="coDef-spring-webx-3" id="coRef-spring-webx-3">
-        <para>这里确保当web应用启动的时候Log4J系统被配置。将<classname>Log4JConfigListener</classname>放在<classname>ContextLoaderListener</classname>前面十分重要；否则你可能丢失那些指向阻止应用启动问题的重要日志信息。如果你有一个特别大的Spring管理的bean集合，而其中一个碰巧在应用启动的时候出问题了，应用更可能会不能启动。如果你在Spring启动之前有了日志，你就有机会看到警告或错误信息。如果你在Spring启动之前没有配置日志，你就不知道为什么你的应用不能启动了。</para>
+        <para>这里确保当web应用启动的时候Log4J系统被配置。将<classname>Log4JConfigListener</classname>放在<classname>ContextLoaderListener</classname>前面十分重要；否则你可能丢失那些指向阻止应用启动问题的重要日志信息。如果你有一个特别大的Spring管理的bean集合，而其中一个碰巧在应用启动的时候出问题了，应用很可能会不能启动。如果你在Spring启动之前有了日志，你就有机会看到警告或错误信息。如果你在Spring启动之前没有配置日志，你就不知道为什么你的应用不能启动了。</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-4" id="coRef-spring-webx-4">
@@ -1569,7 +1570,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 
     <para>Jetty启动之后，你可以载入<ulink
     url="http://localhost:8080/simple-webapp/weather.x?zip=60202">http://localhost:8080/simple-webapp/weather.x?zip=60202</ulink>，然后就能在你的浏览器中看到Evanston,
-    IL的天气。更改邮编你就能看到你自己的天气报告了。</para>
+    IL的天气。更改邮编后你就能看到你自己的天气报告了。</para>
 
     <screen>Current Weather Conditions for: Evanston, IL, US
 
@@ -2013,59 +2014,24 @@ Evanston, IL, US
   <section>
     <title>小结</title>
 
-    <para>We've spent a great deal of time on topics not directly related
-    Maven to get this far. We've done this to present a complete and
-    meaningful example project which you can use to implement real-world
-    systems. We didn't take any short-cuts to produce slick, canned results
-    quickly, and we're not going to dazzle you with some Ruby on Rails-esque
-    wizardry and lead you to believe that you can create a finished Java
-    Enterprise application in "10 easy minutes!" There's too much of this in
-    the market, there are too many people trying to sell you the easiest
-    framework that requires zero investment of time or attention. What we're
-    trying to do in this chapter is present the entire picture, the entire
-    ecosystem of a multi-module build. What we've done is present Maven in the
-    context of a application which resembles something you could see in the
-    wild—not the fast-food, 10 minute screen-cast that slings mud at Apache
-    Ant and tries to convince you to adopt Apache Maven.</para>
+    <para>到目前为止我们花了大量时间在一些不是和Maven直接相关的话题上。这么做是为了演示一些完整的并且有意义的样例项目，以能让你用来帮助实现你的现实系统。我们并没有走任何捷径来快速生成完好的结果，也没有使用Ruby
+    on
+    Rails式样的东西让你感到惊讶目眩，说你可以在“简单的10分钟内！”创建并完成一个Java企业级应用。市场上这样的东西太多了，有太多的人试图卖给你最简单的框架，又只需要你投入零的时间关注。本章我们想要做的是展现给你整个的画面，整个多模块构建的生态系统。这里我们展现的Maven处于一个你能经常看到的自然应用的上下文中——不是快餐式的，10分钟的简单介绍，往Apache
+    Ant扔烂泥，说服你采用Apache Maven。</para>
 
-    <para>If you walk away from this chapter wondering what it has to do with
-    Maven, we've succeeded. We present a complex set of projects, using
-    popular frameworks, and we tie them together using declarative builds. The
-    fact that more than 60% of this chapter was spent explaining Spring and
-    Hibernate should tell you that Maven, for the most part, stepped out of
-    the way. It worked. It allowed us to focus on the application itself, not
-    on the build process. Instead of spending time discussing Maven, and the
-    work you would have to do to "build a build" that integrated with Spring
-    and Hibernate, we talked almost exclusively about the technologies used in
-    this contrived project. If you start to use Maven, and you take the time
-    to learn it, you really do start to benefit from the fact that you don't
-    have to spend time coding up some procedural build script. You don't have
-    to spend your time worrying about mundane aspects of your build.</para>
+    <para>如果你离开本章，想知道它到底和Maven有什么关系，那么我们就成功了。我们演示了一个复杂的项目集合，使用了流行的框架，并且使用声明式构建将它们绑在了一起。事实上本章60%以上的内容是在解释Spring和Hibernate，而大部分时间，Maven暂时离开了。这样是可行的。它让你集中注意力于应用本身，而非构建过程。我们专门的来讨论那些在这个人造项目中用到的技术，而不是花时间讨论Maven，以及那些为了“构建一个集成了Spring和Hibernate的构建”你必须做的工作。如果你开始使用Maven，并且花时间学习它，你肯定会开始获益，因为你不需要花时间去编写一些程式化的构建脚本。你不用再花时间去考虑构建中那些平常的方面。</para>
 
-    <para>You can use the skeleton project introduced in this chapter as the
-    foundation for your own, and chances are that when you do, you'll find
-    yourself creating more and more modules as you need them. For example, the
-    project on which this chapter was based has two distinct model projects,
-    two persistence projects which persist to dramatically different
-    databases, several web applications, and a Java mobile application. In
-    total, the real world system I based this on contains at least 15
-    interrelated modules. The point is that, you've seen the most complex
-    multi-module example we're going to include in this book, but you should
-    also know that this example just scratches the surface of what is possible
-    with Maven.</para>
+    <para>你可以使用本章介绍的骨架项目作为你自己项目的基础，这么做的机会是，你会发现，你会根据需要创建越来越多的模块。例如，基于本章样例的项目可能有两个单独的模型模块，两个持久化模块以将数据持久化到不同数据库，一些web应用，以及一个Java手机应用。总的来说，这个现实系统包含了15个相关的模块。重点是，你已经看到了本书中最复杂的多模块样例，但你应该知道该样例也仅仅触及了所有Maven可能性的表面。</para>
 
     <section>
       <title>编写接口项目程序</title>
 
-      <para>This chapter explored a multi-module project which was more
-      complex than the simple example presented in <xref
-      linkend="multimodule" />, yet it was still a simplification of a
-      real-world project. In a larger project, you might find yourself
-      building a system resembling <xref
-      linkend="fig-multimodule-web-spring-projects-complex" />.</para>
+      <para>本章展现了一个多模块项目，该项目比<xref
+      linkend="multimodule" />中展示的简单样例复杂得多，然而它也只是现实项目的一个简化。在大型项目中，你可能发现你正构建一个如<xref
+      linkend="fig-multimodule-web-spring-projects-complex" />的系统。</para>
 
       <figure id="fig-multimodule-web-spring-projects-complex">
-        <title>Programming to Interface Projects</title>
+        <title>编写接口项目程序</title>
 
         <mediaobject>
           <imageobject>
@@ -2075,24 +2041,10 @@ Evanston, IL, US
         </mediaobject>
       </figure>
 
-      <para>When we use the term interface project we are referring to a Maven
-      project which contains interfaces and constants only. In <xref
-      linkend="fig-multimodule-web-spring-projects-complex" /> the interface
-      projects would be <varname>persist-api</varname> and
-      <varname>parse-api</varname>. If <varname>big-command</varname> and
-      <varname>big-webapp</varname> are written to the interfaces defined in
-      <varname>persist-api</varname>, then it is very easy to just swap in
-      another implementation of the persistence library. This particular
-      diagram shows two implementations of the <varname>persist-api</varname>
-      project, one which stores data in an <acronym>XML</acronym> database,
-      and the other which stores data in a relational database. If you use
-      some of the concepts in this chapter, you can see how you could just
-      pass in a flag to the program that swaps in a different Spring
-      application context <acronym>XML</acronym> file to swap out data sources
-      of persistence implementations. Just like the OO design of the
-      application itself, it is often wise to separate the interfaces of an
-      <acronym>API</acronym> from the implementation of the API into separate
-      Maven projects.</para>
+      <para>当我们使用术语接口项目的时候，我们是指一个只包含了接口和常量的Maven项目。在<xref
+      linkend="fig-multimodule-web-spring-projects-complex" />中，接口项目是<varname>persist-api</varname>和<varname>parse-api</varname>。如果<varname>big-command</varname>和<varname>big-webapp</varname>针对于<varname>persist-api</varname>中定义的接口编写，那么它就能很容易的切换到另一种持久化类库的实现。该图显示了两个<varname>persist-api</varname>项目的实现，一个将数据存储于<acronym>XML</acronym>数据库，另一个将数据存储于关系数据库。如果你使用本章中的一些概念，你就能看到如何仅仅通过传入一个标记，让程序换入一个不同的Spring
+      application context
+      <acronym>XML</acronym>文件，换出持久化实现的数据源。就像应用程序本身的OO设计一样，通常将接口Maven项目从实现Maven项目中分离是一种很明智的做法。</para>
     </section>
   </section>
 </chapter>
