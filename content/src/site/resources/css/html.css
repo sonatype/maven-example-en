@@ -125,7 +125,7 @@ h1, h2, h3, h4, h6 {
     color: #000000;
     font-weight: 500;
     margin-top: 0;
-    padding-top: 14px;
+    padding-top: 5px;
     font-family: Verdana, Arial, helvetica, sans-serif;
     margin-bottom: 0;
 }
@@ -350,6 +350,8 @@ div.calloutlist * td {
     width: 250;
     margin-left: 25px;
     margin-top: 20px;
+    border: 2px solid black;
+    padding: 5px;
 }
 
 .section-icon {
@@ -359,4 +361,25 @@ div.calloutlist * td {
 
 #blogs img {
    display: none;
+}
+
+#blogs h1 { 
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#blogs .blogpost h2 a {
+	padding-top: 0px;
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+#blogs .blogpost h3 {
+   padding-top: 0px;
+   font-size: 8pt;
+}
+
+#blogs .blogpost p {
+   font-size: 8pt;
+   margin-bottom: 0px;
 }
