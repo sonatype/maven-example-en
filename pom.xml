@@ -26,6 +26,13 @@
         <properties>
            <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
         </properties>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>file:///var/www/domains/sonatype.com/www/htdocs/book/parent</url>
+        </site>
+        </distributionManagement>
         <repositories>
     <repository>
       <id>sonatype-forge</id>
