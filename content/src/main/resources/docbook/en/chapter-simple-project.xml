@@ -591,10 +591,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
                 <primary>Resources plugin</primary>
 
                 <secondary>resources goal</secondary>
-              </indexterm> plugin is bound to the <varname>resources</varname>
-            phase. This goal copies all of the resources from
-            <filename>src/main/resources</filename> and any other configured
-            resource directories to the output directory.</para>
+              </indexterm> plugin is bound to the
+            <varname>process-resources</varname> phase. This goal copies all
+            of the resources from <filename>src/main/resources</filename> and
+            any other configured resource directories to the output
+            directory.</para>
           </listitem>
         </varlistentry>
 
@@ -626,10 +627,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
                 <secondary>testResources goal</secondary>
               </indexterm> plugin is bound to the
-            <varname>test-resources</varname> phase. This goal copies all of
-            the resources from <filename>src/test/resources</filename> and any
-            other configured test resource directories to a test output
-            directory.</para>
+            <varname>process-test-resources</varname> phase. This goal copies
+            all of the resources from <filename>src/test/resources</filename>
+            and any other configured test resource directories to a test
+            output directory.</para>
           </listitem>
         </varlistentry>
 
@@ -768,8 +769,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <para>We've highlighted the Maven coordinates for this project: the
       <varname>groupId</varname>, <varname>artifactId</varname>,
       <varname>version</varname> and <varname>packaging</varname>. These
-      combined identifiers make up a project's coordinates<footnoteref
-      linkend="foot-simple-classify" />.<footnote id="foot-simple-classify">
+      combined identifiers make up a project's coordinates.<footnote
+          id="foot-simple-classify">
           <para>There is a fifth, seldom-used coordinate named
           <varname>classifier</varname> which we will introduce later in the
           book. You can feel free to ignore classifiers for now.</para>
