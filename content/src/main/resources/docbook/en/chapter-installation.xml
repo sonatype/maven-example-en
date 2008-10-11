@@ -256,7 +256,7 @@ lib/</screen>
     role="keep-together">settings.xml</filename> that can be used to
     <indexterm>
         <primary>settings.xml file</primary>
-      </indexterm>customize the behavior of your Maven installtion. If you
+      </indexterm>customize the behavior of your Maven installation. If you
     need to customize Maven, it is customary to override any settings in a
     <filename>settings.xml</filename> file stored in<indexterm>
         <primary>m2 directory, contents of</primary>
@@ -264,6 +264,20 @@ lib/</screen>
     contains a single JAR file
     (<filename>maven-core-2.0.9-uber.jar</filename>) that contains the core of
     Maven.</para>
+
+    <note>
+      <para>Unless you are working in a shared Unix environment, you should
+      avoid customizing the <filename>settings.xml</filename> in
+      <filename>M2_HOME/conf</filename>. Altering the global
+      <filename>settings.xml</filename> file in the Maven installation itself
+      is usually unnecessary and it tends to complicate the upgrade procedure
+      for Maven as you'll have to remember to copy the customized
+      <filename>settings.xml</filename> from the old Maven installation to the
+      new installation. If you need to customize
+      <filename>settings.xml</filename>, you should be editing your own
+      <filename>settings.xml</filename> in
+      <filename>~/.m2/settings.xml</filename>.</para>
+    </note>
 
     <section id="section-installation-user">
       <title>User-specific Configuration and Repository</title>
@@ -329,6 +343,14 @@ lib/</screen>
       <para>If you have installed Maven on a Windows machine, simply unpack
       Maven to <filename>c:\Program Files\maven-2.future</filename> and update
       your <varname>M2_HOME</varname> variable.</para>
+
+      <note>
+        <para>If you have any customizations to the global
+        <filename>settings.xml</filename> in
+        <filename>M2_HOME/conf</filename>, you will need to copy this
+        <filename>settings.xml</filename> to the <filename>conf</filename>
+        directory of the new Maven installation.</para>
+      </note>
     </section>
   </section>
 
