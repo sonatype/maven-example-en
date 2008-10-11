@@ -68,14 +68,8 @@
                 <copy todir="${project.build.directory}/site">
                   <fileset dir="${basedir}/src/site/resources"/>
                 </copy>
-                <!-- These next two copies are really hacks because I
-                     don't know how to make AC_FL_RunContent look in 
-                     a directory other than the current -->
                 <copy todir="${project.build.directory}/site/reference">
-                  <fileset dir="${basedir}/src/site/resources/flash"/>
-                </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="${basedir}/src/site/resources/flash"/>
+                  <fileset dir="${basedir}/src/main/resources/images"/>
                 </copy>
                 <copy todir="${project.build.directory}/site">
                   <fileset dir="../examples/target">
