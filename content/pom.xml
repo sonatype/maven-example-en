@@ -52,6 +52,56 @@
         <executions>
 
           <execution>
+            <id>generate-pdf</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-pdf</goal>
+            </goals>
+            <configuration>
+              <imgSrcPath>${basedir}/src/main/resources/docbook/en/</imgSrcPath>
+              <foCustomization>${basedir}/src/main/resources/xsl/en/fopdf.xsl</foCustomization>
+              <postProcess>
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
+                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-pdf-de</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-pdf</goal>
+            </goals>
+            <configuration>
+   	          <sourceDirectory>${basedir}/src/main/resources/docbook/de</sourceDirectory>
+              <imgSrcPath>${basedir}/src/main/resources/docbook/de/</imgSrcPath>
+              <foCustomization>${basedir}/src/main/resources/xsl/de/fopdf.xsl</foCustomization>
+              <postProcess>
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_de.pdf">
+                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-pdf-zh</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-pdf</goal>
+            </goals>
+            <configuration>
+   	          <sourceDirectory>${basedir}/src/main/resources/docbook/zh</sourceDirectory>
+              <imgSrcPath>${basedir}/src/main/resources/docbook/zh/</imgSrcPath>
+              <foCustomization>${basedir}/src/main/resources/xsl/zh/fopdf.xsl</foCustomization>
+              <postProcess>
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_zh.pdf">
+                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
+          <execution>
             <id>generate-html</id>
             <phase>pre-site</phase>
             <goals>
@@ -86,7 +136,60 @@
               </postProcess>
             </configuration>
           </execution>
-
+          <execution>
+            <id>generate-html-de</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-html</goal>
+            </goals>
+            <configuration>
+   	          <sourceDirectory>${basedir}/src/main/resources/docbook/de</sourceDirectory>
+              <chunkedOutput>true</chunkedOutput>
+              <useIdAsFilename>1</useIdAsFilename>
+              <htmlCustomization>${basedir}/src/main/resources/xsl/de/html_chunk.xsl</htmlCustomization>
+              <postProcess>
+                <copy todir="${project.build.directory}/site/reference_de">
+                  <fileset dir="${project.build.directory}/docbkx/html"/>
+                </copy>
+                <!-- These next two copies are really hacks because I
+                     don't know how to make AC_FL_RunContent look in 
+                     a directory other than the current -->
+                <copy todir="${project.build.directory}/site/reference_de">
+                  <fileset dir="${basedir}/src/site/resources/flash"/>
+                </copy>
+                <copy todir="${project.build.directory}/site/reference_de/figs/web">
+                  <fileset dir="src/main/resources/docbook/de/figs/web"/>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-html-zh</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-html</goal>
+            </goals>
+            <configuration>
+   	          <sourceDirectory>${basedir}/src/main/resources/docbook/zh</sourceDirectory>
+              <chunkedOutput>true</chunkedOutput>
+              <useIdAsFilename>1</useIdAsFilename>
+              <htmlCustomization>${basedir}/src/main/resources/xsl/zh/html_chunk.xsl</htmlCustomization>
+              <postProcess>
+                <copy todir="${project.build.directory}/site/reference_zh">
+                  <fileset dir="${project.build.directory}/docbkx/html"/>
+                </copy>
+                <!-- These next two copies are really hacks because I
+                     don't know how to make AC_FL_RunContent look in 
+                     a directory other than the current -->
+                <copy todir="${project.build.directory}/site/reference_zh">
+                  <fileset dir="${basedir}/src/site/resources/flash"/>
+                </copy>
+                <copy todir="${project.build.directory}/site/reference_zh/figs/web">
+                  <fileset dir="src/main/resources/docbook/zh/figs/web"/>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
         </executions>
         <configuration>
 	      <sourceDirectory>${basedir}/src/main/resources/docbook/en</sourceDirectory>
