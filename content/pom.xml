@@ -34,6 +34,19 @@
 						</configuration>
 						<phase>generate-sources</phase>
 					</execution>
+					<execution>
+						<id>javaeye</id>
+						<goals>
+							<goal>consume</goal>
+						</goals>
+						<configuration>
+							<feed><![CDATA[http://juvenshun.javaeye.com/rss]]></feed>
+							<template>${basedir}/src/feed/blogs-div.vm</template>
+							<outputDirectory>${basedir}/src/main/resources/docbook/zh/includes</outputDirectory>
+							<outputFilename>blogs-div.html</outputFilename>
+						</configuration>
+						<phase>generate-sources</phase>
+					</execution>
 				</executions>
 			</plugin>
       <plugin>
