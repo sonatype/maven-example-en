@@ -35,12 +35,12 @@
 						<phase>generate-sources</phase>
 					</execution>
 					<execution>
-						<id>javaeye</id>
+						<id>maven-blogs</id>
 						<goals>
 							<goal>consume</goal>
 						</goals>
 						<configuration>
-							<feed><![CDATA[http://juvenshun.javaeye.com/rss]]></feed>
+							<feed><![CDATA[http://feeds.feedburner.com/sonatype]]></feed>
 							<template>${basedir}/src/feed/blogs-div.vm</template>
 							<outputDirectory>${basedir}/src/main/resources/docbook/zh/includes</outputDirectory>
 							<outputFilename>blogs-div.html</outputFilename>

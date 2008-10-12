@@ -85,28 +85,7 @@
     ################################################### -->
     <xsl:template name="user.head.content">
 
-      <!--  BEGIN Browser History required section -->
-      <link rel="stylesheet" type="text/css" href="../css/history.css" />
-      <!--  END Browser History required section -->
-      
       <title></title>
-      <script src="../js/AC_OETags.js" language="javascript"></script>
-      
-      <!--  BEGIN Browser History required section -->
-      <script src="../js/history.js" language="javascript"></script>
-      <!--  END Browser History required section -->
-      
-      <script language="JavaScript" type="text/javascript">
-        <xsl:comment>
-            // Globals
-            // Major version of Flash required
-            var requiredMajorVersion = 9;
-            // Minor version of Flash required
-            var requiredMinorVersion = 0;
-            // Minor version of Flash required
-            var requiredRevision = 28;
-          </xsl:comment>
-      </script>
 
 
     </xsl:template>
@@ -214,80 +193,8 @@
                 </xsl:if>
             </div>
         </xsl:if>
-      <div id="blogWidget">
-<script language="JavaScript" type="text/javascript">
-<xsl:comment>
-// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
-var hasProductInstall = DetectFlashVer(6, 0, 65);
-
-// Version check based upon the values defined in globals
-var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-
-if ( hasProductInstall &amp;&amp; !hasRequestedVersion ) {
-	// DO NOT MODIFY THE FOLLOWING FOUR LINES
-	// Location visited after installation is complete if installation is required
-	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-	var MMredirectURL = window.location;
-    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-    var MMdoctitle = document.title;
-
-	AC_FL_RunContent(
-		"src", "playerProductInstall",
-		"FlashVars", "MMredirectURL="+MMredirectURL+'&amp;MMplayerType='+MMPlayerType+'&amp;MMdoctitle='+MMdoctitle+"",
-		"width", "250",
-		"height", "500",
-		"align", "middle",
-		"id", "main",
-		"quality", "high",
-		"bgcolor", "#869ca7",
-		"name", "main",
-        "allowScriptAccess","sameDomain",
-		"type", "application/x-shockwave-flash",
-		"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-} else if (hasRequestedVersion) {
-	// if we've detected an acceptable version
-	// embed the Flash Content SWF when all tests are passed
-	AC_FL_RunContent(
-			"src", "main",
-			"width", "250",
-			"height", "500",
-			"align", "middle",
-			"id", "main",
-			"quality", "high",
-			"bgcolor", "#869ca7",
-			"name", "main",
-			"allowScriptAccess","sameDomain",
-			"type", "application/x-shockwave-flash",
-			"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-  } else {  // flash is too old or we can't detect the plugin
-    var alternateContent = 'Alternate HTML content should be placed here. '
-  	+ 'This content requires the Adobe Flash Player. '
-   	+ '&lt;a href=http://www.adobe.com/go/getflash/&gt;Get Flash&lt;/a&gt;';
-    document.write(alternateContent);  // insert non-flash content
-  }
-// </xsl:comment>
-</script>
-<noscript>
-  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-			id="main" width="250" height="500"
-			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-			<param name="movie" value="main.swf" />
-			<param name="quality" value="high" />
-			<param name="bgcolor" value="#869ca7" />
-			<param name="allowScriptAccess" value="sameDomain" />
-			<embed src="main.swf" quality="high" bgcolor="#869ca7"
-				width="250" height="500" name="main" align="middle"
-				play="true"
-				loop="false"
-				allowScriptAccess="sameDomain"
-				type="application/x-shockwave-flash"
-				pluginspage="http://www.adobe.com/go/getflashplayer">
-			</embed>
-	</object>
-</noscript>
-      </div>
+      <xsl:variable name="codefile" select="document('includes/blogs-div.html',/)"/>
+      <xsl:value-of disable-output-escaping="yes" select="$codefile"/>
     </xsl:template>
     <xsl:param name="navig.showtitles">1</xsl:param>
     <xsl:template name="footer.navigation">
