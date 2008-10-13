@@ -71,7 +71,7 @@
       thousands of lines of code, and involve the effort of tens or hundreds
       of software developers. While such a complete example is outside the
       scope of this book, we can provide you with a sample project that
-      suggests the complexity of larger Enterprise application. In the
+      suggests the complexity of a larger Enterprise application. In the
       conclusion we suggest some possibilities for modularity beyond that
       presented in this chapter.</para>
 
@@ -1139,7 +1139,7 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
         <para>This class extends <classname>HibernateDaoSupport</classname>.
         What this means is that the class is going to be associated with a
         Hibernate <classname>SessionFactory</classname> which it is going to
-        use to create HIbernate <classname>Session</classname> objects. In
+        use to create Hibernate <classname>Session</classname> objects. In
         Hibernate, every operation goes through a
         <classname>Session</classname> object, a
         <classname>Session</classname> mediates access to the underlying
@@ -1279,7 +1279,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <varname>simple-model</varname> module. Next, the
     <varname>sessionFactory</varname> is configured with a set of Hibernate
     configuration properties (<varname>hibernateProperties</varname>). In this
-    example, our HIbernate properties define a number of settings:</para>
+    example, our Hibernate properties define a number of settings:</para>
 
     <variablelist>
       <varlistentry>

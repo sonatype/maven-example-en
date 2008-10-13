@@ -443,55 +443,26 @@
       <section>
         <title>LATEST 和 RELEASE 版本</title>
 
-        <para>When you depend on a plugin or a dependency, you can use the a
-        version value of LATEST or RELEASE. LATEST refers to the latest
-        released or snapshot version of a particular artifact, the most
-        recently deployed artifact in a particular repository. RELEASE refers
-        to the last non-snapshot release in the repository. In general, it is
-        not a best practice to design software which depends on a non-specific
-        version of an artifact. If you are developing software, you might want
-        to use RELEASE or LATEST as a convenience so that you don't have to
-        update version numbers when a new release of a third-party library is
-        released. When you release software, you should always make sure that
-        your project depends on specific versions to reduce the chances of
-        your build or your project being affected by a software release not
-        under your control. Use LATEST and RELEASE with caution, if at
-        all.</para>
+        <para>当你依赖于一个插件或一个依赖，你可以使用特殊的版本值LATEST或者RELEASE。LATEST是指某个特定构件最新的发布版或者快照版(snapshot)，最近被部署到某个特定仓库的构件。RELEASE是指仓库中最后的一个非快照版本。总得来说，设计软件去依赖于一个构件的不明确的版本，并不是一个好的实践。如果你正在开发软件，你可能想要使用RELEASE或者LATEST，这么做十分方便，你也不用为每次一个第三方类库新版本的发布而去更新你配置的版本号。当你发布软件的时候，你总是应该确定你的项目依赖于某个特定的版本，以减少构建的不确定性，免得被其它不受你控制的软件版本影响。如果无论如何你都要使用LATEST和RELEASE，那么要小心使用。</para>
 
-        <para>Starting with Maven 2.0.9, Maven locks down the version numbers
-        of common and core Maven plugins in the super POM to standardize a
-        core set of Maven plugins for a particular version of Maven. This
-        change was introduced to Maven 2.0.9 to bring stability and
-        reproducibility to Maven builds. Before Maven 2.0.9, Maven would
-        automatically update core Maven plugins using the LATEST version. This
-        behavior led to a number of surprises when bugs was introduced into
-        core plugins or functionality changed in a core plugin which
-        subsequently broke a build. When Maven automatically updated core
-        plugins, it was noted that there was little guarantee that a build
-        would be reproducible as plugins could be updated whenever a new
-        version was pushed to the central repository. Starting with Maven
-        2.0.9, Maven, essentially, ships with a core set of locked down plugin
-        versions. Non-core plugins, or plugins without versions assigned in
-        the Super POM will still use the LATEST version to retrieve a plugin
-        artifact from the repository. It is for this reason that you should
-        assign explicit version numbers to any custom or non-core plugins used
-        in your build.</para>
+        <para>Maven
+        2.0.9之后，Maven在超级POM中锁住了一些通用及核心Maven插件的版本号，以将某个特定版本Maven的核心Maven插件组标准化。这个变化在Maven
+        2.0.9中被引入，为Maven构建带来了稳定性和重现性。在Maven
+        2.0.9之前，Maven会自动将核心插件更新至LATEST版本。这种行为导致了很多奇怪现象，因为新版本的插件可能会有一些bug，甚至是行为变更，这往往使得原来的构建失败。当Maven自动更新核心插件的时候，我们就不能保证构件的重现性，因为插件随时都可能从中央仓库更新至一个新的版本。从Maven
+        2.0.9开始，Maven从根本上锁住了一组核心插件的版本。非核心插件，或者说没有在超级POM中指定版本的插件仍然会使用LATEST版本去从仓库获取构件。由于这个原因，你在构件中使用任何一个自定义非核心插件的时候，都应该显式的指定版本号。</para>
       </section>
     </section>
 
     <section>
       <title>属性引用</title>
 
-      <para>A <acronym>POM</acronym> can include references to properties
-      <indexterm>
+      <para>一个<acronym>POM</acronym>可以通过一对大括弧和前面一个美元符号来包含 <indexterm>
           <primary>properties</primary>
 
           <secondary>referencing in pom.xml</secondary>
         </indexterm><indexterm>
           <primary>references to properties, in pom.xml</primary>
-        </indexterm>preceded by a dollar sign and surrounded by two curly
-      braces. For example, consider the following
-      <acronym>POM</acronym>:</para>
+        </indexterm>对属性的引用。例如，考虑如下的<acronym>POM</acronym>：</para>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -504,39 +475,28 @@
   &lt;/build&gt;
 &lt;/project&gt;</programlisting>
 
-      <para>If you put this <acronym>XML</acronym> in a
-      <filename>pom.xml</filename> and run <command>mvn
-      help:effective-pom</command>, you will see that the output contains the
-      line:</para>
+      <para>如果你将这段<acronym>XML</acronym>放入<filename>pom.xml</filename>，然后运行<command>mvn
+      help:effective-pom</command>，你会看到输出包含这一行：</para>
 
       <programlisting language="xml">...
 &lt;finalName&gt;org.sonatype.mavenbook-project-a&lt;/finalName&gt;
 ...</programlisting>
 
-      <para>When Maven reads a <acronym>POM</acronym>, it replaces references
-      to properties when it loads the <acronym>POM</acronym>
-      <acronym>XML</acronym>. Maven properties occur frequently in advanced
-      Maven usage, and are similar to properties in other systems such as Ant
-      or Velocity. They are simply variables delimited by
-      <varname>${...}</varname>. Maven provides three implicit variables which
-      can be used to access environment variables, <acronym>POM</acronym>
-      information, and Maven Settings:</para>
+      <para>在Maven读取一个<acronym>POM</acronym>的时候，它会在载入<acronym>POM</acronym>
+      <acronym>XML</acronym>的时候替换这些属性的引用。在Maven的高级使用中Maven属性经常出现，这些属性和其它系统中的属性如Ant或者Velocity类似。它们是一些由<varname>${...}</varname>划界的变量。Maven提供了三个隐式的变量，可以用来访问环境变量，<acronym>POM</acronym>信息，和Maven
+      Settings：</para>
 
       <variablelist>
         <varlistentry>
           <term>env</term>
 
           <listitem>
-            <para>The <varname>env</varname> variable exposes environment
-            <indexterm>
+            <para><varname>env</varname>变量 <indexterm>
                 <primary>env variable</primary>
               </indexterm><indexterm>
                 <primary>implicit variables, list of</primary>
-              </indexterm>variables exposed by your operating system or shell.
-            For example, a reference to <varname>${env.PATH}</varname> in a
-            Maven <acronym>POM</acronym> would be replaced by the
-            <varname>${PATH}</varname> environment variable (or
-            <varname>%PATH%</varname> in Windows).</para>
+              </indexterm>暴露了你操作系统或者shell的环境变量。例如，在Maven
+            POM中一个对<varname>${env.PATH}</varname>的引用将会被<varname>${PATH}</varname>环境变量替换（或者Windows中的<varname>%PATH%</varname>）。</para>
           </listitem>
         </varlistentry>
 
@@ -544,16 +504,9 @@
           <term>project</term>
 
           <listitem>
-            <para>The <varname>project</varname> variable exposes
-            the<indexterm>
+            <para><varname>project</varname>变量暴露了<acronym><indexterm>
                 <primary>project variable</primary>
-              </indexterm> <acronym>POM</acronym>. You can use a dot-notated
-            (.) path to reference the value of a <acronym>POM</acronym>
-            element. For example, in this section we used the
-            <varname>groupId</varname> and <varname>artifactId</varname> to
-            set the <sgmltag>finalName</sgmltag> element in the build
-            configuration. The syntax for this property reference was:
-            <code>${project.groupId}-${project.</code><code>artifactId}</code>.</para>
+              </indexterm>POM</acronym>。你可以使用点标记（.）的路径来引用<acronym>POM</acronym>元素的值。例如，在本节中我们使用过<varname>groupId</varname>和<varname>artifactId</varname>来设置构建配置中的<sgmltag>finalName</sgmltag>元素。这个属性引用的语法是：<code>${project.groupId}-${project.</code><code>artifactId}</code>。</para>
           </listitem>
         </varlistentry>
 
@@ -561,48 +514,32 @@
           <term>settings</term>
 
           <listitem>
-            <para>The <varname>settings</varname> variable exposes Maven
-            <indexterm>
-                <primary>settings variable</primary>
-              </indexterm>settings information. You can use a dot-notated (.)
-            path to reference the value of an element in a <filename
-            moreinfo="none">settings.xml</filename> file. For example,
-            <varname>${settings.offline}</varname> would reference the value
-            of the <sgmltag>offline</sgmltag> element in <filename
-            moreinfo="none">~/.m2/settings.xml</filename>.</para>
+            <para><varname>settings</varname>变量暴露了Maven
+            settings信息。可以使用点标记（.）的路径来引用<filename
+            moreinfo="none">settings.xml</filename>文件中元素的值。例如，<varname>${settings.offline}</varname>会引用<filename
+            moreinfo="none">~/.m2/settings.xml</filename>文件中<sgmltag>offline</sgmltag>元素的值。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <note>
-        <para>You may see older builds that use <varname>${pom.xxx}</varname>
-        or just <varname>${xxx}</varname> to reference <acronym>POM</acronym>
-        properties. These methods have been deprecated and only
-        <varname>${project.xxx}</varname> should be used.</para>
+        <para>你可能在老的构建中看到使用<varname>${pom.xxx}</varname>或者仅仅<varname>${xxx}</varname>来引用<acronym>POM</acronym>属性。这些方法已被弃用，我们只应该使用<varname>${project.xxx}</varname>。</para>
       </note>
 
-      <para>In addition to the three implicit variables, you can reference
-      <indexterm>
+      <para>除了这三个隐式的变量，你还可以<indexterm>
           <primary>system properties, referencing</primary>
-        </indexterm>system properties and any custom properties set in the
-      Maven <acronym>POM</acronym> or in a build profile:</para>
+        </indexterm>引用系统属性，以及任何在Maven
+      <acronym>POM</acronym>中和构建profile中自定义的属性组。</para>
 
       <variablelist>
         <varlistentry>
-          <term>Java System Properties</term>
+          <term>Java系统属性</term>
 
           <listitem>
-            <para>All properties accessible via<indexterm>
+            <para>所有可以通过<classname>java.lang.System</classname>中<methodname>getProperties()</methodname>方法访问的属性<indexterm>
                 <primary>Java system properties, referencing</primary>
-              </indexterm> <methodname>getProperties()</methodname> on
-            <classname>java.lang.System</classname> are exposed as
-            <acronym>POM</acronym> properties. Some examples of system
-            properties are: <varname>${user.name}</varname>, <varname
-            role="keep-together">${user.home}</varname>,
-            <varname>${java.home}</varname>, and
-            <varname>${os.name}</varname>. A full list of system properties
-            can be found in the Javadoc for the
-            <classname>java.lang.System</classname> class.</para>
+              </indexterm>都被暴露成<acronym>POM</acronym>属性。一些系统属性的例子是：<varname>${user.name}</varname>，<varname
+            role="keep-together">${user.home}</varname>，<varname>${java.home}</varname>，和<varname>${os.name}</varname>。一个完整的系统属性列表可以在<classname>java.lang.System</classname>类的Javadoc中找到。</para>
           </listitem>
         </varlistentry>
 
@@ -610,19 +547,10 @@
           <term>x</term>
 
           <listitem>
-            <para>Arbitrary properties can be set with a<indexterm>
-                <primary>arbitrary properties, referencing</primary>
-              </indexterm> <varname>properties</varname> element in a
-            <filename moreinfo="none">pom.xml</filename> or <filename
-            moreinfo="none" role="keep-together">settings.xml</filename>, or
-            properties can be loaded from external files. If you set a
-            property named <varname>fooBar</varname> in your <filename
-            moreinfo="none">pom.xml</filename>, that same property is
-            referenced with <varname>${fooBar}</varname>. Custom properties
-            come in handy when you are building a system that filters
-            resources and targets different deployment platforms. Here is the
-            syntax for setting <literal>${foo}=bar</literal> in a
-            <acronym>POM</acronym>:</para>
+            <para>我们还可以通过<filename
+            moreinfo="none">pom.xml</filename>或者<filename moreinfo="none"
+            role="keep-together">settings.xml</filename>中的<varname>properties</varname>元素设置自己的属性，或者还可以使用外部载入的文件中属性。如果你在<filename
+            moreinfo="none">pom.xml</filename>中设置了一个名为<varname>fooBar</varname>的属性，该属性就可以通过<varname>${fooBar}</varname>引用。当你构建一个系统，它针对不同的部署环境过滤资源，那么自定义属性就变得十分有用。这里是在<acronym>POM</acronym>中设置<literal>${foo}=bar</literal>的语法：</para>
 
             <programlisting language="xml">&lt;properties&gt;
   &lt;foo&gt;bar&lt;/foo&gt;
@@ -631,16 +559,14 @@
         </varlistentry>
       </variablelist>
 
-      <para>For a more comprehensive list of available properties, see <xref
-      linkend="resource-filtering" />.</para>
+      <para>要了解更复杂的可用属性列表，查看<xref linkend="resource-filtering" />。</para>
     </section>
   </section>
 
   <section>
     <title>项目依赖</title>
 
-    <para>Maven can manage both internal and external dependencies.
-    An<indexterm class="startofrange" id="pom3a">
+    <para>Maven可以管理内部和外部依赖。<indexterm class="startofrange" id="pom3a">
         <primary>dependencies</primary>
       </indexterm><indexterm>
         <primary>POM (Project Object Model)</primary>
@@ -662,15 +588,12 @@
         <primary>internal dependencies</primary>
 
         <seealso>dependencies</seealso>
-      </indexterm> external dependency for a Java project might be a library
-    such as Plexus, the Spring Framework, or Log4J. An internal dependency is
-    illustrated by a web application project depending on another project that
-    contains service classes, model objects, or persistence logic. <xref
-    linkend="ex-dependency" /> shows some examples of project
-    dependencies.</para>
+      </indexterm>一个Java项目的外部依赖可能是如Plexus，Spring
+    Framework，或者Log4J的类库。一个内部的依赖就像在“一个简单的web应用”中描述的那样，web项目依赖于另外一个包含服务类，模型类，或者持久化逻辑的项目。<xref
+    linkend="ex-dependency" />展示了一些项目依赖的例子。</para>
 
     <para><example id="ex-dependency">
-        <title>Project Dependencies</title>
+        <title>项目依赖</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -698,91 +621,56 @@
 </programlisting>
       </example></para>
 
-    <para>The first dependency is a compile dependency on the XFire
-    <acronym>SOAP</acronym> library from Codehaus. You would use this type of
-    dependency if your project depended on this library for compilation,
-    testing, and during execution. The second dependency is a
-    <literal>test</literal>-scoped dependency on JUnit. You would use a
-    <literal>test</literal>-scoped dependency when you need to reference this
-    library only during testing. The last dependency in <xref
-    linkend="ex-dependency" /> is a dependency on the Servlet 2.4
-    <acronym>API</acronym> as implemented by the Apache Geronimo project. The
-    last dependency is scoped as a provided dependency. You would use a
-    provided scope when the application you are developing needs a library for
-    compilation and testing, but this library is supplied by a container at
-    runtime.</para>
+    <para>这里的第一个依赖是一对对于来自Codehaus的XFire
+    <acronym>SOAP</acronym>库的编译范围（compile）依赖。如果你的项目在编译，测试，和运行中都依赖于一个类库，你就要使用这种依赖。第二种依赖是一个对于JUnit测试范围（test）的依赖。当你只有在测试的时候才引用类库的时候，你就要使用测试范围依赖。<xref
+    linkend="ex-dependency" />中最后一个依赖是对于由Apache Geronimo项目实现的Servlet 2.4
+    <acronym>API</acronym>的依赖。最后一项依赖的范围是已提供的（provided）依赖。当你的开发过程只有在编译和测试时需要一个类库，而该类库在运行的时候由容器提供，那么你就需要使用已提供范围的依赖。</para>
 
     <section id="section-dependency-scope">
       <title>依赖范围</title>
 
-      <para><xref linkend="ex-dependency" /> briefly introduced three of the
-      <indexterm>
-          <primary>scope, dependency</primary>
-        </indexterm><indexterm>
-          <primary>dependencies</primary>
-
-          <secondary>scope of</secondary>
-        </indexterm>five dependency scopes: <literal>compile</literal>,
-      <literal>test</literal>, and <literal>provided</literal>. Scope controls
-      which dependencies are available in which classpath, and which
-      dependencies are included with an application. Let’s explore each scope
-      in detail:</para>
+      <para><xref
+      linkend="ex-dependency" />简要介绍了三种测试范围：<literal>compile</literal>，<literal>test</literal>，和<literal>provided</literal>。范围控制哪些依赖在哪些classpath中可用，哪些依赖包含在一个应用中。让我们详细看一下每一种范围：</para>
 
       <variablelist>
         <varlistentry>
-          <term>compile</term>
+          <term>compile（编译范围）</term>
 
           <listitem>
-            <para><literal>compile</literal> is the default scope; all
-            dependencies are <indexterm>
+            <para><literal>compile</literal>是默认的范围；如果没有提供一个范围，那该依赖的范围就是<indexterm>
                 <primary>compile dependencies</primary>
-              </indexterm><literal>compile</literal>-scoped if a scope is not
-            supplied. <literal>compile</literal> dependencies are available in
-            all classpaths, and they are packaged.</para>
+              </indexterm>编译范围。编译范围依赖在所有的classpath中可用，同时它们也会被打包。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>provided</term>
+          <term>provided（已提供范围）</term>
 
           <listitem>
-            <para><literal>provided</literal> dependencies are used when you
-            expect the <acronym>JDK</acronym> or a container to provide them.
-            For <indexterm>
-                <primary>provided dependencies</primary>
-              </indexterm>example, if you were developing a web application,
-            you would need the Servlet <acronym>API</acronym> available on the
-            compile classpath to compile a servlet, but you wouldn’t want to
-            include the Servlet <acronym>API</acronym> in the packaged
-            <acronym>WAR</acronym>; the Servlet <acronym>API</acronym>
-            <acronym>JAR</acronym> is supplied by your application server or
-            servlet container. <literal>provided</literal> dependencies are
-            available on the compilation classpath (not runtime). They are not
-            transitive, nor are they packaged.</para>
+            <para><literal>provided</literal>依赖只有在当<acronym>JDK</acronym>或者一个容器已提供该依赖之后才使用。例如，如果你开发了一个web应用，你可能在编译classpath中需要可用的Servlet
+            <acronym>API</acronym>来编译一个servlet，但是你不会想要在打包好的<acronym>WAR</acronym>中包含这个Servlet
+            <acronym>API</acronym>；这个Servlet <acronym>API</acronym>
+            <acronym>JAR</acronym>由你的应用服务器或者servlet容器提供。已提供范围的依赖在编译classpath（不是运行时）可用。它们不是传递性的，也不会被打包。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>runtime</term>
+          <term>runtime（运行时范围）</term>
 
           <listitem>
-            <para><literal>runtime</literal> dependencies are required to
-            execute and test the <indexterm>
+            <para><literal>runtime</literal>依赖<indexterm>
                 <primary>runtime dependencies</primary>
-              </indexterm>system, but they are not required for compilation.
-            For example, you may need a <acronym>JDBC</acronym>
-            <acronym>API</acronym> <acronym>JAR</acronym> at compile time and
-            the <acronym>JDBC</acronym> driver implementation only at
-            runtime.</para>
+              </indexterm>在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要<acronym>JDBC</acronym>
+            <acronym>API</acronym>
+            <acronym>JAR</acronym>，而只有在运行的时候才需要<acronym>JDBC</acronym>驱动实现。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>test</term>
+          <term>test（测试范围）</term>
 
           <listitem>
-            <para><literal>test</literal>-scoped dependencies are not required
-            during the normal<indexterm>
+            <para><literal>test</literal>范围依赖<indexterm>
                 <primary>dependencies</primary>
 
                 <secondary>test-scoped</secondary>
@@ -796,29 +684,16 @@
                 <primary>testing</primary>
 
                 <secondary>using test-scoped dependencies</secondary>
-              </indexterm> operation of an application, and they are available
-            only during test compilation and execution phases. The
-            <literal>test</literal> scope was previously introduced in <xref
-            linkend="section-test-scope" />.”</para>
+              </indexterm> 在一般的 编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。测试范围依赖在之前的<xref
+            linkend="section-test-scope" />中介绍过。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>system</term>
+          <term>system（系统范围）</term>
 
           <listitem>
-            <para>The <literal>system</literal> scope is similar to
-            <literal>provided</literal> except that you have to <indexterm>
-                <primary>system-scope dependencies</primary>
-              </indexterm>provide an explicit path to the
-            <acronym>JAR</acronym> on the local file system. This is intended
-            to allow compilation against native objects that may be part of
-            the system libraries. The artifact is assumed to always be
-            available and is not looked up in a repository. If you declare the
-            scope to be <literal>system</literal>, you must also provide the
-            <sgmltag>systemPath</sgmltag> element. Note that this scope is not
-            recommended (you should always try to reference dependencies in a
-            public or custom Maven repository).</para>
+            <para><literal>system</literal>范围依赖与<literal>provided</literal>类似，但是你必须显式的提供一个对于本地系统中<acronym>JAR</acronym>文件的路径。这么做是为了允许基于本地对象编译，而这些对象是系统类库的一部分。这样的构件应该是一直可用的，Maven也不会在仓库中去寻找它。如果你将一个依赖范围设置成系统范围，你必须同时提供一个<sgmltag>systemPath</sgmltag>元素。注意该范围是不推荐使用的（你应该一直尽量去从公共或定制的Maven仓库中引用依赖）。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -827,37 +702,21 @@
     <section>
       <title>可选依赖</title>
 
-      <para>Assume that you are working on a library that provides caching
-      <indexterm>
+      <para>假定你正在开发一个类库 <indexterm>
           <primary>optional dependencies</primary>
         </indexterm><indexterm>
           <primary>dependencies</primary>
 
           <secondary>optional</secondary>
-        </indexterm>behavior. Instead of writing a caching system from
-      scratch, you want to use some of the existing libraries that provide
-      caching on the file system and distributed caches. Also assume that you
-      want to give the end user an option to cache on the file system or to
-      use an in-memory distributed cache. To cache on the file system, you’ll
-      want to use a freely available library called EHCache (<ulink
-      url="http://ehcache.sourceforge.net/">http://ehcache.sourceforge.net/</ulink>),
-      and to cache in a distributed <phrase
-      role="keep-together">in-memory</phrase> cache, you want to use another
-      freely available caching library named SwarmCache (<ulink
-      url="http://swarmcache.sourceforge.net/">http://swarmcache.sourceforge.net/</ulink>).
-      You’ll code an interface and create a library that can be configured to
-      use either EHCache or SwarmCache, but you want to avoid adding a
-      dependency on both caching libraries to any project that depends on your
-      library.</para>
+        </indexterm>，该类库提供高速缓存行为。你想要使用一些已存在的能够提供文件系统快速缓存和分布式快速缓存的类库，而非从空白开始写自己的快速缓存系统。再假定你想要给最终用户选择使用文件系统告诉缓存或者而是用内存分布式高速缓存。为了缓存文件系统，你会要使用免费的类库如EHCache（<ulink
+      url="http://ehcache.sourceforge.net/">http://ehcache.sourceforge.net/</ulink>），为了分布式内存缓存，你想要使用免费的类库如SwarmCache（<ulink
+      url="http://swarmcache.sourceforge.net/">http://swarmcache.sourceforge.net/</ulink>）。你将编写一个接口，并且创建一个可以被配置成使用EHCache或者SwarmCache的类库，但是你想要避免为所有依赖于你类库的项目添加全部这两个缓存类库的的依赖。</para>
 
-      <para>In other words, you need both libraries to compile this library
-      project, but you don't want both libraries to show up as transitive
-      runtime dependencies for the project that uses your library. You can
-      accomplish this by using optional dependencies as shown in <xref
-      linkend="ex-optional-depend" />.</para>
+      <para>换句话说，编译这个项目的时候你需要两个依赖类库，但是你不希望在使用你类库的项目中，这两个依赖类库同时作为传递性运行时依赖出现。你可以使用如<xref
+      linkend="ex-optional-depend" />中的可选依赖来完成这个任务。</para>
 
       <example id="ex-optional-depend">
-        <title>Declaring Optional Dependencies</title>
+        <title>声明可选依赖</title>
 
         <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -886,12 +745,7 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>Once you've declared these dependencies as optional, you are
-      required to include them explicitly in the project that depends on
-      <varname>my-project</varname>. For example, if you were writing an
-      application which depended on <varname>my-project</varname> and wanted
-      to use the EHCache implementation, you would need to add the following
-      <sgmltag>dependency</sgmltag> element to your project.</para>
+      <para>在你将这些依赖声明为可选之后，你就需要在依赖于<varname>my-project</varname>的项目中显式的引用对应的依赖。例如，如果你正编写一个应用，它依赖于<varname>my-project</varname>，并且想要使用EHCache实现，你就需要在你项目添加如下的<sgmltag>dependency</sgmltag>元素。</para>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -912,16 +766,7 @@
   &lt;/dependencies&gt;
 &lt;/project&gt;</programlisting>
 
-      <para>In an ideal world, you wouldn’t have to use optional dependencies.
-      Instead of having one large project with a series of optional
-      dependencies, you would separate the <phrase
-      role="keep-together">EHCache-specific</phrase> code to a
-      <varname>my-project-ehcache</varname> submodule and the
-      SwarmCache-specific code to a <varname>my-project-swarmcache</varname>
-      submodule. This way, instead of requiring projects that reference
-      <varname>my-project</varname> to specifically add a dependency, projects
-      can just reference a particular implementation project and benefit from
-      the transitive dependency.</para>
+      <para>在理想的世界中，你不需要使用可选依赖。你可以将EHCache相关的代码放到<varname>my-project-ehcache</varname>子模块中，将SwarmCache相关的代码放到<varname>my-project-swarmcache</varname>子模块中，而非创建一个带有一系列可选依赖的大项目。这样，其它项目就可以只引用特定实现的项目，发挥传递性依赖的功效，而不用去引用<varname>my-project</varname>项目，再自己声明特定的依赖。</para>
     </section>
 
     <section id="section-version-ranges">

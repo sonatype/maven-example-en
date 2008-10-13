@@ -62,66 +62,16 @@
         <properties>
            <sonatype.site>file:///var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
         </properties>
-        <repositories>
-          <repository>
-            <id>sonatype-forge</id>
-            <name>Sonatype Forge</name>
-            <url>http://repository.sonatype.org/content/groups/public</url>
-            <snapshots>
-              <enabled>true</enabled>
-            </snapshots>
-          </repository>
-		<repository>
-		  <id>Codehaus Snapshots</id>
-		  <url>http://snapshots.repository.codehaus.org</url>
-		  <snapshots>
-			<enabled>true</enabled>
-		  </snapshots>
-		  <releases>
-			<enabled>false</enabled>
-		  </releases>
-		</repository>
-	<repository>
-	  <id>Central</id>
-	  <url>http://repo1.maven.org/maven2</url>
-	  <snapshots>
-		<enabled>false</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>true</enabled>
-	  </releases>
-	</repository>
-        </repositories>
-        <pluginRepositories>
-          <pluginRepository>
-            <id>sonatype-forge</id>
-            <name>Sonatype Forge</name>
-            <url>http://repository.sonatype.org/content/groups/public</url>
-            <snapshots>
-              <enabled>true</enabled>
-            </snapshots>
-          </pluginRepository>
-		<pluginRepository>
-		  <id>Codehaus Snapshots</id>
-		  <url>http://snapshots.repository.codehaus.org</url>
-		  <snapshots>
-			<enabled>true</enabled>
-		  </snapshots>
-		  <releases>
-			<enabled>false</enabled>
-		  </releases>
-		</pluginRepository>
-	<pluginRepository>
-	  <id>Central</id>
-	  <url>http://repo1.maven.org/maven2</url>
-	  <snapshots>
-		<enabled>true</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>true</enabled>
-	  </releases>
-	</pluginRepository>
-        </pluginRepositories>
+      </profile>
+      <profile>
+        <id>stage</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>file:///var/www/domains/sonatype.com/www/htdocs/book-stage/book-examples/</url>
+        </site>
+        </distributionManagement>
       </profile>
   </profiles>
 
