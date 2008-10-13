@@ -247,14 +247,139 @@ package: org.sonatype.mavenbook
       <section>
         <title>maven-archetype-mojo </title>
 
-        <para></para>
+        <para>This archetype creates a simple project with maven-plugin
+        packaging and a single mojo class named MyMojo in the project's
+        default package. The <classname>MyMojo</classname> class contains a
+        touch goal which is bound to the process-resources phase, it creates a
+        file named touch.txt in the target directory of the new project when
+        it is executed. The new project will have a dependency on
+        maven-plugin-api and JUnit.</para>
       </section>
     </section>
 
     <section id="archetype-third-party">
       <title>Notable Third-Party Archetypes</title>
 
-      <para></para>
+      <para>This section is going to give you a brief overview of some of the
+      archetypes available from third-parties not associated with the Apache
+      Maven project. If you are looking for a more comprehensive list of
+      available archetypes, take a look at the list of archetypes in
+      m2eclipse. m2eclipse allows you to create a new Maven project from an
+      ever growing list of approximately 80 archetypes which span an amazing
+      number of projects and technologies. <xref
+      linkend="sect-m2e-create-archetype" /> contains a list of archetypes
+      which are immediately available to you when you use m2eclipse. </para>
+
+      <section>
+        <title>AppFuse</title>
+
+        <para>AppFuse is an application framework developed by Matt Raible.
+        You can think of AppFuse as something of a Rosetta Stone for a few
+        very popular Java technologies like the Spring Framework, Hibernate,
+        and iBatis. Using AppFuse you can very quickly create an end-to-end
+        multi-tiered application that can plugin into several front-end web
+        frameworks like Java Server Faces, Struts, and Tapestry. Starting with
+        AppFuse 2.0, Matt Raible has been transitioning the framework to Maven
+        2 to take advantage of the dependency management and archetype
+        capabilities. AppFuse 2 provides the following archetypes all in the
+        groupId <varname>org.appfuse.archetypes</varname>:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term><varname>appfuse-basic-jsf</varname> and
+            <varname>appfuse-modular-jsf</varname></term>
+
+            <listitem>
+              <para>End-to-end application using Java Server Faces in the
+              presentation layer</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><varname>appfuse-basic-spring</varname> and
+            <varname>appfuse-modular-spring</varname></term>
+
+            <listitem>
+              <para>End-to-end application using Spring MVC in the
+              presentation layer</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><varname>appfuse-basic-struts</varname> and
+            <varname>appfuse-modular-struts</varname></term>
+
+            <listitem>
+              <para>End-to-end application using Struts 2 in the presentation
+              layer</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><varname>appfuse-basic-tapestry</varname> and
+            <varname>appfuse-modular-tapestry</varname></term>
+
+            <listitem>
+              <para>End-to-end application using Tapestry in the presentation
+              layer</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><varname>appfuse-core</varname></term>
+
+            <listitem>
+              <para>Persistence and object model without the presentation
+              layer</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>Archetypes following the <varname>appfuse-basic-*</varname>
+        pattern are entire end-to-end applications in a single Maven project,
+        and archetypes following the <varname>appfuse-modular-*</varname>
+        pattern are end-to-end applications in a multimodule Maven project
+        which separates the core model objects and persistence logic from the
+        web front-end. Here's an example from generating a project to running
+        a web application for the modular Spring MVC application:</para>
+
+        <screen>$ mvn archetype:generate \
+      -DarchetypeArtifactId=appfuse-modular-spring \
+      -DarchetypeGroupId=org.appfuse.archetypes \
+      -DgroupId=org.sonatype.mavenbook \
+      -DartifactId=mod-spring \
+      -Dversion=1.0-SNAPSHOT \
+      -DinteractiveMode=false[INFO] Scanning for projects...
+...
+[INFO] [archetype:generate]
+[INFO] Generating project in Batch mode
+[INFO] Archetype [org.appfuse.archetypes:appfuse-modular-spring:RELEASE] found in catalog internal
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating OldArchetype: appfuse-modular-spring:RELEASE
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
+[INFO] Parameter: basedir, Value: /Users/tobrien/tmp
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: artifactId, Value: mod-spring
+...
+[INFO] OldArchetype created in dir: /Users/tobrien/tmp/mod-spring
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+$ cd mod-spring
+$ mvn
+... (an overwhelming amount of activity ~5 minutes) 
+$ cd web
+$ mvn jetty:run-war
+... (Maven Jetty plugin starts a Servlet Container on port 8080)</screen>
+
+        <para>Ok, we oversimplified AppFuse just a bit and left out the
+        important part where you download and install a MySQL database, but
+        that's easy enough to figure out by reading the <ulink
+        url="http://appfuse.org/display/APF/AppFuse+QuickStart">AppFuse
+        Quickstart Documentation</ulink>.</para>
+      </section>
     </section>
   </section>
 
