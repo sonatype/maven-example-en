@@ -772,7 +772,7 @@
     <section id="section-version-ranges">
       <title>依赖版本界限</title>
 
-      <para>You don’t just have to depend on a specific version of a<indexterm>
+      <para>你并不是必须为依赖声明某个特定的版本，<indexterm>
           <primary>version attribute (pom.xml)</primary>
 
           <secondary>dependency version ranges</secondary>
@@ -782,18 +782,15 @@
           <secondary>dependency version ranges</secondary>
         </indexterm><indexterm>
           <primary>ranges for dependency versions</primary>
-        </indexterm> dependency; you can specify a range of versions that
-      would satisfy a given dependency. For example, you can specify that your
-      project depends on version 3.8 or greater of JUnit, or anything between
-      versions 1.2.10 and 1.2.14 of JUnit. You do this by surrounding one or
-      more version numbers with the following characters:</para>
+        </indexterm>你可以指定一个满足给定依赖的版本界限。例如，你可以指定你的项目依赖于JUnit的3.8或以上版本，或者说依赖于JUnit
+      1.2.10和1.2.14之间的某个版本。你可以使用如下的字符来围绕一个或多个版本号，来实现版本界限。</para>
 
       <variablelist>
         <varlistentry>
           <term role="plain">(, )</term>
 
           <listitem>
-            <para>Exclusive quantifiers</para>
+            <para>不包含量词</para>
           </listitem>
         </varlistentry>
 
@@ -801,17 +798,16 @@
           <term role="plain">[, ]</term>
 
           <listitem>
-            <para>Inclusive quantifiers</para>
+            <para>包含量词</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>For example, if you wished to access any <code>JUnit</code>
-      version greater than or equal to 3.8 but less than 4.0, your dependency
-      would be as shown in <xref linkend="ex-dep-range" />.</para>
+      <para>例如，如果你想要访问JUnit任意的大于等于3.8但小于4.0的版本，你的依赖可以如<xref
+      linkend="ex-dep-range" />编写：</para>
 
       <para><example id="ex-dep-range">
-          <title>Specifying a Dependency Range: JUnit 3.8 - JUnit 4.0</title>
+          <title>指定一个依赖界限：JUnit 3.8 - JUnit 4.0</title>
 
           <programlisting language="xml">&lt;dependency&gt;
   &lt;groupId&gt;junit&lt;/groupId&gt;
@@ -822,8 +818,7 @@
 </programlisting>
         </example></para>
 
-      <para>If you want to depend on any version of JUnit no higher
-      than<indexterm>
+      <para>如果想要依赖JUnit任意的不大于3.8.1的版本<indexterm>
           <primary>upper boundaries (version ranges)</primary>
         </indexterm><indexterm>
           <primary>inclusive boundaries (version ranges)</primary>
@@ -833,11 +828,11 @@
           <primary>exclusive boundaries (version ranges)</primary>
         </indexterm><indexterm>
           <primary>boundaries for version ranges, specifying</primary>
-        </indexterm> 3.8.1, you would specify only an upper inclusive
-      boundary, as shown in <xref linkend="ex-dep-range-2" />.</para>
+        </indexterm>，你可以指定只指定一个上包含边界，如<xref
+      linkend="ex-dep-range-2" />所示：</para>
 
       <example id="ex-dep-range-2">
-        <title>Specifying a Dependency Range: JUnit &lt;= 3.8.1</title>
+        <title>指定一个依赖界限：JUnit &lt;= 3.8.1</title>
 
         <programlisting language="xml">&lt;dependency&gt;
   &lt;groupId&gt;junit&lt;/groupId&gt;
@@ -848,27 +843,18 @@
 </programlisting>
       </example>
 
-      <para>A version before or after the comma is not required, and means +/-
-      infinity. For example, "[4.0,)" means any version greater than or equal
-      to 4.0. "(,2.0)" is any version less than 2.0. "[1.2]" means only
-      version 1.2, and nothing else.</para>
+      <para>在逗号前面或者后面的版本不是必须的，这种空缺以为的正无穷或者负无穷。例如，“[4.0,)”意思是任何大于等于4.0的版本，“(,2.0)”意思是任意小于2.0的版本。“[1.2]”意思是只有版本1.2，没有其它。</para>
 
       <note>
-        <para>When declaring a "normal" version such as 3.8.2 for Junit,
-        internally this is represented as "allow anything, but prefer 3.8.2."
-        This means that when a conflict is detected, Maven is allowed to use
-        the conflict algorithms to choose the best version. If you specify
-        [3.8.2], it means that only 3.8.2 will be used and nothing else. If
-        somewhere else there is a dependency that specifies [3.8.1], you would
-        get a build failure telling you of the conflict. We point this out to
-        make you aware of the option, but use it sparingly and only when
-        really needed. The preferred way to resolve this is via
-        <sgmltag>dependencyManagement</sgmltag>.</para>
+        <para>当声明一个“正常的”版本如JUnit
+        3.8.2，内部它其实被表述成“允许任何版本，但最好是3.8.2”。意思是当侦测到版本冲突的时候，Maven会使用冲突算法来选择最好的版本。如果你指定[3.8.2]，它意为只有3.8.2会被使用，没有其它。如果其它什么地方有一个版本指定了[3.8.1]，你会得到一个构建失败报告，告诉你有版本冲突。我指出这一点是要让你知道有这一选项，但要保守的使用它，只有在确实需要的时候才使用。更好的做法是通过<sgmltag>dependencyManagement</sgmltag>来解决冲突。</para>
       </note>
     </section>
 
     <section>
       <title>传递性依赖</title>
+
+      <para>一个传递性依赖就是对于一个依赖的依赖。如果project-a依赖于project-b，而后者接着依赖于project-c，那么project-c就被认为是project-a的传递性依赖。</para>
 
       <para>A transitive dependency is a dependency of a dependency.
       If<indexterm>
