@@ -854,10 +854,7 @@
     <section>
       <title>传递性依赖</title>
 
-      <para>一个传递性依赖就是对于一个依赖的依赖。如果project-a依赖于project-b，而后者接着依赖于project-c，那么project-c就被认为是project-a的传递性依赖。</para>
-
-      <para>A transitive dependency is a dependency of a dependency.
-      If<indexterm>
+      <para>一个传递性依赖就是对于一个依赖的依赖。<indexterm>
           <primary>transitive dependencies</primary>
         </indexterm><indexterm>
           <primary>dependencies</primary>
@@ -865,57 +862,27 @@
           <secondary>transitive</secondary>
 
           <see>transitive dependencies</see>
-        </indexterm> <varname>project-a</varname> depends on
-      <varname>project-b</varname>, which in turn depends on
-      <varname>project-c</varname>, then <varname>project-c</varname> is
-      considered a transitive dependency of <varname>project-a</varname>. If
-      <varname>project-c</varname> depended on <varname>project-d</varname>,
-      then <varname>project-d</varname> would also be considered a transitive
-      dependency of <varname>project-a</varname>. Part of Maven’s appeal is
-      that it can manage transitive dependencies and shield the developer from
-      having to keep track of all of the dependencies required to compile and
-      run an application. You can just depend on something like the Spring
-      Framework and not have to worry about tracking down every last
-      dependency of the Spring Framework.</para>
+        </indexterm>如果project-a依赖于project-b，而后者接着依赖于project-c，那么project-c就被认为是project-a的传递性依赖。如果<varname>project-c</varname>依赖于<varname>project-d</varname>，那么<varname>project-d</varname>就也被认为是<varname>project-a</varname>的传递性依赖。Maven的部分吸引力是由于它能够管理传递性依赖，并且能够帮助开发者屏蔽掉跟踪所有编译期和运行期依赖的细节。你可以只依赖于一些包如Spring
+      Framework，而不用担心Spring Framework的所有依赖，Maven帮你自动管理了，你不用自己去详细了解配置。</para>
 
-      <para>Maven accomplishes this by building a graph of dependencies and
-      dealing with any conflicts and overlaps that might occur. For example,
-      if Maven sees that two projects depend on the same
-      <varname>groupId</varname> and <varname>artifactId</varname>, it will
-      sort out which dependency to use automatically, always favoring the more
-      recent version of a dependency. Although this sounds convenient, there
-      are some edge cases where transitive dependencies can cause some
-      configuration issues. For these scenarios, you can use a dependency
-      exclusion.</para>
+      <para>Maven是怎样做完成这件事情的呢？它建立一个依赖图，并且处理一些可能发生的冲突和重叠。例如，如果Maven看到有两个项目依赖于同样的<varname>groupId</varname>和<varname>artifactId</varname>，它会自动整理出使用哪个依赖，选择那个最新版本的依赖。虽然这听起来很方便，但在一些边界情况中，传递性依赖会造成一些配置问题。在这种情况下，你可以使用依赖排除。</para>
 
       <section>
         <title>传递性依赖和范围</title>
 
-        <para>Each of the scopes outlined earlier in the section <xref
-        linkend="section-dependency-scope" />” affects not just the scope of
-        <indexterm>
-            <primary>scope, dependency</primary>
-
-            <secondary>transitive dependencies and</secondary>
-          </indexterm>the dependency in the declaring project, but also how it
-        acts as a transitive dependency. The easiest way to convey this
-        information is through a table, as in <xref
-        linkend="table-transitive-dep-and-scope" />. Scopes in the top row
-        represent the scope of a transitive dependency. Scopes in the leftmost
-        column represent the scope of a direct dependency. The intersection of
-        the row and column is the scope that is assigned to a transitive
-        dependency. A blank cell in this table means that the transitive
-        dependency will be omitted.</para>
+        <para><xref
+        linkend="section-dependency-scope" />中提到的每种依赖范围不仅仅影响声明项目中的依赖范围，它也对所传递性依赖起作用。表达该信息最简单的方式是通过一张表来表述，如<xref
+        linkend="table-transitive-dep-and-scope" />。最顶层一行代表了传递性依赖的范围。最左边的一列代表了直接依赖的范围。行与列的交叉就是为某个传递性依赖指定的范围。表中的空格意思是该传递性依赖被忽略。</para>
 
         <para><table id="table-transitive-dep-and-scope">
-            <title>How Scope Affects Transitive Dependencies</title>
+            <title>范围如何影响传递性依赖</title>
 
             <tgroup cols="5">
               <thead>
                 <row>
-                  <entry>Direct Scope</entry>
+                  <entry>直接范围</entry>
 
-                  <entry>Transitive Scope</entry>
+                  <entry>传递性范围</entry>
                 </row>
               </thead>
 
@@ -983,61 +950,20 @@
             </tgroup>
           </table></para>
 
-        <para>To illustrate the relationship of transitive dependency scope to
-        direct dependency scope, consider the following example. If
-        <varname>project-a</varname> contains a test scoped dependency on
-        <varname>project-b</varname> which contains a compile scoped
-        dependency on <varname>project-c</varname>.
-        <varname>project-c</varname> would be a test-scoped transitive
-        dependency of <varname>project-a</varname>.</para>
+        <para>要阐明传递性依赖范围到直接依赖范围的关系，考虑如下例子。如果<varname>project-a</varname>包含一个对于<varname>project-b</varname>的测试范围依赖，后者包含一个对于<varname>project-c</varname>的编译范围依赖。<varname>project-c</varname>将会是<varname>project-a</varname>的测试范围传递性依赖。</para>
 
-        <para>You can think of this as a transitive boundary which acts as a
-        filter on dependency scope. Transitive dependencies which are provided
-        and test scope usually do not affect a project. The exception to this
-        rule is that a provided scoped transitive dependency to a provided
-        scope direct dependency is still a provided dependency of a project.
-        Transitive dependencies which are compile and runtime scoped usually
-        affect a project regardless of the scope of a direct dependency.
-        Transitive dependencies which are compile scoped will have the same
-        scope irregardless of the scope of the direct dependency. Transitive
-        dependencies which are runtime scoped will generally have the same
-        scope of the direct dependency except when the direct dependency has a
-        scope of compile. When a transitive dependency is runtime scoped and a
-        direct is compile scoped the direct dependency the transitive
-        dependency will have an effective scope of runtime.</para>
+        <para>你可以将这看成是一个作用于依赖范围上的传递性边界。那些已提供范围和测试范围的传递性依赖往往不对项目产生影响。该规则的例外是已提供范围传递性依赖到已提供范围直接依赖还是项目的一个已提供范围依赖。编译范围和运行时范围的传递性依赖通常会英系那个一个项目，无论它的直接依赖范围是什么。编译范围的传递性依赖将会和直接依赖产生与后者相同范围的的结果。运行时范围的传递性依赖也会和直接依赖产生与后者相同范围的结果，除非当直接依赖是编译范围的时候，结果是运行时范围。</para>
       </section>
     </section>
 
     <section>
       <title>冲突解决</title>
 
-      <para>There will be times when you need to exclude a
-      transitive<indexterm>
-          <primary>conflict, dependency</primary>
-        </indexterm><indexterm>
-          <primary>resolving dependency conflicts</primary>
-        </indexterm><indexterm>
-          <primary>dependencies</primary>
-
-          <secondary>conflicts with, resolving</secondary>
-        </indexterm><indexterm>
-          <primary>transitive dependencies</primary>
-
-          <secondary>resolving conflicts with</secondary>
-        </indexterm><indexterm>
-          <primary>excluding transitive dependencies</primary>
-        </indexterm><indexterm>
-          <primary>replacing transitive dependencies</primary>
-        </indexterm> dependency, such as when you are depending on a project
-      that depends on another project, but you would like to either exclude
-      the dependency altogether or replace the transitive dependency with
-      another dependency that provides the same functionality. <xref
-      linkend="ex-exclude" /> shows an example of a dependency element that
-      adds a dependency on <varname>project-a</varname>, but excludes the
-      transitive dependency <varname>project-b</varname>.</para>
+      <para>有很多时候你需要排除一个传递性依赖，比如当你依赖于一个项目，后者又继而依赖于另外一个项目，但你的希望是，要么整个的排除这个传递性依赖，要么用另外一个提供同样功能的依赖来替代这个传递性依赖。<xref
+      linkend="ex-exclude" />展示的例子中添加了一个对于<varname>project-a</varname>的依赖，但排除了传递性依赖<varname>project-b</varname>。</para>
 
       <para><example id="ex-exclude">
-          <title>Excluding a Transitive Dependency</title>
+          <title>排除一个传递性依赖</title>
 
           <programlisting language="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
@@ -1052,22 +978,16 @@
 &lt;/dependency&gt;</programlisting>
         </example></para>
 
-      <para>Often, you will want to replace a transitive dependency with
-      another implementation. For example, if you are depending on a library
-      that depends on the Sun <acronym>JTA</acronym> <acronym>API</acronym>,
-      you may want to replace the declared transitive dependency. Hibernate is
-      one example. Hibernate depends on the Sun <acronym>JTA</acronym>
-      <acronym>API</acronym> <acronym>JAR</acronym>, which is not available in
-      the central Maven repository because it cannot be freely redistributed.
-      Fortunately, the Apache Geronimo project has created an independent
-      implementation of this library that can be freely redistributed. To
-      replace a transitive dependency with another dependency, you would
-      exclude the transitive dependency and declare a dependency on the
-      project you wanted instead. <xref linkend="ex-exclude-replace" /> shows
-      an example of a such replacement.</para>
+      <para>通常，你会想要使用另外一个实现来替代一个传递性依赖。比如，如果你正依赖于一个类库，该类库又依赖于Sun
+      <acronym>JTA</acronym>
+      <acronym>API</acronym>，你会想要替换这个传递性依赖。Hibernate是一个例子。Hibernate依赖于Sun
+      <acronym>JTA</acronym>
+      <acronym>API</acronym>，而后者在中央Maven仓库中不可用，因为它是不能免费分发的。幸运的是，Apache
+      Gernoimo项目创建了一些可以免费分发的独立实现类库。为了用另外的依赖来替换这个传递性依赖，你需要排除这个传递性以依赖，然后在你的项目中再声明一个依赖。<xref
+      linkend="ex-exclude-replace" />展示了这样一个替换的样例。</para>
 
       <example id="ex-exclude-replace">
-        <title>Excluding and Replacing a Transitive Dependency</title>
+        <title>排除并替换一个传递性依赖</title>
 
         <programlisting language="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
@@ -1089,51 +1009,28 @@
 &lt;/dependencies&gt;</programlisting>
       </example>
 
-      <para>In <xref linkend="ex-exclude-replace" />, there is nothing marking
-      the dependency on <varname>geronimo-jta_1.1_spec</varname> as a
-      replacement, it just happens to be a library which provides the same
-      <acronym>API</acronym> as the original <acronym>JTA</acronym>
-      dependency. Here are some other reasons you might want to exclude or
-      replace transitive dependencies:</para>
+      <para>在<xref
+      linkend="ex-exclude-replace" />中，没有什么标记说依赖<varname>geronimo-jta_1.1_spec</varname>是一个替换，它只是正好提供了和原来的<acronym>JTA</acronym>依赖一样的<acronym>API</acronym>。以下列举了一些你可能想要排除或者替换传递性依赖的情况：</para>
 
       <orderedlist>
         <listitem>
-          <para>The <varname>groupId</varname> or
-          <varname>artifactId</varname> of the artifact has changed, where the
-          current project requires an alternately named version from a
-          dependency's version - resulting in 2 copies of the same project in
-          the classpath. Normally Maven would capture this conflict and use a
-          single version of the project, but when <varname>groupId</varname>
-          or <varname>artifactId</varname> are different, Maven will consider
-          this to be two different libraries.</para>
+          <para>构建的<varname>groupId</varname>和<varname>artifactId</varname>已经更改了，而当前的项目需要一个与传递性依赖不同名称的版本——结果是classpath中出现了同样项目的两份内容。一般来说Maven会捕捉到这种冲突并且使用该项目的一个单独的版本，但是当<varname>artifactId</varname>和<varname>artifactId</varname>不一样的时候，Maven就会认为它们是两种不同的类库。</para>
         </listitem>
 
         <listitem>
-          <para>An artifact is not used in your project and the transitive
-          dependency has not been marked as an optional dependency. In this
-          case, you might want to exclude a dependency because it isn't
-          something your system needs and you are trying to cut down on the
-          number of libraries distributed with an application.</para>
+          <para>某个构件没有在你的项目中被使用，而且该传递性依赖没有被标志为可选依赖。在这种情况下，你可能想要排除这种依赖，因为它不是你的系统需要的东西，你要尽量减少应用程序分发时的类库数目。</para>
         </listitem>
 
         <listitem>
-          <para>An artifact which is provided by your runtime container thus
-          should not be included with your build. An example of this is if a
-          dependency depends on something like the Servlet API and you want to
-          make sure that the dependency is not included in a web application's
-          <filename>WEB-INF/lib</filename> directory.</para>
+          <para>一个构件已经在运行时的容器中提供了，因此不应该被包含在你的构件中。该情况的一个例子是，如果一个依赖依赖于如Servlet
+          API的东西，并且你又要确保这样的依赖没有包含在web应用的<filename>WEB-INF/lib</filename>目录中。</para>
         </listitem>
 
         <listitem>
-          <para>To exclude a dependency which might be an
-          <acronym>API</acronym> with multiple implementations. This is the
-          situation illustrated by <xref linkend="ex-exclude-replace" />;
-          there is a Sun <acronym>API</acronym> which requires click-wrap
-          licensing and a time-consuming manual install into a custom
-          repository (Sun's <acronym>JTA</acronym> <acronym>JAR</acronym>)
-          versus a freely distributed version of the same
-          <acronym>API</acronym> available in the central Maven repository
-          (Geronimo's <acronym>JTA</acronym> implementation).</para>
+          <para>为了排除一个可能是多个实现的<acronym>API</acronym>的依赖。这种情况在<xref
+          linkend="ex-exclude-replace" />中阐述；有一个Sun
+          <acronym>API</acronym>，需要点击许可证，并且需要耗时的手工安装到自定义仓库，对于同样的<acronym>API</acronym>有可免费分发版本，在中央Maven仓库中可用（Geronimo's
+          <acronym>JTA</acronym> 实现）。</para>
         </listitem>
       </orderedlist>
     </section>
@@ -1141,39 +1038,15 @@
     <section>
       <title>依赖管理</title>
 
-      <para>Once you've adopted Maven at your super complex enterprise and you
-      have two hundred and twenty inter-related Maven projects, you are going
-      to start wondering if there is a better way to get a handle on
-      dependency versions. If every single project that uses a dependency like
-      the MySQL Java connector needs to independently list the version number
-      of the dependency, you are going to run into problems when you need to
-      upgrade to a new version. Because the version numbers are distributed
-      throughout your project tree, you are going to have to manually edit
-      each of the <filename>pom.xml</filename> files that reference a
-      dependency to make sure that you are changing the version number
-      everywhere. Even with <command>find</command>, <command>xargs</command>,
-      and <command>awk</command>, you are still running the risk of missing a
-      single <acronym>POM</acronym>.</para>
+      <para>当你在你的超级复杂的企业中采用Maven之后，你有了两百多个相互关联的Maven项目，你开始想知道是否有一个更好的方法来处理依赖版本。如果每一个使用如MySQL数据库驱动依赖的项目都需要独立的列出该依赖的版本，在你需要升级到一个新版本的时候你就会遇到问题。由于这些版本号分散在你的项目树中，你需要手工的编写每一个引用该依赖的<filename>pom.xml</filename>，确保每个地方的版本号都更改了。即使使用了<command>find</command>，<command>xargs</command>，和，<command>awk</command>，你仍然有漏掉一个<acronym>POM</acronym>的风险。</para>
 
-      <para>Luckily, Maven provides a way for you to consolidate dependency
-      version numbers in the <sgmltag>dependencyManagement</sgmltag> element.
-      You'll usually see the <sgmltag>dependencyManagement</sgmltag> element
-      in a top-level parent <acronym>POM</acronym> for an organization or
-      project. Using the <sgmltag>dependencyManagement</sgmltag> element in a
-      <filename>pom.xml</filename> allows you to reference a dependency in a
-      child project without having to explicitly list the version. Maven will
-      walk up the parent-child hierarchy until it finds a project with a
-      <sgmltag>dependencyManagement</sgmltag> element, it will then use the
-      version specified in this <sgmltag>dependencyManagement</sgmltag>
-      element.</para>
+      <para>幸运的是，Maven在<sgmltag>dependencyManagement</sgmltag>元素中为你提供了一种方式来统一依赖版本号。你经常会在一个组织或者项目的最顶层的父<acronym>POM</acronym>中看到<sgmltag>dependencyManagement</sgmltag>元素。使用<filename>pom.xml</filename>中的<sgmltag>dependencyManagement</sgmltag>元素能让你在子项目中引用一个依赖而不用显式的列出版本号。Maven会沿着父子层次向上走，直到找到一个拥有<sgmltag>dependencyManagement</sgmltag>元素的项目，然后它就会使用在这个<sgmltag>dependencyManagement</sgmltag>元素中指定的版本号。</para>
 
-      <para>For example, if you have a large set of projects which make use of
-      the MySQL Java connector version 5.1.2, you could define the following
-      <sgmltag>dependencyManagement</sgmltag> element in your multi-module
-      project's top-level <acronym>POM</acronym>.</para>
+      <para>例如，如果你有一大组项目使用MySQL Java
+      connector版本5.1.2，你可以在你的多模块项目的顶层<acronym>POM</acronym>中定义如下的<sgmltag>dependencyManagement</sgmltag>元素。</para>
 
       <para><example>
-          <title>Defining Dependency Versions in a Top-level POM</title>
+          <title>在一个顶层POM中定义依赖版本</title>
 
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -1193,9 +1066,8 @@
   &lt;/dependencyManagement&gt;
 </programlisting>
 
-          <para>Then, in a child project, you can add a dependency to the
-          MySQL Java Connector using the following dependency
-          <acronym>XML</acronym>:</para>
+          <para>然后，在子项目中，你可以使用如下的依赖<acronym>XML</acronym>添加一个对MySQL Java
+          Connector的依赖：</para>
 
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -1214,32 +1086,9 @@
   &lt;/dependencies&gt;
 &lt;/project&gt;</programlisting>
 
-          <para>You should notice that the child project did not have to
-          explicitly list the version of the
-          <varname>mysql-connector-java</varname> dependency. Because this
-          dependency was defined in the top-level <acronym>POM</acronym>'s
-          <sgmltag>dependencyManagement</sgmltag> element, the version number
-          is going to propagate to the child project's dependency on
-          <varname>mysql-connector-java</varname>. Note that if this child
-          project did define a version, it would override the version listed
-          in the top-level <acronym>POM</acronym>'s
-          <sgmltag>dependencyManagement</sgmltag> section. That is, the
-          <sgmltag>dependencyManagement</sgmltag> version is only used when
-          the child does not declare a version directly.</para>
+          <para>你应该注意到该子项目没有显式的列出<varname>mysql-connector-java</varname>依赖的版本。由于这个依赖在顶层<acronym>POM</acronym>的<sgmltag>dependencyManagement</sgmltag>元素中定义了，该版本号就会传播到所有子项目的<varname>mysql-connector-java</varname>依赖中。注意如果子项目定义了一个版本，它将覆盖顶层<acronym>POM</acronym>的<sgmltag>dependencyManagement</sgmltag>元素中的版本。那就是：只有在子项目没有直接声明一个版本的时候，<sgmltag>dependencyManagement</sgmltag>定义的版本才会被使用。</para>
 
-          <para>Dependency management in a top-level <acronym>POM</acronym> is
-          different from just defining a dependency on a widely shared parent
-          <acronym>POM</acronym>. For starters, all dependencies are
-          inherited. If <varname>mysql-connector-java</varname> were listed as
-          a dependency of the top-level parent project, every single project
-          in the hierarchy would have a reference to this dependency. Instead
-          of adding in unnecessary dependencies, using
-          <sgmltag>dependencyManagement</sgmltag> allows you to consolidate
-          and centralize the management of dependency versions without adding
-          dependencies which are inherited by all children. In other words,
-          the <sgmltag>dependencyManagement</sgmltag> element is equivalent to
-          an environment variable which allows you to declare a dependency
-          anywhere below a project without specifying a version number.</para>
+          <para>顶层<acronym>POM</acronym>中的依赖管理与在一个广泛共享的父<acronym>POM</acronym>中定义一个依赖是不同的。对初学者来说，所有依赖都会被继承。如果<varname>mysql-connector-java</varname>在顶层父项目中被作为一个依赖列出，这个层次中的所有项目都将引用该依赖。为了不添加一些不必要的依赖，使用<sgmltag>dependencyManagement</sgmltag>能让你统一并集中化依赖版本的管理，而不用添加那些会被所有子项目继承的依赖。换句话说，<sgmltag>dependencyManagement</sgmltag>元素和一个环境变量一样，能让你在一个项目下面的任何地方声明一个依赖而不用指定一个版本号。</para>
         </example></para>
     </section>
   </section>
@@ -1247,48 +1096,26 @@
   <section>
     <title>项目关系</title>
 
-    <para>One of the compelling reasons to use Maven is that it makes the
-    process of tracking down dependencies (and dependencies of dependencies)
-    very easy. When a project depends on an artifact produced by another
-    project we say that this artifact is a dependency. In the case of a Java
-    project, this can be as simple as a project depending on an external
-    dependency like Log4J or JUnit. While dependencies can model external
-    dependencies, they can also manage the dependencies between a set of
-    related projects, if <varname>project-a</varname> depends on
-    <varname>project-b</varname>, Maven is smart enough to know that
-    <varname>project-b</varname> must be built before
-    <varname>project-a</varname>.</para>
+    <para>使用Maven的引人注目的原因之一是它使得追踪依赖（以及依赖的依赖）的过程非常容易。当一个项目依赖于另一个项目生成的构件，我们就说这个构件是一个依赖。在Java项目的情况下，这可以简单到比如一个项目依赖与外部的如Log4J或JUnit依赖。依赖可以为外部依赖建模，也可以管理一组相关项目的依赖，如果<varname>project-a</varname>依赖于<varname>project-b</varname>，Maven就能够很聪明的知道<varname>project-b</varname>必须在<varname>project-a</varname>之前构建。</para>
 
-    <para>Relationships are not only about dependencies and figuring out what
-    one project needs to be able to build an artifact. Maven can model the
-    relationship of a project to a parent, and the relationship of a project
-    to submodules. This section gives an overview of the various relationships
-    between projects and how such relationships are configured.</para>
+    <para>项目关系不仅仅是依赖以及解决一个项目需要能构建出一个构件。Maven可以建模的关系还包括，某个项目是父项目，某个项目是子模块。本节给你项目中各种关系的概览，并且告诉你如何配置这些关系。</para>
 
     <section id="sect-more-coordinates">
       <title>坐标详解</title>
 
-      <para>Coordinates define a unique location for a project, they were
-      first introduced in <xref linkend="simple-project" />. Projects are
-      related to one another using Maven Coordinates. project-a doesn't just
-      depend on project-b; a project with a groupId, artifactId, and version
-      depends on another project with a groupId, artifactId, and version. To
-      review, a Maven Coordinate is made up of three components:</para>
+      <para>坐标为一个项目定义一个唯一的位置，它们首先在<xref
+      linkend="simple-project" />中介绍过。项目使用Maven坐标与其它项目关联。一个项目不是简单的依赖于另一个项目，而是一个带有groupId，artifactId，和version的项目依赖于另一个带有groupId，artifactId，和version的项目。回顾一下，Maven坐标有三部分组成：</para>
 
       <variablelist>
         <varlistentry>
           <term>groupId</term>
 
           <listitem>
-            <para>A <varname>groupId</varname> groups a set of related
-            artifacts. Group identifiers generally resemble a Java package
-            name. For example, the <varname>groupId</varname>
-            <varname>org.apache.maven</varname> is the base groupId for all
-            artifacts produced by the Apache Maven project. Group identifiers
-            are translated into paths in the Maven Repository; for example,
-            the org.apache.maven groupId can be found in
-            <filename>/maven2/org/apache/maven</filename> on <ulink
-            url="http://repo1.maven.org/maven2/org/apache/maven">repo1.maven.org</ulink>.</para>
+            <para>一个<varname>groupId</varname>归类了一组相关的构件。组定义定义符基本上类似于一个Java包名。例如：<varname>groupId</varname>
+            <varname>org.apache.maven</varname>是所有由Apache
+            Maven项目生成的构件的基本groupId。组定义符在Maven仓库中被翻译成路径，例如，<varname>groupId</varname>
+            <varname>org.apache.maven</varname>可以在<ulink
+            url="http://repo1.maven.org/maven2/org/apache/maven">repo1.maven.org</ulink>的<filename>/maven2/org/apache/maven</filename>目录下找到。</para>
           </listitem>
         </varlistentry>
 
@@ -1296,23 +1123,10 @@
           <term>artifactId</term>
 
           <listitem>
-            <para>The <varname>artifactId</varname> is the project's main
-            identifier. When you generate an artifact, this artifact is going
-            to be named with the <varname>artifactId</varname>. When you refer
-            to a project, you are going to refer to it using the
-            <varname>artifactId</varname>. The <varname>artifactId</varname>,
-            <varname>groupId</varname> combination must be unique. In other
-            words, you can't have two separate projects with the same
-            <varname>artifactId</varname> and <varname>groupId</varname>;
-            <varname>artifactId</varname>s are unique within a particular
-            <varname>groupId</varname>.</para>
+            <para><varname>artifactId</varname>是项目的主要定义符。当你生成一个构件，这个构件将由<varname>artifactId</varname>命名。当你引用一个项目，你就需要使用<varname>artifactId</varname>来引用它。<varname>artifactId</varname>和<varname>groupId</varname>的组合必须是唯一的。换句话说，你不能有两个不同的项目拥有同样的<varname>artifactId</varname>和<varname>groupId</varname>；在某个特定的<varname>groupId</varname>下，<varname>artifactId</varname>也必须是唯一的。</para>
 
             <note>
-              <para>While '.'s are commonly used in
-              <varname>groupId</varname>s, you should try to avoid using them
-              in <varname>artifactId</varname>s. This can cause issues when
-              trying to parse a fully qualified name down into the
-              subcomponents.</para>
+              <para>虽然‘.’在<varname>groupId</varname>中很常用，而你应该避免在<varname>artifactId</varname>中使用它。因为在解析一个完整限定名字至子模块的时候，这会引发问题。</para>
             </note>
           </listitem>
         </varlistentry>
@@ -1321,64 +1135,39 @@
           <term>version</term>
 
           <listitem>
-            <para>When an artifact is released, it is released with a version
-            number. This version number is a numeric identifier such as "1.0",
-            "1.1.1", or "1.1.2-alpha-01". You can also use what is known as a
-            snapshot version. A snapshot version is a version for a component
-            which is under development, snapshot version numbers always end in
-            SNAPSHOT; for example, "1.0-SNAPSHOT", "1.1.1-SNAPSHOT", and
-            "1-SNAPSHOT". <xref linkend="sect-versions" /> introduces versions
-            and version ranges.</para>
+            <para>当一个构件发布的时候，它是使用一个版本号发布的。该版本号是一个数字定义符如“1.0”，“1.1.1”，或“1.1.2-alpha-01”。你也可以使用所谓的快照（snapshot）版本。一个快照版是一个处于开发过程中的组件的版本，快照版本号通常以SNAPSHOT结尾；如，“1.0-SNAPSHOT”，“1.1.1-SNAPSHOT”，和“1-SNAPSHOT”。<xref
+            linkend="sect-versions" />介绍了版本和版本界限。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>There is a fourth, less-used qualifier:</para>
+      <para>还有第四个，也是最少用到的限定符：</para>
 
       <variablelist>
         <varlistentry>
           <term>classifier</term>
 
           <listitem>
-            <para>You would use a classifier if you were releasing the same
-            code but needed to produce two separate artifacts for technical
-            reasons. For example, if you wanted to build two separate
-            artifacts of a <acronym>JAR</acronym>, one compiled with the Java
-            1.4 compiler and another compiled with the Java 6 compiler, you
-            might use the classifier to produce two separate
-            <acronym>JAR</acronym> artifacts under the same
-            groupId:artifactId:version combination. If your project uses
-            native extensions, you might use the classifier to produce an
-            artifact for each target platform. Classifiers are commonly used
-            to package up an artifact's sources, JavaDocs or binary
-            assemblies.</para>
+            <para>如果你要发布同样的代码，但是由于技术原因需要生成两个单独的构件，你就要使用一个分类器（classifier）。例如，如果你想要构建两个单独的构件成<acronym>JAR</acronym>，一个使用Java
+            1.4编译器，另一个使用Java
+            6编译器，你就可以使用分类器来生成两个单独的<acronym>JAR</acronym>构件，它们有同样的groupId:artifactId:version组合。如果你的项目使用本地扩展类库，你可以使用分类器为每一个目标平台生成一个构件。分类器常用于打包构件的源码，JavaDoc或者二进制集合。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>When we talk of dependencies in this book, we often use the
-      following shorthand notation to describe a dependency:
-      <varname>groupId</varname>:<varname>artifactId</varname>:<varname>version</varname>.
-      To refer to the 2.5 release of the Spring Framework, we would refer to
-      it as <varname>org.springframework:spring:2.5</varname>. When you ask
-      Maven to print out a list of dependencies with the Maven Dependency
-      plugin, you will also see that Maven tends to print out log messages
-      with this shorthand dependency notation.</para>
+      <para>当我们在本书说到依赖的时候，我们通常使用如下的简短标志来描述一个依赖：<varname>groupId</varname>:<varname>artifactId</varname>:<varname>version</varname>。要引用Spring
+      Framework的2.5版本，我们可以使用<varname>org.springframework:spring:2.5</varname>。当你要求Maven使用Maven
+      Dependency插件打印出依赖列表的时候，你也会看到Maven倾向于使用这种简短的依赖标志来打印日志信息。</para>
     </section>
 
     <section>
       <title>多模块项目</title>
 
-      <para>Multi-module projects are projects which contain a list of modules
-      to build. A multi-module project always has a packaging of pom, and
-      rarely produces an artifact. A multi-module project exists only to group
-      projects together in a build. <xref linkend="fig-multiproject" /> shows
-      a project hierarchy which includes two parent projects with packaging of
-      <varname>pom</varname>, and three projects with packaging of
-      <varname>jar</varname>.</para>
+      <para>多模块项目是那些包含一系列待构建模块的项目。一个多模块项目的打包类型总是pom，很少生成一个构件。一个模块项目的存在只是为了将很多项目归类在一起，成为一个构建。<xref
+      linkend="fig-multiproject" />展示了一个项目层次，它包含了两个打包类型为<varname>pom</varname>的父项目，另外三个项目的打包类型是<varname>jar</varname>：</para>
 
       <para><figure id="fig-multiproject">
-          <title>Multi-module Project Relationships</title>
+          <title>多模块项目关系</title>
 
           <mediaobject>
             <imageobject>
@@ -1387,10 +1176,8 @@
           </mediaobject>
         </figure></para>
 
-      <para>The directory structure on the file system would also mirror the
-      module relationships. A set of projects illustrated by <xref
-      linkend="fig-multiproject" /> would have the following directory
-      structure:</para>
+      <para>文件系统上的目录结构也反映了该模块关系。<xref
+      linkend="fig-multiproject" />中的一组项目拥有如下的目录结构：</para>
 
       <programlisting>top-group/pom.xml
 top-group/sub-group/pom.xml
@@ -1398,17 +1185,10 @@ top-group/sub-group/project-a/pom.xml
 top-group/sub-group/project-b/pom.xml
 top-group/project-c/pom.xml</programlisting>
 
-      <para>The projects are related to one another because
-      <varname>top-group</varname> and <varname>sub-group</varname> are
-      referencing <varname>sub-modules</varname> in a <acronym>POM</acronym>.
-      For example, the <varname>org.sonatype.mavenbook:top-group</varname>
-      project is a multi-module project with packaging of type
-      <varname>pom</varname>. <varname>top-group</varname>'s
-      <filename>pom.xml</filename> would include the following modules
-      element:</para>
+      <para>这些项目相互关联，因为在<acronym>POM</acronym>中<varname>top-group</varname>和<varname>sub-group</varname>引用了子模块。例如，项目<varname>org.sonatype.mavenbook:top-group</varname>是一个打包类型为<varname>pom</varname>的多模块项目。该项目的<filename>pom.xml</filename>包含如下的modules元素：</para>
 
       <example>
-        <title>top-group modules element</title>
+        <title>top-group的modules元素</title>
 
         <programlisting language="xml">&lt;project&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
@@ -1422,18 +1202,10 @@ top-group/project-c/pom.xml</programlisting>
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>When Maven is reading <varname>top-group</varname>
-      <acronym>POM</acronym> it will look at the modules element and see that
-      <varname>top-group</varname> references the projects
-      <varname>sub-group</varname> and <varname>project-c</varname>. Maven
-      will then look for a <filename>pom.xml</filename> in each of these
-      subdirectories. Maven repeats this process for each of the submodules:
-      it will read the <filename>sub-group/pom.xml</filename> and see that the
-      <varname>sub-group</varname> project references two projects with the
-      following modules element:</para>
+      <para>当Maven读取<varname>top-group</varname>的<acronym>POM</acronym>的时候，它会检查它的modules元素，看到<varname>top-group</varname>引用了项目<varname>sub-group</varname>和<varname>project-c</varname>。之后Maven会在它们的每个子目录中寻找<filename>pom.xml</filename>。Maven为每一个子模块重复这个过程：它会读取<filename>sub-group/pom.xml</filename>然后看到<varname>sub-group</varname>项目通过如下的modules元素引用了两个项目。</para>
 
       <example>
-        <title>sub-group modules element</title>
+        <title>sub-group的modules元素</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -1445,35 +1217,20 @@ top-group/project-c/pom.xml</programlisting>
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>Note that we call the projects under the multi-module projects
-      "modules" and not "children" or "child projects". This is purposeful, so
-      as not to confuse projects grouped by multi-module projects with
-      projects that inherit <acronym>POM</acronym> information from each
-      other.</para>
+      <para>注意我们称多模块项目下的项目为“模块”而不是“子项目”。这是有目的的，是为了而不将由多模块项目归类的项目与那些从其它项目继承<acronym>POM</acronym>信息的项目混淆。</para>
     </section>
 
     <section>
       <title>项目继承</title>
 
-      <para>There are going to be times when you want a project to inherit
-      values from a parent POM. You might be building a large system, and you
-      don't want to have to repeat the same dependency elements over and over
-      again. You can avoid repeating yourself if your projects make use of
-      inheritance via the parent element. When a project specifies a parent,
-      it inherits the information in the parent project's POM. It can then
-      override and add to the values specified in this parent POM.</para>
+      <para>有些情况你会想要一个一个项目从父POM中继承一些值。你可能正构建一个大型的系统，你不想一遍又一遍的重复同样的依赖元素。如果你的项目通过parent元素使用继承，你就可以避免这种重复。当一个项目声明一个parent的时候，它从父项目的POM中继承信息。它也可以覆盖父POM中的值，或者添加一些新的值。</para>
 
-      <para>All Maven <acronym>POM</acronym>s inherit values from a parent
-      <acronym>POM</acronym>. If a <acronym>POM</acronym> does not specify a
-      direct parent using the <sgmltag>parent</sgmltag> element, that
-      <acronym>POM</acronym> will inherit values from the Super
-      <acronym>POM</acronym>. <xref linkend="ex-inheritance" /> shows the
-      <sgmltag>parent</sgmltag> element of <varname>project-a</varname> which
-      inherits the <acronym>POM</acronym> defined by the
-      <varname>a-parent</varname> project.</para>
+      <para>所有的Maven
+      <acronym>POM</acronym>从父<acronym>POM</acronym>中继承值。如果一个<acronym>POM</acronym>没有通过parent元素指定一个直接的父项目，那这个<acronym>POM</acronym>就会从超级<acronym>POM</acronym>继承值。<xref
+      linkend="ex-inheritance" />展示了<varname>a-parent</varname>的<sgmltag>parent</sgmltag>元素，它继承了<varname>a-parent</varname>项目定义的<acronym>POM</acronym>。</para>
 
       <example id="ex-inheritance">
-        <title>Project Inheritance</title>
+        <title>项目继承</title>
 
         <programlisting language="xml">&lt;project&gt;
   &lt;parent&gt;
@@ -1487,103 +1244,59 @@ top-group/project-c/pom.xml</programlisting>
 </programlisting>
       </example>
 
-      <para>Running <command>mvn help:effective-pom</command> in
-      <varname>project-a</varname> would show a <acronym>POM</acronym> that is
-      the result of merging the Super <acronym>POM</acronym> with the
-      <acronym>POM</acronym> defined by <varname>a-parent</varname> and the
-      <acronym>POM</acronym> defined in <varname>project-a</varname>. The
-      implicit and explicit inheritance relationships for
-      <varname>project-a</varname> are shown in <xref
-      linkend="fig-inheritance" />.<figure id="fig-inheritance">
-          <title>Project Inheritance for a-parent and project-a</title>
+      <para>在<varname>project-a</varname>中运行会<command>mvn
+      help:effective-pom</command>显示一个<acronym>POM</acronym>，该<acronym>POM</acronym>合并了超级<acronym>POM</acronym>，<varname>a-parent</varname>中定义的<acronym>POM</acronym>，以及<varname>project-a</varname>中定义的<acronym>POM</acronym>。<varname>project-a</varname>显式的和隐式的继承关系如<xref
+      linkend="fig-inheritance" />所示：</para>
 
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figs/web/pom_inheritance.png" />
-            </imageobject>
-          </mediaobject>
-        </figure>When a project specifies a parent project, Maven uses that
-      parent <acronym>POM</acronym> as a starting point before it reads the
-      current project's <acronym>POM</acronym>. It inherits everything,
-      including the <varname>groupId</varname> and <varname>version</varname>
-      number. You'll notice that <varname>project-a</varname> does not specify
-      either, both <varname>groupId</varname> and <varname>version</varname>
-      are inherited from <varname>a-parent</varname>. With a parent element,
-      all a <acronym>POM</acronym> really needs to define is an
-      <varname>artifactId</varname>. This isn't mandatory,
-      <varname>project-a</varname> could have a different
-      <varname>groupId</varname> and <varname>version</varname>, but by not
-      providing values, Maven will use the values specified in the parent
-      <acronym>POM</acronym>. If you start using Maven to manage and build
-      large multi-module projects, you will often be creating many projects
-      which share a common <varname>groupId</varname> and
-      <varname>version</varname>.</para>
+      <figure id="fig-inheritance">
+        <title>a-parent和project的项目继承关系</title>
 
-      <para>When you inherit a <acronym>POM</acronym>, you can choose to live
-      with the inherited <acronym>POM</acronym> information or to selectively
-      override it. The following is a list of items a Maven
-      <acronym>POM</acronym> inherits from its parent
-      <acronym>POM</acronym>:</para>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/pom_inheritance.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>当一个项目指定一个父项目的时候，Maven在读取当前项目的<acronym>POM</acronym>之前，会使用这个父<acronym>POM</acronym>作为起始点。它继承所有东西，包括<varname>groupId</varname>和<varname>version</varname>。你会注意到<varname>project-a</varname>没有指定<varname>groupId</varname>和<varname>version</varname>，它们从<varname>a-parent</varname>继承而来。有了parent元素，一个POM就只需要定义一个<varname>artifactId</varname>。但这不是强制的，<varname>project-a</varname>可以有一个不同的<varname>groupId</varname>和<varname>version</varname>，但如果不提供值，Maven就会使用在父<acronym>POM</acronym>中指定的值。如果你开始使用Maven来管理和构建大型的多模块项目，你就会常常创建许多共享一组通用的<varname>groupId</varname>和<varname>version</varname>的项目。</para>
+
+      <para>当你继承一个<acronym>POM</acronym>，你可以选择直接使用继承的<acronym>POM</acronym>信息，或者选择覆盖它。以下是一个Maven
+      <acronym>POM</acronym>从它父<acronym>POM</acronym>中继承的项目列表：</para>
 
       <itemizedlist>
         <listitem>
-          <para>identifiers (at least one of <varname>groupId</varname> or
-          <varname>artifactId</varname> must be overridden.)</para>
+          <para>定义符（<varname>groupId</varname>和<varname>artifactId</varname>中至少有一个必须被覆盖）</para>
         </listitem>
 
         <listitem>
-          <para>dependencies</para>
+          <para>依赖</para>
         </listitem>
 
         <listitem>
-          <para>developers and contributors</para>
+          <para>开发者和贡献者</para>
         </listitem>
 
         <listitem>
-          <para>plugin lists</para>
+          <para>插件列表</para>
         </listitem>
 
         <listitem>
-          <para>reports lists</para>
+          <para>报告列表</para>
         </listitem>
 
         <listitem>
-          <para>plugin executions (executions with matching ids are
-          merged)</para>
+          <para>插件执行 （id匹配的执行会被合并）</para>
         </listitem>
 
         <listitem>
-          <para>plugin configuration</para>
+          <para>插件配置</para>
         </listitem>
       </itemizedlist>
 
-      <para>When Maven inherits dependencies, it will add dependencies of
-      child projects to the dependencies defined in parent projects. You can
-      use this feature of Maven to specify widely used dependencies across all
-      projects which inherit from a top-level <acronym>POM</acronym>. For
-      example, if your system makes universal use of the Log4J logging
-      framework, you can list this dependency in your top-level
-      <acronym>POM</acronym>. Any projects which inherit
-      <acronym>POM</acronym> information from this project will automatically
-      have Log4J as a dependency. Similarly, if you need to make sure that
-      every project is using the same version of a Maven plugin, you can list
-      this Maven plugin version explicitly in a top-level parent
-      <acronym>POM</acronym>'s <sgmltag>pluginManagement</sgmltag>
-      section.</para>
+      <para>当Maven继承依赖的时候，它会将父项目中定义的依赖添加到子项目中。你可以使用Maven的这一特征来指定一些在所有项目被广泛使用的依赖，让它们从顶层<acronym>POM</acronym>中继承。例如，如果你的系统全局使用Log4J日志框架，你可以在你的顶层<acronym>POM</acronym>中列出该依赖。任何从该项目继承<acronym>POM</acronym>信息的项目会自动拥有Log4J依赖。类似的，如果你能确定每个项目都在使用同样版本的一个Maven插件，你可以在顶层父<acronym>POM</acronym>的<sgmltag>pluginManagement</sgmltag>元素中显式的列出该Maven插件的版本。</para>
 
-      <para>Maven assumes that the parent <acronym>POM</acronym> is available
-      from the local repository, or available in the parent directory
-      (<filename>../pom.xml</filename>) of the current project. If neither
-      location is valid this default behavior may be overridden via the
-      <sgmltag>relativePath</sgmltag> element. For example, some organizations
-      prefer a flat project structure where a parent project's
-      <filename>pom.xml</filename> isn't in the parent directory of a child
-      project. It might be in a sibling directory to the project. If your
-      child project were in a directory <filename>./project-a</filename> and
-      the parent project were in a directory named
-      <filename>./a-parent</filename>, you could specify the relative location
-      of <varname>parent-a</varname>'s <acronym>POM</acronym> with the
-      following configuration:</para>
+      <para>Maven假设父<acronym>POM</acronym>在本地仓库中可用，或者在当前项目的父目录(<filename>../pom.xml</filename>)
+      中可用。如果两个位置都不可用，默认行为还可以通过<sgmltag>relativePath</sgmltag>元素被覆盖。例如，一些组织更喜欢一个平坦的项目结构，父项目的<filename>pom.xml</filename>并不在子项目的父目录中。它可能在项目的兄弟目录中。如果你的子项目在目录<filename>./project-a</filename>中，父项目在名为<filename>./a-parent</filename>的目录中，你可以使用如下的配置来指定<varname>parent-a</varname>的<acronym>POM</acronym>的相对位置。</para>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;parent&gt;
