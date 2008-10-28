@@ -27,21 +27,21 @@
 
         <seealso>POM</seealso>
       </indexterm> <filename
-    moreinfo="none">pom.xml</filename>文件定义。该文件是Maven中一个项目的描述性陈述；也是一个当Maven构建项目的时候需要理解的一份“地图”。</para>
+    moreinfo="none">pom.xml</filename>文件定义。该文件是Maven中一个项目的描述性陈述；也是当Maven构建项目的时候需要理解的一份“地图”。</para>
 
     <para>你可以将<filename moreinfo="none">pom.xml</filename>看成是类似于<filename
     moreinfo="none">Makefile</filename>或者Ant中的<filename
     moreinfo="none">build.xml</filename>。当你使用<acronym>GNU</acronym>
     <emphasis>make</emphasis> 来构建诸如MySQL软件的时候，你通常会有一个名为<filename
-    moreinfo="none">Makefile</filename>的文件，它包含了显式的指令来清理，编译，打包以及部署一个而应用。在这一点上，Make，Ant，和Maven是相似的，它们都依赖于一个同一命名的文件如<filename
+    moreinfo="none">Makefile</filename>的文件，它包含了显式的指令来清理，编译，打包以及部署一个应用。在这一点上，Make，Ant，和Maven是相似的，它们都依赖于一个统一命名的文件如<filename
     moreinfo="none">Makefile</filename>，<filename
     moreinfo="none">build.xml</filename>，或者<filename
     moreinfo="none">pom.xml</filename>，但相似的地方也仅此而已。如果你看一下Maven的<filename
     moreinfo="none">pom.xml</filename>，<acronym>POM</acronym>的主要内容是处理描述信息：哪里存放源代码？哪里存放资源文件？打包方式是什么？如果你看一下Ant的<filename
-    moreinfo="none">build.xml</filename>文件，你会看到完全不同的东西。那里有显示的指令来执行一些任务，如编译一组Java类。Maven的<acronym>POM</acronym>是声明性的，虽然你可以通过Maven
+    moreinfo="none">build.xml</filename>文件，你会看到完全不同的东西。那里有显式的指令来执行一些任务，如编译一组Java类。Maven的<acronym>POM</acronym>是声明性的，虽然你可以通过Maven
     Ant插件来引入一些过程式的自定义指令，但大部分时间里，你不需要去了解项目构建的过程细节。</para>
 
-    <para>POM也不只是仅仅针对于构建Java项目。虽然本书的大部分样例都是Java应用，但是在Maven的项目对象模型定义中没有任何Java特定的东西。虽然Maven默认的插件是从一组源码，测试，和资源来构建一个<acronym>JAR</acronym>文件。但你同样可以为一个包含C#源码，使用微软工具处理一些微软私有的二进制文件的项目来定义一个<acronym>POM</acronym>。类似的，你也可以为一本技术书籍定义一个<acronym>POM</acronym>。事实上，本书的源码和本书的样例正式以一个Maven多模块项目组织的，我们使用一个Maven
+    <para>POM也不只是仅仅针对于构建Java项目。虽然本书的大部分样例都是Java应用，但是在Maven的项目对象模型定义中没有任何Java特定的东西。虽然Maven的默认插件是从一组源码，测试，和资源来构建一个<acronym>JAR</acronym>文件。但你同样可以为一个包含C#源码，使用微软工具处理一些微软私有的二进制文件的项目来定义一个<acronym>POM</acronym>。类似的，你也可以为一本技术书籍定义一个<acronym>POM</acronym>。事实上，本书的源码和本书的样例正是用一个Maven多模块项目组织的，我们使用一个Maven
     Docbook插件，将标准的Docbook
     <acronym>XSL</acronym>应用到一系列章节的<acronym>XML</acronym>文件上。还有人编写了Maven插件来将Adobe
     Flex代码构建成<acronym>SWC</acronym>和<acronym>SWF</acronym>，也还有人使用了Maven来构建C编写的项目。</para>
@@ -115,7 +115,7 @@
           moreinfo="none">settings.xml</filename>补充。这个settings文件将会在<xref
           linkend="profiles" />中，以及<xref
           linkend="appendix-settings-details" />中的<xref
-          linkend="settings-details" />小结中讨论。</para>
+          linkend="settings-details" />小节中讨论。</para>
         </listitem>
       </varlistentry>
 
@@ -131,7 +131,7 @@
     <section id="section-super-pom">
       <title>超级POM</title>
 
-      <para>在我们深入钻研一些样例<acronym>POM</acronym>之前，让我们先快速看一下超级<acronym>POM</acronym>。所有的Maven项目的<acronym>POM</acronym>都扩展自超级<acronym>POM</acronym>。超级<acronym>POM</acronym>定义了一组被所有项目共享的默认设置。它是Maven安装的一部分，可以在<filename>${M2_HOME}/lib</filename>中的<filename>maven-2.0.9-uber.jar</filename>文件中找到。如果你看一下这个<acronym>JAR</acronym>文件，你会看到在包<package>org.apache.maven.project</package>下看到一个名为<filename>pom-4.0.0.xml</filename>的文件。这个Maven的超级<acronym>POM</acronym>如<xref
+      <para>在深入钻研一些样例<acronym>POM</acronym>之前，让我们先快速看一下超级<acronym>POM</acronym>。所有的Maven项目的<acronym>POM</acronym>都扩展自超级<acronym>POM</acronym>。超级<acronym>POM</acronym>定义了一组被所有项目共享的默认设置。它是Maven安装的一部分，可以在<filename>${M2_HOME}/lib</filename>中的<filename>maven-2.0.9-uber.jar</filename>文件中找到。如果你看一下这个<acronym>JAR</acronym>文件，你会看到在包<package>org.apache.maven.project</package>下看到一个名为<filename>pom-4.0.0.xml</filename>的文件。这个Maven的超级<acronym>POM</acronym>如<xref
       linkend="ex-super-pom" />所示。</para>
 
       <example id="ex-super-pom">
@@ -277,7 +277,7 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>这个超级<acronym>POM</acronym>定义了一些由所有项目继承的标准的配置变量。对这些变量的简单解释如下：</para>
+      <para>这个超级<acronym>POM</acronym>定义了一些由所有项目继承的标准配置变量。对这些变量的简单解释如下：</para>
 
       <calloutlist>
         <callout arearefs="coDef-super-1" id="coRef-super-1">
@@ -338,7 +338,7 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>对一个简单的项目来说，这样一个简单的<acronym>POM</acronym>已经足够了——例如，一个生成一个<acronym>JAR</acronym>文件的Java类库。它不需要和任何其它项目关联，没有任何依赖，也缺少基本的信息如名字和<acronym>URL</acronym>。如果创建了这个文件，然后创建了一个子目录<filename
+      <para>对一个简单的项目来说，这样一个简单的<acronym>POM</acronym>已经足够了——例如，一个生成单个<acronym>JAR</acronym>文件的Java类库。它不需要和任何其它项目关联，没有任何依赖，也缺少基本的信息如名字和<acronym>URL</acronym>。如果创建了这个文件，然后创建了一个子目录<filename
       moreinfo="none">src/main/java</filename>，并且放入了一些源代码，运行<command
       moreinfo="none">mvn package</command>将会生成一个名为<filename
       moreinfo="none">target/simple-project-1.jar</filename>的<acronym>JAR</acronym>文件。</para>
@@ -347,7 +347,7 @@
     <section>
       <title>有效POM</title>
 
-      <para>最简单的<acronym>POM</acronym>带给了我们“有效<acronym>POM</acronym>”的概念。由于<acronym>POM</acronym>可以从其它<acronym>POM</acronym>继承配置，你就需要一直考虑超级<acronym>POM</acronym>，再加上任何父<acronym>POM</acronym>，以及最后当前项目的<acronym>POM</acronym>这些所有配置的结合。Maven开始于超级<acronym>POM</acronym>，然后使用一个或多个父<acronym>POM</acronym>覆盖默认配置，最后使用当前项目的<acronym>POM</acronym>来覆盖之前生成的配置结果。最后你得到了一个混合了各个<acronym>POM</acronym>配置的有效<acronym>POM</acronym>。如果你想要查看项目的有效<acronym>POM</acronym>，你需要运行Maven
+      <para>最简单的<acronym>POM</acronym>能带给我们“有效<acronym>POM</acronym>”的概念。由于<acronym>POM</acronym>可以从其它<acronym>POM</acronym>继承配置，你就需要一直考虑超级<acronym>POM</acronym>，再加上任何父<acronym>POM</acronym>，以及最后当前项目的<acronym>POM</acronym>这些所有配置的结合。Maven开始于超级<acronym>POM</acronym>，然后使用一个或多个父<acronym>POM</acronym>覆盖默认配置，最后使用当前项目的<acronym>POM</acronym>来覆盖之前生成的配置结果。最后你得到了一个混合了各个<acronym>POM</acronym>配置的有效<acronym>POM</acronym>。如果你想要查看项目的有效<acronym>POM</acronym>，你需要运行Maven
       Help插件的<varname>effective-pom</varname>目标，该插件已经之前在小节<xref
       linkend="sect-help-plugin-install" />中介绍。在<filename
       moreinfo="none">pom.xml</filename>文件所在的目录执行以下的命令以运行<varname>effective-pom</varname>目标：</para>
@@ -365,7 +365,7 @@
           <primary>real POMs</primary>
         </indexterm>一步步的来看了，你可以自己查看一下<xref
       linkend="part-example" />中的样例。Maven就像是变色龙，你可以挑选你想要使用的特性。对于一些开源项目来说，列出开发者和贡献者，生成整洁的项目文档，使用Maven
-      Release插件来自动管理版本发布可能很有价值。另一方面，一些在大公司环境下的小型团队中工作的人可能对Maven的分发管理功能或者开发成员列表功能不感兴趣。本章的剩余部分将会单独的讨论<acronym>POM</acronym>的特性。我们不会用数十页的一组相关<acronym>POM</acronym>来炮轰你，而会关注为<acronym>POM</acronym>中的某个特定的部分创建良好的参考。本章，我们也会讨论<acronym>POM</acronym>之间的关系，但不会在这里展示这样一个项目。如果你想要看这样一个示例，请参考<xref
+      Release插件来自动管理版本发布可能很有价值。但另一方面，一些在大公司环境下的小型团队中工作的人可能对Maven的分发管理功能或者开发成员列表功能不感兴趣。本章的剩余部分将会单独的讨论<acronym>POM</acronym>的特性。我们不会用数十页的一组相关<acronym>POM</acronym>来炮轰你，而会集中于为<acronym>POM</acronym>中的特定的小节创建优良的参考内容。本章，我们也会讨论<acronym>POM</acronym>之间的关系，但不会在这里展示这样一个项目。如果你想要看这样一个示例，请参考<xref
       linkend="multimodule-web-spring" />。</para>
     </section>
   </section>
@@ -383,7 +383,7 @@
     <section id="sect-versions">
       <title>项目版本</title>
 
-      <para>一个Maven项目的<sgmltag>version</sgmltag><indexterm>
+      <para>一个Maven项目发布版本号用<sgmltag>version</sgmltag><indexterm>
           <primary>major versions (projects)</primary>
         </indexterm><indexterm>
           <primary>minor versions (projects)</primary>
@@ -399,7 +399,7 @@
           <primary>version attribute (pom.xml)</primary>
         </indexterm><indexterm>
           <primary>project versions, about</primary>
-        </indexterm>对一个用来分组和排序发布的发布版本号编码。Maven中的版本包含了一下部分：主版本，次版本，增量版本，和限定版本号。一个版本中，这些部分对应如下的格式：</para>
+        </indexterm>编码，用来分组和排序发布。Maven中的版本包含了以下部分：主版本，次版本，增量版本，和限定版本号。一个版本中，这些部分对应如下的格式：</para>
 
       <screen>&lt;major version&gt;.&lt;minor version&gt;.&lt;incremental version&gt;-&lt;qualifier&gt;
 </screen>
@@ -422,7 +422,7 @@
             <secondary>ordering of</secondary>
           </indexterm>限定版本进行排序。以版本号“1.2.3-alpha-2”和“1.2.3-alpha-10”为例，这里“alpha-2”对应了第二次alpha构建，而“alpha-10”对应了第十次alpha构建。虽然“alpha-10”应该被认为是比“alpha-2”更新的构建，但Maven排序的结果是“alpha-10”比“alpha-2”更旧，问题的原因就是我们刚才讨论的Maven处理版本号的方式。</para>
 
-        <para>Maven会将限定版本后面的数字认作一个构建版本。换句话说，这里限定版本是“alpha”，而构建版本是2。虽然Maven被设计成将构建版本和限定版本分离，但目前这种解析还是失效的。因此，“alpha-2”和“alpha-10”是使用字符串进行比较的，而根据字母和数字“alpha-10”在“alpha-2”前面。要避开这种限制，你需要对你的限定版本使用一些技巧。如果你使用“alpha”和“alpha-10”，这个问题就消除了，一旦Maven能正确的解析版本构建号之后，这种工作方式也还是能用。</para>
+        <para>Maven会将限定版本后面的数字认作一个构建版本。换句话说，这里限定版本是“alpha”，而构建版本是2。虽然Maven被设计成将构建版本和限定版本分离，但目前这种解析还是失效的。因此，“alpha-2”和“alpha-10”是使用字符串进行比较的，而根据字母和数字“alpha-10”在“alpha-2”前面。要避开这种限制，你需要对你的限定版本使用一些技巧。如果你使用“alpha-02”和“alpha-10”，这个问题就消除了，一旦Maven能正确的解析版本构建号之后，这种工作方式也还是能用。</para>
       </section>
 
       <section>
@@ -430,7 +430,7 @@
 
         <para>Maven版本可以包含一个字符串字面量来表示项目<indexterm>
             <primary>snapshot versions</primary>
-          </indexterm>正处于活动的开发状态。如果一个版本包含字符串“SNAPSHOT”，Maven就会在安装或发布这个组件的时候将该符号展开为一个日期和时间值，转换为<acronym>UTC</acronym>（协调世界时）。例如，如果你的项目有个版本为“1.0-SNAPSHOT”并且你将这个项目的构件部署到了一个Maven仓库，如果你在<acronym>UTC</acronym>2008年2月7号下午11:08部署了这个版本，Maven就会将这个版本展开成“1.0-20080207-230803-1”。换句话说，当你打不一个snapshot，你没有发布一个软件模块，你只是发布了一个特定时间的快照版本。</para>
+          </indexterm>正处于活动的开发状态。如果一个版本包含字符串“SNAPSHOT”，Maven就会在安装或发布这个组件的时候将该符号展开为一个日期和时间值，转换为<acronym>UTC</acronym>（协调世界时）。例如，如果你的项目有个版本为“1.0-SNAPSHOT”并且你将这个项目的构件部署到了一个Maven仓库，如果你在<acronym>UTC</acronym>2008年2月7号下午11:08部署了这个版本，Maven就会将这个版本展开成“1.0-20080207-230803-1”。换句话说，当你发布一个snapshot，你没有发布一个软件模块，你只是发布了一个特定时间的快照版本。</para>
 
         <para>那么为什么要使用这种方式呢？SNAPSHOT版本在项目活动的开发过程中使用。如果你的项目依赖的一个组件正处于开发过程中，你可以依赖于一个SNAPSHOT版本，在你运行构建的时候Maven会定期的从仓库下载最新的snapshot。类似的，如果你系统的下一个发布版本是“1.4”你的项目需要拥有一个“1.4-SNAPSHOT”的版本，之后它被正式发布。</para>
 
@@ -443,12 +443,12 @@
       <section>
         <title>LATEST 和 RELEASE 版本</title>
 
-        <para>当你依赖于一个插件或一个依赖，你可以使用特殊的版本值LATEST或者RELEASE。LATEST是指某个特定构件最新的发布版或者快照版(snapshot)，最近被部署到某个特定仓库的构件。RELEASE是指仓库中最后的一个非快照版本。总得来说，设计软件去依赖于一个构件的不明确的版本，并不是一个好的实践。如果你正在开发软件，你可能想要使用RELEASE或者LATEST，这么做十分方便，你也不用为每次一个第三方类库新版本的发布而去更新你配置的版本号。当你发布软件的时候，你总是应该确定你的项目依赖于某个特定的版本，以减少构建的不确定性，免得被其它不受你控制的软件版本影响。如果无论如何你都要使用LATEST和RELEASE，那么要小心使用。</para>
+        <para>当你依赖于一个插件或一个依赖，你可以使用特殊的版本值LATEST或者RELEASE。LATEST是指某个特定构件最新的发布版或者快照版(snapshot)，最近被部署到某个特定仓库的构件。RELEASE是指仓库中最后的一个非快照版本。总得来说，设计软件去依赖于一个构件的不明确的版本，并不是一个好的实践。如果你处于软件开发过程中，你可能想要使用RELEASE或者LATEST，这么做十分方便，你也不用为每次一个第三方类库新版本的发布而去更新你配置的版本号。但当你发布软件的时候，你总是应该确定你的项目依赖于某个特定的版本，以减少构建的不确定性，免得被其它不受你控制的软件版本影响。如果无论如何你都要使用LATEST和RELEASE，那么要小心使用。</para>
 
         <para>Maven
         2.0.9之后，Maven在超级POM中锁住了一些通用及核心Maven插件的版本号，以将某个特定版本Maven的核心Maven插件组标准化。这个变化在Maven
         2.0.9中被引入，为Maven构建带来了稳定性和重现性。在Maven
-        2.0.9之前，Maven会自动将核心插件更新至LATEST版本。这种行为导致了很多奇怪现象，因为新版本的插件可能会有一些bug，甚至是行为变更，这往往使得原来的构建失败。当Maven自动更新核心插件的时候，我们就不能保证构件的重现性，因为插件随时都可能从中央仓库更新至一个新的版本。从Maven
+        2.0.9之前，Maven会自动将核心插件更新至LATEST版本。这种行为导致了很多奇怪现象，因为新版本的插件可能会有一些bug，甚至是行为变更，这往往使得原来的构建失败。当Maven自动更新核心插件的时候，我们就不能保证构建的重现性，因为插件随时都可能从中央仓库更新至一个新的版本。从Maven
         2.0.9开始，Maven从根本上锁住了一组核心插件的版本。非核心插件，或者说没有在超级POM中指定版本的插件仍然会使用LATEST版本去从仓库获取构件。由于这个原因，你在构件中使用任何一个自定义非核心插件的时候，都应该显式的指定版本号。</para>
       </section>
     </section>
@@ -621,7 +621,7 @@
 </programlisting>
       </example></para>
 
-    <para>这里的第一个依赖是一对对于来自Codehaus的XFire
+    <para>这里的第一个依赖是对于来自Codehaus的XFire
     <acronym>SOAP</acronym>库的编译范围（compile）依赖。如果你的项目在编译，测试，和运行中都依赖于一个类库，你就要使用这种依赖。第二种依赖是一个对于JUnit测试范围（test）的依赖。当你只有在测试的时候才引用类库的时候，你就要使用测试范围依赖。<xref
     linkend="ex-dependency" />中最后一个依赖是对于由Apache Geronimo项目实现的Servlet 2.4
     <acronym>API</acronym>的依赖。最后一项依赖的范围是已提供的（provided）依赖。当你的开发过程只有在编译和测试时需要一个类库，而该类库在运行的时候由容器提供，那么你就需要使用已提供范围的依赖。</para>
@@ -630,7 +630,7 @@
       <title>依赖范围</title>
 
       <para><xref
-      linkend="ex-dependency" />简要介绍了三种测试范围：<literal>compile</literal>，<literal>test</literal>，和<literal>provided</literal>。范围控制哪些依赖在哪些classpath中可用，哪些依赖包含在一个应用中。让我们详细看一下每一种范围：</para>
+      linkend="ex-dependency" />简要介绍了三种依赖范围：<literal>compile</literal>，<literal>test</literal>，和<literal>provided</literal>。范围控制哪些依赖在哪些classpath中可用，哪些依赖包含在一个应用中。让我们详细看一下每一种范围：</para>
 
       <variablelist>
         <varlistentry>
@@ -708,7 +708,7 @@
           <primary>dependencies</primary>
 
           <secondary>optional</secondary>
-        </indexterm>，该类库提供高速缓存行为。你想要使用一些已存在的能够提供文件系统快速缓存和分布式快速缓存的类库，而非从空白开始写自己的快速缓存系统。再假定你想要给最终用户选择使用文件系统告诉缓存或者而是用内存分布式高速缓存。为了缓存文件系统，你会要使用免费的类库如EHCache（<ulink
+        </indexterm>，该类库提供高速缓存行为。你想要使用一些已存在的能够提供文件系统快速缓存和分布式快速缓存的类库，而非从空白开始写自己的快速缓存系统。再假定你想要能让最终用户选择使用文件系统高速缓存或者内存分布式高速缓存。为了缓存文件系统，你会要使用免费的类库如EHCache（<ulink
       url="http://ehcache.sourceforge.net/">http://ehcache.sourceforge.net/</ulink>），为了分布式内存缓存，你想要使用免费的类库如SwarmCache（<ulink
       url="http://swarmcache.sourceforge.net/">http://swarmcache.sourceforge.net/</ulink>）。你将编写一个接口，并且创建一个可以被配置成使用EHCache或者SwarmCache的类库，但是你想要避免为所有依赖于你类库的项目添加全部这两个缓存类库的的依赖。</para>
 
@@ -828,7 +828,7 @@
           <primary>exclusive boundaries (version ranges)</primary>
         </indexterm><indexterm>
           <primary>boundaries for version ranges, specifying</primary>
-        </indexterm>，你可以指定只指定一个上包含边界，如<xref
+        </indexterm>，你可以只指定一个上包含边界，如<xref
       linkend="ex-dep-range-2" />所示：</para>
 
       <example id="ex-dep-range-2">
@@ -843,11 +843,11 @@
 </programlisting>
       </example>
 
-      <para>在逗号前面或者后面的版本不是必须的，这种空缺以为的正无穷或者负无穷。例如，“[4.0,)”意思是任何大于等于4.0的版本，“(,2.0)”意思是任意小于2.0的版本。“[1.2]”意思是只有版本1.2，没有其它。</para>
+      <para>在逗号前面或者后面的版本不是必须的，这种空缺意味着正无穷或者负无穷。例如，“[4.0,)”意思是任何大于等于4.0的版本，“(,2.0)”意思是任意小于2.0的版本。“[1.2]”意思是只有版本1.2，没有其它。</para>
 
       <note>
         <para>当声明一个“正常的”版本如JUnit
-        3.8.2，内部它其实被表述成“允许任何版本，但最好是3.8.2”。意思是当侦测到版本冲突的时候，Maven会使用冲突算法来选择最好的版本。如果你指定[3.8.2]，它意为只有3.8.2会被使用，没有其它。如果其它什么地方有一个版本指定了[3.8.1]，你会得到一个构建失败报告，告诉你有版本冲突。我指出这一点是要让你知道有这一选项，但要保守的使用它，只有在确实需要的时候才使用。更好的做法是通过<sgmltag>dependencyManagement</sgmltag>来解决冲突。</para>
+        3.8.2，内部它其实被表述成“允许任何版本，但最好是3.8.2”。意思是当侦测到版本冲突的时候，Maven会使用冲突算法来选择最好的版本。如果你指定[3.8.2]，它意味只有3.8.2会被使用，没有其它。如果其它什么地方有一个版本指定了[3.8.1]，你会得到一个构建失败报告，告诉你有版本冲突。我指出这一点是要让你知道有这一选项，但要保守的使用它，只有在确实需要的时候才使用。更好的做法是通过<sgmltag>dependencyManagement</sgmltag>来解决冲突。</para>
       </note>
     </section>
 
@@ -865,7 +865,7 @@
         </indexterm>如果project-a依赖于project-b，而后者接着依赖于project-c，那么project-c就被认为是project-a的传递性依赖。如果<varname>project-c</varname>依赖于<varname>project-d</varname>，那么<varname>project-d</varname>就也被认为是<varname>project-a</varname>的传递性依赖。Maven的部分吸引力是由于它能够管理传递性依赖，并且能够帮助开发者屏蔽掉跟踪所有编译期和运行期依赖的细节。你可以只依赖于一些包如Spring
       Framework，而不用担心Spring Framework的所有依赖，Maven帮你自动管理了，你不用自己去详细了解配置。</para>
 
-      <para>Maven是怎样做完成这件事情的呢？它建立一个依赖图，并且处理一些可能发生的冲突和重叠。例如，如果Maven看到有两个项目依赖于同样的<varname>groupId</varname>和<varname>artifactId</varname>，它会自动整理出使用哪个依赖，选择那个最新版本的依赖。虽然这听起来很方便，但在一些边界情况中，传递性依赖会造成一些配置问题。在这种情况下，你可以使用依赖排除。</para>
+      <para>Maven是怎样完成这件事情的呢？它建立一个依赖图，并且处理一些可能发生的冲突和重叠。例如，如果Maven看到有两个项目依赖于同样的<varname>groupId</varname>和<varname>artifactId</varname>，它会自动整理出使用哪个依赖，选择那个最新版本的依赖。虽然这听起来很方便，但在一些边界情况中，传递性依赖会造成一些配置问题。在这种情况下，你可以使用依赖排除。</para>
 
       <section>
         <title>传递性依赖和范围</title>
@@ -952,7 +952,7 @@
 
         <para>要阐明传递性依赖范围到直接依赖范围的关系，考虑如下例子。如果<varname>project-a</varname>包含一个对于<varname>project-b</varname>的测试范围依赖，后者包含一个对于<varname>project-c</varname>的编译范围依赖。<varname>project-c</varname>将会是<varname>project-a</varname>的测试范围传递性依赖。</para>
 
-        <para>你可以将这看成是一个作用于依赖范围上的传递性边界。那些已提供范围和测试范围的传递性依赖往往不对项目产生影响。该规则的例外是已提供范围传递性依赖到已提供范围直接依赖还是项目的一个已提供范围依赖。编译范围和运行时范围的传递性依赖通常会英系那个一个项目，无论它的直接依赖范围是什么。编译范围的传递性依赖将会和直接依赖产生与后者相同范围的的结果。运行时范围的传递性依赖也会和直接依赖产生与后者相同范围的结果，除非当直接依赖是编译范围的时候，结果是运行时范围。</para>
+        <para>你可以将这看成是一个作用于依赖范围上的传递性边界。那些已提供范围和测试范围的传递性依赖往往不对项目产生影响。该规则的例外是已提供范围传递性依赖到已提供范围直接依赖还是项目的一个已提供范围依赖。编译范围和运行时范围的传递性依赖通常会影响那个一个项目，无论它的直接依赖范围是什么。编译范围的传递性依赖将会和直接依赖产生与后者相同范围的的结果。运行时范围的传递性依赖也会和直接依赖产生与后者相同范围的结果，除非当直接依赖是编译范围的时候，结果是运行时范围。</para>
       </section>
     </section>
 
@@ -1111,7 +1111,7 @@
           <term>groupId</term>
 
           <listitem>
-            <para>一个<varname>groupId</varname>归类了一组相关的构件。组定义定义符基本上类似于一个Java包名。例如：<varname>groupId</varname>
+            <para>一个<varname>groupId</varname>归类了一组相关的构件。组定义符基本上类似于一个Java包名。例如：<varname>groupId</varname>
             <varname>org.apache.maven</varname>是所有由Apache
             Maven项目生成的构件的基本groupId。组定义符在Maven仓库中被翻译成路径，例如，<varname>groupId</varname>
             <varname>org.apache.maven</varname>可以在<ulink
@@ -1223,7 +1223,7 @@ top-group/project-c/pom.xml</programlisting>
     <section>
       <title>项目继承</title>
 
-      <para>有些情况你会想要一个一个项目从父POM中继承一些值。你可能正构建一个大型的系统，你不想一遍又一遍的重复同样的依赖元素。如果你的项目通过parent元素使用继承，你就可以避免这种重复。当一个项目声明一个parent的时候，它从父项目的POM中继承信息。它也可以覆盖父POM中的值，或者添加一些新的值。</para>
+      <para>有些情况你会想要一个项目从父POM中继承一些值。你可能正构建一个大型的系统，你不想一遍又一遍的重复同样的依赖元素。如果你的项目通过parent元素使用继承，你就可以避免这种重复。当一个项目声明一个parent的时候，它从父项目的POM中继承信息。它也可以覆盖父POM中的值，或者添加一些新的值。</para>
 
       <para>所有的Maven
       <acronym>POM</acronym>从父<acronym>POM</acronym>中继承值。如果一个<acronym>POM</acronym>没有通过parent元素指定一个直接的父项目，那这个<acronym>POM</acronym>就会从超级<acronym>POM</acronym>继承值。<xref
@@ -1313,14 +1313,14 @@ top-group/project-c/pom.xml</programlisting>
   <section>
     <title>POM最佳实践</title>
 
-    <para>Maven可以用来管理那些简单的单模块系统，或者复杂到拥有数百个相互关联的子模块的项目。学习Maven过程的有一部分不仅仅是弄清楚Maven配置的语法，而是学习“Maven方式”——一组使用Maven组织和构建项目的最佳实践。本节试图展现一些这样的知识来帮助你采用最佳实践，而不用从头开始去Maven的邮件列表的数年的内容中寻找这些技巧。</para>
+    <para>Maven可以用来管理那些简单的单模块系统，或者复杂到拥有数百个相互关联的子模块的项目。学习Maven过程的有一部分不仅仅是弄清楚Maven配置的语法，而是学习“Maven方式”——一组使用Maven组织和构建项目的最佳实践。本节试图展现一些这样的知识来帮助你采用最佳实践，你就不用从头开始去Maven的邮件列表的数年的内容中寻找这些技巧。</para>
 
     <section>
       <title>依赖归类</title>
 
       <para>如果你有一组逻辑上归类在一起的依赖。你可以创建一个打包方式为pom项目来将这些依赖归在一起。例如，让我们假设你的应用程序使用Hibernate，一种流行的对象关系映射框架。所有使用Hibernate的项目可能同时依赖于Spring
       Framework和MySQL
-      <acronym>JDBC</acronym>驱动。你可以创建一个特殊的<acronym>POM</acronym>，它除了声明一组通用依赖之外什么也不错。这样你就不需要在每个使用Hibernate，Spring和MySQL的项目中包含所有这些依赖。你可以创建一个项目叫做<varname>persistence-deps</varname>（持久化依赖的简称），然后让每个需要持久化的项目依赖于这个提供便利的项目。</para>
+      <acronym>JDBC</acronym>驱动。你可以创建一个特殊的<acronym>POM</acronym>，它除了声明一组通用依赖之外什么也不做。这样你就不需要在每个使用Hibernate，Spring和MySQL的项目中包含所有这些依赖。你可以创建一个项目叫做<varname>persistence-deps</varname>（持久化依赖的简称），然后让每个需要持久化的项目依赖于这个提供便利的项目。</para>
 
       <para><example>
           <title>在一个单独的POM项目中巩固依赖</title>
@@ -1394,9 +1394,9 @@ top-group/project-c/pom.xml</programlisting>
     <section id="sect-multi-vs-inherit">
       <title>多模块 vs. 继承</title>
 
-      <para>继承与一个父项目和被一个多模块项目管理是有一点区别的。一个父项目是指它把所有的值传给它的子项目。一个多模块项目只是说它管理一组子模块，或者说一组子项目。多模块关系从上层往下定义。当建立一个多模块项目的时候，你告诉一个项目它的构建需要包含指定的模块。多模块构建用来将模块聚集到一个单独的构建中。父子关系是从叶节点往上定义的。父子关系更多的是处理一个特定项目的定义。当你给一个子项目关联一个父项目的时候，你告诉Maven该项目的<acronym>POM</acronym>起源于另一个项目。</para>
+      <para>继承于一个父项目和被一个多模块项目管理是有区别的。一个父项目是指它把所有的值传给它的子项目。一个多模块项目只是说它管理一组子模块，或者说一组子项目。多模块关系从上层往下定义。当建立一个多模块项目的时候，你告诉一个项目它的构建需要包含指定的模块。多模块构建用来将模块聚集到一个单独的构建中。父子关系是从叶节点往上定义的。父子关系更多的是处理一个特定项目的定义。当你给一个子项目关联一个父项目的时候，你告诉Maven该项目的<acronym>POM</acronym>起源于另一个项目。</para>
 
-      <para>为了展示选择继承还是多模块的决策过程，考虑如下的两个例子：用来生成本书的Maven项目，以及一个包含很多逻辑上同组模块的假象项目。</para>
+      <para>为了展示选择继承还是多模块的决策过程，考虑如下的两个例子：用来生成本书的Maven项目，以及一个包含很多逻辑上同组模块的假想项目。</para>
 
       <section>
         <title>简单项目</title>
@@ -1415,11 +1415,11 @@ top-group/project-c/pom.xml</programlisting>
         </figure>
 
         <para>当我们构建你正阅读的Maven书的时候，我们在名为<varname>maven-book</varname>的项目下运行<command>mvn
-        package</command>。该多模块项目包含两个子模块：<varname>book-examples</varname>和<varname>book-chapters</varname>。两者都共享同样的父项目，它们只通过同为<varname>maven-book</varname>子项目的方式关联。<varname>book-examples</varname>构建了你可下载的本书样例的<acronym>ZIP</acronym>和<acronym>TGZ</acronym>存档文件。当我们在<filename>book-examples/</filename>目录使用<command>mvn
+        package</command>。该多模块项目包含两个子模块：<varname>book-examples</varname>和<varname>book-chapters</varname>。两者都共享同样的父项目，它们只通过同为<varname>maven-book</varname>子项目的方式关联。<varname>book-examples</varname>构建了可下载的本书样例的<acronym>ZIP</acronym>和<acronym>TGZ</acronym>存档文件。当我们在<filename>book-examples/</filename>目录使用<command>mvn
         package</command>运行<varname>book-examples</varname>的构建的时候，它完全不知道它是<varname>maven-book</varname>项目的一部分。<varname>book-examples</varname>完全不关心<varname>maven-book</varname>，它知道的是它的父项目是最顶层的<varname>sonatype</varname>
         <acronym>POM</acronym>，它自身创建样例的归档文件。该例中，<varname>maven-book</varname>的存在只是为了方便聚集模块构建。</para>
 
-        <para>该些书的项目没有定义一个父项目。所有这个三个项目：<varname>maven-book</varname>，<varname>book-examples</varname>，<varname>book-chapters</varname>和都继承同一个共享的“团体”父项目——<varname>sonatype</varname>。这是一种采用Maven的组织中常见的实践，一些组织定义一个顶层的团体<acronym>POM</acronym>，作为一个默认的父项目为其它项目服务，而不是让每个项目默认去扩展超级<acronym>POM</acronym>。在这个书本样例中，没什么必要的理由让<varname>book-examples</varname>和<varname>book-chapters</varname>共享同样的父<acronym>POM</acronym>，它们是完全不同的两个项目，拥有完全不同的而依赖，不同的构建配置，使用极为不同的插件创建你正阅读的内容。“团体”<acronym>POM</acronym>能让组织有机会自定义一些Maven的默认行为，提供一些组织特定的信息，如配置部署设置和构建profile。</para>
+        <para>该些书的项目没有定义一个父项目。所有这个三个项目：<varname>maven-book</varname>，<varname>book-examples</varname>，<varname>book-chapters</varname>和都继承同一个共享的“团体”父项目——<varname>sonatype</varname>。这是一种采用Maven的组织中常见的实践，一些组织定义一个顶层的团体<acronym>POM</acronym>，作为一个默认的父项目为其它项目服务，而不是让每个项目默认去扩展超级<acronym>POM</acronym>。在这个书本样例中，并不是一定要让<varname>book-examples</varname>和<varname>book-chapters</varname>共享同样的父<acronym>POM</acronym>，它们是完全不同的两个项目，拥有完全不同的而依赖，不同的构建配置，使用极为不同的插件创建你正阅读的内容。“团体”<acronym>POM</acronym>能让组织有机会自定义一些Maven的默认行为，提供一些组织特定的信息，如配置部署设置和构建profile。</para>
       </section>
 
       <section>
@@ -1439,17 +1439,17 @@ top-group/project-c/pom.xml</programlisting>
         </figure>
 
         <para>这里到底是怎么回事呢？让我们尝试着给这一组混乱的箭头解构。首先，看一下<varname>big-system</varname>。这个<varname>big-system</varname>可能就是你将要运行<command>mvn
-        package</command>以构建并测试整个系统的地方。<varname>big-system</varname>引用了子模块<varname>client-side</varname>和<varname>server-side</varname>。这两个项目都积累了大量运行在服务端或者客户端的代码。让我们看一下<varname>server-side</varname>项目。在<varname>server-side</varname>下面有一个名为<varname>server-lib</varname>的项目和一个名为<varname>web-apps</varname>的多模块项目。在<varname>web-apps</varname>下面有两个Java
+        package</command>以构建并测试整个系统的地方。<varname>big-system</varname>引用了子模块<varname>client-side</varname>和<varname>server-side</varname>。这两个项目都管理了大量运行在服务端或者客户端的代码。让我们看一下<varname>server-side</varname>项目。在<varname>server-side</varname>下面有一个名为<varname>server-lib</varname>的项目和一个名为<varname>web-apps</varname>的多模块项目。在<varname>web-apps</varname>下面有两个Java
         web应用：<varname>client-web</varname>和<varname>admin-web</varname>。</para>
 
-        <para>让我们从<varname>client-web</varname>和<varname>admin-web</varname>到<varname>web-apps</varname>开始父子关系。由于这两个web应用都用同样的web应用框架实现（假设是Wicket），两个项目都共享同样的一组核心依赖。对Servlet
+        <para>让我们从<varname>client-web</varname>和<varname>admin-web</varname>到<varname>web-apps</varname>开始讨论父子关系。由于这两个web应用都用同样的web应用框架实现（假设是Wicket），两个项目都共享同样的一组核心依赖。对Servlet
         <acronym>API</acronym>，<acronym>JSP</acronym>
         <acronym>API</acronym>，和Wicket的依赖可以放到<varname>web-apps</varname>项目中。<varname>client-web</varname>和<varname>admin-web</varname>都需要依赖<varname>server-lib</varname>，它就可以定义为一个<varname>web-apps</varname>和<varname>server-lib</varname>之间的依赖。因为<varname>client-web</varname>和<varname>admin-web</varname>通过继承<varname>web-apps</varname>共享了如此多的配置，它们的<acronym>POM</acronym>很小，只包含定义符，父项目声明和最终构建名称。</para>
 
-        <para>本例中，使用父子关系的最主要原因是为了给一组逻辑关联的项目共享依赖和通用配置。所有<varname>big-system</varname>下的项目都通过子模块与其它项目关联，但是并不是所有子模块都被配置成指回包含该子项目的父项目。任意模块都是子模块是为了方便，要构建整个系统，只要到<varname>big-system</varname>项目目录下运行<command>mvn
+        <para>本例中，使用父子关系的最主要原因是为了给一组逻辑关联的项目共享依赖和通用配置。所有<varname>big-system</varname>下的项目都通过子模块与其它项目关联，但是并不是所有子模块都被配置成指回该父项目。所有模块都是子模块是为了方便，要构建整个系统，只要到<varname>big-system</varname>项目目录下运行<command>mvn
         package</command>。再仔细看下上图，你会发现在<varname>server-side</varname>和<varname>big-system</varname>之间没有父子关联。这是为什么？<acronym>POM</acronym>继承十分有用，但它可能被滥用。当然在需要共享依赖和配置的时候，父子关联需要被使用。但当两个项目截然不同的时候使用父子关联是不明智的。举个例子，<varname>server-side</varname>和<varname>client-side</varname>项目。在系统中，让<varname>server-side</varname>和<varname>client-side</varname>都从<varname>big-system</varname>继承通用的<acronym>POM</acronym>是可能的，但一旦这两个子项目的重大分歧出现，你就需要费脑子一方面将构建配置抽离到<varname>big-system</varname>中，另一方面又需要不影响其它的子项目。即使<varname>server-side</varname>和<varname>client-side</varname>同时依赖于Log4J，它们也可能拥有截然不同的插件配置。</para>
 
-        <para>有时候基于风格和经验，为了允许项目如<varname>server-side</varname>和<varname>client-side</varname>保持完全独立，少量的重复配置是最小的代价。设计一组继承了五六层POM的第三方项目永远都不是一个好主意。这样的配置你可能不再需要在多余一个地方重复Log4J依赖，但你会需要查看五六个POM来弄清Maven如何计算出你的有效POM。所有的这些的新的复杂度只是为了避免五行依赖声明。在Maven中，有一种“Maven方式”，但是也有很多其它方式完成同样的事情。这都可归结为一种偏好和风格。大部分情况下，如果你的子模块定义了往回的父项目引用，不会出什么问题，但是你的Maven使用情况一直在变。</para>
+        <para>有时候基于风格和经验，为了允许项目如<varname>server-side</varname>和<varname>client-side</varname>保持完全独立，少量的重复配置是最小的代价。设计一组继承了五六层POM的第三方项目永远都不是一个好主意。这样的配置下，你可能不再需要在多个地方重复Log4J依赖，但你会需要查看五六个POM来弄清Maven如何计算出你的有效<acronym>POM</acronym>。所有的这些的新的复杂度只是为了避免五行依赖声明。在Maven中，有一种“Maven方式”，但是也有很多其它方式完成同样的事情。这都可归结为一种偏好和风格。大部分情况下，如果你的子模块定义了往回的父项目引用，不会出什么问题，但是你的Maven使用情况一直在变。</para>
       </section>
 
       <section>
@@ -1470,7 +1470,7 @@ top-group/project-c/pom.xml</programlisting>
         2 web应用程序提供了一个基础<acronym>POM</acronym>。s<varname>onatype</varname>
         <acronym>POM</acronym>提供了高层的信息如<varname>groupId</varname>，组织信息和构建profile，<varname>struts-proto</varname>定义了所有创建struts应用需要的依赖。如果你的开发根据不同的应用有不同的特征，每类应用又需要遵循同样一组规则，那么这里介绍的方法很有用。如果你正创建很多struts应用，但是它们很少相互关联，你可能只需要在<varname>struts-proto</varname>中定义所有通用的东西。这种方式的缺点是有不能在<varname>system-a</varname>和<varname>system-b</varname>项目层次中使用父子关系来共享如开发人员和其它构建配置信息。一个项目只能有一个父项目。</para>
 
-        <para>这种方法的另外一个缺点是，一旦你有一个项目需要“破坏该模型”，你需要重写父POM，或者想办法将自定义信息提取到一个共享的父项目中，而不让这些自定义信息影响所有子项目。总得来说，为特定的项目“类型”使用POM作为原型不是一种推荐的做法。</para>
+        <para>这种方法的另外一个缺点是，一旦你有一个项目需要“破坏该模型”，你需要重写父<acronym>POM</acronym>，或者想办法将自定义信息提取到一个共享的父项目中，而不让这些自定义信息影响所有子项目。总得来说，为特定的项目“类型”使用<acronym>POM</acronym>作为原型不是一种推荐的做法。</para>
       </section>
     </section>
   </section>
