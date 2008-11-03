@@ -189,7 +189,7 @@
 
         <tertiary>simple weather submodule</tertiary>
       </indexterm> of the classes that take care of interacting with and
-    parsing the Yahoo! Weather feeds. </para>
+    parsing the Yahoo! Weather feeds.</para>
 
     <example>
       <title>simple-weather Module POM</title>
@@ -349,8 +349,8 @@ public class WeatherService {
       </indexterm> referenced in the <varname>simple-parent</varname> project.
     This web application project depends upon the
     <varname>simple-weather</varname> module, and it contains some simple
-    servlets that present the results of the Yahoo! weather service query.
-    </para>
+    servlets that present the results of the Yahoo! weather service
+    query.</para>
 
     <example>
       <title>simple-webapp Module POM</title>
@@ -393,11 +393,11 @@ public class WeatherService {
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>This <varname>simple-weather</varname> module defines a very simple
+    <para>This <varname>simple-webapp</varname> module defines a very simple
     servlet that reads a zip code from an HTTP request, calls the
     <classname>WeatherService</classname> shown in <xref
     linkend="multimodule-weather-service" />, and prints the results to the
-    response’s <classname>Writer</classname>. </para>
+    response’s <classname>Writer</classname>.</para>
 
     <example>
       <title>simple-webapp WeatherServlet</title>

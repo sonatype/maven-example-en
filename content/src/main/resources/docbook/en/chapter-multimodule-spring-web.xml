@@ -336,6 +336,15 @@
 </programlisting>
     </example>
 
+    <note>
+      <para>If you are already familiar with Maven POMs, you might notice that
+      this top-level POM does not define a
+      <sgmltag>dependencyManagement</sgmltag> element. The
+      <sgmltag>dependencyManagement</sgmltag> element allows you to define
+      dependency versions in a single, top-level POM, and it is introduced in
+      <xref linkend="optimizing" />. </para>
+    </note>
+
     <para>Note the similarities of this parent <acronym>POM</acronym> to the
     parent <acronym>POM</acronym> defined in <xref
     linkend="ex-multimodule-parent-pom" />. The only real difference between

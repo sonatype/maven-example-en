@@ -90,12 +90,13 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
       current release of Maven in a format that is convenient for you to work
       with. Pick an appropriate place for it to live, and expand the archive
       there. If you expanded the archive into the directory
-      <filename>/usr/local/maven-2.0.9</filename>, you may want to create a
-      symbolic link to make it easier to work with and to avoid the need to
-      change any environment configuration when you upgrade to a newer
+      <filename>/usr/local/apache-maven-2.0.9</filename>, you may want to
+      create a symbolic link to make it easier to work with and to avoid the
+      need to change any environment configuration when you upgrade to a newer
       version:</para>
 
-      <screen>/usr/local % <command moreinfo="none">ln -s maven-2.0.9 maven
+      <screen>/usr/local % <command moreinfo="none">cd /usr/local
+</command>/usr/local % <command moreinfo="none">ln -s apache-maven-2.0.9 maven
 </command>/usr/local % <command>export M2_HOME=/usr/local/maven</command>
 /usr/local % <command>export PATH=${M2_HOME}/bin:${PATH}</command></screen>
 
@@ -121,8 +122,9 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
         of XCode. If you have installed XCode, run <command>mvn</command> from
         the command-line to check availability. XCode installs Maven in
         <filename>/usr/share/maven</filename>. We recommend installing the
-        most recent version of Maven 2.0.9 as there have been a number of bug
-        fixes and improvements since Maven 2.0.9 was released.</para>
+        most recent version of Maven 2.0.9 as there have been a number of
+        critical bug fixes and improvements since Maven 2.0.9 was
+        released.</para>
       </note>
 
       <para>You'll need to add both <envar>M2_HOME</envar> and
@@ -140,6 +142,34 @@ export PATH=${M2_HOME}/bin:${PATH}</programlisting>
         <para>These installation instructions assume that you are running
         bash.</para>
       </note>
+
+      <section>
+        <title>Installing Maven on OSX using MacPorts</title>
+
+        <para>If you are using MacPorts, you can install the maven2 port by
+        executing the following command-line:</para>
+
+        <screen>$ <command>sudo port install maven2</command>
+Password: ******
+---&gt;  Fetching maven2
+---&gt;  Attempting to fetch apache-maven-2.0.9-bin.tar.bz2 from http://www.apache.org/dist/maven/binaries
+---&gt;  Verifying checksum(s) for maven2
+---&gt;  Extracting maven2
+---&gt;  Configuring maven2
+---&gt;  Building maven2 with target all
+---&gt;  Staging maven2 into destroot
+---&gt;  Installing maven2 2.0.9_0
+---&gt;  Activating maven2 2.0.9_0
+---&gt;  Cleaning maven2
+</screen>
+
+        <para>For more information about the maven2 port, see the maven2
+        <filename><ulink
+        url="http://trac.macports.org/browser/trunk/dports/java/maven2/Portfile">Portfile</ulink></filename>.
+        For more information about MacPorts and how to install it, see the
+        <ulink url="http://www.macports.org/index.php">MacPorts project
+        page</ulink>.</para>
+      </section>
     </section>
 
     <section>
@@ -149,15 +179,15 @@ export PATH=${M2_HOME}/bin:${PATH}</programlisting>
       Mac <acronym>OSX</acronym>, the main differences being the installation
       location and the setting of an environment variable. This book assumes a
       Maven installation directory of <filename>c:\Program
-      Files\maven-2.0.9</filename>, but it won't make a difference if you
-      install Maven in another directory as long as you configure the proper
-      environment variables. Once you've unpacked Maven to the installation
-      directory, you will need to set two environment
+      Files\apache-maven-2.0.9</filename>, but it won't make a difference if
+      you install Maven in another directory as long as you configure the
+      proper environment variables. Once you've unpacked Maven to the
+      installation directory, you will need to set two environment
       variables—<envar>PATH</envar> and <envar>M2_HOME</envar>. To set these
       environment variables from the command-line, type in the following
       commands:</para>
 
-      <screen>C:\Users\tobrien &gt; <command>set M2_HOME=c:\Program Files\maven-2.0.9</command>
+      <screen>C:\Users\tobrien &gt; <command>set M2_HOME=c:\Program Files\apache-maven-2.0.9</command>
 C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
 
       <para>Setting these environment variables on the command-line will allow

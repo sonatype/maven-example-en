@@ -722,15 +722,50 @@
     <section>
       <title>Plugin Repositories</title>
 
-      <para>Repositories are home to two major types of artifacts. The first
-      are artifacts that are used as dependencies of other artifacts. These
-      are the majority of plugins that reside within central. The other type
-      of artifact is plugins. Maven plugins are themselves a special type of
-      artifact. Because of this, plugin repositories are separated from other
-      repositories. The structure of the <sgmltag>pluginRepositories</sgmltag>
-      element block is similar to the <sgmltag>repositories</sgmltag> element.
-      The <sgmltag>pluginRepository</sgmltag> elements each specify a remote
-      location of where Maven can find new plugins.</para>
+      <para>The structure of the <sgmltag>pluginRepositories</sgmltag> element
+      block is similar to the <sgmltag>repositories</sgmltag> element. The
+      <sgmltag>pluginRepository</sgmltag> elements each specify a remote
+      location of where Maven can find plugins artifacts.</para>
+
+      <example>
+        <title>Plugin Repositories in settings.xml</title>
+
+        <programlisting>&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd"&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      ...
+      &lt;repositories&gt;
+        ...
+      &lt;/repositories&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;codehausSnapshots&lt;/id&gt;
+          &lt;name&gt;Codehaus Snapshots&lt;/name&gt;
+          &lt;releases&gt;
+            &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+            &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
+          &lt;/releases&gt;
+          &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+            &lt;checksumPolicy&gt;fail&lt;/checksumPolicy&gt;
+          &lt;/snapshots&gt;
+          &lt;url&gt;http://snapshots.maven.codehaus.org/maven2&lt;/url&gt;
+          &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+      ...
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+  ...
+&lt;/settings&gt;
+</programlisting>
+      </example>
     </section>
 
     <section>
