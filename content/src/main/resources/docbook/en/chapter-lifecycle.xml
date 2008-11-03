@@ -30,7 +30,7 @@
     lifecycles in Maven: clean, default (sometimes called build) and site. In
     this chapter, you are going to learn how Maven ties goals to lifecycle
     phases and how the lifecycle can be customized. You will also learn about
-    the default lifecycle phases. </para>
+    the default lifecycle phases.</para>
 
     <section>
       <title>Clean Lifecycle (clean)</title>
@@ -914,13 +914,14 @@
 </programlisting>
         </example></para>
 
-      <para>We will show you how to create your own packaging type later on in
-      this chapter, but this example should give you an idea of what you'll
-      need to do to reference a custom packaging type. All you need to do is
-      reference the plugin which supplies the custom packaging type. The
-      Israfil Flex plugin is a third-party Maven plugin hosted at Google Code,
-      for more information about this plugin and how to use Maven to compile
-      Adobe Flex go to <ulink
+      <para>In <xref linkend="sect-plugins-lifecycle" />, we show you how to
+      create your own packaging type with a customized lifecycle. This example
+      should give you an idea of what you'll need to do to reference a custom
+      packaging type. All you need to do is reference the plugin which
+      supplies the custom packaging type. The Israfil Flex plugin is a
+      third-party Maven plugin hosted at Google Code, for more information
+      about this plugin and how to use Maven to compile Adobe Flex go to
+      <ulink
       url="http://code.google.com/p/israfil-mojo">http://code.google.com/p/israfil-mojo</ulink>.
       This plugin supplies the following lifecycle for the
       <acronym>SWF</acronym> packaging type:</para>
@@ -1389,9 +1390,9 @@ java -jar simple-cmd-2.3.1.jar %*
       almost always bound to the <varname>install</varname> lifecycle phase.
       This <varname>install:install</varname> goal simply installs a project's
       main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>, an
-      <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and a
-      <sgmltag>version</sgmltag> of 1.0.2, the
+      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>,
+      an <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and
+      a <sgmltag>version</sgmltag> of 1.0.2, the
       <varname>install:install</varname> goal is going to copy the
       <acronym>JAR</acronym> file from
       <filename>target/simple-test-1.0.2.jar</filename> to
