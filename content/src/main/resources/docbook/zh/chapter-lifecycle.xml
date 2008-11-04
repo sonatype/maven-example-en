@@ -2,42 +2,20 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="lifecycle">
-  <title>The Build Lifecycle</title>
+  <title>构建生命周期</title>
 
   <section id="lifecycle-structure">
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>Maven models projects as nouns which are described by a
-    <acronym>POM</acronym>. The <acronym>POM</acronym> captures the identity
-    of a project: What does a project contain? What type of packaging a
-    project needs? Does the project have a parent? What are the dependencies?
-    We've explored the idea of describing a project in the previous chapters,
-    but we haven't introduced the mechanism that allows Maven to act upon
-    these objects. In Maven the "verbs" are goals packaged in Maven plugins
-    which are tied to a phases in a build lifecycle. A Maven lifecycle
-    consists of a sequence of named phases: prepare-resources, compile,
-    package, and install among other. There is phase that captures compilation
-    and a phase that captures packaging. There are pre- and post- phases which
-    can be used to register goals which must run prior to compilation, or
-    tasks which most be run after a particular phase. When you tell Maven to
-    build a project, you are telling Maven to step through a defined sequence
-    of phases and execute any goals which may have been registered with each
-    phase.</para>
+    <para>Maven使用<acronym>POM</acronym>描述项目，将其建模成一些名词。<acronym>POM</acronym>记录了一个项目的定义：项目包含什么？需要怎样的打包类型？是否包含一个父项目？它的依赖是什么？我们已经在前面的章节展示了如何描述一个项目，但还没有介绍一种允许Maven针对这些对象进行操作的机制。在Maven中这些“动词”是由Maven插件包装的一些目标，它们绑定到一个构建生命周期的阶段中。一个Maven生命周期包含了一些有序的命名阶段：prepare-resources，compile，package，和install以及其它。有一个阶段抽象了编译过程，一个阶段抽象了打包过程。而那些pre-和post-阶段可以用来注册一些必须在某些特定阶段之前或之后运行的目标。当你让Maven构建一个项目的时候，你其实是让它一步步通过那些定义好的有序的阶段，并且运行所有注册到某个特定阶段的目标。</para>
 
-    <para>A build lifecycle is an organized sequence of phases that exist to
-    give order to a set of goals. Those goals are chosen and bound by the
-    packaging type of the project being acted upon. There are three standard
-    lifecycles in Maven: clean, default (sometimes called build) and site. In
-    this chapter, you are going to learn how Maven ties goals to lifecycle
-    phases and how the lifecycle can be customized. You will also learn about
-    the default lifecycle phases. </para>
+    <para>一个构建生命周期是一组精心组织的有序的阶段，它的存在能使所有注册的目标变得有序。这些目标根据项目的打包类型被选择并绑定。Maven中有三种标准的生命周期：清理（clean），默认（default）(有时候也称为构建)，和站点（site）。本章，我们将学习Maven如何将目标绑定到生命周期，生命周期如何自定义。你同时也会学得默认生命周期阶段的知识。</para>
 
     <section>
-      <title>Clean Lifecycle (clean)</title>
+      <title>清理生命周期 (clean)</title>
 
-      <para>The first lifecycle you'll be interested in is the simplest
-      lifecycle in Maven. Running <command>mvn clean</command> invokes the
-      clean lifecycle which consists of three lifecycle phases:</para>
+      <para>第一个你将感兴趣的生命周期是Maven中最简单的生命周期。运行<command>mvn
+      clean</command>将调用清理生命周期，它包含了三个生命周期阶段：</para>
 
       <itemizedlist>
         <listitem>
@@ -53,41 +31,14 @@
         </listitem>
       </itemizedlist>
 
-      <para>The interesting phase in the clean lifecycle is the
-      <varname>clean</varname> phase. The Clean plugin's clean goal
-      (<varname>clean:clean</varname>) is bound to the
-      <varname>clean</varname> phase in the <varname>clean</varname>
-      lifecycle. The <varname>clean:clean</varname> goal deletes the output of
-      a build by deleting the build directory. If you haven't customized the
-      location of the build directory it will be the
-      <filename>${basedir}/target</filename> directory as defined by the Super
-      <acronym>POM</acronym>. When you execute the
-      <varname>clean:clean</varname> goal you do not do so by executing the
-      goal directly with <command>mvn clean:clean</command>, you do so by
-      executing the <varname>clean</varname> phase of the clean lifecycle.
-      Executing the <varname>clean</varname> phase gives Maven an opportunity
-      to execute any other goals which may be bound to the
-      <varname>pre-clean</varname> phase.</para>
+      <para>在清理生命周期中有意思的阶段是<varname>clean</varname>阶段。Clean插件的clean目标（<varname>clean:clean</varname>）被绑定到清理生命周期中的<varname>clean</varname>阶段。目标<varname>clean:clean</varname>通过删除构建目录删除整个构建的输出。如果你没有自定义构建目录位置，那么构建目录就是定义在超级<acronym>POM</acronym>中的<filename>${basedir}/target</filename>。当你运行<varname>clean:clean</varname>目标的时候你并不是直接运行<command>mvn
+      clean:clean</command>，你可以通过执行清理生命周期的<varname>clean</varname>阶段运行该目标。运行<varname>clean</varname>阶段能让Maven有机会执行其它可能被绑定到<varname>pre-clean</varname>阶段的目标。</para>
 
-      <para>For example, suppose you wanted to trigger an
-      <varname>antrun:run</varname> goal task to echo a notification on
-      <varname>pre-clean</varname>, or to make an archive of a project's build
-      directory before it is deleted. Simply running the
-      <varname>clean:clean</varname> goal will not execute the lifecycle at
-      all, but specifying the <varname>clean</varname> phase will use the
-      <varname>clean</varname> lifecycle and advance through the three
-      lifecycle phases until it reaches the <varname>clean</varname> phase.
-      <xref linkend="ex-trigger-pre-clean" /> shows an example of build
-      configuration which binds the <varname>antrun:run</varname> goal to the
-      <varname>pre-clean</varname> phase to echo an alert that the project
-      artifact is about to be deleted. In this example, the
-      <varname>antrun:run</varname> goal is being used to execute some
-      arbitrary Ant commands to check for an existing project artifact. If the
-      project's artifact is about to be deleted it will print this to the
-      screen</para>
+      <para>例如，假设你想要在<varname>pre-clean</varname>的时候触发一个<varname>antrun:run</varname>目标任务来输出一个通知，或者需要在项目构建目录被删除之前将其归档。简单的运行<varname>clean:clean</varname>目标不会完整的执行该生命周期，但是指定<varname>clean</varname>阶段就能使用<varname>clean</varname>生命周期，并且逐个的经过生命周期阶段，直到到达<varname>clean</varname>阶段。<xref
+      linkend="ex-trigger-pre-clean" />展示了一个样例，在它的构建配置中，绑定了<varname>antrun:run</varname>至<varname>pre-clean</varname>阶段，输出一个警告告诉用户项目构件即将被删除。该例中，<varname>antrun:run</varname>目标被用来执行一些随意的Ant命令来检查项目的构件。如果项目的构件将要被删除，它会打印该信息至屏幕。</para>
 
       <example id="ex-trigger-pre-clean">
-        <title>Triggering a Goal on pre-clean</title>
+        <title>在pre-clean阶段触发一个目标</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -105,8 +56,9 @@
           &lt;tasks&gt;
             &lt;!-- adds the ant-contrib tasks (if/then/else used below) --&gt;
             &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" /&gt;
-            &lt;available file="${project.build.directory}/${project.build.finalName}.jar"
-                       property="file.exists" value="true" /&gt;
+            &lt;available 
+              file="${project.build.directory}/${project.build.finalName}.jar"
+              property="file.exists" value="true" /&gt;
 
             &lt;if&gt;
               &lt;not&gt;
@@ -139,16 +91,14 @@
 &lt;/project&gt;
 </programlisting>
 
-        <para>Running <command>mvn clean</command> on a project with this
-        build configuration will produce output similar to the
-        following:</para>
+        <para>在带有如上构建配置的项目中运行<command>mvn clean</command>会生成如下的输出：</para>
       </example>
 
       <screen>[INFO] Scanning for projects...
-[INFO] ----------------------------------------------------------------------------
+[INFO] ----------------------------------------------------------------------
 [INFO] Building Your Project
 [INFO]    task-segment: [clean]
-[INFO] ----------------------------------------------------------------------------
+[INFO] ----------------------------------------------------------------------
 [INFO] [antrun:run {execution: file-exists}]
 [INFO] Executing tasks
      [echo] Deleting your-project-1.0-SNAPSHOT.jar
@@ -166,17 +116,10 @@
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-      <para>In addition to configuring Maven to run a goal during the<varname>
-      pre-clean</varname> phase, you can also customize the Clean plugin to
-      delete files in addition to the build output directory. You can
-      configure the plugin to remove specific files in a
-      <sgmltag>fileSet</sgmltag>. The example below configures clean to remove
-      all <filename>.class</filename> files in a directory named
-      <filename>target-other/</filename> using standard Ant file wildcards:
-      <varname>*</varname> and <varname>**</varname>.</para>
+      <para>除了在<varname>pre-clean</varname>阶段配置Maven去运行一个目标，你也可以自定义Clean插件去删除构建输出目录以外的文件。你可以配置该插件去删除那些在<sgmltag>fileSet</sgmltag>中指定的文件。下面的样例配置了Clean插件，使用标准的Ant文件通配符：*和**，删除所有<filename>target-other/</filename>目录中的<filename>.class</filename>文件。</para>
 
       <para><example>
-          <title>Customizing Behavior of the Clean Plugin</title>
+          <title>自定义Clean插件的行为</title>
 
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -203,23 +146,20 @@
     </section>
 
     <section>
-      <title>Default Lifecycle (default)</title>
+      <title>默认生命周期 (default)</title>
 
-      <para>Most Maven users will be familiar with the default lifecycle. It
-      is a general model of a build process for a software application. The
-      first phase is <varname>validate</varname> and the last phase is
-      <varname>deploy</varname>. The phases in the default Maven lifecycle are
-      shown in <xref linkend="tbl-default-lifecycle" />.</para>
+      <para>大部分Maven用户将会对默认生命周期十分熟悉。它是一个软件应用构建过程的总体模型。第一个阶段是<varname>validate</varname>，最后一个阶段是<varname>deploy</varname>。这些默认Maven生命周期的阶段如<xref
+      linkend="tbl-default-lifecycle" />所示：</para>
 
       <table id="tbl-default-lifecycle">
-        <title>Maven Lifecycle Phases</title>
+        <title>Maven默认生命周期阶段</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Description</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -227,151 +167,128 @@
             <row>
               <entry>validate</entry>
 
-              <entry>Validate the project is correct and all necessary
-              information is available to complete a build</entry>
+              <entry>验证项目是否正确，以及所有为了完整构建必要的信息是否可用</entry>
             </row>
 
             <row>
               <entry>generate-sources</entry>
 
-              <entry>Generate any source code for inclusion in
-              compilation</entry>
+              <entry>生成所有需要包含在编译过程中的源代码</entry>
             </row>
 
             <row>
               <entry>process-sources</entry>
 
-              <entry>Process the source code, for example to filter any
-              values</entry>
+              <entry>处理源代码，比如过滤一些值</entry>
             </row>
 
             <row>
               <entry>generate-resources</entry>
 
-              <entry>Generate resources for inclusion in the package</entry>
+              <entry>生成所有需要包含在打包过程中的资源文件</entry>
             </row>
 
             <row>
               <entry>process-resources</entry>
 
-              <entry>Copy and process the resources into the destination
-              directory, ready for packaging</entry>
+              <entry>复制并处理资源文件至目标目录，准备打包</entry>
             </row>
 
             <row>
               <entry>compile</entry>
 
-              <entry>Compile the source code of the project</entry>
+              <entry>编译项目的源代码</entry>
             </row>
 
             <row>
               <entry>process-classes</entry>
 
-              <entry>Post-process the generated files from compilation, for
-              example to do bytecode enhancement on Java classes</entry>
+              <entry>后处理编译生成的文件，例如对Java类进行字节码增强（bytecode enhancement）</entry>
             </row>
 
             <row>
               <entry>generate-test-sources</entry>
 
-              <entry>Generate any test source code for inclusion in
-              compilation</entry>
+              <entry>生成所有包含在测试编译过程中的测试源码</entry>
             </row>
 
             <row>
               <entry>process-test-sources</entry>
 
-              <entry>Process the test source code, for example to filter any
-              values</entry>
+              <entry>处理测试源码，比如过滤一些值</entry>
             </row>
 
             <row>
               <entry>generate-test-resources</entry>
 
-              <entry>Create resources for testing</entry>
+              <entry>生成测试需要的资源文件</entry>
             </row>
 
             <row>
               <entry>process-test-resources</entry>
 
-              <entry>Copy and process the resources into the test destination
-              directory</entry>
+              <entry>复制并处理测试资源文件至测试目标目录</entry>
             </row>
 
             <row>
               <entry>test-compile</entry>
 
-              <entry>Compile the test source code into the test destination
-              directory</entry>
+              <entry>编译测试源码至测试目标目录</entry>
             </row>
 
             <row>
               <entry>test</entry>
 
-              <entry>Run tests using a suitable unit testing framework. These
-              tests should not require the code be packaged or
-              deployed</entry>
+              <entry>使用合适的单元测试框架运行测试。这些测试应该不需要代码被打包或发布</entry>
             </row>
 
             <row>
               <entry>prepare-package</entry>
 
-              <entry>Perform any operations necessary to prepare a package
-              before the actual packaging. This often results in an unpacked,
-              processed version of the package (coming in Maven 2.1+)</entry>
+              <entry>在真正的打包之前，执行一些准备打包必要的操作。这通常会产生一个包的展开的处理过的版本（将会在Maven
+              2.1+中实现）</entry>
             </row>
 
             <row>
               <entry>package</entry>
 
-              <entry>Take the compiled code and package it in its
-              distributable format, such as a <acronym>JAR</acronym>,
-              <acronym>WAR</acronym>, or <acronym>EAR</acronym></entry>
+              <entry>将编译好的代码打包成可分发的格式，如<acronym>JAR</acronym>，<acronym>WAR</acronym>，或者<acronym>EAR</acronym></entry>
             </row>
 
             <row>
               <entry>pre-integration-test</entry>
 
-              <entry>Perform actions required before integration tests are
-              executed. This may involve things such as setting up the
-              required environment</entry>
+              <entry>执行一些在集成测试运行之前需要的动作。如建立集成测试需要的环境</entry>
             </row>
 
             <row>
               <entry>integration-test</entry>
 
-              <entry>Process and deploy the package if necessary into an
-              environment where integration tests can be run</entry>
+              <entry>如果有必要的话，处理包并发布至集成测试可以运行的环境</entry>
             </row>
 
             <row>
               <entry>post-integration-test</entry>
 
-              <entry>Perform actions required after integration tests have
-              been executed. This may include cleaning up the
-              environment</entry>
+              <entry>执行一些在集成测试运行之后需要的动作。如清理集成测试环境。</entry>
             </row>
 
             <row>
               <entry>verify</entry>
 
-              <entry>Run any checks to verify the package is valid and meets
-              quality criteria</entry>
+              <entry>执行所有检查，验证包是有效的，符合质量规范</entry>
             </row>
 
             <row>
               <entry>install</entry>
 
-              <entry>Install the package into the local repository, for use as
-              a dependency in other projects locally</entry>
+              <entry>安装包至本地仓库，以备本地的其它项目作为依赖使用</entry>
             </row>
 
             <row>
               <entry>deploy</entry>
 
-              <entry>Copies the final package to the remote repository for
-              sharing with other developers and projects (usually only
-              relevant during a formal release)</entry>
+              <entry>复制最终的包至远程仓库，共享给其它开发人员和项目（通常和一次正式的发布相关）</entry>
             </row>
           </tbody>
         </tgroup>
@@ -379,12 +296,9 @@
     </section>
 
     <section>
-      <title>Site Lifecycle (site)</title>
+      <title>站点生命周期 (site)</title>
 
-      <para>Maven does more than build software artifacts from project, it can
-      also generate project documentation and reports about the project, or a
-      collection of projects. Project documentation and site generation have a
-      dedicated lifecycle which contains four phases:</para>
+      <para>Maven不仅仅能从一个项目构建软件构件，它还能为一个或者一组项目生成项目文档和报告。项目文档和站点生成有一个专有的生命周期，它包含了四个阶段：</para>
 
       <orderedlist>
         <listitem>
@@ -404,7 +318,7 @@
         </listitem>
       </orderedlist>
 
-      <para>The default goals bound to the site lifecycle is:</para>
+      <para>默认绑定到站点生命周期的目标是：</para>
 
       <orderedlist>
         <listitem>
@@ -416,58 +330,38 @@
         </listitem>
       </orderedlist>
 
-      <para>The packaging type does not usually alter this lifecycle since
-      packaging types are concerned primarily with artifact creation, not with
-      the type of site generated. The Site plugin kicks off the execution of
-      <ulink url="http://maven.apache.org/doxia/">Doxia</ulink> document
-      generation and other report generation plugins. You can generate a site
-      from a Maven project by running the following command:</para>
+      <para>打包类型通常不更改此生命周期，因为打包类型主要和构件创建有关，和站点生成没有太大的关系。Site插件触发<ulink
+      url="http://maven.apache.org/doxia/">Doxia</ulink>执行文档生成，以及执行其它报告生成插件。你可以通过运行如下命令从一个Maven项目生成一个站点：</para>
 
       <screen>$ <command>mvn site</command>
 </screen>
 
-      <para>For more information about Maven Site generation, see <xref
-      linkend="site-generation" />.</para>
+      <para>有关更多的Maven站点生成信息，查看<xref linkend="site-generation" />。</para>
     </section>
   </section>
 
   <section>
-    <title>Package-specific Lifecycles</title>
+    <title>打包相关生命周期</title>
 
-    <para>The specific goals bound to each phase default to a set of goals
-    specific to a project's packaging. A project with packaging
-    <varname>jar</varname> has a different set of default goals from a project
-    with a packaging of <varname>war</varname>. The
-    <sgmltag>packaging</sgmltag> element affects the steps required to build a
-    project. For an example of how the packaging affects the build, consider
-    two projects: one with <varname>pom</varname> packaging and the other with
-    <varname>jar</varname> packaging. The project with <varname>pom</varname>
-    packaging will run the <varname>site:attach-descriptor</varname> goal
-    during the <varname>package</varname> phase, and the project with
-    <varname>jar</varname> packaging will run the <varname>jar:jar</varname>
-    goal instead.</para>
+    <para>绑定到每个阶段的特定目标默认根据项目的打包类型设置。一个打包类型为<varname>jar</varname>的项目和一个打包类型为<varname>war</varname>的项目拥有不同的两组默认目标。<sgmltag>packaging</sgmltag>元素影响构建一个项目需要的步骤。举个打包如何影响构建的例子，考虑有两个项目：一个打包类型是<varname>pom</varname>，另外一个是<varname>jar</varname>。在<varname>package</varname>阶段，打包类型为<varname>pom</varname>的项目会运行<varname>site:attach-descriptor</varname>目标，而打包类型为<varname>jar</varname>的项目会运行<varname>jar:jar</varname>目标。</para>
 
-    <para>The following sections describe the lifecycle for all built-in
-    packaging types in Maven. Use these sections to find out what default
-    goals are mapped to default lifecycle phases.</para>
+    <para>下面的小节描述了Maven中内建打包类型的生命周期。可以使用这些小节来找出哪些默认目标映射到了哪些默认生命周期阶段。</para>
 
     <section>
       <title>JAR</title>
 
-      <para><acronym>JAR</acronym> is the default packaging type, the most
-      common, and thus the most commonly encountered lifecycle configuration.
-      The default goals for the <acronym>JAR</acronym> lifecycle are shown in
-      <xref linkend="tbl-jar-lifecycle" />.</para>
+      <para><acronym>JAR</acronym>是默认的打包类型，最常用的，因此也就是生命周期配置中最经常遇到的打包类型。<acronym>JAR</acronym>生命周期默认的目标如<xref
+      linkend="tbl-jar-lifecycle" />所示：</para>
 
       <table id="tbl-jar-lifecycle">
-        <title>Default Goals for JAR Packaging</title>
+        <title>JAR打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -527,22 +421,18 @@
     <section>
       <title>POM</title>
 
-      <para><acronym>POM</acronym> is the simplest packaging type. The
-      artifact that it generates is itself only, rather than a
-      <acronym>JAR</acronym>, <acronym>SAR</acronym>, or
-      <acronym>EAR</acronym>. There is no code to test or compile, and there
-      are no resources the process. The default goals for projects with POM
-      packaging are shown in <xref linkend="tbl-pom-lifecycle" />.</para>
+      <para><acronym>POM</acronym>是最简单的打包类型。不像一个<acronym>JAR</acronym>，<acronym>SAR</acronym>，或者<acronym>EAR</acronym>，它生成的构件只是它本身。没有代码需要测试或者编译，也没有资源需要处理。打包类型为<acronym>POM</acronym>的项目的默认目标如<xref
+      linkend="tbl-pom-lifecycle" />所示：</para>
 
       <table id="tbl-pom-lifecycle">
-        <title>Default Goals for POM Packaging</title>
+        <title>POM打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -572,23 +462,18 @@
     <section id="sect-plugin-lifecycle">
       <title>Maven Plugin</title>
 
-      <para>This packaging type is similar to <acronym>JAR</acronym> packaging
-      type with three additions: <varname>plugin:descriptor</varname>,
-      <varname>plugin:addPluginArtifactMetadata</varname>, and
-      <varname>plugin:updateRegistry</varname>. These goals generate a
-      descriptor file and perform some modifications to the repository data.
-      The default goals for projects with plugin packaging are shown in <xref
-      linkend="tbl-plugin-lifecycle" />.</para>
+      <para>该打包类型和<acronym>JAR</acronym>打包类型类似，除了三个例外的目标：<varname>plugin:descriptor</varname>，<varname>plugin:addPluginArtifactMetadata</varname>，和<varname>plugin:updateRegistry</varname>。这些目标生成一个描述文件，对仓库数据执行一些修改。打包类型为maven-plugin的项目的默认目标如<xref
+      linkend="tbl-plugin-lifecycle" />所示。</para>
 
       <table id="tbl-plugin-lifecycle">
-        <title>Default Goals for Plugin Packaging</title>
+        <title>maven-plugin打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -654,24 +539,20 @@
     <section>
       <title>EJB</title>
 
-      <para><acronym>EJB</acronym>s, or Enterprise Java Beans, are a common
-      data access mechanism for model-driven development in Enterprise Java.
-      Maven provides support for <acronym>EJB</acronym> 2 and 3. Though you
-      must configure the <acronym>EJB</acronym> plugin to specifically package
-      for <acronym>EJB3</acronym>, else the plugin defaults to 2.1 and looks
-      for the presence of certain <acronym>EJB</acronym> configuration files.
-      The default goals for projects with <acronym>EJB</acronym> packaging are
-      shown in <xref linkend="tbl-ejb-lifecycle" />.</para>
+      <para><acronym>EJB</acronym>，或者说企业Java
+      Bean，是企业级Java中模型驱动开发的常见数据访问机制。Maven提供了对<acronym>EJB</acronym>
+      2和3的支持。你必须配置<acronym>EJB</acronym>插件来为<acronym>EJB3</acronym>指定打包类型，否则该插件默认认为<acronym>EJB</acronym>为2.1，并寻找某些<acronym>EJB</acronym>配置文件是否存在。打包类型为<acronym>EJB</acronym>的项目的默认目标如<xref
+      linkend="tbl-ejb-lifecycle" />所示。</para>
 
       <table id="tbl-ejb-lifecycle">
-        <title>Default Goals for EJB Packaging</title>
+        <title>EJB打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -731,24 +612,18 @@
     <section>
       <title>WAR</title>
 
-      <para>The <acronym>WAR</acronym> packaging type is similar to
-      the<acronym> JAR</acronym> and <acronym>EJB</acronym> types. The
-      exception being the <varname>package</varname> goal of
-      <varname>war:war</varname>. Note that the <varname>war:war</varname>
-      plugin requires a <filename>web.xml</filename> configuration in your
-      <filename>src/main/webapp/WEB-INF</filename> directory. The default
-      goals for projects with <acronym>WAR</acronym> packaging are shown in
-      <xref linkend="tbl-war-lifecycle" />.</para>
+      <para><acronym>WAR</acronym>打包类型和<acronym>JAR</acronym>以及<acronym>EJB</acronym>类似。例外是这里的<varname>package</varname>目标是<varname>war:war</varname>。注意<varname>war:war</varname>插件需要一个<filename>web.xml</filename>配置文件在项目的<filename>src/main/webapp/WEB-INF</filename>目录中。打包类型为<acronym><acronym>WAR</acronym></acronym>的项目的默认目标如<xref
+      linkend="tbl-war-lifecycle" />所示。</para>
 
       <table id="tbl-war-lifecycle">
-        <title>Default Goals for WAR Packaging</title>
+        <title>WAR打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -808,25 +683,19 @@
     <section>
       <title>EAR</title>
 
-      <para><acronym>EAR</acronym>s are probably the simplest Java
-      <acronym>EE</acronym> constructs, consisting primarily of the deployment
-      descriptor <filename>application.xml</filename> file, some resources and
-      some modules. The <acronym>EAR</acronym> plugin has a goal named
-      <varname>generate-application-xml</varname> which generates the
-      <filename>application.xml</filename> based upon the configuration in the
-      <acronym>EAR</acronym> project's <acronym>POM</acronym>. The default
-      goals for projects with <acronym>EAR</acronym> packaging are shown in
-      <xref linkend="tbl-ear-lifecycle" />.</para>
+      <para><acronym>EAR</acronym>可能是最简单的Java
+      EE结构体，它主要包含一个部署描述符<filename>application.xml</filename>文件，一些资源和一些模块。<acronym>EAR</acronym>插件有个名为<varname>generate-application-xml</varname>的目标，它根据<acronym>EAR</acronym>项目<acronym>POM</acronym>的配置生成<filename>application.xml</filename>。打包类型为<acronym><acronym><acronym>EAR</acronym></acronym></acronym>的项目的默认目标如<xref
+      linkend="tbl-ear-lifecycle" />所示。</para>
 
       <table id="tbl-ear-lifecycle">
-        <title>Default Goals for EAR Packaging</title>
+        <title>EAR打包默认的目标</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -866,27 +735,16 @@
     </section>
 
     <section>
-      <title>Other Packaging Types</title>
+      <title>其它打包类型</title>
 
-      <para>This is not an exhaustive list of every packaging type available
-      for Maven. There are a number of packaging formats available through
-      external projects and plugins: the <acronym>NAR</acronym> (native
-      archive) packaging type, the <acronym>SWF</acronym> and
-      <acronym>SWC</acronym> packaging types for projects that produce Adobe
-      Flash and Flex content, and many others. You can also define a custom
-      packaging type and customize the default lifecycle goals to suit your
-      own project packaging requirements.</para>
+      <para>以上并非是一个Maven中所有可用打包类型的完整列表。有许多打包格式在外部的项目和插件中可用：<acronym>NAR</acronym>（本地归档）打包类型，用来生成Adobe
+      Flash和Flex内容的项目的<acronym>SWF</acronym>和<acronym>SWC</acronym>打包类型，以及很多其它类型。你也可以定义一个自定义的打包类型，定制默认的生命周期目标来适应你自己项目的打包需求。</para>
 
-      <para>To use one of these custom packaging types, you need two things: a
-      plugin which defines the lifecycle for a custom packaging type and a
-      repository which contains this plugin. Some custom packaging types are
-      defined in plugins available from the central Maven repository. Here is
-      an example of a project which references the Israfil Flex plugin and
-      uses a custom packaging type of <acronym>SWF</acronym> to produce output
-      from Adobe Flex source.</para>
+      <para>为了使用自定义的打包类型，你需要两样东西：一个定义了定制打包类型生命周期的插件，和一个包含该插件的仓库。有些定制打包类型是由中央Maven仓库中可用的插件定义的。这里有一个样例项目，它引用了Israfil
+      Flex插件，使用自定打包类型<acronym>SWF</acronym>从Adobe Flex生成输出。</para>
 
       <para><example>
-          <title>Custom Packaging Type for Adobe Flex (SWF)</title>
+          <title>为Adobe Flex (SWF)定制打包类型</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -913,26 +771,21 @@
 </programlisting>
         </example></para>
 
-      <para>We will show you how to create your own packaging type later on in
-      this chapter, but this example should give you an idea of what you'll
-      need to do to reference a custom packaging type. All you need to do is
-      reference the plugin which supplies the custom packaging type. The
-      Israfil Flex plugin is a third-party Maven plugin hosted at Google Code,
-      for more information about this plugin and how to use Maven to compile
-      Adobe Flex go to <ulink
-      url="http://code.google.com/p/israfil-mojo">http://code.google.com/p/israfil-mojo</ulink>.
-      This plugin supplies the following lifecycle for the
-      <acronym>SWF</acronym> packaging type:</para>
+      <para>在<xref
+      linkend="sect-plugins-lifecycle" />中，我们向你展示了如何使用自定义的生命周期创建你自己的打包类型。该样例应该能让你了解到，引用一个定制的打包类型你需要做些什么。你需要做的只是引用那个提供定制打包类型的插件。Israfil
+      Flex插件是托管在Google Code的第三方Maven插件，要了解更多的关于此插件的信息，以及如何使用Maven编译Adobe
+      Flex，访问<ulink
+      url="http://code.google.com/p/israfil-mojo">http://code.google.com/p/israfil-mojo</ulink>。该插件为<acronym>SWF</acronym>打包类型提供了如下的生命周期。</para>
 
       <table>
-        <title>Default Lifecycle for SWF Packaging</title>
+        <title>SWF打包的默认生命周期</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>生命周期阶段</entry>
 
-              <entry>Goal</entry>
+              <entry>目标</entry>
             </row>
           </thead>
 
@@ -961,7 +814,7 @@
   </section>
 
   <section>
-    <title>Common Lifecycle Goals</title>
+    <title>常见生命周期目标</title>
 
     <para>Many of the packaging lifecycles have similar goals. If you look at
     the goals bound to the <acronym>WAR</acronym> and <acronym>JAR</acronym>
@@ -1388,9 +1241,9 @@ java -jar simple-cmd-2.3.1.jar %*
       almost always bound to the <varname>install</varname> lifecycle phase.
       This <varname>install:install</varname> goal simply installs a project's
       main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>, an
-      <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and a
-      <sgmltag>version</sgmltag> of 1.0.2, the
+      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>,
+      an <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and
+      a <sgmltag>version</sgmltag> of 1.0.2, the
       <varname>install:install</varname> goal is going to copy the
       <acronym>JAR</acronym> file from
       <filename>target/simple-test-1.0.2.jar</filename> to
