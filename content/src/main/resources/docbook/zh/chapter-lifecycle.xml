@@ -814,60 +814,21 @@
   </section>
 
   <section>
-    <title>常见生命周期目标</title>
+    <title>通用生命周期目标</title>
 
-    <para>Many of the packaging lifecycles have similar goals. If you look at
-    the goals bound to the <acronym>WAR</acronym> and <acronym>JAR</acronym>
-    lifecycles, you'll see that they differ only in the
-    <varname>package</varname> phase. The <varname>package</varname> phase of
-    the <acronym>WAR</acronym> lifecycle calls <varname>war:war</varname> and
-    the <varname>package</varname> phase of the <acronym>JAR</acronym>
-    lifecycle calls <varname>jar:jar</varname>. Most of the lifecycles you
-    will come into contact share some common lifecycle goals for managing
-    resources, running tests, and compiling source code. In this section,
-    we'll explore some of these common lifecycle goals in detail.</para>
+    <para>很多打包类型的生命周期有类似的目标。如果你看一下绑定到<acronym>WAR</acronym>和<acronym>JAR</acronym>生命周期的目标，你会发现它们只有在<varname>package</varname>阶段有区别。<acronym>WAR</acronym>生命周期的<varname>package</varname>阶段调用了<varname>war:war</varname>，而<acronym>JAR</acronym>生命周期的<varname>package</varname>阶段调用了<varname>jar:jar</varname>。大部分你将要接触的生命周期共享一些通用生命周期目标，用来管理资源，运行测试，以及编译源代码。本节，我们会详细讨论这些通用的生命周期目标。</para>
 
     <section>
       <title>Process Resources</title>
 
-      <para>Most lifecycles bind the <varname>resources:resources</varname>
-      goal to the <varname>process-resources</varname> phase. The
-      <varname>process-resources</varname> phase "processes" resources and
-      copies them to the output directory. If you haven't customized the
-      default directory locations defined in the Super <acronym>POM</acronym>,
-      this means that Maven will copy the files from
-      <filename>${basedir}/src/main/resources</filename> to
-      <filename>${basedir}/target/classes</filename> or the directory defined
-      in <filename>${project.build.outputDirectory}</filename>. In addition to
-      copying the resources to the output directory, Maven can also apply a
-      filter to the resources that allows you to replace tokens within
-      resource file. Just like variables are referenced in a
-      <acronym>POM</acronym> using <varname>${...}</varname> notation, you can
-      reference variables in your project's resources using the same syntax.
-      Coupled with build profiles, such a facility can be used to produce
-      build artifacts which target different deployment platforms. This is
-      something that is common in environments which need to produce output
-      for development, testing, staging, and production platforms from the
-      same project. For more information about build profiles, see <xref
-      linkend="profiles" />.</para>
+      <para>大部分生命周期将<varname>resources:resources</varname>目标绑定到<varname>process-resources</varname>阶段。<varname>process-resources</varname>阶段处理资源并将资源复制到输出目录。如果你没有自己定制定义在超级<acronym>POM</acronym>中的默认目录位置，Maven就会将<filename>${basedir}/src/main/resources</filename>中的文件复制到<filename>${basedir}/target/classes</filename>，或者是由<filename>${project.build.outputDirectory}</filename>定义的目录。除了复制资源文件至输出目录，Maven同时也会在资源上引用过滤器，能让你替换资源文件中的一些符号。就像在<acronym>POM</acronym>中我们通过<varname>${...}</varname>标记引用变量一样，你也可以使用同样的语法在你项目的资源文件中引用变量。与profile联系起来，这样的特性就能用来生成针对不同部署平台的构件。当我们需要为同一个项目的开发，测试，staging，以及产品平台环境生成输出的时候，该特性就十分有用。要了解更多的关于构建profile的信息，查看<xref
+      linkend="profiles" />。</para>
 
-      <para>To illustrate resource filtering, assume that you have a project
-      with an <acronym>XML</acronym> file in
-      <filename>src/main/resources/META-INF/service.xml</filename>. You want
-      to externalize some configuration variables to a properties file. In
-      other words, you might want to reference a <acronym>JDBC</acronym>
-      <acronym>URL</acronym>, username, and password for your database, and
-      you don't want to put these values directly into the
-      <filename>service.xml</filename> file. Instead, you would like to use a
-      properties file to capture all of the configuration points for your
-      program. Doing this will allow you to consolidate all configuration into
-      a single properties file and make it easier to change configuration
-      values when you need to target a new deployment environment. First, take
-      a look at the contents of <filename>service.xml</filename> in
-      <filename>src/main/resources/META-INF</filename>.</para>
+      <para>为了阐述资源过滤，假设你有个带有<acronym>XML</acronym>文件<filename>src/main/resources/META-INF/service.xml</filename>的项目。你想要提取出一些配置变量至一个属性文件。换句话说，你可能想要为你的数据库引用<acronym>JDBC</acronym>
+      <acronym>URL</acronym>，用户名和密码，并且你不想将这些值直接放到<filename>service.xml</filename>文件里，而是想要使用一个属性文件来存储你程序中的所有配置点。这么做能让你将所有配置信息固定到单独的一个属性文件中，当你需要面对一个新的部署环境的时候，就很容易更改配置的值。首先，看一下<filename><filename>src/main/resources/META-INF/service.xml</filename></filename>的内容。</para>
 
       <para><example>
-          <title>Using Properties in Project Resources</title>
+          <title>在项目资源中使用属性</title>
 
           <programlisting language="xml">&lt;service&gt;
   &lt;!-- This URL was set by project version ${project.version} --&gt;
@@ -878,19 +839,10 @@
 </programlisting>
         </example></para>
 
-      <para>This <acronym>XML</acronym> file uses the same property reference
-      syntax you can use in the <acronym>POM</acronym>. In fact, the first
-      variable referenced is the <varname>project</varname> variable which is
-      also an implicit variable made available in the <acronym>POM</acronym>.
-      The <varname>project</varname> variable provides access to
-      <acronym>POM</acronym> information. The next three variable references
-      are <varname>jdbc.url</varname>, <varname>jdbc.username</varname>, and
-      <varname>jdbc.password</varname>. These custom variables are defined in
-      a properties file
-      <filename>src/main/filters/default.properties</filename>.</para>
+      <para>该<acronym>XML</acronym>文件使用你在<acronym>POM</acronym>中用到的同样的属性引用语法，第一个引用的变量是<varname>project</varname>，它同时也是<acronym>POM</acronym>中的隐式变量。<varname>project</varname>变量提供了对<acronym>POM</acronym>信息的访问。接下来的三个变量引用是，<varname>jdbc.url</varname>，<varname>jdbc.username</varname>和<varname>jdbc.password</varname>。这些自定义的变量在一个属性文件<filename>src/main/filters/default.properties</filename>中定义。</para>
 
       <example>
-        <title>default.properties in src/main/filters</title>
+        <title>src/main/filters中的default.properties</title>
 
         <programlisting>jdbc.url=jdbc:hsqldb:mem:mydb
 jdbc.username=sa
@@ -898,20 +850,10 @@ jdbc.password=
 </programlisting>
       </example>
 
-      <para>To configure resource filtering with this
-      <filename>default.properties</filename> file, we need to specify two
-      things in a project's <acronym>POM</acronym>: a list of properties files
-      in the <sgmltag>filters</sgmltag> element of the build configuration,
-      and a flag to Maven that the resources directory is to be filtered. The
-      default Maven behavior is to skip filtering and just copy the resources
-      to the output directory; you'll need to explicitly configure resource
-      filter, or Maven will skip the step altogether. This default ensures
-      that Maven's resource filtering feature doesn't surprise you out of
-      nowhere and clobbering any <varname>${...}</varname> references you
-      didn't want it to replace.</para>
+      <para>要配置使用该<filename>default.properties</filename>文件的资源过滤，我们需要在这个项目的<acronym>POM</acronym>中指定两样东西：构建配置的<sgmltag>filters</sgmltag>元素中的属性文件列表，以及一个标记告诉Maven资源目录需要过滤。默认的Maven行为会跳过过滤，只是将资源复制到输出目录；你需要显式的配置资源过滤，否则Maven就会置之不理。这种Maven资源过滤的默认行为是为了确保不让Maven替换到一些你不想替换的<varname>${...}</varname>引用。</para>
 
       <para><example>
-          <title>Filter Resources (Replacing Properties)</title>
+          <title>过滤资源 (替换属性)</title>
 
           <programlisting language="xml">&lt;build&gt;
   &lt;filters&gt;
@@ -927,23 +869,10 @@ jdbc.password=
 </programlisting>
         </example></para>
 
-      <para>As with all directories in Maven, the resources directory does not
-      need to be in <filename>src/main/resources</filename>. This is just the
-      default value defined in the Super <acronym>POM</acronym>. You should
-      also note that you don't need to consolidate all of your resources into
-      a single directory. You can always separate resources into separate
-      directories under <filename>src/main</filename>. Assume that you have
-      project which contains hundreds of <acronym>XML</acronym> documents and
-      hundreds of images. Instead of mixing the resources in the
-      <filename>src/main/resources</filename> directory, you might want to
-      create two directories <filename>src/main/xml</filename> and
-      <filename>src/main/images</filename> to hold this content. To add
-      directories to the list of resource directories, you would add the
-      following <sgmltag>resource</sgmltag> elements to your build
-      configuration.</para>
+      <para>正如Maven中所有目录一样，资源目录并非一定要在<filename>src/main/resources</filename>。这只是定义在超级<acronym>POM</acronym>中的默认值。你应该也注意到你不需要将你所有的资源合并到一个单独的目录中。你可以将资源分离至<filename>src/main</filename>目录下的独立的目录中。假设你有个项目包含了数百个<acronym>XML</acronym>文档和数百个图片。你可能希望创建两个目录<filename>src/main/xml</filename>和<filename>src/main/images</filename>来存储这些内容，而不是将它们混合在<filename>src/main/resources</filename>目录中。为了添加资源目录列表，你需要在你的构建配置中加入如下的<sgmltag>resource</sgmltag>元素：</para>
 
       <example>
-        <title>Configuring Additional Resource Directories</title>
+        <title>配置额外的资源目录</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -962,21 +891,11 @@ jdbc.password=
 &lt;/build&gt;</programlisting>
       </example>
 
-      <para>When you are building a project that produces a console
-      application or a command-line tool, you'll often find yourself writing
-      simple shell scripts that need to reference the <acronym>JAR</acronym>
-      produced by a build. When you are using the assembly plugin to produce a
-      distribution for an application as a <acronym>ZIP</acronym> or
-      <acronym>TAR</acronym>, you might place all of you scripts in a
-      directory like <filename>src/main/command</filename>. In the following
-      <acronym>POM</acronym> resource configuration, you'll see how we can use
-      resource filtering and a reference to the project variable to capture
-      the final output name of the <acronym>JAR</acronym>. For more
-      information about the Maven Assembly plugin, see <xref
-      linkend="assemblies" />.</para>
+      <para>当你构建一个项目用来生成控制台程序或者命令行工具的时候，你通常发现自己正编写一个shell脚本，需要引用构建生成的<acronym>JAR</acronym>。当你需用assembly插件为一个应用程序生成如<acronym>ZIP</acronym>或<acronym>TAR</acronym>的分发包的时候，你可能会将所有的脚本放到如<filename>src/main/command</filename>的目录下。在下面的<acronym>POM</acronym>资源配置中，你会看到我们如何使用资源过滤器，和一个对项目变量的引用，来生成<acronym>JAR</acronym>的最终名称。要了解更多的关于Maven
+      Assembly插件的信息，参考<xref linkend="assemblies" />。</para>
 
       <para><example id="ex-filter-script">
-          <title>Filtering Script Resources</title>
+          <title>过滤脚本资源</title>
 
           <programlisting language="xml">&lt;build&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
@@ -1001,64 +920,35 @@ jdbc.password=
 &lt;/build&gt;</programlisting>
         </example></para>
 
-      <para>If you run <filename>mvn process-resources</filename> in this
-      project, you will end up with two files, <filename>run.sh</filename> and
-      <filename>run.bat</filename>, in <varname>${basedir}</varname>. We've
-      singled out these two files in a <sgmltag>resource</sgmltag> element,
-      configuring filtering, and set the <sgmltag>targetPath</sgmltag> to be
-      <varname>${basedir}</varname>. In a second <sgmltag>resource</sgmltag>
-      element, we've configured the default resources path to be copied to the
-      default output directory without any filtering. <xref
-      linkend="ex-filter-script" /> shows you how to declare two resource
-      directories and supply them with different filtering and target
-      directory preferences. The project from <xref
-      linkend="ex-filter-script" /> would contain a
-      <filename>run.bat</filename> file in
-      <filename>src/main/command</filename> with the following content:</para>
+      <para>如果你在该项目中运行<filename>mvn
+      process-resources</filename>，最后你会在<varname>${basedir}</varname>中得到两个文件，<filename>run.sh</filename>和<filename>run.bat</filename>，我们在<sgmltag>resource</sgmltag>元素中挑选出这两个文件，配置过滤器，然后设置<sgmltag>targetPath</sgmltag>为<varname>${basedir}</varname>。在第二个<sgmltag>resource</sgmltag>元素中，我们配置了默认资源路径，使其在不做过滤的情况下被复制到默认输出目录。<xref
+      linkend="ex-filter-script" />告诉你如何声明两个资源目录，如何给它们提供不同的过滤配置和目标目录配置。<xref
+      linkend="ex-filter-script" />项目的<filename>src/main/command</filename>目录下包含了一个含有如下内容的<filename>run.bat</filename>文件。</para>
 
       <programlisting>@echo off
 java -jar ${project.build.finalName}.jar %*
 </programlisting>
 
-      <para>After running <command>mvn process-resources</command>, a file
-      named <filename>run.bat</filename> would appear in
-      <varname>${basedir}</varname> with the following content:</para>
+      <para>在运行了<command>mvn
+      process-resources</command>之后，目录<varname>${basedir}</varname>下会有一个含有如下内容的名为<filename>run.bat</filename>的文件：</para>
 
       <programlisting>@echo off
 java -jar simple-cmd-2.3.1.jar %*
 </programlisting>
 
-      <para>The ability to customize filtering for specific subsets of
-      resources is another reason why complex projects with many different
-      kinds of resources often find it advantageous to separate resources into
-      multiple directories. The alternative to storing different kinds of
-      resources with different filtering requirements in different directories
-      is to use a more complex set of include and exclude patterns to match
-      all resource files which match a certain pattern.</para>
+      <para>在带有很多不同种类资源的复杂的项目中，我们会发现将资源分离到多个目录下十分有利，原因之一就是我们可以为特定的资源子集自定义过滤器。针对不同的过滤需求，除了将资源存储到不同的目录下，我们还可以使用更复杂的一组包含/排除模式来匹配那些符合模式的资源文件。</para>
     </section>
 
     <section>
       <title>Compile</title>
 
-      <para>Most lifecycles bind the Compiler plugin's
-      <varname>compile</varname> goal to the <varname>compile</varname> phase.
-      This phase calls out to <varname>compile:compile</varname> which is
-      configured to compile all of the source code and copy the bytecode to
-      the build output directory. If you haven't customized the values defined
-      in the Super <acronym>POM</acronym>, <varname>compile:compile</varname>
-      is going to compile everything from <filename>src/main/java</filename>
-      to <filename>target/classes</filename>. The Compiler plugin calls out to
-      <filename>javac</filename> and uses default source and target settings
-      of 1.3 and 1.1. In other words, the compiler plugin assumes that your
-      Java source conforms to Java 1.3 and that you are targeting a Java 1.1
-      JVM. If you would like to change these settings, you'll need to supply
-      the target and source configuration to the Compiler plugin in your
-      project's POM as shown in <xref
-      linkend="ex-compilesrc-target" />.</para>
+      <para>大部分生命周期将Compiler插件的<varname>compile</varname>目标绑定到<varname>compile</varname>阶段。该阶段会调用<varname>compile:compile</varname>，后者被配置成编译所有的源码并复制到构建输出目录。如果你没有自定义超级<acronym>POM</acronym>中定义的值，<varname>compile:compile</varname>将会编译<filename>src/main/java</filename>中的所有内容至<filename>target/classes</filename>。Compiler插件调用<filename>javac</filename>，使用的source设置为1.3，默认target设置为1.1。换句话说，Compiler插件会假设你所有的Java源代码遵循Java
+      1.3，目标为Java 1.1
+      JVM。如果你想要更改这些设置，你需要在<acronym>POM</acronym>中为Compiler插件提供source和target配置，如<xref
+      linkend="ex-compilesrc-target" />所示。</para>
 
       <para><example id="ex-compilesrc-target">
-          <title>Setting the Source and Target Versions for the Compiler
-          Plugin</title>
+          <title>为Compiler插件设置source和target版本</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -1080,31 +970,12 @@ java -jar simple-cmd-2.3.1.jar %*
 </programlisting>
         </example></para>
 
-      <para>Notice we are configuring the Compiler plugin, and not the
-      specific <varname>compile:compile</varname> goal. If we were going to
-      configure the source and target for just the
-      <varname>compile:compile</varname> goal, we would place the
-      <sgmltag>configuration</sgmltag> element below an
-      <sgmltag>execution</sgmltag> element for the
-      <varname>compile:compile</varname> goal. We've configured the target and
-      source for the plugin because <varname>compile:compile</varname> isn't
-      the only goal we're interested in configuring. The Compiler plugin is
-      reused when Maven compiles tests using the
-      <varname>compile:testCompile</varname> goal, and configuring target and
-      source at the plugin level allows us to define it once for all goals in
-      a plugin.</para>
+      <para>要注意我们配置的是Compiler插件，而不是<varname>compile:compile</varname>目标。如果我们只要为<varname>compile:compile</varname>目标配置source和target，就要将<sgmltag>configuration</sgmltag>元素放到<varname>compile:compile</varname>目标的<sgmltag>execution</sgmltag>元素下。我们为整个插件配置source和target，是因为<varname>compile:compile</varname>并不是我们唯一我们有兴趣配置的目标。当Maven使用<varname>compile:testCompile</varname>目标编译测试代码的时候，Compiler插件会被重用，因此在插件级别配置source和target，一次就能配置该插件所有的目标。</para>
 
-      <para>If you need to customize the location of the source code, you can
-      do so by changing the build configuration. If you wanted to store your
-      project's source code in <filename>src/java</filename> instead of
-      <filename>src/main/java</filename> and if you wanted build output to go
-      to <filename>classes</filename> instead of
-      <filename>target/classes</filename>, you could always override the
-      default <sgmltag>sourceDirectory</sgmltag> defined by the Super
-      <acronym>POM</acronym>.</para>
+      <para>如果你想要自定义源码的位置，你也可以更改构建配置。如果你想要存储项目的源码至<filename>src/java</filename>而非<filename>src/main/java</filename>，让构建输出至<filename>classes</filename>而非<filename>target/classes</filename>，你可以覆盖定义在超级<acronym>POM</acronym>中的<sgmltag>sourceDirectory</sgmltag>的默认值。</para>
 
       <example>
-        <title>Overriding the Default Source Directory</title>
+        <title>覆盖默认的源码目录</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1115,56 +986,25 @@ java -jar simple-cmd-2.3.1.jar %*
       </example>
 
       <warning>
-        <para>While it might seem necessary to bend Maven to your own idea of
-        project directory structure, we can't emphasize enough that you should
-        sacrifice your own ideas of directory structure in favor of the Maven
-        defaults. This isn't because we're trying to brainwash you into
-        accepting the Maven Way, but it will be easier for people to
-        understand your project if it adheres to the most basic conventions.
-        Just forget about this. Don't do it.</para>
+        <para>虽然让Maven屈服于你自己的项目目录结构可能看起来很有必要，但我们还是要不断强调你应该牺牲自己关于目录结构的想法，而遵循Maven的默认值。这不是说我们要给你洗脑，要你接受Maven的方式，这是因为如果你的项目遵循大部分的约定，别人会很容易理解你的项目。因此忘掉你自己的想法，别那样做。</para>
       </warning>
     </section>
 
     <section>
       <title>Process Test Resources</title>
 
-      <para>The <varname>process-test-resources</varname> phase is almost
-      indistinguishable from the <varname>process-resources</varname> phase.
-      There are some trivial differences in the <acronym>POM</acronym>, but
-      most everything the same. You can filter test resources just as you
-      filter regular resources. The default location for test resources is
-      defined in the Super <acronym>POM</acronym> as
-      <filename>src/test/resources</filename>, and the default output
-      directory for test resources is <filename>target/test-classes</filename>
-      as defined in
-      <varname>${project.build.testOutputDirectory}</varname>.</para>
+      <para><varname>process-test-resources</varname>阶段最难和<varname>process-resources</varname>阶段区别。在<acronym>POM</acronym>中它们有一些微小的差别，但大部分是一样的。你可以像过滤一般的资源那样过滤测试资源。测试资源的默认位置定义在超级<acronym>POM</acronym>中，为<filename>src/test/resources</filename>，默认的输出目录为<filename>target/test-classes</filename>，由<varname>${project.build.testOutputDirectory}</varname>定义。</para>
     </section>
 
     <section>
       <title>Test Compile</title>
 
-      <para>The <varname>test-compile</varname> phase is almost identical to
-      the <varname>compile</varname> phase. The only difference is that
-      <varname>test-compile</varname> is going to invoke
-      <varname>compile:testCompile</varname> to compile source from the test
-      source directory to the test build output directory. If you haven't
-      customized the default directories from the Super
-      <acronym>POM</acronym>, <varname>compile:testCompile</varname> is going
-      to compile the source in <filename>src/test/java</filename> to the
-      <filename>target/test-classes</filename> directory.</para>
+      <para><varname>test-compile</varname>阶段基本上和<varname>compile</varname>阶段一致。唯一的不同是会调用<varname>compile:testCompile</varname>编译测试源代码目录至测试构建构建输出目录。如果你没有在超级<acronym>POM</acronym>中自定义默认目录，<varname>compile:testCompile</varname>将会编译<filename>src/test/java</filename>中的源码至<filename>target/test-classes</filename>目录。</para>
 
-      <para>As with the source code directory, if you want to customize the
-      location of the test source code and the output of test compilation, you
-      can do so by overriding the <varname>testSourceDirectory</varname> and
-      the testOutputDirectory. If you wanted to store test source in
-      <filename>src-test/</filename> instead of
-      <filename>src/test/java</filename> and you wanted to save test bytecode
-      to <filename>classes-test/</filename> instead of
-      <filename>target/test-classes</filename>, you would use the following
-      configuration.</para>
+      <para>类似源代码目录，如果你想要自定义测试源码目录和测试编译输出目录的位置，你可以覆盖<varname>testSourceDirectory</varname>和<varname>testOutputDirectory</varname>。如果你想要将测试源代码存储在<filename>src-test/</filename>而非<filename>src/test/java</filename>，保存测试字节码至<filename>classes-test/</filename>而非<filename>target/test-classes</filename>，你可以使用如下的配置：</para>
 
       <example>
-        <title>Overriding the Location of Test Source and Output</title>
+        <title>覆盖测试源码和输出的位置</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1178,36 +1018,17 @@ java -jar simple-cmd-2.3.1.jar %*
     <section>
       <title>Test</title>
 
-      <para>Most lifecycles bind the test goal of the Surefire plugin to the
-      test phase. The Surefire plugin is Maven's unit testing plugin, the
-      default behavior of Surefire is to look for all classes ending in *Test
-      in the test source directory and to run them as <ulink
-      url="http://www.junit.org">JUnit</ulink> tests. The Surefire plugin can
-      also be configured to run <ulink
-      url="http://www.testng.org">TestNG</ulink> unit tests.</para>
+      <para>大部分生命周期绑定Surefire插件的test目标至test阶段。Surefire插件是Maven的单元测试插件，Surefire默认的行为是寻找测试源码目录下所有以*Test结尾的类，以<ulink
+      url="http://www.junit.org">JUnit</ulink>测试的形式运行它们。Surefire插件也可以配置成运行<ulink
+      url="http://www.testng.org">TestNG</ulink>单元测试。</para>
 
-      <para>After running <command>mvn test</command>, you should also notice
-      that the Surefire produces a number of reports in
-      <filename>target/surefire-reports</filename>. This reports directory
-      will have two files for each test executed by the Surefire plugin: an
-      <acronym>XML</acronym> document containing execution information for the
-      test, and a text file containing the output of the unit test. If there
-      is a problem during the test phase and a unit test has failed, you can
-      use the output of Maven and the contents of this directory to track down
-      the cause of a test failure. This <filename>surefire-reports/</filename>
-      directory is also used during site generation to create an easy to read
-      summary of all the unit tests in a project.</para>
+      <para>运行过<command>mvn
+      test</command>之后，你应该注意到Surefire在<filename>target/surefire-reports</filename>目录生成了许多报告。该目录内每个Surefire插件运行过的测试都会有相关的两个文件：一个是包含测试运行信息的<acronym>XML</acronym>文档，另一个是包含单元测试输出的文本文件。如果测试阶段有问题，单元测试失败了，你可以使用Maven的输出以及该目录下的内容来追查测试失败的原因。在站点生成的时候，<filename>surefire-reports/</filename>目录的内容会被用来创建报告，使项目所有单元测试的总体情况清晰明了。</para>
 
-      <para>If you are working on a project that has some failing unit tests,
-      but you want the project to produce output, you'll need to configure the
-      Surefire plugin to continue a build even if it encounters a failure. The
-      default behavior is to stop a build whenever a unit test failure is
-      encountered. To override this behavior, you'll need to set the
-      <varname>testFailureIgnore</varname> configuration property on the
-      Surefire plugin to true.</para>
+      <para>如果你工作的项目有一些失败的单元测试，同时你想让项目生成输出，你需要配置Surefire插件在遇到失败的情况下继续一个构建。当遇到单元测试失败的时候，默认行为是停止构建。要覆盖这种行为，你需要设置Surefire插件的<varname>testFailureIgnore</varname>配置属性为true。</para>
 
       <example>
-        <title>Configuring Surefire to Ignore Test Failures</title>
+        <title>配置Surefire忽略单元测试失败</title>
 
         <programlisting language="xml">&lt;build&gt;
   &lt;plugins&gt;
@@ -1223,53 +1044,23 @@ java -jar simple-cmd-2.3.1.jar %*
 &lt;/build&gt;</programlisting>
       </example>
 
-      <para>If you would like to skip tests altogether, you can do so by
-      executing the following command:</para>
+      <para>如果你想要整个的跳过测试，你可以运行如下的命令：</para>
 
       <screen>$ mvn install -Dmaven.test.skip=true</screen>
 
-      <para>The <varname>maven.test.skip</varname> variable controls both the
-      Compiler and the Surefire plugin, if you pass in
-      <varname>maven.test.skip</varname> you've told Maven to ignore tests
-      altogether.</para>
+      <para><varname>maven.test.skip</varname>变量同时控制Compiler和Surefire插件，如果你传入<varname>maven.test.skip</varname>，就等于告诉Maven整个的跳过测试。</para>
     </section>
 
     <section>
       <title>Install</title>
 
-      <para>The <varname>install</varname> goal of the Install plugin is
-      almost always bound to the <varname>install</varname> lifecycle phase.
-      This <varname>install:install</varname> goal simply installs a project's
-      main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>,
-      an <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and
-      a <sgmltag>version</sgmltag> of 1.0.2, the
-      <varname>install:install</varname> goal is going to copy the
-      <acronym>JAR</acronym> file from
-      <filename>target/simple-test-1.0.2.jar</filename> to
-      <filename>~/.m2/repository/org/sonatype/mavenbook/simple-test/1.0.2/simple-test-1.0.2.jar</filename>.
-      If the project has <acronym>POM</acronym> packaging, this goal will copy
-      the <acronym>POM</acronym> to the local repository.</para>
+      <para>Install插件的<varname>install</varname>目标基本上都是绑定到<varname>install</varname>生命周期阶段。<varname>install:install</varname>目标只不过是将项目的主要构件安装到本地仓库。如果你有一个项目，<sgmltag>groupId</sgmltag>是<package>org.sonatype.mavenbook</package>，<sgmltag>artifactId</sgmltag>是<varname>simple-test</varname>，<sgmltag>version</sgmltag>是1.0.2，那么<varname>install:install</varname>目标就会从<filename>target/simple-test-1.0.2.jar</filename>复制<acronym>JAR</acronym>文件至<filename>~/.m2/repository/org/sonatype/mavenbook/simple-test/1.0.2/simple-test-1.0.2.jar</filename>。如果这个项目的打包类型是<acronym>POM</acronym>，那么该目标就仅仅复制<acronym>POM</acronym>到本地仓库。</para>
     </section>
 
     <section>
       <title>Deploy</title>
 
-      <para>The <varname>deploy</varname> goal of the Deploy plugin is usually
-      bound to the <varname>deploy</varname> lifecycle phase. This phase is
-      used to deploy an artifact to a remote Maven repository, this is usually
-      required to update a remote repository when you are performing a
-      release. The deployment procedure can be as simple as copying a file to
-      another directory or as complex as transferring a file over
-      <acronym>SCP</acronym> using a public key. Deployment settings usually
-      involve credentials to a remote repository, and, as such, deployment
-      settings are usually not stored in a <filename>pom.xml</filename>.
-      Instead, deployment settings are more frequently found in an individual
-      user's <filename>~/.m2/settings.xml</filename>. For now, all you need to
-      know is that the <varname>deploy:deploy</varname> goal is bound to the
-      <varname>deploy</varname> phase and it takes care of transporting an
-      artifact to a published repository and updating any repository
-      information which might be affected by such a deployment.</para>
+      <para>Deploy插件的<varname>deploy</varname>目标通常绑定到<varname>deploy</varname>生命周期阶段。该阶段用来将一个构件部署到远程Maven仓库，当你执行一次发布的时候通常需要更新远程仓库。次部署过程可以简单到复制一个文件至另外一个目录，或者复杂到使用公钥通过<acronym>SCP</acronym>传送一个文件。部署设置通常包含远程仓库的证书，并且，这样的部署设置通常不会存储在<filename>pom.xml</filename>中。部署设置通常可以在用户单独的<filename>~/.m2/settings.xml</filename>中找到。到现在为止，你要知道的是<varname>deploy:deploy</varname>被绑定到<varname>deploy</varname>阶段，它会处理传送一个构件至发布仓库，更新一些可能被此次部署影响的仓库信息。</para>
     </section>
   </section>
 </chapter>
