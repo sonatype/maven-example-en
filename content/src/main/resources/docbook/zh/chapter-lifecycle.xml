@@ -7,9 +7,9 @@
   <section id="lifecycle-structure">
     <title>简介</title>
 
-    <para>Maven使用<acronym>POM</acronym>描述项目，将其建模成一些名词。<acronym>POM</acronym>记录了一个项目的定义：项目包含什么？需要怎样的打包类型？是否包含一个父项目？它的依赖是什么？我们已经在前面的章节展示了如何描述一个项目，但还没有介绍一种允许Maven针对这些对象进行操作的机制。在Maven中这些“动词”是由Maven插件包装的一些目标，它们绑定到一个构建生命周期的阶段中。一个Maven生命周期包含了一些有序的命名阶段：prepare-resources，compile，package，和install以及其它。有一个阶段抽象了编译过程，一个阶段抽象了打包过程。而那些pre-和post-阶段可以用来注册一些必须在某些特定阶段之前或之后运行的目标。当你让Maven构建一个项目的时候，你其实是让它一步步通过那些定义好的有序的阶段，并且运行所有注册到某个特定阶段的目标。</para>
+    <para>Maven使用<acronym>POM</acronym>描述项目，将其建模成一些名词。<acronym>POM</acronym>记录了一个项目的定义：项目包含什么？需要怎样的打包类型？是否包含一个父项目？它的依赖是什么？我们已经在前面的章节展示了如何描述一个项目，但还没有介绍一种允许Maven针对这些对象进行操作的机制。在Maven中这些“动词”是由Maven插件包装的一些目标，它们绑定到一个构建生命周期的阶段中。一个Maven生命周期包含了一些有序的命名阶段：prepare-resources，compile，package，和install以及其它。有个阶段抽象了编译过程，有个阶段抽象了打包过程。而那些pre-和post-阶段可以用来注册一些必须在某些特定阶段之前或之后运行的目标。当你让Maven构建一个项目的时候，你其实是让它一步步通过那些预定义的有序的阶段，并且运行所有注册到某个特定阶段的目标。</para>
 
-    <para>一个构建生命周期是一组精心组织的有序的阶段，它的存在能使所有注册的目标变得有序。这些目标根据项目的打包类型被选择并绑定。Maven中有三种标准的生命周期：清理（clean），默认（default）(有时候也称为构建)，和站点（site）。本章，我们将学习Maven如何将目标绑定到生命周期，生命周期如何自定义。你同时也会学得默认生命周期阶段的知识。</para>
+    <para>一个构建生命周期是一组精心组织的有序的阶段，它的存在能使所有注册的目标变得有序运行。这些目标根据项目的打包类型被选择并绑定。Maven中有三种标准的生命周期：清理（clean），默认（default）(有时候也称为构建)，和站点（site）。本章，我们将学习Maven如何将目标绑定到生命周期，生命周期如何自定义。你同时也会学到默认生命周期阶段的知识。</para>
 
     <section>
       <title>清理生命周期 (clean)</title>
@@ -31,7 +31,7 @@
         </listitem>
       </itemizedlist>
 
-      <para>在清理生命周期中有意思的阶段是<varname>clean</varname>阶段。Clean插件的clean目标（<varname>clean:clean</varname>）被绑定到清理生命周期中的<varname>clean</varname>阶段。目标<varname>clean:clean</varname>通过删除构建目录删除整个构建的输出。如果你没有自定义构建目录位置，那么构建目录就是定义在超级<acronym>POM</acronym>中的<filename>${basedir}/target</filename>。当你运行<varname>clean:clean</varname>目标的时候你并不是直接运行<command>mvn
+      <para>在清理生命周期中最有意思的阶段是<varname>clean</varname>阶段。Clean插件的clean目标（<varname>clean:clean</varname>）被绑定到清理生命周期中的<varname>clean</varname>阶段。目标<varname>clean:clean</varname>通过删除构建目录删除整个构建的输出。如果你没有自定义构建目录位置，那么构建目录就是定义在超级<acronym>POM</acronym>中的<filename>${basedir}/target</filename>。当你运行<varname>clean:clean</varname>目标的时候你并不是直接运行<command>mvn
       clean:clean</command>，你可以通过执行清理生命周期的<varname>clean</varname>阶段运行该目标。运行<varname>clean</varname>阶段能让Maven有机会执行其它可能被绑定到<varname>pre-clean</varname>阶段的目标。</para>
 
       <para>例如，假设你想要在<varname>pre-clean</varname>的时候触发一个<varname>antrun:run</varname>目标任务来输出一个通知，或者需要在项目构建目录被删除之前将其归档。简单的运行<varname>clean:clean</varname>目标不会完整的执行该生命周期，但是指定<varname>clean</varname>阶段就能使用<varname>clean</varname>生命周期，并且逐个的经过生命周期阶段，直到到达<varname>clean</varname>阶段。<xref
@@ -148,7 +148,7 @@
     <section>
       <title>默认生命周期 (default)</title>
 
-      <para>大部分Maven用户将会对默认生命周期十分熟悉。它是一个软件应用构建过程的总体模型。第一个阶段是<varname>validate</varname>，最后一个阶段是<varname>deploy</varname>。这些默认Maven生命周期的阶段如<xref
+      <para>大部分Maven用户将会对默认生命周期十分熟悉。它是一个软件应用程序构建过程的总体模型。第一个阶段是<varname>validate</varname>，最后一个阶段是<varname>deploy</varname>。这些默认Maven生命周期的阶段如<xref
       linkend="tbl-default-lifecycle" />所示：</para>
 
       <table id="tbl-default-lifecycle">
@@ -350,7 +350,7 @@
     <section>
       <title>JAR</title>
 
-      <para><acronym>JAR</acronym>是默认的打包类型，最常用的，因此也就是生命周期配置中最经常遇到的打包类型。<acronym>JAR</acronym>生命周期默认的目标如<xref
+      <para><acronym>JAR</acronym>是默认的打包类型，是最常用的，因此也就是生命周期配置中最经常遇到的打包类型。<acronym>JAR</acronym>生命周期默认的目标如<xref
       linkend="tbl-jar-lifecycle" />所示：</para>
 
       <table id="tbl-jar-lifecycle">
@@ -462,7 +462,7 @@
     <section id="sect-plugin-lifecycle">
       <title>Maven Plugin</title>
 
-      <para>该打包类型和<acronym>JAR</acronym>打包类型类似，除了三个例外的目标：<varname>plugin:descriptor</varname>，<varname>plugin:addPluginArtifactMetadata</varname>，和<varname>plugin:updateRegistry</varname>。这些目标生成一个描述文件，对仓库数据执行一些修改。打包类型为maven-plugin的项目的默认目标如<xref
+      <para>该打包类型和<acronym>JAR</acronym>打包类型类似，除了三个目标：<varname>plugin:descriptor</varname>，<varname>plugin:addPluginArtifactMetadata</varname>，和<varname>plugin:updateRegistry</varname>。这些目标生成一个描述文件，对仓库数据执行一些修改。打包类型为maven-plugin的项目的默认目标如<xref
       linkend="tbl-plugin-lifecycle" />所示。</para>
 
       <table id="tbl-plugin-lifecycle">
@@ -737,11 +737,11 @@
     <section>
       <title>其它打包类型</title>
 
-      <para>以上并非是一个Maven中所有可用打包类型的完整列表。有许多打包格式在外部的项目和插件中可用：<acronym>NAR</acronym>（本地归档）打包类型，用来生成Adobe
-      Flash和Flex内容的项目的<acronym>SWF</acronym>和<acronym>SWC</acronym>打包类型，以及很多其它类型。你也可以定义一个自定义的打包类型，定制默认的生命周期目标来适应你自己项目的打包需求。</para>
+      <para>以上列表并非是Maven中所有可用打包类型。有许多打包格式在外部的项目和插件中可用：<acronym>NAR</acronym>（本地归档）打包类型，用来生成Adobe
+      Flash和Flex内容的项目的<acronym>SWF</acronym>和<acronym>SWC</acronym>打包类型，以及很多其它类型。你也可以自定义打包类型，定制默认的生命周期目标来适应你自己项目的打包需求。</para>
 
       <para>为了使用自定义的打包类型，你需要两样东西：一个定义了定制打包类型生命周期的插件，和一个包含该插件的仓库。有些定制打包类型是由中央Maven仓库中可用的插件定义的。这里有一个样例项目，它引用了Israfil
-      Flex插件，使用自定打包类型<acronym>SWF</acronym>从Adobe Flex生成输出。</para>
+      Flex插件，使用自定义打包类型<acronym>SWF</acronym>根据Adobe Flex生成输出。</para>
 
       <para><example>
           <title>为Adobe Flex (SWF)定制打包类型</title>
@@ -821,7 +821,7 @@
     <section>
       <title>Process Resources</title>
 
-      <para>大部分生命周期将<varname>resources:resources</varname>目标绑定到<varname>process-resources</varname>阶段。<varname>process-resources</varname>阶段处理资源并将资源复制到输出目录。如果你没有自己定制定义在超级<acronym>POM</acronym>中的默认目录位置，Maven就会将<filename>${basedir}/src/main/resources</filename>中的文件复制到<filename>${basedir}/target/classes</filename>，或者是由<filename>${project.build.outputDirectory}</filename>定义的目录。除了复制资源文件至输出目录，Maven同时也会在资源上引用过滤器，能让你替换资源文件中的一些符号。就像在<acronym>POM</acronym>中我们通过<varname>${...}</varname>标记引用变量一样，你也可以使用同样的语法在你项目的资源文件中引用变量。与profile联系起来，这样的特性就能用来生成针对不同部署平台的构件。当我们需要为同一个项目的开发，测试，staging，以及产品平台环境生成输出的时候，该特性就十分有用。要了解更多的关于构建profile的信息，查看<xref
+      <para>大部分生命周期将<varname>resources:resources</varname>目标绑定到<varname>process-resources</varname>阶段。<varname>process-resources</varname>阶段处理资源并将资源复制到输出目录。如果你没有自己自定义超级<acronym>POM</acronym>中的默认目录位置，Maven就会将<filename>${basedir}/src/main/resources</filename>中的文件复制到<filename>${basedir}/target/classes</filename>，或者是由<filename>${project.build.outputDirectory}</filename>定义的目录。除了复制资源文件至输出目录，Maven同时也会在资源上应用过滤器，能让你替换资源文件中的一些符号。就像在<acronym>POM</acronym>中我们通过<varname>${...}</varname>标记引用变量一样，你也可以使用同样的语法在你项目的资源文件中引用变量。与profile联系起来，这样的特性就能用来生成针对不同部署平台的构件。当我们需要为同一个项目的开发，测试，staging，以及产品平台环境生成输出的时候，该特性就十分有用。要了解更多的关于构建profile的信息，查看<xref
       linkend="profiles" />。</para>
 
       <para>为了阐述资源过滤，假设你有个带有<acronym>XML</acronym>文件<filename>src/main/resources/META-INF/service.xml</filename>的项目。你想要提取出一些配置变量至一个属性文件。换句话说，你可能想要为你的数据库引用<acronym>JDBC</acronym>
@@ -850,7 +850,7 @@ jdbc.password=
 </programlisting>
       </example>
 
-      <para>要配置使用该<filename>default.properties</filename>文件的资源过滤，我们需要在这个项目的<acronym>POM</acronym>中指定两样东西：构建配置的<sgmltag>filters</sgmltag>元素中的属性文件列表，以及一个标记告诉Maven资源目录需要过滤。默认的Maven行为会跳过过滤，只是将资源复制到输出目录；你需要显式的配置资源过滤，否则Maven就会置之不理。这种Maven资源过滤的默认行为是为了确保不让Maven替换到一些你不想替换的<varname>${...}</varname>引用。</para>
+      <para>要配置使用该<filename>default.properties</filename>文件的资源过滤，我们需要在这个项目的<acronym>POM</acronym>中指定两样东西：构建配置的<sgmltag>filters</sgmltag>元素中的属性文件列表，以及一个标记告诉Maven资源目录需要过滤。默认的Maven行为会跳过过滤，只是将资源复制到输出目录；你需要显式的配置资源过滤，否则Maven就会置之不理。这种Maven资源过滤的默认行为是为了确保不让Maven替换掉一些你不想替换的<varname>${...}</varname>引用。</para>
 
       <para><example>
           <title>过滤资源 (替换属性)</title>
@@ -891,7 +891,7 @@ jdbc.password=
 &lt;/build&gt;</programlisting>
       </example>
 
-      <para>当你构建一个项目用来生成控制台程序或者命令行工具的时候，你通常发现自己正编写一个shell脚本，需要引用构建生成的<acronym>JAR</acronym>。当你需用assembly插件为一个应用程序生成如<acronym>ZIP</acronym>或<acronym>TAR</acronym>的分发包的时候，你可能会将所有的脚本放到如<filename>src/main/command</filename>的目录下。在下面的<acronym>POM</acronym>资源配置中，你会看到我们如何使用资源过滤器，和一个对项目变量的引用，来生成<acronym>JAR</acronym>的最终名称。要了解更多的关于Maven
+      <para>当你构建一个项目用来生成控制台程序或者命令行工具的时候，你通常发现自己正编写一个shell脚本，需要引用构建生成的<acronym>JAR</acronym>。当你使用assembly插件为一个应用程序生成如<acronym>ZIP</acronym>或<acronym>TAR</acronym>的分发包的时候，你可能会将所有的脚本放到如<filename>src/main/command</filename>的目录下。在下面的<acronym>POM</acronym>资源配置中，你会看到我们如何使用资源过滤器和一个对项目变量的引用，生成<acronym>JAR</acronym>的最终名称。要了解更多的关于Maven
       Assembly插件的信息，参考<xref linkend="assemblies" />。</para>
 
       <para><example id="ex-filter-script">
@@ -942,7 +942,7 @@ java -jar simple-cmd-2.3.1.jar %*
     <section>
       <title>Compile</title>
 
-      <para>大部分生命周期将Compiler插件的<varname>compile</varname>目标绑定到<varname>compile</varname>阶段。该阶段会调用<varname>compile:compile</varname>，后者被配置成编译所有的源码并复制到构建输出目录。如果你没有自定义超级<acronym>POM</acronym>中定义的值，<varname>compile:compile</varname>将会编译<filename>src/main/java</filename>中的所有内容至<filename>target/classes</filename>。Compiler插件调用<filename>javac</filename>，使用的source设置为1.3，默认target设置为1.1。换句话说，Compiler插件会假设你所有的Java源代码遵循Java
+      <para>大部分生命周期将Compiler插件的<varname>compile</varname>目标绑定到<varname>compile</varname>阶段。该阶段会调用<varname>compile:compile</varname>，后者被配置成编译所有的源码并复制到构建输出目录。如果你没有自定义超级<acronym>POM</acronym>中的值，<varname>compile:compile</varname>将会编译<filename>src/main/java</filename>中的所有内容至<filename>target/classes</filename>。Compiler插件调用<filename>javac</filename>，使用的source设置为1.3，默认target设置为1.1。换句话说，Compiler插件会假设你所有的Java源代码遵循Java
       1.3，目标为Java 1.1
       JVM。如果你想要更改这些设置，你需要在<acronym>POM</acronym>中为Compiler插件提供source和target配置，如<xref
       linkend="ex-compilesrc-target" />所示。</para>
@@ -970,12 +970,12 @@ java -jar simple-cmd-2.3.1.jar %*
 </programlisting>
         </example></para>
 
-      <para>要注意我们配置的是Compiler插件，而不是<varname>compile:compile</varname>目标。如果我们只要为<varname>compile:compile</varname>目标配置source和target，就要将<sgmltag>configuration</sgmltag>元素放到<varname>compile:compile</varname>目标的<sgmltag>execution</sgmltag>元素下。我们为整个插件配置source和target，是因为<varname>compile:compile</varname>并不是我们唯一我们有兴趣配置的目标。当Maven使用<varname>compile:testCompile</varname>目标编译测试代码的时候，Compiler插件会被重用，因此在插件级别配置source和target，一次就能配置该插件所有的目标。</para>
+      <para>要注意我们配置的是Compiler插件，而不是<varname>compile:compile</varname>目标。如果我们只要为<varname>compile:compile</varname>目标配置source和target，就要将<sgmltag>configuration</sgmltag>元素放到<varname>compile:compile</varname>目标的<sgmltag>execution</sgmltag>元素下。我们为整个插件配置source和target，是因为<varname>compile:compile</varname>并不是我们唯一我们感兴趣配置的目标。当Maven使用<varname>compile:testCompile</varname>目标编译测试代码的时候，Compiler插件会被重用，因此在插件级别配置source和target，一次就能配置该插件所有的目标。</para>
 
       <para>如果你想要自定义源码的位置，你也可以更改构建配置。如果你想要存储项目的源码至<filename>src/java</filename>而非<filename>src/main/java</filename>，让构建输出至<filename>classes</filename>而非<filename>target/classes</filename>，你可以覆盖定义在超级<acronym>POM</acronym>中的<sgmltag>sourceDirectory</sgmltag>的默认值。</para>
 
       <example>
-        <title>覆盖默认的源码目录</title>
+        <title>覆盖默认的源码和输出目录</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1060,7 +1060,7 @@ java -jar simple-cmd-2.3.1.jar %*
     <section>
       <title>Deploy</title>
 
-      <para>Deploy插件的<varname>deploy</varname>目标通常绑定到<varname>deploy</varname>生命周期阶段。该阶段用来将一个构件部署到远程Maven仓库，当你执行一次发布的时候通常需要更新远程仓库。次部署过程可以简单到复制一个文件至另外一个目录，或者复杂到使用公钥通过<acronym>SCP</acronym>传送一个文件。部署设置通常包含远程仓库的证书，并且，这样的部署设置通常不会存储在<filename>pom.xml</filename>中。部署设置通常可以在用户单独的<filename>~/.m2/settings.xml</filename>中找到。到现在为止，你要知道的是<varname>deploy:deploy</varname>被绑定到<varname>deploy</varname>阶段，它会处理传送一个构件至发布仓库，更新一些可能被此次部署影响的仓库信息。</para>
+      <para>Deploy插件的<varname>deploy</varname>目标通常绑定到<varname>deploy</varname>生命周期阶段。该阶段用来将一个构件部署到远程Maven仓库，当你执行一次发布的时候通常需要更新远程仓库。一次部署过程可以简单到复制一个文件至另外一个目录，或者复杂到使用公钥通过<acronym>SCP</acronym>传送一个文件。部署设置通常包含远程仓库的证书，并且，这样的部署设置通常不会存储在<filename>pom.xml</filename>中。部署设置通常可以在用户单独的<filename>~/.m2/settings.xml</filename>中找到。到现在为止，你要知道的是<varname>deploy:deploy</varname>被绑定到<varname>deploy</varname>阶段，它会处理传送一个构件至发布仓库，更新一些可能被此次部署影响的仓库信息。</para>
     </section>
   </section>
 </chapter>
