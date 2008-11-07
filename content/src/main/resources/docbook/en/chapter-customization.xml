@@ -1208,8 +1208,8 @@ public class YahooParserTest extends TestCase {
     <methodname>parse()</methodname> method on
     <classname>YahooParser</classname>. The <methodname>parse()</methodname>
     method returns a <classname>Weather</classname> object, which is then
-    tested with a series of calls to <methodname>assertEquals()</methodname>, a
-    method defined by <classname>TestCase</classname>.</para>
+    tested with a series of calls to <methodname>assertEquals()</methodname>,
+    a method defined by <classname>TestCase</classname>.</para>
 
     <para>In the same directory, create a file named
     <filename>WeatherFormatterTest.java</filename>.</para>
@@ -1740,7 +1740,10 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     </example>
 
     <para>Once you’ve added this configuration, you can build the assembly by
-    running <command>mvn assembly:assembly</command>, like so:</para>
+    running the <varname>assembly:assembly</varname> goal. In the following
+    screen listing, the <varname>assembly:assembly</varname> goal is executed
+    after the Maven build reaches the <varname>install</varname> lifecycle
+    phase:</para>
 
     <screen>$ <command>mvn install assembly:assembly</command>
 ...
@@ -1801,5 +1804,72 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
     class="endofrange" startref="customproj1"></indexterm><indexterm
     class="endofrange" startref="customproj2"></indexterm><phrase
     role="keep-together">distribution</phrase>.</para>
+
+    <section>
+      <title>Attaching the Assembly Goal to the Package Phase</title>
+
+      <para>In Maven 1, a build was customized by stringing together a series
+      of plugin goals. Each plugin goal had prerequisites and defined a
+      relationship to other plugin goals. With the release of Maven 2, a
+      lifecycle was introduced and plugin goals are now associated with a
+      series of phases in a default Maven build lifecycle. The lifecycle
+      provides a solid foundation that makes it easier to predict and manage
+      the plugin goals which will be executed in a given build. In Maven 1,
+      plugin goals related to one another directly; in Maven 2, plugin goals
+      relate to a set of common lifecycle stages. While it is certainly valid
+      to execute a plugin goal directly from the command-line as we just
+      demonstrated, it is more consistent with the design of Maven to
+      configure the Assembly plugin to execute the
+      <varname>assembly:assembly</varname> goal during a phase in the Maven
+      lifecycle.</para>
+
+      <para>The following plugin configuration configures the Maven Assembly
+      plugin to execute the <varname>attached</varname> goal during the
+      <varname>package</varname> phase of the Maven default build lifecycle.
+      The <varname>attached</varname> goal does the same thing as the
+      <varname>assembly</varname> goal. To bind to
+      <varname>assembly:attached</varname> goal to the
+      <varname>package</varname> phase we use the
+      <sgmltag>executions</sgmltag> element under <sgmltag>plugin</sgmltag> in
+      the <sgmltag>build</sgmltag> section of the project's POM.</para>
+
+      <example>
+        <title>Configuring attached Goal Execution during the package
+        Lifecycle Phase</title>
+
+        <para><programlisting language="xml">&lt;project&gt;
+  [...]
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;descriptorRefs&gt;
+            &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;
+          &lt;/descriptorRefs&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;id&gt;simple-command&lt;/id&gt;
+          &lt;phase&gt;package&lt;/phase&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;attached&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  [...]
+&lt;/project&gt;</programlisting></para>
+      </example>
+
+      <para>Once you have this configuration in your POM, all you need to do
+      to generate the assembly is run <command>mvn package</command>. The
+      execution configuration will make sure that the
+      <varname>assembly:attached</varname> goal is executed when the Maven
+      lifecycle transitions to the <varname>package</varname> phase of the
+      lifecycle.</para>
+    </section>
   </section>
 </chapter>
