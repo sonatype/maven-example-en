@@ -372,9 +372,10 @@ public class WeatherService {
   &lt;name&gt;simple-webapp Maven Webapp&lt;/name&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-servlet_2.4_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;

@@ -880,9 +880,9 @@
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-servlet_2.4_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.0&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
       &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
@@ -899,11 +899,10 @@
     <literal>test</literal>-scoped dependency when you need to reference this
     library only during testing. The last dependency in <xref
     linkend="ex-dependency" /> is a dependency on the Servlet 2.4
-    <acronym>API</acronym> as implemented by the Apache Geronimo project. The
-    last dependency is scoped as a provided dependency. You would use a
-    provided scope when the application you are developing needs a library for
-    compilation and testing, but this library is supplied by a container at
-    runtime.</para>
+    <acronym>API</acronym>. The last dependency is scoped as a provided
+    dependency. You would use a provided scope when the application you are
+    developing needs a library for compilation and testing, but this library
+    is supplied by a container at runtime.</para>
 
     <section id="section-dependency-scope">
       <title>Dependency Scope</title>

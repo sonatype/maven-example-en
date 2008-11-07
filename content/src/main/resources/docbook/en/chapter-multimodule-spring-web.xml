@@ -342,7 +342,7 @@
       <sgmltag>dependencyManagement</sgmltag> element. The
       <sgmltag>dependencyManagement</sgmltag> element allows you to define
       dependency versions in a single, top-level POM, and it is introduced in
-      <xref linkend="optimizing" />. </para>
+      <xref linkend="optimizing" />.</para>
     </note>
 
     <para>Note the similarities of this parent <acronym>POM</acronym> to the
@@ -992,9 +992,10 @@ public class WeatherService {
       &lt;version&gt;3.3.0.ga&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-jta_1.1_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.1&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.springframework&lt;/groupId&gt;
@@ -1047,20 +1048,11 @@ public class WeatherService {
       </varlistentry>
 
       <varlistentry>
-        <term><literal>org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1</literal></term>
+        <term><literal>javax.servlet:servlet-api:2.4</literal></term>
 
         <listitem>
-          <para>Just like the Servlet and <acronym>JSP</acronym><indexterm>
-              <primary>Apache Geronimo project</primary>
-            </indexterm> <acronym>API</acronym>s, the Apache Geronimo project
-          was nice enough to release a certified version of many of the
-          enterprise <acronym>API</acronym>s under an Apache License. This
-          means that whenever a component tells you that it depends on the
-          <acronym>JDBC</acronym>, <acronym>JNDI</acronym>, and
-          <acronym>JTA</acronym> <acronym>API</acronym>s (among others), you
-          can look for a corresponding library under the
-          <varname>org.apache.geronimo.specs</varname>
-          <literal>groupId</literal>.</para>
+          <para>Since this project contains a Servlet, we need to include the
+          Servlet API version 2.4.</para>
         </listitem>
       </varlistentry>
 
@@ -1484,9 +1476,10 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
   &lt;name&gt;Simple Web Application&lt;/name&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt; <co id="coDef-spring-web-1" os="coRef-spring-web-1" />
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-servlet_2.4_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.mavenbook.ch07&lt;/groupId&gt;
@@ -1561,9 +1554,9 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <calloutlist>
       <callout arearefs="coDef-spring-web-1" id="coRef-spring-web-1">
         <para>This <varname>simple-webapp</varname> project defines four
-        dependencies: the Servlet 2.4 specification implementation from Apache
-        Geronimo, the simple-weather service library, the simple-persist
-        persistence library, and the entire Spring Framework 2.0.7.</para>
+        dependencies: the Servlet 2.4 specification, the simple-weather
+        service library, the simple-persist persistence library, and the
+        entire Spring Framework 2.0.7.</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-2" id="coRef-spring-web-2">
