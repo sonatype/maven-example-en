@@ -445,75 +445,10 @@ public class SimpleServlet extends HttpServlet {
         <secondary>J2EE dependencies, adding</secondary>
       </indexterm><indexterm>
         <primary>Servlet API, adding as dependency</primary>
-      </indexterm> <acronym>API</acronym> as a project dependency. The Servlet
-    specification is a <acronym>JAR</acronym> file that can be downloaded from
-    Sun Microsystems at <ulink
-    url="http://java.sun.com/products/servlet/download.html"></ulink>. Once
-    the <acronym>JAR</acronym> file is downloaded, you’ll need to install the
-    resulting <acronym>JAR</acronym> in your local Maven repository located at
-    <filename>~/.m2/</filename><filename>repository</filename>. The same
-    process will have to be repeated for all of the Java Platform Enterprise
-    Edition (<acronym>J2EE</acronym>) <acronym>API</acronym>s maintained by
-    Sun Microsystems—Java Naming and Directory Interface
-    (<acronym>JNDI</acronym>), Java Database Connectivity
-    (<acronym>JDBC</acronym>), Servlet, <acronym>JSP</acronym>, Java
-    Transaction API (<acronym>JTA</acronym>), and others. If this strikes you
-    as somewhat tedious, you are not alone. Lucky for you, there is a simpler
-    alternative to downloading all of these libraries and installing them
-    manually—Apache <indexterm>
-        <primary>Apache Geronimo project</primary>
-      </indexterm>Geronimo’s independent open source implementations.</para>
-
-    <para>For years, the only way to get the Servlet specification
-    <acronym>JAR</acronym> was to download it directly from Sun Microsystems.
-    You had to go to the Sun web site, agree to a click-through licensing
-    agreement and only then could you access the Servlet
-    <acronym>JAR</acronym>. This was all necessary because the Sun
-    specification <acronym>JAR</acronym>s were not made available under a
-    license which allowed for redistribution. Manually downloading Sun
-    artifacts was something you just had to do to write a Servlet or to use
-    <acronym>JDBC</acronym> from a Maven project for a few years. It was
-    tedious and annoying until the Apache Geronimo project was able to create
-    a Sun certified implementation of a number of enterprise specifications.
-    These specification <acronym>JAR</acronym>s are released under the Apache
-    Software License Version 2.0, a license which allows for free
-    redistribution of source and binary. Now, for the purposes of your
-    programming, there is little to no difference between the Servlet
-    <acronym>API</acronym> <acronym>JAR</acronym> downloaded from Sun
-    Microsystems and the Servlet <acronym>API</acronym> <acronym>JAR</acronym>
-    implemented by the Apache Geronimo project, both have passed a rigorous
-    Test Compatibility Kit (<acronym>TCK</acronym>) from Sun
-    Microsystems.</para>
-
-    <para>Adding a dependency on something like the <acronym>JSP</acronym>
-    <acronym>API</acronym> or the Servlet <acronym>API</acronym> is now very
-    straightforward, and it does not require you to manually download a
-    <acronym>JAR</acronym> file from a web site and install it in your local
-    repository. The catch is that you have to know where to look:
-    what<indexterm>
-        <primary>groupId attribute (pom.xml)</primary>
-
-        <secondary>determining for dependencies</secondary>
-
-        <tertiary>Apache Geronimo implementation of Servlet API</tertiary>
-      </indexterm><indexterm>
-        <primary>artifactId attribute (pom.xml)</primary>
-
-        <secondary>determining for dependencies</secondary>
-
-        <tertiary>Apache Geronimo implementation of Servlet API</tertiary>
-      </indexterm><indexterm>
-        <primary>version attribute (pom.xml)</primary>
-
-        <secondary>determining for dependencies</secondary>
-
-        <tertiary>Apache Geronimo implementation of Servlet API</tertiary>
-      </indexterm> <varname>groupId</varname>, <varname>artifactId</varname>,
-    and <varname>version</varname> to use to reference the appropriate Apache
-    Geronimo implementation. To add the Servlet specification
-    <acronym>API</acronym> as a dependency to your project’s
-    <acronym>POM</acronym>, add the dependency element as shown in this next
-    example:</para>
+      </indexterm> <acronym>API</acronym> as a project dependency. To add the
+    Servlet specification <acronym>API</acronym> as a dependency to your
+    project’s <acronym>POM</acronym>, add the dependency element as shown in
+    this next example:</para>
 
     <example>
       <title>Add the Servlet 2.4 Specification as a Dependency</title>
@@ -523,9 +458,9 @@ public class SimpleServlet extends HttpServlet {
   &lt;dependencies&gt;
     [...]
     &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-servlet_2.4_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
       &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
@@ -534,29 +469,10 @@ public class SimpleServlet extends HttpServlet {
 </programlisting>
     </example>
 
-    <para>The <varname>groupId</varname> for all of the Apache Geronimo
-    specification implementations is
-    <package>org.apache.geronimo.specs</package>. The
-    <varname>artifactId</varname> contains the version of the specification
-    that you are most familiar with; for example, if you were going to include
-    the Servlet 2.3 specification you would have an
-    <varname>artifactId</varname> of
-    <literal>geronimo-servlet_2.3_spec</literal>, and if you are targeting the
-    Servlet 2.4 specification, your <varname>artifactId</varname> would be
-    <literal>geronimo-servlet_2.4_spec</literal>. As for the version, you'll
-    have to take a look at the public Maven repository to figure out which
-    version you should use. For versions, your best bet is going to be the
-    latest version for a particular specification implementation. If you are
-    looking for a specific alternative to a Sun Specification from the Apache
-    Geronimo project, we've assembled a list of available specifications in
-    <xref linkend="appendix-enterprise" />.</para>
-
     <para>It is also worth pointing out that we have used the
     <literal>provided</literal> scope for this dependency. This tells Maven
     that the jar is "provided" by the container and thus should not be
-    included in the war.</para>
-
-    <para>If you were interested in writing a custom
+    included in the war. If you were interested in writing a custom
     <acronym>JSP</acronym><indexterm>
         <primary>JSP 2.0 specification, dependency on</primary>
       </indexterm><indexterm>
@@ -576,9 +492,9 @@ public class SimpleServlet extends HttpServlet {
   &lt;dependencies&gt;
     [...]
     &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
-      &lt;artifactId&gt;geronimo-jsp_2.0_spec&lt;/artifactId&gt;
-      &lt;version&gt;1.1&lt;/version&gt;
+      &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+      &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+      &lt;version&gt;2.0&lt;/version&gt;
       &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
