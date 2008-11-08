@@ -13,10 +13,10 @@
     <acronym>WAR</acronym>, <acronym>EJB</acronym>, and <acronym>EAR</acronym>
     plugins. As discussed in <xref linkend="lifecycle" /> these plugins
     correspond to different project packaging types each with a slightly
-    different build processes. While Maven has plugins and customized
-    lifecycles to support standard packaging types, there are times when
-    you'll need to create an archive or directory with a custom layout. Such
-    custom archives are called Maven Assemblies.</para>
+    different build process. While Maven has plugins and customized lifecycles
+    to support standard packaging types, there are times when you'll need to
+    create an archive or directory with a custom layout. Such custom archives
+    are called Maven Assemblies.</para>
 
     <para>There are any number of reasons why you may want to build custom
     archives for your project. Perhaps the most common is the project
@@ -42,7 +42,7 @@
     write an entire Maven plugin simply to generate your own custom archive
     format, along with a new lifecycle mapping and artifact-handling
     configuration to tell Maven how to deploy it. But the Assembly plugin
-    makes this unnecessary in most cases, by providing generalized support for
+    makes this unnecessary in most cases by providing generalized support for
     creating your own archive recipe without spending so much time writing
     Maven code.</para>
   </section>
@@ -53,7 +53,7 @@
     <para>Before we go any further, it’s best to take a minute and talk about
     the two main goals in the Assembly plugin:
     <varname>assembly:assembly</varname>, and the <varname>single</varname>
-    mojo. I list these two goals in different ways, because it reflects the
+    mojo. I list these two goals in different ways because it reflects the
     difference in how they’re used. The <varname>assembly:assembly</varname>
     goal is designed to be invoked directly from the command line, and should
     never be bound to a build lifecycle phase. In contrast, the
@@ -380,8 +380,8 @@ Hello, World!</screen>
       directories for a set of projects that are commonly used together. For
       simplicity, we’ll reuse the two built-in assembly descriptors discussed
       above - <varname>project</varname> and
-      <varname>jar-with-dependencies</varname>. This this particular example,
-      it is assumed that each project creates the <varname>project</varname>
+      <varname>jar-with-dependencies</varname>. In this particular example, it
+      is assumed that each project creates the <varname>project</varname>
       assembly in addition to its main <acronym>JAR</acronym> artifact. Assume
       that every project in a multi-module build binds the
       <varname>single</varname> goal to the <varname>package</varname> phase
@@ -576,7 +576,7 @@ Installing ~/mvn-examples-1.0/assemblies/as-dependencies/project-parent/\
       contents of the assembly dependencies, run <command>jar
       tf</command>:</para>
 
-      <screen>$ <command>java tf \
+      <screen>$ <command>jar tf \
   target/project-bundle-1.0-SNAPSHOT-jar-with-dependencies.jar</command>
 ...
 first-project-1.0-SNAPSHOT/pom.xml
@@ -599,7 +599,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
 
     <para>When the standard assembly descriptors introduced in <xref
     linkend="sect-assembly-basics" /> are not adequate, you will need to
-    define you own assembly descriptor. The assembly descriptor is an XML
+    define your own assembly descriptor. The assembly descriptor is an XML
     document which defines the structure and contents of an assembly.</para>
 
     <figure>
