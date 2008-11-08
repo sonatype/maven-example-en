@@ -397,7 +397,7 @@
     Java 5, you would like to skip the <literal>simple-script</literal>
     project build. If you failed to skip the <literal>simple-script</literal>
     project build in Java 5, your build would fail because Java 5 does not
-    have have <classname>ScriptEngine</classname> on the classpath. Let's take
+    have the <classname>ScriptEngine</classname> on the classpath. Let's take
     a look at the library project's <filename>pom.xml</filename>:</para>
 
     <example>
@@ -581,7 +581,7 @@
       <literal>production</literal> profile if
       <varname>environment.type</varname> equals <literal>prod</literal>. You
       can also activate a profile in the absence of a property. The following
-      configuration activates a profile is the property
+      configuration activates a profile if the property
       <varname>environment.type</varname> is not present during Maven
       execution.</para>
 
@@ -620,7 +620,7 @@
     in the <filename>pom.xml</filename> with profiles defined in the external
     <filename>profiles.xml</filename> file. Just place the
     <sgmltag>profiles</sgmltag> element into <filename>profiles.xml</filename>
-    in <varname>${basedir}</varname> and run Maven as you normally woudl. This
+    in <varname>${basedir}</varname> and run Maven as you normally would. This
     <filename>profiles.xml</filename> file would look something like the
     following example:</para>
 
@@ -678,7 +678,7 @@
     want to override a build setting for every project in Maven? How do you do
     something like add an internal repository which is consulted on every
     Maven build? You can do this with a settings profile. Where project
-    profiles are concern with overriding the configuration of a specific
+    profiles are concerned with overriding the configuration of a specific
     project, settings profiles can be applied to any and all projects you
     build with Maven. You can place settings profiles in two locations: a user
     specific settings profile defined in
@@ -686,7 +686,7 @@
     defined in <filename>${M2_HOME}/conf/settings.xml</filename>. Here is an
     example of a settings profile defined in
     <filename>~/.m2/settings.xml</filename> which might set some user-specific
-    confguration properties for all builds. The following
+    configuration properties for all builds. The following
     <filename>settings.xml</filename> file is defined for user
     <literal>tobrien</literal>:</para>
 
@@ -779,7 +779,7 @@
       profiles in <filename>${M2_HOME}/conf/settings.xml</filename>. Profiles
       defined in this configuration file are available across all users using
       a specific installation of Maven. The ability to define a global
-      settings profile is useful f you are creating a customized distribution
+      settings profile is useful if you are creating a customized distribution
       of Maven for a specific organization and you want to ensure that every
       user of Maven has access to a set of build profiles that ensure in-house
       portability. If you need to add custom plugin repositories or define a
@@ -830,20 +830,20 @@ The following profiles are active:
     <section>
       <title>Common Environments</title>
 
-      <para>One of the core motivations for Maven project profiles was to 
-      provide for environment-specific configuration settings. In a development
-      environment, you might want to produce bytecode with debug information
-      and you might want to configure your system to use a development
-      database instance. In a production environment you might want to produce
-      a signed JAR and configure the system to use a production database. In
-      this chapter, we defined a number of environments with identifiers like
-      <literal>dev</literal> and <literal>prod</literal>. A simpler way to do
-      this would be to define profiles that are activated by environment
-      properties and to use these common environment properties across all of
-      your projects. For example, if every project had a
-      <literal>development</literal> profile activated by a property named
-      <varname>environment.type</varname> having a value of
-      <literal>dev</literal>, and if those same projects had a
+      <para>One of the core motivations for Maven project profiles was to
+      provide for environment-specific configuration settings. In a
+      development environment, you might want to produce bytecode with debug
+      information and you might want to configure your system to use a
+      development database instance. In a production environment you might
+      want to produce a signed JAR and configure the system to use a
+      production database. In this chapter, we defined a number of
+      environments with identifiers like <literal>dev</literal> and
+      <literal>prod</literal>. A simpler way to do this would be to define
+      profiles that are activated by environment properties and to use these
+      common environment properties across all of your projects. For example,
+      if every project had a <literal>development</literal> profile activated
+      by a property named <varname>environment.type</varname> having a value
+      of <literal>dev</literal>, and if those same projects had a
       <literal>production</literal> profile activated by a property named
       <varname>environment.type</varname> having a value of
       <literal>prod</literal>, you could create a default profile in your
