@@ -382,6 +382,50 @@ lib/</screen>
         directory of the new Maven installation.</para>
       </note>
     </section>
+
+    <section>
+      <title>Upgrading from Maven 1.x to Maven 2.x</title>
+
+      <para>If you are upgrading from Maven 1 to Maven 2, you are going to be
+      using an entirely new POM and repository structure. If you have already
+      created a custom Maven 1 repository to hold custom artifacts, you can
+      use the Nexus Repository Manager to expose a Maven 1 repository in a
+      format that can be understood by Maven 2 clients. For more information
+      about the Nexus Repository Manager, see <xref
+      linkend="repository-manager" />. In addition to tools like Nexus, you
+      can also configure references to repositories to use the
+      <varname>legacy</varname> layout format. For more information about
+      configuring a reference to a legacy repository, see <xref
+      linkend="sect-settings-repository" />. </para>
+
+      <para>If you have a set of Maven 1 projects, you may want to know about
+      the Maven One Plugin. The Maven One Plugin was designed to help projects
+      migrate from Maven 1 to Maven 2. If you have a Maven 1 project, you can
+      convert the project's POM by running the <varname>one:convert</varname>
+      goal as follows:</para>
+
+      <screen>$ cd my-project
+$ mvn one:convert</screen>
+
+      <para><varname>one:convert</varname> will read a
+      <filename>project.xml</filename> and produce a
+      <filename>pom.xml</filename> that is compatible with Maven 2. If you've
+      customized a Maven 1 build using Jelly script in a
+      <filename>maven.xml</filename> file, you will need to investigate other
+      options. While Maven 1 emphasized Jelly scripting for customizing
+      builds, Maven 2 favors custom plugins or customization through scripting
+      Plugins or the Maven Antrun Plugin.</para>
+
+      <para>The most important thing to know about when upgrading from Maven 1
+      to Maven 2 is that Maven 2 is a completely different build framework.
+      Maven 2 introduces the concept of the Maven Lifecycle and redefines the
+      relationships between plugins. If you upgrade from Maven 1 to Maven 2,
+      you need to invest some time in learning about the differences between
+      the two versions. Although it might seem straightforward to start
+      learning about the new POM structure, you should focus on the Lifecycle
+      first. If you understand the Maven Lifecycle, you will be able to use
+      Maven to its fullest potential.</para>
+    </section>
   </section>
 
   <section>

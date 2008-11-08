@@ -606,7 +606,7 @@
       a <acronym>POM</acronym> if this profile is active.</para>
     </section>
 
-    <section>
+    <section id="sect-settings-repository">
       <title>Repositories</title>
 
       <para>Repositories are remote collections of projects from which Maven
@@ -713,7 +713,10 @@
               that they all follow a common layout. This is mostly correct.
               Maven 2 has a default layout for its repositories; however,
               Maven 1.x had a different layout. Use this element to specify
-              which if it is default or legacy.</para>
+              which if it is default or legacy. If you are upgrading from
+              Maven 1 to Maven 2, and you want to use the same repository
+              which was used in your Maven 1 build, list the layout as
+              <varname>legacy</varname>.</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
