@@ -43,15 +43,15 @@
     <title>Convention Over Configuration</title>
 
     <para>Convention over configuration is a simple concept. Systems,
-    libraries, and frameworks should assume reasonable defaults without
-    requiring unnecessary configuration-systems should "just work". Popular
+    libraries, and frameworks should assume reasonable defaults. Without
+    requiring unnecessary configuration, systems should "just work". Popular
     frameworks such as <ulink url="http://www.rubyonrails.org/">Ruby on
     Rails</ulink> and <acronym>EJB3</acronym> have started to adhere to these
     principles in reaction to the configuration complexity of frameworks such
     as the initial <acronym>EJB</acronym> 2.1 specifications. An illustration
     of convention over configuration is something like <acronym>EJB3</acronym>
     persistence: all you need to do to make a particular bean persistent is to
-    annotate that class with <classname>@Entity</classname> the framework
+    annotate that class with <classname>@Entity. </classname> The framework
     assumes table and column names based on the name of the class and the
     names of the properties. Hooks are provided for you to override these
     default, assumed names if the need arises, but, in most cases, you will
@@ -59,12 +59,12 @@
     project execution.</para>
 
     <para>Maven incorporates this concept by providing sensible default
-    behaviors for projects. Without customization, source code is assumed to
-    be in <filename>${basedir}/src/main/java</filename> and resources are
-    assumed to be in <filename>${basedir}/src/main/resources</filename>. Tests
-    are assumed to be in <filename>${basedir}/src/test</filename>, and a
-    project is assumed to produce a <acronym>JAR</acronym> file. Maven assumes
-    that you want the compile byte code to
+    behavior for projects. Without customization, source code is assumed to be
+    in <filename>${basedir}/src/main/java</filename> and resources are assumed
+    to be in <filename>${basedir}/src/main/resources</filename>. Tests are
+    assumed to be in <filename>${basedir}/src/test</filename>, and a project
+    is assumed to produce a <acronym>JAR</acronym> file. Maven assumes that
+    you want the compile byte code to
     <filename>${basedir}/target/classes</filename> and then create a
     distributable <acronym>JAR</acronym> file in
     <filename>${basedir}/target</filename>. While this might seem trivial,
@@ -97,21 +97,22 @@
     <title>A Common Interface</title>
 
     <para>Before Maven provided a common interface for building software,
-    every single project had someone dedicated to managing a completely custom
-    build system, and developers had to take time away from developing
-    software to learn about the idiosyncracies of each new project they wanted
-    to contribute to. In 2001, you'd have a completely different approach to
+    every single project had someone dedicated to managing fully customized
+    build system. Developers had to take time away from developing software to
+    learn about the idiosyncrasies of each new project they wanted to
+    contribute to. In 2001, you'd have a completely different approach to
     building a project like <ulink
     url="http://turbine.apache.org/">Turbine</ulink> than you would to
     building a project like <ulink
-    url="http://tomcat.apache.org">Tomcat</ulink>. If a new source analysis
-    tool came out that would perform static analysis on source code, or if
-    someone developed a new unit testing framework, everybody would have to
-    drop what they were doing and figure out how to fit it into each project's
-    custom build environment. How do you run unit tests? There were a thousand
-    different answers. This environment was characterized by a thousand
-    endless arguments about tools and build procedures. The age before Maven
-    was an age of inefficiency, the age of the "Build Engineer".</para>
+    url="http://tomcat.apache.org">Tomcat</ulink>. If a new source code
+    analysis tool came out that would perform static analysis on source code,
+    or if someone developed a new unit testing framework, everybody would have
+    to drop what they were doing and figure out how to fit it into each
+    project's custom build environment. How do you run unit tests? There were
+    a thousand different answers. This environment was characterized by a
+    thousand endless arguments about tools and build procedures. The age
+    before Maven was an age of inefficiency, the age of the "Build
+    Engineer".</para>
 
     <para>Today, most open source developers have used or are currently using
     Maven to manage new software projects. This transition is less about
@@ -169,18 +170,17 @@
     <para>The Maven Surefire plugin is the plugin that is responsible for
     running unit tests. Somewhere between version 1.0 and the version that is
     in wide use today someone decided to add support for the TestNG unit
-    testing framework in addition to the support for JUnit. This happened in a
-    way that didn't break backwards compatibility, if you were using the
-    Surefire plugin to compile and execute JUnit 3 unit tests, and you
-    upgraded to the most recent version of the Surefire plugin, your tests
+    testing framework in addition to the support for JUnit. This upgrade
+    happened in a way that didn't break backwards compatibility. If you were
+    using the Surefire plugin to compile and execute JUnit 3 unit tests, and
+    you upgraded to the most recent version of the Surefire plugin, your tests
     continued to execute without fail. But, you gained new functionality, if
-    you wanted to execute unit tests in TestNG you now have that ability
-    thanks to the efforts of the maintainers of the Surefire plugin. You also
-    gained the ability to run annotated JUnit 4 unit tests. You gained all of
-    these capabilities without having to upgrade your Maven installation or
-    install new software. Most importantly, nothing about your project had to
-    change aside from a version number for a plugin in a
-    <acronym>POM</acronym>.</para>
+    you want to execute unit tests in TestNG you now have that ability. You
+    also gained the ability to run annotated JUnit 4 unit tests. You gained
+    all of these capabilities without having to upgrade your Maven
+    installation or install new software. Most importantly, nothing about your
+    project had to change aside from a version number for a plugin a single
+    Maven configuration file called the Project Object Model (POM).</para>
 
     <para>It is this mechanism that affects much more than the Surefire
     plugin, projects are compiled with a Compiler plugin, projects are turned
@@ -327,10 +327,10 @@
     <title>Comparing Maven with Ant</title>
 
     <para>While the previous section should convince you that the authors of
-    this book have no interest in creating a feud between Apache Ant and Apache
-    Maven, we are cognizant of the fact that most organizations have to make a
-    decision between the Apache Ant and Apache Maven. In this section, we
-    compare and contrast the tools.</para>
+    this book have no interest in creating a feud between Apache Ant and
+    Apache Maven, we are cognizant of the fact that most organizations have to
+    make a decision between the Apache Ant and Apache Maven. In this section,
+    we compare and contrast the tools.</para>
 
     <para>Ant excels at build process, it is a build system modeled after make
     with targets and dependencies. Each target consists of a set of
