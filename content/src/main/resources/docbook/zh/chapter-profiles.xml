@@ -2,180 +2,71 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="profiles">
-  <title>Build Profiles</title>
+  <title>构建Profile</title>
 
   <section id="profiles-what">
-    <title>What Are They For?</title>
+    <title>Profile是用来做什么的?</title>
 
-    <para>Profiles allow for the ability to customize a particular build for a
-    particular environment; profiles enable portability between different
-    build environments.</para>
+    <para>Profile能让你为一个特殊的环境自定义一个特殊的构建；profile使得不同构建环境间的可移植成为可能。</para>
 
-    <para>What do we mean by different build environments? Two example build
-    environments are production and development. When you are working in a
-    development environment, your system might be configured to read from a
-    development database instance running on your local machine while in
-    production, your system is configured to read from the production
-    database. Maven allows you to define any number of build environments
-    (build profiles) which can override any of the settings in the
-    <filename>pom.xml</filename>. You could configure your application to read
-    from your local, development instance of a database in your "development"
-    profile, and you can configure it to read from the production database in
-    the "production" profile. Profiles can also be activated by the
-    environment and platform, you can customize a build to run differently
-    depending the Operating System or the installed <acronym>JDK</acronym>
-    version. Before we talk about using and configuring Maven profiles, we
-    need to define the concept of Build Portability.</para>
+    <para>不同的构建环境是什么意思？两个构建环境的例子是产品环境和开发环境。当你在开发环境中工作时，你的系统可能被配置成读取运行在你本机的开发数据库实例，而在产品环境中，你的系统被配置成从产品数据库读取数据。Maven能让你定义任意数量的构建环境（构建profile），这些定义可以覆盖任何<filename>pom.xml</filename>中的配置。你可以配置你的应用程序，在“开发”profile中，读取本地的开发数据库实例，在“产品”profile中，访问产品数据库。Profile也可以通过环境和平台被激活，你可以自定义一个构建，它根据不同的操作系统或者不同的<acronym>JDK</acronym>版本表现不同。在我们讨论使用和配置Maven
+    profile之前，我们需要定义构建可移植性的概念。</para>
 
     <section>
-      <title>What is Build Portability</title>
+      <title>什么是构建可移植性</title>
 
-      <para>A build's "portability" is a measure of how easy it is to take a
-      particular project and build it in different environments. A build which
-      works without any custom configuration or customization of properties
-      files is more portable than a build which requires a great deal of work
-      to build from scratch. The most portable projects tend to be widely used
-      open source projects like Apache Commons of Apache Velocity which ship
-      with Maven builds which require little or no customization. Put simply,
-      the most portable project builds tend to just work, out of the box, and
-      the least portable builds require you to jump through hoops and
-      configure platform specific paths to locate build tools. Before we show
-      you how to achieve build portability, let's survey the different kinds
-      of portability we are talking about.</para>
+      <para>一个构建的“可移植性”是指将一个项目在不同的环境中构建的难易度。一个不用做任何自定义配置或者属性文件配置就能工作的构建，比一个需要很多配置才能工作的构建，具有更高的可移植性。构建可移植性最高的项目往往是一些开源项目如Apache
+      Commons或者Apache
+      Velocity，它们带有Maven构建，不需要或者需要很少的自定义配置。简言之，可移植性最高的项目往往“开箱可用”，而可移植性最低的构建则需要你跳过一个个难缠的框框，配置平台相关的路径以定位构建工具。在我们展示如何实现构建移植性之前，先浏览下我们讨论的不同种类的构建可移植性。</para>
 
       <section>
-        <title>Non-Portable Builds</title>
+        <title>不可移植构建</title>
 
-        <para>The lack of portability is exactly what all build tools are made
-        to prevent - however, any tool can be configured to be non-portable
-        (even Maven). A non-portable project is buildable only under a
-        specific set of circumstances and criteria (e.g., your local machine).
-        Unless you are working by yourself and you have no plans on ever
-        deploying your application to another machine, it is best to avoid
-        non-portability entirely. A non-portable build only runs on a single
-        machine, it is a "one-off". Maven is designed to discourage
-        non-portable builds by offering the ability to customize builds using
-        profiles.</para>
+        <para>缺少可移植性正式所有构建工具试图防止的——然后，任何工具都能配置成不可移植（即使Maven）。一个不可移植的项目只有在一组特定的环境和标准（比如，你的本地机器）下能构建。除非你自己一个人工作，没有任何计划将你的应用部署到其它机器上，否则最好要完全避免不可移植性。一个不可移植的构建只能在单独的机器上运行，是“一次性的”。Maven设计提供了使用profile自定义构建的能力，阻止不可移植的构建。</para>
 
-        <para>When a new developer gets the source for a non-portable project,
-        they will not be able to build the project without rewriting large
-        portions of a build script.</para>
+        <para>当一个新的开发人员得到不可移植项目的源码的时候，如果不重写大部分的构建脚本，他就不能构建这个项目。</para>
       </section>
 
       <section>
-        <title>Environment Portability</title>
+        <title>环境可移植性</title>
 
-        <para>A build exhibits environment portability if it has a mechanism
-        for customizing behavior and configuration when targeting different
-        environments. A project that contains a reference to a test database
-        in a test environment, for example, and a production database in a
-        production environment, is environmentally portable. It is likely that
-        this build has a different set of properties for each environment.
-        When you move to a different environment, one that is not defined and
-        has no profile created for it, the project will not work. Hence, it is
-        only portable between defined environments.</para>
+        <para>如果一个构建有一种机制，能针对不同的环境有定制的行为和配置，那么我们就说该构建具有环境可移植性。例如，一个项目在测试环境中包含一个对于测试数据库的引用，而在产品环境中则引用了产品数据库，那么该项目的构建是环境可移植的。这很有可能是因为该构建针对不同的环境有不同的属性组。当你转移到一个不同的环境中，该环境未被定义也没有为其创建profile，那么项目将不能工作。因此，该项目也只是在一定义的环境中可移植。</para>
 
-        <para>When a new developer gets the source for an environmentally
-        portable project, they will have to run the build within a defined
-        environment or they will have to create a custom environment to
-        successfully build the project.</para>
+        <para>当你一个新的开发人员得到环境可移植项目的源码，他们必须在一定以的环境中运行此构建，否则就需要创建自定义的环境才能构建项目。</para>
       </section>
 
       <section>
-        <title>Organizational (In-House) Portability</title>
+        <title>组织（内部）可移植性</title>
 
-        <para>The center of this level of portability is a project's
-        requirement that only a select few may access internal resources such
-        as source control or an internally-maintained Maven repository. A
-        project at a large corporation may depend on a database available only
-        to in-house developers, or an open source project might require a
-        specific level of credentials to publish a web site and deploy the
-        products of a build to a public repository.</para>
+        <para>这一层可移植性的中心是一个项目可能需要访问一些内部资源如源码控制系统或者内部维护的Maven仓库。大公司的项目可能依赖于一个只对内部开发人员可用的数据库，而一个开源项目可能需要一个特定级别的证书来发布web站点，以及将构建的产品发布到公共仓库。</para>
 
-        <para>If you attempt to build an in-house project from scratch outside
-        of the in-house network (for example, outside of a corporate
-        firewall), the build will fail. It may fail because certain required
-        custom plugins are unavailable, or project dependencies cannot be
-        found because you don't have the appropriate credentials to retrieve
-        dependencies from a custom remote repository. Such a project is
-        portable only across environments in a single organization.</para>
+        <para>如果你试图在内部网络外部（例如，在公司的防火墙外面）从零开始构建一个内部项目，构建会失败。它失败的原因可能是一些必须的自定义插件不可用，或者项目的依赖找不到，因为你没有适当的证书从一个自定义的远程仓库获取依赖。这样的项目只有在一个组织内部的环境中拥有可移植性。</para>
       </section>
 
       <section>
-        <title>Wide (Universal) Portability</title>
+        <title>广泛（全局）可移植性</title>
 
-        <para>Anyone may download a widely portable project's source, compile,
-        and install it without customizing a build for a specific environment.
-        This is the highest level of portability; anything less requires extra
-        work for those who wish to build your project. This level of
-        portability is especially important for open source projects, which
-        depend on the ability for would-be contributors to easily download and
-        build from source.</para>
+        <para>任何人都可以下载具有广发可移植性项目的源码，不用为特定的环境自定义构建就能编译，安装。这是最高级别的可移植性；构建这样的项目不需要做任何额外的工作。该级别的可移植性对开源项目尤为重要，因为开源项目的潜在贡献者需要能很方便的下载源码进行构建。</para>
 
-        <para>Any developer could download the source for a widely portable
-        project.</para>
+        <para>任何一个开发者都可以下载具有广泛可移植性项目的源码。</para>
       </section>
     </section>
 
     <section>
-      <title>Selecting an Appropriate Level of Portability</title>
+      <title>选择一个适当级别的可移植性</title>
 
-      <para>Clearly, you'll want to avoid creating the worst-case scenario:
-      the non-portable build. You may have had the misfortune to work or study
-      at an organization that had critical applications with non-portable
-      builds. In such organizations, you cannot deploy an application without
-      the help of a specific individual on a specific machine. In such an
-      organization, it is also very difficult to introduce new project
-      dependencies or changes without coordinating the change with the single
-      person who maintains such a non-portable build. Non-portable builds tend
-      to grow in highly political environments when one individual or group
-      needs to exert control over how and when a project is built and
-      deployed. "How do we build the system? Oh, we've got to call Jack and
-      ask him to build it for us, no one else deploys to production." That is
-      a dangerous situation which is more common that you would think. If you
-      work for this organization, Maven and Maven profiles provide a way out
-      of this mess.</para>
+      <para>很显然，你需要避免创建出最坏的情况：不可移植构建。你可以不幸需要在这样的一个组织工作或学习：其核心应用的构建是不可移植的。在这样的组织下，没有特定的人员或机器的帮助，你就不可能部署一个应用。如果不和那个维护该不可移植构建的人协调，很难引入新的项目依赖或变化。当个人或小组需要控制项目如何以及何时构建部署的时候，不可移植构建就会由于一些政治环境因素高速增长。“我们该如何构建该系统？哦，我们需要找到Jack，让他帮我们构建，没有其他人能将其部署到产品环境中”这是一种非常危险的情形，该情形比你想象的普遍得多。如果你为这样的一个组织工作，Maven和Maven
+      profile能帮你脱离困境。</para>
 
-      <para>On the opposite end of the portability spectrum are widely
-      portable builds. Widely portable builds are generally the most difficult
-      build systems to attain. These builds restrict your dependencies to
-      those projects and tools that may be freely distributed and are publicly
-      available. Many commercial software packages might be excluded from the
-      most-portable builds because they cannot be downloaded before you have
-      accepted a certain license. Wide portability also restricts dependencies
-      to those pieces of software that may be distributed as Maven artifacts.
-      For example, if you depend upon Oracle JDBC drivers, your users will
-      have to download and install them manually; this is not widely portable
-      as you will have to distribute a set of environment setup instructions
-      for people interested in building your application. On the other hand,
-      you could use a JDBC driver which is available from the public Maven
-      repositories like MySQL or HSQLDB.</para>
+      <para>与之完全相反的可移植性范围是广泛可移植性构建。总的来说广泛可移植性构建是最难达到的构建系统。这样的构建严格要求你依赖的项目和工具是免费分发的，在公共环境中可用。很多商业软件包可能被排除在这种可移植性最高的构建外面，因为只有在接受某个许可证后你才能下载它们。广泛可移植性也限制它的依赖能以Maven构件的形式分发。例如，如果你依赖于Oracle
+      JDBC驱动，你的用户就需要手工下载安装它们；这就不是广泛可移植性因为你必须为那些有兴趣构建你应用的人发布一组关于创建环境的指令。而另一方面，你可以使用一个在公共Maven仓库中可用的JDBC驱动如MySQL或者HSQLDB。</para>
 
-      <para>As stated previously, open source projects benefit from having the
-      most widely portable build possible. Widely portable builds reduce the
-      inefficiencies associated with contributing to a project. In an open
-      source project (such as Maven) there are two distinct groups: end-users
-      and developers. When an end-user uses a project like Maven and decides
-      to contribute a patch to Maven, they have to make the transition from
-      using the output of a build to running a build. They have to first
-      become a developer, and if it is difficult to learn how to build a
-      project, this end-user has a disincentive to take the time to contribute
-      to a project. In a widely portable project, an end-user doesn't have to
-      follow a set or arcane build instructions to start becoming a developer,
-      they can download the source, modify the source, build, and submit a
-      contribution without asking someone to help them set up a build
-      environment. When the cost of contributing source back to an open-source
-      project is lower, you'll see an increase in source code contributions,
-      especially casual contributions which can make the difference between a
-      project's success and a project's failure. One side-effect of Maven's
-      adoption across a wide group of open source projects is that it has made
-      it easier for developers to contribute code to various open source
-      projects.</para>
+      <para>如之前叙述的那样，开源项目从拥有最广泛的可移植性构建获益。广泛可移植性构建降低了为开源项目做贡献的低效性。在一个开源项目（如Maven）中，有两个单独的组：最终用户和开发者。当一个项目的最终用户决定为项目贡献一个补丁，它们就需要从使用构建输出过渡到运行一个构建。它们首先需要成为开发者，而如果很难学会如何构建一个项目，这就成为了最终用户花时间为项目做贡献的妨碍因素。在广泛可移植项目中，最终用户不需要遵循一组神秘的构建指令来开始成为开发者。他们可以源码，修改源码，构建，然后提交贡献，这个过程不需要问谁要求帮助建立构建环境。当为开源项目贡献源码的成本更低的时候，你就会看到源码贡献的增长，特别是一些不经意的贡献可能对项目的成功和项目的失败造成很大的影响。在一组广泛的开源项目中使用Maven的一个附加作用就是它使得开发者为不同的开源项目贡献源码变得更加容易。</para>
     </section>
   </section>
 
   <section>
-    <title>Portability through Maven Profiles</title>
+    <title>通过Maven Profiles实现可移植性</title>
 
     <para>A profile in Maven is an alternative set of configuration values
     which set or override default values. Using a profile, you can customize a
@@ -190,8 +81,10 @@
       <title>Using a Maven Profile to Override Production Compiler
       Settings</title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                      http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
   &lt;artifactId&gt;simple&lt;/artifactId&gt;
@@ -285,7 +178,7 @@
 
     <screen>~/examples/profile $ <command>mvn clean install -Pproduction -X</command>
 ... (omitting debugging output) ...
-[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-compiler-plugin:2.0.2:testCompile' --&gt;
+[DEBUG] Configuring mojo 'o.a.m.plugins:maven-compiler-plugin:2.0.2:testCompile'
 [DEBUG]   (f) basedir = ~\examples\profile
 [DEBUG]   (f) buildDirectory = ~\examples\profile\target
 ...
@@ -294,7 +187,8 @@
 [DEBUG]   (f) failOnError = true
 [DEBUG]   (f) fork = false
 [DEBUG]   (f) <emphasis>optimize = true</emphasis>
-[DEBUG]   (f) outputDirectory = c:\Users\tobrien\svnw\sonatype\examples\profile\target\test-classes
+[DEBUG]   (f) outputDirectory = \
+          ~\svnw\sonatype\examples\profile\target\test-classes
 [DEBUG]   (f) outputFileName = simple-1.0-SNAPSHOT
 [DEBUG]   (f) showDeprecation = false
 [DEBUG]   (f) showWarnings = false
@@ -310,7 +204,7 @@
     <varname>optimize</varname> is set to true.</para>
 
     <section>
-      <title>Overriding a Project Object Model</title>
+      <title>覆盖一个项目对象模型</title>
 
       <para>While the previous example showed you how to override the default
       configuration properties of a single Maven plugin, you still don't know
@@ -364,7 +258,7 @@
   </section>
 
   <section>
-    <title>Profile Activation</title>
+    <title>激活Profile</title>
 
     <para>In the previous section we showed you how to create a profile that
     overrides default behavior for a specific target environment. In the
@@ -394,7 +288,7 @@
     Java 5, you would like to skip the <literal>simple-script</literal>
     project build. If you failed to skip the <literal>simple-script</literal>
     project build in Java 5, your build would fail because Java 5 does not
-    have have <classname>ScriptEngine</classname> on the classpath. Let's take
+    have the <classname>ScriptEngine</classname> on the classpath. Let's take
     a look at the library project's <filename>pom.xml</filename>:</para>
 
     <example>
@@ -465,7 +359,7 @@
     </calloutlist>
 
     <section id="profile-activation-config">
-      <title>Activation Configuration</title>
+      <title>激活配置</title>
 
       <para>Activations can contain one of more selectors including JDK
       versions, Operating System parameters, files, and properties. A profile
@@ -569,7 +463,7 @@
     </section>
 
     <section>
-      <title>Activation by the Absence of a Property</title>
+      <title>通过属性缺失激活</title>
 
       <para>You can activate a profile based on the value of a property like
       <varname>environment.type</varname>. You can activate a
@@ -578,7 +472,7 @@
       <literal>production</literal> profile if
       <varname>environment.type</varname> equals <literal>prod</literal>. You
       can also activate a profile in the absence of a property. The following
-      configuration activates a profile is the property
+      configuration activates a profile if the property
       <varname>environment.type</varname> is not present during Maven
       execution.</para>
 
@@ -609,7 +503,7 @@
   </section>
 
   <section>
-    <title>External Profiles</title>
+    <title>外部Profile</title>
 
     <para>If you start making extensive use of Maven profiles, you may want to
     separate your profiles from your POM in a separate file named
@@ -617,7 +511,7 @@
     in the <filename>pom.xml</filename> with profiles defined in the external
     <filename>profiles.xml</filename> file. Just place the
     <sgmltag>profiles</sgmltag> element into <filename>profiles.xml</filename>
-    in <varname>${basedir}</varname> and run Maven as you normally woudl. This
+    in <varname>${basedir}</varname> and run Maven as you normally would. This
     <filename>profiles.xml</filename> file would look something like the
     following example:</para>
 
@@ -668,14 +562,14 @@
   </section>
 
   <section>
-    <title>Settings Profiles</title>
+    <title>Settings Profile</title>
 
     <para>Project profiles are useful when a specific project needs to
     customize a build setting for a specific environment, but why would you
     want to override a build setting for every project in Maven? How do you do
     something like add an internal repository which is consulted on every
     Maven build? You can do this with a settings profile. Where project
-    profiles are concern with overriding the configuration of a specific
+    profiles are concerned with overriding the configuration of a specific
     project, settings profiles can be applied to any and all projects you
     build with Maven. You can place settings profiles in two locations: a user
     specific settings profile defined in
@@ -683,7 +577,7 @@
     defined in <filename>${M2_HOME}/conf/settings.xml</filename>. Here is an
     example of a settings profile defined in
     <filename>~/.m2/settings.xml</filename> which might set some user-specific
-    confguration properties for all builds. The following
+    configuration properties for all builds. The following
     <filename>settings.xml</filename> file is defined for user
     <literal>tobrien</literal>:</para>
 
@@ -709,7 +603,9 @@
            &lt;keystore&gt;/home/tobrien/java/keystore&lt;/keystore&gt;
            &lt;alias&gt;tobrien&lt;/alias&gt;
            &lt;storepass&gt;s3cr3tp@ssw0rd&lt;/storepass&gt;
-           &lt;signedjar&gt;${project.build.directory}/signed/${project.build.finalName}.jar&lt;/signedjar&gt;
+           &lt;signedjar&gt;
+         ${project.build.directory}/signed/${project.build.finalName}.jar
+           &lt;/signedjar&gt;
            &lt;verify&gt;true&lt;/verify&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
@@ -768,13 +664,13 @@
     <filename>settings.xml</filename> file.</para>
 
     <section>
-      <title>Global Settings Profiles</title>
+      <title>全局Settings Profile</title>
 
       <para>Just like settings profiles, you can also define a set of global
       profiles in <filename>${M2_HOME}/conf/settings.xml</filename>. Profiles
       defined in this configuration file are available across all users using
       a specific installation of Maven. The ability to define a global
-      settings profile is useful f you are creating a customized distribution
+      settings profile is useful if you are creating a customized distribution
       of Maven for a specific organization and you want to ensure that every
       user of Maven has access to a set of build profiles that ensure in-house
       portability. If you need to add custom plugin repositories or define a
@@ -786,7 +682,7 @@
   </section>
 
   <section>
-    <title>Listing Active Profiles</title>
+    <title>列出活动的Profile</title>
 
     <para>Maven profiles can be defined in either
     <filename>pom.xml</filename>, <filename>profiles.xml</filename>,
@@ -811,7 +707,7 @@ The following profiles are active:
   </section>
 
   <section>
-    <title>Tips and Tricks</title>
+    <title>提示和技巧</title>
 
     <para>Profiles can encourage build portability. If your build needs subtle
     customizations to work on different platforms or if you need your build to
@@ -823,22 +719,22 @@ The following profiles are active:
     project.</para>
 
     <section>
-      <title>Common Environments</title>
+      <title>常见的环境</title>
 
-      <para>One of core motivations for Maven project profiles was to provide
-      for environment-specific configuration settings. In a development
-      environment, you might want to produce bytecode with debug information
-      and you might want to configure your system to use a development
-      database instance. In a production environment you might want to produce
-      a signed JAR and configure the system to use a production database. In
-      this chapter, we defined a number of environments with identifiers like
-      <literal>dev</literal> and <literal>prod</literal>. A simpler way to do
-      this would be to define profiles that are activated by environment
-      properties and to use these common environment properties across all of
-      your projects. For example, if every project had a
-      <literal>development</literal> profile activated by a property named
-      <varname>environment.type</varname> having a value of
-      <literal>dev</literal>, and if those same projects had a
+      <para>One of the core motivations for Maven project profiles was to
+      provide for environment-specific configuration settings. In a
+      development environment, you might want to produce bytecode with debug
+      information and you might want to configure your system to use a
+      development database instance. In a production environment you might
+      want to produce a signed JAR and configure the system to use a
+      production database. In this chapter, we defined a number of
+      environments with identifiers like <literal>dev</literal> and
+      <literal>prod</literal>. A simpler way to do this would be to define
+      profiles that are activated by environment properties and to use these
+      common environment properties across all of your projects. For example,
+      if every project had a <literal>development</literal> profile activated
+      by a property named <varname>environment.type</varname> having a value
+      of <literal>dev</literal>, and if those same projects had a
       <literal>production</literal> profile activated by a property named
       <varname>environment.type</varname> having a value of
       <literal>prod</literal>, you could create a default profile in your
@@ -859,7 +755,9 @@ The following profiles are active:
           <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
     &lt;profile&gt;
-      &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+      &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+      &lt;/activation&gt;
       &lt;properties&gt;
         &lt;environment.type&gt;dev&lt;/environment.type&gt;
       &lt;/properties&gt;
@@ -894,8 +792,10 @@ The following profiles are active:
         &lt;/property&gt;
       &lt;/activation&gt;
       &lt;properties&gt;
-        &lt;database.driverClassName&gt;com.mysql.jdbc.Driver&lt;/driverClassName&gt;
-        &lt;database.url&gt;jdbc:mysql://localhost:3306/app_dev&lt;/database.url&gt;
+        &lt;database.driverClassName&gt;com.mysql.jdbc.Driver&lt;/database.driverClassName&gt;
+        &lt;database.url&gt;
+          jdbc:mysql://localhost:3306/app_dev
+        &lt;/database.url&gt;
         &lt;database.user&gt;development_user&lt;/database.user&gt;
         &lt;database.password&gt;development_password&lt;/database.password&gt;
       &lt;/properties&gt;
@@ -909,7 +809,7 @@ The following profiles are active:
         &lt;/property&gt;
       &lt;/activation&gt;
       &lt;properties&gt;
-        &lt;database.driverClassName&gt;com.mysql.jdbc.Driver&lt;/driverClassName&gt;
+        &lt;database.driverClassName&gt;com.mysql.jdbc.Driver&lt;/database.driverClassName&gt;
         &lt;database.url&gt;jdbc:mysql://master01:3306,slave01:3306/app_prod&lt;/database.url&gt;
         &lt;database.user&gt;prod_user&lt;/database.user&gt;
       &lt;/properties&gt;
@@ -952,7 +852,7 @@ The following profiles are active:
     </section>
 
     <section>
-      <title>Protecting Secrets</title>
+      <title>保护机密</title>
 
       <para>This best practice builds upon the previous section. In <xref
       linkend="ex-profile-envtype-pom" xrefstyle="select:title" />, the
@@ -1009,7 +909,7 @@ The following profiles are active:
     </section>
 
     <section id="sect-platform-classifier">
-      <title>Platform Classifiers</title>
+      <title>平台分类器</title>
 
       <para>Let's assume that you have a library or a project that produces
       platform-specific customizations. Even though Java is platform-neutral,
@@ -1151,7 +1051,7 @@ The following profiles are active:
   </section>
 
   <section>
-    <title>Summary</title>
+    <title>小结</title>
 
     <para>When used judiciously, profiles can make it very easy to customize a
     build for different platforms. If something in your build needs to define
