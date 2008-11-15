@@ -24,26 +24,26 @@
     <profile>
         <id>publish</id>
 <!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
+           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
         <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/www/htdocs/book/parent</url>
+          <url>file:///var/www/domains/sonatype.com/books/htdocs/book/parent</url>
         </site>
         </distributionManagement>
     </profile>
     <profile>
         <id>stage</id>
 <!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/www/htdocs/</sonatype.site>
+           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
         <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/www/htdocs/book-stage/parent</url>
+          <url>file:///var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
         </site>
         </distributionManagement>
     </profile>
