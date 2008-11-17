@@ -68,18 +68,11 @@
   <section>
     <title>通过Maven Profiles实现可移植性</title>
 
-    <para>A profile in Maven is an alternative set of configuration values
-    which set or override default values. Using a profile, you can customize a
-    build for different environments. Profiles are configured in the
-    <filename>pom.xml</filename> and are given an identifier. Then you can run
-    Maven with a command-line flag that tells Maven to execute goals in a
-    specific profile. The following <filename>pom.xml</filename> uses a
-    <literal>production</literal> profile to override the default settings of
-    the Compiler plugin.</para>
+    <para>Maven中的profile是一组可选的配置，可以用来设置或者覆盖配置默认值。有了profile，你就可以为不同的环境定制构建。profile可以在<filename>pom.xml</filename>中配置，并给定一个id。然后你就可以在运行Maven的时候使用的命令行标记告诉Maven运行特定profile中的目标。以下<filename>pom.xml</filename>使用<literal>production</literal>
+    profile覆盖了默认的Compiler插件设置。</para>
 
     <example>
-      <title>Using a Maven Profile to Override Production Compiler
-      Settings</title>
+      <title>使用一个Maven Profile覆盖Compiler插件设置</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -125,56 +118,37 @@
 </programlisting>
     </example>
 
-    <para>In this example, we've added a profile named
-    <literal>production</literal> that overrides the default configuration of
-    the Maven Compiler plugin, let's examine the syntax of this profile in
-    detail.</para>
+    <para>本例中，我们添加了一个名为<literal>production</literal>的profile，它覆盖了Maven
+    Compiler插件的默认配置，现在仔细看一下这个profile的语法。</para>
 
     <calloutlist>
       <callout arearefs="coDef-profiles-compile-1"
                id="coRef-profiles-compile-1">
-        <para>The <sgmltag>profiles</sgmltag> element is in the
-        <filename>pom.xml</filename>, it contains one or more
-        <sgmltag>profile</sgmltag> elements. Since profiles override the
-        default settings in a <filename>pom.xml</filename>, the
-        <sgmltag>profiles</sgmltag> element is usually listed as the last
-        element in a <filename>pom.xml</filename>.</para>
+        <para><filename>pom.xml</filename>中的<sgmltag>profiles</sgmltag>元素，它包含了一个或者多个<sgmltag>profile</sgmltag>元素。由于profile覆盖了<filename>pom.xml</filename>中的默认设置，<sgmltag>profiles</sgmltag>通常是<filename>pom.xml</filename>中的最后一个元素。</para>
       </callout>
 
       <callout arearefs="coDef-profiles-compile-2"
                id="coRef-profiles-compile-2">
-        <para>Each profile has to have an <sgmltag>id</sgmltag> element. This
-        <sgmltag>id</sgmltag> element contains the name which is used to
-        invoke this profile from the command-line. A profile is invoked by
-        passing the <command>-P&lt;profile_id&gt;</command> command-line
-        argument to Maven.</para>
+        <para>每个profile必须要有一个<sgmltag>id</sgmltag>元素。这个<sgmltag>id</sgmltag>元素包含的名字将在命令行调用profile时被用到。我们可以通过传给Maven一个<command>-P&lt;profile_id&gt;</command>参数来调用profile。</para>
       </callout>
 
       <callout arearefs="coDef-profiles-compile-3"
                id="coRef-profiles-compile-3">
-        <para>A <sgmltag>profile</sgmltag> element can contain many of the
-        elements which can appear under the <sgmltag>project</sgmltag> element
-        of a POM XML Document. In this example, we're overriding the behavior
-        of the Compiler plugin and we have to override the plugin
-        configuration which is normally enclosed in a <sgmltag>build</sgmltag>
-        and a <sgmltag>plugins</sgmltag> element.</para>
+        <para>一个<sgmltag>profile</sgmltag>元素可以包含很多其它元素，只要这些元素可以出现在POM
+        XML文档的<sgmltag>project</sgmltag>元素下面。本例中，我们覆盖了Compiler插件的行为，因此必须覆盖插件配置，该配置通常包含在一个<sgmltag>build</sgmltag>和一个<sgmltag>plugins</sgmltag>元素下面。</para>
       </callout>
 
       <callout arearefs="coDef-profiles-compile-4"
                id="coRef-profiles-compile-4">
-        <para>We're overriding the configuration of the Maven Compiler plugin.
-        We're making sure that the bytecode produced by the production profile
-        doesn't contain debug information and that the bytecode has gone
-        through the compiler's optimization routines.</para>
+        <para>我们覆盖了Maven Compiler插件的配置。确保通过production
+        profile产生的字节码不会包含调试信息，并且字节码会被编译器优化。</para>
       </callout>
     </calloutlist>
 
-    <para>To execute <command>mvn install</command> under the
-    <literal>production</literal> profile, you need to pass the
-    <command>-Pproduction</command> argument on the command-line. To verify
-    that the <literal>production</literal> profile overrides the default
-    Compiler plugin configuration, execute Maven with debug output enabled
-    (<command>-X</command>) as follows:</para>
+    <para>要使用<literal>production</literal> profile运行<command>mvn
+    install</command>，你需要在命令行传入<command>-Pproduction</command>参数。要验证<literal>production</literal>
+    profile覆盖了默认的Compiler插件配置，可以像这样以开启调试输出(<command>-X</command>)
+    的方式运行Maven。</para>
 
     <screen>~/examples/profile $ <command>mvn clean install -Pproduction -X</command>
 ... (omitting debugging output) ...
@@ -198,29 +172,19 @@
 ... (omitting debugging output) ...
 </screen>
 
-    <para>This excerpt from the debug output of Maven shows the configuration
-    of the Compiler plugin under the production profile. As shown in the
-    output, <varname>debug</varname> is set to false and
-    <varname>optimize</varname> is set to true.</para>
+    <para>Maven的调试输出体现了production
+    profile下Compiler插件的配置。可以看到，<varname>debug</varname>被设置成false，<varname>optimize</varname>设置成true。</para>
 
     <section>
       <title>覆盖一个项目对象模型</title>
 
-      <para>While the previous example showed you how to override the default
-      configuration properties of a single Maven plugin, you still don't know
-      exactly what a Maven profile is allowed to override. The short-answer to
-      that question is that a Maven profile can override almost everything
-      that you would have in a <filename>pom.xml</filename>. The Maven
-      <acronym>POM</acronym> contains an element under project called
-      <sgmltag>profiles</sgmltag> containing a project's alternate
-      configurations, and under this element are profile elements which define
-      each profile. Each profile must have an <sgmltag>id</sgmltag>, and other
-      than that, it can contain almost any of the elements one would expect to
-      see under project. The following <acronym>XML</acronym> document shows
-      all of the elements, a profile is allowed to override.</para>
+      <para>虽然前面的样例展示了如何覆盖一个Maven插件的默认配置属性，你仍然没有确切知道Maven
+      profile能覆盖什么。简单的回答这个问题，Maven
+      profile可以覆盖几乎所有<filename>pom.xml</filename>中的配置。Maven
+      <acronym>POM</acronym>包含一个名为<sgmltag>profiles</sgmltag>的元素，它包含了项目的替代配置，在这个元素下面，每个<sgmltag>profile</sgmltag>元素定义了一个单独的profile。每个profile必须要有一个<sgmltag>id</sgmltag>，除此之外，它可以包含几乎所有你能在project下看到的元素。以下的<acronym>XML</acronym>文档展示了一个profile允许覆盖的所有的元素。</para>
 
       <para><example>
-          <title>Elements Allowed in a Profile</title>
+          <title>Profile中允许出现的元素</title>
 
           <programlisting language="xml">&lt;project&gt;
   &lt;profiles&gt;
@@ -246,53 +210,30 @@
 </programlisting>
         </example></para>
 
-      <para>A profile can override an element shown with ellipses. A profile
-      can override the final name of a project's artifact in a profile, the
-      dependencies, and the behavior of a project's build via plugin
-      configuration. A profile can also override the configuration of
-      distribution settings depending on the profile; for example, if you need
-      to publish an artifact to a staging server in a staging profile, you
-      would create a staging profile which overrides the
-      <sgmltag>distributionManagement</sgmltag> element in a profile.</para>
+      <para>一个Profile可以覆盖项目构件的最终名称，项目依赖，插件配置以影响构建行为。Profile还可以覆盖分发配置；例如，如果你通过一个staging
+      profile发布一个构件到staging服务器上，你就可以创建一个profile然后在里面定义<sgmltag>distributionManagement</sgmltag>元素。</para>
     </section>
   </section>
 
   <section>
     <title>激活Profile</title>
 
-    <para>In the previous section we showed you how to create a profile that
-    overrides default behavior for a specific target environment. In the
-    previous build the default build was designed for development and the
-    <literal>production</literal> profile exists to provide configuration for
-    a production environment. What happens when you need to provide
-    customizations based on variables like operating systems or
-    <acronym>JDK</acronym> version? Maven provides a way to "activate" a
-    profile for different environmental parameters, this is called profile
-    activation.</para>
+    <para>在之前的小节中我们介绍了如何为一个特定的目标环境创建一个profile以覆盖默认行为。前面的例子中默认的构建是针对开发环境设计的，而<literal>production</literal>
+    profile的存在就是为了为产品环境提供配置。当你需要基于一些变量如操作系统和<acronym>JDK</acronym>版本来进行配置的时候怎么做呢？Maven提供了一种针对不同环境参数“激活”一个profile的方式，这就叫做profile激活。</para>
 
-    <para>Take the following example, assume that we have a Java library that
-    has a specific feature only available in the Java 6 release: the Scripting
-    Engine as defined in <ulink
-    url="http://jcp.org/en/jsr/detail?id=223">JSR-223</ulink>. You've
-    separated the portion of the library that deals with the scripting library
-    into a separate Maven project, and you want people running Java 5 to be
-    able to build the project without attempting to build the Java 6 specific
-    library extension. You can do this by using a Maven profile that adds the
-    script extension module to the build only when the build is running within
-    a Java 6 <acronym>JDK</acronym>. First, let's take a look at our project's
-    directory layout and how we want developers to build the system.</para>
+    <para>看如下的例子，假设我们拥有一个Java类库，它有一个特定的功能只有在Java 6下才可用，它需要使用定义在<ulink
+    url="http://jcp.org/en/jsr/detail?id=223">JSR-223</ulink>中的脚本引擎。你已经将那部分处理脚本的类库分离到了一个单独的Maven模块中，并且希望运行Java
+    5的人们能构建整个项目，而不去构建那部分针对Java 6的扩展类库。你可以使用一个Maven profile，只有构建在Java 6
+    <acronym>JDK</acronym>上运行的时候才将脚本扩展模块添加到构建中。首先，让我们看一下这个项目的目录布局，以及我们希望开发者如何构建该系统。</para>
 
-    <para>When someone runs <command>mvn install</command> with a Java 6
-    <acronym>JDK</acronym>, you want the build to include the
-    <literal>simple-script</literal> project's build, when they are running in
-    Java 5, you would like to skip the <literal>simple-script</literal>
-    project build. If you failed to skip the <literal>simple-script</literal>
-    project build in Java 5, your build would fail because Java 5 does not
-    have the <classname>ScriptEngine</classname> on the classpath. Let's take
-    a look at the library project's <filename>pom.xml</filename>:</para>
+    <para>当有人使用Java 6 JDK<acronym>JDK</acronym><command>mvn
+    install</command>的时候，你希望构建包含<literal>simple-script</literal>模块，而它们使用Java
+    5的时候，你希望跳过<literal>simple-script</literal>模块的构建。假如在Java
+    5下不能够跳过<literal>simple-script</literal>模块的构建，构建会失败因为Java
+    5的classpath中没有<classname>ScriptEngine</classname>。让我们看一下该类库项目的<filename>pom.xml</filename>：</para>
 
     <example>
-      <title>Dynamic Inclusion of Submodules Using Profile Activation</title>
+      <title>使用Profile激活动态包含子模块</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -330,52 +271,32 @@
 </programlisting>
     </example>
 
-    <para>If you run <command>mvn install</command> under Java 1.6, you will
-    see Maven descending into the <filename>simple-script</filename>
-    subdirectory to build the <literal>simple-script</literal> project. If you
-    are running <command>mvn install</command> in Java 1.5, the build will not
-    try to build the <literal>simple-script</literal> submodule. Exploring
-    this activation configuration in more detail:</para>
+    <para>如果你在Java 1.6下运行<command>mvn
+    install</command>，你会看到Maven下行到<filename>simple-script</filename>子目录构建<literal>simple-script</literal>项目。如果你在Java
+    1.5上运行<command>mvn
+    install</command>，Maven就不会去构建<literal>simple-script</literal>子模块。让我们详细看一下激活配置：</para>
 
     <calloutlist>
       <callout arearefs="coDef-profiles-active-1" id="coRef-profiles-active-1">
-        <para>The <sgmltag>activation</sgmltag> element lists the conditions
-        for profile activation. In this example, we've specified that this
-        profile will be activated by Java versions that begin with "1.6". This
-        would include "1.6.0_03", "1.6.0_02", or any other string that began
-        with "1.6". Activation parameters are not limited to Java version, for
-        a full list of activation parameters, see <xref
+        <para><sgmltag>activation</sgmltag>元素列出了所有激活profile需要的条件。该例中，我们的配置为，当Java版本以“1.6”开头的时候profile会被激活。这包括“1.6.0_03”，“1.6.0_02”以及所有其它以“1.6”开头的字符串。激活参数不局限于Java版本，要了解激活参数的完整列表，请看<xref
         linkend="profile-activation-config"
-        xrefstyle="select:title" />.</para>
+        xrefstyle="select:title" />。</para>
       </callout>
 
       <callout arch="" arearefs="coDef-profiles-active-2"
                id="coRef-profiles-active-2">
-        <para>In this profile we are adding the module
-        <literal>simple-script</literal>. Adding this module will cause Maven
-        to look in the <filename>simple-script/</filename> subdirectory for a
-        <filename>pom.xml</filename>.</para>
+        <para>在这个profile中我们添加了模块<literal>simple-script</literal>。这么做会让Maven从<filename>simple-script/</filename>子目录中寻找一个<filename>pom.xml</filename>文件。</para>
       </callout>
     </calloutlist>
 
     <section id="profile-activation-config">
       <title>激活配置</title>
 
-      <para>Activations can contain one of more selectors including JDK
-      versions, Operating System parameters, files, and properties. A profile
-      is activated when all activation criteria has been satisfied. For
-      example, a profile could list an Operating System family of Windows, and
-      a JDK version of 1.4, this profile will only be activated when the build
-      is executed on a Windows machine running Java 1.4. If the profile is
-      active then all elements override the corresponding project-level
-      elements as if the profile were included with the <command>-P</command>
-      command-line argument. The following example, lists a profile which is
-      activated by a very specific combination of operating system parameters,
-      properties, and a JDK version.</para>
+      <para>激活配置元素下可以包含一个或者多个选择器：包含JDK版本，操作系统参数，文件，以及属性。当所有标准都被满足的时候一个profile才会被激活。例如，一个profile可以要求操作系统家族为Windoes，JDK版本为1.4，那么该profile只有当构建在Windows机器上的Java
+      1.4上运行的时候才会被激活。如果该profile被激活，那么它定义的所有配置都会覆盖原来POM中对应层次的元素，就像使用命令行参数<command>-P</command>引入该profile一样。下面的例子展示了一个profile，它通过一个十分复杂的配置组合激活，包括操作系统参数，属性，以及JDK版本。</para>
 
       <para><example>
-          <title>Profile Activation Parameters: JDK Version, OS Parameters,
-          and Properties</title>
+          <title>Profile激活参数：JDK版本，操作系统参数，以及属性</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -415,49 +336,34 @@
 </programlisting>
         </example></para>
 
-      <para>This previous example defines a very narrow set of activation
-      parameters. Let's examine each activation criterion in detail:</para>
+      <para>上例定义了一组狭小的激活参数集合。让我们仔细看一下每个激活配置：</para>
 
       <calloutlist>
         <callout arearefs="coDef-profiles-active2-1"
                  id="coRef-profiles-active2-1">
-          <para>The <sgmltag>activeByDefault</sgmltag> element controls
-          whether this profile is considered active by default.</para>
+          <para><sgmltag>activeByDefault</sgmltag>元素控制一个profile是否默认被激活。</para>
         </callout>
 
         <callout arearefs="coDef-profiles-active2-2"
                  id="coRef-profiles-active2-2">
-          <para>This profile will only be active for JDK versions that begin
-          with "1.5". This includes "1.5.0_01", "1.5.1".</para>
+          <para>该profile只有当JDK版本以“1.5”开头的时候才被激活。这包含“1.5.0_01”，“”1.5.1。</para>
         </callout>
 
         <callout arearefs="coDef-profiles-active2-3"
                  id="coRef-profiles-active2-3">
-          <para>This profile targets a very specific version of Windows XP,
-          version 5.1.2600 on a 32-bit platform. If your project uses the
-          native plugin to build a C program, you might find yourself writing
-          projects for specific platforms.</para>
+          <para>该profile针对与一个十分确切的Windowx
+          XP版本，32位平台上的5.1.2600版本。如果你的项目使用本地插件来构建一个C程序，你可能会发现自己正为特定的平台编写项目。</para>
         </callout>
 
         <callout arearefs="coDef-profiles-active2-4"
                  id="coRef-profiles-active2-4">
-          <para>The <sgmltag>property</sgmltag> element tells Maven to
-          activate this profile if the property
-          <varname>mavenVersion</varname> is set to the value
-          <literal>2.0.5</literal>. <varname>mavenVersion</varname> is an
-          implicit property that is available to all Maven builds.</para>
+          <para><sgmltag>property</sgmltag>元素告诉Maven，当<varname>mavenVersion</varname>属性的值被设置成<literal>2.0.5</literal>的时候才激活profile。<varname>mavenVersion</varname>是一个在所有Maven构建中可用的隐式属性。</para>
         </callout>
 
         <callout arearefs="coDef-profiles-active2-5"
                  id="coRef-profiles-active2-5">
-          <para>The <sgmltag>file</sgmltag> element allows us to activate a
-          profile based on the presence (or absence) of files. The
-          <literal>dev</literal> profile will be activated if a file named
-          <filename>file2.properties</filename> exists in the base directory
-          of the project. The <literal>dev</literal> profile will only be
-          activated if there is no file named
-          <filename>file1.properties</filename> file in the base directory of
-          the project.</para>
+          <para><sgmltag>file</sgmltag>元素告诉我们只有当某些文件存在（或者不存在）的时候才激活profile。该例中的<literal>dev</literal>
+          profile只有在项目基础目录中存在<filename>file2.properties</filename>文件，并且不存在<filename>file1.properties</filename>文件的时候才被激活。</para>
         </callout>
       </calloutlist>
     </section>
@@ -465,19 +371,12 @@
     <section>
       <title>通过属性缺失激活</title>
 
-      <para>You can activate a profile based on the value of a property like
-      <varname>environment.type</varname>. You can activate a
-      <literal>development</literal> profile if
-      <varname>environment.type</varname> equals <literal>dev</literal>, or a
-      <literal>production</literal> profile if
-      <varname>environment.type</varname> equals <literal>prod</literal>. You
-      can also activate a profile in the absence of a property. The following
-      configuration activates a profile if the property
-      <varname>environment.type</varname> is not present during Maven
-      execution.</para>
+      <para>你可以基于一个属性如<varname>environment.type</varname>的值来激活一个profile。当<varname>environment.type</varname>等于<literal>dev</literal>的时候激活<literal>development</literal>
+      profile，或者当<varname>environment.type</varname>等于<literal>prod</literal>的时候激活<literal>production</literal>
+      profile。你也可以通过一个属性的缺失来激活一个profile。下面的配置中，只有在Maven运行过程中属性<varname>environment.type</varname>不存在profile才被激活。</para>
 
       <para><example>
-          <title>Activating Profiles in the Absence of a Property</title>
+          <title>在属性缺失的情况下激活Profile</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -495,28 +394,18 @@
 </programlisting>
         </example></para>
 
-      <para>Note the exclamation point prefixing the property name. The
-      exclamation point is often referred to as the "bang" character and
-      signifies "not". This profile is activated when no
-      <varname>${environment.type}</varname> property is set.</para>
+      <para>注意属性名称前面的惊叹号。惊叹号通常表示“否定”的意思。当没有设置<varname>${environment.type}</varname>属性的时候，这个profile被激活。</para>
     </section>
   </section>
 
   <section>
     <title>外部Profile</title>
 
-    <para>If you start making extensive use of Maven profiles, you may want to
-    separate your profiles from your POM in a separate file named
-    <filename>profiles.xml</filename>. You can mix and match profiles defined
-    in the <filename>pom.xml</filename> with profiles defined in the external
-    <filename>profiles.xml</filename> file. Just place the
-    <sgmltag>profiles</sgmltag> element into <filename>profiles.xml</filename>
-    in <varname>${basedir}</varname> and run Maven as you normally would. This
-    <filename>profiles.xml</filename> file would look something like the
-    following example:</para>
+    <para>如果你开始大量使用Maven
+    profile，你会希望将profile从POM中分离，使用一个单独的文件如<filename>profiles.xml</filename>。你可以混合使用定义在<filename>pom.xml</filename>中和外部<filename>profiles.xml</filename>文件中的profile。只需要将<sgmltag>profiles</sgmltag>元素放到<varname>${basedir}</varname>目录下的<filename>profiles.xml</filename>文件中，然后照常运行Maven就可以。<filename>profiles.xml</filename>文件的大概内容如下：</para>
 
     <example>
-      <title>Placing Profiles in a profiles.xml File</title>
+      <title>将profile放到一个profiles.xml文件中</title>
 
       <programlisting language="xml"> &lt;profiles&gt;
     &lt;profile&gt;
@@ -552,38 +441,22 @@
   &lt;/profiles&gt;</programlisting>
     </example>
 
-    <para>You might find that your profiles have grown so large that you are
-    having trouble managing the <filename>pom.xml</filename>, or you might
-    just find separating the <filename>pom.xml</filename> from the
-    <filename>profiles.xml</filename> file a cleaner approach to putting
-    everything into a single file. You can invoke profiles stored in
-    <filename>profiles.xml</filename> the same way you would invoke them if
-    they were defined in the <filename>pom.xml</filename>.</para>
+    <para>你可以发现你的Profile增长得过大了，而让你管理<filename>pom.xml</filename>变得很困难，或者说只是因为你觉得将<filename><filename>profiles.xml</filename></filename>文件从中<filename>pom.xml</filename>分离出来是一种更干净的方式。不管怎样，调用定义在<filename>pom.xml</filename>中的profile和调用定义在<filename>profiles.xml</filename>中profile的方式是一样的。</para>
   </section>
 
   <section>
     <title>Settings Profile</title>
 
-    <para>Project profiles are useful when a specific project needs to
-    customize a build setting for a specific environment, but why would you
-    want to override a build setting for every project in Maven? How do you do
-    something like add an internal repository which is consulted on every
-    Maven build? You can do this with a settings profile. Where project
-    profiles are concerned with overriding the configuration of a specific
-    project, settings profiles can be applied to any and all projects you
-    build with Maven. You can place settings profiles in two locations: a user
-    specific settings profile defined in
-    <filename>~/.m2/settings.xml</filename> or a global settings profile
-    defined in <filename>${M2_HOME}/conf/settings.xml</filename>. Here is an
-    example of a settings profile defined in
-    <filename>~/.m2/settings.xml</filename> which might set some user-specific
-    configuration properties for all builds. The following
-    <filename>settings.xml</filename> file is defined for user
-    <literal>tobrien</literal>:</para>
+    <para>当一个项目需要为特定的环境自定义构建设置的时候，profile很有用，但是为什么一定要为所有Maven项目覆盖构建设置呢？比如为每个Maven构建添加一个需要访问的内部仓库。你可以使用一个settings
+    profile做这件事情。项目profile关心于覆盖某个项目的配置，而settings
+    profile可以应用到所有你使用Maven构建的项目。你可以在两个地方定义settings
+    profile：定义在<filename>~/.m2/settings.xml</filename>中的用户特定settings
+    profile，或者定义在<filename>${M2_HOME}/conf/settings.xml</filename>中的全局settings
+    profile。这里是一个定义在<filename>~/.m2/settings.xml</filename>中的settings
+    profile的例子，它为所有的构建设置了一些用户特定的配置属性。如下<filename>settings.xml</filename>文件为用户<literal>tobrien</literal>定义：</para>
 
     <example>
-      <title>Defining User-specific Settings Profiles
-      (~/.m2/settings.xml)</title>
+      <title>定义用户特定的Setting Profile (~/.m2/settings.xml)</title>
 
       <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
@@ -614,36 +487,18 @@
 &lt;/settings&gt;</programlisting>
     </example>
 
-    <para>The previous example is a plausible use of a user-specific settings
-    profile. This example sets user-specific settings like the password and
-    alias to use when signing a JAR file during a release. These are
-    configuration parameters you wouldn't want to store in a project's shared
-    <filename>pom.xml</filename> or a <filename>profiles.xml</filename> file
-    because they involve some secrets that should not be public.</para>
+    <para>前面的例子是一个对于用户特定settings
+    profile的真实用例。该样例中，当发布时为一个JAR文件签名的时候，设置用户特定的信息如密码和别名。你不会希望将这些配置参数存储到项目共享的<filename>pom.xml</filename>或者<filename>profiles.xml</filename>文件中，因为它们包含了一些不应该被公开的私人信息。</para>
 
-    <para>The downside of settings profiles is that they tend to interfere
-    with project portability. If the previous example were an open source
-    project, a new developer would not be able to sign a JAR until they had
-    manually configured a settings profile and talked to one of the existing
-    developers. In this case, the security requirements of signing a JAR are
-    in conflict with the larger goal of achieving a universally portable
-    project build. On most open-source projects, there are tasks that require
-    security credentials: publishing an artifact to a remote repository,
-    publishing a project's web site, or signing a JAR file. For these tasks,
-    the highest level of portability we can hope for is organizational
-    portability. These higher security tasks usually require some manual setup
-    and configuration of a profile.</para>
+    <para>settings
+    profile的缺点是它们可能会干扰项目可移植性。如果前面的例子是一个开源项目，如果一个新的开发者没有和其它开发者交流过并手工配置一个settings
+    profile，他将不能够为一个JAR签名。这样的情况下，为JAR签名的安全需求就与全局可移植性构建产生了冲突。在最开源的项目中，有一些任务需要安全证书：将一个构件发布到远程仓库，发布项目的web站点，或者为JAR文件签名。对于这些任务，可以达到的最高级别可移植性只能是组织可移植性。这些高安全性任务通常需要一些手工的profile安装和配置。</para>
 
-    <para>Instead of explicitly specifying the name of the profile with the
-    <command>-P</command> command-line argument. You can define a list of
-    active profiles which are activated for every project you run. For
-    example, if you wanted to activate the <literal>dev</literal> profile
-    defined in <filename>settings.xml</filename> for every project you run,
-    you would add the following section to your
-    <filename>~/.m2/settings.xml</filename> file:</para>
+    <para>除了显式的使用<command>-P</command>命令行参数指定profile的名称。你还可以为所有构建的项目定义一个激活profile的列表。例如，如果你想要为每个项目激活定义在<filename>settings.xml</filename>中的<literal>dev</literal>
+    profile，你可以在你的<filename>~/.m2/settings.xml</filename>文件中添加如下的设置：</para>
 
     <para><example>
-        <title>Defining Active Settings Profiles</title>
+        <title>定义激活的Settings Profile</title>
 
         <programlisting language="xml">&lt;settings&gt;
   ...
@@ -654,47 +509,25 @@
 </programlisting>
       </example></para>
 
-    <para>This will activate settings profiles only, not project profiles with
-    matching <sgmltag>id</sgmltag> elements. For example, if you had a project
-    with a profile defined in its <filename>pom.xml</filename> with an
-    <sgmltag>id</sgmltag> of <literal>dev</literal>, it would not be affected
-    by the <sgmltag>activeProfile</sgmltag> set in your
-    <filename>settings.xml</filename>. This <sgmltag>activeProfile</sgmltag>
-    setting only affects profiles defined in your
-    <filename>settings.xml</filename> file.</para>
+    <para>该设置指挥激活settings
+    profile，不会激活id匹配的项目profile。例如，如果你有一个项目，在<filename>pom.xml</filename>中定义了一个<sgmltag>id</sgmltag>为<literal>dev</literal>的profile，那个profile不会受你<filename>settings.xml</filename>中<sgmltag>activeProfile</sgmltag>设置的影响。<sgmltag>activeProfile</sgmltag>设置只对你<filename>settings.xml</filename>文件中定义的profile有效。</para>
 
     <section>
       <title>全局Settings Profile</title>
 
-      <para>Just like settings profiles, you can also define a set of global
-      profiles in <filename>${M2_HOME}/conf/settings.xml</filename>. Profiles
-      defined in this configuration file are available across all users using
-      a specific installation of Maven. The ability to define a global
-      settings profile is useful if you are creating a customized distribution
-      of Maven for a specific organization and you want to ensure that every
-      user of Maven has access to a set of build profiles that ensure in-house
-      portability. If you need to add custom plugin repositories or define a
-      custom set of plugins that are only used by your organization, you could
-      distribute a copy of Maven to your users that has these settings "baked
-      in". The configuration of global settings profiles is the same as the
-      configuration of User-specific settings profiles.</para>
+      <para>如同用户特定的settings
+      profile一样，你也可以在<filename>${M2_HOME}/conf/settings.xml</filename>中定义一组全局profile。在这个配置文件中定义的profile对所有使用该Maven安装的用户可用。如果你正为一个特定的组织创建一个定制的Maven分发包，并且你想要确保每个Maven用户使用一组构建profile以确保内部可移植性，定义全局settings
+      profile就十分有用。如果你需要添加自定义插件仓库，或者定义一组只在你组织内部可用的自定义插件，你就可以为你的用户分发一个内置了这些配置的Maven。配置全局settings
+      profile和配置用户特定的settings profile完全一样。</para>
     </section>
   </section>
 
   <section>
     <title>列出活动的Profile</title>
 
-    <para>Maven profiles can be defined in either
-    <filename>pom.xml</filename>, <filename>profiles.xml</filename>,
-    <filename>~/.m2/settings.xml</filename>, or
-    <filename>${M2_HOME}/conf/settings.xml</filename>. With these four levels,
-    there's no good way of keeping track of profiles available to a particular
-    project without remembering which profiles are defined in these four
-    files. To make it easier to keep track of which profiles are available,
-    and where they have been defined, the Maven Help plugin defines a goal,
-    <literal>active-profiles</literal>, which lists all the active profiles
-    and where they have been defined. You can run the
-    <literal>active-profiles</literal> goal, as follows:</para>
+    <para>Maven
+    profile可以通过<filename>pom.xml</filename>，<filename>profiles.xml</filename>，<filename>~/.m2/settings.xml</filename>，或者<filename>${M2_HOME}/conf/settings.xml</filename>定义。由于有四个层次，除了记住哪个文件中定义了哪个profile，没什么好的方式了解某个特定项目可用的profile。为了更方便的了解某个项目可用的profile，以及它们是在哪里定义的，Maven
+    Help插件定义了一个目标，<literal>active-profiles</literal>，它能列出所有激活的profile，以及它们在哪里定义。你可以如下运行<literal>active-profiles</literal>目标：</para>
 
     <screen>$ <command>mvn help:active-profiles</command>
 Active Profiles for Project 'My Project':
@@ -709,14 +542,9 @@ The following profiles are active:
   <section>
     <title>提示和技巧</title>
 
-    <para>Profiles can encourage build portability. If your build needs subtle
-    customizations to work on different platforms or if you need your build to
-    produce different results for different target platforms, project profiles
-    increase build portability. Settings profiles generally decrease build
-    portability by adding extra-project information that must be communicated
-    from developer to developer. The following sections provide some
-    guidelines and some ideas for applying Maven profiles to your
-    project.</para>
+    <para>Profile可以用来鼓励构建可移植性。如果你的构建需要为不同的平台做一些细微的自定义，或者如果你针对不同的目标平台生成不同的输出，项目profile就能增加构建可移植性。Settings
+    profile通常会降低构建可移植性，因为它会添加一些必须在开发人员之间沟通的额外项目信息。下面的小节提供了一些如何在你项目中使用Maven
+    profile的指导意见和想法。</para>
 
     <section>
       <title>常见的环境</title>
