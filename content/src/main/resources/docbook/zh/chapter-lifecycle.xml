@@ -57,7 +57,7 @@
             &lt;!-- adds the ant-contrib tasks (if/then/else used below) --&gt;
             &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" /&gt;
             &lt;available 
-              file="${project.build.directory}/${project.build.finalName}.jar"
+              file="${project.build.directory}/${project.build.finalName}.${project.packaging}"
               property="file.exists" value="true" /&gt;
 
             &lt;if&gt;
