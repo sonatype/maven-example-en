@@ -7,9 +7,9 @@
   <section id="profiles-what">
     <title>Profile是用来做什么的?</title>
 
-    <para>Profile能让你为一个特殊的环境自定义一个特殊的构建；profile使得不同构建环境间的可移植成为可能。</para>
+    <para>Profile能让你为一个特殊的环境自定义一个特殊的构建；profile使得不同环境间构建的可移植性成为可能。</para>
 
-    <para>不同的构建环境是什么意思？两个构建环境的例子是产品环境和开发环境。当你在开发环境中工作时，你的系统可能被配置成读取运行在你本机的开发数据库实例，而在产品环境中，你的系统被配置成从产品数据库读取数据。Maven能让你定义任意数量的构建环境（构建profile），这些定义可以覆盖任何<filename>pom.xml</filename>中的配置。你可以配置你的应用程序，在“开发”profile中，读取本地的开发数据库实例，在“产品”profile中，访问产品数据库。Profile也可以通过环境和平台被激活，你可以自定义一个构建，它根据不同的操作系统或者不同的<acronym>JDK</acronym>版本表现不同。在我们讨论使用和配置Maven
+    <para>不同的构建环境是什么意思？构建环境的两个例子是产品环境和开发环境。当你在开发环境中工作时，你的系统可能被配置成访问运行在你本机的开发数据库实例，而在产品环境中，你的系统被配置成从产品数据库读取数据。Maven能让你定义任意数量的构建环境（构建profile），这些定义可以覆盖<filename>pom.xml</filename>中的任何配置。你可以配置你的应用程序，在“开发”profile中，访问本地的开发数据库实例，在“产品”profile中，访问产品数据库。Profile也可以通过环境和平台被激活，你可以自定义一个构建，它根据不同的操作系统或者不同的<acronym>JDK</acronym>版本有不同的行为。在我们讨论使用和配置Maven
     profile之前，我们需要定义构建可移植性的概念。</para>
 
     <section>
@@ -17,12 +17,12 @@
 
       <para>一个构建的“可移植性”是指将一个项目在不同的环境中构建的难易度。一个不用做任何自定义配置或者属性文件配置就能工作的构建，比一个需要很多配置才能工作的构建，具有更高的可移植性。构建可移植性最高的项目往往是一些开源项目如Apache
       Commons或者Apache
-      Velocity，它们带有Maven构建，不需要或者需要很少的自定义配置。简言之，可移植性最高的项目往往“开箱可用”，而可移植性最低的构建则需要你跳过一个个难缠的框框，配置平台相关的路径以定位构建工具。在我们展示如何实现构建移植性之前，先浏览下我们讨论的不同种类的构建可移植性。</para>
+      Velocity，它们自带Maven构建配置，不需要或者需要很少的自定义配置。简言之，可移植性最高的项目往往“开箱可用”，而可移植性最低的构建则需要你跳过一个个难缠的框框，配置平台相关的路径以定位构建工具。在我们展示如何实现构建移植性之前，先浏览一些不同种类的构建可移植性。</para>
 
       <section>
         <title>不可移植构建</title>
 
-        <para>缺少可移植性正式所有构建工具试图防止的——然后，任何工具都能配置成不可移植（即使Maven）。一个不可移植的项目只有在一组特定的环境和标准（比如，你的本地机器）下能构建。除非你自己一个人工作，没有任何计划将你的应用部署到其它机器上，否则最好要完全避免不可移植性。一个不可移植的构建只能在单独的机器上运行，是“一次性的”。Maven设计提供了使用profile自定义构建的能力，阻止不可移植的构建。</para>
+        <para>缺少可移植性正是所有构建工具试图防止的——然而，任何工具都能被配置成不可移植（即使Maven）。一个不可移植的项目只有在一组特定的环境和标准（比如，你的本地机器）下才能构建。除非你自己一个人工作，不打算将你的应用部署到其它机器上，否则最好完全避免不可移植性。一个不可移植的构建只能在单独的机器上运行，是“一次性的”。Maven设计提供了使用profile自定义构建的能力，阻止不可移植的构建。</para>
 
         <para>当一个新的开发人员得到不可移植项目的源码的时候，如果不重写大部分的构建脚本，他就不能构建这个项目。</para>
       </section>
@@ -30,23 +30,23 @@
       <section>
         <title>环境可移植性</title>
 
-        <para>如果一个构建有一种机制，能针对不同的环境有定制的行为和配置，那么我们就说该构建具有环境可移植性。例如，一个项目在测试环境中包含一个对于测试数据库的引用，而在产品环境中则引用了产品数据库，那么该项目的构建是环境可移植的。这很有可能是因为该构建针对不同的环境有不同的属性组。当你转移到一个不同的环境中，该环境未被定义也没有为其创建profile，那么项目将不能工作。因此，该项目也只是在一定义的环境中可移植。</para>
+        <para>如果一个构建有一种机制，能针对不同的环境有特定的行为和配置，那么我们就说该构建具有环境可移植性。例如，一个项目在测试环境中包含一个对于测试数据库的引用，而在产品环境中则引用了产品数据库，那么该项目的构建是环境可移植的。这很有可能是因为该构建针对不同的环境有不同的属性组。当你转移到一个不同的环境中，该环境未被定义，也没有为其创建profile，那么项目将不能工作。因此，该项目也只是在已定义的环境中可移植。</para>
 
-        <para>当你一个新的开发人员得到环境可移植项目的源码，他们必须在一定以的环境中运行此构建，否则就需要创建自定义的环境才能构建项目。</para>
+        <para>当一个新的开发人员得到环境可移植项目的源码，他们必须在已定义的环境中运行此构建，否则就需要创建自定义的环境才能构建此项目。</para>
       </section>
 
       <section>
         <title>组织（内部）可移植性</title>
 
-        <para>这一层可移植性的中心是一个项目可能需要访问一些内部资源如源码控制系统或者内部维护的Maven仓库。大公司的项目可能依赖于一个只对内部开发人员可用的数据库，而一个开源项目可能需要一个特定级别的证书来发布web站点，以及将构建的产品发布到公共仓库。</para>
+        <para>这一层可移植性的中心是一个项目可能需要访问一些内部资源如源码控制系统或者内部维护的Maven仓库。大公司的项目可能依赖于一个只对内部开发人员可用的数据库，一个开源项目可能需要一个特定级别的证书来发布web站点，以及将构建的产品发布到公共仓库。</para>
 
-        <para>如果你试图在内部网络外部（例如，在公司的防火墙外面）从零开始构建一个内部项目，构建会失败。它失败的原因可能是一些必须的自定义插件不可用，或者项目的依赖找不到，因为你没有适当的证书从一个自定义的远程仓库获取依赖。这样的项目只有在一个组织内部的环境中拥有可移植性。</para>
+        <para>如果你试图在内网外部（例如，在公司的防火墙外面）从零开始构建一个内部项目，构建会失败。它失败的原因可能是一些必须的自定义插件不可用，或者项目的依赖找不到，因为你没有适当的证书从一个自定义的远程仓库获取依赖。这样的项目只在一个组织内部的环境中拥有可移植性。</para>
       </section>
 
       <section>
         <title>广泛（全局）可移植性</title>
 
-        <para>任何人都可以下载具有广发可移植性项目的源码，不用为特定的环境自定义构建就能编译，安装。这是最高级别的可移植性；构建这样的项目不需要做任何额外的工作。该级别的可移植性对开源项目尤为重要，因为开源项目的潜在贡献者需要能很方便的下载源码进行构建。</para>
+        <para>任何人都可以下载具有广泛可移植性项目的源码，不用为特定的环境自定义构建就能进行编译，安装。这是最高级别的可移植性；构建这样的项目不需要做任何额外的工作。该级别的可移植性对开源项目尤为重要，因为开源项目的潜在贡献者需要能很方便的下载源码进行构建。</para>
 
         <para>任何一个开发者都可以下载具有广泛可移植性项目的源码。</para>
       </section>
@@ -55,13 +55,13 @@
     <section>
       <title>选择一个适当级别的可移植性</title>
 
-      <para>很显然，你需要避免创建出最坏的情况：不可移植构建。你可以不幸需要在这样的一个组织工作或学习：其核心应用的构建是不可移植的。在这样的组织下，没有特定的人员或机器的帮助，你就不可能部署一个应用。如果不和那个维护该不可移植构建的人协调，很难引入新的项目依赖或变化。当个人或小组需要控制项目如何以及何时构建部署的时候，不可移植构建就会由于一些政治环境因素高速增长。“我们该如何构建该系统？哦，我们需要找到Jack，让他帮我们构建，没有其他人能将其部署到产品环境中”这是一种非常危险的情形，该情形比你想象的普遍得多。如果你为这样的一个组织工作，Maven和Maven
+      <para>很显然，你需要避免创建出最坏的情况：不可移植构建。你可能不幸需要在这样的一个组织工作或学习：其核心应用的构建是不可移植的。在这样的组织下，没有特定的人员或机器的帮助，你就不可能部署一个应用。如果不和那个维护该不可移植构建的人协调，很难引入新的项目依赖或变化。当个人或小组需要控制项目如何以及何时构建部署的时候，不可移植构建就会由于一些政治环境因素高速增长。“我们该如何构建该系统？哦，我们需要找到Jack，让他帮我们构建，没有其他人能将其部署到产品环境中”这是一种非常危险的情形，该情形比你想象的普遍得多。如果你为这样的一个组织工作，Maven和Maven
       profile能帮你脱离困境。</para>
 
       <para>与之完全相反的可移植性范围是广泛可移植性构建。总的来说广泛可移植性构建是最难达到的构建系统。这样的构建严格要求你依赖的项目和工具是免费分发的，在公共环境中可用。很多商业软件包可能被排除在这种可移植性最高的构建外面，因为只有在接受某个许可证后你才能下载它们。广泛可移植性也限制它的依赖能以Maven构件的形式分发。例如，如果你依赖于Oracle
-      JDBC驱动，你的用户就需要手工下载安装它们；这就不是广泛可移植性因为你必须为那些有兴趣构建你应用的人发布一组关于创建环境的指令。而另一方面，你可以使用一个在公共Maven仓库中可用的JDBC驱动如MySQL或者HSQLDB。</para>
+      JDBC驱动，你的用户就需要手工下载安装它们；这就不是广泛可移植性，因为你必须为那些有兴趣构建你应用的人发布一组关于创建环境的指令。而另一方面，你可以使用一个在公共Maven仓库中可用的JDBC驱动如MySQL或者HSQLDB。</para>
 
-      <para>如之前叙述的那样，开源项目从拥有最广泛的可移植性构建获益。广泛可移植性构建降低了为开源项目做贡献的低效性。在一个开源项目（如Maven）中，有两个单独的组：最终用户和开发者。当一个项目的最终用户决定为项目贡献一个补丁，它们就需要从使用构建输出过渡到运行一个构建。它们首先需要成为开发者，而如果很难学会如何构建一个项目，这就成为了最终用户花时间为项目做贡献的妨碍因素。在广泛可移植项目中，最终用户不需要遵循一组神秘的构建指令来开始成为开发者。他们可以源码，修改源码，构建，然后提交贡献，这个过程不需要问谁要求帮助建立构建环境。当为开源项目贡献源码的成本更低的时候，你就会看到源码贡献的增长，特别是一些不经意的贡献可能对项目的成功和项目的失败造成很大的影响。在一组广泛的开源项目中使用Maven的一个附加作用就是它使得开发者为不同的开源项目贡献源码变得更加容易。</para>
+      <para>如之前叙述的那样，开源项目从拥有最广泛的可移植性构建获益。广泛可移植性构建降低了为开源项目做贡献的低效性。在一个开源项目（如Maven）中，有两个单独的组：最终用户和开发者。当一个项目的最终用户决定为项目贡献一个补丁，它们就需要从使用构建输出过渡到运行一个构建。它们首先需要成为开发者，而如果很难学会如何构建一个项目，这就成为了最终用户花时间为项目做贡献的妨碍因素。在广泛可移植项目中，最终用户不需要遵循一组神秘的构建指令来开始成为开发者。他们可以签出源码，修改源码，构建，然后提交贡献，这个过程不需要问谁要求帮助建立构建环境。当为开源项目贡献源码的成本更低的时候，你就会看到源码贡献的增长，特别是一些不经意的贡献可能对项目的成功和项目的失败造成很大的影响。在一组广泛的开源项目中使用Maven的一个附加作用就是它使得开发者为不同的开源项目贡献源码变得更加容易。</para>
     </section>
   </section>
 
@@ -135,7 +135,7 @@
       <callout arearefs="coDef-profiles-compile-3"
                id="coRef-profiles-compile-3">
         <para>一个<sgmltag>profile</sgmltag>元素可以包含很多其它元素，只要这些元素可以出现在POM
-        XML文档的<sgmltag>project</sgmltag>元素下面。本例中，我们覆盖了Compiler插件的行为，因此必须覆盖插件配置，该配置通常包含在一个<sgmltag>build</sgmltag>和一个<sgmltag>plugins</sgmltag>元素下面。</para>
+        XML文档的<sgmltag>project</sgmltag>元素下面。本例中，我们覆盖了Compiler插件的行为，因此必须覆盖插件配置，该配置通常位于一个<sgmltag>build</sgmltag>和一个<sgmltag>plugins</sgmltag>元素下面。</para>
       </callout>
 
       <callout arearefs="coDef-profiles-compile-4"
@@ -145,7 +145,7 @@
       </callout>
     </calloutlist>
 
-    <para>要使用<literal>production</literal> profile运行<command>mvn
+    <para>要使用<literal>production</literal> profile来运行<command>mvn
     install</command>，你需要在命令行传入<command>-Pproduction</command>参数。要验证<literal>production</literal>
     profile覆盖了默认的Compiler插件配置，可以像这样以开启调试输出(<command>-X</command>)
     的方式运行Maven。</para>
@@ -226,7 +226,7 @@
     5的人们能构建整个项目，而不去构建那部分针对Java 6的扩展类库。你可以使用一个Maven profile，只有构建在Java 6
     <acronym>JDK</acronym>上运行的时候才将脚本扩展模块添加到构建中。首先，让我们看一下这个项目的目录布局，以及我们希望开发者如何构建该系统。</para>
 
-    <para>当有人使用Java 6 JDK<acronym>JDK</acronym><command>mvn
+    <para>当有人使用Java 6 <acronym>JDK</acronym>运行<command>mvn
     install</command>的时候，你希望构建包含<literal>simple-script</literal>模块，而它们使用Java
     5的时候，你希望跳过<literal>simple-script</literal>模块的构建。假如在Java
     5下不能够跳过<literal>simple-script</literal>模块的构建，构建会失败因为Java
@@ -346,12 +346,12 @@
 
         <callout arearefs="coDef-profiles-active2-2"
                  id="coRef-profiles-active2-2">
-          <para>该profile只有当JDK版本以“1.5”开头的时候才被激活。这包含“1.5.0_01”，“”1.5.1。</para>
+          <para>该profile只有当JDK版本以“1.5”开头的时候才被激活。这包含“1.5.0_01”，“1.5.1”等。</para>
         </callout>
 
         <callout arearefs="coDef-profiles-active2-3"
                  id="coRef-profiles-active2-3">
-          <para>该profile针对与一个十分确切的Windowx
+          <para>该profile针对于一个特定的Windowx
           XP版本，32位平台上的5.1.2600版本。如果你的项目使用本地插件来构建一个C程序，你可能会发现自己正为特定的平台编写项目。</para>
         </callout>
 
@@ -441,7 +441,7 @@
   &lt;/profiles&gt;</programlisting>
     </example>
 
-    <para>你可以发现你的Profile增长得过大了，而让你管理<filename>pom.xml</filename>变得很困难，或者说只是因为你觉得将<filename><filename>profiles.xml</filename></filename>文件从中<filename>pom.xml</filename>分离出来是一种更干净的方式。不管怎样，调用定义在<filename>pom.xml</filename>中的profile和调用定义在<filename>profiles.xml</filename>中profile的方式是一样的。</para>
+    <para>你可以发现一旦你的Profile变得很大，再让你管理<filename>pom.xml</filename>会变得很困难，或者说只是因为你觉得将<filename><filename>profiles.xml</filename></filename>文件从中<filename>pom.xml</filename>分离出来是一种更干净的方式。不管怎样，调用定义在<filename>pom.xml</filename>中的profile和调用定义在<filename>profiles.xml</filename>中profile的方式是一样的。</para>
   </section>
 
   <section>
@@ -491,8 +491,8 @@
     profile的真实用例。该样例中，当发布时为一个JAR文件签名的时候，设置用户特定的信息如密码和别名。你不会希望将这些配置参数存储到项目共享的<filename>pom.xml</filename>或者<filename>profiles.xml</filename>文件中，因为它们包含了一些不应该被公开的私人信息。</para>
 
     <para>settings
-    profile的缺点是它们可能会干扰项目可移植性。如果前面的例子是一个开源项目，如果一个新的开发者没有和其它开发者交流过并手工配置一个settings
-    profile，他将不能够为一个JAR签名。这样的情况下，为JAR签名的安全需求就与全局可移植性构建产生了冲突。在最开源的项目中，有一些任务需要安全证书：将一个构件发布到远程仓库，发布项目的web站点，或者为JAR文件签名。对于这些任务，可以达到的最高级别可移植性只能是组织可移植性。这些高安全性任务通常需要一些手工的profile安装和配置。</para>
+    profile的缺点是它们可能会干扰项目可移植性。如果前面的例子是一个开源项目，如果一个新的开发者没有和其它开发者交流过并手工配置了一个settings
+    profile，他将不能够为一个JAR签名。这样的情况下，为JAR签名的安全需求就与全局可移植性构建产生了冲突。在大部分开源项目中，有一些任务需要安全证书：将一个构件发布到远程仓库，发布项目的web站点，或者为JAR文件签名。对于这些任务，可以达到的最高级别可移植性只能是组织可移植性。这些高安全性任务通常需要一些手工的profile安装和配置。</para>
 
     <para>除了显式的使用<command>-P</command>命令行参数指定profile的名称。你还可以为所有构建的项目定义一个激活profile的列表。例如，如果你想要为每个项目激活定义在<filename>settings.xml</filename>中的<literal>dev</literal>
     profile，你可以在你的<filename>~/.m2/settings.xml</filename>文件中添加如下的设置：</para>
@@ -509,7 +509,7 @@
 </programlisting>
       </example></para>
 
-    <para>该设置指挥激活settings
+    <para>该设置只会激活settings
     profile，不会激活id匹配的项目profile。例如，如果你有一个项目，在<filename>pom.xml</filename>中定义了一个<sgmltag>id</sgmltag>为<literal>dev</literal>的profile，那个profile不会受你<filename>settings.xml</filename>中<sgmltag>activeProfile</sgmltag>设置的影响。<sgmltag>activeProfile</sgmltag>设置只对你<filename>settings.xml</filename>文件中定义的profile有效。</para>
 
     <section>
@@ -518,7 +518,7 @@
       <para>如同用户特定的settings
       profile一样，你也可以在<filename>${M2_HOME}/conf/settings.xml</filename>中定义一组全局profile。在这个配置文件中定义的profile对所有使用该Maven安装的用户可用。如果你正为一个特定的组织创建一个定制的Maven分发包，并且你想要确保每个Maven用户使用一组构建profile以确保内部可移植性，定义全局settings
       profile就十分有用。如果你需要添加自定义插件仓库，或者定义一组只在你组织内部可用的自定义插件，你就可以为你的用户分发一个内置了这些配置的Maven。配置全局settings
-      profile和配置用户特定的settings profile完全一样。</para>
+      profile和配置用户特定的settings profile的方法完全一样。</para>
     </section>
   </section>
 
@@ -526,7 +526,7 @@
     <title>列出活动的Profile</title>
 
     <para>Maven
-    profile可以通过<filename>pom.xml</filename>，<filename>profiles.xml</filename>，<filename>~/.m2/settings.xml</filename>，或者<filename>${M2_HOME}/conf/settings.xml</filename>定义。由于有四个层次，除了记住哪个文件中定义了哪个profile，没什么好的方式了解某个特定项目可用的profile。为了更方便的了解某个项目可用的profile，以及它们是在哪里定义的，Maven
+    profile可以通过<filename>pom.xml</filename>，<filename>profiles.xml</filename>，<filename>~/.m2/settings.xml</filename>，或者<filename>${M2_HOME}/conf/settings.xml</filename>定义。由于有四个层次，除了记住哪个文件中定义了哪个profile，没什么好的方式可以了解某个特定项目可用的profile。为了更方便的了解某个项目可用的profile，以及它们是在哪里定义的，Maven
     Help插件定义了一个目标，<literal>active-profiles</literal>，它能列出所有激活的profile，以及它们在哪里定义。你可以如下运行<literal>active-profiles</literal>目标：</para>
 
     <screen>$ <command>mvn help:active-profiles</command>
@@ -549,36 +549,14 @@ The following profiles are active:
     <section>
       <title>常见的环境</title>
 
-      <para>One of the core motivations for Maven project profiles was to
-      provide for environment-specific configuration settings. In a
-      development environment, you might want to produce bytecode with debug
-      information and you might want to configure your system to use a
-      development database instance. In a production environment you might
-      want to produce a signed JAR and configure the system to use a
-      production database. In this chapter, we defined a number of
-      environments with identifiers like <literal>dev</literal> and
-      <literal>prod</literal>. A simpler way to do this would be to define
-      profiles that are activated by environment properties and to use these
-      common environment properties across all of your projects. For example,
-      if every project had a <literal>development</literal> profile activated
-      by a property named <varname>environment.type</varname> having a value
-      of <literal>dev</literal>, and if those same projects had a
-      <literal>production</literal> profile activated by a property named
-      <varname>environment.type</varname> having a value of
-      <literal>prod</literal>, you could create a default profile in your
-      <filename>settings.xml</filename> that always set
-      <varname>environment.type</varname> to <literal>dev</literal> on your
-      development machine. This way, each project defines a
-      <literal>dev</literal> profile activated by the same environment
-      variable. Let's see how this is done, the following
-      <filename>settings.xml</filename> defines a profile in
-      <filename>~/.m2/settings.xml</filename> which sets the
-      <varname>environment.type</varname> property to
-      <literal>dev</literal>.</para>
+      <para>创建Maven项目profile的最核心动机之一就是为了提供环境特定的配置。在开发环境中，你可能想要生成带有调试信息的字节码，配置你的系统使用开发数据库实例。而在产品环境中，你可能会想要生成一个已签名的JAR，并且配置系统使用产品数据库。本章，我们使用<literal>dev</literal>和<literal>prod</literal>等标识符定义了很多环境。一种更简单的方式是，定义一些会被环境属性自动激活的profile，在你所有的项目中使用这些通用的环境属性。例如，如果每个项目都有一个<literal>development</literal>
+      profile，当属性<varname>environment.type</varname>的值为<literal>dev</literal>时被激活，并且同样的项目还有<literal>production</literal>
+      profile，当属性<varname>environment.type</varname>的值为<literal>prod</literal>时被激活。那么，你就可以在你的<filename>settings.xml</filename>中创建一个默认的profile，在你的开发机器上，总是将<varname>environment.type</varname>设置为<literal>dev</literal>。这样，所有定义了<literal>dev</literal>
+      profile的项目都会由同样的系统变量激活。让我们看看如何完成这件事情，以下的<filename><filename>~/.m2/settings.xml</filename></filename>定义了一个profile，将<varname>environment.type</varname>属性设置成了<literal>dev</literal>。</para>
 
       <para><example>
-          <title>~/.m2/settings.xml defines a default profile setting
-          environment.type</title>
+          <title>~/.m2/settings.xml
+          中定义一个设置了environment.type的默认profile，</title>
 
           <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
@@ -595,18 +573,10 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>This means that every time you run Maven on your machine, this
-      profile will be activated and the property
-      <varname>environment.type</varname> will have the value
-      <literal>dev</literal>. You can then use this property to activate
-      profiles defined in a project's <filename>pom.xml</filename> as follows.
-      Let's take a look at how a project's <filename>pom.xml</filename> would
-      define a profile activated by <varname>environment.type</varname> having
-      the value <literal>dev</literal>.</para>
+      <para>这意味着每次你在你机器上运行Maven的时候，该profile总会被激活，属性<varname>environment.type</varname>的值被设置为<literal>dev</literal>。之后你就可以使用这个属性来激活定义在某个如下项目<filename>pom.xml</filename>中的profile。让我们看一下如何在项目的<filename>pom.xml</filename>定义一个当属性<varname>environment.type</varname>的值为<literal>dev</literal>时被激活的profile。</para>
 
       <para><example id="ex-profile-envtype-pom">
-          <title>Project Profile Activated by environment.type equalling
-          'dev'</title>
+          <title>项目profile，当environment.type等于'dev'时被激活</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -647,64 +617,25 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>This project defines some properties like
-      <varname>database.url</varname> and <varname>database.user</varname>
-      which might be used to configure another Maven plugin configured in the
-      <filename>pom.xml</filename>. There are plugins available that can
-      manipulate the database, run SQL, and plugins like the Maven Hibernate3
-      plugin which can generate annotated model objects for use in persistence
-      frameworks. A few of these plugins, can be configured in a
-      <filename>pom.xml</filename> using these properties. These properties
-      could also be used to filter resources. In this example, because we've
-      defined a profile in <filename>~/.m2/settings.xml</filename> which sets
-      <varname>environment.type</varname> to <literal>dev</literal>, the
-      development profile will always be activated when we run Maven on our
-      development machine. Alternatively, if we wanted to override this
-      default, we could set a property on the command-line. If we need to
-      activate the production profile, we could always run Maven with:</para>
+      <para>该项目定义了一些属性如<varname>database.url</varname>和<varname>database.user</varname>，它们可能被用来配置一些定义在<filename>pom.xml</filename>中的Maven插件。有很多可用的插件可以用来操作数据库，运行SQL，而且还有如Maven
+      Hibernate3之类的插件可以帮你在使用持久化框架的时候生成注解模型对象。这其中的一些插件，可以在<filename>pom.xml</filename>中被配置成使用这些属性。这些属性还可以被用来过滤资源。本例中，因为我们在<filename>~/.m2/settings.xml</filename>中定义了一个profile，设置<varname>environment.type</varname>为<literal>dev</literal>，在这台开发机器上运行Maven的时候，development
+      profile就一直会被激活。做为选择，如果我们想要覆盖缺省值，我们可以在命令行设置这个属性值。如果我们需要激活production
+      profile，我们可以如下运行Maven：</para>
 
       <screen>~/examples/profiles $ <command>mvn install -Denvironment.type=prod</command></screen>
 
-      <para>Setting a property on the command-line would override the default
-      property set in <filename>~/.m2/settings.xml</filename>. We could have
-      just defined a profile with an <sgmltag>id</sgmltag> of "dev" and
-      invoked it directly with the <command>-P</command> command-line
-      argument, but using this <varname>environment.type</varname> property
-      allows us to code other project <filename>pom.xml</filename> files to
-      this standard. Every project in your codebase could have a profile which
-      is activated by the same <varname>environment.type</varname> property
-      set in every user's <filename>~/.m2/settings.xml</filename>. In this
-      way, developers can share common configuration for development without
-      defining this configuration in non-portable
-      <filename>settings.xml</filename> files.</para>
+      <para>在命令行设置一个属性可以覆盖定义在<filename>~/.m2/settings.xml</filename>中的缺省值。我们可以仅仅定义一个<sgmltag>id</sgmltag>为"dev"的profile，然后直接使用<command>-P</command>命令行参数调用它，但是使用<varname>environment.type</varname>属性允许我们在编写其它项目的<filename>pom.xml</filename>时遵循这个标准。在你代码库中的每个项目都可以有一个profile，由定义在每个用户<filename>~/.m2/settings.xml</filename>中的项目的<varname>environment.type</varname>属性激活。这样，开发人员就能共享开发配置，而不用在不可移植的<filename>settings.xml</filename>文件中定义这些配置。</para>
     </section>
 
     <section>
-      <title>保护机密</title>
+      <title>安全保护</title>
 
-      <para>This best practice builds upon the previous section. In <xref
-      linkend="ex-profile-envtype-pom" xrefstyle="select:title" />, the
-      production profile does not contain the
-      <varname>database.password</varname> property. I've done this on purpose
-      to illustrate the concept of putting secrets in you user-specific
-      <filename>settings.xml</filename>. If you were developing an application
-      at a large organization which values security, it is likely that the
-      majority of the development group will not know the password to the
-      production database. In an organization that draws a bold line between
-      the development group and the operations group, this will be the norm.
-      Developers may have access to a development and a staging environment,
-      but they might not have (or want to have) access to the production
-      database. There are a number of reasons why this makes sense,
-      particularly if an organization is dealing with extremely sensitive
-      financial, intelligence, or medical information. In this scenario, the
-      production environment build may only be carried out by a lead developer
-      or by a member of the production operations group. When they run this
-      build using the <literal>prod</literal>
-      <varname>environment.type</varname>, they will need to define this
-      variable in their <filename>settings.xml</filename> as follows:</para>
+      <para>该最佳实践基于前面一小节。在<xref linkend="ex-profile-envtype-pom"
+      xrefstyle="select:title" />中，production
+      profile不包含<varname>database.password</varname>属性。我特地这么做是为了说明一个概念：将秘密信息放到你的用户特定的<filename>settings.xml</filename>文件中。如果你在一个大型组织中开发一个应用，那么很可能开发小组的大部分人不知道产品数据库的密码。如果一个组织的开发小组和运营小组有明确的界限的话，这种安全保护就很常见了。开发人员可以访问开发环境和staging环境，但是它们往往不被允许访问产品数据库。为什么要这么做有很多原因，尤其是当一个组织处理异常敏感的经济，情报，或者医疗信息的时候。在这样的情况下，产品环境构建只能有开发者领导或者产品运营小组成员执行。当它们使用<varname>environment.type</varname>的时候，它们会需要在<filename>settings.xml</filename>在中定义如下变量。</para>
 
       <example>
-        <title>Storing Secrets in a User-specific Settings Profile</title>
+        <title>在用户特定Settings Profile中存储秘密信息</title>
 
         <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
@@ -720,40 +651,22 @@ The following profiles are active:
 </programlisting>
       </example>
 
-      <para>This user has defined a default profile which sets the
-      <varname>environment.type</varname> to <literal>prod</literal> and which
-      also sets the production password. When the project is executed, the
-      production profile is activated by the
-      <varname>environment.type</varname> property and the
-      <varname>database.password</varname> property is populated. This way,
-      you can put all of the production-specific configuration into a
-      project's <filename>pom.xml</filename> and leave out only the single
-      secret necessary to access the production database.</para>
+      <para>这个用户定义了一个默认profile，将<varname>environment.type</varname>设置成<literal>prod</literal>，同时也设置了产品数据库密码。当项目构建的时候，production
+      profile由<varname>environment.type</varname>属性激活，并且<varname>database.password</varname>属性也被填充。这样，你就可以将所有产品项目的配置放到项目的<filename>pom.xml</filename>中，而不用在那里配置访问产品数据库必要的秘密信息。</para>
 
       <note>
-        <para>Secrets usually conflict with wide portability, but this makes
-        sense. You wouldn't want to share your secrets openly.</para>
+        <para>秘密信息通常会和可移植性冲突，但这是合理的。你不会想公开你的秘密信息。</para>
       </note>
     </section>
 
     <section id="sect-platform-classifier">
       <title>平台分类器</title>
 
-      <para>Let's assume that you have a library or a project that produces
-      platform-specific customizations. Even though Java is platform-neutral,
-      there are times when you might need to write some code that invokes
-      platform-specific native code. Another possibility is that you've
-      written some C code which is compiled by the Maven Native plugin and you
-      want to produce a qualified artifact depending on the build platform.
-      You can set a classifier with the Maven Assembly plugin or with the
-      Maven Jar plugin. The following <filename>pom.xml</filename> produces a
-      qualified artifact using profiles which are activated by Operation
-      System parameters. For more information about the Maven Assembly plugin,
-      see <xref linkend="assemblies" />.</para>
-
-      <para><example>
-          <title>Qualifying Artifacts with Platform Activated Project
-          Profiles</title>
+      <para>假设你有一个类库，或者一个项目，它针对不同的平台有不同的输出。即使Java是平台无关的，但还是有一些时候，你会需要编写一些代码调用平台项目的本地代码。另一个可能性就是你编写了一些使用Maven
+      Native插件编译的C代码，并且要基于构建平台生成已修饰的构件。你可以通过Maven Assembly插件或者Maven
+      Jar插件设置一个分类器。以下的<filename>pom.xml</filename>使用了由操作系统参数激活的profile来生成已修饰的构件。要了解更多的关于Maven
+      Assembly插件的信息，请参考<xref linkend="assemblies" />。<example>
+          <title>使用由平台激活的Profile修饰构件</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -799,18 +712,11 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>If the Operating System is in the Windows family, this
-      <filename>pom.xml</filename> qualifies the JAR artifact with "-win". If
-      the Operating System is in the Unix family, the artifact is qualified
-      with "-linux". This <filename>pom.xml</filename> successfully adds the
-      qualifiers to the artifacts, but it is more verbose than it need to be
-      due to the redundant configuration of the Maven Jar plugin in both
-      profiles. This example could be rewritten to use variable substitution
-      to minimize redundancy as follows:</para>
+      <para>如果操作系统是Windows家族，该<filename>pom.xml</filename>就使用"-win"修饰这个JAR构建。如果操作系统是Unix家族，该构件就由"-linux"修饰。<filename>pom.xml</filename>成功的给构件添加修饰符，但是由于在两个profile中的Maven
+      Jar插件的冗余配置，该文件变得有些累赘了。该样例可以被重写，如下，使用变量替换来减少冗余：</para>
 
       <para><example>
-          <title>Qualifying Artifacts with Platform Activated Project Profiles
-          and Variable Substitution</title>
+          <title>使用由平台激活的Profile和变量替换修饰构件</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -853,19 +759,10 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>In this <filename>pom.xml</filename>, each profile doesn't need to
-      include a <sgmltag>build</sgmltag> element to configure the Jar plugin.
-      Instead, each profile is activated by the Operating System family and
-      sets the <varname>envClassifier</varname> property to either
-      <literal>win</literal> or <literal>linux</literal>. This
-      <varname>envClassifier</varname> is then referenced in the default
-      <filename>pom.xml</filename> <sgmltag>build</sgmltag> element to add a
-      classifier to the project's JAR artifact. The JAR artifact will be named
-      <code>${finalName}-${envClassifier}.jar</code> and included as a
-      dependency using the following dependency syntax:</para>
+      <para>在这个<filename>pom.xml</filename>中，每个profile不需要包含一个<sgmltag>build</sgmltag>元素来配置Jar插件。每个profile通过操作系统家族参数激活，并且设置<varname>envClassifier</varname>属性为<literal>win</literal>或者<literal>linux</literal>。这个<varname>envClassifier</varname>属性由缺省<filename>pom.xml</filename>的<sgmltag>build</sgmltag>元素引用，以为项目的JAR构建添加分类器。JAR构件将会被命名为<code>${finalName}-${envClassifier}.jar</code>，并且需要按如下的依赖语法引用。</para>
 
       <para><example>
-          <title>Depending on a Qualified Artifact</title>
+          <title>依赖于一个已修饰的构件</title>
 
           <programlisting language="xml">&lt;dependency&gt;
       &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
@@ -881,16 +778,6 @@ The following profiles are active:
   <section>
     <title>小结</title>
 
-    <para>When used judiciously, profiles can make it very easy to customize a
-    build for different platforms. If something in your build needs to define
-    a platform-specific path for something like an application server, you can
-    put these configuration points in a profile which is activated by an
-    operating system parameter. If you have a project which needs to produce
-    different artifacts for different environments, you can customize the
-    build behavior for different environments and platforms via
-    profile-specific plugin behavior. Using profiles, builds can become
-    portable, there is no need to rewrite your build logic to support a new
-    environment, just override the configuration that needs to change and
-    share the configuration points which can be shared.</para>
+    <para>如果正确的使用profile，它可以为不同的平台很容易的自定义构建。如果你构建中的一些东西需要定义一个平台特定的路径，如应用程序服务器，你可以将这些配置点放到profile中，然后由操作系统参数激活。如果你有一个项目需要为不同的环境生成不同的构件，你可以为不同的环境和平台自定义profile特定的插件行为，从而自定义构建行为。使用profile，构建可以变得容易移植，没有必要为一个新的环境重写你的构建逻辑，只需要重写那些需要变化的配置，共享那些可以被共享的配置。</para>
   </section>
 </chapter>
