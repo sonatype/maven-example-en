@@ -549,36 +549,13 @@ The following profiles are active:
     <section>
       <title>常见的环境</title>
 
-      <para>One of the core motivations for Maven project profiles was to
-      provide for environment-specific configuration settings. In a
-      development environment, you might want to produce bytecode with debug
-      information and you might want to configure your system to use a
-      development database instance. In a production environment you might
-      want to produce a signed JAR and configure the system to use a
-      production database. In this chapter, we defined a number of
-      environments with identifiers like <literal>dev</literal> and
-      <literal>prod</literal>. A simpler way to do this would be to define
-      profiles that are activated by environment properties and to use these
-      common environment properties across all of your projects. For example,
-      if every project had a <literal>development</literal> profile activated
-      by a property named <varname>environment.type</varname> having a value
-      of <literal>dev</literal>, and if those same projects had a
-      <literal>production</literal> profile activated by a property named
-      <varname>environment.type</varname> having a value of
-      <literal>prod</literal>, you could create a default profile in your
-      <filename>settings.xml</filename> that always set
-      <varname>environment.type</varname> to <literal>dev</literal> on your
-      development machine. This way, each project defines a
-      <literal>dev</literal> profile activated by the same environment
-      variable. Let's see how this is done, the following
-      <filename>settings.xml</filename> defines a profile in
-      <filename>~/.m2/settings.xml</filename> which sets the
-      <varname>environment.type</varname> property to
-      <literal>dev</literal>.</para>
+      <para>创建Maven项目profile的最核心动机之一就是为了提供环境特定的配置。在开发环境中，你可能想要生成带有调试信息的字节码，配置你的系统使用开发数据库实例。而在产品环境中，你可能会想要生成一个已签名的JAR，并且配置系统使用产品数据库。本章，我们使用<literal>dev</literal>和<literal>prod</literal>等标识符定义了很多环境。一种更简单的方式是，定义一些会被环境属性自动激活的profile，在你所有的项目中使用这些通用的环境属性。例如，如果每个项目都有一个<literal>development</literal>
+      profile，当属性<varname>environment.type</varname>的值为<literal>dev</literal>时被激活，并且同样的项目还有<literal>production</literal>
+      profile，当属性<varname>environment.type</varname>的值为<literal>prod</literal>时被激活。那么，你就可以在你的<filename>settings.xml</filename>中创建一个默认的profile，在你的开发机器上，总是将<varname>environment.type</varname>设置为<literal>dev</literal>。这样，所有定义了<literal>dev</literal>
+      profile的项目都会由同样的系统变量激活。让我们看看如何完成这件事情，以下的<filename><filename>~/.m2/settings.xml</filename></filename>定义了一个profile，将<varname>environment.type</varname>属性设置成了<literal>dev</literal>。</para>
 
       <para><example>
-          <title>~/.m2/settings.xml defines a default profile setting
-          environment.type</title>
+          <title>~/.m2/settings.xml 定义了一个默认profile，设置environment.type</title>
 
           <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
@@ -595,18 +572,10 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>This means that every time you run Maven on your machine, this
-      profile will be activated and the property
-      <varname>environment.type</varname> will have the value
-      <literal>dev</literal>. You can then use this property to activate
-      profiles defined in a project's <filename>pom.xml</filename> as follows.
-      Let's take a look at how a project's <filename>pom.xml</filename> would
-      define a profile activated by <varname>environment.type</varname> having
-      the value <literal>dev</literal>.</para>
+      <para>这意味着每次你在你机器上运行Mavne的时候，该profile总会被激活，属性<varname>environment.type</varname>的值被设置为<literal>dev</literal>。之后你就可以使用这个属性来激活定义在某个如下项目<filename>pom.xml</filename>中的profile。让我们看一下一个项目的<filename>pom.xml</filename>如何定义一个profile，当属性<varname>environment.type</varname>的值为<literal>dev</literal>时被激活。</para>
 
       <para><example id="ex-profile-envtype-pom">
-          <title>Project Profile Activated by environment.type equalling
-          'dev'</title>
+          <title>项目profile，当environment.type等于'dev'时被激活</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -647,64 +616,25 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>This project defines some properties like
-      <varname>database.url</varname> and <varname>database.user</varname>
-      which might be used to configure another Maven plugin configured in the
-      <filename>pom.xml</filename>. There are plugins available that can
-      manipulate the database, run SQL, and plugins like the Maven Hibernate3
-      plugin which can generate annotated model objects for use in persistence
-      frameworks. A few of these plugins, can be configured in a
-      <filename>pom.xml</filename> using these properties. These properties
-      could also be used to filter resources. In this example, because we've
-      defined a profile in <filename>~/.m2/settings.xml</filename> which sets
-      <varname>environment.type</varname> to <literal>dev</literal>, the
-      development profile will always be activated when we run Maven on our
-      development machine. Alternatively, if we wanted to override this
-      default, we could set a property on the command-line. If we need to
-      activate the production profile, we could always run Maven with:</para>
+      <para>该项目定义了一些属性如<varname>database.url</varname>和<varname>database.user</varname>，它们可能被用来配置一些定义在<filename>pom.xml</filename>中的Maven插件。有很多可用的插件可以用来操作数据库，运行SQL，而且还有如Maven
+      Hibernate3之类的插件可以帮你在使用持久化框架的时候生成注解模型对象。这其中的一些插件，可以在<filename>pom.xml</filename>被配置成使用这些属性。这些属性还可以被用来过滤资源。本例中，因为我们在<filename>~/.m2/settings.xml</filename>中定义了一个profile，设置<varname>environment.type</varname>为<literal>dev</literal>，在这台开发机器上运行Mavne的时候，development
+      profile就一直会被激活。做为选择，如果我们想要覆盖缺省值，我们可以在命令行设置这个属性值。如果我们需要激活production
+      profile，我们可以如下运行Maven：</para>
 
       <screen>~/examples/profiles $ <command>mvn install -Denvironment.type=prod</command></screen>
 
-      <para>Setting a property on the command-line would override the default
-      property set in <filename>~/.m2/settings.xml</filename>. We could have
-      just defined a profile with an <sgmltag>id</sgmltag> of "dev" and
-      invoked it directly with the <command>-P</command> command-line
-      argument, but using this <varname>environment.type</varname> property
-      allows us to code other project <filename>pom.xml</filename> files to
-      this standard. Every project in your codebase could have a profile which
-      is activated by the same <varname>environment.type</varname> property
-      set in every user's <filename>~/.m2/settings.xml</filename>. In this
-      way, developers can share common configuration for development without
-      defining this configuration in non-portable
-      <filename>settings.xml</filename> files.</para>
+      <para>在命令行设置一个属性可以覆盖定义在<filename>~/.m2/settings.xml</filename>中的缺省值。我们可以仅仅定义一个<sgmltag>id</sgmltag>为"dev"的profile，然后直接使用<command>-P</command>命令行参数调用它，但是使用<varname>environment.type</varname>属性允许我们在编写其它项目的<filename>pom.xml</filename>时遵循这个标准。在你代码库中的每个项目都可以有一个profile，由定义在每个用户<filename>~/.m2/settings.xml</filename>中的项目的<varname>environment.type</varname>属性激活。这样，开发人员就能共享开发配置，而不用在不可移植的<filename>settings.xml</filename>文件中定义这些配置。</para>
     </section>
 
     <section>
-      <title>保护机密</title>
+      <title>安全保护</title>
 
-      <para>This best practice builds upon the previous section. In <xref
-      linkend="ex-profile-envtype-pom" xrefstyle="select:title" />, the
-      production profile does not contain the
-      <varname>database.password</varname> property. I've done this on purpose
-      to illustrate the concept of putting secrets in you user-specific
-      <filename>settings.xml</filename>. If you were developing an application
-      at a large organization which values security, it is likely that the
-      majority of the development group will not know the password to the
-      production database. In an organization that draws a bold line between
-      the development group and the operations group, this will be the norm.
-      Developers may have access to a development and a staging environment,
-      but they might not have (or want to have) access to the production
-      database. There are a number of reasons why this makes sense,
-      particularly if an organization is dealing with extremely sensitive
-      financial, intelligence, or medical information. In this scenario, the
-      production environment build may only be carried out by a lead developer
-      or by a member of the production operations group. When they run this
-      build using the <literal>prod</literal>
-      <varname>environment.type</varname>, they will need to define this
-      variable in their <filename>settings.xml</filename> as follows:</para>
+      <para>该最佳实践基于前面一小节。在<xref linkend="ex-profile-envtype-pom"
+      xrefstyle="select:title" />中，production
+      profile不包含<varname>database.password</varname>属性。我特地这么做是为了说明一个概念：将秘密信息放到你的用户特定的<filename>settings.xml</filename>文件中。如果你在一个大型组织中开发一个应用，那么很可能开发小组的大部分人不知道产品数据库的密码。如果一个组织的开发小组和运营小组有明确的界限的话，这种安全保护就很常见了。开发人员可以访问开发环境和staging环境，但是它们往往不被允许访问产品数据库。为什么要这么做有很多原因，尤其是当一个组织处理异常敏感的经济，情报，或者医疗信息的时候。在这样的情况下，产品环境构建只能有开发者领导或者产品运营小组成员执行。当它们使用<varname>environment.type</varname>的时候，它们会需要如下<filename>settings.xml</filename>在中定义如下变量。</para>
 
       <example>
-        <title>Storing Secrets in a User-specific Settings Profile</title>
+        <title>在用户特定Settings Profile中存储秘密信息</title>
 
         <programlisting language="xml">&lt;settings&gt;
   &lt;profiles&gt;
@@ -720,40 +650,22 @@ The following profiles are active:
 </programlisting>
       </example>
 
-      <para>This user has defined a default profile which sets the
-      <varname>environment.type</varname> to <literal>prod</literal> and which
-      also sets the production password. When the project is executed, the
-      production profile is activated by the
-      <varname>environment.type</varname> property and the
-      <varname>database.password</varname> property is populated. This way,
-      you can put all of the production-specific configuration into a
-      project's <filename>pom.xml</filename> and leave out only the single
-      secret necessary to access the production database.</para>
+      <para>这个用户定义了一个默认profile，将<varname>environment.type</varname>设置成<literal>prod</literal>，同时也设置了产品数据库密码。当项目构建的时候，production
+      profile由<varname>environment.type</varname>属性激活，并且<varname>database.password</varname>属性也被填充。这样，你就可以将所有产品项目的配置放到项目的<filename>pom.xml</filename>中，而不用在那里配置访问产品数据库必要的秘密信息。</para>
 
       <note>
-        <para>Secrets usually conflict with wide portability, but this makes
-        sense. You wouldn't want to share your secrets openly.</para>
+        <para>秘密信息通常会和可移植性冲突，但这是合理的。你不会想公开你的秘密信息。</para>
       </note>
     </section>
 
     <section id="sect-platform-classifier">
       <title>平台分类器</title>
 
-      <para>Let's assume that you have a library or a project that produces
-      platform-specific customizations. Even though Java is platform-neutral,
-      there are times when you might need to write some code that invokes
-      platform-specific native code. Another possibility is that you've
-      written some C code which is compiled by the Maven Native plugin and you
-      want to produce a qualified artifact depending on the build platform.
-      You can set a classifier with the Maven Assembly plugin or with the
-      Maven Jar plugin. The following <filename>pom.xml</filename> produces a
-      qualified artifact using profiles which are activated by Operation
-      System parameters. For more information about the Maven Assembly plugin,
-      see <xref linkend="assemblies" />.</para>
-
-      <para><example>
-          <title>Qualifying Artifacts with Platform Activated Project
-          Profiles</title>
+      <para>假设你有一个类库，或者一个项目，它针对不同的平台有不同的输出。即使Java是平台无关的，但还是有一些时候，你会需要编写一些代码调用平台项目的本地代码。另一个可能性就是你编写了一些使用Maven
+      Native插件编译的C代码，并且要基于构建平台生成已修饰的构件。你可以通过Maven Assembly插件或者Maven
+      Jar插件设置一个分类器。以下的<filename>pom.xml</filename>使用了由操作系统参数激活的profile来生成已修饰的构件。要了解更多的关于Maven
+      Assembly插件的信息，请参考<xref linkend="assemblies" />。<example>
+          <title>使用由平台激活的Profile修饰构件</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -799,18 +711,11 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>If the Operating System is in the Windows family, this
-      <filename>pom.xml</filename> qualifies the JAR artifact with "-win". If
-      the Operating System is in the Unix family, the artifact is qualified
-      with "-linux". This <filename>pom.xml</filename> successfully adds the
-      qualifiers to the artifacts, but it is more verbose than it need to be
-      due to the redundant configuration of the Maven Jar plugin in both
-      profiles. This example could be rewritten to use variable substitution
-      to minimize redundancy as follows:</para>
+      <para>如果操作系统是Windows家族，该<filename>pom.xml</filename>就使用"-win"修饰这个JAR构建。如果操作系统是Unix家族，该构件就由"-linux"修饰。<filename>pom.xml</filename>成功的给构件添加修饰符，但是由于在两个profile中的Maven
+      Jar插件的冗余配置，该文件变得有些累赘了。该样例可以被重写，如下，使用变量替换来减少冗余：</para>
 
       <para><example>
-          <title>Qualifying Artifacts with Platform Activated Project Profiles
-          and Variable Substitution</title>
+          <title>使用由平台激活的Profile和变量替换修饰构件</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -853,19 +758,10 @@ The following profiles are active:
 </programlisting>
         </example></para>
 
-      <para>In this <filename>pom.xml</filename>, each profile doesn't need to
-      include a <sgmltag>build</sgmltag> element to configure the Jar plugin.
-      Instead, each profile is activated by the Operating System family and
-      sets the <varname>envClassifier</varname> property to either
-      <literal>win</literal> or <literal>linux</literal>. This
-      <varname>envClassifier</varname> is then referenced in the default
-      <filename>pom.xml</filename> <sgmltag>build</sgmltag> element to add a
-      classifier to the project's JAR artifact. The JAR artifact will be named
-      <code>${finalName}-${envClassifier}.jar</code> and included as a
-      dependency using the following dependency syntax:</para>
+      <para>在这个<filename>pom.xml</filename>中，每个profile不需要包含一个<sgmltag>build</sgmltag>元素来配置Jar插件。每个profile通过操作系统家族参数激活，并且设置<varname>envClassifier</varname>属性为<literal>win</literal>或者<literal>linux</literal>。这个<varname>envClassifier</varname>属性由缺省<filename>pom.xml</filename>的<sgmltag>build</sgmltag>元素引用，以为项目的JAR构建添加分类器。JAR构建将会被命名为<code>${finalName}-${envClassifier}.jar</code>，并且需要以如下的依赖语法引用。</para>
 
       <para><example>
-          <title>Depending on a Qualified Artifact</title>
+          <title>依赖于一个已修饰的构件</title>
 
           <programlisting language="xml">&lt;dependency&gt;
       &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
@@ -881,16 +777,6 @@ The following profiles are active:
   <section>
     <title>小结</title>
 
-    <para>When used judiciously, profiles can make it very easy to customize a
-    build for different platforms. If something in your build needs to define
-    a platform-specific path for something like an application server, you can
-    put these configuration points in a profile which is activated by an
-    operating system parameter. If you have a project which needs to produce
-    different artifacts for different environments, you can customize the
-    build behavior for different environments and platforms via
-    profile-specific plugin behavior. Using profiles, builds can become
-    portable, there is no need to rewrite your build logic to support a new
-    environment, just override the configuration that needs to change and
-    share the configuration points which can be shared.</para>
+    <para>如果明智的使用profile，它可以为不同的平台很容易的自定义构建。如果你构建中的一些东西需要定义一个平台特定的路径，如应用程序服务器，你可以将这些配置点放到profile中，然后由操作系统参数激活。如果你有一个项目需要为不同的环境生成不同的构件，你可以为不同的环境和平台自定义profile特定的插件行为，从而自定义构建行为。使用profile，构建可以变得容易移植，没有必要为一个新的环境重写你的构建逻辑，只需要重写那些需要变化的配置，共享那些可以被共享的配置。</para>
   </section>
 </chapter>
