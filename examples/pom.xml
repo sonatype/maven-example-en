@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>examples</artifactId>
   <groupId>org.sonatype.mavenbook</groupId>
-  <version>1-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
   <name>Maven: The Definitive Guide Example Code</name>
   <description>Example Code for Maven: The Definitive Guide</description>
@@ -84,36 +84,4 @@
       </plugin>
     </plugins>
   </reporting>
-
-  <repositories>
-    <repository>
-      <id>sonatype-forge</id>
-      <name>Sonatype Forge</name>
-      <url>http://repository.sonatype.org/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-		<repository>
-		  <id>Codehaus Snapshots</id>
-		  <url>http://snapshots.repository.codehaus.org</url>
-		  <snapshots>
-			<enabled>true</enabled>
-		  </snapshots>
-		  <releases>
-			<enabled>false</enabled>
-		  </releases>
-		</repository>
-	<repository>
-	  <id>Central</id>
-	  <url>http://repo1.maven.org/maven2</url>
-	  <snapshots>
-		<enabled>false</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>true</enabled>
-	  </releases>
-	</repository>
-  </repositories>
-
 </project>
