@@ -653,8 +653,10 @@
   ...
   &lt;build&gt;
     &lt;resources&gt;
-      &lt;resource&gt;src/main/resources&lt;/resource&gt;
-      &lt;filtering&gt;true&lt;/filtering&gt;
+      &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+        &lt;filtering&gt;true&lt;/filtering&gt;
+      &lt;/resource&gt;
     &lt;/resources&gt;
   &lt;/build&gt;
   ...
