@@ -1849,7 +1849,7 @@ private ZipArchiver zipArchiver;</programlisting>
           <listitem>
             <para>This will execute the given alternate lifecycle. A custom
             lifecycle can be defined in
-            <filename>META-INF/maven/lifecycles.xml</filename>.</para>
+            <filename>META-INF/maven/lifecycle.xml</filename>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1859,16 +1859,16 @@ private ZipArchiver zipArchiver;</programlisting>
       <title>Creating a Custom Lifecycle</title>
 
       <para>A custom lifecycle must be packaged in the plugin under the
-      <filename>META-INF/maven/lifecycles.xml</filename> file. You can include
+      <filename>META-INF/maven/lifecycle.xml</filename> file. You can include
       a lifecycle under <filename>src/main/resources</filename> in
-      <filename>META-INF/maven/lifecycles.xml</filename>. The following
-      <filename>lifecycles.xml</filename> declares a lifecycle named
+      <filename>META-INF/maven/lifecycle.xml</filename>. The following
+      <filename>lifecycle.xml</filename> declares a lifecycle named
       <varname>zipcycle</varname> that contains only the
       <varname>zip</varname> goal in a <varname>package</varname>
       phase.</para>
 
       <para><example>
-          <title>Define a Custom Lifecycle in lifecycles.xml</title>
+          <title>Define a Custom Lifecycle in lifecycle.xml</title>
 
           <programlisting language="xml">&lt;lifecycles&gt;
   &lt;lifecycle&gt;
