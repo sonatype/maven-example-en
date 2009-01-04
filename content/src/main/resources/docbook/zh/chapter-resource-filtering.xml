@@ -2,59 +2,33 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="resource-filtering">
-  <title>Properties and Resource Filtering</title>
+  <title>属性和资源过滤</title>
 
   <section>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>Throughout this book, you will notice references to properties which
-    can be used in a <acronym>POM</acronym> file. Sibling dependencies in a
-    multi-project build can be referenced using the
-    <varname>${project.groupId}</varname> and
-    <varname>${project.version}</varname> properties and any part of the
-    <acronym>POM</acronym> can be referenced by prefixing the variable name
-    with "project.". Environment variables and Java System properties can be
-    referenced, as well as values from your
-    <filename>~/.m2/settings.xml</filename> file. What you haven't seen yet is
-    an enumeration of the possible property values and some discussion about
-    how they can be used to help you create portable builds. This chapter
-    provides such an enumeration.</para>
+    <para>本书的自始至终，你都会注意到我们可以在<acronym>POM</acronym>文件中使用属性引用。在多模块项目构建中我们可以使用<varname>${project.groupId}</varname>和<varname>${project.version}</varname>属性引用兄弟依赖，并且<acronym>POM</acronym>中的任意部分都可以由一个前缀为"project."的变量名引用。环境变量和Java系统变量也可以被引用，还包括在你<filename>~/.m2/settings.xml</filename>文件中的值。然而你还没有看到一个所有可能属性值的完整列表，以及关于如何使用它们帮助你创建可移植性的构建。本章提供了这样的一个列表。</para>
 
-    <para>If you've been using property references in your
-    <acronym>POM</acronym>, you should also know that Maven has a feature
-    called Resource Filtering which allows you to replace property references
-    in any resource files stored under
-    <filename>src/main/resources</filename>. By default this feature is
-    disabled to prevent accidental replacement of property references. This
-    feature can be used to target builds toward a specific platform and to
-    externalize important build variables to properties files,
-    <acronym>POM</acronym>s, or profiles. This chapter introduces the resource
-    filtering feature and provides a brief discussion of how it can be used to
-    create portable enterprise builds.</para>
+    <para>如果你从来没有在你的<acronym>POM</acronym>中使用属性引用，你也应该知道Maven有一个特性叫做资源过滤，它能让你替换存储在<filename>src/main/resources</filename>目录下资源文件中的属性引用。这个特性可以用来为特定的平台定制构建，将重要的构建变量提取到属性文件中，<acronym>POM</acronym>中，或者profile中。本章介绍资源过滤特性并简单讨论如何用该特性创建可移植的企业级构建。</para>
   </section>
 
   <section id="sect-properties">
-    <title>Maven Properties</title>
+    <title>Maven属性</title>
 
-    <para>You can use Maven properties in a <filename>pom.xml</filename> file
-    or in any resource that is being processed by the Maven Resource plugin's
-    filtering features. A property is always surrounded by
-    <varname>${</varname> and <varname>}</varname>. For example, to reference
-    the <varname>project.version</varname> property, one would write:</para>
+    <para>你可以在<filename>pom.xml</filename>文件或者资源文件中使用属性，资源文件被会Maven
+    Resource插件的过滤特性处理。一个属性永远包含在<varname>${</varname>和<varname>}</varname>中。例如，要引用<varname>project.version</varname>属性，就需要这样写：</para>
 
     <programlisting language="java">${project.version}</programlisting>
 
-    <para>There some implicit properties available in any Maven project, these
-    implicit properties are:</para>
+    <para>在任何Maven项目中都有一些隐式的属性，这些隐式的属性是：</para>
 
     <variablelist>
       <varlistentry>
         <term><varname>project.*</varname></term>
 
         <listitem>
-          <para>Maven Project Object Model (<acronym>POM</acronym>). You can
-          use the <varname>project.*</varname> prefix to reference values in a
-          Maven <acronym>POM</acronym>.</para>
+          <para>Maven的项目对象模型（<acronym>POM</acronym>）。你可以使用该<varname>project.*</varname>前缀来引用任何在Maven
+          <acronym>POM</acronym>中的值。</para>
         </listitem>
       </varlistentry>
 
@@ -62,9 +36,9 @@
         <term><varname>settings.*</varname></term>
 
         <listitem>
-          <para>Maven Settings. You use the <varname>settings.*</varname>
-          prefix to reference values from your Maven Settings in
-          <filename>~/.m2/settings.xml</filename>.</para>
+          <para>Maven
+          Settings。你使用该<varname>settings.*</varname>前缀来引用<filename>~/.m2/settings.xml</filename>文件中Maven
+          Settings的值。</para>
         </listitem>
       </varlistentry>
 
@@ -72,51 +46,30 @@
         <term><varname>env.*</varname></term>
 
         <listitem>
-          <para>Environment variables like <varname>PATH</varname> and
-          <varname>M2_HOME</varname> can be referenced using the
-          <varname>env.*</varname> prefix.</para>
+          <para>环境变量如<varname>PATH</varname>和<varname>M2_HOME</varname>可以使用<varname>env.*</varname>前缀来引用。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>System Properties</term>
+        <term>系统属性</term>
 
         <listitem>
-          <para>Any property which can be retrieved from the
-          <methodname>System.getProperty()</methodname> method can be
-          referenced as a Maven property.</para>
+          <para>任何可以通过<methodname>System.getProperty()</methodname>方法获取的属性都可以作为Maven属性被引用。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>In addition to the implicit properties listed above, a Maven
-    <acronym>POM</acronym>, Maven Settings, or a Maven Profile can define a
-    set of arbitrary, user-defined properties. The following sections provide
-    so detail on the various properties available in a Maven project.</para>
+    <para>除了上述这些隐式属性，Maven <acronym>POM</acronym>，Maven Settings，或者Maven
+    Profile可以定义一组任意的，用户自定义的属性。下面的小节详细介绍一个Maven项目中各种可用的属性。</para>
 
     <section>
-      <title>Maven Project Properties</title>
+      <title>Maven项目的属性</title>
 
-      <para>When a Maven Project Property is referenced, the property name is
-      referencing a property of the Maven Project Object Model
-      (<acronym>POM</acronym>). Specifically, you are referencing a property
-      of the <classname>org.apache.maven.model.Model</classname> class which
-      is being exposed as the implicit variable project. When you reference a
-      property using this implicit variable, you are using simple dot notation
-      to reference a bean property of the <classname>Model</classname> object.
-      For example, when you reference <varname>${project.version}</varname>,
-      you are really invoking the <methodname>getVersion()</methodname> method
-      on the instance of <classname>Model</classname> that is being exposed as
-      project.</para>
+      <para>当一个Maven项目属性被引用的时候，属性名就直接引用Maven项目对象模型（<acronym>POM</acronym>）的一个属性。具体的说，你正在引用类<classname>org.apache.maven.model.Model</classname>的一个属性，这个类以隐式项目变量的方式向外暴露。当你使用该隐式变量引用属性的时候，你实际上正在使用简单的点标记来引用<classname>Model</classname>对象的一个bean属性。例如，当你引用<varname>${project.version}</varname>的时候，你实际上是在调用暴露出来的<classname>Model</classname>对象实例的<methodname>getVersion()</methodname>方法。</para>
 
-      <para>The <acronym>POM</acronym> is also represented in the
-      <filename>pom.xml</filename> document present in all Maven projects.
-      Anything in a Maven <acronym>POM</acronym> can be referenced with a
-      property. A complete reference for the <acronym>POM</acronym> structure
-      is available at <ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>.
-      The following list shows some common property references from the Maven
-      project.</para>
+      <para><acronym>POM</acronym>同样也在所有Maven项目中以<filename>pom.xml</filename>文档的形式展现。任何在Maven<acronym>POM</acronym>
+      中的东西都可以用属性来引用。关于<acronym>POM</acronym>结构的完整参考可以访问<ulink
+      url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>。下面的列表展示了一些Maven项目中常见的属性引用。</para>
 
       <variablelist>
         <varlistentry>
@@ -124,12 +77,7 @@
           <varname>project.version</varname></term>
 
           <listitem>
-            <para>Projects in a large, multi-module build often share the same
-            <varname>groupId</varname> and <varname>version</varname>
-            identifiers. When you are declaring interdependencies between two
-            modules which share the same <varname>groupId</varname> and
-            <varname>version</varname>, it is a good idea to use a property
-            reference for both:</para>
+            <para>大型的，多模块构建的项目通常共享同样的<varname>groupId</varname>和<varname>version</varname>定义符。当你为共享同样<varname>groupId</varname>和<varname>version</varname>的模块声明相互依赖的时候，为它们使用属性引用是一个很好的办法：</para>
 
             <programlisting language="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
@@ -145,12 +93,7 @@
           <term><varname>project.artifactId</varname></term>
 
           <listitem>
-            <para>A project's artifactId is often used as the name of a
-            deliverable. For example, in a project with <acronym>WAR</acronym>
-            packaging, you will want to generate a a <acronym>WAR</acronym>
-            file without the version identifiers. To do this, you would
-            reference the <varname>project.artifactId</varname> in your
-            <acronym>POM</acronym> file like this:</para>
+            <para>一个项目的artifactId通常被用作发布包的名称。例如，在一个打包类型为<acronym>WAR</acronym>的项目中，你会想生成一个不带版本定义符的<acronym>WAR</acronym>文件。为此，你就需要在你的<acronym>POM</acronym>中引用<varname>project.artifactId</varname>，如：</para>
 
             <programlisting language="xml">&lt;build&gt;
   &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
@@ -163,10 +106,7 @@
           <varname>project.description</varname></term>
 
           <listitem>
-            <para>The name and project description can often be useful
-            properties to reference from documentation. Instead of having to
-            worry that all of your site documents maintain the same short
-            descriptions, you can just reference these properties.</para>
+            <para>项目的name和description对于文档来说是比较常用的属性引用。你只要简单的引用这些属性，而不需要担心你所有的站点文档是否维护了一致的简短描述信息。</para>
           </listitem>
         </varlistentry>
 
@@ -174,10 +114,7 @@
           <term><varname>project.build.*</varname></term>
 
           <listitem>
-            <para>If you are ever trying to reference output directories in
-            Maven, you should never use a literal value like
-            <filename>target/classes</filename>. Instead you should use
-            property references to refer to these directories.</para>
+            <para>如果你试图在Maven中引用输出目录，你应该从不使用如<filename>target/classes</filename>的字面量，而是应该使用属性来引用这些目录。</para>
 
             <itemizedlist>
               <listitem>
@@ -205,80 +142,50 @@
               </listitem>
             </itemizedlist>
 
-            <para><varname>sourceDirectory</varname>,
-            <varname>scriptSourceDirectory</varname>, and
-            <varname>testSourceDirectory</varname> provide access to the
-            source directories for the project.
-            <varname>outputDirectory</varname> and
-            <varname>testOutputDirectory</varname> provide access to the
-            directories where Maven is going to put bytecode or other build
-            output. <varname>directory</varname> refers to the directory which
-            contains all of these output directories.</para>
+            <para><varname>sourceDirectory</varname>，<varname>scriptSourceDirectory</varname>，和<varname>testSourceDirectory</varname>提供了项目源码目录的访问方式。<varname>outputDirectory</varname>和<varname>testOutputDirectory</varname>则能让你访问Maven放置字节码和其它构建输出的目录。<varname>directory</varname>引用的目录就是包含所有上述目录的父目录。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Other Project Property references</term>
+          <term>其它项目属性引用</term>
 
           <listitem>
-            <para>There are hundreds of properties to reference in a
-            <acronym>POM</acronym>. A complete reference for the
-            <acronym>POM</acronym> structure is available at <ulink
-            url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>.</para>
+            <para>在一个<acronym><acronym>POM</acronym></acronym>中有数百的属性可以引用。关于<acronym>POM</acronym>结构的完整参考见<ulink
+            url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>For a full list of properties available on the Maven
-      <classname>Model</classname> object, take a look at the JavaDoc for the
-      <varname>maven-model</varname> project here <ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html">http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html</ulink>.
-      Once you load this JavaDoc, take a look at the
-      <classname>Model</classname> class. From this
-      <classname>Model</classname> class JavaDoc, you should be able to
-      navigate to the <acronym>POM</acronym> property you wish to reference.
-      If you needed to reference the output directory of the build, you can
-      use the Maven Model JavaDoc to see that the output directory is
-      referenced via
-      <methodname>model.getBuild().getOutputDirectory()</methodname>; this
-      method call would be translated to the Maven property reference
-      <varname>${project.build.outputDirectory}</varname>.</para>
+      <para>关于Maven
+      <classname>Model</classname>对象可用属性的完整列表，可以看一下<varname>maven-model</varname>项目的JavaDoc：<ulink
+      url="http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html">http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html</ulink>。当你载入这JavaDoc之后，看一下<classname>Model</classname>类。根据这个<classname>Model</classname>类的JavaDoc，你应该能够找到你想要引用的<acronym>POM</acronym>属性。如果你想要引用构建的输出目录，你可以使用Maven
+      Model的JavaDoc，明白该输出目录是通过<methodname>model.getBuild().getOutputDirectory()</methodname>引用的；该方法调用会被翻译成Maven的属性引用<varname>${project.build.outputDirectory}</varname>。</para>
 
-      <para>For more information about the Maven Model module, the module
-      which defines the structure of the <acronym>POM</acronym>, see the Maven
-      Model project page at <ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-model">http://maven.apache.org/ref/2.0.9/maven-model</ulink>.</para>
+      <para>Maven Model定义了<acronym>POM</acronym>的结构，要了解关于Maven
+      Model模块的更多信息，可以访问Maven Model的项目页面：<ulink
+      url="http://maven.apache.org/ref/2.0.9/maven-model">http://maven.apache.org/ref/2.0.9/maven-model</ulink>。</para>
     </section>
 
     <section>
-      <title>Maven Settings Properties</title>
+      <title>Maven的Settings属性</title>
 
-      <para>You can also reference any properties in the Maven Local Settings
-      file which is usually stored in <filename>~/.m2/settings.xml</filename>.
-      This file contains user-specific configuration such as the location of
-      the local repository and any servers, profiles, and mirrors configured
-      by a specific user.</para>
+      <para>你也可以引用任何Maven本地Settings文件的属性，该文件通常位于<filename>~/.m2/settings.xml</filename>。这个文件包含了用户特定的配置，如本地仓库的位置，以及由某个特定用户配置的服务器，profile，和镜像。</para>
 
-      <para>A full reference for the Local Settings file and corresponding
-      properties is available here <ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-settings/settings.html">http://maven.apache.org/ref/2.0.9/maven-settings/settings.html</ulink>.</para>
+      <para>关于本地Settings文件和对应属性的完整参考可以访问<ulink
+      url="http://maven.apache.org/ref/2.0.9/maven-settings/settings.html">http://maven.apache.org/ref/2.0.9/maven-settings/settings.html</ulink>。</para>
     </section>
 
     <section>
-      <title>Environment Variable Properties</title>
+      <title>环境变量属性</title>
 
-      <para>Environment variables can be referenced with the env.* prefix.
-      Some interesting environment variables are listed in the following
-      list:</para>
+      <para>环境变量可以通过env.*前缀引用。以下列表是一些有趣的环境变量：</para>
 
       <variablelist>
         <varlistentry>
           <term><varname>env.PATH</varname></term>
 
           <listitem>
-            <para>Contains the current <varname>PATH</varname> in which Maven
-            is running. The <varname>PATH</varname> contains a list of
-            directories used to locate executable scripts and programs.</para>
+            <para>包含了Maven运行的当前<varname>PATH</varname>。该PATH包含了一个用来查找可运行脚本和程序的目录列表，</para>
           </listitem>
         </varlistentry>
 
@@ -286,9 +193,7 @@
           <term><varname>env.HOME</varname></term>
 
           <listitem>
-            <para>(On *nix systems) this variable points to a user's home
-            directory. Instead of referencing this, you should use the
-            ${user.home}</para>
+            <para>（在*nix系统中）这个变量指向了用户的home目录。你应该使用${user.home}，而非这个变量。</para>
           </listitem>
         </varlistentry>
 
@@ -296,11 +201,7 @@
           <term><varname>env.JAVA_HOME</varname></term>
 
           <listitem>
-            <para>Contains the Java installation directory. This can point to
-            either a Java Development Kit (<acronym>JDK</acronym>)
-            installation or a Java Runtime Environment
-            (<acronym>JRE</acronym>). Instead of using this, you should
-            consider referencing the ${java.home} property.</para>
+            <para>指向了Java安装目录。它要么指向<acronym>JDK</acronym>安装目录，要么或者<acronym>JRE</acronym>目录。你应该考虑使用${java.home}属性而非这个属性。</para>
           </listitem>
         </varlistentry>
 
@@ -308,37 +209,28 @@
           <term><varname>env.M2_HOME</varname></term>
 
           <listitem>
-            <para>Contains the Maven 2 installation directory.</para>
+            <para>指向了Maven2安装目录。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>While they are available, you should always use the Java System
-      properties if you have the choice. If you need a user's home directory
-      use <varname>${user.home}</varname> instead of
-      <varname>${env.HOME}</varname>. If you do this, you'll end up with a
-      more portable build that is more likely to adhere to the
-      Write-One-Run-Anywhere (<acronym>WORA</acronym>) promise of the Java
-      platform.</para>
+      <para>虽然他们都是可用的，但如果你有选择，你更应该使用Java系统属性。如果你需要用户的home目录，应该使用<varname>${user.home}</varname>而非<varname>${env.HOME}</varname>。这么做，你最后会有可移植性更好的构建，也更符合Java平台一次编写到处运行的承诺。</para>
     </section>
 
     <section>
-      <title>Java System Properties</title>
+      <title>Java系统属性</title>
 
-      <para>Maven exposes all properties from
-      <classname>java.lang.System</classname>. Anything you can retrieve from
-      <methodname>System.getProperty()</methodname> you can reference in a
-      Maven property. The following table lists available properties:</para>
+      <para>Maven暴露所有来自于<classname>java.lang.System</classname>的属性。任何你能从<methodname>System.getProperty()</methodname>获取的属性都能以Maven属性的形式引用。下面的表格列出了所有可用的系统属性：</para>
 
       <table>
-        <title>Java System Properties</title>
+        <title>Java系统属性</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>System Property</entry>
+              <entry>系统属性</entry>
 
-              <entry>Description</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -346,151 +238,151 @@
             <row>
               <entry><varname>java.version</varname></entry>
 
-              <entry>Java Runtime Environment version</entry>
+              <entry>Java运行环境版本</entry>
             </row>
 
             <row>
               <entry><varname>java.vendor</varname></entry>
 
-              <entry>Java Runtime Environment vendor</entry>
+              <entry>Java运行环境销售商</entry>
             </row>
 
             <row>
               <entry>java.vendor.url</entry>
 
-              <entry>Java vendor URL</entry>
+              <entry>Java销售商URL</entry>
             </row>
 
             <row>
               <entry><varname>java.home</varname></entry>
 
-              <entry>Java installation directory</entry>
+              <entry>Java安装目录</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.version</varname></entry>
 
-              <entry>Java Virtual Machine specification version</entry>
+              <entry>Java虚拟机规格说明版本</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.vendor</varname></entry>
 
-              <entry>Java Virtual Machine specification vendor</entry>
+              <entry>Java虚拟机规格说明销售商</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.name</varname></entry>
 
-              <entry>Java Virtual Machine specification name</entry>
+              <entry>Java虚拟机规格说明名称</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.version</varname></entry>
 
-              <entry>Java Virtual Machine implementation version</entry>
+              <entry>Java虚拟机实现版本</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.vendor</varname></entry>
 
-              <entry>Java Virtual Machine implementation vendor</entry>
+              <entry>Java虚拟机实现销售商</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.name</varname></entry>
 
-              <entry>Java Virtual Machine implementation name</entry>
+              <entry>Java虚拟机实现名称</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.version</varname></entry>
 
-              <entry>Java Runtime Environment specification version</entry>
+              <entry>Java运行环境规格说明版本</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.vendor</varname></entry>
 
-              <entry>Java Runtime Environment specification vendor</entry>
+              <entry>Java运行环境规格说明销售商</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.name</varname></entry>
 
-              <entry>Java Runtime Environment specification name</entry>
+              <entry>Java运行环境规格说明名称</entry>
             </row>
 
             <row>
               <entry><varname>java.class.version</varname></entry>
 
-              <entry>Java class format version number</entry>
+              <entry>Java类格式版本号</entry>
             </row>
 
             <row>
               <entry><varname>java.class.path</varname></entry>
 
-              <entry>Java class path</entry>
+              <entry>Java类路径</entry>
             </row>
 
             <row>
               <entry><varname>java.ext.dirs</varname></entry>
 
-              <entry>Path of extension directory or directories</entry>
+              <entry>扩展目录的路径</entry>
             </row>
 
             <row>
               <entry><varname>os.name</varname></entry>
 
-              <entry>Operating system name</entry>
+              <entry>操作系统名称</entry>
             </row>
 
             <row>
               <entry><varname>os.arch</varname></entry>
 
-              <entry>Operating system architecture</entry>
+              <entry>操作系统架构</entry>
             </row>
 
             <row>
               <entry><varname>os.version</varname></entry>
 
-              <entry>Operating system version</entry>
+              <entry>操作系统版本</entry>
             </row>
 
             <row>
               <entry><varname>file.separator</varname></entry>
 
-              <entry>File separator ("/" on UNIX, "\" on Windows)</entry>
+              <entry>文件分隔符（UNIX上是"/"，Windows上是"\"）</entry>
             </row>
 
             <row>
               <entry><varname>path.separator</varname></entry>
 
-              <entry>Path separator (":" on UNIX, ";" on Windows)</entry>
+              <entry>路径分隔符（UNIX上是":"，Windows上是";"）</entry>
             </row>
 
             <row>
               <entry><varname>line.separator</varname></entry>
 
-              <entry>Line separator ("\n" on UNIX and Windows)</entry>
+              <entry>行分隔符（在UNIX和Windows上都是"\n"）</entry>
             </row>
 
             <row>
               <entry><varname>user.name</varname></entry>
 
-              <entry>User's account name</entry>
+              <entry>用户帐户名称</entry>
             </row>
 
             <row>
               <entry><varname>user.home</varname></entry>
 
-              <entry>User's home directory</entry>
+              <entry>用户home目录</entry>
             </row>
 
             <row>
               <entry><varname>user.dir</varname></entry>
 
-              <entry>User's current working</entry>
+              <entry>用户的当前工作目录</entry>
             </row>
           </tbody>
         </tgroup>
@@ -498,22 +390,16 @@
     </section>
 
     <section>
-      <title>User-defined Properties</title>
+      <title>用户定义的属性</title>
 
-      <para>In addition to the implicit properties provided by the
-      <acronym>POM</acronym>, Maven Settings, environment variables, and the
-      Java System properties, you have the ability to define your own
-      arbitrary properties. Properties can be defined in a
-      <acronym>POM</acronym> or in a Profile. The properties set in a
-      <acronym>POM</acronym> or in a Maven Profile can be referenced just like
-      any other property available throughout Maven. User-defined properties
-      can be referenced in a <acronym>POM</acronym>, or they can be used to
-      filter resources via the Maven Resource plugin. Here's an example of
-      defining some arbitrary properties in a Maven
-      <acronym>POM</acronym>.</para>
+      <para>除了由<acronym>POM</acronym>，Maven
+      Settings，环境变量，和Java系统属性提供的隐式变量，你还可以定义你自己的专有属性。这类属性可以定义在<acronym>POM</acronym>或者Profile中。而这些在<acronym>POM</acronym>或者Maven
+      Profile中设置的属性可以像任何其它Maven属性一样被引用。用户定义的属性可以在<acronym>POM</acronym>中引用，也可以由Maven
+      Resource插件用来过滤资源。这里是一个例子，在Maven
+      <acronym>POM</acronym>中定义了一些专有的属性。</para>
 
       <example>
-        <title>User-defined Properties in a POM</title>
+        <title>POM中的用户定义属性</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -533,19 +419,12 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>The previous example defines two properties:
-      <varname>arbitrary.property.a</varname> and
-      <varname>hibernate.version</varname>. The
-      <varname>hibernate.version</varname> is referenced in a dependency
-      declaration. Using the period character as a separator in property names
-      is a standard practice throughout Maven <acronym>POM</acronym>s and
-      Profiles. There is nothing special about using a period as a separator;
-      to Maven "hibernate.version" is just a key used to retrieve the property
-      value "3.3.0.ga". The next example shows you how to define a property in
-      a profile from a Maven <acronym>POM</acronym>.</para>
+      <para>上述例子定义了两个属性：<varname>arbitrary.property.a</varname>和<varname>hibernate.version</varname>。<varname>hibernate.version</varname>在依赖声明中被引用。在属性名中使用句号作为分隔符是Maven
+      <acronym>POM</acronym>和Profile中的一个标准实践。使用句号作为分隔符没有什么特殊的地方；对Maven来说，“hibernate.version”只是一个用来获取属性值“3.3.0.ga”的一个映射键。下一个例子展示了如何在Maven
+      <acronym>POM</acronym>中的一个profile中定义一个属性。</para>
 
       <example>
-        <title>User-defined Properties in a Profile in a POM</title>
+        <title>POM的Profile中的用户定义属性</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -561,52 +440,29 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>The previous example demonstrates the process of defining a
-      user-defined property in a profile from a Maven <acronym>POM</acronym>.
-      For more information about user-defined properties and profiles, see
-      <xref linkend="profiles" />.</para>
+      <para>前面的例子展示了在Maven
+      <acronym>POM</acronym>的profile中定义个用户自定义属性的过程。要了解更多的关于用户定义属性和profile的信息，请看<xref
+      linkend="profiles" />。</para>
     </section>
   </section>
 
   <section>
-    <title>Resource Filtering</title>
+    <title>资源过滤</title>
 
-    <para>You can use Maven to perform variable replacement on project
-    resources. When resource filtering is activated, Maven will scan resources
-    for references to Maven property references surrounded by
-    <varname>${</varname> and <varname>}</varname>. When it finds these
-    references it will replace them with the appropriate value in much the
-    same way the properties defined in the previous section can be referenced
-    from a <acronym>POM</acronym>. This feature is especially helpful when you
-    need to parameterize a build with different configuration values depending
-    on the target deployment platform.</para>
+    <para>你可以使用Maven来对项目资源进行变量替换。在资源过滤被激活的时候，Maven会扫描资源，寻找由<varname>${</varname>
+    和<varname>}</varname>包围的Maven属性的引用。一旦它找到这些引用，它就会使用合适的值去替换它们，就像前一节中定义的属性可以在<acronym>POM</acronym>中引用一样。当你需要根据目标部署平台使用不同的配置来参数化一个构建的时候，这就非常有用。</para>
 
-    <para>Often a <filename>.properties</filename> file or an
-    <acronym>XML</acronym> document in <filename>src/main/resources</filename>
-    will contain a reference to an external resource such as a database or a
-    network location which needs to be configured differently depending on the
-    target deployment environment. For example, a system which reads data from
-    a database has an <acronym>XML</acronym> document which contains the
-    <acronym>JDBC</acronym> <acronym>URL</acronym> along with credentials for
-    the database. If you need to use a different database in development and a
-    different database in production. You can either use a technology like
-    JNDI to externalize the configuration from the application in an
-    application server, or you can create a build which knows how to replace
-    variables with different values depending on the target platform.</para>
+    <para>通常一个在<filename>src/main/resources</filename>目录下的.properties文件或者<acronym>XML</acronym>文档会包含对外部资源的引用，如需要根据目标部署平台配置进行不同配置的数据库或网络地址。例如，一个从数据库读取数据的系统有一个<acronym>XML</acronym>文档，其包含了数据库的<acronym>JDBC</acronym>
+    <acronym>URL</acronym>以及安全凭证。如果你在开发和产品环境使用不同的数据库。你可以选择使用一种技术如JNDI将配置信息从应用程序题取出至引用服务器，或者你可以创建一个知道如何根据目标平台用不同的值替换变量的构建。</para>
 
-    <para>Using Maven resource filtering you can reference Maven properties
-    and then use Maven profiles to define different configuration values for
-    different target deployment environments. To illustrate this feature,
-    assume that you have a project which uses a the Spring Framework to
-    configure a <classname>BasicDataSource</classname> from the <ulink
-    url="http://commons.apache.org/dbcp">Commons DBCP</ulink> project. Your
-    project may contain a file in <filename>src/main/resources</filename>
-    named <filename>applicationContact.xml</filename> which contains the
-    <acronym>XML</acronym> listed in <xref
-    linkend="ex-filter-spring" />.</para>
+    <para>使用Maven资源过滤，你可以引用Maven属性，并且使用Maven
+    Profile来为不同的部署环境定义不同的配置。为了展示这个功能，假设你有一个项目，它使用了Spring Framework来配置来自于<ulink
+    url="http://commons.apache.org/dbcp">Commons
+    DBCP</ulink>项目的<classname>BasicDataSource</classname>。你的项目可能在<filename>src/main/resources</filename>中包含一个文件<filename>applicationContact.xml</filename>，它含有如<xref
+    linkend="ex-filter-spring" />所示的<acronym>XML</acronym>。</para>
 
     <example id="ex-filter-spring">
-      <title>Referencing Maven Properties from a Resource</title>
+      <title>在资源中引用Maven属性</title>
 
       <programlisting language="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -626,19 +482,12 @@
 &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>Your program would read this file at runtime, and your build is
-    going to replace the references to properties like
-    <varname>jdbc.url</varname> and <varname>jdbc.username</varname> with the
-    values you defined in your pom.xml. Resource filtering is disabled by
-    default to prevent any unintentional resource filtering. To turn on
-    resource filter, you need to use the resources child element of the build
-    element in a <acronym>POM</acronym>. <xref linkend="ex-filter-pom" />
-    shows a <acronym>POM</acronym> which defines the variables referenced in
-    <xref linkend="ex-filter-spring" /> and which activates resource filtering
-    for every resource under <filename>src/main/resources</filename>.</para>
+    <para>你的程序会在运行的时候读取这个文件，而你的构建将会使用定义在你pom.xml中的值替换如<varname>jdbc.url</varname>和<varname>jdbc.username</varname>这样的属性。默认情况资源过滤是关闭的，为了避免非有意的资源过滤。为了开启资源过滤，你需要使用<acronym>POM</acronym>中build元素下的resources子元素。<xref
+    linkend="ex-filter-pom" />展示了这样一个<acronym>POM</acronym>，它定义了在<xref
+    linkend="ex-filter-spring" />中引用的变量，并且为所有位于<filename>src/main/resources</filename>下的资源激活了资源过滤。</para>
 
     <example id="ex-filter-pom">
-      <title>Defining Variables and Activating Resource Filtering</title>
+      <title>定义变量和激活资源过滤</title>
 
       <programlisting language="xml">&lt;project&gt;
   ...
@@ -670,17 +519,9 @@
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>The four variables are defined in the <sgmltag>properties</sgmltag>
-    element, and resource filtering is activated for resources under
-    <filename>src/main/resources</filename>. Resource filtering is deactivated
-    by default, and to activate it you must explicitly set
-    <sgmltag>filtering</sgmltag> to <varname>true</varname> for the resources
-    stored in your project. Filtering is deactivated by default to prevent
-    accidental, unintentional filtering during your build. If you build a
-    project with the resource from <xref linkend="ex-filter-spring" /> and the
-    POM from <xref linkend="ex-filter-pom" /> and if you list the contents of
-    the resource in target/classes, you should see that it contains the
-    filtered resource:</para>
+    <para>四个变量在properties元素中定义，并且我们为<filename>src/main/resources</filename>下的资源开启了资源过滤。资源过滤默认是关闭的，为了激活它你必须为项目中的资源显式的设置<sgmltag>filtering</sgmltag>为<varname>true</varname>。默认关闭资源过滤的目的是为了防止构建中偶然发生的非有意的过滤。如果你使用<xref
+    linkend="ex-filter-spring" />中的资源和<xref
+    linkend="ex-filter-pom" />中的POM构建一个项目，然后列出target/classes下的资源内容，你会看到那里的资源文件已经被过滤。</para>
 
     <screen>$ <command>mvn install</command>
 ...
@@ -694,21 +535,13 @@ $ <command>cat target/classes/applicationContext.xml</command>
     &lt;/bean&gt;
 ...</screen>
 
-    <para>The <acronym>POM</acronym> in <xref linkend="ex-filter-pom" /> also
-    defines a <varname>production</varname> profile under the
-    <varname>profiles/profile</varname> element which overrides the default
-    properties with values that would be appropriate for a production
-    environment. In this particular <acronym>POM</acronym>, the default values
-    for the database connection are for a local MySQL database installed on a
-    developer's machine. When the project is built with the production profile
-    activated, Maven will configure the system to connect to a production
-    Oracle database using a different driver class, URL, username, and
-    password. If you build a project with the resource from <xref
-    linkend="ex-filter-spring" /> and the POM from <xref
-    linkend="ex-filter-pom" /> with the <varname>production</varname> profile
-    activated and if you list the contents of the resource in target/classes,
-    you should see that it contains the filtered resource with production
-    values:</para>
+    <para><xref
+    linkend="ex-filter-pom" />中的<acronym>POM</acronym>还在<varname>profiles/profile</varname>元素下定义了一个production
+    profile，它使用适合产品环境中的值覆盖了默认的属性。在这个特别的<acronym>POM</acronym>中，数据库连接默认的值是针对于安装在开发者机器上的本地MySQL数据库。当production
+    profile激活时构建这个项目，Maven会使用不同的驱动类，URL，用户名，和密码，配置系统连接到产品环境的Oracle数据库。如果你使用<xref
+    linkend="ex-filter-spring" />中的资源和<xref
+    linkend="ex-filter-pom" />中的POM，并激活了production
+    file，然后构建一个项目，最后列出target/classes中的资源内容，你会看到其包含了使用产品环境值过滤的资源。</para>
 
     <screen>$ <command>mvn -Pproduction install</command>
 ...
