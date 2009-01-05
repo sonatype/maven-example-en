@@ -7,7 +7,7 @@
   <section>
     <title>简介</title>
 
-    <para>本书的自始至终，你都会注意到我们可以在<acronym>POM</acronym>文件中使用属性引用。在多模块项目构建中我们可以使用<varname>${project.groupId}</varname>和<varname>${project.version}</varname>属性引用兄弟依赖，并且<acronym>POM</acronym>中的任意部分都可以由一个前缀为"project."的变量名引用。环境变量和Java系统变量也可以被引用，还包括在你<filename>~/.m2/settings.xml</filename>文件中的值。然而你还没有看到一个所有可能属性值的完整列表，以及关于如何使用它们帮助你创建可移植性的构建。本章提供了这样的一个列表。</para>
+    <para>本书的自始至终，你都会注意到我们可以在<acronym>POM</acronym>文件中使用属性引用。在多模块项目构建中我们可以使用<varname>${project.groupId}</varname>和<varname>${project.version}</varname>属性引用兄弟依赖，并且<acronym>POM</acronym>中的任意部分都可以由一个前缀为"project."的变量名引用。环境变量和Java系统变量也可以被引用，还包括在你<filename>~/.m2/settings.xml</filename>文件中的值。然而你还没有看到一个所有可能属性值的完整列表，以及如何使用它们帮助你创建可移植性的构建。本章提供了这样的一个列表。</para>
 
     <para>如果你从来没有在你的<acronym>POM</acronym>中使用属性引用，你也应该知道Maven有一个特性叫做资源过滤，它能让你替换存储在<filename>src/main/resources</filename>目录下资源文件中的属性引用。这个特性可以用来为特定的平台定制构建，将重要的构建变量提取到属性文件中，<acronym>POM</acronym>中，或者profile中。本章介绍资源过滤特性并简单讨论如何用该特性创建可移植的企业级构建。</para>
   </section>
@@ -60,20 +60,21 @@
     </variablelist>
 
     <para>除了上述这些隐式属性，Maven <acronym>POM</acronym>，Maven Settings，或者Maven
-    Profile可以定义一组任意的，用户自定义的属性。下面的小节详细介绍一个Maven项目中各种可用的属性。</para>
+    Profile可以有一组任意的，用户自定义的属性。下面的小节详细介绍一个Maven项目中各种可用的属性。</para>
 
     <section>
       <title>Maven项目的属性</title>
 
       <para>当一个Maven项目属性被引用的时候，属性名就直接引用Maven项目对象模型（<acronym>POM</acronym>）的一个属性。具体的说，你正在引用类<classname>org.apache.maven.model.Model</classname>的一个属性，这个类以隐式项目变量的方式向外暴露。当你使用该隐式变量引用属性的时候，你实际上正在使用简单的点标记来引用<classname>Model</classname>对象的一个bean属性。例如，当你引用<varname>${project.version}</varname>的时候，你实际上是在调用暴露出来的<classname>Model</classname>对象实例的<methodname>getVersion()</methodname>方法。</para>
 
-      <para><acronym>POM</acronym>同样也在所有Maven项目中以<filename>pom.xml</filename>文档的形式展现。任何在Maven<acronym>POM</acronym>
+      <para><acronym>POM</acronym>同样也在所有Maven项目中以<filename>pom.xml</filename>文档的形式展现。任何在Maven
+      <acronym>POM</acronym>
       中的东西都可以用属性来引用。关于<acronym>POM</acronym>结构的完整参考可以访问<ulink
       url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>。下面的列表展示了一些Maven项目中常见的属性引用。</para>
 
       <variablelist>
         <varlistentry>
-          <term><varname>project.groupId</varname> and
+          <term><varname>project.groupId</varname> 和
           <varname>project.version</varname></term>
 
           <listitem>
@@ -102,7 +103,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><varname>project.name</varname> and
+          <term><varname>project.name</varname> 和
           <varname>project.description</varname></term>
 
           <listitem>
@@ -114,7 +115,7 @@
           <term><varname>project.build.*</varname></term>
 
           <listitem>
-            <para>如果你试图在Maven中引用输出目录，你应该从不使用如<filename>target/classes</filename>的字面量，而是应该使用属性来引用这些目录。</para>
+            <para>如果你试图在Maven中引用输出目录，你绝不应该使用如<filename>target/classes</filename>的字面量，而是应该使用属性来引用这些目录。</para>
 
             <itemizedlist>
               <listitem>
@@ -142,7 +143,7 @@
               </listitem>
             </itemizedlist>
 
-            <para><varname>sourceDirectory</varname>，<varname>scriptSourceDirectory</varname>，和<varname>testSourceDirectory</varname>提供了项目源码目录的访问方式。<varname>outputDirectory</varname>和<varname>testOutputDirectory</varname>则能让你访问Maven放置字节码和其它构建输出的目录。<varname>directory</varname>引用的目录就是包含所有上述目录的父目录。</para>
+            <para><varname>sourceDirectory</varname>，<varname>scriptSourceDirectory</varname>，和<varname>testSourceDirectory</varname>提供了项目源码目录的访问方式。<varname>outputDirectory</varname>和<varname>testOutputDirectory</varname>则能让你访问Maven放置字节码和其它构建输出的目录。<varname>directory</varname>引用的目录就是包含上述两个输出目录的父目录。</para>
           </listitem>
         </varlistentry>
 
@@ -158,7 +159,7 @@
 
       <para>关于Maven
       <classname>Model</classname>对象可用属性的完整列表，可以看一下<varname>maven-model</varname>项目的JavaDoc：<ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html">http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html</ulink>。当你载入这JavaDoc之后，看一下<classname>Model</classname>类。根据这个<classname>Model</classname>类的JavaDoc，你应该能够找到你想要引用的<acronym>POM</acronym>属性。如果你想要引用构建的输出目录，你可以使用Maven
+      url="http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html">http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html</ulink>。当你载入这JavaDoc之后，看一下<classname>Model</classname>类。根据这个<classname>Model</classname>类的JavaDoc，你应该能够找到你想要引用的<acronym>POM</acronym>属性。如果你想要引用构建的输出目录，可以使用Maven
       Model的JavaDoc，明白该输出目录是通过<methodname>model.getBuild().getOutputDirectory()</methodname>引用的；该方法调用会被翻译成Maven的属性引用<varname>${project.build.outputDirectory}</varname>。</para>
 
       <para>Maven Model定义了<acronym>POM</acronym>的结构，要了解关于Maven
@@ -193,7 +194,7 @@
           <term><varname>env.HOME</varname></term>
 
           <listitem>
-            <para>（在*nix系统中）这个变量指向了用户的home目录。你应该使用${user.home}，而非这个变量。</para>
+            <para>（在*nix系统中）这个变量指向了用户的home目录。但你更应该使用${user.home}，而非这个变量。</para>
           </listitem>
         </varlistentry>
 
@@ -201,7 +202,7 @@
           <term><varname>env.JAVA_HOME</varname></term>
 
           <listitem>
-            <para>指向了Java安装目录。它要么指向<acronym>JDK</acronym>安装目录，要么或者<acronym>JRE</acronym>目录。你应该考虑使用${java.home}属性而非这个属性。</para>
+            <para>指向了Java安装目录。它要么指向<acronym>JDK</acronym>安装目录，要么或者<acronym>JRE</acronym>目录。但你更应该考虑使用${java.home}而非这个属性。</para>
           </listitem>
         </varlistentry>
 
@@ -244,13 +245,13 @@
             <row>
               <entry><varname>java.vendor</varname></entry>
 
-              <entry>Java运行环境销售商</entry>
+              <entry>Java运行环境供应商</entry>
             </row>
 
             <row>
               <entry>java.vendor.url</entry>
 
-              <entry>Java销售商URL</entry>
+              <entry>Java供应商URL</entry>
             </row>
 
             <row>
@@ -268,7 +269,7 @@
             <row>
               <entry><varname>java.vm.specification.vendor</varname></entry>
 
-              <entry>Java虚拟机规格说明销售商</entry>
+              <entry>Java虚拟机规格说明供应商</entry>
             </row>
 
             <row>
@@ -286,7 +287,7 @@
             <row>
               <entry><varname>java.vm.vendor</varname></entry>
 
-              <entry>Java虚拟机实现销售商</entry>
+              <entry>Java虚拟机实现供应商</entry>
             </row>
 
             <row>
@@ -304,7 +305,7 @@
             <row>
               <entry><varname>java.specification.vendor</varname></entry>
 
-              <entry>Java运行环境规格说明销售商</entry>
+              <entry>Java运行环境规格说明供应商</entry>
             </row>
 
             <row>
@@ -382,7 +383,7 @@
             <row>
               <entry><varname>user.dir</varname></entry>
 
-              <entry>用户的当前工作目录</entry>
+              <entry>用户当前工作目录</entry>
             </row>
           </tbody>
         </tgroup>
@@ -393,7 +394,7 @@
       <title>用户定义的属性</title>
 
       <para>除了由<acronym>POM</acronym>，Maven
-      Settings，环境变量，和Java系统属性提供的隐式变量，你还可以定义你自己的专有属性。这类属性可以定义在<acronym>POM</acronym>或者Profile中。而这些在<acronym>POM</acronym>或者Maven
+      Settings，环境变量，和Java系统属性提供的隐式变量，你还可以定义自己的专有属性。这类属性可以定义在<acronym>POM</acronym>或者Profile中。而这些在<acronym>POM</acronym>或者Maven
       Profile中设置的属性可以像任何其它Maven属性一样被引用。用户定义的属性可以在<acronym>POM</acronym>中引用，也可以由Maven
       Resource插件用来过滤资源。这里是一个例子，在Maven
       <acronym>POM</acronym>中定义了一些专有的属性。</para>
@@ -441,7 +442,7 @@
       </example>
 
       <para>前面的例子展示了在Maven
-      <acronym>POM</acronym>的profile中定义个用户自定义属性的过程。要了解更多的关于用户定义属性和profile的信息，请看<xref
+      <acronym>POM</acronym>的profile中定义一个用户自定义属性的过程。要了解更多的关于用户定义属性和profile的信息，请看<xref
       linkend="profiles" />。</para>
     </section>
   </section>
@@ -452,8 +453,8 @@
     <para>你可以使用Maven来对项目资源进行变量替换。在资源过滤被激活的时候，Maven会扫描资源，寻找由<varname>${</varname>
     和<varname>}</varname>包围的Maven属性的引用。一旦它找到这些引用，它就会使用合适的值去替换它们，就像前一节中定义的属性可以在<acronym>POM</acronym>中引用一样。当你需要根据目标部署平台使用不同的配置来参数化一个构建的时候，这就非常有用。</para>
 
-    <para>通常一个在<filename>src/main/resources</filename>目录下的.properties文件或者<acronym>XML</acronym>文档会包含对外部资源的引用，如需要根据目标部署平台配置进行不同配置的数据库或网络地址。例如，一个从数据库读取数据的系统有一个<acronym>XML</acronym>文档，其包含了数据库的<acronym>JDBC</acronym>
-    <acronym>URL</acronym>以及安全凭证。如果你在开发和产品环境使用不同的数据库。你可以选择使用一种技术如JNDI将配置信息从应用程序题取出至引用服务器，或者你可以创建一个知道如何根据目标平台用不同的值替换变量的构建。</para>
+    <para>通常一个在<filename>src/main/resources</filename>目录下的.properties文件或者<acronym>XML</acronym>文档会包含对外部资源的引用，如需要根据目标部署平台进行不同配置的数据库或网络地址。例如，一个从数据库读取数据的系统有一个<acronym>XML</acronym>文档，其包含了数据库的<acronym>JDBC</acronym>
+    <acronym>URL</acronym>以及安全凭证。如果你在开发和产品环境使用不同的数据库。你可以选择使用一种技术如JNDI将配置信息从应用程序提取出来至应用服务器，或者你可以创建一个知道如何根据目标平台用不同的值替换变量的构建。</para>
 
     <para>使用Maven资源过滤，你可以引用Maven属性，并且使用Maven
     Profile来为不同的部署环境定义不同的配置。为了展示这个功能，假设你有一个项目，它使用了Spring Framework来配置来自于<ulink
@@ -482,7 +483,7 @@
 &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>你的程序会在运行的时候读取这个文件，而你的构建将会使用定义在你pom.xml中的值替换如<varname>jdbc.url</varname>和<varname>jdbc.username</varname>这样的属性。默认情况资源过滤是关闭的，为了避免非有意的资源过滤。为了开启资源过滤，你需要使用<acronym>POM</acronym>中build元素下的resources子元素。<xref
+    <para>你的程序会在运行的时候读取这个文件，而你的构建将会使用定义在你pom.xml中的值替换如<varname>jdbc.url</varname>和<varname>jdbc.username</varname>这样的属性。默认情况资源过滤是关闭的，那是为了避免非有意的资源过滤。要开启资源过滤，你需要使用<acronym>POM</acronym>中build元素下的resources子元素。<xref
     linkend="ex-filter-pom" />展示了这样一个<acronym>POM</acronym>，它定义了在<xref
     linkend="ex-filter-spring" />中引用的变量，并且为所有位于<filename>src/main/resources</filename>下的资源激活了资源过滤。</para>
 
@@ -537,7 +538,7 @@ $ <command>cat target/classes/applicationContext.xml</command>
 
     <para><xref
     linkend="ex-filter-pom" />中的<acronym>POM</acronym>还在<varname>profiles/profile</varname>元素下定义了一个production
-    profile，它使用适合产品环境中的值覆盖了默认的属性。在这个特别的<acronym>POM</acronym>中，数据库连接默认的值是针对于安装在开发者机器上的本地MySQL数据库。当production
+    profile，它使用适合产品环境中的值覆盖了默认的属性。在这个特别的<acronym>POM</acronym>中，数据库连接默认的值是针对于安装在开发者机器上的本地MySQL数据库。而在production
     profile激活时构建这个项目，Maven会使用不同的驱动类，URL，用户名，和密码，配置系统连接到产品环境的Oracle数据库。如果你使用<xref
     linkend="ex-filter-spring" />中的资源和<xref
     linkend="ex-filter-pom" />中的POM，并激活了production
