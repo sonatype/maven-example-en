@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<appendix id="appendix-enterprise">
+  <title>Appendix: Sun Specification Alternatives</title>
+
+  <para>The Apache Geronimo project maintains implementations of various
+  enterprise Java specifications. <xref linkend="table-spec-alternatives" />
+  lists the artifactId and artifact version for all of the specifications
+  implemented by the Geronimo project. To use one of these dependencies, use a
+  groupId of <varname>org.apache.geronimo.specs</varname>, locate the version
+  of the Specification you want to use and reference the dependency with the
+  Artifact Id and Artifact Version listed in <xref
+  linkend="table-spec-alternatives" />.</para>
+
+  <note>
+    <para>All artifacts in <xref linkend="table-spec-alternatives" />, have a
+    groupId of <varname>org.apache.geronimo.specs</varname>.</para>
+  </note>
+
+  <table id="table-spec-alternatives">
+    <title>Alternate Spec Implementations Artifacts</title>
+
+    <tgroup cols="4">
+      <colspec colwidth="3*" />
+
+      <colspec colwidth="1*" />
+
+      <colspec colwidth="6*" />
+
+      <colspec colwidth="1*" />
+
+      <thead>
+        <row>
+          <entry>Specification</entry>
+
+          <entry>Spec Version</entry>
+
+          <entry>Artifact Id</entry>
+
+          <entry>Artifact Version</entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>Activation</entry>
+
+          <entry>1.0.2</entry>
+
+          <entry>geronimo-activation_1.0.2_spec</entry>
+
+          <entry>1.2</entry>
+        </row>
+
+        <row>
+          <entry>Activation</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-activation_1.1_spec</entry>
+
+          <entry>1.0.1</entry>
+        </row>
+
+        <row>
+          <entry>Activation</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-activation_1.0_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>CommonJ</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-commonj_1.1_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>Corba</entry>
+
+          <entry>2.3</entry>
+
+          <entry>geronimo-corba_2.3_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>Corba</entry>
+
+          <entry>3.0</entry>
+
+          <entry>geronimo-corba_3.0_spec</entry>
+
+          <entry>1.2</entry>
+        </row>
+
+        <row>
+          <entry>EJB</entry>
+
+          <entry>2.1</entry>
+
+          <entry>geronimo-ejb_2.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>EJB</entry>
+
+          <entry>3.0</entry>
+
+          <entry>geronimo-ejb_3.0_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>EL</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-el_1.0_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>Interceptor</entry>
+
+          <entry>3.0</entry>
+
+          <entry>geronimo-interceptor_3.0_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>J2EE Connector</entry>
+
+          <entry>1.5</entry>
+
+          <entry>geronimo-j2ee-connector_1.5_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+
+        <row>
+          <entry>J2EE Deployment</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-j2ee-deployment_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>J2EE JACC</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-j2ee-jacc_1.0_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+
+        <row>
+          <entry>J2EE Management</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-j2ee-management_1.0_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>J2EE Management</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-j2ee-management_1.1_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>J2EE</entry>
+
+          <entry>1.4</entry>
+
+          <entry>geronimo-j2ee_1.4_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JACC</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-jacc_1.1_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>JEE Deployment</entry>
+
+          <entry>1.1MR3</entry>
+
+          <entry>geronimo-javaee-deployment_1.1MR3_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>JavaMail</entry>
+
+          <entry>1.3.1</entry>
+
+          <entry>geronimo-javamail_1.3.1_spec</entry>
+
+          <entry>1.3</entry>
+        </row>
+
+        <row>
+          <entry>JavaMail</entry>
+
+          <entry>1.4</entry>
+
+          <entry>geronimo-javamail_1.4_spec</entry>
+
+          <entry>1.2</entry>
+        </row>
+
+        <row>
+          <entry>JAXR</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-jaxr_1.0_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JAXRPC</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-jaxrpc_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JMS</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-jms_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JPA</entry>
+
+          <entry>3.0</entry>
+
+          <entry>geronimo-jpa_3.0_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JSP</entry>
+
+          <entry>2.0</entry>
+
+          <entry>geronimo-jsp_2.0_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>JSP</entry>
+
+          <entry>2.1</entry>
+
+          <entry>geronimo-jsp_2.1_spec</entry>
+
+          <entry>1.0</entry>
+        </row>
+
+        <row>
+          <entry>JTA</entry>
+
+          <entry>1.0.1B</entry>
+
+          <entry>geronimo-jta_1.0.1B_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+
+        <row>
+          <entry>JTA</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-jta_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>QName</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-qname_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>SAAJ</entry>
+
+          <entry>1.1</entry>
+
+          <entry>geronimo-saaj_1.1_spec</entry>
+
+          <entry>1.1</entry>
+        </row>
+
+        <row>
+          <entry>Servlet</entry>
+
+          <entry>2.4</entry>
+
+          <entry>geronimo-servlet_2.4_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+
+        <row>
+          <entry>Servlet</entry>
+
+          <entry>2.5</entry>
+
+          <entry>geronimo-servlet_2.5_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+
+        <row>
+          <entry>STaX API</entry>
+
+          <entry>1.0</entry>
+
+          <entry>geronimo-stax-api_1.0_spec</entry>
+
+          <entry>1.0.1</entry>
+        </row>
+
+        <row>
+          <entry>WS Metadata</entry>
+
+          <entry>2.0</entry>
+
+          <entry>geronimo-ws-metadata_2.0_spec</entry>
+
+          <entry>1.1.1</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+
+  <note>
+    <para>The version numbers in the Artifact Version column may be out of
+    date by the time you read this book. To check on the version number, visit
+    <ulink
+    url="http://repo1.maven.org/maven2/org/apache/geronimo/specs/">http://repo1.maven.org/maven2/org/apache/geronimo/specs/</ulink>
+    in a web browser, and click on the artifactId you want to add. Choose the
+    highest version of the spec you want to depend upon.</para>
+  </note>
+
+  <para>To illustrate how one would use <xref
+  linkend="table-spec-alternatives" />, if we wanted to write some code in our
+  project which interacted with the <acronym>JTA</acronym> 1.0.1B
+  specification, we would need to add the following dependency to our
+  project:<example>
+      <title>Adding JTA 1.0.1B to a Maven Project</title>
+
+      <programlisting language="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
+  &lt;artifactId&gt;geronimo-jta_1.0.1B_spec&lt;/artifactId&gt;
+  &lt;version&gt;1.1.1&lt;/version&gt;
+&lt;/dependency&gt;</programlisting>
+    </example></para>
+
+  <para>Notice how the version of the artifact isn't going to line up with the
+  version of the specification—the previous dependency configuration adds
+  version 1.0.1B of the JTA specification using the artifact version of 1.1.1.
+  Be aware of this when depending on the alternate Geronimo implementations,
+  and always double check that you are using the latest artifact version
+  number for your specifications.</para>
+</appendix>
