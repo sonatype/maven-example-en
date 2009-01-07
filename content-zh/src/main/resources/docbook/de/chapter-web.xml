@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="web">
+  <title>A Simple Web Application</title>
+
+  <section id="web-intro">
+    <title>Introduction</title>
+
+    <para>In this chapter, we create a simple web application with the Maven
+    Archetype plugin. We'll run this web application in a Servlet container
+    named Jetty, add some dependencies, write a simple Servlet, and generate a
+    <acronym>WAR</acronym> file. At the end of this chapter, you will be able
+    to start using Maven to accelerate the development of web
+    applications.</para>
+
+    <section>
+      <title>Downloading this Chapter's Example</title>
+
+      <para>The example in this chapter is generated with the Maven Archetype
+      plugin. While you should be able to follow the development of this
+      chapter without the example source code, we recommend downloading a copy
+      of the example code to use as a reference. This chapter's example
+      project may be downloaded with the book's example code at <ulink
+      url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
+      or <ulink
+      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
+      Unzip this archive in any directory, and then go to the
+      <filename>ch05/</filename> directory. In the <filename>ch05/</filename>
+      directory you will see a directory named
+      <filename>simple-webapp/</filename> which contains the Maven project
+      developed in this chapter. If you wish to follow along with the example
+      code in a web browser, go to <ulink
+      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
+      and click on the <filename>ch05/</filename> directory.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Defining the Simple Web Application</title>
+
+    <para>We've purposefully kept this chapter focused on Plain-Old Web
+    Applications (<acronym>POWA</acronym>)—a servlet and a
+    <acronym>JSP</acronym> page. We're not going to tell you how to develop
+    your Struts 2, Tapestry, Wicket, <acronym>JSF</acronym>, or Waffle
+    application in the next twenty odd pages, and we're not going to get into
+    integrating an IoC container like Plexus, Guice, or the Spring Framework.
+    The goal of this chapter is to show you the basic facilities that Maven
+    provides for developing web applications—no more, no less. Later in this
+    book, we're going to take a look at developing two web applications, one
+    which uses Hibernate, Velocity, and the Spring Framework, and the other
+    which uses Plexus.</para>
+
+    <!--TODO: We need a reference to a chapter that has a more interesting web application example.-->
+  </section>
+
+  <section>
+    <title>Creating the Simple Web Project</title>
+
+    <para>To create your web application project, run <command>mvn
+    archetype:create</command> with an <varname>artifactId</varname> and a
+    <varname>groupId</varname>. Specify the
+    <varname>archetypeArtifactId</varname> as
+    <varname>maven-archetype-webapp</varname>. Running this will create the
+    appropriate directory structure and Maven <acronym>POM</acronym>.</para>
+
+    <screen>~/examples$ <command>mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch05 \
+                                                             -DartifactId=simple-webapp \
+                                                             -DpackageName=org.sonatype.mavenbook \
+                                                             -DarchetypeArtifactId=maven-archetype-webapp</command>
+[INFO] [archetype:create]
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating Archetype: maven-archetype-webapp:RELEASE
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch05
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
+[INFO] Parameter: basedir, Value: ~/examples
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: artifactId, Value: simple-webapp
+[INFO] ********************* End of debug info from resources from generated POM *******
+[INFO] Archetype created in dir: ~/examples/simple-webapp </screen>
+
+    <para>Once the Maven Archetype plugin creates the project, change
+    directories into the <filename>simple-web</filename> directory and take a
+    look at the <filename>pom.xml</filename>. You should see the following
+    <acronym>XML</acronym> document:</para>
+
+    <example>
+      <title>Initial <acronym>POM</acronym> for the simple-web project</title>
+
+      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch05&lt;/groupId&gt;
+  &lt;artifactId&gt;simple-webapp&lt;/artifactId&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;simple-webapp Maven Webapp&lt;/name&gt;
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;finalName&gt;simple-webapp&lt;/finalName&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+    </example>
+
+    <para>Notice the <sgmltag>packaging</sgmltag> element contains the value
+    <literal>war</literal>. This packaging type is what configures Maven to
+    produce a web application archive in a <acronym>WAR</acronym> file. A
+    project with <literal>war</literal> packaging, is going to create a
+    <acronym>WAR</acronym> file in the <filename>target/</filename> directory,
+    the default name of this file is
+    <filename>${artifactId}-${version}.war</filename>. In this project, the
+    default <acronym>WAR</acronym> would be generated in
+    <filename>target/simple-webapp-1.0-SNAPSHOT.war</filename>. In the
+    <literal>simple-webapp</literal> project, we've customized the name of the
+    generated <acronym>WAR</acronym> file by adding a
+    <sgmltag>finalName</sgmltag> element inside of this project's build
+    configuration. With a <sgmltag>finalName</sgmltag> of
+    <literal>simple-webapp</literal>, the <literal>package</literal> phase
+    produces a <acronym>WAR</acronym> file in
+    <filename>target/simple-webapp.war</filename>.</para>
+  </section>
+
+  <section>
+    <title>Configuring the Jetty Plugin</title>
+
+    <para>Once you've compiled, tested, and packaged your web application,
+    you'll likely want to deploy it to a servlet container and test the
+    <filename>index.jsp</filename> which was created by the Maven Archetype
+    plugin. Normally, this would involve downloading something like Jetty or
+    Apache Tomcat, unpacking a distribution, copying your application's
+    <acronym>WAR</acronym> file to a <filename>webapps/</filename> directory,
+    and then starting your container. And, while you could still do such a
+    thing, there is no need to do this. Instead, you can use the Maven Jetty
+    plugin to run your web application within Maven. To do this, we'll need to
+    configure the Maven Jetty Plugin in our project's
+    <filename>pom.xml</filename>. Add the following plugin element to your
+    project's build configuration.</para>
+
+    <example>
+      <title>Configuring the Jetty Plugin</title>
+
+      <programlisting language="xml">&lt;project&gt;
+  [...]
+  &lt;build&gt;
+    &lt;finalName&gt;simple-webapp&lt;/finalName&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  [...]
+&lt;/project&gt;</programlisting>
+    </example>
+
+    <para>Once you've configured the Maven Jetty Plugin in your project's
+    <filename>pom.xml</filename>, you can then invoke the Run goal of the
+    Jetty plugin to start your web application in the Jetty Servlet container.
+    Run <command>mvn jetty:run</command> as follows:</para>
+
+    <screen>~/examples$ <command>mvn jetty:run</command>
+...
+[INFO] [jetty:run]
+[INFO] Configuring Jetty for project: simple-webapp Maven Webapp
+[INFO] Webapp source directory = \
+       /Users/tobrien/svnw/sonatype/examples/simple-webapp/src/main/webapp
+[INFO] web.xml file = \
+       /Users/tobrien/svnw/sonatype/examples/simple-webapp/src/main/webapp/WEB-INF/web.xml
+[INFO] Classes = /Users/tobrien/svnw/sonatype/examples/simple-webapp/target/classes
+2007-11-17 22:11:50.532::INFO:  Logging to STDERR via org.mortbay.log.StdErrLog
+[INFO] Context path = /simple-webapp
+[INFO] Tmp directory =  determined at runtime
+[INFO] Web defaults = org/mortbay/jetty/webapp/webdefault.xml
+[INFO] Web overrides =  none
+[INFO] Webapp directory = \
+       /Users/tobrien/svnw/sonatype/examples/simple-webapp/src/main/webapp
+[INFO] Starting jetty 6.1.6rc1 ...
+2007-11-17 22:11:50.673::INFO:  jetty-6.1.6rc1
+2007-11-17 22:11:50.846::INFO:  No Transaction manager found - if your webapp requires one,\
+       please configure one.
+2007-11-17 22:11:51.057::INFO:  Started SelectChannelConnector@0.0.0.0:8080
+[INFO] Started Jetty Server
+</screen>
+
+    <para>After Maven starts the Jetty Servlet container, load the URL <ulink
+    url="http://localhost:8080/simple-webapp/">http://localhost:8080/simple-webapp/</ulink>
+    in a web browser. The simple <filename>index.jsp</filename> generated by
+    the Archetype is trivial; it contains a second-level heading with the text
+    "Hello World!". Maven expects the document root of the web application to
+    be stored in <filename>src/main/webapp</filename>. It is in this directory
+    where you will find the <filename>index.jsp</filename> file shown in <xref
+    linkend="web-example-index" />.</para>
+
+    <example id="web-example-index">
+      <title>Contents of src/main/webapp/index.jsp</title>
+
+      <programlisting language="xml">&lt;html&gt;
+  &lt;body&gt;
+    &lt;h2&gt;Hello World!&lt;/h2&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</programlisting>
+    </example>
+
+    <para>In <filename>src/main/webapp/WEB-INF</filename> we will find the
+    smallest possible web application descriptor in
+    <filename>web.xml</filename>.</para>
+
+    <example>
+      <title>Contents of src/main/webapp/WEB-INF/web.xml</title>
+
+      <programlisting language="xml">&lt;!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" &gt;
+
+&lt;web-app&gt;
+  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
+&lt;/web-app&gt;</programlisting>
+    </example>
+  </section>
+
+  <section>
+    <title>Adding a Simple Servlet</title>
+
+    <para>A web application with a single JSP page and no configured servlets
+    is next to useless. Let's add a simple servlet to this application and
+    make some changes to the <filename>pom.xml</filename> and
+    <filename>web.xml</filename> to support this change. First, we'll need to
+    create a new package under <filename>src/main/java</filename> named
+    <package>org.sonatype.mavenbook.web</package>.</para>
+
+    <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
+$ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
+
+    <para>Once you've created this package, change to the
+    <filename>src/main/java/org/sonatype/mavenbook/web</filename> directory and
+    create a class named <classname>SimpleServlet</classname> in
+    <filename>SimpleServlet.java</filename> which contains the following
+    code.</para>
+
+    <example>
+      <title>SimpleServlet Class</title>
+
+      <programlisting language="java">package org.sonatype.mavenbook.web;
+
+import java.io.*;
+import javax.servlet.*;                                                         
+import javax.servlet.http.*;
+
+public class SimpleServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+        throws ServletException, IOException {
+    
+        PrintWriter out = response.getWriter();
+        out.println( "SimpleServlet Executed" );
+        out.flush();
+        out.close();
+    }
+}
+</programlisting>
+    </example>
+
+    <para>Our <classname>SimpleServlet</classname> class is just that, a
+    servlet that prints a simple message to the response's
+    <classname>Writer</classname>. To add this servlet to your web
+    application, and map it to a request path, add the following
+    <sgmltag>servlet</sgmltag> and <sgmltag>servlet-mapping</sgmltag> elements
+    to your project's <filename>web.xml</filename> file. The
+    <filename>web.xml</filename> file can be found in
+    <filename>src/main/webapp/WEB-INF</filename>.</para>
+
+    <example>
+      <title>Mapping the Simple Servlet</title>
+
+      <programlisting language="xml">&lt;!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" &gt;
+
+&lt;web-app&gt;
+  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.sonatype.mavenbook.web.SimpleServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;simple&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/simple&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;</programlisting>
+    </example>
+
+    <para>Everything is in place to test this servlet, the class is in
+    <filename>src/main/java</filename> and the web.xml has been updated.
+    Before we launch the Jetty plugin, compile your project by running
+    <command>mvn compile</command>:</para>
+
+    <screen>~/examples$ <command>mvn compile</command>
+...
+[INFO] [compiler:compile]
+[INFO] Compiling 1 source file to ~/examples/ch05/simple-webapp/target/classes
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Compilation failure
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[4,0] \
+  package javax.servlet does not exist
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[5,0] \
+  package javax.servlet.http does not exist
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[7,35] \
+  cannot find symbol
+  symbol: class HttpServlet
+  public class SimpleServlet extends HttpServlet {
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[8,22] \
+  cannot find symbol
+  symbol  : class HttpServletRequest
+  location: class org.sonatype.mavenbook.web.SimpleServlet
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[9,22] \
+  cannot find symbol
+  symbol  : class HttpServletResponse
+  location: class org.sonatype.mavenbook.web.SimpleServlet
+
+~/ch05/simple-webapp/src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[10,15] \
+  cannot find symbol
+  symbol  : class ServletException
+  location: class org.sonatype.mavenbook.web.SimpleServlet
+</screen>
+
+    <para>The compilation fails because your Maven project doesn't have a
+    dependency on the Servlet <acronym>API</acronym>. In the next section,
+    we'll add the Servlet <acronym>API</acronym> to this project's
+    <acronym>POM</acronym>.</para>
+  </section>
+
+  <section>
+    <title>Adding J2EE Dependencies</title>
+
+    <para>To write a servlet, we'll need to add the Servlet
+    <acronym>API</acronym> as a project dependency. The Servlet specification
+    is a <acronym>JAR</acronym> file that can be downloaded from Sun
+    Microsystems at <ulink
+    url="http://java.sun.com/products/servlet/download.html">http://java.sun.com/products/servlet/download.html</ulink>.
+    Once the <acronym>JAR</acronym> file is downloaded you'll need to install
+    the resulting <acronym>JAR</acronym> in you local Maven repository located
+    at <filename>~/.m2/repository</filename>. The same process will have to be
+    repeated for all of the <acronym>J2EE</acronym> <acronym>API</acronym>s
+    maintained by Sun Microsystems—<acronym>JNDI</acronym>,
+    <acronym>JDBC</acronym>, Servlet, <acronym>JSP</acronym>,
+    <acronym>JTA</acronym>, and others. If this strikes you as somewhat
+    tedious, you are not alone. Lucky for you, there is a simpler alternative
+    to downloading all of these libraries and installing them manually—Apache
+    Geronimo's independent open-source implementations.</para>
+
+    <para>For years, the only way to get the Servlet specification
+    <acronym>JAR</acronym> was to download it directly from Sun Microsystems.
+    You had to go to the Sun web site, agree to a click-through licensing
+    agreement and only then could you access the Servlet
+    <acronym>JAR</acronym>. This was all necessary because the Sun
+    specification <acronym>JAR</acronym>s were not made available under a
+    license which allowed for redistribution. Manually downloading Sun
+    artifacts was something you just had to do to write a Servlet or to use
+    <acronym>JDBC</acronym> from a Maven project for a few years. It was
+    tedious and annoying until the Apache Geronimo project was able to create
+    a Sun certified implementation of a number of enterprise specifications.
+    These specification <acronym>JAR</acronym>s are released under the Apache
+    Software License Version 2.0, a license which allows for free
+    redistribution of source and binary. Now, for the purposes of your
+    programming, there is little to no difference between the Servlet
+    <acronym>API</acronym> <acronym>JAR</acronym> downloaded from Sun
+    Microsystems and the Servlet <acronym>API</acronym> <acronym>JAR</acronym>
+    implemented by the Apache Geronimo project, both have passed a rigorous
+    Test Compatibility Kit (<acronym>TCK</acronym>) from Sun
+    Microsystems.</para>
+
+    <para>Adding a dependency on something like the <acronym>JSP</acronym>
+    <acronym>API</acronym> or the Servlet <acronym>API</acronym> is now very
+    straightforward, and does not require you to manually download a
+    <acronym>JAR</acronym> file from a web site and install it in your local
+    repository. The catch is that you have to know where to look; what
+    <varname>groupId</varname>, <varname>artifactId</varname>, and
+    <varname>version</varname> to use to reference the appropriate Apache
+    Geronimo implementation. To add the Servlet specification
+    <acronym>API</acronym> as a dependency to your project's
+    <acronym>POM</acronym>, add the following dependency element to
+    <filename>pom.xml</filename>.</para>
+
+    <example>
+      <title>Add the Servlet 2.4 Specification as a Dependency</title>
+
+      <programlisting language="xml">&lt;project&gt;
+  [...]
+  &lt;dependencies&gt;
+    [...]
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
+      &lt;artifactId&gt;geronimo-servlet_2.4_spec&lt;/artifactId&gt;
+      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  [...]
+&lt;/project&gt;
+</programlisting>
+    </example>
+
+    <para>The <varname>groupId</varname> for all of the Apache Geronimo
+    specification implementations is
+    <package>org.apache.geronimo.specs</package>. The
+    <varname>artifactId</varname> contains the version of the specification
+    that you are most familiar with; for example, if you were going to include
+    the Servlet 2.3 specification you would have an
+    <varname>artifactId</varname> of
+    <literal>geronimo-servlet_2.3_spec</literal>, and if you are targeting the
+    Servlet 2.4 specification, your <varname>artifactId</varname> would be
+    <literal>geronimo-servlet_2.4_spec</literal>. As for the version, you'll
+    have to take a look at the public Maven repository to figure out which
+    version you should use. For versions, your best bet is going to be the
+    latest version for a particular specification implementation. If you are
+    looking for a specific alternative to a Sun Specification from the Apache
+    Geronimo project, we've assembled a list of available specifications in
+    <xref linkend="appendix-enterprise" />.</para>
+
+    <para>It is also worth pointing out that we have used the <literal>provided</literal> scope
+    for this dependency. This tells Maven that the jar is "provided" by the container and thus
+    should not be included in the war.</para>
+    
+    <para>If you were interested in writing a custom <acronym>JSP</acronym>
+    tag for this simple web application, you would need to add a dependency on
+    the <acronym>JSP</acronym> 2.0 spec. Use the following configuration to
+    add this dependency.</para>
+
+    <example>
+      <title>Adding the JSP 2.0 Specification as a Dependency</title>
+
+      <programlisting language="xml">&lt;project&gt;
+  [...]
+  &lt;dependencies&gt;
+    [...]
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
+      &lt;artifactId&gt;geronimo-jsp_2.0_spec&lt;/artifactId&gt;
+      &lt;version&gt;1.1&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  [...]
+&lt;/project&gt;
+</programlisting>
+    </example>
+
+    <para>Once you've added the Servlet specification as a dependency, run
+    <command>mvn clean install</command> followed by <command>mvn
+    jetty:run</command>.</para>
+
+    <screen>[tobrien@t1 simple-webapp]$ <command>mvn clean install</command>
+...
+[tobrien@t1 simple-webapp]$ <command>mvn jetty:run</command>
+[INFO] [jetty:run]
+...
+2007-12-14 16:18:31.305::INFO:  jetty-6.1.6rc1
+2007-12-14 16:18:31.453::INFO:  No Transaction manager found - if your webapp requires one,\
+           please configure one.
+2007-12-14 16:18:32.745::INFO:  Started SelectChannelConnector@0.0.0.0:8080
+[INFO] Started Jetty Server
+</screen>
+
+    <para>At this point, you should be able to retrieve the output of the
+    <classname>SimpleServlet</classname>. From the command line, you can use
+    curl to print the output of this servlet to standard output:</para>
+
+    <screen>~/examples$ <command>curl http://localhost:8080/simple-webapp/simple</command>
+SimpleServlet Executed
+</screen>
+  </section>
+
+  <section>
+    <title>Conclusion</title>
+
+    <para>After reading this chapter, you should be able to bootstrap a simple
+    web application. This chapter didn't dwell on the million different ways
+    to create a complete web application, other chapters provide a more
+    comprehensive overview of projects that involve some of the more popular
+    web frameworks and technologies.</para>
+  </section>
+</chapter>

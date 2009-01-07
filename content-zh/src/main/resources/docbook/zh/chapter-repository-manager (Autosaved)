@@ -1,0 +1,1847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="repository-manager">
+  <title>Repository Manager</title>
+
+  <section>
+    <title>Introduction</title>
+
+    <para>Repository managers serve two purposes: they act as highly
+    configurable proxies between your organization and the public Maven
+    repositories and they also provide an organization with a deployment
+    destination for your internally generated artifacts.</para>
+
+    <para>Proxying a Maven repository brings a number of benefits. For
+    starters, you are going to speed up builds throughout your organization by
+    installing a local cache for all artifacts from the Central Maven
+    repository. If a developer in your organization needs to download version
+    2.5 of the Spring Framework and you are using Nexus, the dependencies (and
+    the dependency's dependencies) only need to be downloaded from the remote
+    repository once. With a high-speed connection to the Internet this might
+    seem like a minor concern, but if you are constantly asking your
+    developers to download hundreds of megabytes of third-party dependencies,
+    the real cost savings are going to be the time it takes Maven to check for
+    new versions of dependencies and to download dependencies. Serving Maven
+    dependencies from a local repository can save you hundreds of requests
+    over HTTP, and, in very large multi-project builds, this can shave minutes
+    from a build.</para>
+
+    <para>In addition to the simple savings in time and bandwidth, a
+    repository manager provides an organization with control over what is
+    downloaded by Maven. You can specifically include or exclude certain
+    artifacts from the public repository. Having control over what is
+    downloaded from the central Maven repository is often a prerequisite for
+    using Maven in most organizations which need to maintain very strict
+    control over what dependencies are used throughout the organization. An
+    organization which wants to standardize on a specific version of a
+    dependency like Hibernate or Spring can enforce this standardization by
+    only providing access to a specific version of an artifact in a repository
+    manager. Other organizations might be concerned with making sure that
+    every external dependency has a license compatible with the legal
+    standards of that organization. If a corporation is producing a
+    application which is distributed, they might want to make sure that no one
+    inadvertently adds a dependency on a third-party library which is covered
+    under the GPL license. Repository managers provide for the level of
+    control that an organization needs to make sure that overall architecture
+    and policy can be enforced.</para>
+
+    <para>Aside from the benefits of mediating access to remote repositories,
+    a repository manager also provides something essential to full adoption of
+    Maven. Unless you expect every member of your organization to download and
+    build every single internal project, you will want to provide a mechanism
+    for developers and departments to share both SNAPSHOT and releases for
+    internal project artifacts. Nexus provides your organization with such a
+    deployment target. Once you install Nexus, you can start using Maven to
+    deploy snapshots and releases to a custom repository managed by
+    Nexus.</para>
+
+    <section>
+      <title>History of Nexus</title>
+
+      <para>Tamas Cservenak stated working on Proximity in December 2005 as he
+      was trying to find a way to isolate his own systems from an incredibly
+      slow <acronym>ADSL</acronym> connection provided by a Hungarian
+      <acronym>ISP</acronym>. Proximity started as a simple web application to
+      proxy artifacts for a small organization with connectivity issues.
+      Creating a local on-demand cache for Maven artifacts from the central
+      Maven repository gave an organization access to the artifacts on the
+      Central Maven Repository, but it also made sure that these artifacts
+      weren't downloaded over a very slow <acronym>ADSL</acronym> connection
+      used by a number of developers. In 2007, Sonatype asked Tamas to help
+      create a similar product named Nexus. Nexus is currently considered the
+      logical next step to Proximity.</para>
+
+      <para>Nexus currently has an active development team consisting of Tamas
+      Cservenak, Max Powers, Dmitry Platonoff and Brian Fox. Portions of the indexing code
+      from Nexus are also being used in m2eclipse which is being actively
+      developed by Eugene Kuleshov.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Installing Nexus</title>
+
+    <section>
+      <title>Downloading Nexus from Sonatype</title>
+
+      <para>You can find information about Nexus at <ulink
+      url="http://nexus.sonatype.org">http://nexus.sonatype.org</ulink>. To
+      download Nexus, go to <ulink
+      url="http://nexus.sonatype.org/downloads/">http://nexus.sonatype.org/downloads/</ulink>.
+      Click on the download link an download the appropriate archive for your
+      platform. Nexus is available as a <acronym>ZIP</acronym> and a Gzip'd
+      <acronym>TAR</acronym> file.</para>
+    </section>
+
+    <section>
+      <title>Installing Nexus</title>
+
+      <para>Installing Nexus is straightforward, unpack the Nexus archive in a
+      directory. If you are installing Nexus on a local workstation to give it
+      a test run, you can install it in your home directory or whenever you
+      like; Nexus doesn't have any hard coded directories, it will run from
+      any directory. If you downloaded the <acronym>ZIP</acronym> archive,
+      run:</para>
+
+      <screen>$ <command>unzip nexus-1.0.0-bundle.zip</command></screen>
+
+      <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
+      run:</para>
+
+      <screen>$ <command>tar xvzf nexus-1.0.0-bundle.tgz</command></screen>
+
+      <para>If you are installing Nexus on a server, you might want to use a
+      directory other than your home directory. On a Unix machine, this could
+      be under <filename>/usr/local/nexus-1.0.0-beta-3</filename> with a
+      symbolic link <filename>/usr/local/nexus</filename> to the nexus
+      directory. Using a generic symbolic link nexus to a specific version is
+      a common practice which makes it easier to upgrade when a newer version
+      of Nexus is made available.</para>
+
+      <screen>$ <command>sudo cp nexus-1.0.0-bundle.tgz /usr/local</command>
+$ <command>cd /usr/local</command>
+$ <command>sudo tar xvzf nexus-1.0.0-bundle.tgz</command>
+$ <command>ln -s nexus-1.0.0-beta-3 nexus</command></screen>
+
+      <para>Although it isn't required for Nexus to run, you may want to set
+      an environment variable <varname>NEXUS_HOME</varname> in your
+      environment which points to the installation directory of Nexus. This
+      chapter will refer to this location as
+      <varname>${NEXUS_HOME}</varname>.</para>
+    </section>
+
+    <section>
+      <title>Running Nexus</title>
+
+      <para>When you start Nexus, you are starting a web server on the default
+      port of <varname>localhost:8081</varname>. Nexus runs within a servlet
+      container called Jetty and it is started with a native service wrapper
+      called the <ulink
+      url="http://wrapper.tanukisoftware.org/doc/english/introduction.html">Tanuki
+      Java Service Wrapper</ulink>. This service wrapper can be configured to
+      run Nexus as a Windows service or a Unix daemon. To start Nexus, you
+      will need to find the appropriate startup script for your platform. To
+      see the list of available platforms, list the contents of the
+      <filename>${NEXUS_HOME}/bin/jsw</filename> directory.</para>
+
+      <para>The following example listing starts Nexus using the script for
+      Mac OSX. First we list the contents of the
+      <filename>${NEXUS_HOME}/bin/jsw</filename> to show you the available
+      platforms, then we make the contents of the bin directory executable
+      with <command>chmod</command>. The Mac OSX wrapper is started with a
+      call to <command>app start</command>, and then we tail the
+      <filename>wrapper.log</filename> in
+      <filename>${NEXUS_HOME}/container/logs</filename>. Nexus will initialize
+      itself and print a message that it is listening on
+      <varname>localhost:8081</varname>.</para>
+
+      <screen>$ <command>cd Nexus</command>
+$ <command>ls ./bin/jsw/</command>
+aix-ppc-32/          linux-ppc-64/        solaris-sparc-32/
+aix-ppc-64/          linux-x86-32/        solaris-sparc-64/
+hpux-parisc-32/      linux-x86-64/        solaris-x86-32/
+hpux-parisc-64/      macosx-universal-32/ windows-x86-32/
+$ <command>chmod -R a+x bin</command>
+$ <command>./container/bin/jsw/macosx-universal-32/app start</command>
+Nexus Repository Manager...
+$ <command>tail -f container/logs/wrapper.log</command> 
+INFO  ... [ServletContainer:default] - Started SelectChannelConnector@0.0.0.0:8081
+</screen>
+
+      <para>At this point, Nexus will be running and listening on port 8081.
+      To use Nexus, fire up a web browser and type in the URL: <ulink
+      url="http://localhost:8081/nexus">http://localhost:8081/nexus</ulink>.
+      Click on the "Log In" link in the upper right-hand corner of the web
+      page, and you should see the following login dialog.</para>
+
+      <para><emphasis>THE DEFAULT NEXUS USERNAME AND PASSWORD IS "admin" AND
+      "admin123".</emphasis></para>
+
+      <figure>
+        <title>Nexus Login Window (default login/password is
+        admin/admin123)</title>
+
+        <screenshot>
+          <screeninfo>This is the initial login screen for Nexus. The default
+          administrative login for Nexus is "admin", and the default password
+          for Nexus is "admin123"</screeninfo>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_nexus-login.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </section>
+
+    <section>
+      <title>Startup Scripts for Redhat/Fedora/CentOS</title>
+
+      <para>You can configure Nexus to start automatically, by copying the
+      <filename>app</filename> script to the <filename>/etc/init.d</filename>
+      directory. On a Redhat-variant Linux system (Redhat, Fedora, or CentOS)
+      perform the following operations as the root user:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Copy either
+          <filename>${NEXUS_HOME}/bin/jsw/linux-ppc-64/app</filename>,
+          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-32/app</filename>, or
+          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-64/app</filename> to
+          <filename>/etc/init.d/nexus</filename>.</para>
+        </listitem>
+
+        <listitem>
+          <para>Make the <filename>/etc/init.d/nexus</filename> script
+          executable - <command>chmod 755 /etc/init.d/nexus</command></para>
+        </listitem>
+
+        <listitem>
+          <para>Edit this script changing the following variables:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Change <varname>APP_NAME</varname> to "nexus"</para>
+            </listitem>
+
+            <listitem>
+              <para>Change <varname>APP_LONG_NAME</varname> to "Sonatype
+              Nexus"</para>
+            </listitem>
+
+            <listitem>
+              <para>Add a variable <varname>NEXUS_HOME</varname> which points
+              to your Nexus installation directory</para>
+            </listitem>
+
+            <listitem>
+              <para>Add a variable <varname>PLATFORM</varname> which contains
+              either <varname>linux-x86-32</varname>,
+              <varname>linux-x86-64</varname>, or
+              <varname>linux-ppc-64</varname></para>
+            </listitem>
+
+            <listitem>
+              <para>Change <varname>WRAPPER_CMD</varname> to
+              <filename>${NEXUS_HOME}/bin/jsw/${PLATFORM}/wrapper</filename></para>
+            </listitem>
+
+            <listitem>
+              <para>Change <varname>WRAPPER_CONF</varname> to
+              <filename>${NEXUS_HOME}/conf/wrapper.conf</filename></para>
+            </listitem>
+
+            <listitem>
+              <para>Change <varname>PIDDIR</varname> to
+              <filename>/var/run</filename>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Add a <varname>JAVA_HOME</varname> variable which points
+              to your local Java installation</para>
+            </listitem>
+
+            <listitem>
+              <para>Add a <filename>${JAVA_HOME}/bin</filename> to the
+              <varname>PATH</varname></para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>(Optional) Set the RUN_AS_USER to "nexus". If you do this, you
+          will need to:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Create a nexus user</para>
+            </listitem>
+
+            <listitem>
+              <para>Change the Owner and Group of your nexus install directory
+              to nexus</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </orderedlist>
+
+      <para>At the end of this you should have a file in
+      <filename>/etc/init.d/nexus</filename> which starts with a series of
+      configuration properties which look something like this (assuming that
+      you've installed Nexus in <filename>/usr/local/nexus</filename> and that
+      you have Java installed in
+      <filename>/usr/java/latest</filename>):</para>
+
+      <programlisting>JAVA_HOME=/usr/java/latest
+PATH=${PATH}:${JAVA_HOME}/bin
+APP_NAME="nexus"
+APP_LONG_NAME="Sonatype Nexus"
+NEXUS_HOME=/usr/local/nexus
+PLATFORM=linux-x86-64
+WRAPPER_CMD="${NEXUS_HOME}/bin/jsw/${PLATFORM}/wrapper"
+WRAPPER_CONF="${NEXUS_HOME}/conf/wrapper.conf"
+PRIORITY=
+PIDDIR="/var/run"
+#RUN_AS_USER=nexus
+</programlisting>
+
+      <para>This script has the appropriate <command>chkconfig</command>
+      directives, so all you need to do to add Nexus as a service is run the
+      following commands:</para>
+
+      <screen>$ <command>cd /etc/init.d</command>
+$ <command>chkconfig --add nexus</command>
+$ <command>chkconfig --levels 345 nexus on</command>
+$ <command>service nexus start</command>
+Starting Sonatype Nexus...
+$ <command>tail -f /usr/local/nexus/logs/wrapper.log</command></screen>
+
+      <para>The second command adds nexus as a service to be started and
+      stopped with the <command>service</command> command and managed by
+      <command>chkconfig</command> command. <command>chkconfig</command>
+      manages the symbolic links in <filename>/etc/rc[0-6].d</filename> which
+      control the services which are started and stopped when the operating
+      system restarts or transitions between run-levels. The third command
+      adds nexus to run-levels 3, 4, and 5. The service command starts Nexus,
+      and the last command tails the <filename>wrapper.log</filename> to
+      verify that Nexus has been started successfully. If Nexus has started
+      successfully you should see a message notifying you that Nexus is
+      listening for <acronym>HTTP</acronym> connections on a port.</para>
+    </section>
+
+    <section>
+      <title>Upgrading from a Previous Version</title>
+
+      <para>Upgrading from a previously installed version of Nexus is
+      relatively easy. There are two archives available for download for each
+      Nexus release. The full archive contains the Nexus application, the
+      Nexus startup scripts, and a work area to hold Nexus data which may
+      include repository indexes and the local caches for each repository. If
+      you've made heavy use of Nexus, this work directory could contain
+      gigabytes of artifacts and hosted repositories that you wouldn't want to
+      have to recreate every time you upgraded to a newer version of Nexus.
+      The upgrade download was created to provide people with an easy way to
+      upgrade just the application while preserving the Nexus data; the
+      upgrade download contains just the Nexus application code. You download
+      the complete Nexus distribution the first time you install Nexus, and
+      you download the upgrade distribution whenever you want to upgrade your
+      Nexus installation while preserving your repository data.</para>
+
+      <para>To upgrade Nexus download the "upgrade" archive instead of the
+      "bundle" archive. The contents of the upgrade bundle are stored in a
+      folder which contains the nexus version number (i.e.
+      <filename>nexus-1.0.0</filename>). This folder may be unpacked to
+      <filename>$NEXUS_HOME/runtime/apps</filename> without overriding the
+      currently installed version's contents.</para>
+
+      <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
+$ <command>unzip nexus-1.0.0-upgrade.zip</command></screen>
+
+      <para>And, if you download the GZip'd <acronym>TAR</acronym> archive,
+      run:</para>
+
+      <screen>$ <command>cd $NEXUS_HOME/runtime/apps</command>
+$ <command>tar xvzf nexus-1.0.0-upgrade.tgz</command></screen>
+
+      <para>Once the contents of the upgrade archive have been unpacked to
+      <filename>$NEXUS_HOME/runtime/apps</filename>, you must then copy the
+      configuration from the previous version of Nexus to the newly installed
+      version. To do this, copy <filename>nexus.xml</filename> from
+      <filename>$NEXUS_HOME/runtime/apps/nexus/conf/nexus.xml</filename> to
+      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0/conf</filename>.
+      You should also copy any of the logging configuration files which you
+      have customized including <filename>log4j.properties</filename> and
+      <filename>jul-logging.properties</filename>. Once you have copied the
+      configuration from your current version of Nexus to the new version of
+      Nexus, stop the Nexus server.</para>
+
+      <para>At this point, you will need to rename the
+      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> directory to a name
+      that reflects the old version number. For example, in this example
+      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> would become
+      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0</filename>. Then
+      you will need to expose the new version as
+      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. On a Unix system,
+      you should create a symbolic link
+      <filename>$NEXUS_HOME/runtime/apps/nexus</filename> which points to
+      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0</filename>. On a
+      Windows system, you may need to copy
+      <filename>$NEXUS_HOME/runtime/apps/nexus-1.0.0</filename> to
+      <filename>$NEXUS_HOME/runtime/apps/nexus</filename>. Once you have
+      swapped the old version of Nexus with the new version of Nexus, you
+      should be able to start Nexus with the startup script. Once Nexus has
+      started, check the <filename>$NEXUS_HOME/logs/wrapper.log</filename>.
+      When Nexus is initialized it will print out the Nexus version
+      number.</para>
+    </section>
+  </section>
+
+  <section id="sect-conf-maven-nexus">
+    <title>Configuring Maven to Use Nexus</title>
+
+    <para>To use Nexus, you will configure Maven to check Nexus instead of the
+    public repositories. To do this, you'll need to edit your mirror settings
+    in your <filename>~/.m2/settings.xml</filename> file. First, we're going
+    to demonstrate how to configure Maven to consult your Nexus installation
+    instead of retrieving artifacts directly from the Central Maven
+    repository. After we override the central repository and demonstrate that
+    Nexus is working, we'll circle back to provide a more sensible set of
+    settings that will cover both releases and snapshots.</para>
+
+    <section id="sect-simple-maven-nexus">
+      <title>Using the Nexus Central Proxy Repository</title>
+
+      <para>To configure Maven to consult Nexus instead of the Central Maven
+      repository, add the mirror settings from <xref
+      linkend="ex-override-central" /> to your
+      <filename>~/.m2/settings.xml</filename> file.</para>
+
+      <example id="ex-override-central">
+        <title>Configuring Maven Settings for Nexus
+        (~/.m2/settings.xml)</title>
+
+        <programlisting>&lt;?xml version="1.0"?&gt;
+&lt;settings&gt;
+  ...
+  &lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;id&gt;Nexus&lt;/id&gt;
+      &lt;name&gt;Nexus Public Mirror&lt;/name&gt;
+      &lt;url&gt;http://localhost:8081/nexus/content/groups/public&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+    &lt;/mirror&gt;
+  &lt;/mirrors&gt;
+  ...
+&lt;/settings&gt;
+</programlisting>
+      </example>
+
+      <para>Once you've configured Nexus to be the mirror for all
+      repositories, Maven will now consult the local installation of Nexus
+      instead of going out to the central Maven repository. If Nexus has the
+      artifact requested, the artifact will be served from the local Nexus
+      installation. If Nexus does not have the artifact, Nexus will retrieve
+      it from the remote repository and then add it to the local mirror of
+      that remote repository.</para>
+
+      <para>To test how Nexus is working, try deleting a directory from your
+      local Maven repository, and then running a Maven build. If you delete
+      <filename>~/.m2/repository/org</filename>, you'll be deleting a large
+      number of dependencies (including Maven plugins). The next time you run
+      Maven, you should see the following:</para>
+
+      <screen>$ <command>mvn clean install</command>
+...
+Downloading: http://localhost:8081/nexus/content/groups/public/...
+3K downloaded
+</screen>
+
+      <para>This output should convince you that Maven is communicating with
+      your local installation of Nexus instead of going out to the Central
+      Maven repository to retrieve an artifact. After you've run a few builds
+      against your local Nexus installation, you can then start to browse the
+      contents cached in your local instance of Maven. After you run a build
+      against Nexus, log into Nexus and click on Artifact Search in the
+      left-hand navigation menu. Type the search term "maven" into the Search
+      box, and you should see something similar to the following
+      screenshot.</para>
+
+      <figure>
+        <title>Results of an Artifact Search for "maven"</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_artifact-search.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </section>
+
+    <section>
+      <title>Using Nexus for Snapshot Repositories</title>
+
+      <para>Maven must be configured with a snapshot repository before it asks for a snapshot, this includes your own deployed snapshots. </para>
+
+      <para>The Maven Settings from <xref linkend="sect-simple-maven-nexus" />
+      will allow you to use the Nexus public group which resolves artifacts
+      from four repositories managed by Nexus, but it won't allow you to
+      reference the <varname>public-snapshots</varname> group which includes
+      the Apache and Codehaus snapshots. To configure Maven to use Nexus for
+      both releases and plugins, you will have to configure Maven to reference
+      the Nexus groups by adding the following mirror configuration to your
+      Maven settings in <filename>~/.m2/settings.xml</filename>.</para>
+
+      <example id="ex-maven-nexus-snap">
+        <title>Configuring Maven to Use Nexus for Releases and
+        Snapshots</title>
+
+        <programlisting>&lt;settings&gt;
+  &lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;!--This is used to direct the public snapshots repo in the 
+          profile below over to a different nexus group --&gt;
+      &lt;id&gt;nexus-public-snapshots&lt;/id&gt;
+      &lt;mirrorOf&gt;public-snapshots&lt;/mirrorOf&gt;
+      &lt;url&gt;http://localhost:8081/nexus/content/groups/public-snapshots&lt;/url&gt;
+    &lt;/mirror&gt;
+    &lt;mirror&gt;
+      &lt;!--This sends everything else to /public --&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+      &lt;url&gt;http://localhost:8081/nexus/content/groups/public&lt;/url&gt;
+    &lt;/mirror&gt;
+  &lt;/mirrors&gt;
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;development&lt;/id&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;central&lt;/id&gt;
+          &lt;url&gt;http://central&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+     &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;central&lt;/id&gt;
+          &lt;url&gt;http://central&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+      &lt;!--this profile will allow snapshots to be searched when activated--&gt;
+      &lt;id&gt;public-snapshots&lt;/id&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;public-snapshots&lt;/id&gt;
+          &lt;url&gt;http://public-snapshots&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;false&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+     &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;public-snapshots&lt;/id&gt;
+          &lt;url&gt;http://public-snapshots&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;false&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+  &lt;activeProfiles&gt;
+    &lt;activeProfile&gt;development&lt;/activeProfile&gt;
+  &lt;/activeProfiles&gt;
+&lt;/settings&gt;</programlisting>
+
+        <para>In <xref linkend="ex-maven-nexus-snap" /> we have defined two
+        profiles: <varname>development</varname> and
+        <varname>public-snapshots</varname>. The development profile is
+        configured to download from the central repository with a bogus
+        <acronym>URL</acronym> of <varname>http://central</varname>. The
+        public-snapshots profile is configured to download from the
+        public-snapshots repository with a bogus URL of
+        <varname>http://public-snapshots</varname>. These bogus
+        <acronym>URL</acronym>s are overridden by two mirror settings in the
+        same <filename>settings.xml</filename> file. The first mirror is
+        configured to override the public-snapshots repository to the
+        <varname>public-snapshots</varname> Nexus group. The second mirror
+        overrides all other repositories to the public Nexus group. With these
+        settings, all builds will include the <varname>public</varname> Nexus
+        group, if you want to include the <varname>public-snapshots</varname>
+        group, you would have to add the profile public-snapshots by using the
+        -P flag on the command line as follows:</para>
+
+        <screen>$ mvn -Ppublic-snapshots clean install</screen>
+      </example>
+    </section>
+
+    <section>
+      <title>Adding Repositories for Missing Dependencies</title>
+
+      <para>If you've configured your Maven <filename>settings.xml</filename>
+      to list Nexus as a mirror for all public repositories and all
+      public-snapshot repository, you might encounter projects which are
+      unable to retrieve artifacts from your local Nexus installation. This
+      usually happens because you are trying to build a project which has
+      defined a custom set of <varname>repositories</varname> and
+      <varname>snapshotRepositories</varname> in a
+      <filename>pom.xml</filename>. This is definitely going to happen if you
+      are building open source projects or if you've added custom third-party
+      Maven repositories to your configuration.</para>
+
+      <para>As an example, let's try to build Apache Shindig from source we've
+      checked out of the Apache Incubator. What is Apache Shindig? It doesn't
+      matter to this example; all we need is an example project we can easily
+      checkout from source control and build. If you really want to know,
+      Shindig is a project in the Apache Incubator that revolves around the
+      OpenSocial API from Google. Shindig aims to provide a container that
+      will allow people to execute OpenSocial gadgets. It provides us with an
+      interesting example project, because it depends on some custom Maven
+      repositories for components which have yet to be added to the Central
+      Maven repository. Using Shindig we can show you what happens when Nexus
+      doesn't have your artifacts and what steps you can take to add
+      repositories to Nexus.</para>
+
+      <para>The following example assumes that you have Subversion installed
+      and that you are running Subversion from the command-line. Let's
+      checkout Apache Shindig from the Apache Incubator with Subversion and
+      attempt to build it from source. To do this, execute the following
+      commands:</para>
+
+      <screen>$ <command>svn co http://svn.apache.org/repos/asf/incubator/shindig/trunk shindig</command>
+... Subversion will checkout the trunk of Apache Shindig ...
+$ <command>cd shindig</command>
+$ <command>mvn install</command>
+... Maven will build Shindig ...
+Downloading: http://localhost:8081/nexus/content/groups/public/caja/caja/r820/caja-r820.pom
+Downloading: http://localhost:8081/nexus/content/groups/public/caja/caja/r820/caja-r820.jar
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD ERROR
+[INFO] ------------------------------------------------------------------------
+[INFO] Failed to resolve artifact.
+
+Missing:
+----------
+1) caja:caja:jar:r820
+
+  Try downloading the file manually from the project website.
+
+...
+----------
+1 required artifact is missing.
+
+for artifact: 
+  org.apache.shindig:gadgets:war:1-SNAPSHOT
+
+from the specified remote repositories:
+  oauth (http://oauth.googlecode.com/svn/code/maven),
+  central (http://central),
+  apache.snapshots (http://people.apache.org/repo/m2-snapshot-repository),
+  caja (http://google-caja.googlecode.com/svn/maven)
+</screen>
+
+      <para>The build fails because it is unable to download an artifact. The
+      artifact it was trying to download has a group identifier of
+      <varname>caja</varname>, and artifactId of <varname>caja</varname>, and
+      a version of <varname>r820</varname>. It is an artifact that is hosted
+      on a custom repository <ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>.
+      Maven failed to download this artifact because your
+      <filename>settings.xml</filename> was configured to direct all mirrors
+      to the <varname>public</varname> and <varname>public-snapshots</varname>
+      groups hosted on our Nexus installation. Even though the
+      <filename>pom.xml</filename> for Apache Shindig defined a repository and
+      pointed it at <ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>,
+      Nexus won't retrieve an artifact from a repository it doesn't know
+      about. In fact, there are two repositories that Nexus doesn't know about
+      in this build: <varname>caja</varname> and <varname>oauth</varname>.
+      <ulink url="http://code.google.com/p/google-caja/">Caja</ulink> and
+      <ulink url="http://code.google.com/p/oauth/">OAuth</ulink> are two
+      libraries which are still in development. Both projects have been
+      "released", and the versions that Shindig depends upon are certainly not
+      SNAPSHOT releases, but these projects have not been published to the
+      Central Maven Repository. We need to find a way to let Nexus know about
+      these repositories before we can build this project.</para>
+
+      <para>There are two ways to fix this problem. First, you can change your
+      <filename>settings.xml</filename> to override specific repository
+      identifiers. Instead of listing the Nexus public group as a
+      <sgmltag>mirrorOf</sgmltag> all repositories, you could change the
+      <sgmltag>mirrorOf</sgmltag> element in your
+      <filename>settings.xml</filename> to "central". If you did this, Maven
+      would then attempt to download the dependencies directly from the
+      <varname>oauth</varname> and <varname>caja</varname> repositories at the
+      <acronym>URL</acronym>s listed in the previous screen listing. This
+      would work because Maven is only going to consult Nexus for repositories
+      which match the repositories specified in the
+      <sgmltag>mirrorOf</sgmltag> element in
+      <filename>settings.xml</filename>. If Maven sees the repositories
+      identifier <varname>caja</varname> or <varname>oauth</varname>, and
+      doesn't see a mirror configured in your
+      <filename>settings.xml</filename>, it is going to attempt to connect to
+      the repository directly.</para>
+
+      <para>The second, more interesting option is to add both of these
+      repositories to Nexus and then add these repositories to the public
+      group.</para>
+    </section>
+
+    <section>
+      <title>Adding a New Repository</title>
+
+      <para>To add the caja repository, log into Nexus as an Administrator,
+      and click on the Repositories link in the left-hand navigation menu in
+      the Configuration section. Clicking on this link should bring up a
+      window that lists all of the repositories which Nexus knows about.
+      You'll then want to create a new proxy repository. To do this, click on
+      the Add link which is directly above the list of repositories. When you
+      click the Add button, click the down arrow directly to the right of the
+      word Add, this will show a drop-down which has the options: Hosted,
+      Proxy, and Virtual. Since you are creating a proxy repository, click on
+      Proxy. Once you do this, you will see a screen resembling <xref
+      linkend="fig-add-repo" />. Populate the required fields Repository ID
+      and the Repository Name with "caja" and "Google Caja". Set the
+      Repository Policy to "Release", and the Remote Storage Location to
+      <ulink
+      url="http://google-caja.googlecode.com/svn/maven">http://google-caja.googlecode.com/svn/maven</ulink>.</para>
+
+      <figure id="fig-add-repo">
+        <title>Adding a Nexus Repository</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_add-repository.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Once, you've filled out this screen, click on the Save button.
+      Nexus will then be configured with the caja proxy repository. Do the
+      same thing for the oauth repository. Create a repository with the
+      Repository ID of oauth, with a Release policy, and the Remote Storage
+      Location of <ulink
+      url="http://oauth.googlecode.com/svn/code/maven">http://oauth.googlecode.com/svn/code/maven</ulink>.</para>
+    </section>
+
+    <section>
+      <title>Adding a Repository to a Group</title>
+
+      <para>Next you will need to add both of these new repositories to the
+      public Nexus Group. To do this, click on the Groups link in the
+      left-hand navigation menu in the Configuration section. When you see the
+      Group management screen, click on the public group. Clicking on the
+      public group should bring up a screen which resembles <xref
+      linkend="fig-add-to-group" />.</para>
+
+      <figure id="fig-add-to-group">
+        <title>Adding New Repositories to a Nexus Group</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_add-to-group.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Nexus makes use of an interesting Javascript widget library named
+      <ulink url="http://extjs.com/">ExtJS</ulink>. ExtJS provides for a
+      number of interesting UI widgets that allow for rich interaction. To add
+      the two new repositories to the <varname>public</varname> Nexus Group,
+      find the repositories in the Available Repositories list, click on the
+      repository you want to add and drag it to the Ordered Group
+      Repositories. Once the repository is in the Ordered Group Repositories
+      list you can click and drag the repository within that list to alter the
+      order in which a repository will be searched for a matching artifact.
+      Once the Google Caja and Google OAuth project repositories are added to
+      the public Nexus Group, you should be able to build Apache Shindig and
+      watch Maven download the Caja and OAuth artifacts from the respective
+      repositories.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Configuring Nexus</title>
+
+    <para>Many of the configuration screens shown in this section are only
+    available to administrative users. Nexus allows the admin user to
+    customize the list of repositories, create repository groups, customize
+    server settings, and create routes or "rule" that Maven will use to
+    include or exclude artifacts from a repository.</para>
+
+    <section>
+      <title>Customizing Server Configuration</title>
+
+      <para>In a real installation of Nexus, you'll probably want to customize
+      the administrative password to something other than "admin123", and you
+      might want to override the default directories that Nexus uses to store
+      repository data. To do this, log in as the administrative user and click
+      on Server under Configuration in the left-hand navigation menu. The
+      server configuration screen is shown in <xref
+      linkend="fig-nexus-server-config" />.</para>
+
+      <figure id="fig-nexus-server-config">
+        <title>Nexus Server Configuration</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_server-settings.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>This screen allows you to change:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Admin Password</term>
+
+          <listitem>
+            <para>The default admin password is <varname>admin123</varname>.
+            If you fill out this field and click on the Save button, you can
+            change the admin password for this installation of Nexus.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Working Directory</term>
+
+          <listitem>
+            <para>Under the File Settings group, you can customize the working
+            directory. You may wish to customize the working directory if your
+            Nexus installation is going to be mirroring very large
+            repositories and you want to put your working directory on another
+            partition.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Log Directory</term>
+
+          <listitem>
+            <para>You can change where Nexus looks for logs. On a Unix
+            machine, a common practice is to place all log files under
+            <filename>/var/log</filename>. If you wanted to follow this
+            practice, you could create a <filename>/var/log/nexus</filename>
+            directory with the appropriate permissions. Note that this setting
+            does not change the logging directory used by Nexus, it simply
+            tells Nexus where to look for the logs. To change the location of
+            the logs, you will need to change the
+            <filename>jul-logging.properties</filename> and
+            <filename>log4j.properties</filename> files in the
+            <filename>runtime/apps/nexus/conf</filename> directory of your
+            Nexus installation.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>User Agent</term>
+
+          <listitem>
+            <para>This is the identifier which Nexus uses when it is making an
+            <acronym>HTTP</acronym> request. You may want to change this if
+            Nexus needs to use an <acronym>HTTP</acronym> Proxy, and the Proxy
+            will only work if the User Agent is set to a specific
+            value.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Additional <acronym>URL</acronym> Parameters</term>
+
+          <listitem>
+            <para>This is a list of extra parameters to place on a
+            <acronym>GET</acronym> request to a remote repository. You could
+            use this to add identifying information to requests.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Request Timeout</term>
+
+          <listitem>
+            <para>The amount of time Nexus will wait for a request to succeed
+            when interacting with an external, remote repository.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Request Retry Attempts</term>
+
+          <listitem>
+            <para>The number of times Nexus will retry a failed
+            <acronym>HTTP</acronym> request.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Proxy Host and Proxy Post</term>
+
+          <listitem>
+            <para>If your organization requires that you use an
+            <acronym>HTTP</acronym> proxy server, you can supply the proxy
+            host and port in these configuration fields.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Proxy Authentication</term>
+
+          <listitem>
+            <para>This configuration section allows you to provide proxy
+            authentication information such as a username and password or a
+            key used to access an <acronym>HTTP</acronym> Proxy.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Managing Repositories</title>
+
+      <para>To manage the repositories which Nexus provides, log in as the
+      administrative user and click on Repositories in the Configuration menu
+      in the left-hand navigation menu. Nexus provides for three different
+      kinds of repositories:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Proxy Repository</term>
+
+          <listitem>
+            <para>A proxy repository is a proxy of a remote repository. By
+            default, Nexus ships with the following configured proxy
+            repositories:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>Apache Snapshots</term>
+
+                <listitem>
+                  <para>This repository contains snapshot releases from the
+                  Apache Software Foundation
+                  http://people.apache.org/repo/m2-snapshot-repository</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Codehaus Snapshots</term>
+
+                <listitem>
+                  <para>This repository contains snapshot released from
+                  Codehaus http://snapshots.repository.codehaus.org/</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Central Maven Repository</term>
+
+                <listitem>
+                  <para>This is the central Maven repository (for releases).
+                  http://repo1.maven.org/maven2/</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Hosted Repository</term>
+
+          <listitem>
+            <para>A hosted repository is a repository which is hosted by
+            Nexus. Maven ships with the following configured hosted
+            repositories:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>3rd Party</term>
+
+                <listitem>
+                  <para>This hosted repository should be used for third-party
+                  dependencies not available in the public Maven repositories.
+                  Examples of these dependencies could be commercial,
+                  proprietary libraries such as an Oracle JDBC driver that may
+                  be referenced by your organization.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Releases</term>
+
+                <listitem>
+                  <para>This hosted repository is where your organization will
+                  publish internal releases.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Snapshots</term>
+
+                <listitem>
+                  <para>This hosted repository is where your organization will
+                  publish internal snapshots.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Virtual Repository</term>
+
+          <listitem>
+            <para>A virtual repository exists as an adapter to Maven 1. Nexus
+            ships with a central-m1 virtual repository.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <figure id="fig-repo-config">
+        <title>Repository Configuration Screen for a Proxy Repository</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_repository-config.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para><xref linkend="fig-repo-config" /> shows the Repository
+      configuration screen for a Proxy repository in Nexus. From this screen,
+      you can manage the settings for proxying an external repository. From
+      this screen, you can configure:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Repository ID</term>
+
+          <listitem>
+            <para>The repository ID is the identifier which will be used in
+            the Nexus URL. For example, the central proxy repository has an ID
+            of "central", this means that maven can access the repository
+            directly at
+            http://localhost:8081/nexus/content/repositories/central. The
+            Repository ID must be unique in a given Nexus installation. ID is
+            required.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Repository Name</term>
+
+          <listitem>
+            <para>The display name for a repository. Name is required.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Repository Type</term>
+
+          <listitem>
+            <para>The type of repository (proxy, hosted, or virtual). You
+            can't change the type of a repository, it is selected when you
+            create a repository.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Repository Policy</term>
+
+          <listitem>
+            <para>If a proxy repository has a policy of release than it will
+            only access released versions from the remote repository. If a
+            proxy repository has a policy of snapshot, it will download
+            snapshots from the remote repository.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Default Storage Location</term>
+
+          <listitem>
+            <para>Not editable, shown for reference. This is the default
+            storage location for the local cached contents of the
+            repository.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Override Storage Location</term>
+
+          <listitem>
+            <para>You can choose to override the storage location for a
+            specific repository. You would do this if you were concerned about
+            storage and wanted to put the contents of a specific repository
+            (such as central) in a different location.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Remote Repository Access</term>
+
+          <listitem>
+            <para>This section tells Nexus where to look for and how to
+            interact with the remote Maven repository being proxied.</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>Remote Storage Location</term>
+
+                <listitem>
+                  <para>This is the URL of the remote Maven repository.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Download Remote Indexes (Not shown in figure)</term>
+
+                <listitem>
+                  <para>This field controls the downloading of the remote
+                  indexes. Currently only central has an index at <ulink
+                  url="http://repo1.maven.org/maven2/.index">http://repo1.maven.org/maven2/.index</ulink>.
+                  If enabled, Nexus will download the index and use that for
+                  its searches as well as serve that up to any clients which
+                  ask for the index (like m2eclipse). The default for new
+                  proxy repositories is enabled, but all of the default
+                  repositories included in Nexus have this option disabled. To
+                  change this setting for one of the proxy repositories that
+                  ship with Nexus, change the option, save the repository, and
+                  then re-index the repository. Once this is done, artifact
+                  search will return every artifact available on the Central
+                  Maven repository. <xref linkend="sect-manage-repo" />
+                  details the process for re-indexing a repository.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Checksum Policy</term>
+
+                <listitem>
+                  <para>Sets the checksum policy for a remote repository. This
+                  option is set to <varname>Warn</varname> by default. The
+                  possible values of this setting are:</para>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para><varname>Ignore</varname> - Ignore the checksums
+                      entirely</para>
+                    </listitem>
+
+                    <listitem>
+                      <para><varname>Warn</varname> - Print a warning in the
+                      log if a checksum is not correct</para>
+                    </listitem>
+
+                    <listitem>
+                      <para><varname>StrictIfExists</varname> - Refuse to
+                      cache an artifact if the calculated checksum is
+                      inconsistent with a checksum in the repository. Only
+                      perform this check if the checksum file is
+                      present.</para>
+                    </listitem>
+
+                    <listitem>
+                      <para><varname>Strict</varname> - Refuse to cache an
+                      artifact if the calculated checksum is inconsistent or
+                      if there is no checksum for an artifact.</para>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Authentication</term>
+
+                <listitem>
+                  <para>This section allows you to set a Username, Password,
+                  Private Key, Key Passphrase, NT LAN Host, and NT Lan Manager
+                  Domain for a remote repository.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Access Settings</term>
+
+          <listitem>
+            <para>This section configures access settings for a
+            repository.</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>Allow Deployment</term>
+
+                <listitem>
+                  <para>If allow deployment is set to true, Nexus will allow
+                  Maven to deploy artifacts to this repository. Allow
+                  deployment only makes sense for Hosted repositories.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Allow File Browsing</term>
+
+                <listitem>
+                  <para>When set to true, users can browse the contents of the
+                  repository with a web browser.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Include in Search</term>
+
+                <listitem>
+                  <para>When set to true, this repository is search when you
+                  perform an Artifact Search in Nexus. If this setting is
+                  false, the contents of the repository are excluded from a
+                  search.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Expiration Settings</term>
+
+          <listitem>
+            <para>Nexus maintains a local cache of artifacts and metadata, you
+            can configure expiration parameters for a proxy repository. The
+            expiration settings are:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>Not Found Cache TTL</term>
+
+                <listitem>
+                  <para>If Nexus fails to locate an artifact, it will cache
+                  this result for a given number of minutes. In other words,
+                  if Nexus can't find an artifact in a remote repository, it
+                  will not repeated attempt to resolve this artifact until the
+                  Not Found Cache TTL time has been exceeded. The default for
+                  this setting is 1440 minutes (or 24 hours).</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Artifact Max Age</term>
+
+                <listitem>
+                  <para>Tells Nexus when that maximum age of an artifact is
+                  before it retrieves a new version from the remote
+                  repository. The default for this setting is -1 for a
+                  repository with a Release policy and 1440 for a repository
+                  with Snapshot policy.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>Metadata Max Age</term>
+
+                <listitem>
+                  <para>Nexus retrieves metadata from the remote repository.
+                  It will only retrieve updates to metadata after the Metadata
+                  Max Age has been exceeded. The default value for this
+                  setting is 1440 minutes (or 24 hours).</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>HTTP Request Settings</term>
+
+          <listitem>
+            <para>This section lets you change the properties of the HTTP
+            request to the remote repository. In this section you can
+            configure the User Agent of the request, add parameters to a
+            request, and set the timeout and retry behavior. This section
+            refers to the HTTP request made from Nexus to the remote Maven
+            repository being proxied.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>HTTP Proxy Settings</term>
+
+          <listitem>
+            <para>This section lets you configure the HTTP Proxy for the
+            request from Nexus to the remote repository. You can configure a
+            proxy host and port plus an authentication settings you need tell
+            Nexus to use an HTTP Proxy for all requests to a remote
+            repository.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>Managing Groups</title>
+
+      <para>Groups are a powerful feature of Nexus, they allow you to combine
+      multiple repositories in a single URL. Nexus ships with two groups:
+      public and public-snapshots. The public group combines the three hosted
+      repositories: 3rd Party, Releases, and Snapshots with the Central Maven
+      repository. The public-snapshots repository combines the Apache
+      Snapshots and Codehaus Snapshots repositories. In <xref
+      linkend="sect-conf-maven-nexus" /> we configured Maven via the
+      <filename>settings.xml</filename> to look for artifacts in the
+      <varname>public</varname> group managed by Nexus. <xref
+      linkend="fig-group-config" /> shows the group configuration screen in
+      Nexus, in this figure you can see the contents of the
+      <varname>public</varname> group.</para>
+
+      <figure id="fig-group-config">
+        <title>Group Configuration Screen in Nexus</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_group-config.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Note that the order of the repositories listed in Order Group
+      Repositories is important. When Nexus searches for an artifact in a
+      group of repositories it will return the first match. To reorder a
+      repository in this list, click and the drag the repositories in the
+      Ordered Group Repositories selection list.</para>
+    </section>
+
+    <section>
+      <title>Managing Routes</title>
+
+      <para>Nexus Routes are like filters you can apply to Nexus Groups, they
+      allow you to configure Nexus to include or exclude repositories from a
+      particular artifact search when Nexus is trying to locate an artifact in
+      a Nexus Group. There are a number of different scenarios in which you
+      might configure a route in Nexus, the most common is when you want to
+      make sure that you are retrieving artifacts in a particular group ID
+      from a particular repository. This is especially useful when you want to
+      make sure that you are trying to retrieve your own organization's
+      artifacts from the hosted Release and Snapshot repositories. Nexus
+      Routes are applicable when you are trying to resolve an artifact from a
+      Nexus Group; using Routes allow you to modify the repositories Nexus
+      will consult when it tries to resolve an artifact from a group of
+      repositories.</para>
+
+      <figure id="fig-route-config">
+        <title>Routes Configuration Screen in Nexus</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figs/web/repository-manager_route-config.png" />
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para><xref linkend="fig-route-config" /> shows the Route Configuration
+      screen. Clicking on a route will bring up a screen which will allow you
+      to configure the properties of a route. The configuration options
+      available for a route are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>URL Pattern</term>
+
+          <listitem>
+            <para>This is the pattern which Nexus will use to match a request
+            to Nexus. If the regular expression in this pattern is matched,
+            Nexus will either include or exclude the listed repositories from
+            a particular artifact query. In <xref
+            linkend="fig-route-config" /> the two patterns are:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>.*/(com|org)/somecompany/.*</term>
+
+                <listitem>
+                  <para>This pattern would match all of the paths which
+                  included either "/com/somecompany/" or "/org/somecompany".
+                  The expression in the parenthesis matches either com or org,
+                  and the ".*" matches one or more characters. You would use a
+                  route like this to match your own organization's artifacts
+                  and map these requests to the hosted Nexus Releases and
+                  Snapshots repositories.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>.*/org/some-oss/.*</term>
+
+                <listitem>
+                  <para>This pattern is used in an exclusive route. It matches
+                  every path that contains "/org/some-oss/". This particular
+                  exclusive route excludes the local hosted Releases and
+                  Snapshots directory for all artifacts which match this path.
+                  When Nexus tries to resolve artifacts that match this path,
+                  it will exclude the Releases and Snapshots
+                  repositories.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Rule Type</term>
+
+          <listitem>
+            <para>Rule Type can be either "inclusive" or "exclusive". An
+            inclusive rule type defines the set of repositories which should
+            be searched for artifacts when the <varname>URL</varname> pattern
+            has been matched. An exclusive rule type defines repositories
+            which should not be searched for a particular artifact.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Ordered Route Repositories</term>
+
+          <listitem>
+            <para>This is an ordered list of repositories which Nexus will
+            search to locate a particular artifact. Nexus searches top to
+            bottom; if it’s looking for an artifact, it will return the first
+            match. When Nexus is looking for metadata, all repositories in a
+            group are checked and the results are merged. The merging is
+            applied giving preference to the earlier repositories. This is
+            relevant when a project is looking for a <varname>LATEST</varname>
+            or a <varname>RELEASE</varname> version. Within a Nexus Group, you
+            should define the release repositories before the snapshot
+            repositories, otherwise <varname>LATEST</varname> may incorrectly
+            resolve to a snapshot version.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>In this figure you can see the two dummy Routes that Nexus has as
+      default routes. The first route is an inclusive route, it is provided as
+      an example of a custom route an organization might use to make sure that
+      internally generated artifacts are resolved from the Releases and
+      Snapshots repositories. If your organization's group IDs all start with
+      com.somecompany, and if you deploy internally generated artifacts to the
+      Releases and Snapshots repositories, this Route will make sure that
+      Nexus doesn't waste time trying to resolve these artifacts from public
+      Maven repositories like the Central Maven Repository or the Apache
+      Snapshots repository.</para>
+
+      <para>The second dummy route is an exclusive route. This route excludes
+      the Releases and Snapshots repositories when the request path contains
+      "/org/some-oss". This example might make more sense if we replaced
+      "some-oss" with "apache" or "codehaus". If the pattern was
+      "/org/apache", this rule is telling Nexus to exclude the internal
+      Releases and Snapshots repositories when it is trying to resolve these
+      dependencies. In other words, don't bother looking for an Apache
+      dependency in your organization's internal repositories.</para>
+
+      <para>What if there is a conflict between two routes? Nexus will process
+      inclusive routes before it will process the exclusive routes. Remember
+      that Nexus Routes only affect Nexus' resolution of artifacts when it is
+      searching a Group. When Nexus starts to resolve an artifact from a Nexus
+      Group it will start with the list of repositories in a group. If there
+      are matching inclusive routes, Nexus will then take the intersection of
+      the repositories in the Group and the repositories in the inclusive
+      Nexus Route. The order as defined in the Nexus Group will not be
+      affected by the Inclusive routes. Nexus will then take the result of
+      applying the inclusive routes and apply the exclusive routes to this new
+      group. The resulting list is then searched for a matching
+      artifact.</para>
+
+      <para>To summarize, there are creative possibilities with Routes that
+      the designers of Nexus may not have anticipated, but we advise you to
+      proceed with caution if you start relying on conflicting or overlapping
+      Routes. Use Routes sparingly, and use course URL patterns, as Nexus
+      evolves there will be more features which allow for more fine grained
+      rules to allow you to prohibit requests for specific artifacts and
+      specific versions of artifacts. Remember that routes are only applied to
+      Nexus Groups, routes are not used when an artifact is requested from a
+      specific repository.</para>
+    </section>
+
+    <section>
+      <title>Network Configuration</title>
+
+      <para>By default, Nexus listens on port 8081. You can change this port,
+      by changing the value in
+      <filename>${NEXUS_HOME}/conf/plexus.properties</filename> this file is
+      shown in <xref linkend="ex-plexus-props" />. To change the port, stop
+      Nexus, change the value of <varname>applicationPort</varname> in this
+      file, and then restart Nexus. Once you do this, you should see a log
+      statement in <filename>${NEXUS_HOME}/logs/wrapper.log</filename> telling
+      you that Nexus is listening on the altered port.</para>
+
+      <example id="ex-plexus-props">
+        <title>Contents of ${NEXUS_HOME}/conf/plexus.properties</title>
+
+        <programlisting>applicationPort=8081
+runtime=${basedir}/runtime
+apps=${runtime}/apps
+work=${runtime}/work
+webapp=${runtime}/apps/nexus/webapp
+nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
+      </example>
+    </section>
+  </section>
+
+  <section id="sect-manage-repo">
+    <title>Maintaining Repositories</title>
+
+    <para>Once you've setup a series of repositories and grouped those
+    repositories into Nexus Groups, users will be able to see a list of
+    repositories in the Nexus UI by clicking on the Repositories link in the
+    left-hand navigation menu in the Maintenance section. This will bring up a
+    list of repositories. This list will show you the status of the remote
+    repository; to test this, edit one of your repositories to have a garbage
+    Remote Storage Location URL, you will then notice that the status of this
+    repository will change on the Manage Repositories screen. Clicking on a
+    repository will bring up a tree view that provides users with a way to
+    navigate through the contents of a repository.</para>
+
+    <para>Right-clicking on a repository will bring up a series of actions
+    which can be applied to a repository. The available actions for each
+    repository are:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>View</term>
+
+        <listitem>
+          <para>Loads the Tree View of a Repository. This view lets you
+          drill-down into specific directories to view the contents of a
+          repository.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Clear Cache</term>
+
+        <listitem>
+          <para>Clears the cache for the repository. This causes Nexus to
+          check the remote repository for new updates or snapshots. It also
+          resets the Not Found Cache.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Re-Index</term>
+
+        <listitem>
+          <para>Causes Maven to re-index a repository. Nexus will recreate the
+          index it uses to search for a request artifact. If the repository
+          has been configured to download the remote index, this option will
+          cause Nexus to download the remote index from the remote repository.
+          Note that if you have enabled the remote index download, the remote
+          index may take some time to download from the remote repository. You
+          will know that the remote repository has been updated for a large
+          remote repository like Central when the Artifact Search results
+          start showing artifacts which haven't been cached or
+          requested.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Block Proxy / Allow Proxy</term>
+
+        <listitem>
+          <para>This toggles requests to the remote repository. If the proxy
+          is blocked, Nexus will not connect to the remote repository for
+          updates. To re-enable remote access, right click on a repository and
+          select Allow Proxy. This option is useful when you want to control
+          what is being served from a proxy repository. If you want to
+          maintain strict control over what is being downloaded from a remote
+          repository, you can run your organization's build against Nexus, and
+          then Block all Proxy repositories.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Put Out of Service / Put In Service</term>
+
+        <listitem>
+          <para>This option allows you to bring a repository out of service
+          and make it unavailable. Nexus will refuse to serve artifacts to
+          Maven from a repository which is not in service. One you've made a
+          repository unavailable, you can bring it back by right-clicking on a
+          repository and selecting "Put In Service".</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section>
+    <title>Deploying Artifacts to Nexus</title>
+
+    <para>Different organizations have different reasons for deploying
+    artifacts to an internal repository. In large organizations with hundreds
+    (or thousands) of developers, an internal Maven repository can be an
+    efficient way for different departments to share releases and development
+    snapshots with one another. Most organizations which use Maven will
+    eventually want to start deploying both releases and artifacts to a
+    shared, internal repository. Using Nexus, it is easy to deploy artifacts
+    to Nexus hosted repositories.</para>
+
+    <para>To deploy artifacts to Nexus supply the repository
+    <acronym>URL</acronym> in <sgmltag>distributionManagement</sgmltag> and
+    run <command>mvn deploy</command>. Maven will push project
+    <acronym>POM</acronym>s and artifacts to your Nexus installation with a
+    simple <acronym>HTTP</acronym> PUT. The initial release of Nexus does not
+    provide for any security for hosted repositories. If you've enabled
+    deployment for a hosted repository, anyone can connect to and deploy an
+    artifact to the repository. If your Nexus installation is accessible from
+    the public Internet, you will definitely want to disable deployment to
+    these repositories or place your Nexus installation behind a web-server
+    like Apache <acronym>HTTPD</acronym>.</para>
+
+    <para>No extra wagon extension is needed in your project's
+    <acronym>POM</acronym>. Nexus works with Maven's built in
+    <varname>wagon-http-lightweight</varname>.</para>
+
+    <section>
+      <title>Deploying Releases</title>
+
+      <para>To deploy a release artifact to Nexus you need to configure a
+      <sgmltag>repository</sgmltag> in the
+      <sgmltag>distributionManagement</sgmltag> section of your project's
+      <acronym>POM</acronym>. <xref linkend="fig-deploy-release" /> shows an
+      example of a release deployment repository which is configured to point
+      to the releases repository at <ulink
+      url="http://localhost:8081/nexus/content/repositories/releases">http://localhost:8081/nexus/content/repositories/releases</ulink>.</para>
+
+      <example id="fig-deploy-release">
+        <title>Configuring Release Repository for Deployment</title>
+
+        <programlisting>&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    ...
+    &lt;repository&gt;
+      &lt;id&gt;releases&lt;/id&gt;
+      &lt;name&gt;Internal Releases&lt;/name&gt;
+      &lt;url&gt;http://localhost:8081/nexus/content/repositories/releases&lt;/url&gt;
+    &lt;/repository&gt;
+    ...
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;</programlisting>
+      </example>
+
+      <para>You would replace <varname>localhost:8081</varname> with the host
+      and port of your Nexus installation. Once your project has this
+      configuration, you can deploy an artifact by executing mvn
+      deploy:</para>
+
+      <screen>$ <command>mvn deploy</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   Sample Project
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Sample Project
+[INFO]    task-segment: [deploy]
+[INFO] ------------------------------------------------------------------------
+[INFO] [site:attach-descriptor]
+[INFO] [install:install]
+[INFO] Installing ~/svnw/sample/pom.xml to ~/.m2/repository/sample/sample\
+                                            /1.0/sample-1.0.pom
+[INFO] [deploy:deploy]
+altDeploymentRepository = null
+[INFO] Retrieving previous build number from snapshots
+Uploading: http://localhost:8081/nexus/content/repositories/releases/\
+           sample/sample/1.0/sample-1.0.pom
+24K uploaded
+</screen>
+
+      <para>Note that Nexus can support multiple hosted repositories; you
+      don't need to stick with the default <varname>releases</varname> and
+      <varname>snapshots</varname> repositories. You can create different
+      hosted repositories for different departments and then combine multiple
+      repositories into a single Nexus group.</para>
+    </section>
+
+    <section>
+      <title>Deploying Snapshots</title>
+
+      <para>To deploy a snapshot artifact to Nexus you need to configure a
+      <sgmltag>snapshotRepository</sgmltag> in the
+      <sgmltag>distributionManagement</sgmltag> section of your project's
+      <acronym>POM</acronym>. <xref linkend="fig-deploy-snapshot" /> shows an
+      example of a snapshot deployment repository which is configured to point
+      to the <varname>snapshots</varname> repository at <ulink
+      url="http://localhost:8081/nexus/content/repositories/snapshots">http://localhost:8081/nexus/content/repositories/snapshots</ulink>.</para>
+
+      <example id="fig-deploy-snapshot">
+        <title>Configuring Snapshot Repository for Deployment</title>
+
+        <programlisting>&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    ...
+    &lt;snapshotRepository&gt;
+      &lt;id&gt;Snapshots&lt;/id&gt;
+      &lt;name&gt;Internal Snapshots&lt;/name&gt;
+      &lt;url&gt;http://localhost:8081/nexus/content/repositories/snapshots&lt;/url&gt;
+    &lt;/snapshotRepository&gt;
+    ...
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;</programlisting>
+      </example>
+
+      <para>You would replace <varname>localhost:8081</varname> with the host
+      and port of your Nexus installation. Once your project has this
+      configuration, you can deploy an artifact by executing <command>mvn
+      deploy</command>. Maven will deploy to the
+      <sgmltag>snapshotRepository</sgmltag> if your project's has a snapshot
+      version (i.e. <varname>1.0-SNAPSHOT</varname>):</para>
+
+      <screen>$ <command>mvn deploy</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   Sample Project
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Sample Project
+[INFO]    task-segment: [deploy]
+[INFO] ------------------------------------------------------------------------
+[INFO] [site:attach-descriptor]
+[INFO] [install:install]
+[INFO] Installing ~/svnw/sample/pom.xml to ~/.m2/repository/sample/sample\
+                                            /1.0-SNAPSHOT/sample-1.0-20080402.125302.pom
+[INFO] [deploy:deploy]
+altDeploymentRepository = null
+[INFO] Retrieving previous build number from snapshots
+Uploading: http://localhost:8081/nexus/content/repositories/releases/\
+           sample/sample/1.0-SNAPSHOT/sample-1.0-20080402.125302.pom
+24K uploaded
+</screen>
+    </section>
+
+    <section>
+      <title>Deploying Third-party Artifacts</title>
+
+      <para>Your Maven projects may start depending on an artifacts which are
+      not available from the Central Maven repository or any other public
+      Maven repository. This can happen for a number of reasons: maybe the
+      artifact in question is a <acronym>JDBC</acronym> driver for a
+      proprietary database like Oracle, or maybe you are depending on another
+      <acronym>JAR</acronym> that is neither open-source nor freely available.
+      In these cases, you are going to have to get your hands on the artifact
+      in question in publish it to your own repository. Nexus provides a
+      hosted "third-party" repository for just this purpose.</para>
+
+      <para>To illustrate the process of publishing an artifact to the
+      third-party repository, we will use a real artifact: the Oracle
+      <acronym>JDBC</acronym> Drivers. Oracle publishes a widely-used
+      commercial database product which has a <acronym>JDBC</acronym> driver
+      that is not present in the Central Maven repository. While the Central
+      Maven repository maintains some <acronym>POM</acronym> information for
+      the Oracle <acronym>JDBC</acronym> driver at <ulink
+      url="http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/">http://repo1.maven.org/maven2/com/oracle/ojdbc14/10.2.0.3.0/</ulink>,
+      there is only a <acronym>POM</acronym> which references the Oracle site.
+      If you add the following dependency to your project:</para>
+
+      <example>
+        <title>Oracle JDBC JAR Dependency</title>
+
+        <programlisting>&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.oracle&lt;/groupId&gt;
+      &lt;artifactId&gt;ojdbc14&lt;/artifactId&gt;
+      &lt;version&gt;10.2.0.3.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;</programlisting>
+      </example>
+
+      <para>Running a Maven build with this dependency, will produce the
+      following output:</para>
+
+      <screen>$ <command>mvn install</command>
+...
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD ERROR
+[INFO] ------------------------------------------------------------------------
+[INFO] Failed to resolve artifact.
+
+Missing:
+----------
+1) com.oracle:ojdbc14:jar:10.2.0.3.0
+
+  Try downloading the file manually from: 
+      http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html
+
+  Then, install it using the command: 
+      mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 \
+               -Dversion=10.2.0.3.0 -Dpackaging=jar -Dfile=/path/to/file
+
+  Alternatively, if you host your own repository you can deploy the file there: \
+      mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc14 \
+                 -Dversion=10.2.0.3.0 -Dpackaging=jar -Dfile=/path/to/file \
+                 -Durl=[url] -DrepositoryId=[id]
+
+  Path to dependency: 
+  	1) sample:sample:jar:1.0-SNAPSHOT
+  	2) com.oracle:ojdbc14:jar:10.2.0.3.0
+
+----------
+1 required artifact is missing.
+</screen>
+
+      <para>The Maven build fails because it can't find the Oracle
+      <acronym>JDBC</acronym> driver in the Maven repository. To remedy this
+      situation, you are going to need to publish the Oracle
+      <acronym>JDBC</acronym> artifact to your Nexus third-party repository.
+      To do this, download the Oracle <acronym>JDBC</acronym> driver from
+      <ulink
+      url="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html</ulink>
+      and save it to the file <filename>ojdbc.jar</filename>. To deploy this
+      file to Nexus, execute the following command:</para>
+
+      <screen>$ <command>mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc14 \</command>
+&gt; <command>-Dversion=10.2.0.3.0 -Dpackaging=jar -Dfile=ojdbc.jar \</command>
+&gt; <command>-Durl=http://localhost:8081/nexus/content/repositories/thirdparty \</command>
+&gt; <command>-DrepositoryId=thirdparty</command>
+...
+[INFO] [deploy:deploy-file]
+Uploading: http://localhost:8081/nexus/content/repositories/thirdparty/\
+                  com/oracle/ojdbc14/10.2.0.3.0/ojdbc14-10.2.0.3.0.jar
+330K uploaded
+[INFO] Retrieving previous metadata from thirdparty
+[INFO] Uploading repository metadata for: 'artifact com.oracle:ojdbc14'
+[INFO] Retrieving previous metadata from thirdparty
+[INFO] Uploading project information for ojdbc14 10.2.0.3.0
+</screen>
+
+      <para>After you run <command>mvn deploy:deploy-file</command>, this
+      artifact will be published to the third-party repository in
+      Nexus.</para>
+    </section>
+  </section>
+</chapter>
