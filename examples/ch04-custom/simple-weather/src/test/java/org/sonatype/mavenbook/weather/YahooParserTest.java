@@ -1,4 +1,4 @@
-package org.sonatype.mavenbook.weather.yahoo;
+package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 
