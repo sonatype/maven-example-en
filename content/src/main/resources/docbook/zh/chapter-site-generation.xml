@@ -2,68 +2,30 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="site-generation">
-  <title>Site Generation</title>
+  <title>站点生成</title>
 
   <section>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>Successful software applications are rarely produced by a team of
-    one. When we're talking about any software worth writing, we're usually
-    dealing teams of collaborating developers ranging anywhere in size from a
-    handful of programmers working in a small team to hundreds or thousands of
-    programmers working in large distributed environment. Most open source
-    projects (such as Maven) succeed or fail based on the presence or absence
-    of well written documentation for a widely-distributed, ad-hoc collection
-    of users and developers. In all environments it is important for projects
-    to have an easy way to publish and maintain online documentation. Software
-    development is primarily an exercise in collaboration and communication,
-    and publishing a Maven site is one way to make sure that your project is
-    communicating with your end-users.</para>
+    <para>成功的软件应用程序很少是由一个人的团队开发的。在讨论任何一个值得我们写下一笔的软件的时候，通常这个软件背后有一个协作的开发者团队，它们大小不一，可能只是一个很少人组成的小型团队，也可能是一个大型分布式环境中数百数千的程序员。大部分开源项目（如Maven）的成功或者失败的原因之一是它们是否为广泛分布的潜在用户和开发者提供了良好的文档。软件开发主要还是一个协作与交互的实践活动，而发布一个Maven站点是确保你的项目于最终用户良好沟通的有效手段。</para>
 
-    <para>A web site for an open source project is often the foundation for
-    both the end-user and developer communities alike. End-users look to a
-    project's web site for tutorials, user guides, <acronym>API</acronym>
-    documentation, and mailing list archives, and developers look to a
-    project's web site for design documents, code reports, issue tracking, and
-    release plans. Large open-sources projects may be integrated with wikis,
-    issue trackers, and continuous integration systems which help to augment a
-    project's online documentation with material that reflects the current
-    status of ongoing development. If a new open source project has an
-    inadequate web site which fails to convey basic information to prospective
-    users, if often is a sign that the project in question will fail to be
-    adopted. In other words, for an open source project, the site and the
-    documentation are as important to the formation of a community as the code
-    itself.</para>
+    <para>一个开源项目的web站点通常是最终用户和开发人员交流的基础平台。最终用户浏览项目web站点已获得教程，用户指南，<acronym>API</acronym>文档，以及邮件列表存档。而开发者浏览项目的web站点以或者设计文档，代码报告，问题跟踪（issue
+    tracking），以及发布计划。大型的开源项目可能会和wiki，问题跟踪系统，以及持续集成系统相集成，用那些反映当前开发状态的材料来帮助增强在线文档。如果一个新的开源项目的web站点内容匮乏，不能为预期用户覆盖基本信息，那么这通常预示着这个项目有问题，不会被人采用。对于一个开源项目社区的形成，站点文档和代码本身一样重要。</para>
 
-    <para>Maven can be used to create a project web site to capture
-    information which is relevant to both the end-user and the developer
-    audience. Out of the box, Maven can generate reports on everything from
-    unit test failures to package coupling to reports on code quality. Maven
-    provides you with the ability to write simple web pages and render those
-    pages against a consistent project template. Maven can publish site
-    content in multiple formats including <acronym>XHTML</acronym> and
-    <acronym>PDF</acronym>. Maven can be used to generate API document and can
-    also be used to embedded Javadoc and source code in your project's binary
-    release archive. Once you've used Maven to generate all of your project's
-    end-user and developer documentation, you can then use Maven to publish
-    your web site to a remote server.</para>
+    <para>Maven可以被用来创建一个项目web站点，以收集所有与最终用户和开发者相关的信息。不做任何配置，Maven就能生成项目报告，包括单元测试失败，包耦合度，以及代码质量报告。Maven也能让你编写简单的web页面，并基于一致的项目模板呈现这些页面。Maven可以用多种格式发布站点内容，包括<acronym>XHTML</acronym>和<acronym>PDF</acronym>。Maven可以被用来生成API文档，也可以在你项目的二进制发布包内嵌入Javadoc和源代码。在你使用Maven生成了所有最终用户和开发者文档之后，你可以使用Maven将站点发布到远程服务器上。</para>
   </section>
 
   <section id="site-generation-intro">
-    <title>Building a Project Site with Maven</title>
+    <title>使用Maven构建项目站点</title>
 
-    <para>To illustrate the process of building a project website, create a
-    sample Maven project with the archetype plugin:</para>
+    <para>为了展示构建一个项目站点的过程，使用archetype插件创建一个样例Maven项目：</para>
 
     <screen>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook -DartifactId=sample-project
 </screen>
 
-    <para>This creates the simplest possible Maven project with a one Java
-    class in <filename>src/main/java</filename> and a simple
-    <acronym>POM</acronym>. You can then build a Maven site by simply running
-    mvn site. To build the site and preview the result in a browser, you can
-    run <command>mvn site:run</command>, this will build the site and start an
-    embedded instance of Jetty.</para>
+    <para>该命令创建了一个最简单的Maven项目，只带有一个简单的<acronym>POM</acronym>，以及<filename>src/main/java</filename>目录下一个Java类。你可以通过简单的运行<command>mvn
+    site</command>构建Maven站点。要在浏览器中预览结果，你可以运行<command>mvn
+    site:run</command>，Maven会构建站点并启动一个内嵌的Jetty容器。</para>
 
     <screen>$ <command>cd sample-project</command>
 $ <command>mvn site:run</command>
@@ -87,14 +49,12 @@ $ <command>mvn site:run</command>
 2008-04-26 11:52:26.244::INFO:  Started SelectChannelConnector@0.0.0.0:8080
 </screen>
 
-    <para>Once Jetty starts and is listening to port 8080, you can see the
-    project's site when you go to <ulink
-    url="http://localhost:8080/">http://localhost:8080/</ulink> in a web
-    browser. You can see the results in <xref
-    linkend="fig-simple-site" />.</para>
+    <para>一旦Jetty启动并开始监听8080端口，你就可以通过在浏览器中输入<ulink
+    url="http://localhost:8080/">http://localhost:8080/</ulink>查看项目站点了。你可以在<xref
+    linkend="fig-simple-site" />中看到结果。</para>
 
     <figure id="fig-simple-site">
-      <title>Simple Generated Maven Site</title>
+      <title>简单生成的Maven站点</title>
 
       <screenshot>
         <mediaobject>
@@ -105,39 +65,20 @@ $ <command>mvn site:run</command>
       </screenshot>
     </figure>
 
-    <para>If you click around on this simple site, you'll see that it isn't
-    very helpful as a real project site. There's just nothing there (and it
-    doesn't look very good). Since the <varname>sample-project</varname>
-    hasn't configured any developers, mailing lists, issue tracking providers,
-    or source code repositories, all of these pages on the project site will
-    have no information. Even the index page of the site states, "There is
-    currently no description associated with this project". To customize the
-    site, you'll have to start add content to the project and to the project's
-    <acronym>POM</acronym>.</para>
+    <para>如果你在这个简单的站点中点击查看，你会发现对于一个真实的项目站点来说它并不是很有帮助。那里几乎没什么东西（而且看起来也不怎么样）。由于<varname>sample-project</varname>并没有配置任何开发者，邮件列表，问题跟踪系统，或者源码仓库，该项目站点的所有这些页面都没有信息。即使是站点状态的首页，“当前没有关于该项目的描述”。要自定义该站点，你需要给该项目及项目的<acronym>POM</acronym>添加内容。</para>
 
-    <para>If you are going to use the Maven Site plugin to build your
-    project's site, you'll want to customize it. You will want to populate
-    some of the important fields in the <acronym>POM</acronym> that tell Maven
-    about the people participating in the project, and you'll want to
-    customize the left-hand navigation menu and the links visible in the
-    header of the page. To customize the contents of the site and affect the
-    contents of the left-hand navigation menu, you will need to edit the site
-    descriptor.</para>
+    <para>如果你使用Maven
+    Site插件来构建你的项目站点，你会想要做一些自定义配置。你会想填充<acronym>POM</acronym>中的一些重要字段来告诉Maven人们是如何参与该项目的，你也会想要自定义左边的导航菜单，以及页面头部可见的连接。要自定义站点内容，以及左边导航菜单的内容，你就需要编辑站点描述符。</para>
   </section>
 
   <section>
-    <title>Customizing the Site Descriptor</title>
+    <title>自定义站点描述符</title>
 
-    <para>When you add content to the site, you are going to want to modify
-    the left-hand navigation menu that is generated with your site. The
-    following site descriptor customizes the logo in the upper left-hand
-    corner of the site. In addition to customizing the header of the site,
-    this descriptor adds a menu section to the left-hand navigation menu under
-    the heading "Sample Project". This menu contains a single link to an
-    overview page.</para>
+    <para>当你为站点添加内容的时候，你会想要修改站点左边的导航菜单。以下的站点描述符定制了站点左上角的logo。除了站点的头部，该描述符还为左边的导航菜单添加了一个菜单小节"Sample
+    Project"。该菜单包含了一个指向概述页面的链接。</para>
 
     <para><example>
-        <title>An Initial Site Descriptor</title>
+        <title>一个初始的站点描述符</title>
 
         <programlisting language="xml">&lt;project name="Sample Project"&gt;
   &lt;bannerLeft&gt;
@@ -155,15 +96,7 @@ $ <command>mvn site:run</command>
 </programlisting>
       </example></para>
 
-    <para>This site descriptor references one image. This
-    <filename>logo.png</filename> image should be placed in
-    <filename>${basedir}/src/site/resources/images</filename>. In addition to
-    the change to the site descriptor, you'll want to create a simple
-    <filename>index.apt</filename> page in
-    <filename>${basedir}/src/site/apt</filename>. Put the following content in
-    <filename>index.apt</filename>, it will be transformed to the
-    <filename>index.html</filename> and serve as the first page a user sees
-    when they come to your project's Maven-generated web site.</para>
+    <para>该站点描述符引用了一个图片。该图片<filename>logo.png</filename>应该放在<filename>${basedir}/src/site/resources/images</filename>目录下。除了更改站点描述符，你还会想要在<filename>${basedir}/src/site/apt</filename>目录下创建一个简单的<filename>index.apt</filename>页面。将一下的内容写入<filename>index.apt</filename>，它会被转化成<filename>index.html</filename>，当用户访问该Maven生成的站点时，他们就会看到这第一个页面。</para>
 
     <programlisting>  Welcome to the Sample Project, we hope you enjoy your time
   on this project site.  We've tried to assemble some 
@@ -179,8 +112,8 @@ What is Sample Project
   help maintain this sample site, and so on and so forth.
 </programlisting>
 
-    <para>To preview the the site, run <command>mvn clean site</command>
-    followed by <command>mvn site:run</command>:</para>
+    <para>要预览该站点，运行<command>mvn clean site</command>，接着<command>mvn
+    site:run</command>：</para>
 
     <screen>$ mvn clean site
 $ mvn site:run</screen>
@@ -190,8 +123,12 @@ $ mvn site:run</screen>
     something similar to the screenshot in <xref
     linkend="fig-custom-simple" />.</para>
 
+    <para>在这之后，打开浏览器输入<ulink
+    url="http://localhost:8080">http://localhost:8080</ulink>。你应该看到类似于截屏<xref
+    linkend="fig-custom-simple" />的页面。</para>
+
     <figure id="fig-custom-simple">
-      <title>Customized Sample Project Web Site</title>
+      <title>定制样例项目的web站点</title>
 
       <screenshot>
         <mediaobject>
@@ -203,16 +140,12 @@ $ mvn site:run</screen>
     </figure>
 
     <section>
-      <title>Customizing the Header Graphics</title>
+      <title>自定义页头图片</title>
 
-      <para>To customize the graphics which appear in the upper left-hand and
-      right-hand corners of the page, you can use the
-      <sgmltag>bannerLeft</sgmltag> and <sgmltag>bannerRight</sgmltag>
-      elements in a site descriptor.</para>
+      <para>要自定以显示在页面左上角和右上角的图片，你可以使用站点描述符中的<sgmltag>bannerLeft</sgmltag>和<sgmltag>bannerRight</sgmltag>元素。</para>
 
       <para><example>
-          <title>Adding a Banner Left and Banner Right to Site
-          Descriptor</title>
+          <title>给站点描述符添加Banner Left和Banner Right</title>
 
           <programlisting language="xml">&lt;project name="Sample Project"&gt;
 
@@ -232,28 +165,17 @@ $ mvn site:run</screen>
 </programlisting>
         </example></para>
 
-      <para>Both the <sgmltag>bannerLeft</sgmltag> and
-      <sgmltag>bannerRight</sgmltag> elements take <sgmltag>name</sgmltag>,
-      <sgmltag>src</sgmltag>, and <sgmltag>href</sgmltag> child elements. In
-      the site descriptor shown above, the Maven Site plugin will generate a
-      site with <filename>banner-left.png</filename> in the left-hand corner
-      of the page and banner-right in the right-hand corner of the page. Maven
-      is going to look in
-      <filename>${basedir}/src/site/resources/images</filename> for these
-      images.</para>
+      <para><sgmltag>bannerLeft</sgmltag>和<sgmltag>bannerRight</sgmltag>元素都有<sgmltag>name</sgmltag>，<sgmltag>src</sgmltag>，和<sgmltag>href</sgmltag>子元素。在上述的站点描述符中，Maven
+      Site插件会一个左上角图片为<filename>banner-left.png</filename>，右上角图片为<filename>banner-right.png</filename>的站点。Maven会到<filename>${basedir}/src/site/resources/images</filename>目录寻找这些图片。</para>
     </section>
 
     <section>
-      <title>Customizing the Navigation Menu</title>
+      <title>自定义导航菜单</title>
 
-      <para>To customize the contents of the navigation menu, use the
-      <sgmltag>menu</sgmltag> element with <sgmltag>item</sgmltag> child
-      elements. The <sgmltag>menu</sgmltag> element adds a section to the
-      left-hand navigation menu. Each item is rendered as a link in that
-      menu.</para>
+      <para>要自定义导航菜单的内容，使用<sgmltag>menu</sgmltag>元素及其<sgmltag>item</sgmltag>子元素。<sgmltag>menu</sgmltag>元素为左边的导航菜单添加一个小节。每个<sgmltag>item</sgmltag>元素会被渲染成菜单中的一个链接。</para>
 
       <para><example>
-          <title>Creating Menu Items in a Site Descriptor</title>
+          <title>在站点描述符中创建菜单项</title>
 
           <programlisting language="xml">&lt;project name="Sample Project"&gt;
   ...
@@ -273,15 +195,11 @@ $ mvn site:run</screen>
 </programlisting>
         </example></para>
 
-      <para>Menu items can also be nested. If you nest items, you will be
-      creating a collapsible menu in the left-hand navigation menu. The
-      following example adds a link "Developer Resources" which links to
-      <filename>/developer/index.html</filename>. When a user is looking at
-      the Developer Resources page, the menu items below the Developer
-      Resources menu item will be expanded.</para>
+      <para>菜单项可以嵌套。如果嵌套了菜单项，你就会在导航菜单中创建一个折叠菜单。下述例子添加了一个指向<filename>/developer/index.html</filename>的"Developer
+      Resources"链接。当用户查看这个Developer Resources页面的时候，其下的菜单项会被展开。</para>
 
       <para><example>
-          <title>Adding a Link to the Site Menu</title>
+          <title>站点菜单添加链接</title>
 
           <programlisting language="xml">&lt;project name="Sample Project"&gt;
   ...
@@ -300,43 +218,23 @@ $ mvn site:run</screen>
 </programlisting>
         </example></para>
 
-      <para>When an item has the <sgmltag>collapse</sgmltag> attribute set to
-      <varname>true</varname>, Maven will collapse the item until a user is
-      viewing that specific page. In the previous example, when the user is
-      not looking at the Developer Resources page, Maven will not display the
-      System Architecture and Embedder's Guide links; instead, it will display
-      an arrow pointing to the Developer Resources link. When the user is
-      viewing the Developer Resources page it will show these links with an
-      arrow pointing down.</para>
+      <para>当一个菜单项的<sgmltag>collapse</sgmltag>属性被设置成<varname>true</varname>的时候，Maven会折叠该菜单项，直至用户浏览了该特定页面。在前面的例子中，如果用户不查看Developer
+      Resources页面，Maven就不会显示System Architecture和Embedder's Guide链接；它只会显示一个指向
+      Developer Resources链接的箭头。当用户查看Developer
+      Resources页面的时候，其包含的链接会被显示，箭头变成朝下方向。</para>
     </section>
   </section>
 
   <section>
-    <title>Site Directory Structure</title>
+    <title>站点目录结构</title>
 
-    <para>Maven places all site document under <filename>src/site</filename>.
-    Documents of similar format are placed in subdirectories of
-    <filename>src/site</filename>. All <acronym>APT</acronym> documents should
-    be in <filename>src/site/apt</filename>, all <acronym>FML</acronym>
-    documents should be in <filename>src/site/fml</filename>, and XDoc
-    documents should be in <filename>src/site/xdoc</filename>. The site
-    descriptor should be in <filename>src/site/site.xml</filename>, and all
-    resources should be stored under <filename>src/site/resources</filename>.
-    When the Maven Site plugin builds a web site, it will copy everything in
-    the resources directory to the root of the site. If you store an image in
-    <filename>src/site/resources/images/test.png</filename>, they you would
-    refer to the image from your site documentation using the relative path
-    <filename>images/test.png</filename>.</para>
+    <para>Maven将所有的站点文档放在<filename>src/site</filename>目录下。类似格式的文档则被放在其子目录下。所有的文档应该放到<acronym>APT</acronym>下，所有的文档应该被放到下<filename>src/site/fml</filename>，所有的XDoc文档应该被放到<filename>src/site/xdoc</filename>下。站点描述符是文件<filename>src/site/site.xml</filename>，所有的资源应该存储在<filename>src/site/resources</filename>。Maven
+    Site插件构建web站点的时候，它会从资源目录复制所有文件至站点的根目录。如果你存储了一个文件<filename>src/site/resources/images/test.png</filename>，那么你就能够在你的站点文档中使用相对路径<filename>images/test.png</filename>引用该图片。</para>
 
-    <para>The following examples shows the location of all files in a project
-    which contains <acronym>APT</acronym>, <acronym>FML</acronym>,
-    <acronym>HTML</acronym>, <acronym>XHTML</acronym>, and some XDoc. Note
-    that the <acronym>XHTML</acronym> content is simply stored in the
-    resources directory. The architecture.html file will not be processed by
-    Doxia, it will simply be copied to the output directory. You can use this
-    approach if you want to include unprocessed <acronym>HTML</acronym>
-    content and you don't want to take advantage of the templating and
-    formatting capabilities of Doxia and the Maven Site plugin.</para>
+    <para>下面的例子展示了一个包含<acronym>APT</acronym>, <acronym>FML</acronym>,
+    <acronym>HTML</acronym>, <acronym>XHTML</acronym>,
+    和一些XDoc的所有文件位置。注意<acronym>XHTML</acronym>内容直接存放在<filename>src/site/resources</filename>目录。architecture.html文件不会被Doxia处理，它会被直接复制到输出目录，如果你想要包含不被处理的<acronym>HTML</acronym>内容，你可以使用这种方式，而不使用Doxia和Maven
+    Site插件的模板和格式化功能。</para>
 
     <screen>sample-project
 +- src/
@@ -365,63 +263,44 @@ $ mvn site:run</screen>
       +- site.xml
 </screen>
 
-    <para>Note that the developer documentation is stored in
-    <filename>src/site/apt/developer/embedding.apt</filename>. This extra
-    directory below the <filename>apt</filename> directory will be reflected
-    in the location of the resulting <acronym>HTML</acronym> page on the site.
-    When the Site plugin renders the contents of the
-    <filename>src/site/apt</filename> directory it will produce
-    <acronym>HTML</acronym> output in directories relative to the site root.
-    If a file is in the apt directory it will be in the root directory of the
-    generated web site. If a file is in the <filename>apt/developer</filename>
-    directory it will be generated in the <filename>developer/</filename>
-    directory of the web site.</para>
+    <para>注意开发者文档存储在<filename>src/site/apt/developer/embedding.apt</filename>。<filename>apt</filename>目录下的子目录会被反映到站点中最终<acronym>HTML</acronym>页面的相对位置上。在Site插件渲染目录<filename>src/site/apt</filename>内容的时候，它会相对于站点根目录生成<acronym>HTML</acronym>输出。如果一个文件在apt目录中，它对应就会生成到web站点的根目录中。如果一个文件在<filename>apt/developer</filename>目录中，它就会被生成到web站点的<filename>developer/</filename>目录下。</para>
   </section>
 
   <section>
-    <title>Writing Project Documentation</title>
+    <title>编写项目文档</title>
 
-    <para>Maven uses a documentation-processing engine called Doxia which
-    reads multiple source formats into a common document model. Doxia can then
-    manipulate documents and render the result into several output formats,
-    such as <acronym>PDF</acronym> or <acronym>XHTML</acronym>. To write
-    document for your project, you will need to write your content in a format
-    which can be parsed by Doxia. Doxia currently has support for Almost Plain
-    Text (<acronym>APT</acronym>), XDoc (a Maven 1.x documentation format),
-    <acronym>XHTML</acronym>, and <acronym>FML</acronym> (useful for
-    <acronym>FAQ</acronym> documents) formats.</para>
+    <para>Maven使用一个叫做Doxia的文档处理引擎，它读取多个资源格式至一般的文档模型。Doxia之后就可以处理文档并渲染结果至不同的输出格式，如<acronym>PDF</acronym>或者<acronym>XHTML</acronym>。要编写你项目的文档，你需要基于能被Doxia解析的格式编写内容。Doxia现在支持Almost
+    Plain Text (<acronym>APT</acronym>), XDoc (一种Maven1的文档格式),
+    <acronym>XHTML</acronym>, 和 <acronym>FML</acronym>
+    (对<acronym>FAQ</acronym>文档很有用) 格式。</para>
 
-    <para>This chapter has a cursory introduction to the
-    <acronym>APT</acronym> format. For a deeper understand of the
-    <acronym>APT</acronym> format, or for an in-depth introduction to XDoc or
-    <acronym>FML</acronym>, please see the following resources:</para>
+    <para>本章粗略的介绍一下<acronym>APT</acronym>格式。要深入了解<acronym>APT</acronym>格式，或者XDoc和<acronym>FML</acronym>的深入介绍，请访问如下资源：</para>
 
     <itemizedlist>
       <listitem>
-        <para><acronym>APT</acronym> Reference: <ulink
+        <para><acronym>APT</acronym>参考: <ulink
         url="http://maven.apache.org/doxia/format.html">http://maven.apache.org/doxia/format.html</ulink></para>
       </listitem>
 
       <listitem>
-        <para>XDoc Reference: <ulink
+        <para>XDoc参考: <ulink
         url="http://jakarta.apache.org/site/jakarta-site2.html">http://jakarta.apache.org/site/jakarta-site2.html</ulink></para>
       </listitem>
 
       <listitem>
-        <para><acronym>FML</acronym> Reference: <ulink
+        <para><acronym>FML</acronym>参考: <ulink
         url="http://maven.apache.org/doxia/references/fml-format.html">http://maven.apache.org/doxia/references/fml-format.html</ulink></para>
       </listitem>
     </itemizedlist>
 
     <section>
-      <title>APT Example</title>
+      <title>APT样例</title>
 
-      <para><xref linkend="ex-apt" /> shows a simple <acronym>APT</acronym>
-      document with an introductory paragraph and a simple list. Note that the
-      list is terminated by the psuedo-element "[]".</para>
+      <para><xref
+      linkend="ex-apt" />展示了一个简单的APT文档，它带有一段介绍文字和一个简单列表。注意列表通过伪元素“[]”结束。</para>
 
       <example id="ex-apt">
-        <title>APT Document</title>
+        <title>APT文档</title>
 
         <programlisting>---
 Introduction to Sample Project
@@ -449,23 +328,19 @@ Welcome to Sample Project
 </programlisting>
       </example>
 
-      <para>If the <acronym>APT</acronym> document from <xref
-      linkend="ex-apt" /> were placed in
-      <filename>src/site/apt/index.apt</filename>, the Maven Site plugin will
-      parse the <acronym>APT</acronym> using Doxia and produce
-      <acronym>XHTML</acronym> content in
-      <filename>index.html</filename>.</para>
+      <para>如果<xref
+      linkend="ex-apt" />中的<acronym>APT</acronym>文档位于<filename>src/site/apt/index.apt</filename>，Maven
+      Site插件就会使用Doxia解析该<acronym>APT</acronym>，生成对应于<filename>index.html</filename>的<acronym>XHTML</acronym>文档。</para>
     </section>
 
     <section>
-      <title>FML Example</title>
+      <title>FML样例</title>
 
-      <para>Many projects maintain a Frequently Asked Questions
-      (<acronym>FAQ</acronym>) page. <xref linkend="ex-fml" /> shows an
-      example of an <acronym>FML</acronym> document.</para>
+      <para>很多项目维护一个常见问题（<acronym>FAQ</acronym>）页面。<xref
+      linkend="ex-fml" />展示了一个<acronym>FML</acronym>文档的例子：</para>
 
       <para><example id="ex-fml">
-          <title>FAQ Markup Language Document</title>
+          <title>FAQ标记语言文档</title>
 
           <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;faqs title="Frequently Asked Questions"&gt;
@@ -503,19 +378,13 @@ Welcome to Sample Project
   </section>
 
   <section>
-    <title>Deploying Your Project Website</title>
+    <title>部署你的项目web站点</title>
 
-    <para>Once your project's documentation has been written and you've
-    creates a site to be proud of, you will want to deploy it a server. To
-    deploy your site you'll use the Maven Site plugin which can take care of
-    deploying your project's site to a remote server using a number of methods
-    including <acronym>FTP</acronym>, <acronym>SCP</acronym>, and
-    <acronym>DAV</acronym>. To deploy the site using <acronym>DAV</acronym>,
-    configure the site entry of the <sgmltag>distributionManagement</sgmltag>
-    section in the <acronym>POM</acronym>, like this:</para>
+    <para>一旦项目文档已经写好，并且你创建了一个引以为傲的站点，你会想将其部署到服务器上。要部署你的站点，你需要使用Maven
+    Site插件，它会使用很多种方法如<acronym>FTP</acronym>，<acronym>SCP</acronym>，和<acronym>DAV</acronym>来将你的项目站点部署到远程服务器上。要使用<acronym>DAV</acronym>部署站点，在<acronym>POM</acronym>中配置<sgmltag>distributionManagement</sgmltag>小节的site元素，如：</para>
 
     <para><example>
-        <title>Configuring Site Deployment</title>
+        <title>配置站点部署</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -530,27 +399,17 @@ Welcome to Sample Project
 </programlisting>
       </example></para>
 
-    <para>The <sgmltag>url</sgmltag> in distribution management has a leading
-    indicator <varname>dav</varname> which tells the Maven Site plugin to
-    deploy the site to a <acronym>URL</acronym> that is able to understand
-    <acronym>WebDAV</acronym>. Once you have added the
-    <sgmltag>distributionManagement</sgmltag> section to our
-    <varname>sample-project</varname> <acronym>POM</acronym>, we can try
-    deploying the site:</para>
+    <para><sgmltag>distributionManagement</sgmltag>中<sgmltag>url</sgmltag>的值有一个开头标记<varname>dav</varname>，它告诉Maven
+    Site插件部署该站点至一个能理解<acronym>WebDAV</acronym>的<acronym>URL</acronym>。一旦你已经在我们的<varname>sample-project</varname>
+    <acronym>POM</acronym>中添加了该<sgmltag>distributionManagement</sgmltag>小节，我们就可以部署该站点：</para>
 
     <screen>$ mvn clean site-deploy
 </screen>
 
-    <para>If you have a server configured properly that can understand
-    <acronym>WebDAV</acronym>, Maven will deploy your project's web site to
-    the remote server. If you are deploying this project to a site and server
-    visible to the public, you are going to want to configure your web server
-    to access for credentials. If your web server asks for a username and
-    password (or other credentials, you can configure this values in your
-    <filename>~/.m2/settings.xml</filename>).</para>
+    <para>如果你有一个正确配置并能理解<acronym>WebDAV</acronym>的服务器，Maven就会将项目的web站点部署到远程服务器。如果你正将该项目站点部署到一个公共可见的服务器上，你就会需要配置web服务器的访问证书。比如你的web服务器要求一个用户名和密码（或者其它证书，你可以在你的<filename>~/.m2/settings.xml</filename>中配置它的值）</para>
 
     <section>
-      <title>Configuring Server Authentication</title>
+      <title>配置服务器认证</title>
 
       <para>To configure a username/password combination for use during the
       site deployment, we'll include the following in
@@ -585,7 +444,7 @@ Welcome to Sample Project
     </section>
 
     <section>
-      <title>Configuring File and Directory Modes</title>
+      <title>配置文件和目录模式</title>
 
       <para>If you are working in a large group of developers, you'll want to
       make sure that your web site's files end up with the proper user and
@@ -624,7 +483,7 @@ Welcome to Sample Project
   </section>
 
   <section>
-    <title>Customizing Site Appearance</title>
+    <title>自定义站点外观</title>
 
     <para>The default Maven template leaves much to be desired. If you wish to
     customize your project's website beyond simply adding content,
@@ -638,7 +497,7 @@ Welcome to Sample Project
     skin.</para>
 
     <section>
-      <title>Customizing the Site CSS</title>
+      <title>自定义站点CSS</title>
 
       <para>The easiest way to affect the look and feel of your project's web
       site is through the project's <filename>site.css</filename>. Just like
@@ -684,7 +543,7 @@ Welcome to Sample Project
     </section>
 
     <section>
-      <title>Create a Custom Site Template</title>
+      <title>创建自定义的站点模板</title>
 
       <para>If the default Maven Site structure just doesn't do it for you,
       you can always customize the Maven site template. Customizing the Maven
@@ -709,8 +568,7 @@ Welcome to Sample Project
       introduction is beyond the scope of this book, for more information
       about Velocity and a full introduction please go to the Velocity project
       site at <ulink
-      url="http://velocity.apache.org">http://velocity.apache.org</ulink>.
-      </para>
+      url="http://velocity.apache.org">http://velocity.apache.org</ulink>.</para>
 
       <para>The <filename>default-site.xml</filename> template is fairly
       involved, but the change required to customize the left-hand menu is
@@ -962,7 +820,7 @@ $ <command>cp -rf \
     </section>
 
     <section>
-      <title>Reusable Website Skins</title>
+      <title>可重用的web站点皮肤</title>
 
       <para>If your organization is created many Maven project sites, you will
       likely want to reuse site template and <acronym>CSS</acronym>
@@ -971,7 +829,7 @@ $ <command>cp -rf \
       Maven's support for skinning. Maven Site skins allow you to package up
       resources and templates which can be reused by other projects in lieu of
       duplicating your site template for each project which needs to be
-      customized. </para>
+      customized.</para>
 
       <para>While you can define your own skin, you may want to consider using
       one of Maven's alternate skins. You can choose from several skins. These
@@ -997,8 +855,7 @@ $ <command>cp -rf \
 
       <para>You can find an up-to-date and comprehensive listing in the Maven
       repository: <ulink
-      url="http://repo1.maven.org/maven2/org/apache/maven/skins/">http://repo1.maven.org/maven2/org/apache/maven/skins/</ulink>.
-      </para>
+      url="http://repo1.maven.org/maven2/org/apache/maven/skins/">http://repo1.maven.org/maven2/org/apache/maven/skins/</ulink>.</para>
 
       <para>Creating a custom skin is a simple matter of wrapping your
       customized <filename>maven-theme.css</filename> in a Maven project, so
@@ -1035,7 +892,7 @@ $ mkdir src/main/resources
     </section>
 
     <section>
-      <title>Creating a Custom Theme CSS</title>
+      <title>创建自定义的主题CSS</title>
 
       <para>Next, write a custom <acronym>CSS</acronym> for the custom skin. A
       Å file in a Maven site skin should be placed in
@@ -1207,7 +1064,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
   </section>
 
   <section>
-    <title>Tips and Tricks</title>
+    <title>提示与技巧</title>
 
     <para>This section lists some useful tips and tricks you can use when
     creating a Maven site.</para>
@@ -1307,7 +1164,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     </section>
 
     <section>
-      <title>Add the Project Version</title>
+      <title>添加项目版本</title>
 
       <para>When you are documenting a project that has multiple versions, it
       is often very helpful to list the project's version number on every
@@ -1374,7 +1231,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     </section>
 
     <section>
-      <title>Modify the Publication Date Format and Location</title>
+      <title>修改发布日期格式和位置</title>
 
       <para>In some cases, you may wish to reformat or reposition the "Last
       Published" date for your project website. Just like the project version
@@ -1457,7 +1314,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     </section>
 
     <section>
-      <title>Using Doxia Macros</title>
+      <title>使用Doxia宏</title>
 
       <para>In addition to its advanced document rendering features, Doxia
       also provides a macro engine that allows each input format to trigger
