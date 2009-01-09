@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<appendix id="settings-details">
+<appendix id="appendix-settings">
   <title>Appendix: Settings Details</title>
 
-  <section id="appendix-settings-details">
+  <section id="appendix-settings-sect-details">
     <title>Quick Overview</title>
 
     <para>The settings element in the <filename>settings.xml</filename> file
@@ -52,10 +52,10 @@
       </example></para>
   </section>
 
-  <section>
+  <section id="appendix-settings-sect-details">
     <title>Settings Details</title>
 
-    <section>
+    <section id="appendix-settings-sect-simpleval">
       <title>Simple Values</title>
 
       <para>Half of the top-level settings elements are simple values,
@@ -142,7 +142,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-servers">
       <title>Servers</title>
 
       <para>The <sgmltag>distributionManagement</sgmltag> element of the
@@ -232,7 +232,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-mirrors">
       <title>Mirrors</title>
 
       <para><example>
@@ -292,7 +292,7 @@
         </variablelist></para>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-proxies">
       <title>Proxies</title>
 
       <para><example>
@@ -371,7 +371,7 @@
         </variablelist></para>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-profiles">
       <title>Profiles</title>
 
       <para>The <sgmltag>profile</sgmltag> element in the
@@ -389,7 +389,7 @@
       <acronym>POM</acronym> or <filename>profiles.xml</filename> file.</para>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-activation">
       <title>Activation</title>
 
       <para>Activations are the key of a profile. Like the
@@ -492,7 +492,7 @@
 </screen>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-properties">
       <title>Properties</title>
 
       <para>Maven properties are value placeholder, like properties in Ant.
@@ -606,7 +606,7 @@
       a <acronym>POM</acronym> if this profile is active.</para>
     </section>
 
-    <section id="sect-settings-repository">
+    <section id="appendix-settings-sect-settings-repository">
       <title>Repositories</title>
 
       <para>Repositories are remote collections of projects from which Maven
@@ -722,7 +722,7 @@
         </variablelist></para>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-plugin-repositories">
       <title>Plugin Repositories</title>
 
       <para>The structure of the <sgmltag>pluginRepositories</sgmltag> element
@@ -771,7 +771,7 @@
       </example>
     </section>
 
-    <section>
+    <section id="appendix-settings-sect-active-profiles">
       <title>Active Profiles</title>
 
       <para><example>

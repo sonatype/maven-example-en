@@ -16,7 +16,7 @@
   to the POM; a project need not contain any code at all, simply a
   <filename>pom.xml</filename>.</para>
 
-  <section id="pom-intro">
+  <section id="appendix-pom-sect-intro">
     <title>POM Structure</title>
 
     <para>The following is a list of elements which can appear directly under
@@ -85,7 +85,7 @@ environment.  I'm following Eric's lead here, I wonder if I should.-->
     </figure>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-xml-schema">
     <title>POM XML Schema</title>
 
     <para>The POM XSD is available at <ulink
@@ -126,7 +126,7 @@ environment.  I'm following Eric's lead here, I wonder if I should.-->
     sheet</ulink> may help you visualize the layout.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-basics">
     <title>The Basics</title>
 
     <para>The POM contains all necessary information about a project, as well
@@ -155,7 +155,7 @@ environment.  I'm following Eric's lead here, I wonder if I should.-->
 </programlisting>
       </example></para>
 
-    <section>
+    <section id="appendix-pom-sect-coords">
       <title>Maven Coordinates</title>
 
       <para>The POM defined above is the minimum that Maven 2 will allow.
@@ -240,7 +240,7 @@ environment.  I'm following Eric's lead here, I wonder if I should.-->
       displayed as groupId:artifactId:packaging:classifier:version.</para>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-relationships">
       <title>POM Relationships</title>
 
       <para>One powerful aspect of Maven is in its handling of project
@@ -256,7 +256,7 @@ environment.  I'm following Eric's lead here, I wonder if I should.-->
       versions and all.</para>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-dependencies">
       <title>Dependencies</title>
 
       <para>The cornerstone of the POM is its dependency list. Most every
@@ -469,7 +469,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </variablelist>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-exclusions">
       <title>Exclusions</title>
 
       <para>Exclusions explicitly tell Maven that you don't want to include
@@ -508,7 +508,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       actively remove themselves from the dependency tree.</para>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-inheritance">
       <title>Inheritance</title>
 
       <para>One powerful addition that Maven brings to build management is the
@@ -594,7 +594,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </section>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-super-pom">
     <title>The Super POM</title>
 
     <para>Similar to the inheritance of objects in object oriented
@@ -723,7 +723,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     help:effective-pom</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-depman">
     <title>Dependency Management</title>
 
     <para>Besides inheriting certain top-level elements, parents have elements
@@ -740,7 +740,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     will propagate to all inheriting POMs.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-aggreg">
     <title>Aggregation (or Multi-Module)</title>
 
     <para>A project with modules is known as a multimodule, or aggregator
@@ -776,7 +776,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     project may aggregate projects that do not inherit from it.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-props">
     <title>Properties</title>
 
     <para>Properties are the last required piece in understanding POM basics.
@@ -818,7 +818,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </orderedlist>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-build">
     <title>Build Settings</title>
 
     <para>Beyond the basics of the POM given above, there are two more
@@ -862,7 +862,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
         </example></para>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-basebuild">
       <title>The BaseBuild Element Set</title>
 
       <para>BaseBuild is exactly as it sounds: the base set of elements
@@ -937,7 +937,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
           </varlistentry>
         </variablelist></para>
 
-      <section>
+      <section id="appendix-pom-sect-resources">
         <title>Resources</title>
 
         <para>Another feature of build elements is specifying where resources
@@ -1063,7 +1063,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
           </variablelist></para>
       </section>
 
-      <section>
+      <section id="appendix-pom-sect-plugins">
         <title>Plugins</title>
 
         <para><example>
@@ -1259,7 +1259,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
           </variablelist></para>
       </section>
 
-      <section>
+      <section id="appendix-pom-sect-plugman">
         <title>Plugin Management</title>
 
         <para>pluginManagement is an element that is seen along side plugins.
@@ -1331,7 +1331,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </section>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-build-element-set">
       <title>The Build Element Set</title>
 
       <para>The Build type in the XSD denotes those elements that are
@@ -1340,7 +1340,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       project build contains that are missing from the profile build:
       directories and extensions.</para>
 
-      <section>
+      <section id="appendix-pom-sect-basebuild-dirs">
         <title>Directories</title>
 
         <para>The set of directory elements live in the parent build element,
@@ -1370,7 +1370,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
         $\{basedir\}.</para>
       </section>
 
-      <section>
+      <section id="appendix-pom-sect-extensions">
         <title>Extensions</title>
 
         <para>Extensions are a list of artifacts that are to be used in this
@@ -1404,7 +1404,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </section>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-reporting">
     <title>Reporting</title>
 
     <para>Reporting contains the elements that correspond specifically for the
@@ -1506,7 +1506,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     its build destiny.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-project-info">
     <title>More Project Information</title>
 
     <para>Although the above information is enough to get a firm grasp on POM
@@ -1559,7 +1559,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </variablelist>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-licenses">
     <title>Licenses</title>
 
     <para><example>
@@ -1592,7 +1592,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     repository) or manual (they must be manually installed).</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-organization">
     <title>Organization</title>
 
     <para>Most projects are run by some sort of organization (business,
@@ -1613,7 +1613,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </example></para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-developers">
     <title>Developers</title>
 
     <para>All projects consist of files that were created, at some time, by a
@@ -1706,7 +1706,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </variablelist></para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-contributors">
     <title>Contributors</title>
 
     <para>Contributors are like developers yet play an ancillary role in a
@@ -1744,7 +1744,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     the id element.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-issue-man">
     <title>Issue Management</title>
 
     <para>This defines the defect tracking system (Bugzilla, TestTrack,
@@ -1767,7 +1767,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </example></para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-contint">
     <title>Continuous Integration</title>
 
     <para>Continuous integration build systems based upon triggers or timings
@@ -1808,7 +1808,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </example></para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-mailing-list">
     <title>Mailing Lists</title>
 
     <para>Mailing lists are a great tool for keeping in touch with people
@@ -1870,7 +1870,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </variablelist></para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-config-man">
     <title>Software Configuration Management</title>
 
     <para>SCM (Software Configuration Management, also called Source
@@ -1922,7 +1922,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     ViewCVS.</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-prereqs">
     <title>Prerequisites</title>
 
     <para><example>
@@ -1946,7 +1946,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     POM 4.0 is the maven element, which takes a minimum version number</para>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-repos">
     <title>Repositories</title>
 
     <para>Repositories are collections of artifacts which adhere to the Maven
@@ -2022,7 +2022,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     layout. Use this element to specify which if it is default or
     legacy.</para>
 
-    <section>
+    <section id="appendix-pom-sect-plug-repos">
       <title>Plugin Repositories</title>
 
       <para>Repositories are home to two major types of artifacts. The first
@@ -2038,7 +2038,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </section>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-distman">
     <title>Distribution Management</title>
 
     <para>Distribution management acts precisely as it sounds: it manages the
@@ -2135,7 +2135,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
         </varlistentry>
       </variablelist></para>
 
-    <section>
+    <section id="appendix-pom-sect-repository">
       <title>Repository</title>
 
       <para>Where as the repositories element specifies in the POM the
@@ -2216,7 +2216,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
         </variablelist></para>
     </section>
 
-    <section>
+    <section id="appendix-pom-sect-site-dist">
       <title>Site Distribution</title>
 
       <para>More than distribution to the repositories, distributionManagement
@@ -2246,7 +2246,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       above in the distributionManagement repository element.</para>
     </section>
 
-    <section id="pom-relocation">
+    <section id="appendix-pom-sect-relocation">
       <title>Relocation</title>
 
       <para><example>
@@ -2280,7 +2280,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </section>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-profiles">
     <title>Profiles</title>
 
     <para>A new feature of the POM 4.0 is the ability of a project to change
@@ -2315,7 +2315,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
 </programlisting>
       </example></para>
 
-    <section>
+    <section id="appendix-pom-sect-activation">
       <title>Activation</title>
 
       <para>Activations are the key of a profile. The power of a profile comes
@@ -2412,7 +2412,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
 </screen>
     </section>
 
-    <section id="pom-basebuild">
+    <section id="appendix-pom-sect-basebuild-revisited">
       <title>The BaseBuild Element Set (revisited)</title>
 
       <para>As mentioned above, the reason for the two types of build elements
@@ -2430,7 +2430,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
     </section>
   </section>
 
-  <section>
+  <section id="appendix-pom-sect-summary">
     <title>Summary</title>
 
     <para>The Maven 2 POM is big. However, its size is also a testament to its
