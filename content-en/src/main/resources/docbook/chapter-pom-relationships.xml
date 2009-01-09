@@ -166,8 +166,7 @@
             </indexterm> <filename moreinfo="none">settings.xml</filename> in
           <filename moreinfo="none">~/.m2</filename>. This settings file is
           discussed in <xref linkend="profiles" /> and in the section <xref
-          linkend="appendix-settings-details" />” in <xref
-          linkend="settings-details" />.</para>
+          linkend="appendix-settings-sect-details" />.</para>
         </listitem>
       </varlistentry>
 
@@ -357,9 +356,8 @@
           use a snapshot repository, you will need to customize repository
           settings in your <filename moreinfo="none">pom.xml</filename> or in
           your <filename moreinfo="none">settings.xml</filename>. Settings and
-          profiles are covered in <xref linkend="profiles" /> and in the
-          section <xref linkend="appendix-settings-details" />” in <xref
-          linkend="settings-details" />.</para>
+          profiles are covered in <xref linkend="profiles" /> and in <xref
+          linkend="appendix-settings-sect-details" />.</para>
         </callout>
 
         <callout arearefs="coDef-super-2" id="coRef-super-2">
@@ -399,9 +397,9 @@
 
       <para>All Maven <acronym>POM</acronym>s inherit defaults from the Super
       <acronym>POM</acronym> (introduced earlier in the section <xref
-      linkend="section-super-pom" />”). If you are just writing a simple
-      project that produces a <acronym>JAR</acronym> from some source in
-      <filename moreinfo="none">src/main/java</filename>, want to run your
+      linkend="pom-relationships-sect-super-pom" />”). If you are just writing
+      a simple project that produces a <acronym>JAR</acronym> from some source
+      in <filename moreinfo="none">src/main/java</filename>, want to run your
       JUnit tests in <filename moreinfo="none">src/test/java</filename>, and
       want to build a project site using <command moreinfo="none">mvn
       site</command>, you don’t have to customize anything. All you would
@@ -454,7 +452,7 @@
       <acronym>POM</acronym>, you’ll need to run the
       <varname>effective-pom</varname> goal in the Maven Help plugin, which
       was introduced earlier in the section <xref
-      linkend="sect-help-plugin-install" />.” To run the
+      linkend="installation-sect-help-plugin-install" />.” To run the
       <varname>effective-pom</varname> goal, execute the following in a
       directory with a <filename moreinfo="none">pom.xml</filename>
       file:</para>
@@ -545,10 +543,10 @@
       <para>Keeping your version numbers aligned with this standard will
       become very important when you want to start using version ranges in
       your <acronym>POM</acronym>s. Version ranges, introduced in <xref
-      linkend="section-version-ranges" />, allow you to specify a dependency
-      on a range of versions, and they are only supported because Maven has
-      the ability to sort versions based on the version release number format
-      introduced in this section.</para>
+      linkend="pom-relationships-sect-version-ranges" />, allow you to specify
+      a dependency on a range of versions, and they are only supported because
+      Maven has the ability to sort versions based on the version release
+      number format introduced in this section.</para>
 
       <para>If your version release number matches the format
       <varname>&lt;major&gt;.&lt;minor&gt;.&lt;incremental&gt;-&lt;qualifier&gt;</varname>
@@ -991,7 +989,7 @@
               </indexterm> operation of an application, and they are available
             only during test compilation and execution phases. The
             <literal>test</literal> scope was previously introduced in <xref
-            linkend="section-test-scope" />.”</para>
+            linkend="customizing-sect-test-scope" />.”</para>
           </listitem>
         </varlistentry>
 
@@ -1253,8 +1251,8 @@
         <title>Transitive Dependencies and Scope</title>
 
         <para>Each of the scopes outlined earlier in the section <xref
-        linkend="section-dependency-scope" />” affects not just the scope of
-        <indexterm>
+        linkend="pom-relationships-sect-dependency-scope" />” affects not just
+        the scope of <indexterm>
             <primary>scope, dependency</primary>
 
             <secondary>transitive dependencies and</secondary>

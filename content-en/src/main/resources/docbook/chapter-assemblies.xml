@@ -351,21 +351,21 @@ Hello, World!</screen>
       <para>Once you’ve deployed an assembly alongside your main project
       artifact, how can you use that assembly as a dependency in another
       project? The answer is fairly straightforward. Recall the discussions in
-      <xref linkend="sect-maven-coordinates" /> and <xref
-      linkend="sect-more-coordinates" /> about project dependencies in Maven,
-      projects depend on other projects using a combination of four basic
-      elements, referred to as a project’s coordinates:
-      <varname>groupId</varname>, <varname>artifactId</varname>,
+      <xref linkend="simple-project-sect-maven-coordinates" /> and <xref
+      linkend="pom-relationships-sect-more-coordinates" /> about project
+      dependencies in Maven, projects depend on other projects using a
+      combination of four basic elements, referred to as a project’s
+      coordinates: <varname>groupId</varname>, <varname>artifactId</varname>,
       <varname>version</varname>, and <varname>packaging</varname>. In <xref
-      linkend="sect-platform-classifier" />, multiple platform-specific
-      variants of a project’s artifact and available, and the project
-      specifies a <varname>classifier</varname> element with a value of either
-      <varname>win</varname> or <varname>linux</varname> to select the
-      appropriate dependency artifact for the target platform. Assembly
-      artifacts can be used as dependencies using the required coordinates of
-      a project plus the classifier under which the assembly was installed or
-      deployed. If the assembly is not a <acronym>JAR</acronym> archive, we
-      also need to declare its type.</para>
+      linkend="profiles-sect-platform-classifier" />, multiple
+      platform-specific variants of a project’s artifact and available, and
+      the project specifies a <varname>classifier</varname> element with a
+      value of either <varname>win</varname> or <varname>linux</varname> to
+      select the appropriate dependency artifact for the target platform.
+      Assembly artifacts can be used as dependencies using the required
+      coordinates of a project plus the classifier under which the assembly
+      was installed or deployed. If the assembly is not a
+      <acronym>JAR</acronym> archive, we also need to declare its type.</para>
     </section>
 
     <section id="assemblies-sect-assembling-via-depend">
@@ -707,15 +707,15 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     <section id="assemblies-sect-prop-refs">
       <title>Property References in Assembly Descriptors</title>
 
-      <para>Any property discussed in <xref linkend="sect-properties" /> can
-      be referenced in an assembly descriptor. Before any assembly descriptor
-      is used by Maven, it is interpolated using information from the
-      <acronym>POM</acronym> and the current build environment. All properties
-      supported for interpolation within the <acronym>POM</acronym> itself are
-      valid for use in assembly descriptors, including <acronym>POM</acronym>
-      properties, <acronym>POM</acronym> element values, system properties,
-      user-defined properties, and operating-system environment
-      variables.</para>
+      <para>Any property discussed in <xref
+      linkend="resource-filtering-sect-properties" /> can be referenced in an
+      assembly descriptor. Before any assembly descriptor is used by Maven, it
+      is interpolated using information from the <acronym>POM</acronym> and
+      the current build environment. All properties supported for
+      interpolation within the <acronym>POM</acronym> itself are valid for use
+      in assembly descriptors, including <acronym>POM</acronym> properties,
+      <acronym>POM</acronym> element values, system properties, user-defined
+      properties, and operating-system environment variables.</para>
 
       <para>The only exceptions to this interpolation step are elements in
       various sections of the descriptor named
@@ -768,8 +768,8 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       <filename>.tar.bz2</filename> distribution archive set with ease. If you
       don't find the archive format you need, you can also create a custom
       format. Custom formats are discussed in <xref
-      linkend="sect-componentDescriptors" />. The Assembly plugin supports
-      several archive formats natively, including:</para>
+      linkend="assemblies-sect-componentDescriptors" />. The Assembly plugin
+      supports several archive formats natively, including:</para>
 
       <itemizedlist>
         <listitem>
@@ -946,8 +946,9 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       <sgmltag>true</sgmltag>. When active,
       <sgmltag>useDefaultExcludes</sgmltag> will keep directories like
       <filename>.svn/</filename> and <filename>CVS/</filename> from being
-      added to the assembly archive. <xref linkend="sect-default-excludes" />
-      provides a detailed list of the default exclusion patterns.</para>
+      added to the assembly archive. <xref
+      linkend="assemblies-sect-default-excludes" /> provides a detailed list
+      of the default exclusion patterns.</para>
 
       <para>If we want more control over this file set, we can specify it more
       explicitly. <xref linkend="ex-explicit-fileSet" /> shows a
@@ -1370,24 +1371,27 @@ I can add this back in later.  I didn't want to talk about it without an example
       <section id="assemblies-sect-include-by-scope">
         <title>Including and Excluding Dependencies by Scope</title>
 
-        <para>In <xref linkend="pom-relationships" />, it was noted that all
-        project dependencies have one scope or another. Scope determines when
-        in the build process that dependency normally would be used. For
-        instance, test-scoped dependencies are not included in the classpath
-        during compilation of the main project sources; but they are included
-        in the classpath when compiling unit test sources. This is because
-        your project’s main source code should not contain any code specific
-        to testing, since testing is not a function of the project (it’s a
-        function of the project’s build process). Similarly, provided-scoped
-        dependencies are assumed to be present in the environment of any
-        eventual deployment. However, if a project depends on a particular
-        provided dependency, it is likely to require that dependency in order
-        to compile. Therefore, provided-scoped dependencies are present in the
-        compilation classpath, but not in the dependency set that should be
-        bundled with the project’s artifact or assembly.</para>
+        <para>In <xref
+        linkend="pom-relationships-sect-project-dependencies" />, it was noted
+        that all project dependencies have one scope or another. Scope
+        determines when in the build process that dependency normally would be
+        used. For instance, test-scoped dependencies are not included in the
+        classpath during compilation of the main project sources; but they are
+        included in the classpath when compiling unit test sources. This is
+        because your project’s main source code should not contain any code
+        specific to testing, since testing is not a function of the project
+        (it’s a function of the project’s build process). Similarly,
+        provided-scoped dependencies are assumed to be present in the
+        environment of any eventual deployment. However, if a project depends
+        on a particular provided dependency, it is likely to require that
+        dependency in order to compile. Therefore, provided-scoped
+        dependencies are present in the compilation classpath, but not in the
+        dependency set that should be bundled with the project’s artifact or
+        assembly.</para>
 
-        <para>Also from <xref linkend="pom-relationships" />, recall that some
-        dependency scopes imply others. For instance, the
+        <para>Also from <xref
+        linkend="pom-relationships-sect-project-dependencies" />, recall that
+        some dependency scopes imply others. For instance, the
         <varname>runtime</varname> dependency scope implies the
         <varname>compile</varname> scope, since all compile-time dependencies
         (except for those in the <varname>provided</varname> scope) will be
@@ -2030,13 +2034,13 @@ I can add this back in later.  I didn't want to talk about it without an example
         <title>Interpolation of <sgmltag>outputDirectoryMapping</sgmltag> in
         <sgmltag>moduleSets</sgmltag></title>
 
-        <para>In <xref linkend="sect-output-location" />, we used the element
-        <sgmltag>outputDirectoryMapping</sgmltag> to change the name of the
-        directory under which each module’s sources would be included. The
-        expressions contained in this element are resolved in exactly the same
-        way as the <sgmltag>outputFileNameMapping</sgmltag>, used in
-        dependency sets (see the explanation of this algorithm in <xref
-        linkend="sect-output-algorithm" />).</para>
+        <para>In <xref linkend="assemblies-sect-output-location" />, we used
+        the element <sgmltag>outputDirectoryMapping</sgmltag> to change the
+        name of the directory under which each module’s sources would be
+        included. The expressions contained in this element are resolved in
+        exactly the same way as the <sgmltag>outputFileNameMapping</sgmltag>,
+        used in dependency sets (see the explanation of this algorithm in
+        <xref linkend="assemblies-sect-output-algorithm" />).</para>
 
         <para>In <xref linkend="ex-include-exclude-moduleSet" />, we used the
         expression <varname>${module.basedir.name}</varname>. You might notice
