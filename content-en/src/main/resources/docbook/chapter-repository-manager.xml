@@ -4,7 +4,7 @@
 <chapter id="repository-manager">
   <title>Repository Manager</title>
 
-  <section>
+  <section id="repository-manager-sect-intro">
     <title>Introduction</title>
 
     <para>Repository managers serve two purposes: they act as highly
@@ -74,7 +74,7 @@
     Over time, this central deployment point for internal projects becomes the
     fabric for collaboration between different development teams.</para>
 
-    <section>
+    <section id="repository-manager-sect-history">
       <title>History of Nexus</title>
 
       <para>Tamas Cservenak started working on Proximity in December 2005 as
@@ -94,10 +94,10 @@
     </section>
   </section>
 
-  <section>
+  <section id="repository-manager-sect-installing">
     <title>Installing Nexus</title>
 
-    <section>
+    <section id="repository-manager-sect-downloading">
       <title>Downloading Nexus from Sonatype</title>
 
       <para>You can find information about Nexus at <ulink
@@ -109,7 +109,7 @@
       <acronym>TAR</acronym> file.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-installing-nexus">
       <title>Installing Nexus</title>
 
       <para>Installing Nexus is straightforward, unpack the Nexus archive in a
@@ -152,7 +152,7 @@ $ <command>ln -s nexus-1.0.0 nexus</command></screen>
       <varname>${NEXUS_HOME}</varname>.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-running-nexus">
       <title>Running Nexus</title>
 
       <para>When you start Nexus, you are starting a web server on the default
@@ -302,7 +302,7 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
       </variablelist>
     </section>
 
-    <section>
+    <section id="repository-manager-startup-scripts-linux">
       <title>Startup Scripts for Linux</title>
 
       <para>You can configure Nexus to start automatically, by copying the
@@ -413,7 +413,7 @@ PIDDIR="/var/run"
 #RUN_AS_USER=nexus
 </programlisting>
 
-      <section>
+      <section id="repository-manager-sect-service-rh-derivs">
         <title>Add Nexus as a Service on Redhat, Fedora, and CentOS</title>
 
         <para>This script has the appropriate <command>chkconfig</command>
@@ -441,7 +441,7 @@ $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command></screen>
         <acronym>HTTP</acronym> connections on a port.</para>
       </section>
 
-      <section>
+      <section id="repository-manager-sect-service-ubuntu">
         <title>Add Nexus as a Service on Ubuntu</title>
 
         <para>The process for setting Nexus up as a service on Ubuntu differs
@@ -459,7 +459,7 @@ $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command>
       </section>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-behind-proxy">
       <title>Running Nexus Behind a Proxy</title>
 
       <para>This section is entirely optional. Nexus is based on Jetty which
@@ -537,7 +537,7 @@ ProxyPreserveHost On
     </section>
   </section>
 
-  <section>
+  <section id="repository-manager-sect-using-nexus">
     <title>Using Nexus</title>
 
     <para>Nexus provides for anonymous access for users who only need to
@@ -557,7 +557,7 @@ ProxyPreserveHost On
       </mediaobject>
     </figure>
 
-    <section>
+    <section id="repository-manager-sect-browsing-repositories">
       <title>Browsing Repositories</title>
 
       <para>One of the most straight-forward uses of the Nexus is to browse
@@ -597,7 +597,7 @@ ProxyPreserveHost On
       </note>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-browsing-groups">
       <title>Browsing Groups</title>
 
       <para>Nexus contains ordered groups of repositories which allow you to
@@ -625,7 +625,7 @@ ProxyPreserveHost On
       </figure>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-searching-for-artifacts">
       <title>Searching for Artifacts</title>
 
       <para>In the left-hand navigation area, there is a Artifact Search text
@@ -669,7 +669,7 @@ ProxyPreserveHost On
       </warning>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-browsing-system-feeds">
       <title>Browsing System Feeds</title>
 
       <para>Nexus provides feeds that capture system events, you can browse
@@ -777,7 +777,7 @@ ProxyPreserveHost On
       </table>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-browse-log-files">
       <title>Browsing Log Files and Configuration</title>
 
       <para>Logs and Config Files is only visible to Administrative users
@@ -821,7 +821,7 @@ ProxyPreserveHost On
       </figure>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-changing-password">
       <title>Changing Your Password</title>
 
       <para>If you have the appropriate security privilege, you will see an
@@ -909,7 +909,7 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
       contents cached in your local instance of Maven.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-using-nexus-snapshot-repos">
       <title>Using Nexus for Snapshot Repositories</title>
 
       <para>The Maven Settings from <xref linkend="sect-simple-maven-nexus" />
@@ -1009,7 +1009,7 @@ Downloading: http://localhost:8081/nexus/content/groups/public/...
       </example>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-custom-repositories">
       <title>Adding Custom Repositories for Missing Dependencies</title>
 
       <para>If you've configured your Maven <filename>settings.xml</filename>
@@ -1119,7 +1119,7 @@ from the specified remote repositories:
       group.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-adding-new-repository">
       <title>Adding a New Repository</title>
 
       <para>To add the caja repository, log into Nexus as an Administrator,
@@ -1158,7 +1158,7 @@ from the specified remote repositories:
       url="http://oauth.googlecode.com/svn/code/maven">http://oauth.googlecode.com/svn/code/maven</ulink>.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-adding-to-group">
       <title>Adding a Repository to a Group</title>
 
       <para>Next you will need to add both of these new repositories to the
@@ -1216,7 +1216,7 @@ from the specified remote repositories:
     </section>
   </section>
 
-  <section>
+  <section id="repository-manager-sect-configuring-nexus">
     <title>Configuring Nexus</title>
 
     <para>Many of the configuration screens shown in this section are only
@@ -1779,7 +1779,7 @@ from the specified remote repositories:
       </variablelist>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-managing-groups">
       <title>Managing Groups</title>
 
       <para>Groups are a powerful feature of Nexus, they allow you to combine
@@ -1826,7 +1826,7 @@ from the specified remote repositories:
       as many missing artifacts.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-managing-routes">
       <title>Managing Routes</title>
 
       <para>Nexus Routes are like filters you can apply to Nexus Groups, they
@@ -1991,7 +1991,7 @@ from the specified remote repositories:
       specific repository.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-scheduled-services">
       <title>Managing Scheduled Services</title>
 
       <para>Nexus allows you to schedule tasks that will be applied to all
@@ -2150,7 +2150,7 @@ from the specified remote repositories:
       </figure>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-managing-security">
       <title>Managing Security</title>
 
       <para>The latest release of Nexus has role-based access control (RBAC)
@@ -2221,7 +2221,7 @@ from the specified remote repositories:
         </varlistentry>
       </variablelist>
 
-      <section>
+      <section id="repository-manager-sect-managing-privileges">
         <title>Managing Privileges</title>
 
         <para>Nexus has two types of privileges: application privileges which
@@ -2382,7 +2382,7 @@ from the specified remote repositories:
         </itemizedlist>
       </section>
 
-      <section>
+      <section id="repository-manager-sect-repository-targets">
         <title>Managing Repository Targets</title>
 
         <para>A target is a set of regular expressions to match on a path
@@ -2406,7 +2406,7 @@ from the specified remote repositories:
         </figure>
       </section>
 
-      <section>
+      <section id="repository-manager-sect-security-roles">
         <title>Managing Security Roles</title>
 
         <para>Nexus ships with three roles: Nexus Administrator Role, Nexus
@@ -2433,7 +2433,7 @@ from the specified remote repositories:
         repository without giving up control of your private artifacts.</para>
       </section>
 
-      <section>
+      <section id="repository-manager-sect-managing-users">
         <title>Managing Users</title>
 
         <para>Nexus ships with three users: admin, anonymous, and deployment.
@@ -2458,7 +2458,7 @@ from the specified remote repositories:
       </section>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-network-config">
       <title>Network Configuration</title>
 
       <para>By default, Nexus listens on port 8081. You can change this port,
@@ -2650,7 +2650,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
     your project's <acronym>POM</acronym>. Nexus works with Maven's built-in
     <varname>wagon-http-lightweight</varname>.</para>
 
-    <section>
+    <section id="repository-manager-sect-deployment-security">
       <title>Configuring Deployment Security</title>
 
       <para>Nexus ships with a deployment user that has a default password of
@@ -2688,7 +2688,7 @@ nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       <filename>settings.xml</filename> to find these credentials.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-deploy-releases">
       <title>Deploying Releases</title>
 
       <para>To deploy a release artifact to Nexus you need to configure a
@@ -2751,7 +2751,7 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
       repositories into a single Nexus group.</para>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-deploying-snapshots">
       <title>Deploying Snapshots</title>
 
       <para>To deploy a snapshot artifact to Nexus you need to configure a
@@ -2808,7 +2808,7 @@ Uploading: http://localhost:8081/nexus/content/repositories/releases/\
 </screen>
     </section>
 
-    <section>
+    <section id="repository-manager-sect-third-party">
       <title>Deploying Third-party Artifacts</title>
 
       <para>Your Maven projects may start depending on an artifacts which are

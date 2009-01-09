@@ -4,7 +4,7 @@
 <chapter id="simple-project">
   <title>A Simple Maven Project</title>
 
-  <section id="simple-intro">
+  <section id="simple-project-sect-intro">
     <title>Introduction</title>
 
     <para>In this chapter, we introduce a simple project created from scratch
@@ -25,7 +25,7 @@
     lifecycle, Maven repositories, dependency management, and the Project
     Object Model (<acronym>POM</acronym>).</para>
 
-    <section>
+    <section id="simple-project-sect-downloading-example">
       <title>Downloading this Chapter's Example</title>
 
       <para>This chapter develops a very simple example which will be used to
@@ -49,7 +49,7 @@
     </section>
   </section>
 
-  <section id="sect-create-simple">
+  <section id="simple-project-sect-create-simple">
     <title>Creating a Simple Project</title>
 
     <para>To start a new Maven project, use the Maven Archetype plugin from
@@ -196,7 +196,7 @@ public class App
     program: a program which prints "Hello World!" to standard output.</para>
   </section>
 
-  <section>
+  <section id="simple-project-sect-building-simple">
     <title>Building a Simple Project</title>
 
     <para>Once you have created the project with the Maven Archetype plugin by
@@ -258,7 +258,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 </screen>
   </section>
 
-  <section>
+  <section id="simple-project-sect-pom">
     <title>Simple Project Object Model</title>
 
     <para>When Maven executes, it looks to the Project Object Model
@@ -341,7 +341,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     linkend="sect-help-plugin-install" />.</para>
   </section>
 
-  <section id="section-simple-core">
+  <section id="simple-project-sect-simple-core">
     <title>Core Concepts</title>
 
     <para>Having just run Maven for the first time, it is a good time to
@@ -354,7 +354,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     a "local repository"? The following section defines some of Maven's
     central concepts.</para>
 
-    <section>
+    <section id="simple-project-sect-plugins-goals">
       <title>Maven Plugins and Goals</title>
 
       <para>In the previous section, we ran Maven with two different types
@@ -496,7 +496,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       implementation.)</para>
     </section>
 
-    <section>
+    <section id="simple-project-sect-lifecycle">
       <title>Maven Lifecycle</title>
 
       <para>The second command we ran in the previous section<indexterm>
@@ -723,7 +723,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       project, you can build them all.</para>
     </section>
 
-    <section id="sect-maven-coordinates">
+    <section id="simple-project-sect-maven-coordinates">
       <title>Maven Coordinates</title>
 
       <para>The Archetype plugin created a project with a file named<indexterm
@@ -882,7 +882,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </figure></para>
     </section>
 
-    <section id="section-simple-repo">
+    <section id="simple-project-section-simple-repo">
       <title>Maven Repositories</title>
 
       <para>When you run Maven for the first time, you will notice that Maven
@@ -964,7 +964,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       allowing your projects to depend on each other.</para>
     </section>
 
-    <section>
+    <section id="simple-project-sect-dep-management">
       <title>Maven's Dependency Management</title>
 
       <para>In this chapter's simple example, Maven resolved the coordinates
@@ -1077,7 +1077,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <filename>WEB-INF/lib</filename> directory.</para>
     </section>
 
-    <section>
+    <section id="simple-project-sect-site-generation">
       <title>Site Generation and Reporting</title>
 
       <para>Another important feature of Maven is its ability to
@@ -1126,7 +1126,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     </section>
   </section>
 
-  <section>
+  <section id="simple-project-sect-summary">
     <title>Summary</title>
 
     <para>In this chapter, we have created a simple project, packaged the

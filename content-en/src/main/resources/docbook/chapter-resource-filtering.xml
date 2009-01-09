@@ -4,7 +4,7 @@
 <chapter id="resource-filtering">
   <title>Properties and Resource Filtering</title>
 
-  <section>
+  <section id="resource-filtering-sect-intro">
     <title>Introduction</title>
 
     <para>Throughout this book, you will notice references to properties which
@@ -33,7 +33,7 @@
     create portable enterprise builds.</para>
   </section>
 
-  <section id="sect-properties">
+  <section id="resource-filtering-sect-properties">
     <title>Maven Properties</title>
 
     <para>You can use Maven properties in a <filename>pom.xml</filename> file
@@ -94,7 +94,7 @@
     set of arbitrary, user-defined properties. The following sections provide
     so detail on the various properties available in a Maven project.</para>
 
-    <section>
+    <section id="resource-filtering-sect-project-properties">
       <title>Maven Project Properties</title>
 
       <para>When a Maven Project Property is referenced, the property name is
@@ -250,7 +250,7 @@
       url="http://maven.apache.org/ref/2.0.9/maven-model">http://maven.apache.org/ref/2.0.9/maven-model</ulink>.</para>
     </section>
 
-    <section>
+    <section id="resource-filtering-sect-settings-properties">
       <title>Maven Settings Properties</title>
 
       <para>You can also reference any properties in the Maven Local Settings
@@ -264,7 +264,7 @@
       url="http://maven.apache.org/ref/2.0.9/maven-settings/settings.html">http://maven.apache.org/ref/2.0.9/maven-settings/settings.html</ulink>.</para>
     </section>
 
-    <section>
+    <section id="resource-filtering-sect-enviroment-variable">
       <title>Environment Variable Properties</title>
 
       <para>Environment variables can be referenced with the env.* prefix.
@@ -322,7 +322,7 @@
       platform.</para>
     </section>
 
-    <section>
+    <section id="resource-filtering-sect-system-properties">
       <title>Java System Properties</title>
 
       <para>Maven exposes all properties from
@@ -497,7 +497,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="resource-filtering-sect-user-defined">
       <title>User-defined Properties</title>
 
       <para>In addition to the implicit properties provided by the
@@ -568,7 +568,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="resource-filtering-sect-description">
     <title>Resource Filtering</title>
 
     <para>You can use Maven to perform variable replacement on project

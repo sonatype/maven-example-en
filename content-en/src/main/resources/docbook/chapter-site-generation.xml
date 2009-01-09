@@ -4,7 +4,7 @@
 <chapter id="site-generation">
   <title>Site Generation</title>
 
-  <section>
+  <section id="site-generation-sect-intro">
     <title>Introduction</title>
 
     <para>Successful software applications are rarely produced by a team of
@@ -49,7 +49,7 @@
     your web site to a remote server.</para>
   </section>
 
-  <section id="site-generation-intro">
+  <section id="site-generation-sect-building">
     <title>Building a Project Site with Maven</title>
 
     <para>To illustrate the process of building a project website, create a
@@ -125,7 +125,7 @@ $ <command>mvn site:run</command>
     descriptor.</para>
   </section>
 
-  <section>
+  <section id="site-generation-sect-custom-descript">
     <title>Customizing the Site Descriptor</title>
 
     <para>When you add content to the site, you are going to want to modify
@@ -202,7 +202,7 @@ $ mvn site:run</screen>
       </screenshot>
     </figure>
 
-    <section>
+    <section id="site-generation-sect-custom-header">
       <title>Customizing the Header Graphics</title>
 
       <para>To customize the graphics which appear in the upper left-hand and
@@ -243,7 +243,7 @@ $ mvn site:run</screen>
       images.</para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-custom-nav">
       <title>Customizing the Navigation Menu</title>
 
       <para>To customize the contents of the navigation menu, use the
@@ -312,7 +312,7 @@ $ mvn site:run</screen>
     </section>
   </section>
 
-  <section>
+  <section id="site-generation-sect-dir-struct">
     <title>Site Directory Structure</title>
 
     <para>Maven places all site document under <filename>src/site</filename>.
@@ -379,7 +379,7 @@ $ mvn site:run</screen>
     directory of the web site.</para>
   </section>
 
-  <section>
+  <section id="site-generation-sect-proj-doc">
     <title>Writing Project Documentation</title>
 
     <para>Maven uses a documentation-processing engine called Doxia which
@@ -414,7 +414,7 @@ $ mvn site:run</screen>
       </listitem>
     </itemizedlist>
 
-    <section>
+    <section id="site-generation-apt-example">
       <title>APT Example</title>
 
       <para><xref linkend="ex-apt" /> shows a simple <acronym>APT</acronym>
@@ -458,7 +458,7 @@ Welcome to Sample Project
       <filename>index.html</filename>.</para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-fml-example">
       <title>FML Example</title>
 
       <para>Many projects maintain a Frequently Asked Questions
@@ -506,7 +506,7 @@ Welcome to Sample Project
     </section>
   </section>
 
-  <section>
+  <section id="site-generation-sect-deploy-site">
     <title>Deploying Your Project Website</title>
 
     <para>Once your project's documentation has been written and you've
@@ -553,7 +553,7 @@ Welcome to Sample Project
     password (or other credentials, you can configure this values in your
     <filename>~/.m2/settings.xml</filename>).</para>
 
-    <section>
+    <section id="site-generation-sect-server-auth">
       <title>Configuring Server Authentication</title>
 
       <para>To configure a username/password combination for use during the
@@ -588,7 +588,7 @@ Welcome to Sample Project
       on your server's configuration.</para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-modes">
       <title>Configuring File and Directory Modes</title>
 
       <para>If you are working in a large group of developers, you'll want to
@@ -627,7 +627,7 @@ Welcome to Sample Project
     </section>
   </section>
 
-  <section>
+  <section id="site-generation-sect-site-appearance">
     <title>Customizing Site Appearance</title>
 
     <para>The default Maven template leaves much to be desired. If you wish to
@@ -641,7 +641,7 @@ Welcome to Sample Project
     that Maven generates, you should consider creating your own Maven website
     skin.</para>
 
-    <section>
+    <section id="site-generation-sect-site-css">
       <title>Customizing the Site CSS</title>
 
       <para>The easiest way to affect the look and feel of your project's web
@@ -687,7 +687,7 @@ Welcome to Sample Project
       </tip>
     </section>
 
-    <section>
+    <section id="site-generation-sect-custom-template">
       <title>Create a Custom Site Template</title>
 
       <para>If the default Maven Site structure just doesn't do it for you,
@@ -972,7 +972,7 @@ $ <command>cp -rf \
         </example></para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-reusable-skin">
       <title>Reusable Website Skins</title>
 
       <para>If your organization is created many Maven project sites, you will
@@ -1046,7 +1046,7 @@ $ <command>mkdir src/main/resources</command>
 </screen>
     </section>
 
-    <section>
+    <section id="site-generation-sect-custom-theme-css">
       <title>Creating a Custom Theme CSS</title>
 
       <para>Next, write a custom <acronym>CSS</acronym> for the custom skin. A
@@ -1132,7 +1132,7 @@ $ <command>mkdir src/main/resources</command>
       plugin.</para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-custom-template-skin">
       <title>Customizing Site Templates in a Skin</title>
 
       <para>Just as you can customize a the site <acronym>CSS</acronym> in a
@@ -1218,13 +1218,13 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     </section>
   </section>
 
-  <section>
+  <section id="site-generation-sect-tips-tricks">
     <title>Tips and Tricks</title>
 
     <para>This section lists some useful tips and tricks you can use when
     creating a Maven site.</para>
 
-    <section>
+    <section id="site-generation-sect-inject-xhtml">
       <title>Inject XHTML into HEAD</title>
 
       <para>To inject <acronym>XHTML</acronym> into the
@@ -1253,7 +1253,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
         </example></para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-add-links">
       <title>Add Links under Your Site Logo</title>
 
       <para>If you are working on a project which is being developed by an
@@ -1286,7 +1286,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
         </example></para>
     </section>
 
-    <section>
+    <section id="site-generation-add-breadcumbs">
       <title>Add Breadcrumbs to Your Site</title>
 
       <para>If your hierarchy exists within a logical hierarchy, you may want
@@ -1318,7 +1318,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
         </example></para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-add-project-version">
       <title>Add the Project Version</title>
 
       <para>When you are documenting a project that has multiple versions, it
@@ -1385,7 +1385,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
       </variablelist>
     </section>
 
-    <section>
+    <section id="site-generation-sect-mod-pubdate">
       <title>Modify the Publication Date Format and Location</title>
 
       <para>In some cases, you may wish to reformat or reposition the "Last
@@ -1468,7 +1468,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
         </example></para>
     </section>
 
-    <section>
+    <section id="site-generation-sect-doxia-macros">
       <title>Using Doxia Macros</title>
 
       <para>In addition to its advanced document rendering features, Doxia
