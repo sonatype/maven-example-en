@@ -4,7 +4,7 @@
 <chapter id="customizing">
   <title>Customizing a Maven Project</title>
 
-  <section id="custom-intro">
+  <section id="customizing-sect-intro">
     <title>Introduction</title>
 
     <para>This chapter expands on the information introduced in <xref
@@ -20,7 +20,7 @@
     needs. By the end of this chapter, you will know how to start using Maven
     to create real projects.</para>
 
-    <section>
+    <section id="customizing-sect-downloading">
       <title>Downloading this Chapter's Example</title>
 
       <para>We’ll be developing a useful program that interacts with a Yahoo!
@@ -41,7 +41,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="customizing-sect-simple-weather">
     <title>Defining the Simple Weather Project</title>
 
     <para>Before we start customizing this project, let’s take a step back
@@ -84,7 +84,7 @@
     Lastly, it is an example that can be introduced, developed, and deployed
     in a single chapter.</para>
 
-    <section>
+    <section id="customizing-sect-yahoo-weather">
       <title>Yahoo! Weather RSS</title>
 
       <para>Before you build this application, you should know something
@@ -113,7 +113,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="customizing-sect-creating-simple-weather">
     <title>Creating the Simple Weather Project</title>
 
     <para>First, let’s use the Maven Archetype plugin to create a
@@ -214,7 +214,7 @@
     <filename>pom.xml</filename> <varname>version</varname> element.</para>
   </section>
 
-  <section>
+  <section id="customizing-sect-customizing-project-info">
     <title>Customize Project Information</title>
 
     <para>Before we start writing code, let’s customize the project<indexterm
@@ -319,7 +319,7 @@
     <varname>dependencies</varname> element.</para>
   </section>
 
-  <section id="section-add-depend">
+  <section id="customizing-sect-add-depend">
     <title>Add New Dependencies</title>
 
     <para>The simple weather application is going to have to complete the
@@ -404,7 +404,7 @@
     Maven repository.</para>
   </section>
 
-  <section>
+  <section id="customizing-sect-simple-weather-source">
     <title>Simple Weather Source Code</title>
 
     <para>The Simple Weather command-line application consists of five Java
@@ -775,7 +775,7 @@ public class WeatherFormatter {
     our classpath.</para>
   </section>
 
-  <section>
+  <section id="customizing-sect-add-resources">
     <title>Add Resources</title>
 
     <para>This project depends on two classpath resources: the<indexterm
@@ -871,7 +871,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     example.</para>
   </section>
 
-  <section id="section-custom-exec">
+  <section id="customizing-sect-custom-exec">
     <title>Running the Simple Weather Program</title>
 
     <para>Using the Exec plugin from the <ulink
@@ -948,7 +948,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     executed the example application. All we needed to do to include a few
     dependencies was locate the appropriate Maven coordinates.</para>
 
-    <section>
+    <section id="customizing-sect-maven-exec">
       <title>The Maven Exec Plugin</title>
 
       <para>The Exec plugin allows you to execute Java classes and other
@@ -971,7 +971,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       linkend="section-custom-packaged" />,” later in this chapter.</para>
     </section>
 
-    <section>
+    <section id="customizing-sect-exploring-dependencies">
       <title>Exploring Your Project Dependencies</title>
 
       <para>The Exec plugin makes it possible for us to run the simplest
@@ -1105,7 +1105,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     </section>
   </section>
 
-  <section>
+  <section id="customizing-sect-writing-tests">
     <title>Writing Unit Tests</title>
 
     <para>Maven has built-in support for unit tests, and testing is a part
@@ -1275,7 +1275,7 @@ public class WeatherFormatterTest extends TestCase {
     <methodname>assertEquals()</methodname>.</para>
   </section>
 
-  <section id="section-test-scope">
+  <section id="customizing-sect-test-scope">
     <title>Adding Test-scoped Dependencies</title>
 
     <para>In <classname>WeatherFormatterTest</classname>, we used a
@@ -1359,7 +1359,7 @@ public class WeatherFormatterTest extends TestCase {
     detail in <xref linkend="section-dependency-scope" />.</para>
   </section>
 
-  <section id="sect-custom-test-resource">
+  <section id="customizing-sect-custom-test-resource">
     <title>Adding Unit Test Resources</title>
 
     <para>A unit test has access to a set of resources which are specific to
@@ -1468,7 +1468,7 @@ $ <command>cd resources</command></screen>
     <acronym>XML</acronym> response from Yahoo! Weather.</para>
   </section>
 
-  <section>
+  <section id="customizing-sect-executing-tests">
     <title>Executing Unit Tests</title>
 
     <para>Now that your project has unit tests, let’s run them. You don’t
@@ -1538,7 +1538,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     for details like stack traces and error messages generated by your unit
     tests.</para>
 
-    <section>
+    <section id="customizing-sect-ignoring-failures">
       <title>Ignoring Test Failures</title>
 
       <para>You will often find yourself developing on a system that has
@@ -1612,7 +1612,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
       <screen>$ <command>mvn test -Dmaven.test.failure.ignore=true</command></screen>
     </section>
 
-    <section>
+    <section id="customizing-sect-skipping-tests">
       <title>Skipping Unit Tests</title>
 
       <para>You may want to configure Maven to skip unit tests altogether.
@@ -1664,7 +1664,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     </section>
   </section>
 
-  <section id="section-custom-packaged">
+  <section id="customizing-sect-custom-packaged">
     <title>Building a Packaged Command Line Application</title>
 
     <para>In the <xref linkend="section-custom-exec" />” section earlier in
@@ -1805,7 +1805,7 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
     class="endofrange" startref="customproj2"></indexterm><phrase
     role="keep-together">distribution</phrase>.</para>
 
-    <section>
+    <section id="customizing-sect-attaching-assembly">
       <title>Attaching the Assembly Goal to the Package Phase</title>
 
       <para>In Maven 1, a build was customized by stringing together a series
