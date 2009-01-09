@@ -4,7 +4,7 @@
 <chapter id="multimodule-web-spring">
   <title>Multi-module Enterprise Project</title>
 
-  <section id="multimodule-web-spring-intro">
+  <section id="multimodule-web-spring-sect-intro">
     <title>Introduction</title>
 
     <para>In this chapter, we create a multimodule project that evolves
@@ -29,7 +29,7 @@
     we’ll explore Maven and discuss the different ways it can be used to
     create modular projects that encourage reuse.</para>
 
-    <section>
+    <section id="multimodule-web-spring-sect-downloading-example">
       <title>Downloading this Chapter's Example</title>
 
       <para>The multi-module project developed in this example consists of
@@ -61,7 +61,7 @@
       and click on the <filename>ch07/</filename> directory.</para>
     </section>
 
-    <section>
+    <section id="multimodule-web-spring-sect-project-description">
       <title>Multi-module Enterprise Project</title>
 
       <para>Presenting the complexity of a massive Enterprise-level project
@@ -213,7 +213,7 @@
       features.</para>
     </section>
 
-    <section>
+    <section id="multimodule-web-spring-sect-example-tech">
       <title>Technology Used in this Example</title>
 
       <para>This chapter's example involves some technology which, while
@@ -254,7 +254,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-parent">
     <title>The Simple Parent Project</title>
 
     <para>This <varname>simple-parent</varname> project has a<indexterm
@@ -356,7 +356,7 @@
     <acronym>JVM</acronym>.</para>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-model-project">
     <title>The Simple Model Module</title>
 
     <para>The first thing most enterprise projects need is an object model. An
@@ -648,7 +648,7 @@ public class Condition {
     foreign key column named <varname>weather_id</varname>.</para>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-weather">
     <title>The Simple Weather Module</title>
 
     <para>The next module we’re going to examine could be considered
@@ -909,7 +909,7 @@ public class WeatherService {
     <classname>YahooParser</classname>.</para>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-persist">
     <title>The Simple Persist Module</title>
 
     <para>This module defines two very simple Data Access Objects (DAOs). A
@@ -1407,7 +1407,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     plugin.</para>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-web">
     <title>The Simple Web Application Module</title>
 
     <para>The web application is defined in a <varname>simple-webapp</varname>
@@ -2108,7 +2108,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
     </calloutlist>
   </section>
 
-  <section id="sect-spring-running-web">
+  <section id="multimodule-web-spring-sect-spring-running-web">
     <title>Running the Web Application</title>
 
     <para>To run the web application, you’ll first need to build the database
@@ -2200,7 +2200,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 </screen>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-command">
     <title>The Simple Command Module</title>
 
     <para>The <varname>simple-command</varname> project is a command-line
@@ -2552,7 +2552,7 @@ ${location.country}
     </example>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-simple-command">
     <title>Running the Simple Command</title>
 
     <para>The <varname>simple-command</varname> project is configured to
@@ -2678,7 +2678,7 @@ Evanston, IL, US
  * Date: 2008-08-06 09:27:28.475 </screen>
   </section>
 
-  <section>
+  <section id="multimodule-web-spring-sect-conclusion">
     <title>Conclusion</title>
 
     <para>We've spent a great deal of time on topics not directly related
@@ -2722,7 +2722,7 @@ Evanston, IL, US
     also know that this example just scratches the surface of what is possible
     with Maven.</para>
 
-    <section>
+    <section id="multimodule-web-spring-sect-interface-projects">
       <title>Programming to Interface Projects</title>
 
       <para>This chapter explored a multi-module project which was more

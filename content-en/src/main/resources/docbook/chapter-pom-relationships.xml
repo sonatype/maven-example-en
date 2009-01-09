@@ -4,7 +4,7 @@
 <chapter id="pom-relationships">
   <title>The Project Object Model</title>
 
-  <section>
+  <section id="pom-relationships-sect-intro">
     <title>Introduction</title>
 
     <para>This chapter covers the central concept of Maven—the Project
@@ -16,7 +16,7 @@
     moreinfo="none">pom.xml</filename> file defines a Maven project.</para>
   </section>
 
-  <section id="pom-relationships-pom">
+  <section id="pom-relationships-sect-pom">
     <title>The POM</title>
 
     <para>Maven projects, dependencies, builds, artifacts: all of these are
@@ -182,7 +182,7 @@
       </varlistentry>
     </variablelist>
 
-    <section id="section-super-pom">
+    <section id="pom-relationships-sect-super-pom">
       <title>The Super POM</title>
 
       <para>Before we dive into some examples of <acronym>POM</acronym>s,
@@ -394,7 +394,7 @@
       </figure>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-simplest-pom">
       <title>The Simplest POM</title>
 
       <para>All Maven <acronym>POM</acronym>s inherit defaults from the Super
@@ -433,7 +433,7 @@
       moreinfo="none">target/simple-project-1.jar</filename>.</para>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-effective-pom">
       <title>The Effective POM</title>
 
       <para>This simplest <acronym>POM</acronym> brings us to the concept of
@@ -467,7 +467,7 @@
       linkend="ex-simplest-pom" />.</para>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-real-poms">
       <title>Real POMs</title>
 
       <para>Instead of typing up a contrived set of <acronym>POM</acronym>s to
@@ -492,7 +492,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="pom-relationships-sect-pom-syntax">
     <title>POM Syntax</title>
 
     <para>The <acronym>POM</acronym> is always <indexterm class="startofrange"
@@ -506,7 +506,7 @@
     choose to omit it. All values in a <acronym>POM</acronym> are captured as
     <acronym>XML</acronym> elements.</para>
 
-    <section id="sect-versions">
+    <section id="pom-reationships-sect-versions">
       <title>Project Versions</title>
 
       <para>A Maven project’s <sgmltag>version</sgmltag> encodes a
@@ -559,7 +559,7 @@
       this section, then your versions will be compared as strings; "1.0.1b"
       will be compared to "1.2.0b" using a String comparison.</para>
 
-      <section>
+      <section id="pom-relationships-sect-version-build-numbers">
         <title>Version Build Numbers</title>
 
         <para>One gotcha for release version numbers is the ordering of the
@@ -589,7 +589,7 @@
         once Maven properly parses the version build number.</para>
       </section>
 
-      <section>
+      <section id="pom-relationships-sect-snapshot-versions">
         <title>SNAPSHOT Versions</title>
 
         <para>Maven versions can contain a string literal to signify that a
@@ -633,7 +633,7 @@
         repository. SNAPSHOT versions are for development only.</para>
       </section>
 
-      <section>
+      <section id="pom-relationships-sect-latest-release"> 
         <title>LATEST and RELEASE Versions</title>
 
         <para>When you depend on a plugin or a dependency, you can use the a
@@ -672,7 +672,7 @@
       </section>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-property-refs">
       <title>Property References</title>
 
       <para>A <acronym>POM</acronym> can include references to properties
@@ -829,7 +829,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="pom-relationships-sect-project-dependencies">
     <title>Project Dependencies</title>
 
     <para>Maven can manage both internal and external dependencies.
@@ -904,7 +904,7 @@
     developing needs a library for compilation and testing, but this library
     is supplied by a container at runtime.</para>
 
-    <section id="section-dependency-scope">
+    <section id="pom-relationships-sect-dependency-scope">
       <title>Dependency Scope</title>
 
       <para><xref linkend="ex-dependency" /> briefly introduced three of the
@@ -1016,7 +1016,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-optional">
       <title>Optional Dependencies</title>
 
       <para>Assume that you are working on a library that provides caching
@@ -1116,7 +1116,7 @@
       the transitive dependency.</para>
     </section>
 
-    <section id="section-version-ranges">
+    <section id="pom-relationships-sect-version-ranges">
       <title>Dependency Version Ranges</title>
 
       <para>You don’t just have to depend on a specific version of a<indexterm>
@@ -1214,7 +1214,7 @@
       </note>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-transitive">
       <title>Transitive Dependencies</title>
 
       <para>A transitive dependency is a dependency of a dependency.
@@ -1249,7 +1249,7 @@
       configuration issues. For these scenarios, you can use a dependency
       exclusion.</para>
 
-      <section>
+      <section id="pom-relationships-sect-transitive-scope">
         <title>Transitive Dependencies and Scope</title>
 
         <para>Each of the scopes outlined earlier in the section <xref
@@ -1369,7 +1369,7 @@
       </section>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-conflict">
       <title>Conflict Resolution</title>
 
       <para>There will be times when you need to exclude a
@@ -1499,7 +1499,7 @@
       </orderedlist>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-dep-manage">
       <title>Dependency Management</title>
 
       <para>Once you've adopted Maven at your super complex enterprise and you
@@ -1605,7 +1605,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="pom-relationships-sect-project-relationships">
     <title>Project Relationships</title>
 
     <para>One of the compelling reasons to use Maven is that it makes the
@@ -1626,7 +1626,7 @@
     to submodules. This section gives an overview of the various relationships
     between projects and how such relationships are configured.</para>
 
-    <section id="sect-more-coordinates">
+    <section id="pom-relationships-sect-more-coordinates">
       <title>More on Coordinates</title>
 
       <para>Coordinates define a unique location for a project, they were
@@ -1727,7 +1727,7 @@
       with this shorthand dependency notation.</para>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-multi-module">
       <title>Multi-module Projects</title>
 
       <para>Multi-module projects are projects which contain a list of modules
@@ -1813,7 +1813,7 @@ top-group/project-c/pom.xml</programlisting>
       other.</para>
     </section>
 
-    <section>
+    <section id="pom-relationships-sect-project-inheritance">
       <title>Project Inheritance</title>
 
       <para>There are going to be times when you want a project to inherit
@@ -1958,7 +1958,7 @@ top-group/project-c/pom.xml</programlisting>
     </section>
   </section>
 
-  <section>
+  <section id="pom-relationships-sect-pom-best-practice">
     <title>POM Best Practices</title>
 
     <para>Maven can be used to manage everything from simple, single-project
@@ -2084,7 +2084,7 @@ top-group/project-c/pom.xml</programlisting>
       </note>
     </section>
 
-    <section id="sect-multi-vs-inherit">
+    <section id="pom-relationships-sect-multi-vs-inherit">
       <title>Multi-module vs. Inheritance</title>
 
       <para>There is a difference between inheriting from a parent project
@@ -2122,7 +2122,7 @@ top-group/project-c/pom.xml</programlisting>
       this book and a hypothetical project that contains a number of logically
       grouped modules.</para>
 
-      <section>
+      <section id="pom-relationships-sect-simple-project">
         <title>Simple Project</title>
 
         <para>First, let's take a look at the maven-book project. The
@@ -2180,7 +2180,7 @@ top-group/project-c/pom.xml</programlisting>
         settings and build profiles.</para>
       </section>
 
-      <section>
+      <section id="pom-relationships-sect-multi-module-enterprise">
         <title>Multi-module Enterprise Project</title>
 
         <para>Let's take a look at an example that provides a more accurate
@@ -2302,7 +2302,7 @@ top-group/project-c/pom.xml</programlisting>
         your use of Maven may evolve over time.</para>
       </section>
 
-      <section>
+      <section id="pom-relationships-prototype-parent">
         <title>Prototype Parent Projects</title>
 
         <para>Take the following example shown in <xref

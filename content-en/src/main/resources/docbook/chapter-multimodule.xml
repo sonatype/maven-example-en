@@ -4,7 +4,7 @@
 <chapter id="multimodule">
   <title>A Multi-module Project</title>
 
-  <section id="multi-intro">
+  <section id="multimodule-sect-intro">
     <title>Introduction</title>
 
     <para>In this chapter, we create a multimodule project that combines
@@ -26,7 +26,7 @@
     information on a web page. At the end of this chapter, you will be able to
     use Maven to develop complex, multimodule projects.</para>
 
-    <section>
+    <section id="multimodule-sect-downloading">
       <title>Downloading this Chapter's Example</title>
 
       <para>The multimodule project developed in this example consists of
@@ -56,7 +56,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="multimodule-sect-simple-parent">
     <title>The Simple Parent Project</title>
 
     <para>A multimodule project is defined by a parent
@@ -173,7 +173,7 @@
     JUnit or Log4J.</para>
   </section>
 
-  <section>
+  <section id="multimodule-sect-simple-weather">
     <title>The Simple Weather Module</title>
 
     <para>The first submodule we’re going to look at is the
@@ -333,7 +333,7 @@ public class WeatherService {
     <classname>WeatherFormatter</classname>.</para>
   </section>
 
-  <section>
+  <section id="multimodule-sect-simple-web">
     <title>The Simple Web Application Module</title>
 
     <para>The <varname>simple-webapp</varname> module is the second
@@ -479,7 +479,7 @@ public class WeatherServlet extends HttpServlet {
     </example>
   </section>
 
-  <section>
+  <section id="multimodule-sect-building-multimodule">
     <title>Building the Multimodule Project</title>
 
     <para>With the <varname>simple-weather</varname> project containing
@@ -579,7 +579,7 @@ public class WeatherServlet extends HttpServlet {
     </note>
   </section>
 
-  <section>
+  <section id="multimodule-sect-running-web">
     <title>Running the Web Application</title>
 
     <para>Once the multimodule project has been installed with <command>mvn

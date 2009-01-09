@@ -4,7 +4,7 @@
 <chapter id="optimizing">
   <title>Optimizing and Refactoring POMs</title>
 
-  <section id="multimodule-web-optimizing-intro">
+  <section id="optimizing-sect-intro">
     <title>Introduction</title>
 
     <para>In <xref linkend="multimodule-web-spring" />, we showed how
@@ -79,7 +79,7 @@
     linkend="multimodule-web-spring" />.</para>
   </section>
 
-  <section>
+  <section id="optimizing-sect-pom-cleanup">
     <title>POM Cleanup</title>
 
     <para>Optimizing a multimodule project’s <acronym>POM</acronym> is
@@ -112,7 +112,7 @@
     there is usually a better way.</para>
   </section>
 
-  <section>
+  <section id="optimizing-sect-dependencies">
     <title>Optimizing Dependencies</title>
 
     <para>If you look through the various <acronym>POM</acronym>s<indexterm
@@ -455,7 +455,7 @@
     </variablelist>
   </section>
 
-  <section>
+  <section id="optimizing-sect-plugins">
     <title>Optimizing Plugins</title>
 
     <para>If we take a look at the various plugin configurations, we can
@@ -555,7 +555,7 @@
 </programlisting>
   </section>
 
-  <section>
+  <section id="optimizing-sect-dependency-plugin">
     <title>Optimizing with the Maven Dependency Plugin</title>
 
     <para>On larger projects, additional dependencies often tend to creep
@@ -791,7 +791,7 @@
     report.</para>
   </section>
 
-  <section>
+  <section id="optimizing-sect-final-poms">
     <title>Final POMs</title>
 
     <para>As an overview, the final <acronym>POM</acronym> files are<indexterm>
@@ -1296,7 +1296,7 @@
     </example>
   </section>
 
-  <section>
+  <section id="optimizing-sect-conclusion">
     <title>Conclusion</title>
 
     <para>This chapter has shown you several techniques for improving the
