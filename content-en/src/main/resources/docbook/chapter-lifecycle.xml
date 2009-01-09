@@ -4,7 +4,7 @@
 <chapter id="lifecycle">
   <title>The Build Lifecycle</title>
 
-  <section id="lifecycle-structure">
+  <section id="lifecycle-sect-structure">
     <title>Introduction</title>
 
     <para>Maven models projects as nouns which are described by a
@@ -32,7 +32,7 @@
     phases and how the lifecycle can be customized. You will also learn about
     the default lifecycle phases.</para>
 
-    <section>
+    <section id="lifecycle-sect-clean">
       <title>Clean Lifecycle (clean)</title>
 
       <para>The first lifecycle you'll be interested in is the simplest
@@ -203,7 +203,7 @@
         </example></para>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-default">
       <title>Default Lifecycle (default)</title>
 
       <para>Most Maven users will be familiar with the default lifecycle. It
@@ -379,7 +379,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-site">
       <title>Site Lifecycle (site)</title>
 
       <para>Maven does more than build software artifacts from project, it can
@@ -432,7 +432,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="lifecycle-sect-package-specific">
     <title>Package-specific Lifecycles</title>
 
     <para>The specific goals bound to each phase default to a set of goals
@@ -452,7 +452,7 @@
     packaging types in Maven. Use these sections to find out what default
     goals are mapped to default lifecycle phases.</para>
 
-    <section>
+    <section id="lifecycle-sect-jar">
       <title>JAR</title>
 
       <para><acronym>JAR</acronym> is the default packaging type, the most
@@ -525,7 +525,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-pom">
       <title>POM</title>
 
       <para><acronym>POM</acronym> is the simplest packaging type. The
@@ -570,7 +570,7 @@
       </table>
     </section>
 
-    <section id="sect-plugin-lifecycle">
+    <section id="lifecycle-sect-plugin-lifecycle">
       <title>Maven Plugin</title>
 
       <para>This packaging type is similar to <acronym>JAR</acronym> packaging
@@ -652,7 +652,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-ejb">
       <title>EJB</title>
 
       <para><acronym>EJB</acronym>s, or Enterprise Java Beans, are a common
@@ -729,7 +729,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-war">
       <title>WAR</title>
 
       <para>The <acronym>WAR</acronym> packaging type is similar to
@@ -806,7 +806,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-ear">
       <title>EAR</title>
 
       <para><acronym>EAR</acronym>s are probably the simplest Java
@@ -866,7 +866,7 @@
       </table>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-other-packaging">
       <title>Other Packaging Types</title>
 
       <para>This is not an exhaustive list of every packaging type available
@@ -962,7 +962,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="lifecycle-sect-common-goals">
     <title>Common Lifecycle Goals</title>
 
     <para>Many of the packaging lifecycles have similar goals. If you look at
@@ -976,7 +976,7 @@
     resources, running tests, and compiling source code. In this section,
     we'll explore some of these common lifecycle goals in detail.</para>
 
-    <section>
+    <section id="lifecycle-sect-process-resources-phase">
       <title>Process Resources</title>
 
       <para>Most lifecycles bind the <varname>resources:resources</varname>
@@ -1186,7 +1186,7 @@ java -jar simple-cmd-2.3.1.jar %*
       all resource files which match a certain pattern.</para>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-compile-phase">
       <title>Compile</title>
 
       <para>Most lifecycles bind the Compiler plugin's
@@ -1274,7 +1274,7 @@ java -jar simple-cmd-2.3.1.jar %*
       </warning>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-process-test-resources-phase">
       <title>Process Test Resources</title>
 
       <para>The <varname>process-test-resources</varname> phase is almost
@@ -1289,7 +1289,7 @@ java -jar simple-cmd-2.3.1.jar %*
       <varname>${project.build.testOutputDirectory}</varname>.</para>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-test-compile-phase">
       <title>Test Compile</title>
 
       <para>The <varname>test-compile</varname> phase is almost identical to
@@ -1324,7 +1324,7 @@ java -jar simple-cmd-2.3.1.jar %*
       </example>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-test-phase">
       <title>Test</title>
 
       <para>Most lifecycles bind the test goal of the Surefire plugin to the
@@ -1383,7 +1383,7 @@ java -jar simple-cmd-2.3.1.jar %*
       altogether.</para>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-install-phase">
       <title>Install</title>
 
       <para>The <varname>install</varname> goal of the Install plugin is
@@ -1401,7 +1401,7 @@ java -jar simple-cmd-2.3.1.jar %*
       the <acronym>POM</acronym> to the local repository.</para>
     </section>
 
-    <section>
+    <section id="lifecycle-sect-deploy-phase">
       <title>Deploy</title>
 
       <para>The <varname>deploy</varname> goal of the Deploy plugin is usually

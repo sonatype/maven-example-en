@@ -18,7 +18,7 @@
   will give you an overview of what you've installed and the meaning of the
   Apache Software License, Version 2.0.</para>
 
-  <section id="section-installation-java">
+  <section id="installation-sect-java">
     <title>Verify your Java Installation</title>
 
     <para>While Maven can run on Java 1.4, this book assumes that you are
@@ -45,7 +45,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
     your own downloading.</para>
   </section>
 
-  <section id="section-maven-download">
+  <section id="installation-sect-maven-download">
     <title>Downloading Maven</title>
 
     <para>You can download Maven from the Apache Maven project website at
@@ -61,7 +61,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
     linkend="section-installation-license" />.</para>
   </section>
 
-  <section id="section-maven-install">
+  <section id="installation-sect-maven-install">
     <title>Installing Maven</title>
 
     <para>There are wide differences between operating systems such as Mac
@@ -72,7 +72,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
     best-practice for installing Maven on a variety of operating
     systems.</para>
 
-    <section id="section-installation-maven-osx">
+    <section id="installation-sect-maven-osx">
       <title>Installing Maven on Mac OSX</title>
 
       <para>You can download a binary release of Maven<indexterm>
@@ -143,7 +143,7 @@ export PATH=${M2_HOME}/bin:${PATH}</programlisting>
         bash.</para>
       </note>
 
-      <section>
+      <section id="installation-sect-macports">
         <title>Installing Maven on OSX using MacPorts</title>
 
         <para>If you are using MacPorts, you can install the maven2 port by
@@ -172,7 +172,7 @@ Password: ******
       </section>
     </section>
 
-    <section>
+    <section id="installation-sect-windows">
       <title>Installing Maven on Microsoft Windows</title>
 
       <para>Installing Maven on Windows is very similar to installing Maven on
@@ -198,14 +198,14 @@ C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
       Windows.<!--TODO: Document process of setting environment variables in the window control panel system dialog.--></para>
     </section>
 
-    <section id="section-installation-maven-linux">
+    <section id="installation-sect-maven-linux">
       <title>Installing Maven on Linux</title>
 
       <para>To install Maven on a Linux machine follow the exact procedure
       outlined in <xref linkend="section-installation-maven-osx" />.</para>
     </section>
 
-    <section>
+    <section id="installation-sect-bsd">
       <title>Installing Maven on FreeBSD or OpenBSD</title>
 
       <para>To install Maven on a FreeBSD or OpenBSD machine, follow the exact
@@ -214,7 +214,7 @@ C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
     </section>
   </section>
 
-  <section id="section-installation-test-install">
+  <section id="installation-sect-test-install">
     <title>Testing a Maven Installation</title>
 
     <para>Once Maven is installed, you can check the version by running
@@ -232,7 +232,7 @@ Maven 2.0.9</screen>
     environment variable have been properly set.</para>
   </section>
 
-  <section id="section-installation-details">
+  <section id="installation-sect-details">
     <title>Maven Installation Details</title>
 
     <para>Maven's download measures in at roughly 1.5 MiB<footnoteref
@@ -309,7 +309,7 @@ lib/</screen>
       <filename>~/.m2/settings.xml</filename>.</para>
     </note>
 
-    <section id="section-installation-user">
+    <section id="installation-sect-user">
       <title>User-specific Configuration and Repository</title>
 
       <para>Once you start using Maven extensively, you'll notice that Maven
@@ -352,7 +352,7 @@ lib/</screen>
       </note>
     </section>
 
-    <section id="section-installation-upgrade">
+    <section id="installation-sect-upgrade">
       <title>Upgrading a Maven Installation</title>
 
       <para>If you've installed Maven on a Mac OSX or Unix machine according
@@ -383,7 +383,7 @@ lib/</screen>
       </note>
     </section>
 
-    <section>
+    <section id="installation-sect-upgrade">
       <title>Upgrading from Maven 1.x to Maven 2.x</title>
 
       <para>If you are upgrading from Maven 1 to Maven 2, you are going to be
@@ -428,7 +428,7 @@ $ mvn one:convert</screen>
     </section>
   </section>
 
-  <section>
+  <section id="installation-sect-uninstalling">
     <title>Uninstalling Maven</title>
 
     <para>Most of the installation instructions involve unpacking of the Maven
@@ -439,7 +439,7 @@ $ mvn one:convert</screen>
     directory as it contains your local repository.</para>
   </section>
 
-  <section>
+  <section id="installation-sect-getting-help">
     <title>Getting Help with Maven</title>
 
     <para>While this book aims to be a comprehensive reference, there are
@@ -511,7 +511,7 @@ $ mvn one:convert</screen>
     </note>
   </section>
 
-  <section id="sect-help-plugin-install">
+  <section id="installation-sect-help-plugin-install">
     <title>Using the Maven Help Plugin</title>
 
     <para>Throughout the book, we will be introducing Maven plugins, talking
@@ -578,7 +578,7 @@ $ mvn one:convert</screen>
       </varlistentry>
     </variablelist>
 
-    <section>
+    <section id="installation-sect-describing-plugin">
       <title>Describing a Maven Plugin</title>
 
       <para>Once you start using Maven, you'll spend most of your time trying
@@ -691,7 +691,7 @@ This mojo doesn't have any component requirements.
     </section>
   </section>
 
-  <section id="section-installation-license">
+  <section id="installation-sect-license">
     <title>About the Apache Software License</title>
 
     <para>Apache Maven is released under the Apache Software License, Version

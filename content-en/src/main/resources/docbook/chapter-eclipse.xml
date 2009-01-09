@@ -4,7 +4,7 @@
 <chapter id="eclipse">
   <title>Maven and Eclipse: m2eclipse</title>
 
-  <section>
+  <section id="eclipse-sect-intro">
     <title>Introduction</title>
 
     <para>The Eclipse <acronym>IDE</acronym> is the most widely used
@@ -19,7 +19,7 @@
     with Eclipse.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-m2eclipse">
     <title>m2eclipse</title>
 
     <para>The m2Eclipse plugins (<ulink
@@ -117,7 +117,7 @@
     plugin.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-installing">
     <title>Installing the m2eclipse Plugin</title>
 
     <para>To install the m2Eclipse plugin, you will need to install some
@@ -128,7 +128,7 @@
     <acronym>JDK</acronym>, you will need to install two Eclipse plugins:
     Subclipse and Mylyn.</para>
 
-    <section>
+    <section id="eclipse-sect-prereq">
       <title>Installing Prerequisites</title>
 
       <para>You can install these prerequisites when you install m2eclipse,
@@ -169,7 +169,7 @@
       and ask you to agree to the plugin license. After Eclipse installs new
       plugins, it will likely ask you for permission to restart.</para>
 
-      <section>
+      <section id="eclipse-sect-install-subclipse">
         <title>Installing Subclipse</title>
 
         <para>To install Subclipse, use the Eclipse plugin update site listed
@@ -186,7 +186,7 @@
         url="http://subclipse.tigris.org/">http://subclipse.tigris.org/</ulink>.</para>
       </section>
 
-      <section>
+      <section id="eclipse-sect-install-mylyn">
         <title>Installing Mylyn</title>
 
         <para>To install JIRA integration with Mylyn, add the Mylyn extras
@@ -216,7 +216,7 @@
         url="http://www.eclipse.org/mylyn/">http://www.eclipse.org/mylyn/</ulink>.</para>
       </section>
 
-      <section>
+      <section id="eclipse-sect-install-aspectj">
         <title>Installing AspectJ Development Tools (AJDT)</title>
 
         <para>If you are installing the 0.9.4 release of m2eclipse, you may
@@ -240,7 +240,7 @@
         url="http://www.eclipse.org/ajdt/">http://www.eclipse.org/ajdt/</ulink>.</para>
       </section>
 
-      <section>
+      <section id="eclipse-sect-install-wtp">
         <title>Installing the Web Tools Platform (WTP)</title>
 
         <para>To install the Web Tools Platform (<acronym>WTP</acronym>). Use
@@ -259,7 +259,7 @@
       </section>
     </section>
 
-    <section id="sect-eclipse-install">
+    <section id="eclipse-sect-install-m2eclipse">
       <title>Installing m2eclipse</title>
 
       <para>Once you've installed the prerequisites, you can install the
@@ -308,7 +308,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="eclipse-sect-enabling-console">
     <title>Enabling the Maven Console</title>
 
     <para>Before we begin to examine the features of m2eclipse, let’s first
@@ -337,7 +337,7 @@
     issues.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-creating-project">
     <title>Creating a Maven Project</title>
 
     <para>When using Maven, project creation takes place through the use of a
@@ -372,7 +372,7 @@
       </mediaobject>
     </figure>
 
-    <section>
+    <section id="eclipse-sect-checking-out-scm">
       <title>Checking Out a Maven Project from SCM</title>
 
       <para>m2eclipse provides the ability to check out a project directly
@@ -440,7 +440,7 @@
         </itemizedlist></para>
     </section>
 
-    <section id="sect-m2e-create-archetype">
+    <section id="eclipse-sect-m2e-create-archetype">
       <title>Creating a Maven Project from a Maven Archetype</title>
 
       <para>m2eclipse offers the ability to create a Maven project using a
@@ -645,7 +645,7 @@
       the selected archetype.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-creating-module">
       <title>Creating a Maven Module</title>
 
       <para>m2eclipse provides the ability to create a Maven module. Creating
@@ -692,7 +692,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="eclipse-sect-creating-pom">
     <title>Create a Maven POM File</title>
 
     <para>Another important feature m2eclipse offers is the ability to create
@@ -766,7 +766,7 @@
     into Eclipse.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-importing-projects">
     <title>Importing Maven Projects</title>
 
     <para>m2eclipse provides three options for importing a Maven project into
@@ -815,7 +815,7 @@
     review the other two options for importing a Maven project into
     Eclipse.</para>
 
-    <section>
+    <section id="eclipse-sect-importing-a-maven-project">
       <title>Importing a Maven Project</title>
 
       <para>m2eclipse can import a Maven project with an existing
@@ -845,7 +845,7 @@
       using Maven.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-materializing-project"> 
       <title>Materializing a Maven Project</title>
 
       <para>m2eclipse also offers the ability to "materialize" a Maven
@@ -922,7 +922,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="eclipse-sect-running-maven-builds">
     <title>Running Maven Builds</title>
 
     <para>m2eclipse modified the <guimenu>Run As...</guimenu> and
@@ -969,7 +969,7 @@
     build that you wish to launch with m2eclipse.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-working-maven-projects">
     <title>Working with Maven Projects</title>
 
     <para>The m2eclipse plugin also provides a set of features for working
@@ -1029,7 +1029,7 @@
     <para>These features are also big time savers so let’s review them
     briefly.</para>
 
-    <section>
+    <section id="eclipse-sect-adding-updating">
       <title>Adding and Updating Dependencies and Plugins</title>
 
       <para>Let’s say we’d like to add a dependency or a plugin to the
@@ -1109,7 +1109,7 @@
       repository for an artifact version.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-creating-module">
       <title>Creating a Maven Module</title>
 
       <para>m2eclipse makes it very easy to create a series of nested projects
@@ -1124,7 +1124,7 @@
       integrated into the development environment.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-downloading-source">
       <title>Downloading Source</title>
 
       <para>If the central Maven repository contains a source artifact for a
@@ -1139,7 +1139,7 @@
       Maven repository.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-opening-project-pages">
       <title>Opening Project Pages</title>
 
       <para>A Maven <acronym>POM</acronym> contains some valuable
@@ -1152,7 +1152,7 @@
       browser.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-resolving-dependencies">
       <title>Resolving Dependencies</title>
 
       <para>You can configure a project to resolve dependencies from a
@@ -1177,7 +1177,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="eclipse-sect-working-repos">
     <title>Working with Maven Repositories</title>
 
     <para>m2eclipse also provides some tools to make working with Maven
@@ -1196,7 +1196,7 @@
         </listitem>
       </itemizedlist></para>
 
-    <section>
+    <section id="eclipse-sect-searching-artifacts">
       <title>Searching For Maven Artifacts and Java classes</title>
 
       <para>m2eclipse adds a couple of items to the Eclipse Navigation menu
@@ -1268,7 +1268,7 @@
       appears.</para>
     </section>
 
-    <section>
+    <section id="eclipse-sect-indexing-repos">
       <title>Indexing Maven Repositories</title>
 
       <para>The Maven Indexes View allows you to manually navigate to
@@ -1340,7 +1340,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="eclipse-sect-pom-form">
     <title>Using the Form-based POM Editor</title>
 
     <para>The latest release of the m2eclipse plugin has a form-based
@@ -1503,7 +1503,7 @@
     install the m2eclipse plugin.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-analyze-depend">
     <title>Analyzing Project Dependencies in m2eclipse</title>
 
     <para>The latest release of m2eclipse contains a <acronym>POM</acronym>
@@ -1630,7 +1630,7 @@
     </figure>
   </section>
 
-  <section>
+  <section id="eclipse-sect-maven-preferences">
     <title>Maven Preferences</title>
 
     <para>The ability to adjust the Maven preferences and some Maven options
@@ -1818,7 +1818,7 @@
     locate the version element.</para>
   </section>
 
-  <section>
+  <section id="eclipse-sect-summary">
     <title>Summary</title>
 
     <para>m2eclipse is more than just a simple plugin which adds Maven support
