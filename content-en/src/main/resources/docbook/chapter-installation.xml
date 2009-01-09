@@ -12,11 +12,12 @@
   assumes is that you've already installed a suitable Java Development Kit
   (<acronym>JDK</acronym>). If you are just interested in installation, you
   can move on to the rest of the book after reading through <xref
-  linkend="section-maven-download" xrefstyle="select: title" /> and <xref
-  linkend="section-maven-install" xrefstyle="select: title" />. If you are
-  interested in the details of your Maven installation, this entire chapter
-  will give you an overview of what you've installed and the meaning of the
-  Apache Software License, Version 2.0.</para>
+  linkend="installation-sect-maven-download" xrefstyle="select: title" /> and
+  <xref linkend="installation-sect-maven-install"
+  xrefstyle="select: title" />. If you are interested in the details of your
+  Maven installation, this entire chapter will give you an overview of what
+  you've installed and the meaning of the Apache Software License, Version
+  2.0.</para>
 
   <section id="installation-sect-java">
     <title>Verify your Java Installation</title>
@@ -58,7 +59,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
     Software License, you should familiarize yourself with the terms of the
     license before you start using the product. More information on the Apache
     Software License can be found in <xref
-    linkend="section-installation-license" />.</para>
+    linkend="installation-sect-license" />.</para>
   </section>
 
   <section id="installation-sect-maven-install">
@@ -202,7 +203,7 @@ C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
       <title>Installing Maven on Linux</title>
 
       <para>To install Maven on a Linux machine follow the exact procedure
-      outlined in <xref linkend="section-installation-maven-osx" />.</para>
+      outlined in <xref linkend="installation-sect-maven-osx" />.</para>
     </section>
 
     <section id="installation-sect-bsd">
@@ -210,7 +211,7 @@ C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
 
       <para>To install Maven on a FreeBSD or OpenBSD machine, follow the exact
       procedure outlined in <xref
-      linkend="section-installation-maven-osx" />.</para>
+      linkend="installation-sect-maven-osx" />.</para>
     </section>
   </section>
 
@@ -240,7 +241,7 @@ Maven 2.0.9</screen>
     download size because the core of Maven has been designed to retrieve
     plugins and dependencies from a remote repository on-demand. When you
     start using Maven, it will start to download plugins to a local repository
-    described in <xref linkend="section-installation-user" />. In case you are
+    described in <xref linkend="installation-sect-user" />. In case you are
     curious, let's take a quick look at what is in Maven's installation
     directory.<footnote id="foot-installation-mebibytes">
         <para>Ever purchased a 200 GB hard drive only to realize that it
@@ -267,7 +268,7 @@ lib/</screen>
     <indexterm>
         <primary>LICENSE.txt file</primary>
       </indexterm>Apache Maven. This license is described in some detail later
-    in the section <xref linkend="section-installation-license" />.”
+    in the section <xref linkend="installation-sect-license" />.”
     <filename>NOTICE.txt</filename> contains some notices and attributions
     <indexterm>
         <primary>NOTICE.txt file</primary>
@@ -356,10 +357,9 @@ lib/</screen>
       <title>Upgrading a Maven Installation</title>
 
       <para>If you've installed Maven on a Mac OSX or Unix machine according
-      to the details in <xref lang=""
-      linkend="section-installation-maven-osx" /> and <xref
-      linkend="section-installation-maven-linux" />. It should be easy to
-      upgrade to newer versions of Maven when they become available. Simply
+      to the details in <xref lang="" linkend="installation-sect-maven-osx" />
+      and <xref linkend="installation-sect-maven-linux" />. It should be easy
+      to upgrade to newer versions of Maven when they become available. Simply
       install the newer version of Maven
       (<filename>/usr/local/maven-2.future</filename>) next to the existing
       version of Maven (<filename>/usr/local/maven-2.0.9</filename>). Then
@@ -383,7 +383,7 @@ lib/</screen>
       </note>
     </section>
 
-    <section id="installation-sect-upgrade">
+    <section id="installation-sect-upgrade-detail">
       <title>Upgrading from Maven 1.x to Maven 2.x</title>
 
       <para>If you are upgrading from Maven 1 to Maven 2, you are going to be
@@ -396,7 +396,7 @@ lib/</screen>
       can also configure references to repositories to use the
       <varname>legacy</varname> layout format. For more information about
       configuring a reference to a legacy repository, see <xref
-      linkend="sect-settings-repository" />. </para>
+      linkend="sect-settings-repository" />.</para>
 
       <para>If you have a set of Maven 1 projects, you may want to know about
       the Maven One Plugin. The Maven One Plugin was designed to help projects

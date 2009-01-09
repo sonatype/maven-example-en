@@ -201,8 +201,8 @@ public class App
 
     <para>Once you have created the project with the Maven Archetype plugin by
     following the directions from the previous section (<xref
-    linkend="sect-create-simple" />) you will want to build and package the
-    application. To do so, run <command>mvn install</command> from
+    linkend="simple-project-sect-create-simple" />) you will want to build and
+    package the application. To do so, run <command>mvn install</command> from
     the<indexterm>
         <primary>mvn install command</primary>
       </indexterm><indexterm>
@@ -314,9 +314,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     associating the project with a web site. The
     <sgmltag>dependencies</sgmltag> element defines a single, test-scoped
     dependency on a unit testing framework called JUnit. These topics will be
-    further introduced in <xref linkend="section-simple-core" />, all you need
-    to know, at this point, is that the <filename>pom.xml</filename> is the
-    file that makes Maven go.</para>
+    further introduced in <xref linkend="simple-project-sect-simple-core" />,
+    all you need to know, at this point, is that the
+    <filename>pom.xml</filename> is the file that makes Maven go.</para>
 
     <para>Maven always executes against an effective <acronym>POM</acronym>, a
     combination of settings from this project's <filename>pom.xml</filename>,
@@ -338,7 +338,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     goal can come in handy if you are trying to debug a build and want to see
     how all of the current project's ancestor POMs are contributing to the
     effective POM. For more information about the Maven Help plugin, see <xref
-    linkend="sect-help-plugin-install" />.</para>
+    linkend="installation-sect-help-plugin-install" />.</para>
   </section>
 
   <section id="simple-project-sect-simple-core">

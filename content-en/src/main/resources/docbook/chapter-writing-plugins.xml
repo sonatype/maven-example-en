@@ -785,9 +785,9 @@
       <varname>maven-plugin</varname>. This packaging element customizes the
       Maven lifecycle to include the necessary goals to create a plugin
       descriptor. The plugin lifecycle was introduce in <xref
-      linkend="sect-plugin-lifecycle" />, it is similar to the Jar lifecycle
-      with three exceptions: <varname>plugin:descriptor</varname> is bound to
-      the <varname>generate-resources</varname> phase,
+      linkend="lifecycle-sect-plugin-lifecycle" />, it is similar to the Jar
+      lifecycle with three exceptions: <varname>plugin:descriptor</varname> is
+      bound to the <varname>generate-resources</varname> phase,
       <varname>plugin:addPluginArtifactMetadata</varname> is added to the
       <varname>package</varname> phase, and
       <varname>plugin:updateRegistry</varname> is added to the

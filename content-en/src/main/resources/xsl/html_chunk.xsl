@@ -10,7 +10,7 @@
     <!--###################################################
                      HTML Settings
     ################################################### -->
-    <xsl:param name="chunk.section.depth">'1'</xsl:param>
+    <xsl:param name="chunk.section.depth">'2'</xsl:param>
 	<xsl:param name="chunker.output.indent">yes</xsl:param>
     <xsl:param name="use.id.as.filename">'1'</xsl:param>
     <xsl:param name="html.stylesheet">../css/html.css</xsl:param>
@@ -68,9 +68,6 @@
             <xsl:call-template name="person.name"/> 
             (<xsl:value-of select="affiliation"/>)
             <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
-            <!--
-            <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
-            -->
         </span>
     </xsl:template>
     <xsl:template match="authorgroup" mode="titlepage.mode">
@@ -90,16 +87,13 @@
 
       <div id="user-header">
         <div id="logo">
-            <a href="http://www.sonatype.com/" title="Sonatype: Build Success for your Enterprise">
-                <img src="http://www.sonatype.com/images/sonatype_banner3_optima.png" border="0"/>
+            <a href="${project.organization.url}" title="${project.organization.slogan}">
+                <img src="${organization.logo}" border="0"/>
             </a>
         </div>
-        <div id="right-header" style="margin-top: -14px;">
-          <h2>Maven: The Definitive Guide</h2>
-          <a href="http://del.icio.us/post" onclick="window.open('http://del.icio.us/post?v=4&amp;noui&amp;jump=close&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=700,height=400'); return false;"><img src="http://images.del.icio.us/static/img/delicious.small.gif" border="0"/> Bookmark This Page</a><br/>
-          <a href="http://getsatisfaction.com/sonatype" style="color: black;">
-           <img alt="Favicon" src="http://www.getsatisfaction.com/favicon.gif" style="vertical-align: middle;" border="0"/>
-             Question and Discuss at Get Satisfaction</a>
+        <div id="right-header">
+          <h2>${book.title}</h2>
+          <h4>Edition: ${project.version}</h4>
         </div>
         <div style="clear:both;">
         </div>
@@ -190,8 +184,6 @@
                 </xsl:if>
             </div>
         </xsl:if>
-      <xsl:variable name="codefile" select="document('includes/blogs-div.html',/)"/>
-      <xsl:value-of disable-output-escaping="yes" select="$codefile"/>
     </xsl:template>
     <xsl:param name="navig.showtitles">1</xsl:param>
     <xsl:template name="footer.navigation">
@@ -361,7 +353,6 @@ _lf_remora();
 
     <body>
       <div id="frame">
-        <img src="http://www.sonatype.com/images/top.gif" style="float:left;position:relative;left:6px;"/><br/>
         <div id="forbg">
       <xsl:call-template name="body.attributes"/>
       <xsl:call-template name="user.header.navigation"/>
@@ -386,7 +377,7 @@ _lf_remora();
 
       <xsl:call-template name="user.footer.navigation"/>
         </div>
-        <div class="end" style="right:14px"><img src="http://www.sonatype.com/images/end.gif"/></div>
+        <div class="end" style="right:14px"></div>
       </div>
     </body>
   </html>
