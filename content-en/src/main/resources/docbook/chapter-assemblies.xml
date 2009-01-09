@@ -4,7 +4,7 @@
 <chapter id="assemblies">
   <title>Maven Assemblies</title>
 
-  <section>
+  <section id="assemblies-sect-intro">
     <title>Introduction</title>
 
     <para>Maven provides plugins that are used to create the most common
@@ -47,7 +47,7 @@
     Maven code.</para>
   </section>
 
-  <section id="sect-assembly-basics">
+  <section id="assemblies-sect-basics">
     <title>Assembly Basics</title>
 
     <para>Before we go any further, it’s best to take a minute and talk about
@@ -97,7 +97,7 @@
     generated from the command line, and to <varname>single</varname> for
     assemblies bound to lifecycle phases.</para>
 
-    <section>
+    <section id="assemblies-sect-predefined">
       <title>Predefined Assembly Descriptors</title>
 
       <para>While many people opt to create their own archive recipes - called
@@ -171,7 +171,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="assemblies-sect-building">
       <title>Building an Assembly</title>
 
       <para>The Assembly plugin can be executed in two ways: you can invoke it
@@ -321,7 +321,7 @@ Hello, World!</screen>
       World!”</para>
     </section>
 
-    <section>
+    <section id="assemblies-sect-as-depend">
       <title>Assemblies as Dependencies</title>
 
       <para>When you generate assemblies as part of your normal build process,
@@ -368,7 +368,7 @@ Hello, World!</screen>
       also need to declare its type.</para>
     </section>
 
-    <section>
+    <section id="assemblies-sect-assembling-via-depend">
       <title>Assembling Assemblies via Assembly Dependencies</title>
 
       <para>How's that for a confusing section title? Let's try to set up a
@@ -594,11 +594,11 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     </section>
   </section>
 
-  <section>
+  <section id="assemblies-sect-overview-descriptor">
     <title>Overview of the Assembly Descriptor</title>
 
     <para>When the standard assembly descriptors introduced in <xref
-    linkend="sect-assembly-basics" /> are not adequate, you will need to
+    linkend="assemblies-sect-basics" /> are not adequate, you will need to
     define your own assembly descriptor. The assembly descriptor is an XML
     document which defines the structure and contents of an assembly.</para>
 
@@ -696,7 +696,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     </variablelist>
   </section>
 
-  <section>
+  <section id="assemblies-sect-descriptor">
     <title>The Assembly Descriptor</title>
 
     <para>This section is a tour of the assembly descriptor which contains
@@ -704,7 +704,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     plugin is one of the largest plugins in the Maven ensemble, and one of the
     most flexible.</para>
 
-    <section>
+    <section id="assemblies-sect-prop-refs">
       <title>Property References in Assembly Descriptors</title>
 
       <para>Any property discussed in <xref linkend="sect-properties" /> can
@@ -729,7 +729,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       <!--This last paragraph is not clear.-->
     </section>
 
-    <section>
+    <section id="assemblies-sect-required">
       <title>Required Assembly Information</title>
 
       <para>There are two essential pieces of information that are required
@@ -830,7 +830,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     </section>
   </section>
 
-  <section>
+  <section id="assemblies-sect-controlling-contents">
     <title>Controlling the Contents of an Assembly</title>
 
     <para>In theory, <varname>id</varname> and <varname>format</varname> are
@@ -849,7 +849,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     easier to understand <sgmltag>repositories</sgmltag> and
     <sgmltag>moduleSets</sgmltag>.</para>
 
-    <section>
+    <section id="assemblies-sect-files">
       <title><sgmltag>Files</sgmltag> Section</title>
 
       <para>The <sgmltag>files</sgmltag> section is the simplest part of the
@@ -905,7 +905,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       match a particular criteria.</para>
     </section>
 
-    <section>
+    <section id="assemblies-sect-filesets">
       <title><sgmltag>FileSets</sgmltag> Section</title>
 
       <para>Similar to the <sgmltag>files</sgmltag> section,
@@ -1066,7 +1066,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
 I can add this back in later.  I didn't want to talk about it without an example.  - TIM-->
     </section>
 
-    <section id="sect-default-excludes">
+    <section id="assemblies-sect-default-excludes">
       <title>Default Exclusion Patterns for
       <sgmltag>fileSets</sgmltag></title>
 
@@ -1137,7 +1137,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       assembly descriptor.</para>
     </section>
 
-    <section id="sect-output-algorithm">
+    <section id="assemblies-sect-output-algorithm">
       <title><sgmltag>dependencySets</sgmltag> Section</title>
 
       <para>One of the most common requirements for assemblies is the
@@ -1203,7 +1203,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       functionality of the dependency set by exploring some advanced options
       for unpacking dependencies.</para>
 
-      <section id="sect-output-location">
+      <section id="assemblies-sect-output-location">
         <title>Customizing Dependency Output Location</title>
 
         <para>There are two configuration options that are used in concert to
@@ -1255,7 +1255,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         the file <filename>commons/commons-codec.jar</filename>.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-interpolate">
         <title>Interpolation of Properties in Dependency Output
         Location</title>
 
@@ -1367,7 +1367,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         <code>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</code></para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-include-by-scope">
         <title>Including and Excluding Dependencies by Scope</title>
 
         <para>In <xref linkend="pom-relationships" />, it was noted that all
@@ -1476,7 +1476,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         more development of this idea.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-fine-tune">
         <title>Fine Tuning: Dependency Includes and Excludes</title>
 
         <para>A resource dependency might be as simple as a set of resources
@@ -1636,7 +1636,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         compatibility.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-transitive">
         <title>Transitive Dependencies, Project Attachments, and Project
         Artifacts</title>
 
@@ -1732,7 +1732,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         </warning>
       </section>
 
-      <section>
+      <section id="assemblies-sect-unpack">
         <title>Advanced Unpacking Options</title>
 
         <para>As we discussed previously, some project dependencies may need
@@ -1815,7 +1815,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         abstracting repeated resources into common resource projects.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-summarizing">
         <title>Summarizing Dependency Sets</title>
 
         <para>Finally, it’s worth mentioning that dependency sets support the
@@ -1826,7 +1826,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       </section>
     </section>
 
-    <section>
+    <section id="assemblies-sect-modulesets">
       <title><sgmltag>moduleSets</sgmltag> Sections</title>
 
       <para>Multi-module builds are generally stitched together using the
@@ -1869,7 +1869,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       inclusion of module resources into an assembly, let’s talk a little
       about selecting which modules to process.</para>
 
-      <section>
+      <section id="assemblies-sect-module-selection">
         <title>Module Selection</title>
 
         <para>By now, you should be familiar with
@@ -1922,7 +1922,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         from the module project.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-sources-section">
         <title>Sources Section</title>
 
         <para>Suppose you want to include the source of all modules in your
@@ -2026,7 +2026,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         declaration. They are deprecated, and should not be used.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-interpolate-modulesets">
         <title>Interpolation of <sgmltag>outputDirectoryMapping</sgmltag> in
         <sgmltag>moduleSets</sgmltag></title>
 
@@ -2052,7 +2052,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         a dependency artifact.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-binaries">
         <title>Binaries section</title>
 
         <para>Just as the <sgmltag>sources</sgmltag> section is primarily
@@ -2184,7 +2184,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         includes and excludes sub-sections.</para>
       </section>
 
-      <section>
+      <section id="assemblies-sect-modulesets-parent-pom">
         <title><sgmltag>moduleSets</sgmltag>, Parent <acronym>POM</acronym>s
         and the <sgmltag>binaries</sgmltag> Section</title>
 
@@ -2218,7 +2218,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       </section>
     </section>
 
-    <section>
+    <section id="assemblies-sect-repositories">
       <title>Repositories Section</title>
 
       <para>The repositories section represents a slightly more exotic feature
@@ -2269,7 +2269,7 @@ doesn't make sense to new users.-->
       probably be deprecated in future releases.</para>
     </section>
 
-    <section>
+    <section id="assemblies-sect-managing-root">
       <title>Managing the Assembly’s Root Directory</title>
 
       <para>Now that we’ve made it through the main body of the assembly
@@ -2326,7 +2326,7 @@ doesn't make sense to new users.-->
       <varname>true</varname>.</para>
     </section>
 
-    <section id="sect-componentDescriptors">
+    <section id="assemblies-sect-componentDescriptors">
       <title><sgmltag>componentDescriptors</sgmltag> and
       <sgmltag>containerDescriptorHandlers</sgmltag></title>
 
@@ -2391,7 +2391,7 @@ doesn't make sense to new users.-->
     </section>
   </section>
 
-  <section>
+  <section id="assemblies-sect-best-practices">
     <title>Best Practices</title>
 
     <para>The Assembly plugin provides enough flexibility to solve many
@@ -2402,7 +2402,7 @@ doesn't make sense to new users.-->
     adhered to, will make your experiences with the assembly plugin more
     productive and less painful.</para>
 
-    <section>
+    <section id="assemblies-sect-standard-reusable">
       <title>Standard, Reusable Assembly Descriptors</title>
 
       <para>Up to now, we’ve been talking mainly about one-off solutions for
@@ -2598,7 +2598,7 @@ doesn't make sense to new users.-->
       builds.</para>
     </section>
 
-    <section>
+    <section id="assemblies-set-dist-assemblies">
       <title>Distribution (Aggregating) Assemblies</title>
 
       <para>As mentioned above, the Assembly plugin provides multiple ways of
@@ -2846,7 +2846,7 @@ run before the assembly is generated.
     </section>
   </section>
 
-  <section>
+  <section id="assemblies-sect-summary">
     <title>Summary</title>
 
     <para>As we’ve seen in this chapter, the Maven Assembly plugin offers
