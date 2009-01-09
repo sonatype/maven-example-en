@@ -4,7 +4,7 @@
 <chapter id="writing-plugins">
   <title>Writing Plugins</title>
 
-  <section>
+  <section id="writing-plugins-sect-intro">
     <title>Introduction</title>
 
     <para>While this chapter covers an advanced topic, don't let the idea of
@@ -15,7 +15,7 @@
     Maven plugin.</para>
   </section>
 
-  <section>
+  <section id="writing-plugins-sect-programming-maven">
     <title>Programming Maven</title>
 
     <para>Most of this book has dealt with using Maven, and for a book on
@@ -41,7 +41,7 @@
     If you were wondering how to start understanding the code behind Maven,
     you've found the proper starting line.</para>
 
-    <section>
+    <section id="writing-plugins-ioc">
       <title>What is Inversion of Control?</title>
 
       <para>At the heart of Maven is an Inversion of Control (IoC) container
@@ -102,7 +102,7 @@
       standard in the late 19th century.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-intro-plexus">
       <title>Introduction to Plexus</title>
 
       <para>The most important feature of an <acronym>IoC</acronym> container
@@ -180,7 +180,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="writing-plugins-why-plexus">
       <title>Why Plexus?</title>
 
       <para>Spring does happen to be the most popular IoC container at the
@@ -214,7 +214,7 @@
       </note>
     </section>
 
-    <section>
+    <section id="writing-plugins-what-is-plugin">
       <title>What is a Plugin?</title>
 
       <para>A Maven Plugin is a Maven artifact which contains a plugin
@@ -247,7 +247,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="writing-plugins-sect-plugin-descriptor">
     <title>Plugin Descriptor</title>
 
     <para>A Maven plugin contains a road-map for Maven that tells Maven about
@@ -351,7 +351,7 @@
     declaration of mojos, and the declaration of dependencies. Let's examine
     each of these sections in more detail.</para>
 
-    <section>
+    <section id="writing-plugins-top-level-elements">
       <title>Top-level Plugin Descriptor Elements</title>
 
       <para>The top-level configuration values in the
@@ -428,7 +428,7 @@
       </variablelist>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-mojo-config">
       <title>Mojo Configuration</title>
 
       <para>Next is the declaration of the each Mojo. The plugin element
@@ -713,7 +713,7 @@
       in the source for a Mojo.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-plugin-depend">
       <title>Plugin Dependencies</title>
 
       <para>Lastly, the plugin descriptor declares a set of dependencies just
@@ -724,7 +724,7 @@
     </section>
   </section>
 
-  <section id="writing-plugins-intro">
+  <section id="writing-plugins-sect-custom-plugin">
     <title>Writing a Custom Plugin</title>
 
     <para>When you write a custom plugin, you are going to be writing a series
@@ -734,7 +734,7 @@
     Mojo classes, you will need to create Maven project with the appropriate
     packaging and POM.</para>
 
-    <section>
+    <section id="writing-plugins-sect-creating-plugin-project">
       <title>Creating a Plugin Project</title>
 
       <para>To create a plugin project, you should use the Maven Archetype
@@ -800,7 +800,7 @@
       test-scoped dependency.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-simple-java-mojo">
       <title>A Simple Java Mojo</title>
 
       <para>In this chapter, we're going to introduce a Maven Mojo written in
@@ -922,7 +922,7 @@ public class EchoMojo extends AbstractMojo
       Landed".</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-plugin-prefix">
       <title>Configuring a Plugin Prefix</title>
 
       <para>Specifying the <varname>groupId</varname>,
@@ -1106,7 +1106,7 @@ public class EchoMojo extends AbstractMojo
       echo:blah</command> from any directory.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-logging">
       <title>Logging from a Plugin</title>
 
       <para>Maven takes care of connecting your Mojo to a logging provider by
@@ -1181,7 +1181,7 @@ public class EchoMojo extends AbstractMojo
       error.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-class-annotations">
       <title>Mojo Class Annotations</title>
 
       <para>In <varname>first-maven-plugin</varname>, you didn't write the
@@ -1331,7 +1331,7 @@ public class EchoMojo extends AbstractMojo
       5.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-failure">
       <title>When a Mojo Fails</title>
 
       <para>The <methodname>execute()</methodname> method in Mojo throws two
@@ -1403,7 +1403,7 @@ public class EchoMojo extends AbstractMojo
     </section>
   </section>
 
-  <section>
+  <section id="writing-plugins-sect-mojo-params">
     <title>Mojo Parameters</title>
 
     <para>Just as important as the <methodname>execute()</methodname> method
@@ -1411,7 +1411,7 @@ public class EchoMojo extends AbstractMojo
     section deals with some configuration and topics surrounding Mojo
     parameters.</para>
 
-    <section>
+    <section id="writing-plugins-sect-param-values">
       <title>Supplying Values for Mojo Parameters</title>
 
       <para>In EchoMojo we declared the message parameter with the following
@@ -1533,7 +1533,7 @@ private Object message;
       different messages.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-multival-params">
       <title>Multi-valued Mojo Parameters</title>
 
       <para>Plugins can have parameters which accept more than one value. Take
@@ -1638,7 +1638,7 @@ public class ZipMojo extends AbstractMojo
 </programlisting>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-depend-plexus">
       <title>Depending on Plexus Components</title>
 
       <para>A Mojo is a component managed by an <acronym>IoC</acronym>
@@ -1670,7 +1670,7 @@ private ZipArchiver zipArchiver;</programlisting>
       <!--TODO: OK, we need more here.  How do I get my hands on components?  How to a bundle components?-->
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-param-annot">
       <title>Mojo Parameter Annotations</title>
 
       <para>Unless you insist on writing your Plugin descriptors by hand,
@@ -1772,7 +1772,7 @@ private ZipArchiver zipArchiver;</programlisting>
     </section>
   </section>
 
-  <section id="sect-plugins-lifecycle">
+  <section id="writing-plugins-sect-plugins-lifecycle">
     <title>Plugins and the Maven Lifecycle</title>
 
     <para>In the <xref linkend="lifecycle" /> chapter, you learned that
@@ -1782,7 +1782,7 @@ private ZipArchiver zipArchiver;</programlisting>
     custom Maven plugin. You are also some to see how you can tell a Mojo to
     execute a parallel lifecycle.</para>
 
-    <section>
+    <section id="writing-plugins-sect-execute-parallel-lifecycle">
       <title>Executing a Parallel Lifecycle</title>
 
       <para>Let's assume you write some goal that depends on the output from a
@@ -1855,7 +1855,7 @@ private ZipArchiver zipArchiver;</programlisting>
       </variablelist>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-custom-lifecycle">
       <title>Creating a Custom Lifecycle</title>
 
       <para>A custom lifecycle must be packaged in the plugin under the
@@ -1950,7 +1950,7 @@ public class ZipForkMojo extends AbstractMojo
       method.</para>
     </section>
 
-    <section>
+    <section id="writing-plugins-sect-override-default-lifecycle">
       <title>Overriding the Default Lifecycle</title>
 
       <para>Once you've created your own lifecycle and spawned it from a Mojo.

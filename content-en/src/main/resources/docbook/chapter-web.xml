@@ -4,7 +4,7 @@
 <chapter id="web">
   <title>A Simple Web Application</title>
 
-  <section id="web-intro">
+  <section id="web-sect-intro">
     <title>Introduction</title>
 
     <para>In this chapter, we create a simple web application with the
@@ -34,7 +34,7 @@
     chapter, you will be able to start using Maven to accelerate the
     development of web applications.</para>
 
-    <section>
+    <section id="web-sect-downloading">
       <title>Downloading this Chapter's Example</title>
 
       <para>The example in this chapter is generated with the Maven Archetype
@@ -56,7 +56,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="web-sect-defining-simple-web">
     <title>Defining the Simple Web Application</title>
 
     <para>We’ve purposefully kept this chapter focused on Plain-Old Web
@@ -73,7 +73,7 @@
     Framework; and the other that uses Plexus.</para>
   </section>
 
-  <section>
+  <section id="web-sect-creating-project">
     <title>Creating the Simple Web Project</title>
 
     <para>To create your web application <indexterm class="startofrange"
@@ -175,7 +175,7 @@
     <filename>target/simple-webapp.war</filename>.</para>
   </section>
 
-  <section>
+  <section id="web-sect-configuring-jetty">
     <title>Configuring the Jetty Plugin</title>
 
     <para>Once you’ve compiled, tested, and packaged your web
@@ -293,7 +293,7 @@
     </example>
   </section>
 
-  <section>
+  <section id="web-sect-adding-simple-servlet">
     <title>Adding a Simple Servlet</title>
 
     <para>A web application with a single JSP page and no configured
@@ -427,7 +427,7 @@ public class SimpleServlet extends HttpServlet {
     <acronym>POM</acronym>.</para>
   </section>
 
-  <section>
+  <section id="web-sect-adding-j2ee-depend">
     <title>Adding J2EE Dependencies</title>
 
     <para>To write a servlet, we’ll need to add the Servlet<indexterm
@@ -527,7 +527,7 @@ SimpleServlet Executed
 </screen>
   </section>
 
-  <section>
+  <section id="web-sect-conclusion">
     <title>Conclusion</title>
 
     <para>After reading this chapter, you should be able to bootstrap a simple

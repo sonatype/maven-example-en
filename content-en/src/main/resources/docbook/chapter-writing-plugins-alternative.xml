@@ -9,7 +9,7 @@
   languages, and this chapter is going to show you how to create plugins in
   three languages: Groovy, Ant, and Ruby plugins.</para>
 
-  <section>
+  <section id="writing-plugins-alternative-sect-intro">
     <title>Writing Plugins in Ant</title>
 
     <para>Ant isn't a language as much as it is a build tool which allows you
@@ -38,7 +38,7 @@
     target.</para>
   </section>
 
-  <section>
+  <section id="writing-plugins-alternative-sect-creating-ant">
     <title>Creating an Ant Plugin</title>
 
     <para>To create a Maven plugin using Ant, you will need to have a
@@ -182,7 +182,7 @@ echotarget:
     echo Ant task.</para>
   </section>
 
-  <section>
+  <section id="writing-plugins-alternative-sect-jruby">
     <title>Writing Plugins in JRuby</title>
 
     <para>Ruby is an object-oriented scripting language which provides a rich
@@ -196,7 +196,7 @@ echotarget:
     more information about JRuby, see: <ulink
     url="http://jruby.codehaus.org/">http://jruby.codehaus.org/</ulink>.</para>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-creating-jruby">
       <title>Creating a JRuby Plugin</title>
 
       <para>To create a Maven plugin using JRuby, you will need to have a
@@ -310,7 +310,7 @@ run_mojo Echo
 ...</screen>
     </section>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-ruby-mojo"> 
       <title>Ruby Mojo Implementations</title>
 
       <para>Ruby Mojos are annotated using comments in Ruby source files. A
@@ -554,7 +554,7 @@ $ <command>mvn firstruby:test</command>
       </example>
     </section>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-logging-ruby">
       <title>Logging from a Ruby Mojo</title>
 
       <para>To log from a Ruby Mojo, call the <methodname>info()</methodname>,
@@ -578,7 +578,7 @@ run_mojo LogTest
 </programlisting>
     </section>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-raising-mojo-error">
       <title>Raising a MojoError</title>
 
       <para>If there is an unrecoverable error in a Ruby Mojo, you will need
@@ -624,7 +624,7 @@ INFO] [firstruby:error]
 </screen>
     </section>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-referencing-plexus-ruby">
       <title>Referencing Plexus Components from JRuby</title>
 
       <para>A Ruby Mojo can depend on a Plexus component. To do this, you
@@ -663,7 +663,7 @@ run_mojo TestPlexus
     </section>
   </section>
 
-  <section>
+  <section id="writing-plugins-alternative-sect-writing-groovy">
     <title>Writing Plugins in Groovy</title>
 
     <para>Groovy is a dynamic language based on the Java Virtual Machine which
@@ -675,7 +675,7 @@ run_mojo TestPlexus
     site at <ulink
     url="http://groovy.codehaus.org">http://groovy.codehaus.org</ulink>.</para>
 
-    <section>
+    <section id="writing-plugins-alternative-sect-creating-groovy-plugin">
       <title>Creating a Groovy Plugin</title>
 
       <para>To create a Maven Plugin using Groovy, you only need two files: a
