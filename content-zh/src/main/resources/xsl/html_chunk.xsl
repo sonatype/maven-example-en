@@ -13,7 +13,7 @@
     <xsl:param name="chunk.section.depth">'1'</xsl:param>
 	<xsl:param name="chunker.output.indent">yes</xsl:param>
     <xsl:param name="use.id.as.filename">'1'</xsl:param>
-    <xsl:param name="html.stylesheet">../css/html.css</xsl:param>
+    <xsl:param name="html.stylesheet">../css/html_zh.css</xsl:param>
     <!-- These extensions are required for table printing and other stuff -->
     <xsl:param name="use.extensions">1</xsl:param>
     <xsl:param name="tablecolumns.extension">0</xsl:param>
