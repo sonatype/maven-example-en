@@ -11,7 +11,7 @@
   url="http://www.sonatype.com/book/examples/book-reporting.zip">reporting
   examples</ulink> and follow along.</para>
 
-  <section>
+  <section id="reporting-sect-refresher">
     <title>A Quick Refresher: Building and Viewing a Project Website</title>
 
     <para>Before we get into the meat of this chapter, it's important to
@@ -19,7 +19,7 @@
     and view its generated website. If you already know this part (we covered
     this in the Site Generation chapter), feel free to skip ahead.</para>
 
-    <section>
+    <section id="reporting-sect-bootstrap">
       <title>Bootstrap Revisited: Hello-World</title>
 
       <para>Before we can configure project reports, we'll need a project. For
@@ -41,7 +41,7 @@
       </note>
     </section>
 
-    <section>
+    <section id="reporting-sect-build-it-view-it">
       <title>Build it, View it</title>
 
       <para>To generate the project website for our hello-world project,
@@ -79,7 +79,7 @@ hello-world$ mvn clean site:run
     </section>
   </section>
 
-  <section id="reporting-intro">
+  <section id="reporting-sect-intro">
     <title>Introduction</title>
 
     <para>As we saw in the Site Generation chapter, Maven can do much more
@@ -129,7 +129,7 @@ hello-world$ mvn clean site:run
     useful reports available at the Apache Maven and Codehaus Mojo projects,
     among other places.</para>
 
-    <section>
+    <section id="reporting-sect-project-info">
       <title>Configuring Project-Info Reports</title>
 
       <para>By default, Maven generats a project website that contains several
@@ -152,7 +152,7 @@ hello-world$ mvn clean site:run
       information that every project should supply for its community.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-about-hello-world">
       <title>About (Hello-World)</title>
 
       <para>We can configure the About report to provide the user with some
@@ -199,7 +199,7 @@ hello-world$ mvn clean site:run
       next by adding some more information to the POM.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-continuous-integration">
       <title>Continuous Integration</title>
 
       <para>Your projects are all built in a continuous integration (CI)
@@ -271,7 +271,7 @@ hello-world$ mvn clean site:run
       project.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-dependencies">
       <title>Dependencies</title>
 
       <para>Most projects have dependencies on other libraries or applications
@@ -327,7 +327,7 @@ hello-world$ mvn clean site:run
       function.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-issue-tracking">
       <title>Issue Tracking</title>
 
       <para>All software has issues, ranging from functional bugs to tasks and
@@ -372,7 +372,7 @@ hello-world$ mvn clean site:run
       application's project website).</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-mailing-lists">
       <title>Mailing Lists</title>
 
       <para>Mailing lists are one of the most ubiquitous modes of
@@ -477,7 +477,7 @@ hello-world$ mvn clean site:run
       way.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-project-licenses">
       <title>Project License</title>
 
       <para>Perhaps one of the most important pieces of information to be
@@ -545,7 +545,7 @@ hello-world$ mvn clean site:run
       project.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-project-summary">
       <title>Project Summary</title>
 
       <para>It may seem obvious, but every project should have a very clear
@@ -603,7 +603,7 @@ hello-world$ mvn clean site:run
       </note>
     </section>
 
-    <section>
+    <section id="reporting-sect-project-team">
       <title>Project Team</title>
 
       <para>The people who work so hard to make your project successful
@@ -701,7 +701,7 @@ hello-world$ mvn clean site:run
       actually commit the corrections).</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-source-repository">
       <title>Source Repository</title>
 
       <para>The final step in laying a good foundation for a project website
@@ -789,7 +789,7 @@ hello-world$ mvn clean site:run
       introductory material.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-additional-reports">
       <title>Configuring Additional Reports</title>
 
       <para>Looking back at the website we've created so far, it's still
@@ -855,7 +855,7 @@ hello-world$ mvn clean site:run
       </note>
     </section>
 
-    <section>
+    <section id="reporting-sect-other-reports">
       <title>Other Reports Available from the Maven Project (at ASF)</title>
 
       <para>Aside from the maven-project-info-reports-plugin, the Apache Maven
@@ -877,7 +877,7 @@ hello-world$ mvn clean site:run
       <para>Let's take a look at some of the things that these reports can
       provide for your website.</para>
 
-      <section>
+      <section id="reporting-sect-surefire-report">
         <title>maven-surefire-report-plugin</title>
 
         <para>Your project has unit tests, right? Nevermind, I don't want to
@@ -927,7 +927,7 @@ hello-world$ mvn clean site:run
         class.</para>
       </section>
 
-      <section>
+      <section id="reporting-sect-javadoc-plugin">
         <title>maven-javadoc-plugin</title>
 
         <para>Besides unit tests, all projects should have some form of
@@ -1002,7 +1002,7 @@ hello-world$ mvn clean site:run
         JavaDocs.</para>
       </section>
 
-      <section>
+      <section id="reporting-sect-changelog-plugin">
         <title>maven-changelog-plugin</title>
 
         <para>The changelog plugin reads your project's SCM, and produces
@@ -1078,7 +1078,7 @@ hello-world$ mvn clean site:run
         the SCM system, so you can browse its contents.</para>
       </section>
 
-      <section>
+      <section id="reporting-sect-sample-configuration">
         <title>Sample Configuration</title>
 
         <para>If you don't have a project in SCM to play with yet, you can try
@@ -1115,7 +1115,7 @@ hello-world$ mvn clean site:run
       </section>
     </section>
 
-    <section>
+    <section id="reporting-sect-customizing-file-links">
       <title>Customizing Your File Links</title>
 
       <para>Sometimes, you may wish to have the file links in these reports
@@ -1152,10 +1152,10 @@ hello-world$ mvn clean site:run
     </section>
   </section>
 
-  <section>
+  <section id="reporting-sect-core-reporting-plugins"> 
     <title>Core Reporting Plugins</title>
 
-    <section>
+    <section id="reporting-sect-changes-plugin">
       <title>maven-changes-plugin</title>
 
       <para>In contrast to the maven-changelog-plugin, the changes plugin
@@ -1247,7 +1247,7 @@ hello-world$ mvn clean site:run
       member entry in the Project Team report, if it has been configured
       correctly.</para>
 
-      <section>
+      <section id="reporting-sect-limit-jira-closed"> 
         <title>Limit the Jira Report to Closed Items</title>
 
         <para>If you'd like to limit the Jira Report to only display closed
@@ -1289,7 +1289,7 @@ hello-world$ mvn clean site:run
       </section>
     </section>
 
-    <section>
+    <section id="reporting-sect-checkstyle-plugin"> 
       <title>maven-checkstyle-plugin</title>
 
       <para>The Checkstyle plugin performs static code analysis, and generates
@@ -1375,7 +1375,7 @@ hello-world$ mvn clean site:run
       project directory. Here are some examples of useful features provided by
       the checkstyle plugin:</para>
 
-      <section>
+      <section id="reporting-sect-review-checkstyle">
         <title>Reviewing Your Checkstyle Configuration File</title>
 
         <para>When the configLocation is successfully resolved, it's contents
@@ -1387,7 +1387,7 @@ hello-world$ mvn clean site:run
         comes from a URL or a resource embedded in a dependency jar.</para>
       </section>
 
-      <section>
+      <section id="reporting-sect-view-license-header"> 
         <title>Verify Your Source Code License Header</title>
 
         <para>One very useful feature of Checkstyle is that it allows you to
@@ -1455,7 +1455,7 @@ hello-world$ mvn clean site:run
       </section>
     </section>
 
-    <section>
+    <section id="reporting-sect-jxr-plugin"> 
       <title>maven-jxr-plugin</title>
 
       <para>JXR is a source-code cross-referencing API maintained by the Maven
@@ -1574,7 +1574,7 @@ public class App
       </warning>
     </section>
 
-    <section>
+    <section id="reporting-sect-clover-plugin">
       <title>maven-clover-plugin</title>
 
       <para><ulink url="http://www.cenqua.com/clover">Clover</ulink> is a tool
@@ -1700,7 +1700,7 @@ public class App
       adequately tested; rather, the value of this coverage report is to show
       that the setConfiguration method is not tested.</para>
 
-      <section>
+      <section id="reporting-sect-generate-pdf-clover">
         <title>Generate PDF and XML Output from Your Clover Results</title>
 
         <para>A nice, XHTML code-coverage report that's embedded directly in
@@ -1751,7 +1751,7 @@ public class App
       </section>
     </section>
 
-    <section>
+    <section id="reporting-sect-pmd-plugin">
       <title>maven-pmd-plugin</title>
 
       <para>Similar to Checkstyle (discussed above), <ulink
@@ -1895,7 +1895,7 @@ public class App
       with JXR links for each (remember, though: JXR doesn't work with
       site:run).</para>
 
-      <section>
+      <section id="reporting-sect-pmd-rule-sets">
         <title>Customizing Your PMD Rule-Sets</title>
 
         <para>By default, the PMD Report checks your source code the Basic,
@@ -1967,7 +1967,7 @@ public class App
     </section>
   </section>
 
-  <section>
+  <section id="reporting-sect-additional-codehaus">
     <title>Additional Reports Available from the Codehaus Mojo Project</title>
 
     <para>While the reports provided by the Apache Maven project contains many
@@ -1997,7 +1997,7 @@ public class App
     <para>Let's take a look at some of the things that the Mojo reports can
     provide for your website.</para>
 
-    <section>
+    <section id="reporting-sect-clirr-plugin">
       <title>clirr-maven-plugin</title>
 
       <para><ulink url="http://clirr.sourceforge.net">Clirr</ulink> is a nice
@@ -2153,7 +2153,7 @@ public class App
       use the JXR plugin in concert with this one, each error will be linked
       back to the line of source code that caused it.</para>
 
-      <section>
+      <section id="reporting-sect-show-only-errors">
         <title>Show Only Errors, Not Warnings</title>
 
         <para>So, you don't care about those pesky compatibility warnings? You
@@ -2191,7 +2191,7 @@ public class App
       </section>
     </section>
 
-    <section>
+    <section id="reporting-sect-maven-plugin">
       <title>cobertura-maven-plugin</title>
 
       <para>Similar to Clover (discussed above), <ulink
@@ -2262,7 +2262,7 @@ public class App
       intervention or configuration.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-findbugs-plugin">
       <title>findbugs-maven-plugin</title>
 
       <para>Much like the PMD plugin (described above), the <ulink
@@ -2309,7 +2309,7 @@ public class App
       did not reveal our ugly little throws Exception clause.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-javancss-plugin">
       <title>javancss-maven-plugin</title>
 
       <para>The <ulink
@@ -2352,7 +2352,7 @@ public class App
       just click on the explanation link at the top of each section.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-jdepend-plugin">
       <title>jdepend-maven-plugin</title>
 
       <para><ulink
@@ -2405,7 +2405,7 @@ public class App
       website.</para>
     </section>
 
-    <section>
+    <section id="reporting-sect-taglist-plugin">
       <title>taglist-maven-plugin</title>
 
       <para>Have you ever stopped to think about all those TODO or FIXME tags
@@ -2518,7 +2518,7 @@ public class App
     </section>
   </section>
 
-  <section>
+  <section id="reporting-sect-killer-report">
     <title>Assembling a Killer Report Suite for Your Project</title>
 
     <para>As we've mentioned several times in this chapter, certain reports
@@ -2654,10 +2654,10 @@ public class App
     rallying point, which helps to focus and enrich these communities.</para>
   </section>
 
-  <section>
+  <section id="reporting-sect-tips-tricks">
     <title>Tips and Tricks</title>
 
-    <section>
+    <section id="reporting-sect-control-loc">
       <title>Control the Locations of Report Links in the Site Menu</title>
 
       <para>If you want to change the location of the Project Reports menu in
@@ -2703,7 +2703,7 @@ public class App
     </section>
   </section>
 
-  <section>
+  <section id="reporting-sect-summary">
     <title>Summary</title>
 
     <para>Project websites serve as a focal point for all activity surrounding

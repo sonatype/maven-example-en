@@ -4,7 +4,7 @@
 <chapter id="profiles">
   <title>Build Profiles</title>
 
-  <section id="profiles-what">
+  <section id="profiles-sect-what">
     <title>What Are They For?</title>
 
     <para>Profiles allow for the ability to customize a particular build for a
@@ -27,7 +27,7 @@
     version. Before we talk about using and configuring Maven profiles, we
     need to define the concept of Build Portability.</para>
 
-    <section>
+    <section id="profiles-sect-portability">
       <title>What is Build Portability</title>
 
       <para>A build's "portability" is a measure of how easy it is to take a
@@ -43,7 +43,7 @@
       you how to achieve build portability, let's survey the different kinds
       of portability we are talking about.</para>
 
-      <section>
+      <section id="profiles-sect-non-portable">
         <title>Non-Portable Builds</title>
 
         <para>The lack of portability is exactly what all build tools are made
@@ -62,7 +62,7 @@
         portions of a build script.</para>
       </section>
 
-      <section>
+      <section id="profiles-sect-environment-portability">
         <title>Environment Portability</title>
 
         <para>A build exhibits environment portability if it has a mechanism
@@ -81,7 +81,7 @@
         successfully build the project.</para>
       </section>
 
-      <section>
+      <section id="profiles-sect-org-portability">
         <title>Organizational (In-House) Portability</title>
 
         <para>The center of this level of portability is a project's
@@ -101,7 +101,7 @@
         portable only across environments in a single organization.</para>
       </section>
 
-      <section>
+      <section id="profiles-sect-wide-portability">
         <title>Wide (Universal) Portability</title>
 
         <para>Anyone may download a widely portable project's source, compile,
@@ -117,7 +117,7 @@
       </section>
     </section>
 
-    <section>
+    <section id="profiles-sect-select-level">
       <title>Selecting an Appropriate Level of Portability</title>
 
       <para>Clearly, you'll want to avoid creating the worst-case scenario:
@@ -174,7 +174,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="profiles-sect-maven-profiles">
     <title>Portability through Maven Profiles</title>
 
     <para>A profile in Maven is an alternative set of configuration values
@@ -312,7 +312,7 @@
     output, <varname>debug</varname> is set to false and
     <varname>optimize</varname> is set to true.</para>
 
-    <section>
+    <section id="profiles-sect-overriding-pom">
       <title>Overriding a Project Object Model</title>
 
       <para>While the previous example showed you how to override the default
@@ -366,7 +366,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="profiles-sect-activation">
     <title>Profile Activation</title>
 
     <para>In the previous section we showed you how to create a profile that
@@ -467,7 +467,7 @@
       </callout>
     </calloutlist>
 
-    <section id="profile-activation-config">
+    <section id="profiles-sect-activation-config">
       <title>Activation Configuration</title>
 
       <para>Activations can contain one of more selectors including JDK
@@ -571,7 +571,7 @@
       </calloutlist>
     </section>
 
-    <section>
+    <section id="profiles-sect-activation-by-absence">
       <title>Activation by the Absence of a Property</title>
 
       <para>You can activate a profile based on the value of a property like
@@ -611,7 +611,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="profiles-sect-listing-active-profiles">
     <title>Listing Active Profiles</title>
 
     <para>Maven profiles can be defined in either
@@ -636,7 +636,7 @@ The following profiles are active:
  - my-internal-profile (source: pom.xml)</screen>
   </section>
 
-  <section>
+  <section id="profiles-sect-tips-tricks">
     <title>Tips and Tricks</title>
 
     <para>Profiles can encourage build portability. If your build needs subtle
@@ -781,7 +781,7 @@ The following profiles are active:
       <filename>settings.xml</filename> files.</para>
     </section>
 
-    <section>
+    <section id="profiles-sect-protecting-secrets"> 
       <title>Protecting Secrets</title>
 
       <para>This best practice builds upon the previous section. In <xref
@@ -838,7 +838,7 @@ The following profiles are active:
       </note>
     </section>
 
-    <section id="sect-platform-classifier">
+    <section id="profiles-sect-platform-classifier">
       <title>Platform Classifiers</title>
 
       <para>Let's assume that you have a library or a project that produces
@@ -980,7 +980,7 @@ The following profiles are active:
     </section>
   </section>
 
-  <section>
+  <section id="profiles-sect-summary">
     <title>Summary</title>
 
     <para>When used judiciously, profiles can make it very easy to customize a
