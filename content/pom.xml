@@ -81,6 +81,23 @@
             </configuration>
           </execution>
           <execution>
+            <id>generate-pdf-sony</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>generate-pdf</goal>
+            </goals>
+            <configuration>
+              <imgSrcPath>${basedir}/src/main/resources/docbook/en/</imgSrcPath>
+              <foCustomization>${basedir}/src/main/resources/xsl/en/fopdf-sony.xsl</foCustomization>
+              <postProcess>
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide-sony-reader.pdf">
+                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
+                </copy>
+              </postProcess>
+              <includes>chapter-*.xml</includes>
+            </configuration>
+          </execution>
+          <execution>
             <id>generate-pdf-de</id>
             <phase>pre-site</phase>
             <goals>
