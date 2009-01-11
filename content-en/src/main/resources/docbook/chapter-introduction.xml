@@ -60,14 +60,14 @@
 
     <para>Maven incorporates this concept by providing sensible default
     behavior for projects. Without customization, source code is assumed to be
-    in <filename>${basedir}/src/main/java</filename> and resources are assumed
-    to be in <filename>${basedir}/src/main/resources</filename>. Tests are
-    assumed to be in <filename>${basedir}/src/test</filename>, and a project
+    in <filename>\${basedir}/src/main/java</filename> and resources are assumed
+    to be in <filename>\${basedir}/src/main/resources</filename>. Tests are
+    assumed to be in <filename>\${basedir}/src/test</filename>, and a project
     is assumed to produce a <acronym>JAR</acronym> file. Maven assumes that
     you want the compile byte code to
-    <filename>${basedir}/target/classes</filename> and then create a
+    <filename>\${basedir}/target/classes</filename> and then create a
     distributable <acronym>JAR</acronym> file in
-    <filename>${basedir}/target</filename>. While this might seem trivial,
+    <filename>\${basedir}/target</filename>. While this might seem trivial,
     consider the fact that most Ant-based builds have to define the locations
     of these directories. Ant doesn't ship with any built-in idea of where
     source code or resources might be in a project; you have to supply this
@@ -356,29 +356,29 @@
     &lt;!-- Create the time stamp --&gt;
     &lt;tstamp/&gt;
     &lt;!-- Create the build directory structure used by compile --&gt;
-    &lt;mkdir dir="${build}"/&gt;
+    &lt;mkdir dir="\${build}"/&gt;
   &lt;/target&gt;
 
   &lt;target name="compile" depends="init"
         description="compile the source " &gt;
-    &lt;!-- Compile the java code from ${src} into ${build} --&gt;
-    &lt;javac srcdir="${src}" destdir="${build}"/&gt;
+    &lt;!-- Compile the java code from \${src} into \${build} --&gt;
+    &lt;javac srcdir="\${src}" destdir="\${build}"/&gt;
   &lt;/target&gt;
 
   &lt;target name="dist" depends="compile"
         description="generate the distribution" &gt;
     &lt;!-- Create the distribution directory --&gt;
-    &lt;mkdir dir="${dist}/lib"/&gt;
+    &lt;mkdir dir="\${dist}/lib"/&gt;
 
-    &lt;!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file --&gt;
-    &lt;jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/&gt;
+    &lt;!-- Put everything in \${build} into the MyProject-\${DSTAMP}.jar file --&gt;
+    &lt;jar jarfile="\${dist}/lib/MyProject-\${DSTAMP}.jar" basedir="\${build}"/&gt;
   &lt;/target&gt;
 
   &lt;target name="clean"
         description="clean up" &gt;
-    &lt;!-- Delete the ${build} and ${dist} directory trees --&gt;
-    &lt;delete dir="${build}"/&gt;
-    &lt;delete dir="${dist}"/&gt;
+    &lt;!-- Delete the \${build} and \${dist} directory trees --&gt;
+    &lt;delete dir="\${build}"/&gt;
+    &lt;delete dir="\${dist}"/&gt;
   &lt;/target&gt;
 &lt;/project&gt;</programlisting>
     </example>
@@ -397,7 +397,7 @@
     <para>Contrast the previous Ant example with a Maven example. In Maven, to
     create a JAR file from some Java source, all you need to do is create a
     simple <filename>pom.xml</filename>, place your source code in
-    <filename>${basedir}/src/main/java</filename> and then run <command>mvn
+    <filename>\${basedir}/src/main/java</filename> and then run <command>mvn
     install</command> from the command line. The example Maven
     <filename>pom.xml</filename> that achieves the same results as the simple
     Ant file listed in <xref linkend="ex-ant-sample" /> is shown in <xref
@@ -511,12 +511,12 @@
     <para>Maven has built-in intelligence about common project tasks in the
     form of Maven plugins. If you wanted to write and execute unit tests, all
     you would need to do is write the tests place them in
-    <filename>${basedir}/src/test/java</filename>, add a test-scoped
+    <filename>\${basedir}/src/test/java</filename>, add a test-scoped
     dependency on either TestNG or JUnit, and run <command>mvn test</command>.
     If you wanted to deploy a web application and not a
     <acronym>JAR</acronym>, all you would need to do is change you project
     type to (war) and put your docroot in
-    <filename>${basedir}/src/main/webapp</filename>. Sure, you can do all of
+    <filename>\${basedir}/src/main/webapp</filename>. Sure, you can do all of
     this with Ant, but you will be writing the instructions from scratch. In
     Ant, you would first have to figure out where the JUnit
     <acronym>JAR</acronym> file should be, then you would have to create a

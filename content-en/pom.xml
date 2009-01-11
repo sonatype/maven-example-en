@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.sonatype.mavenbook</groupId>
-		<artifactId>book</artifactId>
-		<version>1-SNAPSHOT</version>
-	</parent>
+  <parent>
+	<groupId>org.sonatype.mavenbook</groupId>
+	<artifactId>book</artifactId>
+	<version>1-SNAPSHOT</version>
+  </parent>
   <artifactId>content-en</artifactId>
   <version>0.22.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -53,26 +53,34 @@
       </resource>
     </resources>
     <plugins>
-			<plugin>
-				<groupId>org.sonatype.idiom</groupId>
-				<artifactId>maven-feedme-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>maven-blogs</id>
-						<goals>
-							<goal>consume</goal>
-						</goals>
-						<configuration>
-							<feed><![CDATA[http://feeds.feedburner.com/sonatype]]></feed>
-							<template>${basedir}/src/feed/blogs-div.vm</template>
-							<outputDirectory>${basedir}/src/main/resources/docbook/includes</outputDirectory>
-							<outputFilename>blogs-div.html</outputFilename>
-						</configuration>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
-			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <escapeString>\</escapeString>
+        </configuration>
+      </plugin>
+	  <plugin>
+		<groupId>org.sonatype.idiom</groupId>
+		<artifactId>maven-feedme-plugin</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<executions>
+		  <execution>
+			<id>maven-blogs</id>
+			<goals>
+			  <goal>consume</goal>
+			</goals>
+			<configuration>
+			  <feed><![CDATA[http://feeds.feedburner.com/sonatype]]></feed>
+			  <template>${basedir}/src/feed/blogs-div.vm</template>
+			  <outputDirectory>${basedir}/src/main/resources/docbook/includes</outputDirectory>
+			  <outputFilename>blogs-div.html</outputFilename>
+			</configuration>
+			<phase>generate-sources</phase>
+		  </execution>
+		</executions>
+	  </plugin>
       <plugin>
 	    <groupId>com.agilejava.docbkx</groupId>
 	    <artifactId>docbkx-maven-plugin</artifactId>
@@ -173,31 +181,31 @@
   </reporting>
   <profiles>
     <profile>
-        <id>publish</id>
-        <distributionManagement>
+      <id>publish</id>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>file:///var/www/domains/sonatype.com/books/htdocs/maven-book/</url>
         </site>
-        </distributionManagement>
-        <properties>
-           <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties>
-      </profile>
+      </distributionManagement>
+      <properties>
+        <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      </properties>
+    </profile>
     <profile>
-        <id>stage</id>
-        <distributionManagement>
+      <id>stage</id>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>file:///var/www/domains/sonatype.com/books/htdocs/maven-book-stage/</url>
         </site>
-        </distributionManagement>
-        <properties>
-           <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties>
-      </profile>
+      </distributionManagement>
+      <properties>
+        <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      </properties>
+    </profile>
   </profiles>
   <dependencies>
     <dependency>

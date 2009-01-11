@@ -2034,7 +2034,7 @@ public class App
   &lt;distributionManagement&gt;
     &lt;repository&gt;
       &lt;id&gt;dummy&lt;/id&gt;
-      &lt;url&gt;file://${java.io.tmpdir}/book-repository&lt;/url&gt;
+      &lt;url&gt;file://\${java.io.tmpdir}/book-repository&lt;/url&gt;
     &lt;/repository&gt;
   &lt;/distributionManagement&gt;
 &lt;/project&gt;
@@ -2062,7 +2062,7 @@ public class App
   &lt;repositories&gt;
     &lt;repository&gt;
       &lt;id&gt;dummy&lt;/id&gt;
-      &lt;url&gt;file://${java.io.tmpdir}/book-repository&lt;/url&gt;
+      &lt;url&gt;file://\${java.io.tmpdir}/book-repository&lt;/url&gt;
     &lt;/repository&gt;
   &lt;/repositories&gt;
   ...

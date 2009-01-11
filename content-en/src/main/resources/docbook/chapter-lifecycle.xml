@@ -60,7 +60,7 @@
       lifecycle. The <varname>clean:clean</varname> goal deletes the output of
       a build by deleting the build directory. If you haven't customized the
       location of the build directory it will be the
-      <filename>${basedir}/target</filename> directory as defined by the Super
+      <filename>\${basedir}/target</filename> directory as defined by the Super
       <acronym>POM</acronym>. When you execute the
       <varname>clean:clean</varname> goal you do not do so by executing the
       goal directly with <command>mvn clean:clean</command>, you do so by
@@ -106,7 +106,7 @@
             &lt;!-- adds the ant-contrib tasks (if/then/else used below) --&gt;
             &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" /&gt;
             &lt;available 
-              file="${project.build.directory}/${project.build.finalName}.${project.packaging}"
+              file="\${project.build.directory}/\${project.build.finalName}.\${project.packaging}"
               property="file.exists" value="true" /&gt;
 
             &lt;if&gt;
@@ -115,12 +115,12 @@
               &lt;/not&gt;
               &lt;then&gt;
                 &lt;echo&gt;No
-                  ${project.build.finalName}.${project.packaging} to
+                  \${project.build.finalName}.\${project.packaging} to
                   delete&lt;/echo&gt;
               &lt;/then&gt;
               &lt;else&gt;
                 &lt;echo&gt;Deleting
-                  ${project.build.finalName}.${project.packaging}&lt;/echo&gt;
+                  \${project.build.finalName}.\${project.packaging}&lt;/echo&gt;
               &lt;/else&gt;
             &lt;/if&gt;
           &lt;/tasks&gt;
@@ -902,7 +902,7 @@
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;debug&gt;true&lt;/debug&gt;
-          &lt;flexHome&gt;${flex.home}&lt;/flexHome&gt;
+          &lt;flexHome&gt;\${flex.home}&lt;/flexHome&gt;
           &lt;useNetwork&gt;true&lt;/useNetwork&gt;
           &lt;main&gt;org/sonatype/mavenbook/Main.mxml&lt;/main&gt;
         &lt;/configuration&gt;
@@ -985,13 +985,13 @@
       copies them to the output directory. If you haven't customized the
       default directory locations defined in the Super <acronym>POM</acronym>,
       this means that Maven will copy the files from
-      <filename>${basedir}/src/main/resources</filename> to
-      <filename>${basedir}/target/classes</filename> or the directory defined
-      in <filename>${project.build.outputDirectory}</filename>. In addition to
+      <filename>\${basedir}/src/main/resources</filename> to
+      <filename>\${basedir}/target/classes</filename> or the directory defined
+      in <filename>\${project.build.outputDirectory}</filename>. In addition to
       copying the resources to the output directory, Maven can also apply a
       filter to the resources that allows you to replace tokens within
       resource file. Just like variables are referenced in a
-      <acronym>POM</acronym> using <varname>${...}</varname> notation, you can
+      <acronym>POM</acronym> using <varname>\${...}</varname> notation, you can
       reference variables in your project's resources using the same syntax.
       Coupled with build profiles, such a facility can be used to produce
       build artifacts which target different deployment platforms. This is
@@ -1019,10 +1019,10 @@
           <title>Using Properties in Project Resources</title>
 
           <programlisting language="xml">&lt;service&gt;
-  &lt;!-- This URL was set by project version ${project.version} --&gt;
-  &lt;url&gt;${jdbc.url}&lt;/url&gt;
-  &lt;user&gt;${jdbc.username}&lt;/user&gt;
-  &lt;password&gt;${jdbc.password}&lt;/password&gt;
+  &lt;!-- This URL was set by project version \${project.version} --&gt;
+  &lt;url&gt;\${jdbc.url}&lt;/url&gt;
+  &lt;user&gt;\${jdbc.username}&lt;/user&gt;
+  &lt;password&gt;\${jdbc.password}&lt;/password&gt;
 &lt;/service&gt;
 </programlisting>
         </example></para>
@@ -1056,7 +1056,7 @@ jdbc.password=
       to the output directory; you'll need to explicitly configure resource
       filter, or Maven will skip the step altogether. This default ensures
       that Maven's resource filtering feature doesn't surprise you out of
-      nowhere and clobbering any <varname>${...}</varname> references you
+      nowhere and clobbering any <varname>\${...}</varname> references you
       didn't want it to replace.</para>
 
       <para><example>
@@ -1135,15 +1135,15 @@ jdbc.password=
   &lt;resources&gt;
     &lt;resource&gt;
       &lt;filtering&gt;true&lt;/filtering&gt;
-      &lt;directory&gt;${basedir}/src/main/command&lt;/directory&gt;
+      &lt;directory&gt;\${basedir}/src/main/command&lt;/directory&gt;
       &lt;includes&gt;
         &lt;include&gt;run.bat&lt;/include&gt;
         &lt;include&gt;run.sh&lt;/include&gt;
       &lt;/includes&gt;
-      &lt;targetPath&gt;${basedir}&lt;/targetPath&gt;
+      &lt;targetPath&gt;\${basedir}&lt;/targetPath&gt;
     &lt;/resource&gt;
     &lt;resource&gt;
-      &lt;directory&gt;${basedir}/src/main/resources&lt;/directory&gt;
+      &lt;directory&gt;\${basedir}/src/main/resources&lt;/directory&gt;
     &lt;/resource&gt;
   &lt;/resources&gt;
   ...
@@ -1152,10 +1152,10 @@ jdbc.password=
 
       <para>If you run <filename>mvn process-resources</filename> in this
       project, you will end up with two files, <filename>run.sh</filename> and
-      <filename>run.bat</filename>, in <varname>${basedir}</varname>. We've
+      <filename>run.bat</filename>, in <varname>\${basedir}</varname>. We've
       singled out these two files in a <sgmltag>resource</sgmltag> element,
       configuring filtering, and set the <sgmltag>targetPath</sgmltag> to be
-      <varname>${basedir}</varname>. In a second <sgmltag>resource</sgmltag>
+      <varname>\${basedir}</varname>. In a second <sgmltag>resource</sgmltag>
       element, we've configured the default resources path to be copied to the
       default output directory without any filtering. <xref
       linkend="ex-filter-script" /> shows you how to declare two resource
@@ -1166,12 +1166,12 @@ jdbc.password=
       <filename>src/main/command</filename> with the following content:</para>
 
       <programlisting>@echo off
-java -jar ${project.build.finalName}.jar %*
+java -jar \${project.build.finalName}.jar %*
 </programlisting>
 
       <para>After running <command>mvn process-resources</command>, a file
       named <filename>run.bat</filename> would appear in
-      <varname>${basedir}</varname> with the following content:</para>
+      <varname>\${basedir}</varname> with the following content:</para>
 
       <programlisting>@echo off
 java -jar simple-cmd-2.3.1.jar %*
@@ -1286,7 +1286,7 @@ java -jar simple-cmd-2.3.1.jar %*
       <filename>src/test/resources</filename>, and the default output
       directory for test resources is <filename>target/test-classes</filename>
       as defined in
-      <varname>${project.build.testOutputDirectory}</varname>.</para>
+      <varname>\${project.build.testOutputDirectory}</varname>.</para>
     </section>
 
     <section id="lifecycle-sect-test-compile-phase">

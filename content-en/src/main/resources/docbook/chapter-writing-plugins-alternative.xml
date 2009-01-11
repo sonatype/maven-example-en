@@ -85,7 +85,7 @@
     two parts: the Ant tasks in an <acronym>XML</acronym> file, and a file
     which supplies Mojo descriptor information. The Ant plugin tools are going
     to look for both of these files in
-    <filename>${basedir}/src/main/scripts</filename>. One file will be named
+    <filename>\${basedir}/src/main/scripts</filename>. One file will be named
     <filename>echo.build.xml</filename> and it will contain the Ant
     <acronym>XML</acronym>.</para>
 
@@ -94,7 +94,7 @@
 
       <programlisting language="xml">&lt;project&gt;
   &lt;target name="echotarget"&gt;
-    &lt;echo&gt;${message}&lt;/echo&gt;
+    &lt;echo&gt;\${message}&lt;/echo&gt;
   &lt;/target&gt;
 &lt;/project&gt;
 </programlisting>
@@ -102,7 +102,7 @@
 
     <para>The other file will describe the Echo Ant Mojo and will be in the
     <filename>echo.mojos.xml</filename> file also in
-    <filename>${basedir}/src/main/scripts</filename>.</para>
+    <filename>\${basedir}/src/main/scripts</filename>.</para>
 
     <example>
       <title>Echo Ant Mojo Descriptor</title>
@@ -118,7 +118,7 @@
           &lt;name&gt;message&lt;/name&gt;
           &lt;property&gt;message&lt;/property&gt;
           &lt;required&gt;false&lt;/required&gt;
-          &lt;expression&gt;${message}&lt;/expression&gt;
+          &lt;expression&gt;\${message}&lt;/expression&gt;
           &lt;type&gt;java.lang.Object&lt;/type&gt;
           &lt;defaultValue&gt;Hello Maven World&lt;/defaultValue&gt;
           &lt;description&gt;Prints a message&lt;/description&gt;
@@ -133,7 +133,7 @@
     descriptor for this plugin. It supplies the goal name "echo", and it tells
     Maven what Ant task to call in the call element. In addition to
     configuring the description, this <acronym>XML</acronym> file configures
-    the message parameter to use the expression <varname>${message}</varname>
+    the message parameter to use the expression <varname>\${message}</varname>
     and to have a default value of "Hello Maven World."</para>
 
     <para>If you've configured your plugin groups in
@@ -243,9 +243,9 @@ echotarget:
 
       <para>Next, you will need to create a Mojo implemented in Ruby. Maven is
       going to look for a Ruby Mojo in
-      <filename>${basedir}/src/main/scripts</filename>. Put the following Ruby
+      <filename>\${basedir}/src/main/scripts</filename>. Put the following Ruby
       class in
-      <filename>${basedir}/src/main/scripts/echo.rb</filename>.</para>
+      <filename>\${basedir}/src/main/scripts/echo.rb</filename>.</para>
 
       <example>
         <title>The Echo Ruby Mojo</title>
@@ -256,7 +256,7 @@ echotarget:
 class Echo &lt; Mojo
 
   # @parameter type="java.lang.String" default-value="Hello Maven World" \
-    expression="${message}"
+    expression="\${message}"
   def message
   end
 
@@ -403,7 +403,7 @@ run_mojo Echo
       <filename>echo.rb</filename> would look like the following code:</para>
 
       <programlisting># @parameter type="java.lang.String" default-value="Hello Maven World" \
-  expression="${message}"
+  expression="\${message}"
 # @readonly true
 # @required false
 # @deprecated false
@@ -513,7 +513,7 @@ class Test &lt; Mojo
   end  
 
   # @parameter type="org.apache.maven.project.MavenProject" \
-    expression="${project}"
+    expression="\${project}"
   # @required true  
   def project
   end  
@@ -596,7 +596,7 @@ run_mojo LogTest
 class Error &lt; Mojo
 
   # @parameter type="java.lang.String" default-value="Hello Maven World" \
-    expression="${message}"
+    expression="\${message}"
   # @required true
   # @readonly false
   # @deprecated false
@@ -642,7 +642,7 @@ INFO] [firstruby:error]
 class TestPlexus &lt; Mojo
 
   # @parameter type="org.codehaus.plexus.archiver.Archiver" \
-expression="${component.org.codehaus.plexus.archiver.Archiver#zip}"
+expression="\${component.org.codehaus.plexus.archiver.Archiver#zip}"
   def archiver
   end
 
@@ -759,7 +759,7 @@ class EchoMojo extends GroovyMojo {
     /**
      * Message to print
      *
-     * @parameter expression="${echo.message}"
+     * @parameter expression="\${echo.message}"
      *            default-value="Hello Maven World"
      */
     String message

@@ -99,7 +99,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
       <screen>/usr/local % <command moreinfo="none">cd /usr/local
 </command>/usr/local % <command moreinfo="none">ln -s apache-maven-2.0.9 maven
 </command>/usr/local % <command>export M2_HOME=/usr/local/maven</command>
-/usr/local % <command>export PATH=${M2_HOME}/bin:${PATH}</command></screen>
+/usr/local % <command>export PATH=\${M2_HOME}/bin:\${PATH}</command></screen>
 
       <para>Once Maven is installed, you need to do a couple of things to make
       it work correctly. You need to add its <filename
@@ -134,7 +134,7 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
       <filename>.bash_login</filename>.</para>
 
       <programlisting>export M2_HOME=/usr/local/maven
-export PATH=${M2_HOME}/bin:${PATH}</programlisting>
+export PATH=\${M2_HOME}/bin:\${PATH}</programlisting>
 
       <para>Once you've added these lines to your own environment, you will be
       able to run Maven from the command line.</para>
@@ -696,7 +696,7 @@ This mojo doesn't have any component requirements.
 
     <para>Apache Maven is released under the Apache Software License, Version
     2.0. If you want to read this license, you can read
-    <filename>${M2_HOME}/LICENSE.txt</filename> or read this license on the
+    <filename>\${M2_HOME}/LICENSE.txt</filename> or read this license on the
     Open Source Initiative's web site here <ulink
     url="http://www.opensource.org/licenses/apache2.0.php">http://www.opensource.org/licenses/apache2.0.php</ulink>.</para>
 

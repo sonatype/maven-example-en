@@ -10,8 +10,8 @@
     <para>Throughout this book, you will notice references to properties which
     can be used in a <acronym>POM</acronym> file. Sibling dependencies in a
     multi-project build can be referenced using the
-    <varname>${project.groupId}</varname> and
-    <varname>${project.version}</varname> properties and any part of the
+    <varname>\${project.groupId}</varname> and
+    <varname>\${project.version}</varname> properties and any part of the
     <acronym>POM</acronym> can be referenced by prefixing the variable name
     with "project.". Environment variables and Java System properties can be
     referenced, as well as values from your
@@ -39,10 +39,10 @@
     <para>You can use Maven properties in a <filename>pom.xml</filename> file
     or in any resource that is being processed by the Maven Resource plugin's
     filtering features. A property is always surrounded by
-    <varname>${</varname> and <varname>}</varname>. For example, to reference
+    <varname>\${</varname> and <varname>}</varname>. For example, to reference
     the <varname>project.version</varname> property, one would write:</para>
 
-    <programlisting language="java">${project.version}</programlisting>
+    <programlisting language="java">\${project.version}</programlisting>
 
     <para>There some implicit properties available in any Maven project, these
     implicit properties are:</para>
@@ -104,7 +104,7 @@
       is being exposed as the implicit variable project. When you reference a
       property using this implicit variable, you are using simple dot notation
       to reference a bean property of the <classname>Model</classname> object.
-      For example, when you reference <varname>${project.version}</varname>,
+      For example, when you reference <varname>\${project.version}</varname>,
       you are really invoking the <methodname>getVersion()</methodname> method
       on the instance of <classname>Model</classname> that is being exposed as
       project.</para>
@@ -133,9 +133,9 @@
 
             <programlisting language="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
-    &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+    &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
     &lt;artifactId&gt;sibling-project&lt;/artifactId&gt;
-    &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;version&gt;\${project.version}&lt;/version&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;</programlisting>
           </listitem>
@@ -153,7 +153,7 @@
             <acronym>POM</acronym> file like this:</para>
 
             <programlisting language="xml">&lt;build&gt;
-  &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+  &lt;finalName&gt;\${project.artifactId}&lt;/finalName&gt;
 &lt;/build&gt;</programlisting>
           </listitem>
         </varlistentry>
@@ -242,7 +242,7 @@
       referenced via
       <methodname>model.getBuild().getOutputDirectory()</methodname>; this
       method call would be translated to the Maven property reference
-      <varname>${project.build.outputDirectory}</varname>.</para>
+      <varname>\${project.build.outputDirectory}</varname>.</para>
 
       <para>For more information about the Maven Model module, the module
       which defines the structure of the <acronym>POM</acronym>, see the Maven
@@ -288,7 +288,7 @@
           <listitem>
             <para>(On *nix systems) this variable points to a user's home
             directory. Instead of referencing this, you should use the
-            ${user.home}</para>
+            \${user.home}</para>
           </listitem>
         </varlistentry>
 
@@ -300,7 +300,7 @@
             either a Java Development Kit (<acronym>JDK</acronym>)
             installation or a Java Runtime Environment
             (<acronym>JRE</acronym>). Instead of using this, you should
-            consider referencing the ${java.home} property.</para>
+            consider referencing the \${java.home} property.</para>
           </listitem>
         </varlistentry>
 
@@ -315,8 +315,8 @@
 
       <para>While they are available, you should always use the Java System
       properties if you have the choice. If you need a user's home directory
-      use <varname>${user.home}</varname> instead of
-      <varname>${env.HOME}</varname>. If you do this, you'll end up with a
+      use <varname>\${user.home}</varname> instead of
+      <varname>\${env.HOME}</varname>. If you do this, you'll end up with a
       more portable build that is more likely to adhere to the
       Write-One-Run-Anywhere (<acronym>WORA</acronym>) promise of the Java
       platform.</para>
@@ -526,7 +526,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
       &lt;artifactId&gt;hibernate&lt;/artifactId&gt;
-      &lt;version&gt;${hibernate.version}&lt;/version&gt;
+      &lt;version&gt;\${hibernate.version}&lt;/version&gt;
     &lt;/dependency&gt;  
   &lt;/dependencies&gt;
   ...
@@ -574,7 +574,7 @@
     <para>You can use Maven to perform variable replacement on project
     resources. When resource filtering is activated, Maven will scan resources
     for references to Maven property references surrounded by
-    <varname>${</varname> and <varname>}</varname>. When it finds these
+    <varname>\${</varname> and <varname>}</varname>. When it finds these
     references it will replace them with the appropriate value in much the
     same way the properties defined in the previous section can be referenced
     from a <acronym>POM</acronym>. This feature is especially helpful when you
@@ -619,10 +619,10 @@
 
     &lt;bean id="dataSource" destroy-method="close" 
              class="org.apache.commons.dbcp.BasicDataSource"&gt;
-        &lt;property name="driverClassName" value="${jdbc.driverClassName}"/&gt;
-        &lt;property name="url" value="${jdbc.url}"/&gt;
-        &lt;property name="username" value="${jdbc.username}"/&gt;
-        &lt;property name="password" value="${jdbc.password}"/&gt;
+        &lt;property name="driverClassName" value="\${jdbc.driverClassName}"/&gt;
+        &lt;property name="url" value="\${jdbc.url}"/&gt;
+        &lt;property name="username" value="\${jdbc.username}"/&gt;
+        &lt;property name="password" value="\${jdbc.password}"/&gt;
     &lt;/bean&gt;
 &lt;/beans&gt;</programlisting>
     </example>

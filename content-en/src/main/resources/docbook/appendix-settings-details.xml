@@ -69,7 +69,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/xsd/settings-1.0.0.xsd"&gt;
-  &lt;localRepository&gt;${user.dir}/.m2/repository&lt;/localRepository&gt;
+  &lt;localRepository&gt;\${user.dir}/.m2/repository&lt;/localRepository&gt;
   &lt;interactiveMode&gt;true&lt;/interactiveMode&gt;
   &lt;usePluginRegistry&gt;false&lt;/usePluginRegistry&gt;
   &lt;offline&gt;false&lt;/offline&gt;
@@ -90,7 +90,7 @@
           <listitem>
             <para>This value is the path of this build system's local
             repository. The default value is
-            <filename>${user.dir}/.m2/repository</filename>.</para>
+            <filename>\${user.dir}/.m2/repository</filename>.</para>
           </listitem>
         </varlistentry>
 
@@ -109,7 +109,7 @@
 
           <listitem>
             <para><varname>true</varname> if Maven should use the
-            <filename>${user.dir}/.m2/plugin-registry.xml</filename> file to
+            <filename>\${user.dir}/.m2/plugin-registry.xml</filename> file to
             manage plugin versions, defaults to
             <varname>false</varname>.</para>
           </listitem>
@@ -165,7 +165,7 @@
       &lt;id&gt;server001&lt;/id&gt;
       &lt;username&gt;my_login&lt;/username&gt;
       &lt;password&gt;my_password&lt;/password&gt;
-      &lt;privateKey&gt;${usr.home}/.ssh/id_dsa&lt;/privateKey&gt;
+      &lt;privateKey&gt;\${user.home}/.ssh/id_dsa&lt;/privateKey&gt;
       &lt;passphrase&gt;some_passphrase&lt;/passphrase&gt;
       &lt;filePermissions&gt;664&lt;/filePermissions&gt;
       &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
@@ -210,7 +210,7 @@
           <listitem>
             <para>Like the previous two elements, this pair specifies a path
             to a private key (default is
-            <filename>${user.home}/.ssh/id_dsa</filename>) and a passphrase,
+            <filename>\${user.home}/.ssh/id_dsa</filename>) and a passphrase,
             if required. The passphrase and password elements may be
             externalized in the future, but for now they must be set
             plain-text in the <filename>settings.xml</filename> file.</para>
@@ -422,8 +422,8 @@
           &lt;value&gt;2.0.3&lt;/value&gt;
         &lt;/property&gt;
         &lt;file&gt;
-          &lt;exists&gt;${basedir}/file2.properties&lt;/exists&gt;
-          &lt;missing&gt;${basedir}/file1.properties&lt;/missing&gt;
+          &lt;exists&gt;\${basedir}/file2.properties&lt;/exists&gt;
+          &lt;missing&gt;\${basedir}/file1.properties&lt;/missing&gt;
         &lt;/file&gt;
       &lt;/activation&gt;
       ...
@@ -463,7 +463,7 @@
 
           <listitem>
             <para>The profile will activate if Maven detects a property (a
-            value which can be dereferenced within the POM by ${name}) of the
+            value which can be dereferenced within the POM by \${name}) of the
             corresponding name=value pair.</para>
           </listitem>
         </varlistentry>
@@ -497,7 +497,7 @@
 
       <para>Maven properties are value placeholder, like properties in Ant.
       Their values are accessible anywhere within a <acronym>POM</acronym> by
-      using the notation <varname>${X}</varname>, where X is the property.
+      using the notation <varname>\${X}</varname>, where X is the property.
       They come in five different styles, all accessible from the settings.xml
       file:</para>
 
@@ -512,7 +512,7 @@
               </indexterm><indexterm>
                 <primary>environment variables, referencing</primary>
               </indexterm>return the shell’s environment variable. For
-            example, <varname>${env.PATH}</varname> contains the
+            example, <varname>\${env.PATH}</varname> contains the
             <varname>$path</varname> environment variable.
             (<varname>%PATH%</varname> in Windows.)</para>
           </listitem>
@@ -565,7 +565,7 @@
               </indexterm>
             <methodname>java.lang.System.getProperties()</methodname> are
             available as <acronym>POM</acronym> properties, such as
-            <varname>${java.home}</varname>.</para>
+            <varname>\${java.home}</varname>.</para>
           </listitem>
         </varlistentry>
 
@@ -575,13 +575,13 @@
           <listitem>
             <para>Set within a <literal>properties</literal> element or an
             external file, the value may be used as <varname
-            role="keep-together">${someVar}</varname>.</para>
+            role="keep-together">\${someVar}</varname>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <para><example>
-          <title>Setting the ${user.install} property in settings.xml</title>
+          <title>Setting the \${user.install} property in settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -592,7 +592,7 @@
     &lt;profile&gt;
       ...
       &lt;properties&gt;
-        &lt;user.install&gt;${user.dir}/our-project&lt;/user.install&gt;
+        &lt;user.install&gt;\${user.dir}/our-project&lt;/user.install&gt;
       &lt;/properties&gt;
       ...
     &lt;/profile&gt;
@@ -602,7 +602,7 @@
 </programlisting>
         </example></para>
 
-      <para>The property <varname>${user.install}</varname> is accessible from
+      <para>The property <varname>\${user.install}</varname> is accessible from
       a <acronym>POM</acronym> if this profile is active.</para>
     </section>
 

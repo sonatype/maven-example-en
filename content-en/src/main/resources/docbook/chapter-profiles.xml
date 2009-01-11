@@ -607,7 +607,7 @@
       <para>Note the exclamation point prefixing the property name. The
       exclamation point is often referred to as the "bang" character and
       signifies "not". This profile is activated when no
-      <varname>${environment.type}</varname> property is set.</para>
+      <varname>\${environment.type}</varname> property is set.</para>
     </section>
   </section>
 
@@ -617,7 +617,7 @@
     <para>Maven profiles can be defined in either
     <filename>pom.xml</filename>, <filename>profiles.xml</filename>,
     <filename>~/.m2/settings.xml</filename>, or
-    <filename>${M2_HOME}/conf/settings.xml</filename>. With these four levels,
+    <filename>\${M2_HOME}/conf/settings.xml</filename>. With these four levels,
     there's no good way of keeping track of profiles available to a particular
     project without remembering which profiles are defined in these four
     files. To make it easier to keep track of which profiles are available,
@@ -921,7 +921,7 @@ The following profiles are active:
       &lt;plugin&gt;
         &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
-          &lt;classifier&gt;${envClassifier}&lt;/classifier&gt;
+          &lt;classifier&gt;\${envClassifier}&lt;/classifier&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -963,7 +963,7 @@ The following profiles are active:
       <varname>envClassifier</varname> is then referenced in the default
       <filename>pom.xml</filename> <sgmltag>build</sgmltag> element to add a
       classifier to the project's JAR artifact. The JAR artifact will be named
-      <code>${finalName}-${envClassifier}.jar</code> and included as a
+      <code>\${finalName}-\${envClassifier}.jar</code> and included as a
       dependency using the following dependency syntax:</para>
 
       <para><example>

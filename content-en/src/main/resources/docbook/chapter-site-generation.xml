@@ -157,10 +157,10 @@ $ <command>mvn site:run</command>
 
     <para>This site descriptor references one image. This
     <filename>logo.png</filename> image should be placed in
-    <filename>${basedir}/src/site/resources/images</filename>. In addition to
+    <filename>\${basedir}/src/site/resources/images</filename>. In addition to
     the change to the site descriptor, you'll want to create a simple
     <filename>index.apt</filename> page in
-    <filename>${basedir}/src/site/apt</filename>. Put the following content in
+    <filename>\${basedir}/src/site/apt</filename>. Put the following content in
     <filename>index.apt</filename>, it will be transformed to the
     <filename>index.html</filename> and serve as the first page a user sees
     when they come to your project's Maven-generated web site.</para>
@@ -239,7 +239,7 @@ $ mvn site:run</screen>
       site with <filename>banner-left.png</filename> in the left-hand corner
       of the page and banner-right in the right-hand corner of the page. Maven
       is going to look in
-      <filename>${basedir}/src/site/resources/images</filename> for these
+      <filename>\${basedir}/src/site/resources/images</filename> for these
       images.</para>
     </section>
 
@@ -842,7 +842,7 @@ Welcome to Sample Project
       <screen>  &lt;head&gt;
     ...
     &lt;meta http-equiv="Content-Type" 
-             content="text/html; charset=${outputEncoding}" /&gt;
+             content="text/html; charset=\${outputEncoding}" /&gt;
     ...
   &lt;/head&gt;
 </screen>
@@ -852,7 +852,7 @@ Welcome to Sample Project
       <screen>  &lt;head&gt;
     ...
     &lt;meta http-equiv="Content-Type" 
-             content="text/html; charset=${outputEncoding}" /&gt;
+             content="text/html; charset=\${outputEncoding}" /&gt;
     &lt;script type="text/javascript"&gt;
       function expand( item ) {
         var expandIt = document.getElementById( item );

@@ -323,9 +323,9 @@
       &lt;/parameters&gt;
       &lt;configuration&gt;
         &lt;buildDirectory implementation="java.io.File"&gt;
-          ${project.build.directory}&lt;/buildDirectory&gt;
+          \${project.build.directory}&lt;/buildDirectory&gt;
         &lt;baseDirectory implementation="java.io.File"&gt;
-          ${basedir}&lt;/baseDirectory&gt;
+          \${basedir}&lt;/baseDirectory&gt;
       &lt;/configuration&gt;
       &lt;requirements&gt;
         &lt;requirement&gt;
@@ -657,7 +657,7 @@
                   cannot be set in the <acronym>POM</acronym>. For example, if
                   the plugin descriptor defines the value of
                   <varname>buildDirectory</varname> to be
-                  <varname>${basedir}</varname> in the descriptor, a
+                  <varname>\${basedir}</varname> in the descriptor, a
                   <acronym>POM</acronym> cannot override this value to be
                   another value in a <acronym>POM</acronym>.</para>
                 </listitem>
@@ -885,7 +885,7 @@ public class EchoMojo extends AbstractMojo
 {
     /**
      * Any Object to print out.
-     * @parameter expression="${echo.message}" default-value="Hello World..."
+     * @parameter expression="\${echo.message}" default-value="Hello World..."
      */
     private Object message;
 
@@ -898,7 +898,7 @@ public class EchoMojo extends AbstractMojo
 </programlisting>
       </example>
 
-      <para>If you create this Mojo in <varname>${basedir}</varname> under
+      <para>If you create this Mojo in <varname>\${basedir}</varname> under
       <filename>src/main/java</filename> in
       <filename>org/sonatype/mavenbook/mojo/EchoMojo.java</filename> in the
       project created in the previous section and run <command>mvn
@@ -1042,11 +1042,11 @@ public class EchoMojo extends AbstractMojo
 
       <itemizedlist>
         <listitem>
-          <para><varname>${prefix}-maven-plugin</varname>, OR</para>
+          <para><varname>\${prefix}-maven-plugin</varname>, OR</para>
         </listitem>
 
         <listitem>
-          <para><varname>maven-${prefix}-plugin</varname></para>
+          <para><varname>maven-\${prefix}-plugin</varname></para>
         </listitem>
       </itemizedlist>
 
@@ -1299,7 +1299,7 @@ public class EchoMojo extends AbstractMojo
               phase is supplied, Maven will execute a parallel lifecycle
               ending in the specified phase. The results of this separate
               execution will be made available in the Maven property
-              <varname>${executedProperty}</varname>.</para>
+              <varname>\${executedProperty}</varname>.</para>
 
               <para>The second way of using this annotation is to specify an
               explicit goal using the <varname>prefix:goal</varname> notation.
@@ -1420,14 +1420,14 @@ public class EchoMojo extends AbstractMojo
       <programlisting language="java">/**
  * Any Object to print out.
  * @parameter
- *       expression="${echo.message}"
+ *       expression="\${echo.message}"
  *       default-value="Hello Maven World"
  */
 private Object message;
 </programlisting>
 
       <para>The default expression for this parameter is
-      <varname>${echo.message}</varname>, this means that Maven will try to
+      <varname>\${echo.message}</varname>, this means that Maven will try to
       use the value of the <varname>echo.message</varname> property to set the
       value for message. If the value of the <varname>echo.message</varname>
       property is null, the default-value attribute of the
@@ -1510,7 +1510,7 @@ private Object message;
               &lt;goal&gt;echo&lt;/goal&gt;
             &lt;/goals&gt;
             &lt;configuration&gt;
-              &lt;message&gt;${project.version}&lt;/message&gt;
+              &lt;message&gt;\${project.version}&lt;/message&gt;
             &lt;/configuration&gt;
           &lt;/execution&gt;
         &lt;/executions&gt;
@@ -1527,7 +1527,7 @@ private Object message;
       <varname>generate-resources</varname>, it supplies a string value to the
       message parameter of "The Eagle has Landed!". The second execution is
       bound to the <varname>validate</varname> phase, it supplies a property
-      reference to <varname>${project.version}</varname>. When you run
+      reference to <varname>\${project.version}</varname>. When you run
       <command>mvn install</command> for his project, you'll see that the
       <varname>first:echo</varname> goal executes twice and prints out two
       different messages.</para>
@@ -1559,19 +1559,19 @@ public class ZipMojo extends AbstractMojo
     /**
      * The Zip archiver.
      * @parameter \
-         expression="${component.org.codehaus.plexus.archiver.Archiver#zip}"
+         expression="\${component.org.codehaus.plexus.archiver.Archiver#zip}"
      */
     private ZipArchiver zipArchiver;
 
     /**
      * Directory containing the build files.
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="\${project.build.directory}"
      */
     private File buildDirectory;
 
     /**
      * Base directory of the project.
-     * @parameter expression="${basedir}"
+     * @parameter expression="\${basedir}"
      */
     private File baseDirectory;
 
@@ -1686,7 +1686,7 @@ private ZipArchiver zipArchiver;</programlisting>
       <variablelist>
         <varlistentry>
           <term>@parameter [alias="someAlias"]
-          [expression="${someExpression}"] [default-value="value"]</term>
+          [expression="\${someExpression}"] [default-value="value"]</term>
 
           <listitem>
             <para>Marks a private field (or a setter method) as a parameter.
@@ -1695,7 +1695,7 @@ private ZipArchiver zipArchiver;</programlisting>
             the variable as the parameter name. The
             <varname>expression</varname> is an expression that Maven will
             evaluate to obtain a value. Usually the expression is a property
-            reference like <varname>${echo.message}</varname>.
+            reference like <varname>\${echo.message}</varname>.
             <varname>default-value</varname> is the value that this Mojo will
             use if no value can be derived from the expression or if a value
             was not explicitly supplied via plugin configuration in a
@@ -1724,7 +1724,7 @@ private ZipArchiver zipArchiver;</programlisting>
             parameter annotation. For example, if you wanted to make sure that
             a particular parameter always had the value of the
             <varname>finalName</varname> <acronym>POM</acronym> property, you
-            would list an expression of <varname>${build.finalName}</varname>
+            would list an expression of <varname>\${build.finalName}</varname>
             and then add the <classname>@readOnly</classname> annotation. If
             this were the case, the user could only change the value of this
             parameter by changing the value of <varname>finalName</varname> in
@@ -1750,7 +1750,7 @@ private ZipArchiver zipArchiver;</programlisting>
             component, you could also use the @parameter annotation with an
             expression attribute of:</para>
 
-            <programlisting language="java">@parameter expression="${component.org.codehaus.plexus.archiver.Archiver#zip}"
+            <programlisting language="java">@parameter expression="\${component.org.codehaus.plexus.archiver.Archiver#zip}"
 </programlisting>
 
             <para>While the two annotations are effectively the same, the
@@ -1799,7 +1799,7 @@ private ZipArchiver zipArchiver;</programlisting>
       <classname>CustomMojo</classname>, you'd like it to execute the default
       lifecycle up to the install phase and then expose the results of that
       project to your Mojo as the property
-      <varname>${executedProject}</varname>. You could then reference
+      <varname>\${executedProject}</varname>. You could then reference
       properties in that project to before some sort of post
       processing.</para>
 

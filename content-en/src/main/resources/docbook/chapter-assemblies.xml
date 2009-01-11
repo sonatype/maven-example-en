@@ -999,9 +999,9 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       exclude patterns. Additionally, you can set the
       <sgmltag>filtering</sgmltag> flag to true if you want to substitute
       property values for expressions within the included files. Expressions
-      can be delimited either by <varname>${</varname> and
+      can be delimited either by <varname>\${</varname> and
       <varname>}</varname> (standard Maven expressions like
-      <varname>${project.groupId}</varname>) or by <varname>@</varname> and
+      <varname>\${project.groupId}</varname>) or by <varname>@</varname> and
       <varname>@</varname> (standard Ant expressions like
       <varname>@project.groupId@</varname>). You can adjust the line ending of
       your files using the <sgmltag>lineEnding</sgmltag> element; valid values
@@ -1223,7 +1223,7 @@ I can add this back in later.  I didn't want to talk about it without an example
   ...
   &lt;dependencySets&gt;
     &lt;dependencySet&gt;
-      &lt;outputDirectory&gt;${artifact.groupId}&lt;/outputDirectory&gt;
+      &lt;outputDirectory&gt;\${artifact.groupId}&lt;/outputDirectory&gt;
     &lt;/dependencySet&gt;
   &lt;/dependencySets&gt;
   ...
@@ -1242,9 +1242,9 @@ I can add this back in later.  I didn't want to talk about it without an example
   ...
   &lt;dependencySets&gt;
     &lt;dependencySet&gt;
-      &lt;outputDirectory&gt;${artifact.groupId}&lt;/outputDirectory&gt;
+      &lt;outputDirectory&gt;\${artifact.groupId}&lt;/outputDirectory&gt;
       &lt;outputFileNameMapping&gt;
-        ${artifact.artifactId}.${artifact.extension} 
+        \${artifact.artifactId}.\${artifact.extension} 
       &lt;/outputFileNameMapping&gt;
     &lt;/dependencySet&gt;
   &lt;/dependencySets&gt;
@@ -1267,8 +1267,8 @@ I can add this back in later.  I didn't want to talk about it without an example
 
         <para>The artifact expressions available for these two elements vary
         only slightly. In both cases, all of the
-        <varname>${project.*}</varname>, <varname>${pom.*}</varname>, and
-        <varname>${*}</varname> expressions that are available in the
+        <varname>\${project.*}</varname>, <varname>\${pom.*}</varname>, and
+        <varname>\${*}</varname> expressions that are available in the
         <acronym>POM</acronym> and the rest of the assembly descriptor are
         also available here. For the <sgmltag>outputFileNameMapping</sgmltag>
         element, the following process is applied to resolve
@@ -1277,7 +1277,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         <orderedlist>
           <listitem>
             <para>If the expression matches the pattern
-            <varname>${artifact.*}</varname>:</para>
+            <varname>\${artifact.*}</varname>:</para>
 
             <orderedlist numeration="loweralpha">
               <listitem>
@@ -1304,8 +1304,8 @@ I can add this back in later.  I didn't want to talk about it without an example
 
           <listitem>
             <para>If the expression matches the patterns
-            <varname>${pom.*}</varname> or
-            <varname>${project.*}</varname>:</para>
+            <varname>\${pom.*}</varname> or
+            <varname>\${project.*}</varname>:</para>
 
             <orderedlist numeration="loweralpha">
               <listitem>
@@ -1318,7 +1318,7 @@ I can add this back in later.  I didn't want to talk about it without an example
 
           <listitem>
             <para>If the expression matches the pattern
-            <varname>${dashClassifier?}</varname> and the Artifact instance
+            <varname>\${dashClassifier?}</varname> and the Artifact instance
             contains a non-null classifier, resolve to the classifier preceded
             by a dash (-classifier). Otherwise, resolve to an empty
             string.</para>
@@ -1347,8 +1347,8 @@ I can add this back in later.  I didn't want to talk about it without an example
 
         <para>The <sgmltag>outputDirectory</sgmltag> value is interpolated in
         much the same way, with the difference being that there is no
-        available <varname>${artifact.*}</varname> information, only the
-        <varname>${project.*}</varname> instance for the particular artifact.
+        available <varname>\${artifact.*}</varname> information, only the
+        <varname>\${project.*}</varname> instance for the particular artifact.
         Therefore, the expressions listed above associated with those classes
         (1a, 1b, and 3 in the process listing above) are unavailable.</para>
 
@@ -1365,7 +1365,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         <para>When <sgmltag>outputDirectory</sgmltag> is missing, it is not
         used. When <sgmltag>outputFileNameMapping</sgmltag> is missing, its
         default value is:
-        <code>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</code></para>
+        <code>\${artifact.artifactId}-\${artifact.version}\${dashClassifier?}.\${artifact.extension}</code></para>
       </section>
 
       <section id="assemblies-sect-include-by-scope">
@@ -1420,12 +1420,12 @@ I can add this back in later.  I didn't want to talk about it without an example
   &lt;dependencySets&gt;
     &lt;dependencySet&gt;
       &lt;scope&gt;provided&lt;/scope&gt;
-      &lt;outputDirectory&gt;lib/${project.artifactId}&lt;/outputDirectory&gt;
+      &lt;outputDirectory&gt;lib/\${project.artifactId}&lt;/outputDirectory&gt;
     &lt;/dependencySet&gt;
     &lt;dependencySet&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
       &lt;outputDirectory&gt;
-        webapps/${webContextName}/WEB-INF/lib
+        webapps/\${webContextName}/WEB-INF/lib
       &lt;/outputDirectory&gt;
     &lt;/dependencySet&gt;
   &lt;/dependencySets&gt;
@@ -1570,12 +1570,12 @@ I can add this back in later.  I didn't want to talk about it without an example
   &lt;dependencySets&gt;
     &lt;dependencySet&gt;
       &lt;scope&gt;provided&lt;/scope&gt;
-      &lt;outputDirectory&gt;lib/${project.artifactId}&lt;/outputDirectory&gt;
+      &lt;outputDirectory&gt;lib/\${project.artifactId}&lt;/outputDirectory&gt;
     &lt;/dependencySet&gt;
     &lt;dependencySet&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
       &lt;outputDirectory&gt;
-        webapps/${webContextName}/WEB-INF/lib
+        webapps/\${webContextName}/WEB-INF/lib
       &lt;/outputDirectory&gt;
       &lt;excludes&gt;
         &lt;exclude&gt;*:zip&lt;/exclude&gt;
@@ -1584,7 +1584,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     &lt;dependencySet&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
       &lt;outputDirectory&gt;
-        webapps/${webContextName}/resources
+        webapps/\${webContextName}/resources
       &lt;/outputDirectory&gt;
       &lt;includes&gt;
         &lt;include&gt;*:zip&lt;/include&gt;
@@ -1772,7 +1772,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     &lt;dependencySet&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
       &lt;outputDirectory&gt;
-        webapps/${webContextName}/resources
+        webapps/\${webContextName}/resources
       &lt;/outputDirectory&gt;
       &lt;includes&gt;
         &lt;include&gt;*:zip&lt;/include&gt;
@@ -1809,7 +1809,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         whose default value is <varname>false</varname>. Again, this should be
         familiar from our discussion of file sets above. In both cases,
         expressions using either the Maven syntax of
-        <varname>${property}</varname> or the Ant syntax of
+        <varname>\${property}</varname> or the Ant syntax of
         <varname>@property@</varname> are supported. Filtering is a
         particularly nice feature to have for dependency sets, though, since
         it effectively allows you to create standardized, versioned resource
@@ -1935,7 +1935,7 @@ I can add this back in later.  I didn't want to talk about it without an example
         contains secret and sensitive code that you don't want to distribute
         with your project. The simplest way to accomplish this is to use a
         <sgmltag>moduleSet</sgmltag> which includes each project's directory
-        in <varname>${module.basedir.name}</varname> and which excludes the
+        in <varname>\${module.basedir.name}</varname> and which excludes the
         <varname>secret-sauce</varname> module from the assembly.</para>
 
         <example id="ex-include-exclude-moduleSet">
@@ -1954,7 +1954,7 @@ I can add this back in later.  I didn't want to talk about it without an example
       &lt;/excludes&gt;
       &lt;sources&gt;
         &lt;outputDirectoryMapping&gt;
-          ${module.basedir.name}
+          \${module.basedir.name}
         &lt;/outputDirectoryMapping&gt;
         &lt;excludeSubModuleDirectories&gt;
           false
@@ -1990,9 +1990,9 @@ I can add this back in later.  I didn't want to talk about it without an example
         subdirectory named after the module’s <varname>artifactId</varname>.
         However, since Maven allows modules that are not in directories named
         after the module project’s <varname>artifactId</varname>, it’s often
-        better to use the expression <varname>${module.basedir.name}</varname>
+        better to use the expression <varname>\${module.basedir.name}</varname>
         to preserve the module directory’s actual name
-        (<varname>${module.basedir.name}</varname> is the same as calling
+        (<varname>\${module.basedir.name}</varname> is the same as calling
         <methodname>MavenProject.getBasedir().getName()</methodname>). It is
         critical to remember that modules are not required to be
         subdirectories of the project that declares them. If your project has
@@ -2043,12 +2043,12 @@ I can add this back in later.  I didn't want to talk about it without an example
         <xref linkend="assemblies-sect-output-algorithm" />).</para>
 
         <para>In <xref linkend="ex-include-exclude-moduleSet" />, we used the
-        expression <varname>${module.basedir.name}</varname>. You might notice
+        expression <varname>\${module.basedir.name}</varname>. You might notice
         that the root of that expression, <varname>module</varname>, is not
         listed in the mapping-resolution algorithm from the dependency sets
         section; this object root is specific to configurations within
         <sgmltag>moduleSets</sgmltag>. It works in exactly the same way as the
-        <varname>${artifact.*}</varname> references available in the
+        <varname>\${artifact.*}</varname> references available in the
         <sgmltag>outputFileNameMapping</sgmltag> element, except it is applied
         to the module’s <classname>MavenProject</classname>,
         <classname>Artifact</classname>, and
@@ -2129,10 +2129,10 @@ I can add this back in later.  I didn't want to talk about it without an example
         expression-resolution algorithm discussed for the
         <sgmltag>outputDirectoryMapping</sgmltag> element of the sources
         section also applies here. That is, whatever was available as
-        <varname>${artifact.*}</varname> inside a
+        <varname>\${artifact.*}</varname> inside a
         <sgmltag>dependencySet</sgmltag>’s
         <sgmltag>outputFileNameMapping</sgmltag> configuration is also
-        available here as <varname>${module.*}</varname>. The same applies for
+        available here as <varname>\${module.*}</varname>. The same applies for
         <sgmltag>outputFileNameMapping</sgmltag> when used directly within a
         <sgmltag>binaries</sgmltag> section.</para>
 
@@ -2154,7 +2154,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     &lt;moduleSet&gt;
       &lt;binaries&gt;
         &lt;outputDirectory&gt;
-          ${module.artifactId}-${module.version}
+          \${module.artifactId}-\${module.version}
         &lt;/outputDirectory&gt;
         &lt;dependencySets&gt;
           &lt;dependencySet/&gt;
@@ -2300,11 +2300,11 @@ doesn't make sense to new users.-->
       root directory regardless of the <acronym>POM</acronym>’s version or
       other information. By default, the <sgmltag>baseDirectory</sgmltag>
       element has a value equal to
-      <varname>${project.artifactId}-${project.version}</varname>. However, we
+      <varname>\${project.artifactId}-\${project.version}</varname>. However, we
       can easily set this element to any value that consists of literal
       strings and expressions which can be interpolated from the current
       <acronym>POM</acronym>, such as
-      <varname>${project.groupId}-${project.artifactId}</varname>. This could
+      <varname>\${project.groupId}-\${project.artifactId}</varname>. This could
       be very good news for your documentation team! (We all have those,
       right?)</para>
 

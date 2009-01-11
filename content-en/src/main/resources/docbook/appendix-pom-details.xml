@@ -423,7 +423,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
             Otherwise, the build will fail if this element is set. The path
             must be absolute, so it is recommended to use a property to
             specify the machine-specific path (more on properties below), such
-            as ${java.home}/lib. Since it is assumed that system scope
+            as \${java.home}/lib. Since it is assumed that system scope
             dependencies are installed a priori, Maven will not check the
             repositories for the project, but instead checks to ensure that
             the file exists. If not, Maven will fail the build and suggest
@@ -640,7 +640,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
   &lt;build&gt;
     &lt;directory&gt;target&lt;/directory&gt;
     &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
-    &lt;finalName&gt;${artifactId}-${version}&lt;/finalName&gt;
+    &lt;finalName&gt;\${artifactId}-\${version}&lt;/finalName&gt;
     &lt;testOutputDirectory&gt;target/test-classes&lt;/testOutputDirectory&gt;
     &lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
     &lt;scriptSourceDirectory&gt;src/main/scripts&lt;/scriptSourceDirectory&gt;
@@ -874,8 +874,8 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
           <programlisting language="xml">
 &lt;build&gt;
   &lt;defaultGoal&gt;install&lt;/defaultGoal&gt;
-  &lt;directory&gt;${basedir}/target&lt;/directory&gt;
-  &lt;finalName&gt;${artifactId}-${version}&lt;/finalName&gt;
+  &lt;directory&gt;\${basedir}/target&lt;/directory&gt;
+  &lt;finalName&gt;\${artifactId}-\${version}&lt;/finalName&gt;
   &lt;filters&gt;
     &lt;filter&gt;filters/filter1.properties&lt;/filter&gt;
   &lt;/filters&gt;
@@ -902,7 +902,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
             <listitem>
               <para>This is the directory where the build will dump its files
               or, in Maven parlance, the build's target. It aptly defaults to
-              ${basedir}/target. </para>
+              \${basedir}/target. </para>
             </listitem>
           </varlistentry>
 
@@ -912,7 +912,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
             <listitem>
               <para>This is the name of the bundled project when it is finally
               built (sans the file extension, for example:
-              my-project-1.0.jar). It defaults to ${artifactId}-${version}.
+              my-project-1.0.jar). It defaults to \${artifactId}-\${version}.
               The term "finalName" is kind of a misnomer, however, as plugins
               that build the bundled project have every right to ignore/modify
               this name (but they usually do not). For example, if the
@@ -963,7 +963,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       &lt;resource&gt;
         &lt;targetPath&gt;META-INF/plexus&lt;/targetPath&gt;
         &lt;filtering&gt;false&lt;/filtering&gt;
-        &lt;directory&gt;${basedir}/src/main/plexus&lt;/directory&gt;
+        &lt;directory&gt;\${basedir}/src/main/plexus&lt;/directory&gt;
         &lt;includes&gt;
           &lt;include&gt;configuration.xml&lt;/include&gt;
         &lt;/includes&gt;
@@ -1011,7 +1011,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
                 for this resource. Note, that filter *.properties files do not
                 have to be defined for filtering to occur  resources can also
                 use properties that are by default defined in the POM (such as
-                ${project.version}), passed into the command line using the
+                \${project.version}), passed into the command line using the
                 "-D" flag (for example, "-Dname=value") or are explicitly
                 defined by the properties element. Filter files were covered
                 above.</para>
@@ -1024,7 +1024,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
               <listitem>
                 <para>This element's value defines where the resources are to
                 be found. The default directory for a build is
-                ${basedir}/src/main/resources.</para>
+                \${basedir}/src/main/resources.</para>
               </listitem>
             </varlistentry>
 
@@ -1190,7 +1190,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
             &lt;inherited&gt;false&lt;/inherited&gt;
             &lt;configuration&gt;
               &lt;tasks&gt;
-                &lt;echo&gt;Build Dir: ${project.build.directory}&lt;/echo&gt;
+                &lt;echo&gt;Build Dir: \${project.build.directory}&lt;/echo&gt;
               &lt;/tasks&gt;
             &lt;/configuration&gt;
           &lt;/execution&gt;
@@ -1353,11 +1353,11 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
 
             <programlisting language="xml">&lt;project&gt;
   &lt;build&gt;
-    &lt;sourceDirectory&gt;${basedir}/src/main/java&lt;/sourceDirectory&gt;
-    &lt;scriptSourceDirectory&gt;${basedir}/src/main/scripts&lt;/scriptSourceDirectory&gt;
-    &lt;testSourceDirectory&gt;${basedir}/src/test/java&lt;/testSourceDirectory&gt;
-    &lt;outputDirectory&gt;${basedir}/target/classes&lt;/outputDirectory&gt;
-    &lt;testOutputDirectory&gt;${basedir}/target/test-classes&lt;/testOutputDirectory&gt;
+    &lt;sourceDirectory&gt;\${basedir}/src/main/java&lt;/sourceDirectory&gt;
+    &lt;scriptSourceDirectory&gt;\${basedir}/src/main/scripts&lt;/scriptSourceDirectory&gt;
+    &lt;testSourceDirectory&gt;\${basedir}/src/test/java&lt;/testSourceDirectory&gt;
+    &lt;outputDirectory&gt;\${basedir}/target/classes&lt;/outputDirectory&gt;
+    &lt;testOutputDirectory&gt;\${basedir}/target/test-classes&lt;/testOutputDirectory&gt;
     ...
   &lt;/build&gt;
 &lt;/project&gt;
@@ -1438,7 +1438,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
   &lt;reporting&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
-        &lt;outputDirectory&gt;${basedir}/target/site&lt;/outputDirectory&gt;
+        &lt;outputDirectory&gt;\${basedir}/target/site&lt;/outputDirectory&gt;
         &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
         &lt;reportSets&gt;
           &lt;reportSet&gt;&lt;/reportSet&gt;
@@ -1452,7 +1452,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
       </example></para>
 
     <para>The other difference is the outputDirectory element under plugin. In
-    the case of reporting, the output directory is ${basedir}/target/site by
+    the case of reporting, the output directory is \${basedir}/target/site by
     default.</para>
 
     <para>It is important to keep in mind that an individual plugin may have
@@ -2345,8 +2345,8 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
           &lt;value&gt;2.0.3&lt;/value&gt;
         &lt;/property&gt;
         &lt;file&gt;
-          &lt;exists&gt;${basedir}/file2.properties&lt;/exists&gt;
-          &lt;missing&gt;${basedir}/file1.properties&lt;/missing&gt;
+          &lt;exists&gt;\${basedir}/file2.properties&lt;/exists&gt;
+          &lt;missing&gt;\${basedir}/file1.properties&lt;/missing&gt;
         &lt;/file&gt;
       &lt;/activation&gt;
       ...
@@ -2385,7 +2385,7 @@ mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -Dartifa
 
           <listitem>
             <para>The profile will activate if Maven detects a property (a
-            value which can be dereferenced within the POM by ${name}) of the
+            value which can be dereferenced within the POM by \${name}) of the
             corresponding name=value pair.</para>
           </listitem>
         </varlistentry>

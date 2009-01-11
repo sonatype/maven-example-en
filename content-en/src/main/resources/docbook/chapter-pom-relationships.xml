@@ -190,7 +190,7 @@
       which defines a set of defaults shared by all projects. This Super
       <acronym>POM</acronym> is a part of the Maven installation, and can be
       found in the <filename>maven-2.0.9-uber.jar</filename> file in
-      <filename>${M2_HOME}/lib</filename>. If you look in this
+      <filename>\${M2_HOME}/lib</filename>. If you look in this
       <acronym>JAR</acronym> file, you will find a file named
       <filename>pom-4.0.0.xml</filename> under the
       <package>org.apache.maven.project</package> package. The Super
@@ -236,7 +236,7 @@
   &lt;build&gt; <co id="coDef-super-3" linkends="coRef-super-3" />
     &lt;directory&gt;target&lt;/directory&gt;
     &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
-    &lt;finalName&gt;${pom.artifactId}-${pom.version}&lt;/finalName&gt;
+    &lt;finalName&gt;\${pom.artifactId}-\${pom.version}&lt;/finalName&gt;
     &lt;testOutputDirectory&gt;target/test-classes&lt;/testOutputDirectory&gt;
     &lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
     &lt;scriptSourceDirectory&gt;src/main/scripts&lt;/scriptSourceDirectory&gt;
@@ -691,7 +691,7 @@
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;build&gt;
-    &lt;finalName&gt;${project.groupId}-${project.artifactId}&lt;/finalName&gt;
+    &lt;finalName&gt;\${project.groupId}-\${project.artifactId}&lt;/finalName&gt;
   &lt;/build&gt;
 &lt;/project&gt;</programlisting>
 
@@ -709,7 +709,7 @@
       <acronym>XML</acronym>. Maven properties occur frequently in advanced
       Maven usage, and are similar to properties in other systems such as Ant
       or Velocity. They are simply variables delimited by
-      <varname>${...}</varname>. Maven provides three implicit variables which
+      <varname>\${...}</varname>. Maven provides three implicit variables which
       can be used to access environment variables, <acronym>POM</acronym>
       information, and Maven Settings:</para>
 
@@ -724,9 +724,9 @@
               </indexterm><indexterm>
                 <primary>implicit variables, list of</primary>
               </indexterm>variables exposed by your operating system or shell.
-            For example, a reference to <varname>${env.PATH}</varname> in a
+            For example, a reference to <varname>\${env.PATH}</varname> in a
             Maven <acronym>POM</acronym> would be replaced by the
-            <varname>${PATH}</varname> environment variable (or
+            <varname>\${PATH}</varname> environment variable (or
             <varname>%PATH%</varname> in Windows).</para>
           </listitem>
         </varlistentry>
@@ -744,7 +744,7 @@
             <varname>groupId</varname> and <varname>artifactId</varname> to
             set the <sgmltag>finalName</sgmltag> element in the build
             configuration. The syntax for this property reference was:
-            <code>${project.groupId}-${project.</code><code>artifactId}</code>.</para>
+            <code>\${project.groupId}-\${project.</code><code>artifactId}</code>.</para>
           </listitem>
         </varlistentry>
 
@@ -758,7 +758,7 @@
               </indexterm>settings information. You can use a dot-notated (.)
             path to reference the value of an element in a <filename
             moreinfo="none">settings.xml</filename> file. For example,
-            <varname>${settings.offline}</varname> would reference the value
+            <varname>\${settings.offline}</varname> would reference the value
             of the <sgmltag>offline</sgmltag> element in <filename
             moreinfo="none">~/.m2/settings.xml</filename>.</para>
           </listitem>
@@ -766,10 +766,10 @@
       </variablelist>
 
       <note>
-        <para>You may see older builds that use <varname>${pom.xxx}</varname>
-        or just <varname>${xxx}</varname> to reference <acronym>POM</acronym>
+        <para>You may see older builds that use <varname>\${pom.xxx}</varname>
+        or just <varname>\${xxx}</varname> to reference <acronym>POM</acronym>
         properties. These methods have been deprecated and only
-        <varname>${project.xxx}</varname> should be used.</para>
+        <varname>\${project.xxx}</varname> should be used.</para>
       </note>
 
       <para>In addition to the three implicit variables, you can reference
@@ -788,10 +788,10 @@
               </indexterm> <methodname>getProperties()</methodname> on
             <classname>java.lang.System</classname> are exposed as
             <acronym>POM</acronym> properties. Some examples of system
-            properties are: <varname>${user.name}</varname>, <varname
-            role="keep-together">${user.home}</varname>,
-            <varname>${java.home}</varname>, and
-            <varname>${os.name}</varname>. A full list of system properties
+            properties are: <varname>\${user.name}</varname>, <varname
+            role="keep-together">\${user.home}</varname>,
+            <varname>\${java.home}</varname>, and
+            <varname>\${os.name}</varname>. A full list of system properties
             can be found in the Javadoc for the
             <classname>java.lang.System</classname> class.</para>
           </listitem>
@@ -809,10 +809,10 @@
             properties can be loaded from external files. If you set a
             property named <varname>fooBar</varname> in your <filename
             moreinfo="none">pom.xml</filename>, that same property is
-            referenced with <varname>${fooBar}</varname>. Custom properties
+            referenced with <varname>\${fooBar}</varname>. Custom properties
             come in handy when you are building a system that filters
             resources and targets different deployment platforms. Here is the
-            syntax for setting <literal>${foo}=bar</literal> in a
+            syntax for setting <literal>\${foo}=bar</literal> in a
             <acronym>POM</acronym>:</para>
 
             <programlisting language="xml">&lt;properties&gt;
@@ -1997,22 +1997,22 @@ top-group/project-c/pom.xml</programlisting>
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
       &lt;artifactId&gt;hibernate&lt;/artifactId&gt;
-      &lt;version&gt;${hibernateVersion}&lt;/version&gt;
+      &lt;version&gt;\${hibernateVersion}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
       &lt;artifactId&gt;hibernate-annotations&lt;/artifactId&gt;
-      &lt;version&gt;${hibernateAnnotationsVersion}&lt;/version&gt;
+      &lt;version&gt;\${hibernateAnnotationsVersion}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.springframework&lt;/groupId&gt;
       &lt;artifactId&gt;spring-hibernate3&lt;/artifactId&gt;
-      &lt;version&gt;${springVersion}&lt;/version&gt;
+      &lt;version&gt;\${springVersion}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;mysql&lt;/groupId&gt;
       &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-      &lt;version&gt;${mysqlVersion}&lt;/version&gt;
+      &lt;version&gt;\${mysqlVersion}&lt;/version&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
   &lt;properties&gt;

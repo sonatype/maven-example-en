@@ -350,12 +350,12 @@
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
       &lt;artifactId&gt;hibernate-annotations&lt;/artifactId&gt;
-      &lt;version&gt;${hibernate.annotations.version}&lt;/version&gt;
+      &lt;version&gt;\${hibernate.annotations.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
       &lt;artifactId&gt;hibernate-commons-annotations&lt;/artifactId&gt;
-      &lt;version&gt;${hibernate.annotations.version}&lt;/version&gt;
+      &lt;version&gt;\${hibernate.annotations.version}&lt;/version&gt;
     &lt;/dependency&gt;
     ...
   &lt;/dependencyManagement&gt;
@@ -384,14 +384,14 @@
       </indexterm> and define the versions of sibling projects in the
     top-level parent project. This is certainly a valid approach, but we can
     also solve the version problem just by using two built-in
-    properties—<varname>${project.groupId}</varname> and
-    <varname>${project.version}</varname>. Since they are sibling
+    properties—<varname>\${project.groupId}</varname> and
+    <varname>\${project.version}</varname>. Since they are sibling
     dependencies, there is not much value to be gained by enumerating them in
     the parent, so we’ll rely on the built-in
-    <varname>${project.version}</varname> property. Because they all share the
+    <varname>\${project.version}</varname> property. Because they all share the
     same group, we can further future-proof these declarations by referring to
     the current <acronym>POM</acronym>’s group using the built-in
-    <varname>${project.groupId}</varname> property. The
+    <varname>\${project.groupId}</varname> property. The
     <varname>simple-command</varname> <phrase
     role="keep-together">dependency</phrase> section now looks like
     this:</para>
@@ -401,14 +401,14 @@
   &lt;dependencies&gt;
     ...
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-persist&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     ...
   &lt;/dependencies&gt;
@@ -441,10 +441,10 @@
 
         <listitem>
           <para>Use $<varname>{project.version}</varname> and
-          <varname>${project.groupId}</varname> when referring to a sibling
+          <varname>\${project.groupId}</varname> when referring to a sibling
           project. Sibling projects almost always share the same
           <literal>groupId</literal>, and they almost always share the same
-          release version. Using <varname>${project.version}</varname> will
+          release version. Using <varname>\${project.version}</varname> will
           help you avoid the <indexterm class="endofrange"
           startref="optref2a"></indexterm><indexterm class="endofrange"
           startref="optref2b"></indexterm><indexterm class="endofrange"
@@ -543,7 +543,7 @@
             &lt;dependency&gt;
               &lt;groupId&gt;hsqldb&lt;/groupId&gt;
               &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
-              &lt;version&gt;${hsqldb.version}&lt;/version&gt;
+              &lt;version&gt;\${hsqldb.version}&lt;/version&gt;
             &lt;/dependency&gt;
           &lt;/dependencies&gt;
         &lt;/plugin&gt;
@@ -736,8 +736,8 @@
     shares both the <varname>version</varname> and <varname>groupId</varname>,
     the dependency can be defined in <varname>simple-webapp</varname>’s
     <filename moreinfo="none">pom.xml</filename> using the
-    <varname>${project.groupId}</varname> and <varname
-    role="keep-together">${project.version}</varname>.</para>
+    <varname>\${project.groupId}</varname> and <varname
+    role="keep-together">\${project.version}</varname>.</para>
 
     <para>How did the Maven Dependency plugin uncover these issues? How does
     <varname role="keep-together">dependency:analyze</varname> know which
@@ -860,7 +860,7 @@
             &lt;dependency&gt;
               &lt;groupId&gt;hsqldb&lt;/groupId&gt;
               &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
-              &lt;version&gt;${hsqldb.version}&lt;/version&gt;
+              &lt;version&gt;\${hsqldb.version}&lt;/version&gt;
             &lt;/dependency&gt;
           &lt;/dependencies&gt;
         &lt;/plugin&gt;
@@ -892,12 +892,12 @@
       &lt;dependency&gt;
         &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
         &lt;artifactId&gt;hibernate-annotations&lt;/artifactId&gt;
-        &lt;version&gt;${hibernate.annotations.version}&lt;/version&gt;
+        &lt;version&gt;\${hibernate.annotations.version}&lt;/version&gt;
       &lt;/dependency&gt;
       &lt;dependency&gt;
         &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
         &lt;artifactId&gt;hibernate-commons-annotations&lt;/artifactId&gt;
-        &lt;version&gt;${hibernate.annotations.version}&lt;/version&gt;
+        &lt;version&gt;\${hibernate.annotations.version}&lt;/version&gt;
       &lt;/dependency&gt;
       &lt;dependency&gt;
         &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
@@ -991,14 +991,14 @@
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-persist&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.springframework&lt;/groupId&gt;
@@ -1096,9 +1096,9 @@
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-model&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
@@ -1166,9 +1166,9 @@
 
   &lt;dependencies&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-model&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;log4j&lt;/groupId&gt;
@@ -1241,19 +1241,19 @@
       &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-model&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+      &lt;groupId&gt;\${project.groupId}&lt;/groupId&gt;
       &lt;artifactId&gt;simple-persist&lt;/artifactId&gt;
-      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;version&gt;\${project.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.springframework&lt;/groupId&gt;
@@ -1285,7 +1285,7 @@
           &lt;dependency&gt;
             &lt;groupId&gt;hsqldb&lt;/groupId&gt;
             &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
-            &lt;version&gt;${hsqldb.version}&lt;/version&gt;
+            &lt;version&gt;\${hsqldb.version}&lt;/version&gt;
           &lt;/dependency&gt;
         &lt;/dependencies&gt;
       &lt;/plugin&gt;

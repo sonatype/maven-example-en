@@ -332,7 +332,7 @@ package: org.sonatype.mavenbook
       that distinguish a Maven project from a non-Maven project. For example,
       the webapp archetype plugin described in this section just includes a
       stub of a <filename>web.xml</filename> file in
-      <filename>${basedir}/src/main/webapp/WEB-INF</filename>, and it doesn't
+      <filename>\${basedir}/src/main/webapp/WEB-INF</filename>, and it doesn't
       even go as far as providing a Servlet for you to customize. In <xref
       linkend="archetype-sect-third-party" /> you'll see a quick survey of
       some of the more notable third-party archetype such as the AppFuse and
@@ -359,7 +359,7 @@ package: org.sonatype.mavenbook
 
         <para>This archetype creates a simple project with
         <acronym>WAR</acronym> packaging and a single dependency on JUnit.
-        <filename>${basedir}/src/main/webapp</filename> contains a simple
+        <filename>\${basedir}/src/main/webapp</filename> contains a simple
         shell of a web application: an <filename>index.jsp</filename> page and
         the simplest possible <filename>web.xml</filename> file. Even though
         the archetype includes a dependency on JUnit, this archetype does not
@@ -533,7 +533,7 @@ $ mvn jetty:run-war
         descriptor. Generating a project from the Jira archetype creates a
         project with a single, blank <classname>MyPlugin</classname> class and
         an atlassian-plugin.xml descriptor in
-        <filename>${basedir}/src/main/resources</filename>.</para>
+        <filename>\${basedir}/src/main/resources</filename>.</para>
 
         <para>fr more information about developing Confluence plugins with
         Maven 2, see <ulink

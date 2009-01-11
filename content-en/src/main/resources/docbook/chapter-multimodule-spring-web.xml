@@ -1701,7 +1701,7 @@ public class WeatherController implements Controller {
     <indexterm>
         <primary>Velocity template</primary>
       </indexterm>Velocity template, and this template will have references to
-    a <varname>${weather}</varname> variable. The
+    a <varname>\${weather}</varname> variable. The
     <filename>weather.vm</filename> template is stored in
     <filename>src/main/webapp/WEB-INF/vm</filename> and is shown in <xref
     linkend="ex-weather-vm" />.</para>
@@ -1720,21 +1720,21 @@ public class WeatherController implements Controller {
       <title>weather.vm template rendered by WeatherController</title>
 
       <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Current Weather Conditions for:
-  ${weather.location.city}, ${weather.location.region}, 
-  ${weather.location.country}&lt;/b&gt;&lt;br/&gt;
+  \${weather.location.city}, \${weather.location.region}, 
+  \${weather.location.country}&lt;/b&gt;&lt;br/&gt;
   
 &lt;ul&gt;
-  &lt;li&gt;Temperature: ${weather.condition.temp}&lt;/li&gt;
-  &lt;li&gt;Condition: ${weather.condition.text}&lt;/li&gt;
-  &lt;li&gt;Humidity: ${weather.atmosphere.humidity}&lt;/li&gt;
-  &lt;li&gt;Wind Chill: ${weather.wind.chill}&lt;/li&gt;
-  &lt;li&gt;Date: ${weather.date}&lt;/li&gt;
+  &lt;li&gt;Temperature: \${weather.condition.temp}&lt;/li&gt;
+  &lt;li&gt;Condition: \${weather.condition.text}&lt;/li&gt;
+  &lt;li&gt;Humidity: \${weather.atmosphere.humidity}&lt;/li&gt;
+  &lt;li&gt;Wind Chill: \${weather.wind.chill}&lt;/li&gt;
+  &lt;li&gt;Date: \${weather.date}&lt;/li&gt;
 &lt;/ul&gt;
 </programlisting>
     </example>
 
     <para>The syntax for this Velocity template is straightforward, variables
-    are referenced using <code>${}</code> notation. The expression between the
+    are referenced using <code>\${}</code> notation. The expression between the
     curly braces references a property, or a property of a property on the
     <varname>weather</varname> variable which was passed to this template by
     the <classname>WeatherController</classname>.</para>
@@ -1831,7 +1831,7 @@ public class HistoryController implements Controller {
       <title>history.vm rendered by the HistoryController</title>
 
       <programlisting id="ex-spring-history-velocity" language="java">&lt;b&gt;
-Weather History for: ${location.city}, ${location.region}, ${location.country}
+Weather History for: \${location.city}, \${location.region}, \${location.country}
 &lt;/b&gt;
 &lt;br/&gt;
   
@@ -2156,7 +2156,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 </screen>
 
     <para>Once you've done this, there should be a
-    <filename>${basedir}/data</filename> directory which will contain the
+    <filename>\${basedir}/data</filename> directory which will contain the
     HSQLDB database. You can then start the web application with:</para>
 
     <screen>$ <command>mvn jetty:run</command>
@@ -2242,7 +2242,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
   &lt;name&gt;Simple Command Line Tool&lt;/name&gt;
 
   &lt;build&gt;
-    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;finalName&gt;\${project.artifactId}&lt;/finalName&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -2512,23 +2512,23 @@ public class WeatherFormatter {
     <filename>history.vm</filename> template prints the location and then
     iterates through the weather forecast records stored in the local
     database. Both of these templates are in
-    <filename>${basedir}/src/main/resources</filename>.</para>
+    <filename>\${basedir}/src/main/resources</filename>.</para>
 
     <example>
       <title>The weather.vm Velocity template</title>
 
       <programlisting language="java">****************************************
 Current Weather Conditions for:
-  ${weather.location.city},
-  ${weather.location.region},
-  ${weather.location.country}
+  \${weather.location.city},
+  \${weather.location.region},
+  \${weather.location.country}
 ****************************************
 
- * Temperature: ${weather.condition.temp}
- * Condition: ${weather.condition.text}
- * Humidity: ${weather.atmosphere.humidity}
- * Wind Chill: ${weather.wind.chill}
- * Date: ${weather.date}
+ * Temperature: \${weather.condition.temp}
+ * Condition: \${weather.condition.text}
+ * Humidity: \${weather.atmosphere.humidity}
+ * Wind Chill: \${weather.wind.chill}
+ * Date: \${weather.date}
 </programlisting>
     </example>
 
@@ -2536,9 +2536,9 @@ Current Weather Conditions for:
       <title>The history.vm Velocity template</title>
 
       <para><programlisting>Weather History for:
-${location.city},
-${location.region},
-${location.country}
+\${location.city},
+\${location.region},
+\${location.country}
 
 
 #foreach( $weather in $weathers )

@@ -149,7 +149,7 @@ $ <command>ln -s nexus-1.0.0 nexus</command></screen>
       an environment variable <varname>NEXUS_HOME</varname> in your
       environment which points to the installation directory of Nexus. This
       chapter will refer to this location as
-      <varname>${NEXUS_HOME}</varname>.</para>
+      <varname>\${NEXUS_HOME}</varname>.</para>
     </section>
 
     <section id="repository-manager-sect-running-nexus">
@@ -164,16 +164,16 @@ $ <command>ln -s nexus-1.0.0 nexus</command></screen>
       run Nexus as a Windows service or a Unix daemon. To start Nexus, you
       will need to find the appropriate startup script for your platform. To
       see the list of available platforms, list the contents of the
-      <filename>${NEXUS_HOME}/bin/jsw</filename> directory.</para>
+      <filename>\${NEXUS_HOME}/bin/jsw</filename> directory.</para>
 
       <para>The following example listing starts Nexus using the script for
       Mac OSX. First we list the contents of the
-      <filename>${NEXUS_HOME}/bin/jsw</filename> to show you the available
+      <filename>\${NEXUS_HOME}/bin/jsw</filename> to show you the available
       platforms, then we make the contents of the bin directory executable
       with <command>chmod</command>. The Mac OSX wrapper is started with a
       call to <command>app start</command>, and then we tail the
       <filename>wrapper.log</filename> in
-      <filename>${NEXUS_HOME}/container/logs</filename>. Nexus will initialize
+      <filename>\${NEXUS_HOME}/container/logs</filename>. Nexus will initialize
       itself and print a message that it is listening on
       <varname>localhost:8081</varname>.</para>
 
@@ -313,9 +313,9 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
       <orderedlist>
         <listitem>
           <para>Copy either
-          <filename>${NEXUS_HOME}/bin/jsw/linux-ppc-64/nexus</filename>,
-          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-32/nexus</filename>, or
-          <filename>${NEXUS_HOME}/bin/jsw/linux-x86-64/nexus</filename> to
+          <filename>\${NEXUS_HOME}/bin/jsw/linux-ppc-64/nexus</filename>,
+          <filename>\${NEXUS_HOME}/bin/jsw/linux-x86-32/nexus</filename>, or
+          <filename>\${NEXUS_HOME}/bin/jsw/linux-x86-64/nexus</filename> to
           <filename>/etc/init.d/nexus</filename>.</para>
         </listitem>
 
@@ -351,12 +351,12 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
 
             <listitem>
               <para>Change <varname>WRAPPER_CMD</varname> to
-              <filename>${NEXUS_HOME}/bin/jsw/${PLATFORM}/wrapper</filename></para>
+              <filename>\${NEXUS_HOME}/bin/jsw/\${PLATFORM}/wrapper</filename></para>
             </listitem>
 
             <listitem>
               <para>Change <varname>WRAPPER_CONF</varname> to
-              <filename>${NEXUS_HOME}/conf/wrapper.conf</filename></para>
+              <filename>\${NEXUS_HOME}/conf/wrapper.conf</filename></para>
             </listitem>
 
             <listitem>
@@ -370,7 +370,7 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
             </listitem>
 
             <listitem>
-              <para>Add a <filename>${JAVA_HOME}/bin</filename> to the
+              <para>Add a <filename>\${JAVA_HOME}/bin</filename> to the
               <varname>PATH</varname></para>
             </listitem>
           </itemizedlist>
@@ -401,13 +401,13 @@ INFO  ... [ServletContainer:default] - SelectChannelConnector@0.0.0.0:8081
       <filename>/usr/java/latest</filename>):</para>
 
       <programlisting>JAVA_HOME=/usr/java/latest
-PATH=${PATH}:${JAVA_HOME}/bin
+PATH=\${PATH}:\${JAVA_HOME}/bin
 APP_NAME="nexus"
 APP_LONG_NAME="Sonatype Nexus"
 NEXUS_HOME=/usr/local/nexus
 PLATFORM=linux-x86-64
-WRAPPER_CMD="${NEXUS_HOME}/bin/jsw/${PLATFORM}/wrapper"
-WRAPPER_CONF="${NEXUS_HOME}/conf/wrapper.conf"
+WRAPPER_CMD="\${NEXUS_HOME}/bin/jsw/\${PLATFORM}/wrapper"
+WRAPPER_CONF="\${NEXUS_HOME}/conf/wrapper.conf"
 PRIORITY=
 PIDDIR="/var/run"
 #RUN_AS_USER=nexus
@@ -483,7 +483,7 @@ $ <command>tail -f /usr/local/nexus/logs/wrapper.log</command>
       <orderedlist>
         <listitem>
           <para>Edit <filename>plexus.xml</filename> in
-          <filename>${NEXUS_HOME}/conf</filename>. You'll see an element named
+          <filename>\${NEXUS_HOME}/conf</filename>. You'll see an element named
           <sgmltag>webappInfos</sgmltag> which contains the relevant elements.
           Change the <sgmltag>contextPath</sgmltag> element from "/nexus" to
           "/"</para>
@@ -521,7 +521,7 @@ ProxyPreserveHost On
       <para>Alternatively, if you just wanted to continue to serve Nexus at
       the <filename>/nexus</filename> context path, you would not change the
       <sgmltag>contextPath</sgmltag> in
-      <filename>${NEXUS_HOME}/conf/plexus.xml</filename> and you would include
+      <filename>\${NEXUS_HOME}/conf/plexus.xml</filename> and you would include
       the context path in your <varname>ProxyPass</varname> and
       <varname>ProxyPassReverse</varname> directives as follows:</para>
 
@@ -805,7 +805,7 @@ ProxyPreserveHost On
           <listitem>
             <para>This XML file contains most of the configuration data for
             your instance of Nexus. It is stored in
-            <filename>${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>.</para>
+            <filename>\${NEXUS_HOME}/runtime/apps/nexus/conf/nexus.xml</filename>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -2463,22 +2463,22 @@ from the specified remote repositories:
 
       <para>By default, Nexus listens on port 8081. You can change this port,
       by changing the value in
-      <filename>${NEXUS_HOME}/conf/plexus.properties</filename> this file is
+      <filename>\${NEXUS_HOME}/conf/plexus.properties</filename> this file is
       shown in <xref linkend="ex-plexus-props" />. To change the port, stop
       Nexus, change the value of <varname>applicationPort</varname> in this
       file, and then restart Nexus. Once you do this, you should see a log
-      statement in <filename>${NEXUS_HOME}/logs/wrapper.log</filename> telling
+      statement in <filename>\${NEXUS_HOME}/logs/wrapper.log</filename> telling
       you that Nexus is listening on the altered port.</para>
 
       <example id="ex-plexus-props">
-        <title>Contents of ${NEXUS_HOME}/conf/plexus.properties</title>
+        <title>Contents of \${NEXUS_HOME}/conf/plexus.properties</title>
 
         <programlisting>applicationPort=8081
-runtime=${basedir}/runtime
-apps=${runtime}/apps
-work=${runtime}/work
-webapp=${runtime}/apps/nexus/webapp
-nexus.configuration=${runtime}/apps/nexus/conf/nexus.xml</programlisting>
+runtime=\${basedir}/runtime
+apps=\${runtime}/apps
+work=\${runtime}/work
+webapp=\${runtime}/apps/nexus/webapp
+nexus.configuration=\${runtime}/apps/nexus/conf/nexus.xml</programlisting>
       </example>
     </section>
   </section>
