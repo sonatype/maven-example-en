@@ -7,18 +7,18 @@
   <section>
     <title>简介</title>
 
-    <para>成功的软件应用程序很少是由一个人的团队开发的。在讨论任何一个值得我们写下一笔的软件的时候，通常这个软件背后有一个协作的开发者团队，它们大小不一，可能只是一个很少人组成的小型团队，也可能是一个大型分布式环境中数百数千的程序员。大部分开源项目（如Maven）的成功或者失败的原因之一是它们是否为广泛分布的潜在用户和开发者提供了良好的文档。软件开发主要还是一个协作与交互的实践活动，而发布一个Maven站点是确保你的项目于最终用户良好沟通的有效手段。</para>
+    <para>成功的软件应用程序很少是由单人团队开发的。在讨论任何一个值得我们写下一笔的软件的时候，这个软件背后通常有一个协作的开发者团队，它们大小不一，可能只是一个很少人组成的小型团队，也可能由一个大型分布式环境中数百数千的程序员组成。大部分开源项目（如Maven）成败的原因之一就是它们是否为广泛分布的潜在用户和开发者提供了良好的文档。软件开发主要还是一个协作与交互的实践活动，而发布一个Maven站点是确保你的项目能与最终用户良好沟通的有效手段。</para>
 
-    <para>一个开源项目的web站点通常是最终用户和开发人员交流的基础平台。最终用户浏览项目web站点已获得教程，用户指南，<acronym>API</acronym>文档，以及邮件列表存档。而开发者浏览项目的web站点以或者设计文档，代码报告，问题跟踪（issue
+    <para>一个开源项目的web站点通常是最终用户和开发人员交流的基础平台。最终用户浏览项目web站点以获得教程，用户指南，<acronym>API</acronym>文档，以及邮件列表存档。而开发者浏览项目的web站点获得设计文档，代码报告，问题跟踪（issue
     tracking），以及发布计划。大型的开源项目可能会和wiki，问题跟踪系统，以及持续集成系统相集成，用那些反映当前开发状态的材料来帮助增强在线文档。如果一个新的开源项目的web站点内容匮乏，不能为预期用户覆盖基本信息，那么这通常预示着这个项目有问题，不会被人采用。对于一个开源项目社区的形成，站点文档和代码本身一样重要。</para>
 
-    <para>Maven可以被用来创建一个项目web站点，以收集所有与最终用户和开发者相关的信息。不做任何配置，Maven就能生成项目报告，包括单元测试失败，包耦合度，以及代码质量报告。Maven也能让你编写简单的web页面，并基于一致的项目模板呈现这些页面。Maven可以用多种格式发布站点内容，包括<acronym>XHTML</acronym>和<acronym>PDF</acronym>。Maven可以被用来生成API文档，也可以在你项目的二进制发布包内嵌入Javadoc和源代码。在你使用Maven生成了所有最终用户和开发者文档之后，你可以使用Maven将站点发布到远程服务器上。</para>
+    <para>Maven可被用来创建一个项目web站点，以收集所有与最终用户和开发者相关的信息。不做任何配置，Maven就能生成项目报告，包括单元测试失败，包耦合度，以及代码质量报告。Maven也能让你编写简单的web页面，并基于一致的项目模板呈现这些页面。Maven可以用多种格式发布站点内容，包括<acronym>XHTML</acronym>和<acronym>PDF</acronym>。Maven可以用来生成API文档，也可以在你项目的二进制发布包内嵌入Javadoc和源代码。在你使用Maven生成了所有最终用户和开发者文档之后，你可以使用Maven将站点发布到远程服务器上。</para>
   </section>
 
   <section id="site-generation-intro">
     <title>使用Maven构建项目站点</title>
 
-    <para>为了展示构建一个项目站点的过程，使用archetype插件创建一个样例Maven项目：</para>
+    <para>为了展示创建项目站点的过程，使用archetype插件创建一个样例Maven项目：</para>
 
     <screen>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook -DartifactId=sample-project
 </screen>
@@ -65,16 +65,16 @@ $ <command>mvn site:run</command>
       </screenshot>
     </figure>
 
-    <para>如果你在这个简单的站点中点击查看，你会发现对于一个真实的项目站点来说它并不是很有帮助。那里几乎没什么东西（而且看起来也不怎么样）。由于<varname>sample-project</varname>并没有配置任何开发者，邮件列表，问题跟踪系统，或者源码仓库，该项目站点的所有这些页面都没有信息。即使是站点状态的首页，“当前没有关于该项目的描述”。要自定义该站点，你需要给该项目及项目的<acronym>POM</acronym>添加内容。</para>
+    <para>如果你在这个简单的站点中点击查看，你会发现对于一个真实的项目站点来说它并不是很有帮助。这里几乎没什么东西（而且看起来也不怎么样）。由于<varname>sample-project</varname>并没有配置任何开发者，邮件列表，问题跟踪系统，或者源码仓库，该项目站点的所有这些页面都没有信息。即使是站点状态的首页，“当前没有关于该项目的描述”。要自定义该站点，你需要给该项目及项目<acronym>POM</acronym>添加内容。</para>
 
     <para>如果你使用Maven
-    Site插件来构建你的项目站点，你会想要做一些自定义配置。你会想填充<acronym>POM</acronym>中的一些重要字段来告诉Maven人们是如何参与该项目的，你也会想要自定义左边的导航菜单，以及页面头部可见的连接。要自定义站点内容，以及左边导航菜单的内容，你就需要编辑站点描述符。</para>
+    Site插件来构建你的项目站点，你会想要做一些自定义配置。你会想填充<acronym>POM</acronym>中的一些重要字段来告诉Maven人们是如何参与该项目的，你也会想要自定义左边的导航菜单，以及页面顶部可见的连接。要自定义站点内容和左边导航菜单的内容，你就需要编辑站点描述符。</para>
   </section>
 
   <section>
     <title>自定义站点描述符</title>
 
-    <para>当你为站点添加内容的时候，你会想要修改站点左边的导航菜单。以下的站点描述符定制了站点左上角的logo。除了站点的头部，该描述符还为左边的导航菜单添加了一个菜单小节"Sample
+    <para>当你为站点添加内容的时候，你会想要修改站点左边的导航菜单。以下的站点描述符定制了站点左上角的logo。除了站点的顶部，该描述符还为左边的导航菜单添加了一个菜单小节"Sample
     Project"。该菜单包含了一个指向概述页面的链接。</para>
 
     <para><example>
@@ -96,7 +96,7 @@ $ <command>mvn site:run</command>
 </programlisting>
       </example></para>
 
-    <para>该站点描述符引用了一个图片。该图片<filename>logo.png</filename>应该放在<filename>${basedir}/src/site/resources/images</filename>目录下。除了更改站点描述符，你还会想要在<filename>${basedir}/src/site/apt</filename>目录下创建一个简单的<filename>index.apt</filename>页面。将一下的内容写入<filename>index.apt</filename>，它会被转化成<filename>index.html</filename>，当用户访问该Maven生成的站点时，他们就会看到这第一个页面。</para>
+    <para>该站点描述符引用了一个图片。该图片<filename>logo.png</filename>应该放在<filename>${basedir}/src/site/resources/images</filename>目录下。除了更改站点描述符，你还会想要在<filename>${basedir}/src/site/apt</filename>目录下创建一个简单的<filename>index.apt</filename>页面。将以下的内容写入<filename>index.apt</filename>，它会被转化成<filename>index.html</filename>，当用户访问Maven生成的站点时，他们就会看到这第一个页面。</para>
 
     <programlisting>  Welcome to the Sample Project, we hope you enjoy your time
   on this project site.  We've tried to assemble some 
@@ -118,11 +118,6 @@ What is Sample Project
     <screen>$ mvn clean site
 $ mvn site:run</screen>
 
-    <para>Once you do this, load the page in a browser by going to <ulink
-    url="http://localhost:8080">http://localhost:8080</ulink>. You should see
-    something similar to the screenshot in <xref
-    linkend="fig-custom-simple" />.</para>
-
     <para>在这之后，打开浏览器输入<ulink
     url="http://localhost:8080">http://localhost:8080</ulink>。你应该看到类似于截屏<xref
     linkend="fig-custom-simple" />的页面。</para>
@@ -140,9 +135,9 @@ $ mvn site:run</screen>
     </figure>
 
     <section>
-      <title>自定义页头图片</title>
+      <title>自定义页面顶端图片</title>
 
-      <para>要自定以显示在页面左上角和右上角的图片，你可以使用站点描述符中的<sgmltag>bannerLeft</sgmltag>和<sgmltag>bannerRight</sgmltag>元素。</para>
+      <para>要自定义显示在页面左上角和右上角的图片，你可以使用站点描述符中的<sgmltag>bannerLeft</sgmltag>和<sgmltag>bannerRight</sgmltag>元素。</para>
 
       <para><example>
           <title>给站点描述符添加Banner Left和Banner Right</title>
@@ -166,7 +161,7 @@ $ mvn site:run</screen>
         </example></para>
 
       <para><sgmltag>bannerLeft</sgmltag>和<sgmltag>bannerRight</sgmltag>元素都有<sgmltag>name</sgmltag>，<sgmltag>src</sgmltag>，和<sgmltag>href</sgmltag>子元素。在上述的站点描述符中，Maven
-      Site插件会一个左上角图片为<filename>banner-left.png</filename>，右上角图片为<filename>banner-right.png</filename>的站点。Maven会到<filename>${basedir}/src/site/resources/images</filename>目录寻找这些图片。</para>
+      Site插件会生成一个左上角图片为<filename>banner-left.png</filename>，右上角图片为<filename>banner-right.png</filename>的站点。Maven会到<filename>${basedir}/src/site/resources/images</filename>目录寻找这些图片。</para>
     </section>
 
     <section>
@@ -221,19 +216,19 @@ $ mvn site:run</screen>
       <para>当一个菜单项的<sgmltag>collapse</sgmltag>属性被设置成<varname>true</varname>的时候，Maven会折叠该菜单项，直至用户浏览了该特定页面。在前面的例子中，如果用户不查看Developer
       Resources页面，Maven就不会显示System Architecture和Embedder's Guide链接；它只会显示一个指向
       Developer Resources链接的箭头。当用户查看Developer
-      Resources页面的时候，其包含的链接会被显示，箭头变成朝下方向。</para>
+      Resources页面的时候，其包含的链接会被打开，箭头变成朝下方向。</para>
     </section>
   </section>
 
   <section>
     <title>站点目录结构</title>
 
-    <para>Maven将所有的站点文档放在<filename>src/site</filename>目录下。类似格式的文档则被放在其子目录下。所有的文档应该放到<acronym>APT</acronym>下，所有的文档应该被放到下<filename>src/site/fml</filename>，所有的XDoc文档应该被放到<filename>src/site/xdoc</filename>下。站点描述符是文件<filename>src/site/site.xml</filename>，所有的资源应该存储在<filename>src/site/resources</filename>。Maven
+    <para>Maven将所有的站点文档放在<filename>src/site</filename>目录下。同格式的文档则被放在其子目录下。所有的<acronym>APT</acronym>文档应该放到<filename>src/site/apt</filename>下，所有的<abbrev>FML</abbrev>文档应该被放到<filename>src/site/fml</filename>下，所有的XDoc文档应该被放到<filename>src/site/xdoc</filename>下。站点描述符是文件<filename>src/site/site.xml</filename>，所有的资源应该存储在<filename>src/site/resources</filename>。Maven
     Site插件构建web站点的时候，它会从资源目录复制所有文件至站点的根目录。如果你存储了一个文件<filename>src/site/resources/images/test.png</filename>，那么你就能够在你的站点文档中使用相对路径<filename>images/test.png</filename>引用该图片。</para>
 
-    <para>下面的例子展示了一个包含<acronym>APT</acronym>, <acronym>FML</acronym>,
+    <para>下面的例子展示了一些文件的位置，包含了<acronym>APT</acronym>, <acronym>FML</acronym>,
     <acronym>HTML</acronym>, <acronym>XHTML</acronym>,
-    和一些XDoc的所有文件位置。注意<acronym>XHTML</acronym>内容直接存放在<filename>src/site/resources</filename>目录。architecture.html文件不会被Doxia处理，它会被直接复制到输出目录，如果你想要包含不被处理的<acronym>HTML</acronym>内容，你可以使用这种方式，而不使用Doxia和Maven
+    和XDoc。注意<acronym>XHTML</acronym>内容直接存放在<filename>src/site/resources</filename>目录。architecture.html文件不会被Doxia处理，它会被直接复制到输出目录，如果你想要包含不被处理的<acronym>HTML</acronym>内容，你可以使用这种方式，而不使用Doxia和Maven
     Site插件的模板和格式化功能。</para>
 
     <screen>sample-project
@@ -263,13 +258,13 @@ $ mvn site:run</screen>
       +- site.xml
 </screen>
 
-    <para>注意开发者文档存储在<filename>src/site/apt/developer/embedding.apt</filename>。<filename>apt</filename>目录下的子目录会被反映到站点中最终<acronym>HTML</acronym>页面的相对位置上。在Site插件渲染目录<filename>src/site/apt</filename>内容的时候，它会相对于站点根目录生成<acronym>HTML</acronym>输出。如果一个文件在apt目录中，它对应就会生成到web站点的根目录中。如果一个文件在<filename>apt/developer</filename>目录中，它就会被生成到web站点的<filename>developer/</filename>目录下。</para>
+    <para>注意开发者文档存储在<filename>src/site/apt/developer/embedding.apt</filename>。<filename>apt</filename>目录下的子目录会被反映到站点中最终<acronym>HTML</acronym>页面的相对位置上。在Site插件渲染目录<filename>src/site/apt</filename>内容的时候，它会对应的在站点根目录生成<acronym>HTML</acronym>输出。如果一个文件在apt目录中，它对应就会生成到web站点的根目录中。如果一个文件在<filename>apt/developer</filename>目录中，它就会被生成到web站点的<filename>developer/</filename>目录下。</para>
   </section>
 
   <section>
     <title>编写项目文档</title>
 
-    <para>Maven使用一个叫做Doxia的文档处理引擎，它读取多个资源格式至一般的文档模型。Doxia之后就可以处理文档并渲染结果至不同的输出格式，如<acronym>PDF</acronym>或者<acronym>XHTML</acronym>。要编写你项目的文档，你需要基于能被Doxia解析的格式编写内容。Doxia现在支持Almost
+    <para>Maven使用一个叫做Doxia的文档处理引擎，它读取多个资源格式至一个一般的文档模型。Doxia之后就可以处理文档并渲染结果至不同的输出格式，如<acronym>PDF</acronym>或者<acronym>XHTML</acronym>。要编写你项目的文档，你需要基于能被Doxia解析的格式编写内容。Doxia现在支持Almost
     Plain Text (<acronym>APT</acronym>), XDoc (一种Maven1的文档格式),
     <acronym>XHTML</acronym>, 和 <acronym>FML</acronym>
     (对<acronym>FAQ</acronym>文档很有用) 格式。</para>
@@ -380,8 +375,8 @@ Welcome to Sample Project
   <section>
     <title>部署你的项目web站点</title>
 
-    <para>一旦项目文档已经写好，并且你创建了一个引以为傲的站点，你会想将其部署到服务器上。要部署你的站点，你需要使用Maven
-    Site插件，它会使用很多种方法如<acronym>FTP</acronym>，<acronym>SCP</acronym>，和<acronym>DAV</acronym>来将你的项目站点部署到远程服务器上。要使用<acronym>DAV</acronym>部署站点，在<acronym>POM</acronym>中配置<sgmltag>distributionManagement</sgmltag>小节的site元素，如：</para>
+    <para>一旦项目文档已经写好，并且你已经创建了一个引以为傲的站点，你会想将其部署到服务器上。要部署你的站点，你需要使用Maven
+    Site插件，它会使用很多种方法如<acronym>FTP</acronym>，<acronym>SCP</acronym>，和<acronym>DAV</acronym>，将你的项目站点部署到远程服务器上。要使用<acronym>DAV</acronym>部署站点，在<acronym>POM</acronym>中配置<sgmltag>distributionManagement</sgmltag>小节的site元素，如：</para>
 
     <para><example>
         <title>配置站点部署</title>
@@ -400,13 +395,13 @@ Welcome to Sample Project
       </example></para>
 
     <para><sgmltag>distributionManagement</sgmltag>中<sgmltag>url</sgmltag>的值有一个开头标记<varname>dav</varname>，它告诉Maven
-    Site插件部署该站点至一个能理解<acronym>WebDAV</acronym>的<acronym>URL</acronym>。一旦你已经在我们的<varname>sample-project</varname>
+    Site插件部署该站点至一个理解<acronym>WebDAV</acronym>的<acronym>URL</acronym>。一旦你已经在我们的<varname>sample-project</varname>
     <acronym>POM</acronym>中添加了该<sgmltag>distributionManagement</sgmltag>小节，我们就可以部署该站点：</para>
 
     <screen>$ mvn clean site-deploy
 </screen>
 
-    <para>如果你有一个正确配置并能理解<acronym>WebDAV</acronym>的服务器，Maven就会将项目的web站点部署到远程服务器。如果你正将该项目站点部署到一个公共可见的服务器上，你就会需要配置web服务器的访问证书。比如你的web服务器要求一个用户名和密码（或者其它证书，你可以在你的<filename>~/.m2/settings.xml</filename>中配置它的值）</para>
+    <para>如果你有一个正确配置的，并能理解<acronym>WebDAV</acronym>的服务器，Maven就会将项目的web站点部署到远程服务器。如果你正将该项目站点部署到一个公共可见的服务器上，你就会需要配置web服务器的访问证书。比如你的web服务器要求一个用户名和密码（或者其它证书，你可以在你的<filename>~/.m2/settings.xml</filename>中配置它的值）</para>
 
     <section>
       <title>配置服务器认证</title>
@@ -459,14 +454,14 @@ Welcome to Sample Project
 </programlisting>
         </example></para>
 
-      <para>上述设置使所有目录对于所有者和所有者所在用户组可读可写；对于匿名用户则只读和列出目录内容。类似的，所有者或者所有者所在用户组可以读写任何文件，而其它用户则只有只读访问权限。</para>
+      <para>上述设置使所有目录对于所有者和所有者所在用户组可读可写；对于匿名用户则只读，并能列出目录内容。类似的，所有者或所有者所在用户组可以读写任何文件，而其它用户则只有只读访问权限。</para>
     </section>
   </section>
 
   <section>
     <title>自定义站点外观</title>
 
-    <para>默认的Maven模板可能远不能满足你的期望。如果你想要自定义项目站点，并且不只局限于添加内容，导航元素，或者定制logo。Maven提供了很多种方案让你定制web站点，相继的提供对于内容渲染和站点结构的深入访问。对于小型的，单个项目的站点微调，提供一个定制的<filename>site.css</filename>通常就足够了。然而，如果你想要自己的自定义信息可以在多个项目中被重用，或者该自定义还涉及了更改Maven生成的<acronym>XHTML</acronym>内容，你就应该考虑创建你自己的Maven
+    <para>默认的Maven模板可能远不能满足你的期望。如果你想要自定义项目站点，并且不只局限于添加内容，导航元素，和定制logo。Maven提供了很多种方案让你定制web站点，并相继的提供对于内容渲染和站点结构的深入访问。对于小型的，单个项目的站点微调，提供一个定制的<filename>site.css</filename>通常就足够了。然而，如果你想要自己的自定义信息可以在多个项目中被重用，或者该自定义还涉及了更改Maven生成的<acronym>XHTML</acronym>内容，你就应该考虑创建你自己的Maven
     web站点皮肤。</para>
 
     <section>
@@ -486,7 +481,7 @@ Welcome to Sample Project
 }
 </screen>
 
-      <para>在你重新生成该站点之后，菜单头应该会有一个灰色背景框，并通过一些额外的边距空间和菜单的其它部分分开。使用该文件，Maven生成站点的任何结构都可以使用自定义的<acronym>CSS</acronym>装饰。如果你在一个特定项目中更改<filename>site.css</filename>，其变化就至对该项目起作用。如果你想做一些更改并应用到很多个Maven项目中，你可以为Maven
+      <para>在你重新生成该站点之后，菜单头应该会有一个灰色背景框，并通过一些额外的边距空间和菜单的其它部分分开。使用该文件，Maven站点的任何结构都可以使用自定义的<acronym>CSS</acronym>装饰。如果你在一个特定项目中更改<filename>site.css</filename>，其变化就至对该项目起作用。如果你想做一些更改并应用到很多个Maven项目中，你可以为Maven
       Site插件创建一个自定义的皮肤。</para>
 
       <tip>
@@ -499,13 +494,13 @@ Welcome to Sample Project
       <title>创建自定义的站点模板</title>
 
       <para>如果默认的Maven站点结构不符合你的要求，你可以自定义Maven站点模板。自定义该模板让你完全控制Maven
-      Site插件的最终输出，也能让你使用与默认模板目录结构不一样的结构。</para>
+      Site插件的最终输出，也能让你使用非默认的目录结构。</para>
 
-      <para>Site插件使用了叫做Doxia的渲染引擎，而它实际上使用Velocity模板将页面渲染成<acronym>XHTML</acronym>。要更改默认被渲染的页面结构，我们可以在<acronym>POM</acronym>中配置site插件使用自定义的页面模板。site模板相当复杂，你需要有一个自定义配置的良好起点。一开始从Doxia的Subversion仓库<ulink
-      url="http://svn.apache.org/viewvc/maven/doxia/doxia-sitetools/trunk/doxia-site-renderer/src/main/resources/org/apache/maven/doxia/siterenderer/resources/default-site.vm?revision=595592">default-site.vm</ulink>复制默认的Velocity模板至<filename>src/site/site.vm</filename>。该模板使用叫做Velocity的模板语言编写。Velocity是一个简单的模板语言，它支持简单的宏定义，允许你使用简单标记访问对象的方法和属性。全面的介绍超出了本书的范围，要了解更多的关于Velocity的信息级全面介绍，方位Velocity的项目站点<ulink
+      <para>Site插件使用了叫做Doxia的渲染引擎，而它实际上使用Velocity模板将页面渲染成<acronym>XHTML</acronym>。要更改默认被渲染的页面结构，我们可以在<acronym>POM</acronym>中配置site插件使用自定义的页面模板。site模板相当复杂，你需要有一个关于自定义配置的良好起点。一开始从Doxia的Subversion仓库<ulink
+      url="http://svn.apache.org/viewvc/maven/doxia/doxia-sitetools/trunk/doxia-site-renderer/src/main/resources/org/apache/maven/doxia/siterenderer/resources/default-site.vm?revision=595592">default-site.vm</ulink>复制默认的Velocity模板至<filename>src/site/site.vm</filename>。该模板使用Velocity模板语言编写。Velocity是一个简单的模板语言，它支持简单的宏定义，允许你使用简单标记访问对象的方法和属性。全面的介绍超出了本书的范围，要了解更多的关于Velocity的信息级全面介绍，访问Velocity的项目站点<ulink
       url="http://velocity.apache.org">http://velocity.apache.org</ulink>。</para>
 
-      <para><filename>default-site.xml</filename>模板相当复杂，但关于自定义左边菜单的更改相对的很简单。如果你试图更改一个<sgmltag>menuItem</sgmltag>的外观，找到<sgmltag>menuItem</sgmltag>宏。它位于一个如下的小节中：</para>
+      <para><filename>default-site.xml</filename>模板相当复杂，但自定义左边导航菜单相对的比较简单。如果你试图更改一个<sgmltag>menuItem</sgmltag>的外观，找到<sgmltag>menuItem</sgmltag>宏。它位于一个如下的小节中：</para>
 
       <screen>#macro ( menuItem $item )
 
@@ -571,7 +566,7 @@ Welcome to Sample Project
 #end
 </screen>
 
-      <para>该更改为<varname>menuItem</varname>宏添加了一个新的参数。为了使新功能正确工作，你需要更改所有对于该宏的引用，否则最终的模板可能会生成非预期的或者不一致的<acronym>XHTML</acronym>。要完成这些引用的更改，在<varname>mainMenu</varname>宏中进行一次类似的替换。寻找类似下面模板片段的代码，以找到该宏。</para>
+      <para>该更改为<varname>menuItem</varname>宏添加了一个新的参数。为了使新功能正确工作，你需要更改所有对于该宏的引用，否则最终的模板可能会生成非预期的或者不一致的<acronym>XHTML</acronym>。要完成这些引用的更改，在<varname>mainMenu</varname>宏中进行一次替换。寻找类似下面模板片段的代码，以找到该宏。</para>
 
       <screen>#macro ( mainMenu $menus )
   ...
@@ -663,7 +658,7 @@ Welcome to Sample Project
 </programlisting>
         </example></para>
 
-      <para>现在，你应该能够重新生成你项目的web站点了。这是你可能会注意到maven站点的资源和<acronym>CSS</acronym>丢失了。当一个Maven项目自定义站点模板的时候，Site插件认为该项目会提供所有默认的图片和<acronym>CSS</acronym>。为了提供项目的资源，你可以从默认的Doxia站点渲染项目中复制资源到你项目的资源目录中，运行如下命令：</para>
+      <para>现在，你应该能够重新生成你项目的web站点了。这时你可能会注意到maven站点的资源和<acronym>CSS</acronym>丢失了。当一个Maven项目自定义站点模板的时候，Site插件认为该项目会提供所有默认的图片和<acronym>CSS</acronym>。为了提供项目的资源，你可以从默认的Doxia站点渲染项目中复制资源到你项目的资源目录中，运行如下命令：</para>
 
       <screen>$ <command>svn co \
         http://svn.apache.org/repos/asf/maven/doxia/doxia-sitetools/trunk/doxia-site-renderer</command>
@@ -677,7 +672,7 @@ $ <command>cp -rf \
 
       <para>签出<varname>doxia-site-renderer</varname>项目，删除默认的<filename>maven-theme.css</filename>文件，然后复制所有的资源到你的<filename>src/site/resources</filename>目录。</para>
 
-      <para>当你重新生成站点的时候，你会注意到一些菜单项看起来像常规的未修饰的文本。这是因为站点<acronym>CSS</acronym>和新的自定义页面模板发生了一些诡异的交互。这可以通过修改<filename>site.css</filename>，为菜单回复正确的链接颜色来修复。只要添加如下配置：</para>
+      <para>当你重新生成站点的时候，你会注意到一些菜单项看起来像常规未修饰的文本。这是因为站点<acronym>CSS</acronym>和新的自定义页面模板发生了一些诡异的交互。修改<filename>site.css</filename>，为菜单恢复正确的链接颜色后便可修复。只要添加如下配置：</para>
 
       <screen>li.collapsed, li.expanded, a:link {
   color:#36a;
@@ -686,7 +681,7 @@ $ <command>cp -rf \
 
       <para>在重新生成站点之后，菜单的链接颜色看起来正确了。如果你将这个新的站点模板应用到本章的sample-project项目中，你会看到菜单现在包含了一棵树。点击“Developer
       Resources”不会再打开“Developer Resources”页面；取而代之的，是展开子菜单。由于你将Developer
-      Resources子菜单转换成了一个动态折叠的子菜单，你就只能失去通过该菜单打开<filename>developer/index.apt</filename>页面的能力。为了对付这种变化，你可以在该子菜单下添加一个Overview链接，指向同样的页面：</para>
+      Resources转换成了一个动态折叠的子菜单，你不再可以通过该菜单打开<filename>developer/index.apt</filename>页面。为了对付这种变化，你可以在该子菜单下添加一个Overview链接，指向同样的页面：</para>
 
       <para><example>
           <title>给站点描述符添加一个菜单项</title>
@@ -710,9 +705,9 @@ $ <command>cp -rf \
     <section>
       <title>可重用的web站点皮肤</title>
 
-      <para>如果你的组织创建了很多Maven项目站点，那么你就会想要在整个组织范围内重用站点模板和定制<acronym>CSS</acronym>。如果你想让三十个项目都共享同样的<acronym>CSS</acronym>和站点模板，你可以使用Maven对于皮肤的支持。Maven的站点皮肤允许你将资源和模板打包，以让其它项目重用，而不是为所有需要自定义的项目重复创建模板。</para>
+      <para>如果你的组织创建了很多Maven项目站点，那么你就会想要在整个组织范围内重用站点模板和定制<acronym>CSS</acronym>。如果你想让三十个项目都共享同样的<acronym>CSS</acronym>和站点模板，你可以使用Maven对于皮肤的支持。Maven的站点皮肤允许你将资源和模板打包，以让其它项目重用，而不用为所有需要自定义的项目重复创建模板。</para>
 
-      <para>你可以定义自己的皮肤，但可能你也会想要使用Maven的可选皮肤。你可以选择下面的几个皮肤。每个皮肤都提供了其自己的导航，内容，logo，和模板：</para>
+      <para>你可以定义自己的皮肤，但可能你也会想要使用Maven的可选皮肤。你可以选择下面的几个皮肤。每个皮肤都提供了其自己的导航风格，内容，logo，和模板：</para>
 
       <itemizedlist>
         <listitem>
@@ -736,14 +731,14 @@ $ <command>cp -rf \
       <para><ulink
       url="http://repo1.maven.org/maven2/org/apache/maven/skins/">http://repo1.maven.org/maven2/org/apache/maven/skins/</ulink></para>
 
-      <para>创建一个自定义的皮肤其实只是简单的将你自定义的<filename>maven-theme.css</filename>封装成一个Maven项目，这样就能根据<varname>groupId</varname>，<varname>artifactId</varname>，和<varname>version</varname>引用它。它可以包含一些资源，如图片，以及用来替换默认模板，生成完全不同<acronym>XHTML</acronym>结构的站点模板（用Velocity编写）。大部分情况下，自定义的<acronym>CSS</acronym>就可以满足你需要的变化。为了演示该功能，让我们为sample-project项目创建一个皮肤，开始先创建一个自定义的<filename>maven-theme.css</filename>。</para>
+      <para>创建一个自定义的皮肤其实只是简单的将你自定义的<filename>maven-theme.css等内容</filename>封装成一个Maven项目，这样就能根据<varname>groupId</varname>，<varname>artifactId</varname>，和<varname>version</varname>引用它。它可以包含一些资源，如图片，以及用来替换默认模板，生成完全不同<acronym>XHTML</acronym>结构的站点模板（用Velocity编写）。大部分情况下，自定义的<acronym>CSS</acronym>就可以满足你需要的变化。为了演示该功能，让我们为sample-project项目创建一个皮肤，开始先创建一个自定义的<filename>maven-theme.css</filename>。</para>
 
       <para>在我们开始编写自定义<acronym>CSS</acronym>之前，我们需要创建一个单独的Maven项目，以便让<varname>sample-project</varname>的站点描述符引用它。首先，使用Maven的archetype插件创建一个基本的项目。在<varname>sample-project</varname>项目根目录的上一层目录运行如下的命令：</para>
 
       <screen>$ mvn archetype:create -DartifactId=sample-site-skin -DgroupId=com.sonatyp.maven
 </screen>
 
-      <para>这会创建一个名为<varname>sample-site-skin</varname>的目录（以及一个目录）。切换当前目录为<varname>sample-site-skin</varname>目录，删除所有源码和测试，然后创建一个目录来存储皮肤资源：</para>
+      <para>这会创建一个名为<varname>sample-site-skin</varname>的项目（以及一个目录）。切换当前目录为<varname>sample-site-skin</varname>目录，删除所有源码和测试代码，然后创建一个目录来存储皮肤资源：</para>
 
       <screen>$ cd sample-site-skin
 $ rm -rf src/main/java src/test
@@ -756,7 +751,7 @@ $ mkdir src/main/resources
 
       <para>接着，为定制皮肤编写自定义的<acronym>CSS</acronym>。Maven站点皮肤的<acronym>CSS</acronym>文件应该位于<filename>src/main/resources/css/maven-theme.css</filename>。不像<filename>site.css</filename>文件位于项目的站点特定源目录那样，<filename>maven-theme.css</filename>会被打包安装到本地Maven仓库的一个<acronym>JAR</acronym>构件中。为了让皮肤JAR文件包含maven-theme.css文件，它需要位于主项目资源目录：<filename>src/main/resources</filename>。</para>
 
-      <para>如同自定义默认站点模板一样，你会想用一种很好的方法开始定制新的站点<acronym>CSS</acronym>。复制默认Maven皮肤使用的<acronym>CSS</acronym>到你的皮肤项目中。要获取默认主题文件的副本，访问<varname>maven-default-skin</varname>项目的<filename>src/main/resources/css/maven-theme.css</filename>，将其内容保存到你自己的皮肤文件中。</para>
+      <para>如同自定义默认站点模板一样，你会想用简单的方法开始定制新的站点<acronym>CSS</acronym>。复制默认Maven皮肤的<acronym>CSS</acronym>到你的皮肤项目中。要获取默认主题文件的副本，访问<varname>maven-default-skin</varname>项目的<filename>src/main/resources/css/maven-theme.css</filename>，将其内容保存到你自己的皮肤文件中。</para>
 
       <para>现在我们拥有了合适的基础主题，使用<acronym>CSS</acronym>从这个旧的site.css文件开始定制。使用如下内容替换<varname>#navcolumn
       h5</varname> <acronym>CSS</acronym>块：</para>
@@ -801,7 +796,7 @@ $ mkdir src/main/resources
 </programlisting>
         </example></para>
 
-      <para>你可以将Maven站点皮肤想象成一个站点以来。站点皮肤以构件的形式通过groupId和artifactId被引用。使用站点皮肤允许你在一个单独项目中统一站点定制，并且使得重用自定义<acronym>CSS</acronym>和站点模板，像用一个插件重用构建逻辑一样简单。</para>
+      <para>你可以将Maven站点皮肤想象成一个站点依赖。站点皮肤以构件的形式通过groupId和artifactId被引用。使用站点皮肤允许你在一个单独项目中统一站点定制，并且使得重用自定义<acronym>CSS</acronym>和站点模板，像插件重用构建逻辑一样简单。</para>
     </section>
 
     <section>
@@ -813,7 +808,7 @@ $ mkdir src/main/resources
     sample-site-skin/src/main/resources/META-INF/maven
 </screen>
 
-      <para>如果你已经在<varname>sample-project</varname>中自定义了站点模板，删除Site插件中指向该模板的配置。Site插件会使用站点皮肤中引用的站点皮肤来渲染站点。</para>
+      <para>如果你已经在<varname>sample-project</varname>中自定义了站点模板，删除Site插件中指向该模板的配置。Site插件会使用站点皮肤中包含的模板来渲染站点。</para>
 
       <programlisting language="xml">&lt;plugin&gt;
   &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
@@ -824,7 +819,7 @@ $ mkdir src/main/resources
 &lt;/plugin&gt;
 </programlisting>
 
-      <para>Maven站点皮肤应该包含所有它以来的资源。包括<acronym>CSS</acronym>，图片，以及logo。如果在本章前面你已经自定义了站点模板，你已经将默认的<varname>doxia-site-renderer</varname>资源复制到了<filename>src/site/resources</filename>目录。你需要将这些文件从<varname>sample-project</varname>项目移到新的<varname>sample-site-skin</varname>项目中，使用如下的命令：</para>
+      <para>Maven站点皮肤应该包含所有它依赖的资源。包括<acronym>CSS</acronym>，图片，以及logo。如果在本章前面你已经自定义了站点模板，且已经将默认的<varname>doxia-site-renderer</varname>资源复制到了<filename>src/site/resources</filename>目录。你需要将这些文件从<varname>sample-project</varname>项目移到新的<varname>sample-site-skin</varname>项目中，使用如下的命令：</para>
 
       <screen>$ cd ..
 $ mkdir -p sample-site-skin/src/main/resources/css
@@ -861,7 +856,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
   <section>
     <title>提示与技巧</title>
 
-    <para>本节介绍一些对创建Maven站点的很有帮助的提示和技巧。</para>
+    <para>本节介绍一些对创建Maven站点很有帮助的提示和技巧。</para>
 
     <section>
       <title>给HEAD嵌入XHTML</title>
@@ -891,7 +886,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     <section>
       <title>在你站点logo下添加链接</title>
 
-      <para>如果你工作的项目正由一个组织开发，你会希望能够在项目logo下添加链接。假设你的项目是Apache软件基金会的一部分，你可能想在logo的正下方添加一个指向Apache软件基金会的链接，或者你还想添加一直指向父项目的链接。为了在站点logo下添加链接，直接在站点描述符中的body元素下添加一个links元素。每个links元素下的item元素都会渲染成logo下的一个链接。下面的例子添加一个指向Apache软件基金会的链接，以及随后一个指向Apache
+      <para>如果你工作的项目正由一个组织开发，你会希望能够在项目logo下添加链接。假设你的项目是Apache软件基金会的一部分，你可能想在logo的正下方添加一个指向Apache软件基金会的链接，或者你还想添加一个指向父项目的链接。为了在站点logo下添加链接，直接在站点描述符中的body元素下添加一个links元素。每个links元素下的item元素都会被渲染成logo下的一个链接。下面的例子添加一个指向Apache软件基金会的链接，以及随后一个指向Apache
       Maven项目的链接。</para>
 
       <para><example>
@@ -915,7 +910,7 @@ $ mv sample/src/site/resources/images/collapsed.gif \
     <section>
       <title>为你的站点添加导航链接</title>
 
-      <para>如果你的层次结构是一个逻辑层次的一部分，你也许会想要放一系列导航链接，以给用户提供上下文，并让他们能够浏览树状结构中上面的项目，那些项目以子模块的形式包含了当前项目。要配置导航链接，在站点描述符的body元素下添加<sgmltag>breadcrumbs</sgmltag>元素。每个item元素被渲染成一个链接，并且所有<sgmltag>breadcrumbs</sgmltag>元素下的item元素会被有序的渲染。导航链接项会从高层到低层进行罗列。下面的站点描述符中，Codehaus项会看起来包含了Mojo项。</para>
+      <para>如果你的站点层次结构是一个逻辑层次的一部分，你也许会想要放一系列导航链接，以给用户提供上下文，并让他们能够浏览树状结构中上面的项目，那些项目以子模块的形式包含了当前项目。要配置导航链接，在站点描述符的body元素下添加<sgmltag>breadcrumbs</sgmltag>元素。每个item元素被渲染成一个链接，并且所有<sgmltag>breadcrumbs</sgmltag>元素下的item元素会被有序的渲染。导航链接项会从高层到低层进行罗列。下面的站点描述符中，Codehaus项会看起来包含了Mojo项。</para>
 
       <para><example>
           <title>配置站点导航链接</title>
@@ -950,11 +945,6 @@ $ mv sample/src/site/resources/images/collapsed.gif \
 &lt;/project&gt;
 </programlisting>
         </example></para>
-
-      <para>This will position the version (in the case of the sample-project
-      project, it will say "Version: 1.0-SNAPSHOT") in the upper left-hand
-      corner of the site, right next to the default "Last Published" date.
-      Valid positions for the project version are:</para>
 
       <para>这会将版本信息（在sample-project项目中，显示为“Version:
       1.0-SNAPSHOT”）放到站点的左上角，在“上次发布”日期的旁边。项目版本可以放置的位置包括：</para>
@@ -1123,7 +1113,7 @@ maven-archetype/maven-archetype-model/src/main/mdo/archetype.mdo}
         </example></para>
 
       <warning>
-        <para><acronym>在APT</acronym>源文档中，绝对不要缩进Doxia宏。这么做会让<acronym>APT</acronym>解析器完全的忽略改宏。</para>
+        <para><acronym>在APT</acronym>源文档中，绝对不要缩进Doxia宏。这么做会让<acronym>APT</acronym>解析器完全的忽略该宏。</para>
       </warning>
 
       <para>要了解更多如何在你代码中定义snippet，以及snippet宏的信息，参考Maven站点上Snippet宏的指南：<ulink
