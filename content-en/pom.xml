@@ -28,6 +28,7 @@
     <nexus.version.name>nexus-enterprise-1.2.0-beta-4</nexus.version.name>
     <nexus.version>1.2.0-beta-4</nexus.version>
     <maven.version>2.0.9</maven.version>
+    <nexus.book.baseurl>http://books.sonatype.com/nexus-book-stage/</nexus.book.baseurl>
   </properties>
 
   <build>
@@ -191,6 +192,7 @@
       </distributionManagement>
       <properties>
         <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
       </properties>
     </profile>
     <profile>
