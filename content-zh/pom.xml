@@ -132,11 +132,11 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/books/htdocs/maven-book/</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book/</url>
         </site>
         </distributionManagement>
         <properties>
-           <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+           <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties>
       </profile>
     <profile>
@@ -145,11 +145,11 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/books/htdocs/maven-book-stage/</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/</url>
         </site>
         </distributionManagement>
         <properties>
-           <sonatype.site>file:///var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+           <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties>
       </profile>
   </profiles>
