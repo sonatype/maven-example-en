@@ -31,7 +31,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/books/htdocs/book/parent</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
         </site>
         </distributionManagement>
     </profile>
@@ -44,7 +44,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>file:///var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
         </site>
         </distributionManagement>
     </profile>
