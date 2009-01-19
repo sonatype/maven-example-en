@@ -107,7 +107,7 @@
               <imgSrcPath>${basedir}/target/classes/docbook/</imgSrcPath>
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
               <postProcess>
-                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide-de.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
                 </copy>
               </postProcess>
@@ -126,25 +126,10 @@
               <useIdAsFilename>1</useIdAsFilename>
               <htmlCustomization>${basedir}/target/classes/xsl/html_chunk.xsl</htmlCustomization>
               <postProcess>
-                <copy todir="${project.build.directory}/site/reference">
+                <copy todir="${project.build.directory}/site/reference_de">
                   <fileset dir="${project.build.directory}/docbkx/html"/>
                 </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="${basedir}/src/site/resources"/>
-                </copy>
-                <copy todir="${project.build.directory}/site/images">
-                  <fileset dir="${basedir}/target/classes/images"/>
-                </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="../examples/target">
-                    <include name="*.tar.gz"/>
-                    <include name="*.zip"/>
-                  </fileset>
-                </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="src/site/resources"/>
-                </copy>
-                <copy todir="${project.build.directory}/site/reference/figs/web">
+                <copy todir="${project.build.directory}/site/reference_de/figs/web">
                   <fileset dir="target/classes/docbook/figs/web"/>
                 </copy>
               </postProcess>
