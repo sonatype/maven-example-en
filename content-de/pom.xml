@@ -6,7 +6,7 @@
 	<artifactId>book</artifactId>
 	<version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>content-en</artifactId>
+  <artifactId>content-de</artifactId>
   <version>0.22.0</version>
   <packaging>jar</packaging>
   <name>Maven: The Definitive Guide</name>
@@ -62,26 +62,6 @@
           <escapeString>\</escapeString>
         </configuration>
       </plugin>
-	  <plugin>
-		<groupId>org.sonatype.idiom</groupId>
-		<artifactId>maven-feedme-plugin</artifactId>
-		<version>1.0-SNAPSHOT</version>
-		<executions>
-		  <execution>
-			<id>maven-blogs</id>
-			<goals>
-			  <goal>consume</goal>
-			</goals>
-			<configuration>
-			  <feed><![CDATA[http://feeds.feedburner.com/sonatype]]></feed>
-			  <template>${basedir}/src/feed/blogs-div.vm</template>
-			  <outputDirectory>${basedir}/src/main/resources/docbook/includes</outputDirectory>
-			  <outputFilename>blogs-div.html</outputFilename>
-			</configuration>
-			<phase>generate-sources</phase>
-		  </execution>
-		</executions>
-	  </plugin>
       <plugin>
 	    <groupId>com.agilejava.docbkx</groupId>
 	    <artifactId>docbkx-maven-plugin</artifactId>
