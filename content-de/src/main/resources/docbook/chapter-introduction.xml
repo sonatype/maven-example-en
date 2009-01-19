@@ -2,346 +2,380 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="introduction">
-  <title>Introducing Apache Maven</title>
+  <title>Einführung von Apache Maven</title>
 
-  <para>Although there are a number of references for Maven online, there is
-  no single, well-written narrative for introducing Maven that can serve as
-  both an authoritative reference and an introduction. What we’ve tried to do
-  with this effort is provide such a narrative coupled with useful reference
-  material.</para>
+  <para>Es gibt zwar schon eine Reihe Online Veröffentlichungen zum Thema
+  Apache Maven, aber was bis heute fehlt, ist eine umfassende, gut
+  geschriebenen Einführung von Maven, welche Zugleich als altgediente Referenz
+  herhalten kann. Was wir hier versucht haben, ist eine solche gesamthafte
+  Einführung gepaart mit einer umfassenden Referenz zu erstellen.</para>
 
   <section id="introduction-sect-whatIsMaven">
-    <title>Maven... What is it?</title>
+    <title>Maven ... Was ist das?</title>
 
-    <para>The answer to this question depends on your own perspective. The
-    great majority of Maven users are going to call Maven a “build tool”: a
-    tool used to build deployable artifacts from source code. Build engineers
-    and project managers might refer to Maven as something more comprehensive:
-    a project management tool. What is the difference? A build tool such as
-    Ant is focused solely on preprocessing, compilation, packaging, testing,
-    and distribution. A project management tool such as Maven provides a
-    superset of features found in a build tool. In addition to providing build
-    capabilities, Maven can also run reports, generate a web site, and
-    facilitate communication among members of a working team.</para>
+    <para>Die Antwort auf diese Frage hängt ganz von Ihrer Perspektive ab. Die
+    große Mehrheit der Benutzer wird Maven als "Build"-Werkzeug darstellen:
+    ein Werkzeug um aus Quellcode einsatzfähige Artefakte (Programme) zu
+    erzeugen. Build Ingenieure und Projektmanager mögen Maven als etwas
+    umfassenderes sehen: ein Projektmanagement-Tool. Wo liegt der Unterschied?
+    Ein Build-Werkzeug wie Ant ist ausschließlich auf die Vorverarbeitung,
+    Compilierung, Prüfung und Verteilung ausgelegt. Ein
+    Projekt-Management-Tool wie Maven liefert eine Obermenge von Funktionen
+    welche in einem Build- und Paketier-Werkzeug zur Anwendung kommen. Neben
+    der Bereitstellung von Build Funktionalitäten, bietet Maven auch die
+    Möglichkeit Reports anzufertigen, Websites zu generieren und den Kontakt
+    zwischen den Mitgliedern einer Arbeitsgruppe/eines Teams zu
+    ermöglichen.</para>
 
-    <para>A more formal definition of <ulink
-    url="http://maven.apache.org">Apache Maven</ulink>: Maven is a project
-    management tool which encompasses a project object model, a set of
-    standards, a project lifecycle, a dependency management system, and logic
-    for executing plugin goals at defined phases in a lifecycle. When you use
-    Maven, you describe your project using a well-defined project object
-    model, Maven can then apply cross-cutting logic from a set of shared (or
-    custom) plugins.</para>
+    <para>Hier eine formale Definition von Apache Maven: Maven ist ein
+    Projektmanagement-Tool welches ein umfassendes Projektmodell beinhaltet
+    und eine Reihe von Normen bereitstellt. Darüber hinaus verfügt es über
+    einen definierten Projekt-Lebenszyklus, ein Abhängigkeits Management
+    System sowie Logik, welche die Ausführung von PlugIn-Goals zu definierten
+    Phasen eines Lebenszyklus ermöglicht. Wenn Sie Maven einsetzen,
+    beschreiben Sie Ihr Projekt in einem genau definierten Projekt Objekt
+    Modell, im Fortlaufenden POM genannt. Maven kann dann daraufhin
+    überspannende Regelwerke aus der Menge gemeinsam genutzter (oder auch
+    massgeschneiderter) Plugins anwenden.</para>
 
-    <para>Don't let the fact that Maven is a "project management" tool scare
-    you away. If you were just looking for a build tool, Maven will do the
-    job. In fact, the first few chapters of this book will deal with the most
-    common use case: using Maven to build and distribute your project.</para>
+    <para>Lassen Sie sich nicht von der Tatsache, dass Maven ist ein
+    "Projektmanagement" Werkzeug darstellt, verschrecken. Sollten Sie
+    lediglich nach einem Build-ToolAusschau gehalten haben, Maven wird Ihnen
+    dies ebenfalls bieten. In der Tat, die ersten Kapitel dieses Buches
+    befassen sich mit dem häufigsten Anwendungsfall: Die Verwendung von Maven
+    um Ihr Projekt zu compilieren, testen und zu verteilen.</para>
   </section>
 
   <section id="installation-sect-conventionConfiguration">
-    <title>Convention Over Configuration</title>
+    <title>Konvention über Konfiguration </title>
 
-    <para>Convention over configuration is a simple concept. Systems,
-    libraries, and frameworks should assume reasonable defaults. Without
-    requiring unnecessary configuration, systems should "just work". Popular
-    frameworks such as <ulink url="http://www.rubyonrails.org/">Ruby on
-    Rails</ulink> and <acronym>EJB3</acronym> have started to adhere to these
-    principles in reaction to the configuration complexity of frameworks such
-    as the initial <acronym>EJB</acronym> 2.1 specifications. An illustration
-    of convention over configuration is something like <acronym>EJB3</acronym>
-    persistence: all you need to do to make a particular bean persistent is to
-    annotate that class with <classname>@Entity. </classname> The framework
-    assumes table and column names based on the name of the class and the
-    names of the properties. Hooks are provided for you to override these
-    default, assumed names if the need arises, but, in most cases, you will
-    find that using the framework-supplied defaults results in a faster
-    project execution.</para>
+    <para>Konvention über Konfiguration ist ein einfaches Konzept: Systeme,
+    Bibliotheken und Frameworks sollten von vernünftige Standardwerte
+    ausgehen, ohne unnötige Konfiguration zu benötigen - Systeme sollten
+    "einfach funktionieren". Gängige Frameworks wie Ruby on Rails und EJB3
+    haben damit begonnen, sich an diesen Grundsätzen zu orientieren. Dies in
+    Reaktion auf die Komplexität der Konfiguration von Frameworks wie etwa der
+    anfänglichen EJB 2.1 Spezifikationen. Das Konzept Konvention über
+    Konfiguration wir von EJB3 Persistenz schön veranschaulicht: Alles, was
+    Sie tun müssen, um eine bestimmtes Bean persistent zu speichern ist dieses
+    mit einer @Entitiy-Annotation zu versehen. Das Framework übernimmt
+    Tabellen-und Spaltennamen basierend auf den Namen der Klasse und den Namen
+    der Attribute. Es besteht die Möglichkeit, sogenannte 'Hooks', wen nötig
+    diese angenommenen Standardwerte zu übersteuern. In den meisten Fällen
+    werden Sie feststellen, dass der Einsatz der vom Framework
+    bereitgestellten Namen zu einer schnelleren Projektdurchführung
+    führt.</para>
 
-    <para>Maven incorporates this concept by providing sensible default
-    behavior for projects. Without customization, source code is assumed to be
-    in <filename>\${basedir}/src/main/java</filename> and resources are assumed
-    to be in <filename>\${basedir}/src/main/resources</filename>. Tests are
-    assumed to be in <filename>\${basedir}/src/test</filename>, and a project
-    is assumed to produce a <acronym>JAR</acronym> file. Maven assumes that
-    you want the compile byte code to
-    <filename>\${basedir}/target/classes</filename> and then create a
-    distributable <acronym>JAR</acronym> file in
-    <filename>\${basedir}/target</filename>. While this might seem trivial,
-    consider the fact that most Ant-based builds have to define the locations
-    of these directories. Ant doesn't ship with any built-in idea of where
-    source code or resources might be in a project; you have to supply this
-    information. Maven's adoption of convention over configuration goes
-    farther than just simple directory locations, Maven's core plugins apply a
-    common set of conventions for compiling source code, packaging
-    distributions, generating web sites, and many other processes. Maven's
-    strength comes from the fact that it is "opinionated", it has a defined
-    life-cycle and a set of common plugins that know how to build and assemble
-    software. If you follow the conventions, Maven will require almost zero
-    effort - just put your source in the correct directory, and Maven will
-    take care of the rest.</para>
+    <para>Maven greift dieses Konzept auf und stellt vernünftige
+    Standard-Verhalten für Projekte bereit. Ohne weitere Anpassungen, wird
+    davon ausgegangen, dass sich Quellcode in \${basedir}/src/main/java und
+    Ressourcen sich in \${basedir}/src/main/resources befinden. Von Tests wird
+    davon ausgegangen, dass diese sich in \${basedir}/src/test befinden sowie
+    ein Projekt standardmäßig ein JAR-Archive bereitstellt. Maven geht davon
+    aus, dass Sie den compilierten Byte-Code unter \${basedir}/target/classes
+    ablegen wollen und anschließend ein ausführbares JAR-Archive erstellen
+    welches in \${basedir}/target abgelegt wird. Zwar mag diese Lösung trivial
+    anmuten, jedoch bedenken Sie bitte die Tatsache, dass die meisten
+    Ant-basierten Projekte die Lage dieser Verzeichnisse in jedem Teilprojekt
+    festlegen müssen. Die Umsetzung von Konvention über Konfiguration in Maven
+    geht noch viel weiter als nur einfache Verzeichnis Standorte festzulegen,
+    Maven-Core-Plugins kennen ein einheitliches System von Konventionen für
+    die Kompilierung von Quellcode, der Paketierung sowie Verteilung der
+    Artefakte, der Generierung von (Dokumentations-) Web-Sites, und vielen
+    anderen Prozessen. Die Stärke von Maven beruht auf der Tatsache, dass es
+    Maven mit einer 'vorbestimmten Meinung' ausgelegt ist: Maven hat einen
+    definierten Lebenszyklus sowie eine Reihe von Plugins welche unter
+    gemeinsamen Annahmen in der Lage sind Software zu erstellen. Sollten Sie
+    nach den Konventionen arbeiten, erfordert Maven fast keinen Aufwand -
+    einfach Ihre Quellen in das richtige Verzeichnis legen, -Maven kümmert
+    sich um den Rest. </para>
 
-    <para>One side-effect of using systems that follow "convention over
-    configuration" is that end-users might feel that they are forced to use a
-    particular methodology or approach. While it is certainly true that Maven
-    has some core opinions that shouldn't be challenged, most of the defaults
-    can be customized. For example, the location of a project's source code
-    and resources can be customized, names of <acronym>JAR</acronym> files can
-    be customized, and through the development of custom plugins, almost any
-    behavior can be tailored to your specific environment's requirements. If
-    you don't care to follow convention, Maven will allow you to customize
-    defaults in order to adapt to your specific requirements.</para>
+    <para>Ein Nachteil der Verwendung von Systemen welche dem Grundsatz der
+    Konvention über Konfiguration folgen, ist, dass Endbenutzer oftmals die
+    Gefahr sehen, dass sie gezwungen werden eine bestimmte Methode anzuwenden,
+    einem bestimmten Ansatz folgen zu müssen. Zwar ist es sicherlich richtig,
+    dass der Kern von Maven auf einigen wenigen Grundannahmen basiert, welche
+    nicht in Frage gestellt werden sollten, so kann man dennoch die meisten
+    Vorgaben auf die jeweilig vorherrschenden Bedürfnisse anpassen und
+    konfigurieren. So kann zum Beispiel die Lage des Projekt-Quellcodes sowie
+    dessen Ressourcen konfiguriert werden, oder die Namen der resultierenden
+    JAR-Archive angepasst werden. Durch die Entwicklung von massgefertigten
+    Plugins, kann fast jedes Verhalten an die Bedürfnisse Ihrer Umgebung
+    angepasst werden. Sollten Sie der Konvention nicht folgen wollen,
+    ermöglicht Maven es Ihnen Voreinstellungen anzupassen um Ihren
+    spezifischen Anforderungen Rechnung zu tragen.</para>
   </section>
 
   <section id="installation-sect-common-interface">
-    <title>A Common Interface</title>
+    <title>Die gemeinsame Schnittstelle </title>
 
-    <para>Before Maven provided a common interface for building software,
-    every single project had someone dedicated to managing fully customized
-    build system. Developers had to take time away from developing software to
-    learn about the idiosyncrasies of each new project they wanted to
-    contribute to. In 2001, you'd have a completely different approach to
-    building a project like <ulink
-    url="http://turbine.apache.org/">Turbine</ulink> than you would to
-    building a project like <ulink
-    url="http://tomcat.apache.org">Tomcat</ulink>. If a new source code
-    analysis tool came out that would perform static analysis on source code,
-    or if someone developed a new unit testing framework, everybody would have
-    to drop what they were doing and figure out how to fit it into each
-    project's custom build environment. How do you run unit tests? There were
-    a thousand different answers. This environment was characterized by a
-    thousand endless arguments about tools and build procedures. The age
-    before Maven was an age of inefficiency, the age of the "Build
-    Engineer".</para>
+    <para>Vor Maven eine gemeinsame Schnittstelle für den Build von Software
+    bereitstellte, hatte gewöhnlich jedes einzelne Projekt eine Person, welche
+    sich der Verwaltung des völlig eigenen Build Systems widmete. Entwickler
+    mussten einige Zeit aufwenden, um neben der tatsächlichen Entwicklung
+    herauszufinden, welche Eigenheiten beim Build einer neuen Software zu
+    berücksichtigen waren, welcher sie beitragen wollten. Im Jahr 2001, gab es
+    völlig unterschiedliche Build Konzepte/Systeme welche für den Build eines
+    Projekts wie Turbine, POI oder Tomcat zur Anwendung kamen. Jedesmal, wenn
+    ein neues Source Code-Analyse-Tool zur statischen Analyse von Quellcode
+    veröffentlicht wurde, oder wenn jemand ein neues Unit-Test Framework
+    herausgab, musste man alles stehen und liegen lassen, um herauszufinden,
+    wie dieses neue Werkzeug in das Projekt und dessen Build Umgebung
+    einzupassen wäre. Wie konnte man Unit-Tests laufen lassen? Es gab tausend
+    verschiedene Antworten. Dieses Umfeld war geprägt von tausenden endlosen
+    Auseinandersetzungen bezüglich der 'richtigen' Werkzeuge und Build
+    Vorgehen. Das Zeitalter vor Maven war ein Zeitalter der Ineffizienz: das
+    Zeitalter der "Build-Ingenieure".</para>
 
-    <para>Today, most open source developers have used or are currently using
-    Maven to manage new software projects. This transition is less about
-    developers moving from one build tool to another and more about developers
-    starting to adopt a common interface for project builds. As software
-    systems have become more modular, build systems have become more complex,
-    and the number of projects has sky-rocketed. Before Maven, when you wanted
-    to check out a project like <ulink url="http://activemq.apache.org">Apache
-    ActiveMQ</ulink> or <ulink url="http://servicemix.apache.org">Apache
-    ServiceMix</ulink> from Subversion and build it from source, you really
-    had to set aside about an hour to figure out the build system for each
-    particular project. What does the project need to build? What libraries do
-    I need to download? Where do I put them? What goals can I execute in the
-    build? In the best case, it took a few minutes to figure out a new
-    project's build, and in the worst cases (like the old Servlet API
-    implementation in the Jakarta Project), a project's build was so difficult
-    it would take multiple hours just to get to the point where a new
-    contributor could edit source and compile the project. These days, you
-    check it out from source, and you run <command>mvn
-    install</command>.</para>
+    <para>Heute setzen die meisten Open-Source-Entwickler bereits auf Maven,
+    oder nutzen dieses um neue Software-Projekten aufzusetzen. Dieser Übergang
+    ist weniger ein Wechsel von einem Build Werkzeug zu einem anderen, sondern
+    viel mehr eine Entwicklung, hin zum Einsatz einer gemeinsamen
+    Build-Schnittstelle für Projekte. Wie Software-Systeme modularer wurden,
+    wurden Build Werkzeuge komplexer und die Zahl der (Teil-)Projekte wuchs in
+    den Himmel. In der Zeit vor Maven, mussten Sie, wollten Sie etwa ein
+    Projekt wie Apache ActiveMQ oder Apache ServiceMix aus Subversion
+    auschecken und aus den Quellen erstellen, mit mindestens einer Stunde
+    Aufwand rechnen, die Sie damit verbrachten herauszufinden wie das
+    Build-System des einzelnen Projekts funktionierte. Was waren die
+    Voraussetzungen, um das Projekt zu builden? Welche Bibliotheken muss man
+    herunterladen? Wo bekomme ich diese? Welche Targets kann ich im Build
+    ausführen? Im besten Fall, dauerte es ein paar Minuten um herauszufinden
+    wie ein neues Projekt zu builden war, - und im schlimmsten Fall (wie die
+    alte Servlet-API-Umsetzung des Jakarta-Projekts), war ein Projekt aufbauen
+    so schwierig, das es mehrere Stunden dauerte, nur um an einen Punkt zu
+    gelangen, an dem ein neuer Mitarbeiter den Quellcode bearbeiten konnte und
+    das Projekt kompilierte. Heutzutage machen Sie einen Projekt Check-Out und
+    führen mvn install aus. </para>
 
-    <para>While Maven provides an array of benefits including dependency
-    management and reuse of common build logic through plugins, the core
-    reason why it has succeeded is that it has defined a common interface for
-    building software. When you see that a project like <ulink
-    url="http://wicket.apache.org">Apache Wicket</ulink> uses Maven, you can
-    assume that you'll be able to check it out from source and build it with
-    mvn install without much hassle. You know where the ignition keys goes,
-    you know that the gas pedal is on the right-side, and the brake is on the
-    left.</para>
+    <para>Während Maven eine Reihe von Vorteilen einschließlich der Verwaltung
+    von Abhängigkeiten und Wiederverwendung von gemeinsamer Logik zum Build
+    durch Plugins bietet, ist der Hauptgrund für den Erfolg der, dass es
+    gelungen ist eine einheitliche Schnittstelle für den Build von Software
+    bereitzustellen. Wenn Sie sehen, dass ein Projekt wie Apache Wicket Maven
+    verwendet, können Sie davon ausgehen, dass Sie in der Lage sein werden,
+    Projekt ohne weiten Aufwand auszuchecken und aus den Quellen mittels mvn
+    zu bauen und zu installieren. Sie wissen, wo der Zündschlüssel hinkommt,
+    Sie wissen, dass das Gas-Pedal auf der rechten Seite und die Bremse auf
+    der Linken ist. </para>
   </section>
 
   <section id="installation-sect-universal-reuse">
-    <title>Universal Reuse through Maven Plugins</title>
+    <title>Universelle Wiederverwendung durch Maven-Plugins </title>
 
-    <para>The core of Maven is pretty dumb, it doesn't know how to do much
-    beyond parsing a few <acronym>XML</acronym> documents and keeping track of
-    a lifecycle and a few plugins. Maven has been designed to delegate most
-    responsibility to a set of Maven Plugins which can affect the Maven
-    Lifecycle and offer access to goals. Most of the action in Maven happens
-    in plugin goals which take care of things like compiling source, packaging
-    bytecode, publishing sites, and any other task which need to happen in a
-    build. The Maven you download from Apache doesn't know much about
-    packaging a <acronym>WAR</acronym> file or running JUnit tests; most of
-    the intelligence of Maven is implemented in the plugins and the plugins
-    are retrieved from the Maven Repository. In fact, the first time you ran
-    something like <command>mvn install</command> with a brand-new Maven
-    installation it retrieved most of the core Maven plugins from the Central
-    Maven Repository. This is more than just a trick to minimize the download
-    size of the Maven distribution, this is behavior which allows you to
-    upgrade a plugin to add capability to your project's build. The fact that
-    Maven retrieves both dependencies and plugins from the remote repository
-    allows for universal reuse of build logic.</para>
+    <para>Der Herzstück von Maven ist ziemlich dumm. Es weiss nicht viel mehr
+    als ein paar XML-Dokumenten zu parsen sowie einen Lebenszyklus und ein
+    paar Plugins zu verwalten. Maven wurde so konzipiert, dass die meiste
+    Verantwortung auf eine Anzahl Maven-Plugins delegiert werden kann, welche
+    den Lebenszyklus von Maven beeinflussen sowie gewisse Goals erreichen
+    können. Der Großteil der Arbeit geschieht in Maven Goals. Hier passieren
+    Dinge wie die Kompilierung von Quellcode, die Paketierung von Bytecode,
+    die Erstellung von Websites, und jede andere Aufgabe die um einen Build zu
+    erfüllen notwenig ist. Die Maven Installation nach dem Download von Apache
+    weiß noch nicht viel über die Paketierung eines WAR-Archivs oder dem
+    Ausführen eines JUnit-Tests; der größte Teil der Intelligenz von Maven ist
+    in den Plugins enthalten und diese bezieht Maven aus dem Maven-Repository.
+    In der Tat, das erste Mal, als Sie einen Aufruf wie z.B. mvn install auf
+    Ihrer neuen Maven Installation absetzten, holte sich Maven die meisten der
+    Core Maven Plugins aus dem zentralen Maven-Repository. Das ist mehr als
+    nur ein Trick, um die Download-Größe von Maven in der Verteilung zu
+    beeinflussen, dieses Verhalten ist es, das es erlaubt, durch die
+    Erweiterung eines Plugins die Fähigkeiten des Builds zu verändern. Die
+    Tatsache, dass Maven sowohl die Abhängigkeiten wie auch die Plugins aus
+    einem Remote-Repository lädt ermöglicht universelle Wiederverwendung von
+    Build-Logik.</para>
 
-    <para>The Maven Surefire plugin is the plugin that is responsible for
-    running unit tests. Somewhere between version 1.0 and the version that is
-    in wide use today someone decided to add support for the TestNG unit
-    testing framework in addition to the support for JUnit. This upgrade
-    happened in a way that didn't break backwards compatibility. If you were
-    using the Surefire plugin to compile and execute JUnit 3 unit tests, and
-    you upgraded to the most recent version of the Surefire plugin, your tests
-    continued to execute without fail. But, you gained new functionality, if
-    you want to execute unit tests in TestNG you now have that ability. You
-    also gained the ability to run annotated JUnit 4 unit tests. You gained
-    all of these capabilities without having to upgrade your Maven
-    installation or install new software. Most importantly, nothing about your
-    project had to change aside from a version number for a plugin a single
-    Maven configuration file called the Project Object Model (POM).</para>
+    <para>Das Maven Surefire Plugin ist das Plugin, welches für die Ausführung
+    von Unit-Tests verantwortlich zeichnet. Irgendwo zwischen Version 1.0 und
+    der aktuelle verbreiteten Version hat jemand beschlossen, dieses neben der
+    Unterstützung von JUnit auch um die Unterstützung für das TestNG Unit-Test
+    Framework zu erweitern. Dies geschah in einer Art und Weise, dass die
+    Abwärtskompatibilität erhalten blieb. Für die Benutzer des Surefire Plugin
+    im Einsatz von JUnit3 Tests veränderte sich nichts, weiterhin werden die
+    Tests kompiliert und ausgeführt, wie dies zuvor der Fall war. Aber, Sie
+    erhalten eine neue Funktionalität, denn sollten Sie nun Unit Tests nach
+    dem TestNG Framework ausführen wollen, so haben Sie nun diese Möglichkeit,
+    dank der Bemühungen der Maintainer des Surefire Plugin. Das Plugin erhielt
+    auch die Fähigkeit annotierte JUnit4 Unit Tests zu unterstützen. Alle
+    diese Erweiterungen wurden bereitgestellt, ohne dass Sie Maven aktiv
+    aktualisieren, oder neue Software installieren mussten. Und ganz zentral,
+    Sie mussten nichts an Ihrem Projekt ändern, abgesehen von einer
+    Versionsnummer für ein Plugin in einem POM.</para>
 
-    <para>It is this mechanism that affects much more than the Surefire
-    plugin, projects are compiled with a Compiler plugin, projects are turned
-    into <acronym>JAR</acronym> files with a Jar plugin, there are plugins for
-    running reports, plugins for executing JRuby and Groovy code, as well as
-    plugins to publish sites to remote servers. Maven has abstracted common
-    build tasks into plugins which are maintained centrally and shared
-    universally. If the state-of-the-art changes in any area of the build, if
-    some new unit testing framework is released or if some new tool is made
-    available, you don't have to be the one to hack your project's custom
-    build system to support it. You benefit from the fact that plugins are
-    downloaded from a remote repository and maintained centrally. This is what
-    is meant by universal reuse through Maven plugins.</para>
+    <para>Es ist dieser Mechanismus welche sich auf wesentlich mehr als nur
+    das Surefire Plugin auswirkt: Projekte werden mittels einem Compiler
+    Plugin kompiliert, mittels JAR-Plugin in JAR-Archive gepackt, es gibt es
+    Plugins zum Erstellen von Berichten, Plugins zur Ausführung von JRuby und
+    Groovy-Code, sowie Plugins zum Veröffentlichen von Websites auf
+    Remote-Servern. Maven hat gemeinsame Aufgaben in Plug-Ins herausgelöst
+    welche zentral gewartet sowie universell eingesetzt werden. Wann immer
+    Veränderungen in einem Bereich des Buildens umgesetzt werden, wann immer
+    ein neues Unit-Test Framework freigegeben oder ein neues Werkzeug bereit
+    gestellt wird. Sie sind nicht gezwungen, diese Änderungen in ihren Build
+    einzupflegen um dies zu unterstützen. Sie profitieren von der Tatsache,
+    dass Plugins von einem zentral gewarteten Remote-Repository
+    heruntergeladen werden. Das ist die wahre Bedeutung von universeller
+    Wiederverwendung durch Maven Plugins.</para>
   </section>
 
   <section id="installation-sect-conceptual">
-    <title>Conceptual Model of a "Project"</title>
+    <title>Konzeptionelles Modell eines "Projekts" </title>
 
-    <para>Maven maintains a model of a project. You are not just compiling
-    source code into bytecode, you are developing a description of a software
-    project and assigning a unique set of coordinates to a project. You are
-    describing the attributes of the project. What is the project's license?
-    Who develops and contributes to the project? What other projects does this
-    project depend upon? Maven is more than just a "build tool", it is more
-    than just an improvement on tools like make and Ant, it is a platform that
-    encompasses a new semantics related to software projects and software
-    development. This definition of a model for every project enables such
-    features as:</para>
+    <para>Maven unterhält ein Modell eines Projekts, Sie verarbeiten also
+    nicht nur Quellcode Dateien in Binärdateien, Sie entwickeln zugleich eine
+    Beschreibung des Software-Projekts und ordnen diesem eine Reihe
+    einzigartiger Koordinaten zu. Sie beschreiben die Attribute des Projekts:
+    Wie ist die Projektlizenzierung geregelt? Wer entwickelt und trägt zum
+    Projekt bei? Zu welchen anderen Projekten bestehen Abhängigkeiten? Maven
+    ist mehr als nur ein "Build-Tool", es ist mehr als nur eine Verbesserung
+    von Werkzeugen wie make und Ant; es ist eine Plattform, umfasst eine neue
+    Semantik bezüglich Software-Projekten und Software-Entwicklung. Diese
+    Definition eines Modells für jedes Projekt ermöglicht Funktionen wie:
+    </para>
 
     <variablelist>
       <varlistentry>
-        <term>Dependency Management</term>
+        <term>Dependency Management / Abhängigkeits Verwaltung:</term>
 
         <listitem>
-          <para>Because a project is defined a unique coordinate which
-          consists of a group identifier, artifact identifier, and version,
-          projects can now use these coordinates to declare
-          dependencies.</para>
+          <para>Da ein Projekt einzigartig mittels einer Gruppenkennung
+          (groupId), Artefaktenkennung (artifactId) und Version (version)
+          identifiziert wird, ist nun möglich, diese Koordinaten zur
+          Abhängigkeitsverwaltung einzusetzen. </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Remote Repositories</term>
+        <term>Remote-Repositories</term>
 
         <listitem>
-          <para>Related to dependency management, we can use the coordinates
-          defined in the Maven Project Object Model (<acronym>POM</acronym>)
-          to create repositories of Maven artifacts.</para>
+          <para>Diese definierten Koordinaten können nun in der Definition von
+          Maven Projekt Objekt Modellen (POM) zum Einsatz kommen und so,
+          bezogen auf die Abhängigkeiten, Repositorien von Artefakten
+          ermöglichen sowie darauf aufzubauen. </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Universal Reuse of Build Logic</term>
+        <term>Universelle Wiederverwendung der Build-Logik </term>
 
         <listitem>
-          <para>Plugins are coded to work with the Project Object Model
-          (<acronym>POM</acronym>); they are not designed to operate upon
-          specific files in known locations. Everything is abstracted into the
-          Model, plugin configuration and customization happens in the
-          model.</para>
+          <para>Plugins werden ausgerichtet auf das Projekt Objekt Model (POM)
+          gebaut, sie sind nicht dafür ausgelegt auf bestimmte Dateien an
+          bestimmten Orten zuzugreifen. Alles wird in das Modell abstrahiert,
+          Plugin-Konfiguration und Anpassung geschieht im Modell. </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Tool Portability / Integration</term>
+        <term>Tool Portabilität / Integration </term>
 
         <listitem>
-          <para>Tools like Eclipse, NetBeans, and IntelliJ now have a common
-          place to find information about a project. Before the advent of
-          Maven, every <acronym>IDE</acronym> had a different way to store
-          what was essentially a custom Project Object Model
-          (<acronym>POM</acronym>). Maven has standardized this description,
-          and while each IDE continues to maintain custom project files, they
-          can be easily generated from the model.</para>
+          <para>Werkzeuge wie Eclipse, NetBeans, IntelliJ und haben jetzt
+          einen gemeinsamen Ort um auf Projektinformationen zuzugreifen. Vor
+          dem Aufkommen von Maven, gab es für jede IDE eine spezifische Art
+          und Weise in welcher diese Daten abgelegt wurden, was im
+          Wesentlichen einem benutzerdefinierten POM entspricht. Maven
+          standardisiert diese Beschreibung und während jeder IDE weiterhin
+          deren eigenes Datenablagesystem unterhalten kann, lässt sich dieses
+          nun leicht aus dem Modell heraus generieren.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Easy Searching and Filtering of Project Artifacts</term>
+        <term>Einfache Suche und Filterung von Projekt-Artefakten </term>
 
         <listitem>
-          <para>Tools like Nexus allow you to index and search the contents of
-          a repository using the information stored in the
-          <acronym>POM</acronym>.</para>
+          <para>Werkzeuge wie Nexus ermöglichen es Ihnen schnell und einfach
+          Archive auf der Basis der im POM enthaltenen Daten zu indexieren und
+          zu durchsuchen.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Maven has provided a foundation for the beginnings of a consistent
-    semantic description of a software project.</para>
+    <para>Maven hat eine Grundlage für die Anfänge einer konsistenten
+    semantischen Beschreibung eines Software-Projekts geschaffen. </para>
   </section>
 
   <section id="installation-sect-mavenAlternativeAnt">
-    <title>Is Maven an alternative to XYZ?</title>
+    <title>Maven ist eine Alternative zu XYZ? </title>
 
-    <para>So, sure, Maven is an alternative to Ant, but <ulink
-    url="http://ant.apache.org">Apache Ant</ulink> continues to be a great,
-    widely-used tool. It has been the reigning champion of Java builds for
-    years, and you can integrate Ant build scripts with your project's Maven
-    build very easily. This is a common usage pattern for a Maven project. On
-    the other hand, as more and more open source projects move to Maven as a
-    project management platform, working developers are starting to realize
-    that Maven not only simplifies the task of build management, it is helping
-    to encourage a common interface between developers and software projects.
-    Maven is more of a platform than a tool, while you could consider Maven an
-    alternative to Ant, you are comparing apples to oranges. "Maven" includes
-    more than just a build tool.</para>
+    <para>Natürlich, Maven stellt eine Alternative zu Ant dar, aber Apache Ant
+    ist nach wie vor ein großartiges, weit verbreitete Werkzeug. Es stellt
+    seit Jahren den amtierende Champion der Java Build Tools, und Sie können
+    auch weiterhin Ant-Build-Skripte einfach in Ihr Maven Projekt integrieren.
+    Das ist auch eine gebräuchliche Art, Maven einzusetzen. Andererseits,
+    jetzt da mehr und mehr Open-Source-Projekte sich auf Maven zu bewegen und
+    Maven als Projekt Management Plattform einsetzen, haben aktive Entwickler
+    begonnen zu erkennen, dass Maven nicht nur die Aufgabe der Build
+    Verwaltung unterstützt, sondern insgesamt zur Förderung einer gemeinsamen
+    Schnittstelle zwischen Entwicklern und Software Projekte beiträgt. Maven
+    ist eher eine Plattform als ein Werkzeug. Wenn Sie die Auffassung
+    vertreten würden, Maven eine Alternative zu Ant anzusehen, so würden Sie
+    Äpfel mit Birnen vergleichen. Maven umfasst mehr als nur ein einen
+    Werkzeugkasten um Projekte zu Builden. </para>
 
-    <para>This is the central point that makes all of the Maven vs. Ant, Maven
-    vs. Buildr, Maven vs. Gradle arguments irrelevant. Maven isn't totally
-    defined by the mechanics of your build system, it isn't about scripting
-    the various tasks in your build as much as it is about encouraging a set
-    of standards, a common interface, a life-cycle, a standard repository
-    format, a standard directory layout, etc. It certainly isn't about what
-    format the <acronym>POM</acronym> happens to be in <acronym>(XML</acronym>
-    vs. <acronym>YAML</acronym> vs. Ruby). Maven is much larger than that, and
-    Maven refers to much more than the tool itself. When this book talks of
-    Maven, it is referring to the constellation of software, systems, and
-    standards that support it. Buildr, Ivy, Gradle, all of these tools
-    interact with the repository format that Maven helped create, and you
-    could just as easily use a tool like Nexus to support a build written
-    entirely in Buildr. Nexus is introduced in <xref
-    linkend="repository-manager" />.</para>
+    <para>Dies ist das zentrale Argument, welches alle Vergleiche der Art
+    Maven/Ant, Maven/Buildr, Maven/Gradle unerheblich macht. Maven ist nicht
+    bestimmt von der Mechanik Ihres Build-Systems, es fusst nicht auf dem
+    Scripting der verschiedenen Aufgaben Ihres Builds, sondern es geht weit
+    mehr um die Förderung einer Reihe von Standards, einer gemeinsamen
+    Schnittstelle, eines Leben-Zykluses, einem Standard-Repository Format,
+    einem Standard-Verzeichnis, Layout, usw. Es geht sicherlich nicht darum,
+    welches POM-Format zum Einsatz kommt, ob XML, YAML, Ruby oder Maven. Maven
+    bietet weit mehr als dies: Maven und bezieht sich auf viel mehr als nur
+    das Werkzeug. Wenn dieses Buch von Maven spricht, so bezieht sich dies auf
+    die Zusammenstellung von Software, Systemen und Standards, welche Maven
+    unterstützt. Buildr, Ivy, Gradle alle diese Werkzeuge interagieren mit den
+    Repository-Format welches zu definieren Maven beigetragen hat. Sie könnten
+    genauso einen Build auf der Basis von Buildr einzig unter Zuhilfenahme von
+    einem Tool wie Nexus aufbauen, Nexus wird in Kapitel 16 vorgestellt:
+    Repository-Manager. </para>
 
-    <para>While Maven is an alternative to many of these tools, the community
-    needs to evolve beyond seeing technology as a zero-sum game between
-    unfriendly competitors in a competition for users and developers. This
-    might be how large corporations relate to one another, but it has very
-    little relevance to the way that open source communities work. The
-    headline "Who's winning? Ant or Maven?" isn't very constructive. If you
-    force us to answer this question, we're definitely going to say that Maven
-    is a superior alternative to Ant as a foundational technology for a build;
-    at the same time, Maven's boundaries are constantly shifting and the Maven
-    community is constantly trying to seek out new ways to become more
-    ecumenical, more inter-operable, more cooperative. The core tenets of
-    Maven are declarative builds, dependency management, repository managers,
-    universal reuse through plugins, but the specific incarnation of these
-    ideas at any given moment is less important than the sense that the open
-    source community is collaborating to reduce the inefficiency of
-    "enterprise-scale builds".</para>
+    <para>Während Maven eine Alternative für viele dieser Tools darstellt,
+    muss die Gemeinschaft der Open Source Entwickler darüber hinaus kommen
+    können, Technologie als ein kontinuierliches Nullsummenspiel zwischen
+    unfreundlichen Konkurrenten in einer kapitalistischen Wirtschaft zu sehen.
+    Dies mag im Wettbewerb von Großunternehmen und Ihrem Bezug zu einander
+    sinnvoll erscheinen, hat aber wenig Relevanz auf die Art und Weise, wie
+    Open-Source-Communities arbeiten. Die Überschrift "Wer gewinnt? Ant oder
+    Maven?" ist nicht sehr konstruktiv. Zwingen Sie uns, diese Frage zu
+    beantworten, werden wir uns definitiv auf die Seite von Maven schlagen und
+    darlegen, dass Maven eine gegenüber Ant überlegene Alternative darstellt
+    die darüberhinaus die Grundlage für eine Technologie des Buildes legt.
+    Gleichzeitig bitten wir zu berücksichtigen, dass die Grenzen von Maven in
+    ständiger Bewegung sind, die Maven Gemeinde ist immerzu versucht, neue
+    Wege zu mehr Ökumene, mehr Interoperabilität, größerer Gemeinschaft zu
+    schaffen. Die Kernkomponenten von Maven sind der deklarative Build, die
+    Abhängigkeitsverwaltung (Dependency Management), Repository Verwaltung und
+    breite Wiederverwendbarkeit durch den Einsatz von Plugins. Es sind aber
+    die spezifische Inkarnationen dieser Ideen zu einem gegebenen Zeitpunkt
+    weniger wichtig, als das Ziel dass die Open-Source-Community in
+    Zusammenarbeit zur Verringerung der Ineffizienz von "Enterprise Scale
+    Builds" beizutragen.</para>
   </section>
 
   <section id="installation-sect-compare-ant-maven">
-    <title>Comparing Maven with Ant</title>
+    <title>Ein Vergleich von Maven und Ant </title>
 
-    <para>While the previous section should convince you that the authors of
-    this book have no interest in creating a feud between Apache Ant and
-    Apache Maven, we are cognizant of the fact that most organizations have to
-    make a decision between the Apache Ant and Apache Maven. In this section,
-    we compare and contrast the tools.</para>
+    <para>Während der vorangegangene Abschnitt Ihnen verständlich gemacht
+    haben sollte, dass die Autoren dieses Buches keinerlei Interesse an der
+    Schaffung oder Vertiefung einer Fehde zwischen Apache Ant und Apache Maven
+    haben, ist uns die Tatsache bewusst, dass die meisten Organisationen eine
+    Entscheidung zwischen Ant und Maven treffen (müssen). In diesem Abschnitt
+    werden wir daher diese beiden Werkzeuge gegenüberstellen. </para>
 
-    <para>Ant excels at build process, it is a build system modeled after make
-    with targets and dependencies. Each target consists of a set of
-    instructions which are coded in <acronym>XML</acronym>. There is a
-    <sgmltag>copy</sgmltag> task and a <sgmltag>javac</sgmltag> task as well
-    as a <sgmltag>jar</sgmltag> task. When you use Ant, you supply Ant with
-    specific instructions for compiling and packaging your output. Look at the
-    following example of a simple <filename>build.xml</filename> file:</para>
+    <para>Ant läuft beim Build-Prozess zu seiner vollen Grösse auf: Es ist ein
+    Build-System nach dem Vorbild von make mit Targets und Abhängigkeiten.
+    Jeder Target besteht aus einer Reihe von Anweisungen, die in XML
+    beschrieben werden. Es gibt eine Task copy, eine Task javac sowie eine
+    Task JAR. Wenn Sie Ant benutzen, müssen Sie Ant mit der speziellen,
+    spezifischen Anweisungen für die Zusammenstellung und dem Packaging Ihres
+    Projektes aufrufen. Sehen Sie sich das folgende Beispiel einer einfachen
+    Ant build.xml-Datei an:</para>
 
     <example id="ex-ant-sample">
-      <title>A Simple Ant build.xml file</title>
+      <title>Eine einfache Ant build.xml-Datei </title>
 
       <programlisting language="xml">&lt;project name="my-project" default="dist" basedir="."&gt;
     &lt;description&gt;
@@ -383,28 +417,27 @@
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>In this simple Ant example, you can see how you have to tell Ant
-    exactly what to do. There is a compile goal which includes the
-    <varname>javac</varname> task that compiles the source in the
-    <filename>src/main/java</filename> directory to the
-    <filename>target/classes</filename> directory. You have to tell Ant
-    exactly where your source is, where you want the resulting bytecode to be
-    stored, and how to package this all into a <acronym>JAR</acronym> file.
-    While there are some recent developments that help make Ant less
-    procedural, a developer's experience with Ant is in coding a procedural
-    language written in <acronym>XML</acronym>.</para>
+    <para>An diesem einfachen Beispiel eines Ant Skriptes, können Sie sehen,
+    wie genau man definieren muss, was man von Ant erwartet. Ein Target ist
+    javac, hier werden die Quelldateien in Binärdaten verarbeitet, dabei ist
+    es wichtig, dass man genau angibt, wo die Quell- sowie Zieldateien
+    abgelegt werden (/src/main/java resp. /target/classes). Ebenfalls müssen
+    Sie Ant anweisen, aus den resultierenden Dateien ein JAR-Archiv zu
+    erstellen. Während einige der neueren Entwicklungen dazu beitragen, dass
+    Ant weniger prozedural orientiert arbeitet, ist die Entwickler Erfahrung
+    dennoch die, einer in XML abgefassten prozeduralen
+    Programmiersprache.</para>
 
-    <para>Contrast the previous Ant example with a Maven example. In Maven, to
-    create a JAR file from some Java source, all you need to do is create a
-    simple <filename>pom.xml</filename>, place your source code in
-    <filename>\${basedir}/src/main/java</filename> and then run <command>mvn
-    install</command> from the command line. The example Maven
-    <filename>pom.xml</filename> that achieves the same results as the simple
-    Ant file listed in <xref linkend="ex-ant-sample" /> is shown in <xref
-    linkend="ex-maven-sample" />.</para>
+    <para>Vergleichen Sie das Vorgehen von Maven mit dem vorigen Beispiel: In
+    Maven, um ein JAR-Archive aus einer Reihe von Java Quellcode Dateien zu
+    erstellen, ist alles, was Sie tun müssen, ein einfaches pom.xml zu
+    generieren. Platzieren Sie den Quellcode in \${basedir}/src/main/java und
+    führen Sie dann mvn install von der Befehlszeile aus . Das Beispiel der
+    Maven pom.xml Datei, welches zum selben Ergebnis führt wie zuvor das
+    Ant-Skript sehen Sie unten. </para>
 
     <example id="ex-maven-sample">
-      <title>A Sample Maven pom.xml</title>
+      <title>Muster einer Maven pom.xml-Datei</title>
 
       <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -414,37 +447,36 @@
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>That's all you need in your <filename>pom.xml</filename>. Running
-    <command>mvn install</command> from the command line will process
-    resources, compile source, execute unit tests, create a
-    <acronym>JAR</acronym>, and install the <acronym>JAR</acronym> in a local
-    repository for reuse in other projects. Without modification, you can run
-    <command>mvn site</command> and then find an
-    <filename>index.html</filename> file in <filename>target/site</filename>
-    that contains links to JavaDoc and a few reports about your source
-    code.</para>
+    <para>Das ist alles was Sie in der zugehörigen pom.xml Datei benötigen.
+    Der Aufruf von mvn install wird die Resourcen sowie Quelldateien
+    kompilieren, bestehende Unit-Tests ausführen, JAR-Archive erstellen und
+    dieses in einem lokalen Repository anderen Projekten zur Verfügung
+    stellen. Ohne die pom.xml Datei abzuändern, können Sie durch den Aufruf
+    von mvn site im Zielverzeichnis eine index.html wiederfinden, welche den
+    Link zu einer Dokumentations Web Seite auf der Basis von Java Doc sowie
+    einigen Standard Reports bereitstellt.</para>
 
-    <para>Admittedly, this is the simplest possible example project. A project
-    which only contains source code and which produces a
-    <acronym>JAR</acronym>. A project which follows Maven conventions and
-    doesn't require any dependencies or customization. If we wanted to start
-    customizing the behavior, our <filename>pom.xml</filename> is going to
-    grow in size, and in the largest of projects you can see collections of
-    very complex Maven <acronym>POM</acronym>s which contain a great deal of
-    plugin customization and dependency declarations. But, even when your
-    project's <acronym>POM</acronym> files become more substantial, they hold
-    an entirely different kind of information from the build file of a
-    similarly sized project using Ant. Maven <acronym>POM</acronym>s contain
-    declarations: "This is a <acronym>JAR</acronym> project", and "The source
-    code is in <filename>src/main/java</filename>". Ant build files contain
-    explicit instructions: "This is project", "The source is in
-    <filename>src/main/java</filename>", "Run javac against this directory",
-    "Put the results in <filename>target/classses</filename>", "Create a
-    <acronym>JAR</acronym> from the ....", etc. Where Ant had to be explicit
-    about the process, there was something "built-in" to Maven that just knew
-    where the source code was and how it should be processed.</para>
+    <para>Zugegeben, dies ist das einfachste, mögliche Beispiel-Projekt. Ein
+    Projekt, das nur Quellcode enthält und ein JAR-Archive erzeugt. Ein
+    Projekt welches der Maven Konvention unterliegt und keinerlei
+    Abhängigkeiten oder Anpassungen berücksichtigt. Sobald wir die
+    Verhaltensweisen der Plugins anpassen wird unsere pom.xml Datei wachsen.
+    In den grössten Projekten werden Sie komplexe Maven POMs finden, welche
+    eine grosse Anzahl Plugin Anpassungen sowie Abhängigkeitserklärungen
+    enthalten. Aber, selbst wenn das POM Ihres Projekts erheblich wächst,
+    enthält dies eine ganz andere Art von Daten und Informationen denn das
+    Skript einer entsprechenden Ant-Datei. Maven POMs enthalten Deklarationen
+    wie: "Dies ist eine JAR-Projekt", und "Der Quellcode ist unter
+    /src/main/java abgelegt". Wohingegen Ant-Build-Dateien explizite Anweisung
+    enthalten: "Dies ist ein Projekt", "Die Quelle ist in /src/main/java",
+    "javac gegen dieses Verzeichnis ausführen", "Ablegen der Ergebnisse in
+    /target/classses", "Erstellen eines JAR-Archives aus der. ...". Wo Ant
+    genauen Prozess-Anweisungen bedurfte, gab es etwas innerhalb des Maven
+    Builds, das einfach "wusste", wo der Quellcode zu finden ist und wie
+    dieser zu verarbeiten ist.</para>
 
-    <para>The differences between Ant and Maven in this example are:</para>
+    <para>Die Unterschiede zwischen den Ant und Maven in diesem Beispiel sind:
+    </para>
 
     <para><variablelist>
         <varlistentry>
@@ -453,24 +485,24 @@
           <listitem>
             <para><itemizedlist>
                 <listitem>
-                  <para>Ant doesn't have formal conventions like a common
-                  project directory structure, you have to tell Ant
-                  <emphasis>exactly</emphasis> where to find the source and
-                  where to put the output. Informal conventions have emerged
-                  over time, but they haven't been codified into the
-                  product.</para>
+                  <para>Ant kennt keine formalen Konventionen bezüglich einer
+                  gemeinsamen Projekt Verzeichnis-Struktur. Sie müssen Ant
+                  genau sagen, wo sich die Quelldateien befinden und wo die
+                  Ausgabe abgelegt werden soll. Informelle Konventionen haben
+                  sich im Laufe der Zeit herausgebildet, aber diese wurden
+                  nicht im Produkt kodifiziert.</para>
                 </listitem>
 
                 <listitem>
-                  <para>Ant is procedural, you have to tell Ant exactly what
-                  to do and when to do it. You had to tell it to compile, then
-                  copy, then compress.</para>
+                  <para>Ant ist Prozedural, Sie müssen Ant genau sagen, was zu
+                  tun ist und wann dies zu tun. Sie mussten definieren: erst
+                  kompilieren, dann kopieren, dann paketieren. </para>
                 </listitem>
 
                 <listitem>
-                  <para>Ant doesn't have a lifecycle, you had to define goals
-                  and goal dependencies. You had to attach a sequence of tasks
-                  to each goal manually.</para>
+                  <para>Ant kennt keinen Lebenszyklus, Sie mussten Targets
+                  definieren und deren Abhängigkeiten. Sie mussten die Abfolge
+                  der Schritte manuell für jeden Target festlegen.</para>
                 </listitem>
               </itemizedlist></para>
           </listitem>
@@ -482,77 +514,82 @@
           <listitem>
             <para><itemizedlist>
                 <listitem>
-                  <para>Maven has conventions, it already knew where your
-                  source code was because you followed the convention. It put
-                  the bytecode in <filename>target/classes</filename>, and it
-                  produced a <acronym>JAR</acronym> file in target.</para>
+                  <para>Maven arbeitet nach Konventionen. Da Sie diese
+                  beachteten, wusste Maven wo Ihr Quellcode sich befand. Es
+                  stellt den Bytecode in target/ classes und es erzeugte ein
+                  JAR-Archive in target.</para>
                 </listitem>
 
                 <listitem>
-                  <para>Maven is declarative. All you had to do was create a
-                  <filename>pom.xml</filename> file and put your source in the
-                  default directory. Maven took care of the rest.</para>
+                  <para>Maven ist deklarative. Alles was Sie tun musste, war
+                  eine pom.xml Datei zu erzeugen sowie Ihre Quelle im
+                  Standard-Verzeichnis ablegen. Maven kümmerte sich um den
+                  Rest.</para>
                 </listitem>
 
                 <listitem>
-                  <para>Maven has a lifecycle, which you invoked when you
-                  executed mvn install. This command told Maven to execute the
-                  a series of sequence steps until it reached the lifecycle.
-                  As a side-effect of this journey through the lifecycle,
-                  Maven executed a number of default plugin goals which did
-                  things like compile and create a
-                  <acronym>JAR</acronym>.</para>
+                  <para>Maven kennt einen Lebenszyklus, welchen Sie mit dem
+                  Aufruf von mvn install angestossen haben. Dieser Aufruf
+                  bringt Maven dazu, eine Abfolge von Schritten abzuarbeiten,
+                  bis das Ende des Lebenszykluses erreicht ist. Als
+                  Nebeneffekt dieser Reise durch den Lebenszyklus führt Maven
+                  eine Reihe von Standard-Plugin-Goals aus, diese erledigen
+                  Arbeiten wie z.B. kompilieren oder dem Erstellen eines
+                  JAR-Archives.</para>
                 </listitem>
               </itemizedlist></para>
           </listitem>
         </varlistentry>
       </variablelist></para>
 
-    <para>Maven has built-in intelligence about common project tasks in the
-    form of Maven plugins. If you wanted to write and execute unit tests, all
-    you would need to do is write the tests place them in
-    <filename>\${basedir}/src/test/java</filename>, add a test-scoped
-    dependency on either TestNG or JUnit, and run <command>mvn test</command>.
-    If you wanted to deploy a web application and not a
-    <acronym>JAR</acronym>, all you would need to do is change you project
-    type to (war) and put your docroot in
-    <filename>\${basedir}/src/main/webapp</filename>. Sure, you can do all of
-    this with Ant, but you will be writing the instructions from scratch. In
-    Ant, you would first have to figure out where the JUnit
-    <acronym>JAR</acronym> file should be, then you would have to create a
-    classpath that includes the JUnit <acronym>JAR</acronym> file, then you
-    would tell Ant where it should look for test source code, write a goal
-    that compiles the test source to bytecode, execute the unit tests with
-    JUnit.</para>
+    <para>Maven hat eine eingebaute Intelligenz bezüglich der gemeinsamen
+    Projektaufgaben in Form von Maven-Plugins. Sollten Sie Unit Tests
+    ausführen wollen, ist alles was Sie tun müssen, die Tests zu schreiben und
+    unter \${basedir}/src/test/java abzulegen, führen Sie eine Test bezogene
+    Abhängigkeit zu entweder TestNG oder JUnit ein, und starten Sie mvn test.
+    Sollten Sie anstelle eines JAR-Archives eine Web Anwendung erstellen, so
+    ist alles was Sie tun müssen den Projekttyp auf "war" umstellen und Ihr
+    Applikationsverzeichnis (docroot) auf \${basedir}/src/main/webapp setzen.
+    Klar, können Sie all dies auch mit Ant bewerkstelligen, aber Sie werden
+    alle Anweisungen von Grund auf festhalten. In Ant würden Sie erst einmal
+    herausfinden, wo die JUnit-JAR-Datei sich befindet, dann müssten Sie einen
+    Klassenpfad erstellen welcher auch die JUnit-Archive Datei enthält, und
+    anschliessend Ant mitteilen wo sich der Quellcode befindet. Schliesslich
+    würden Sie einen Target erstellen die Quellen der Test Dateien zu
+    kompilieren und zu guter Letzt die Tests mit JUnit auszuführen.</para>
 
-    <para>Without supporting technologies like antlibs and Ivy (even with
-    these supporting technologies), Ant has the feeling of a custom procedural
-    build. An efficient set of Maven <acronym>POM</acronym>s in a project
-    which adheres to Maven's assumed conventions has surprisingly little
-    <acronym>XML</acronym> compared to the Ant alternative. Another benefit of
-    Maven is the reliance on widely-shared Maven plugins. Everyone uses the
-    Maven Surefire plugin for unit testing, and if someone adds support for a
-    new unit testing framework, you can gain new capabilities in your own
-    build by just incrementing the version of a particular Maven plugin in
-    your project's <acronym>POM</acronym>.</para>
+    <para>Ohne Unterstützung von Technologien wie antlibs und Ivy (und auch
+    mit diesen unterstützenden Technologien) stellt sich bei Ant das Gefühl
+    eines prozeduralen Build Ablaufs ein. Eine effiziente Zusammenstellung
+    einiger Maven POMs in einem Projekt welches sich an die Maven-Konventionen
+    hält erzeugt überraschend wenig XML im Vergleich zur Ant-Alternative. Ein
+    weiterer Vorteil von Maven ist die Abhängigkeit von weithin benutzten
+    Maven-Plugins. Heutzutage benutzt jeder das Maven Surefire Plugin für
+    Unit-Tests, sobald jemand ein weiteres Unit Test Framework einbindet,
+    können Sie neue Fähigkeiten in Ihrem eigenen Build durch die einfache
+    Änderung der Version eines einzelnen, bestimmten Maven Plugins
+    nutzen.</para>
 
-    <para>The decision to use Maven or Ant isn't a binary one, and Ant still
-    has a place in a complex build. If your current build contains some highly
-    customized process, or if you've written some Ant scripts to complete a
-    specific process in a specific way that cannot be adapted to the Maven
-    standards, you can still use these scripts with Maven. Ant is made
-    available as a core Maven plugin. Custom Maven plugins can be implemented
-    in Ant, and Maven projects can be configured to execute Ant scripts within
-    the Maven project lifecycle.</para>
+    <para>Die Entscheidung über die Verwendung Maven oder Ant ist heutzutage
+    nicht binär. Ant hat noch immer einen Platz in in komplexen Builds. Wenn
+    Ihr aktueller Build-Prozess einige sehr individuelle Prozesse enthält,
+    oder wenn Sie etliche Ant-Skripte geschrieben haben um einen bestimmten
+    Prozess in einer bestimmten Weise, die sich nicht an die Normen Maven
+    hält, abzudecken, können Sie diese Skripte dennoch mit Maven abarbeiten.
+    Ant wird als Kernkomponente in Form eines Plugins von Maven zur Verfügung
+    gestellt . Benuzerdefinierte Maven-Plugins können in Ant geschrieben
+    werden und Maven Projekte können so konfiguriert werden, das Ant-Skripte
+    innerhalb des Maven-Projekt-Lebenszykluses abgearbeitet werden.</para>
   </section>
 
   <section id="installation-sect-introSummary">
-    <title>Summary</title>
+    <title>Zusammenfassung</title>
 
-    <para>This introduction has been kept purposefully short. We have covered
-    a basic outline of what Maven is, and how it stacks up to and improves
-    upon other build tools throughout time. The next chapter will dive into a
-    simple project and show how Maven can perform phenomenal tasks with the
-    smallest amount of configuration.</para>
+    <para>Diese Einführung wurde absichtlich kurz gehalten. Wir haben Ihnen
+    umrissen, was Maven ist und wie es zu einem guten Build-Prozess beiträgt,
+    sowie über die Zeit hinweg diesen verbessern hilft. Im nächste Kapitel
+    werden wir am Beispiel eines einfachen Projektes aufzeigen welche
+    phänomenalen Aufgaben mit dem kleinstmöglich Aufwand an Konfiguration
+    geleistet werden können.</para>
   </section>
 </chapter>
