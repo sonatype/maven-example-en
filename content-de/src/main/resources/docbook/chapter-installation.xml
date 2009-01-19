@@ -2,153 +2,138 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="installation">
-  <title>Installing and Running Maven</title>
+  <title>Installieren und Ausführen von Maven</title>
 
-  <para>This chapter contains very detailed instructions for installing Maven
-  on a number of different platforms. Instead of assuming a level of
-  familiarity with installing software and setting environment variables,
-  we've opted to be as thorough as possible to minimize any problems that
-  might arise do to a partial installation. The only thing this chapter
-  assumes is that you've already installed a suitable Java Development Kit
-  (<acronym>JDK</acronym>). If you are just interested in installation, you
-  can move on to the rest of the book after reading through <xref
-  linkend="installation-sect-maven-download" xrefstyle="select: title" /> and
-  <xref linkend="installation-sect-maven-install"
-  xrefstyle="select: title" />. If you are interested in the details of your
-  Maven installation, this entire chapter will give you an overview of what
-  you've installed and the meaning of the Apache Software License, Version
-  2.0.</para>
+  <para>Dieses Kapitel enthält detaillierte Anweisungen für die Installation
+  von Maven auf einer Reihe von unterschiedlichen Plattformen. Statt ein
+  bestimmtes Mass der Vertrautheit mit der Installation von Software und dem
+  Einstellen von Umgebungsvariablen vorauszusetzen, haben wir uns entschieden,
+  so detailliert wie möglich zu sein, um Probleme welche von unvollständigen
+  Installation herrühren von vornherein zu minimieren. die einzige
+  Voraussetzung welche angenommen wird ist die, einer bestehenden, geeigneten
+  und vollständigen Java Umgebung, eines Java Development Kit (JDK). Sollten
+  Sie nur Interesse an der Installation haben, so können Sie nach dem Lesen
+  der Abschnitte "2.2 Herunterladen von Maven" sowie "2.3 Installation von
+  Maven" zu den weiterführenden Kapiteln des Buches übergehen. Wenn Sie an
+  einer detaillierten Beschreibung interessiert sind, so gibt Ihnen dieses
+  Kapitel die entsprechenden Informationen sowie eine Erklärung der Bedeutung
+  der Apache Software License, Version 2,0.</para>
 
   <section id="installation-sect-java">
-    <title>Verify your Java Installation</title>
+    <title>Überprüfen der Java-Installation </title>
 
-    <para>While Maven can run on Java 1.4, this book assumes that you are
-    running at least Java 5. Go with the most recent stable Java Development
-    Kit (<acronym>JDK</acronym>) available for your operating system. Either
-    Java 5 or Java 6 will work with all of the examples in this book.</para>
+    <para>Obschon Maven auch auf Java 1.4 unterstützt ist, geht dieses Buch
+    davon aus, dass sie mindestens auf Java 5 aufsetzen. Wählen Sie den
+    neusten stabilen JDK welcher für Ihre Plattform erhältlich ist. Alle in
+    diesem Buch aufgeführten Beispiele sind unter Java 5 oder Java 6
+    lauffähig.</para>
 
     <para><screen><prompt moreinfo="none">% </prompt><command moreinfo="none">java -version</command>
 java version "1.6.0_02"
 Java(TM) SE Runtime Environment (build 1.6.0_02-b06)
 Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></para>
 
-    <para>Maven works with all certified Java<superscript>TM</superscript>
-    compatible development kits, and a few non-certified implementations of
-    Java. The examples in this book were written and tested against the
-    official Java Development Kit releases downloaded from the Sun
-    Microsystems web site. If you’re working with a Linux distribution, you
-    may need to download Sun’s <acronym>JDK</acronym> yourself and make sure
-    it’s the version you’re invoking (by running <command>java
-    -version</command>). Now that Sun has open-sourced Java, this will
-    hopefully improve in the future, and we’ll get the Sun
-    <acronym>JRE</acronym> and <acronym>JDK</acronym> by default even in
-    purist Linux distributions. Until that day, you may need to do some of
-    your own downloading.</para>
+    <para>Maven ist unter allen Java-kompatibel zertifiziert
+    Entwicklungsumgebungen, sowie einigen weiteren, nicht-zertifizierten
+    Implementierungen von Java lauffähig. Die Beispiele in diesem Buch wurden
+    gegen die offizielle Java Development Kit Implementation wie diese von Sun
+    Microsystems Webseite (http://java.sun.com) heruntergeladen werden kann,
+    geschrieben und getestet. Sollten Sie mit einer Linux-Distribution
+    arbeiten, müssen Sie eventuell die Java Entwicklungsumgebung selbst
+    herunterladen und installieren. Bitte stellen Sie sicher, dass diese auch
+    zum Einsatz kommt: durch Aufruf von "java -fullversion ". Nun, da Sun
+    Microsystem den Quellcode von Java unter einer Open Source Lizenz
+    offengelegt hat, tritt diesbezüglich hoffentlich schon bald eine Besserung
+    ein und es werden auch auf puristisch Linux-Distributionen die originalen
+    Sun JRE sowie JDKs installiert. Bis zu diesem Tag müssen Sie selbst Hand
+    anlegen, Java herunterladen und installieren. </para>
   </section>
 
   <section id="installation-sect-maven-download">
-    <title>Downloading Maven</title>
+    <title>Herunterladen von Maven</title>
 
-    <para>You can download Maven from the Apache Maven project website at
-    <ulink
-    url="http://maven.apache.org/download.html">http://maven.apache.org/download.html</ulink>.</para>
+    <para>Sie können Maven von der Apache Maven-Projekt-Website unter
+    http://maven.apache.org/download.html herunterladen. </para>
 
-    <para>When downloading Maven, make sure you choose the latest version of
-    Apache Maven from the Maven website. The latest version of Maven when this
-    book was written was Maven 2.0.9. If you are not familiar with the Apache
-    Software License, you should familiarize yourself with the terms of the
-    license before you start using the product. More information on the Apache
-    Software License can be found in <xref
-    linkend="installation-sect-license" />.</para>
+    <para>Beim Herunterladen von Maven, wählen Sie die neuste Version von
+    Apache Maven vom Website. Die aktuell neuste Version zur Zeit als dieses
+    Buch geschrieben wurde war Maven 2.0.9. Sollten Sie die Apache Software
+    Lizenz noch nicht kennen, so machen sie sich - vor dem Einsatz des
+    Produktes - mit deren Bedingungen vertraut. Weitergehende Informationen
+    diesbezüglich finden Sie in Abschnitt "2.8 Die Apache Software
+    Lizenz".</para>
   </section>
 
   <section id="installation-sect-maven-install">
-    <title>Installing Maven</title>
+    <title>Installation von Maven </title>
 
-    <para>There are wide differences between operating systems such as Mac
-    <acronym>OS X</acronym> and Microsoft Windows, and there are subtle
-    differences between different versions of Windows. Luckily, the process of
-    installing Maven on all of these operating systems is relatively painless
-    and straightforward. The following sections outline the recommended
-    best-practice for installing Maven on a variety of operating
-    systems.</para>
+    <para>Die Unterschiede zwischen den Betriebssystemen wie Mac OS X und
+    Microsoft Windows sind gross, aber es gibt auch subtile Unterschiede
+    zwischen den verschiedenen Versionen von Windows oder Varianten von Linux.
+    Zum Glück ist der Prozess der Installation von Maven auf all diesen
+    Betriebssystemen relativ einfach und schmerzlos. Die folgenden Abschnitte
+    geben einen Überblick über die empfohlene Best-Practice der Installation
+    von Maven unter einer Vielzahl von Betriebssystemen.</para>
 
     <section id="installation-sect-maven-osx">
-      <title>Installing Maven on Mac OSX</title>
+      <title>Maven Installation unter Mac OSX </title>
 
-      <para>You can download a binary release of Maven<indexterm>
-          <primary>installing Maven</primary>
-
-          <secondary sortas="Mac OS X">on Mac OS X</secondary>
-        </indexterm><indexterm>
-          <primary sortas="maven @installing">Maven, installing</primary>
-
-          <secondary sortas="Mac OS X">on Mac OS X</secondary>
-        </indexterm><indexterm>
-          <primary>Mac OS X, installing Maven on</primary>
-        </indexterm> from <ulink
-      url="http://maven.apache.org/download.html"></ulink>. Download the
-      current release of Maven in a format that is convenient for you to work
-      with. Pick an appropriate place for it to live, and expand the archive
-      there. If you expanded the archive into the directory
-      <filename>/usr/local/apache-maven-2.0.9</filename>, you may want to
-      create a symbolic link to make it easier to work with and to avoid the
-      need to change any environment configuration when you upgrade to a newer
-      version:</para>
+      <para>Am Anfang benötigen Sie zunächst die Software, diese bekommen Sie
+      unter: http://maven.apache.org/download.html. Laden Sie die aktuelle
+      Version von Maven in einem für Sie passenden Format herunter. Wählen Sie
+      einen geeigneten Platz als "Heimat" und entpacken Sie das Archiv dort.
+      Wenn Sie zum Beispiel das Verzeichnis /usr/local/apache-maven-2.0.9
+      gewählt haben, so macht es Sinn einen symbolischen Link zu erzeugen.
+      Dies erleichtert die Arbeit und erspart die Anpassung von
+      Umgebungsvariablen im Falle eines Upgrades der Version.</para>
 
       <screen>/usr/local % <command moreinfo="none">cd /usr/local
 </command>/usr/local % <command moreinfo="none">ln -s apache-maven-2.0.9 maven
 </command>/usr/local % <command>export M2_HOME=/usr/local/maven</command>
 /usr/local % <command>export PATH=\${M2_HOME}/bin:\${PATH}</command></screen>
 
-      <para>Once Maven is installed, you need to do a couple of things to make
-      it work correctly. You need to add its <filename
-      moreinfo="none">bin</filename> directory in the distribution (in this
-      example, <filename moreinfo="none">/usr/local/maven/bin</filename>) to
-      your command path. You also need to set the environment variable
-      <varname>M2_HOME<indexterm>
-          <primary>M2_HOME environment variable</primary>
-
-          <secondary>Maven installation and</secondary>
-        </indexterm><indexterm>
-          <primary>PATH variable, Maven installation and</primary>
-        </indexterm></varname> to the top-level directory you installed (in
-      this example, <filename
-      moreinfo="none">/usr/local/maven</filename>).</para>
+      <para>Ist Maven einmal installiert ist, müssen Sie noch ein paar
+      Schritte unternehmen, damit Maven korrekt funktionieren kann. Zu aller
+      erst sollten Sie das bin-Verzeichnis Ihrer Maven Distribution (in diesem
+      Beispiel /usr/local/Apache-Maven/bin) in den Befehlspfad aufnehmen.
+      Ausserdem sollten Sie noch die Umgebungsvariable M2_HOME auf das
+      Maven-Top-Level-Verzeichnis setzen (in diesem Beispiel
+      /usr/local/Maven).</para>
 
       <note>
-        <para>Installation instructions are the same for both
-        <acronym>OSX</acronym> Tiger and <acronym>OSX</acronym> Leopard. It
-        has been reported that Maven 2.0.6 is shipping with a preview release
-        of XCode. If you have installed XCode, run <command>mvn</command> from
-        the command-line to check availability. XCode installs Maven in
-        <filename>/usr/share/maven</filename>. We recommend installing the
-        most recent version of Maven 2.0.9 as there have been a number of
-        critical bug fixes and improvements since Maven 2.0.9 was
-        released.</para>
+        <para>Installations-Anweisungen sind die gleichen für OSX Tiger und
+        OSX Leopard. Es wurde berichtet, dass Maven 2.0.6 mit einer
+        Vorschau-Version von XCode ausgeliefert wird. Sollten Sie XCode
+        installiert haben, führen Sie mvn von der Befehlszeile aus, und
+        überprüfen Sie die Verfügbarkeit. XCode installiert Maven in
+        /usr/share/Maven. Wir empfehlen die Installation der jüngsten Version
+        von Maven 2.0.9, da hier eine Reihe von Bugfixes und Verbesserungen
+        eingeflossen sind.</para>
       </note>
 
-      <para>You'll need to add both <envar>M2_HOME</envar> and
-      <envar>PATH</envar> to a script that will run every time you login. To
-      do this, add the following lines to
-      <filename>.bash_login</filename>.</para>
+      <para>Um die Konfiguration beider Umgebungsvariablen bei jedem Start zu
+      setzen, ist es notwendig diese in einem Skript abzulegen welches bei
+      jedem Systemstart abgearbeitet wird. Fügen Sie daher die folgenden
+      Zeilen der Datei .bash_login an:</para>
 
       <programlisting>export M2_HOME=/usr/local/maven
 export PATH=\${M2_HOME}/bin:\${PATH}</programlisting>
 
-      <para>Once you've added these lines to your own environment, you will be
-      able to run Maven from the command line.</para>
+      <para>Mit dem Anfügen dieser Zeilen wird Maven Ihrer Umgebung zugefügt,
+      und Sie bekommen die Möglichkeit Maven von der Kommandozeile zu
+      starten.</para>
 
       <note>
-        <para>These installation instructions assume that you are running
-        bash.</para>
+        <para>Diese Installationsanleitung geht davon aus, dass Sie unter der
+        bash-Shell arbeiten.</para>
       </note>
 
       <section id="installation-sect-macports">
-        <title>Installing Maven on OSX using MacPorts</title>
+        <title>Maven Installation unter Mac OSX mit MacPorts</title>
 
-        <para>If you are using MacPorts, you can install the maven2 port by
-        executing the following command-line:</para>
+        <para>Sollten Sie MacPorts einsetzen, so können Sie Maven
+        installieren, indem Sie die folgenden Befehle auf der Kommandozeile
+        eingeben:</para>
 
         <screen>$ <command>sudo port install maven2</command>
 Password: ******
@@ -164,95 +149,92 @@ Password: ******
 ---&gt;  Cleaning maven2
 </screen>
 
-        <para>For more information about the maven2 port, see the maven2
-        <filename><ulink
-        url="http://trac.macports.org/browser/trunk/dports/java/maven2/Portfile">Portfile</ulink></filename>.
-        For more information about MacPorts and how to install it, see the
-        <ulink url="http://www.macports.org/index.php">MacPorts project
-        page</ulink>.</para>
+        <para>Für weiterführende Informationen bezüglich der Maven 2
+        Portierung verweisen wir auf Portfile. Bezüglich weiterführender
+        Informationen zu MacPorts und wie dies zu installieren ist: MacPorts
+        Projekt Seite (Engl.).</para>
       </section>
     </section>
 
     <section id="installation-sect-windows">
-      <title>Installing Maven on Microsoft Windows</title>
+      <title>Maven Installation unter Microsoft Windows </title>
 
-      <para>Installing Maven on Windows is very similar to installing Maven on
-      Mac <acronym>OSX</acronym>, the main differences being the installation
-      location and the setting of an environment variable. This book assumes a
-      Maven installation directory of <filename>c:\Program
-      Files\apache-maven-2.0.9</filename>, but it won't make a difference if
-      you install Maven in another directory as long as you configure the
-      proper environment variables. Once you've unpacked Maven to the
-      installation directory, you will need to set two environment
-      variables—<envar>PATH</envar> and <envar>M2_HOME</envar>. To set these
-      environment variables from the command-line, type in the following
-      commands:</para>
+      <para>Die Installation von Maven unter Windows ist sehr ähnlich wie jene
+      unter Mac OSX, die wichtigsten Unterschiede finden sich bezüglich des
+      Installationsortes und der Festlegung der Umgebungsvariablen. Dieses
+      Buch geht von einem Maven Installations-Verzeichnis von "C:\Program
+      Files\Maven-2.0.9" aus, aber es wird keinen Unterschied machen, sollten
+      Sie Maven in einem anderen Verzeichnis installieren, solange Sie die
+      Umgebungsvariablen entsprechend gesetzt haben. Nach dem Entpacken des
+      Maven Installationspaketes müssen Sie zwei Umgebungsvariablen - PATH und
+      M2_HOME - setzen. Um dies zu bewerkstelligen, geben Sie auf der
+      Kommandozeile folgende Befehlen ein: </para>
 
       <screen>C:\Users\tobrien &gt; <command>set M2_HOME=c:\Program Files\apache-maven-2.0.9</command>
 C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
 
-      <para>Setting these environment variables on the command-line will allow
-      you to run Maven in your current session, but unless you add them to the
-      System environment variables through the control panel, you'll have to
-      execute these two lines every time you log into your system. You should
-      modify both of these variables through the Control Panel in Microsoft
-      Windows.<!--TODO: Document process of setting environment variables in the window control panel system dialog.--></para>
+      <para>Das Setzen der Umgebungsvariablen in der Kommando-Zeile erlaubt
+      Ihnen die Ausführung von Maven während Ihrer aktuellen Sitzung und
+      zwingt sie diese bei jedem Neustart erneut zu setzen. Sie sollten diese
+      Variablen daher den Systemeinstellungen zufügen, öffnen Sie hierzu das
+      "Systemeinstellungen" von dort "System" und wählen Sie "". <!--TODO: Document process of setting environment variables in the window control panel system dialog.--></para>
     </section>
 
     <section id="installation-sect-maven-linux">
-      <title>Installing Maven on Linux</title>
+      <title>Maven Installation unter Linux </title>
 
-      <para>To install Maven on a Linux machine follow the exact procedure
-      outlined in <xref linkend="installation-sect-maven-osx" />.</para>
+      <para>Zur Installation von Maven auf einer Linux-Maschine, folgen Sie
+      der Vorgehensweise in Abschnitt 2.3.2: "Installation von Maven auf Mac
+      OSX".</para>
     </section>
 
     <section id="installation-sect-bsd">
-      <title>Installing Maven on FreeBSD or OpenBSD</title>
+      <title>Maven Installation unter FreeBSD oder OpenBSD </title>
 
-      <para>To install Maven on a FreeBSD or OpenBSD machine, follow the exact
-      procedure outlined in <xref
-      linkend="installation-sect-maven-osx" />.</para>
+      <para>Zur Installation von Maven auf einem FreeBSD oder OpenBSD
+      Maschine, folgen Sie der Vorgehensweise in Abschnitt 2.3.2:
+      "Installation von Maven auf Mac OSX"</para>
     </section>
   </section>
 
   <section id="installation-sect-test-install">
-    <title>Testing a Maven Installation</title>
+    <title>Testen einer Maven Installation</title>
 
-    <para>Once Maven is installed, you can check the version by running
-    <command>mvn -v</command> from the command-line. If Maven has been
-    installed, you should see something resembling the following
-    output.</para>
+    <para>Ist Maven erst einmal installiert, können Sie die Version
+    überprüfen, indem Sie mvn -v in der Befehlszeile eingeben. Bei einer
+    korrekten Installation von Maven sollte eine Ausgabe wie folgt erscheinen:
+    </para>
 
     <screen>$ <command>mvn -v</command>
 Maven 2.0.9</screen>
 
-    <para>If you see this output, you know that Maven is available and ready
-    to be used. If you do not see this output, and your operating system
-    cannot find the <command>mvn</command> command, make sure that your
-    <envar>PATH</envar> environment variable and <envar>M2_HOME</envar>
-    environment variable have been properly set.</para>
+    <para>Sollten sie diese Ausgabe erhalten, wissen Sie dass Maven verfügbar
+    und bereit ist um eingesetzt zu werden. Wenn nicht, hat Ihr Betriebssystem
+    den mvn Befehl nicht gefunden. Überprüfen Sie ob die
+    PATH-Umgebungsvariable sowie M2_HOME (Gross/Kleinschreibung beachten!)
+    richtig gesetzt sind.</para>
   </section>
 
   <section id="installation-sect-details">
-    <title>Maven Installation Details</title>
+    <title>Spezielle Installationshinweise </title>
 
-    <para>Maven's download measures in at roughly 1.5 MiB<footnoteref
-    linkend="foot-installation-mebibytes" />, it has attained such a slim
-    download size because the core of Maven has been designed to retrieve
-    plugins and dependencies from a remote repository on-demand. When you
-    start using Maven, it will start to download plugins to a local repository
-    described in <xref linkend="installation-sect-user" />. In case you are
-    curious, let's take a quick look at what is in Maven's installation
-    directory.<footnote id="foot-installation-mebibytes">
-        <para>Ever purchased a 200 GB hard drive only to realize that it
-        showed up as less than 200 GiB when you installed it? Computers
-        understand Gibibytes, but retailers sell products using Gigabytes. MiB
-        stands for Mebibyte which is defined as 2<superscript>20</superscript>
-        or 1024<superscript>2</superscript>. These binary prefix standards are
-        endorsed by the <acronym>IEEE</acronym>, <acronym>CIPM</acronym>, and
-        and <acronym>IEC</acronym>. For more information about Kibibytes,
-        Mebibytes, Gibibytes, and Tebibytes see <ulink
-        url="http://en.wikipedia.org/wiki/Mebibyte">http://en.wikipedia.org/wiki/Mebibyte</ulink>,</para>
+    <para>Das herunter zu ladende Maven Paket hat eine Grösse von etwa 1,5 MiB
+    [1], diese Schlankheit hat es erreicht, da der Kern von Maven mit dem Ziel
+    entwickelt wurde, Plugins und Abhängigkeiten von einem Remote-Repository
+    dynamisch und auf Abruf zuzuladen. Wenn Sie Anfangen mit Maven zu
+    arbeiten, lädt Maven zunächst Plugins in ein lokales Repository. Dieses
+    wird im Abschnitt 2.5.1 "Benutzerdefinierte Konfiguration und -Repository"
+    beschrieben. Im Fall, dass Sie neugierig sind, lassen Sie uns einen Blick
+    darauf werfen, was sich in Maven Installations Verzeichnis
+    befindet.<footnote id="foot-installation-mebibytes">
+        <para>Haben Sie je eine 200-GB-Festplatte gekauft, nur um
+        herauszufinden, dass diese weniger als 200 GiB fasst, wenn Sie diese
+        installiert haben? Computer verstehen Gibibytes, aber Einzelhändler
+        verkaufen Produkte mit Gigabyte. MiB steht für die Mebibyte und ist
+        definiert als 2^20 oder 1024^2. Diese binäre Präfix Standards sind von
+        der IEEE, CIPM, und und IEC übernommen. Für weitere Informationen über
+        Kibibytes, Mebibytes, Gibibytes und Tebibytes siehe auch
+        http://en.wikipedia.org/wiki/Mebibyte. </para>
       </footnote></para>
 
     <screen>/usr/local/maven $ <command>ls -p1</command>
@@ -264,37 +246,21 @@ boot/
 conf/
 lib/</screen>
 
-    <para><filename>LICENSE.txt</filename> contains the software license for
-    <indexterm>
-        <primary>LICENSE.txt file</primary>
-      </indexterm>Apache Maven. This license is described in some detail later
-    in the section <xref linkend="installation-sect-license" />.”
-    <filename>NOTICE.txt</filename> contains some notices and attributions
-    <indexterm>
-        <primary>NOTICE.txt file</primary>
-      </indexterm>required by libraries that Maven depends on.<indexterm>
-        <primary>README.txt file</primary>
-      </indexterm> <filename role="keep-together">README.txt</filename>
-    contains some installation instructions. <filename>bin/</filename>
-    contains the <filename>mvn</filename> script <indexterm>
-        <primary>mvn script</primary>
-      </indexterm>that executes Maven. <filename>boot/</filename> contains a
-    JAR file (<filename>classwords-1.1.jar</filename>) that is responsible for
-    creating <indexterm>
-        <primary>classwords-1.1.jar file</primary>
-      </indexterm>the Class Loader in which Maven executes.
-    <filename>conf/</filename> contains a global <filename
-    role="keep-together">settings.xml</filename> that can be used to
-    <indexterm>
-        <primary>settings.xml file</primary>
-      </indexterm>customize the behavior of your Maven installation. If you
-    need to customize Maven, it is customary to override any settings in a
-    <filename>settings.xml</filename> file stored in<indexterm>
-        <primary>m2 directory, contents of</primary>
-      </indexterm> <filename>~/.m2</filename>. <filename>lib/</filename>
-    contains a single JAR file
-    (<filename>maven-core-2.0.9-uber.jar</filename>) that contains the core of
-    Maven.</para>
+    <para>Die Datei LICENSE.txt enthält die Software-Lizenz für Apache Maven.
+    Diese Lizenz ist in einigen Details in Abschnitt 2.8 "Über die Apache
+    Software Lizenz" beschrieben. NOTICE.txt enthält einige Hinweise zu
+    Abhängigkeiten von Bibliotheken, von denen Maven abhängig ist. README.txt
+    enthält Installationsanweisungen. Das Verzeichnis /bin enthält das
+    "mvn"-Skript, mit welchem Maven aufgerufen wird. /boot enthält eine
+    JAR-Datei (classworlds-1.1.jar), welche den Class-Loader unter welchem
+    Maven ausgeführt wird bereitstellt . /conf enthält eine Datei
+    settings.xml, diese wird eingesetzt um globale Einstellungen festzulegen
+    um das Verhalten von Maven zu definieren und anzupassen. Sollten Sie Maven
+    Ihren Gegebenheiten anpassen müssen, hat es sich herausgebildet, dass man
+    die Einstellungen der settings-xml durch eine Datei settings.xml im
+    Verzeichnis ~/.m2 übersteuert. /lib enthält eine einzige JAR-Datei
+    (Maven-2.0.9-uber.jar), welche die Hauptimplementierung (Core) von Maven
+    enthält. </para>
 
     <note>
       <para>Unless you are working in a shared Unix environment, you should
@@ -311,21 +277,21 @@ lib/</screen>
     </note>
 
     <section id="installation-sect-user">
-      <title>User-specific Configuration and Repository</title>
+      <title>Benutzerdefinierte Konfiguration und-Repository</title>
 
-      <para>Once you start using Maven extensively, you'll notice that Maven
-      has created some local user-specific configuration files and a local
-      repository in your home directory. In <filename>~/.m2</filename> there
-      will be:</para>
+      <para>Sobald Sie beginnen sich mit Maven ausgiebig auseinander zu
+      setzen, werden Sie feststellen, dass Maven einige lokale, Benutzer
+      spezifischen Konfigurationsdateien und ein lokales Archiv in Ihrem
+      Home-Verzeichnis angelegt hat. In ~/.m2 befinden sich:</para>
 
       <variablelist>
         <varlistentry>
           <term>~/.m2/settings.xml</term>
 
           <listitem>
-            <para>A file containing user-specific configuration for
-            authentication, repositories, and other information to customize
-            the behavior of Maven.</para>
+            <para>Eine Datei mit der Benutzer spezifischen Konfiguration für
+            Authentifizierung, Repositories und andere Informationen, um das
+            Verhalten von Maven zu steuern.</para>
           </listitem>
         </varlistentry>
 
@@ -333,122 +299,119 @@ lib/</screen>
           <term>~/.m2/repository/</term>
 
           <listitem>
-            <para>This directory contains your local Maven repository. When
-            you download a dependency from a remote Maven repository, Maven
-            stores a copy of the dependency in your local repository.</para>
+            <para>Dieses Verzeichnis enthält Ihr lokales Maven-Repository.
+            Wenn Sie eine Abhängigkeit von einem Remote-Maven-Repository
+            herunterladen, so wird diese in ihrem lokalen Repository
+            zwischengespeichert. </para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <note>
-        <para>In Unix (and OSX), your home directory will be referred to using
-        a tilde (i.e. <filename>~/bin</filename> refers to
-        <filename>/home/tobrien/bin</filename>). In Windows, we will also be
-        using <filename>~</filename> to refer to your home directory. In
-        Windows XP, your home directory is <filename>C:\Documents and
-        Settings\tobrien</filename>, and in Windows Vista, your home directory
-        is <filename>C:\Users\tobrien</filename>. From this point forward, you
-        should translate paths such as <filename>~/m2</filename> to your
-        operating system's equivalent.</para>
+        <para>Unter Unix (und OSX), bezeichnet die Tilde "~" Ihr
+        Home-Verzeichnis (d.h. ~/bin bezieht sich auf /home/tobrien/bin).
+        Unter Windows, werden wir uns ebenfalls mit ~ auf Ihr Home-Verzeichnis
+        beziehen. Unter Windows XP ist Ihr Home-Verzeichnis "C:\Dokumente und
+        Einstellungen\&lt;Benutzername&gt;", unter Windows Vista wird Ihr
+        Home-Verzeichnis mit "C:\Users\&lt;Benutzername&gt;" bezeichnet. Im
+        Folgenden bitten wir Sie entsprechend Ihres Systems den Pfad
+        anzupassen. </para>
       </note>
     </section>
 
     <section id="installation-sect-upgrade">
-      <title>Upgrading a Maven Installation</title>
+      <title>Aktualisieren einer Maven-Installation </title>
 
-      <para>If you've installed Maven on a Mac OSX or Unix machine according
-      to the details in <xref lang="" linkend="installation-sect-maven-osx" />
-      and <xref linkend="installation-sect-maven-linux" />. It should be easy
-      to upgrade to newer versions of Maven when they become available. Simply
-      install the newer version of Maven
-      (<filename>/usr/local/maven-2.future</filename>) next to the existing
-      version of Maven (<filename>/usr/local/maven-2.0.9</filename>). Then
-      switch the symbolic link <filename>/usr/local/maven</filename> from
-      <filename>/usr/local/maven-2.0.9</filename> to
-      <filename>/usr/local/maven-2.future</filename>. Since, you've already
-      set your <varname>M2_HOME</varname> variable to point to
-      <filename>/usr/local/maven</filename>, you won't need to change any
-      environment variables.</para>
+      <para>So Sie unter Unix/OSX arbeiten und die Installation wie oben unter
+      Abschnitt 2.3.2 "Installation von Maven auf Mac OSX" oder Abschnitt
+      2.3.3 "Installation von Maven auf Linux" beschreiben ausgeführt haben,
+      so ist es ein Kinderspiel eine Maven zu Aktualisieren: Installieren Sie
+      einfach die neuere Version von Maven (/usr/local/maven-2.future) neben
+      der bestehenden Version von Maven (/usr/local/maven-2.0.9). Ändern Sie
+      dann symbolischen Link /usr/local/Maven von /usr/local/maven-2.0.9/ auf
+      /usr/local/maven-2.future. Fertig! Da Ihre M2_HOME Variable bereits auf
+      /usr/local/Maven zeigt, müssen keine weiteren Anpassungen ausgeführt
+      werden. </para>
 
-      <para>If you have installed Maven on a Windows machine, simply unpack
-      Maven to <filename>c:\Program Files\maven-2.future</filename> and update
-      your <varname>M2_HOME</varname> variable.</para>
+      <para>Unter Windows, entpacken Sie einfach die neue Version von Maven
+      unter "C:\Program Files\Maven-2.future" und aktualisieren Sie Ihre
+      M2_HOME Variable über die Systemsteuerungen.</para>
 
       <note>
-        <para>If you have any customizations to the global
-        <filename>settings.xml</filename> in
-        <filename>M2_HOME/conf</filename>, you will need to copy this
-        <filename>settings.xml</filename> to the <filename>conf</filename>
-        directory of the new Maven installation.</para>
+        <para>Sollten Sie die globale Datei settings.xml von /M2_HOME/conf
+        angepasst haben, so müssen Sie diese Änderungen in das
+        /conf-Verzeichnis der neuen Installation Übertragen.</para>
       </note>
     </section>
 
     <section id="installation-sect-upgrade-detail">
-      <title>Upgrading from Maven 1.x to Maven 2.x</title>
+      <title>Upgrade einer Maven-Installation von Maven 1.x auf Maven
+      2.x</title>
 
-      <para>If you are upgrading from Maven 1 to Maven 2, you are going to be
-      using an entirely new POM and repository structure. If you have already
-      created a custom Maven 1 repository to hold custom artifacts, you can
-      use the Nexus Repository Manager to expose a Maven 1 repository in a
-      format that can be understood by Maven 2 clients. For more information
-      about the Nexus Repository Manager, see <xref
-      linkend="repository-manager" />. In addition to tools like Nexus, you
-      can also configure references to repositories to use the
-      <varname>legacy</varname> layout format. For more information about
-      configuring a reference to a legacy repository, see <xref
-      linkend="appendix-settings-sect-settings-repository" />.</para>
-
-      <para>If you have a set of Maven 1 projects, you may want to know about
-      the Maven One Plugin. The Maven One Plugin was designed to help projects
-      migrate from Maven 1 to Maven 2. If you have a Maven 1 project, you can
-      convert the project's POM by running the <varname>one:convert</varname>
-      goal as follows:</para>
+      <para>Beim Upgrade von Maven 1 auf Maven 2 werden Sie eine ganz neue POM
+      Struktur sowie ein neues Repository benutzen. Haben Sie bereits ein
+      benutzerspezifisches Maven 1 Repository für massgeschneiderte Artefakte
+      erstellt, so können Sie mit Hilfe des Nexus Repository Manager diese so
+      darstellen, dass sie von Maven 2 Anwendungen benutzt werden können.
+      Bezüglich weiterer Informationen zum Nexus Repository Manager verweisen
+      wir auf Kapitel 16: Repository Manager. Zusätzlich zum Einsatz von
+      Werkzeugen wie Nexus, können Sie Referenzen auf Repositorien so
+      einstellen, dass diese das vorgängige Format unterstützen. Bezüglich
+      weiterer Informationen zum Konfiguration einer Referenz auf ein Maven 1
+      Repository siehe auch Abschnitt A.2.8: "Repositorien". Sollten Sie eine
+      Anzahl bestehender Maven 1 Projekte unterhalten, interessieren Sie sich
+      bestimmt für das Maven One Plugin. Das Plugin wurde entworfen, um
+      Projekte von Maven 1 auf Maven 2 zu portieren. Ein bestehendes Maven 1
+      Projekt können sie portieren in dem Sie das Goal one:convert wie folgt
+      aufrufen:</para>
 
       <screen>$ cd my-project
 $ mvn one:convert</screen>
 
-      <para><varname>one:convert</varname> will read a
-      <filename>project.xml</filename> and produce a
-      <filename>pom.xml</filename> that is compatible with Maven 2. If you've
-      customized a Maven 1 build using Jelly script in a
-      <filename>maven.xml</filename> file, you will need to investigate other
-      options. While Maven 1 emphasized Jelly scripting for customizing
-      builds, Maven 2 favors custom plugins or customization through scripting
-      Plugins or the Maven Antrun Plugin.</para>
-
-      <para>The most important thing to know about when upgrading from Maven 1
-      to Maven 2 is that Maven 2 is a completely different build framework.
-      Maven 2 introduces the concept of the Maven Lifecycle and redefines the
-      relationships between plugins. If you upgrade from Maven 1 to Maven 2,
-      you need to invest some time in learning about the differences between
-      the two versions. Although it might seem straightforward to start
-      learning about the new POM structure, you should focus on the Lifecycle
-      first. If you understand the Maven Lifecycle, you will be able to use
-      Maven to its fullest potential.</para>
+      <para>one:convert wird eine Maven 1 project.xml Datei einlesen und in
+      eine pom.xml-Datei konvertieren welches zu Maven 2 kompatibel ist.
+      Sollten Sie allerdings ein Maven 1 Build Skript mittels Jelly angepasst
+      haben, so müssen Sie andere Wege gehen. Während Maven 1 Jelly basierte
+      Anpassungen favorisierte, ist der bevorzugte Weg der Anpassung von Maven
+      2 Skripten mittels benutzerdefinierten Plugins, skriptbaren Plugins oder
+      dem Maven Antrun Plugin. Das Wichtigste was es bei der Migration von
+      Maven 1 auf Maven 2 zu beachten gilt ist, dass Maven 2 auf einem
+      grundsätzlich verschiedenen Unterbau aufbaut. Maven 2 setzt auf
+      Lebenszyklusphasen und definiert das Verhältnis zwischen Plugins auf
+      eine andere Art und Weise. Sollten Sie eine derartige Migration
+      vornehmen, so müssen Sie Zeit einplanen, um sich mit den Unterschieden
+      der zwei Versionen vertraut machen. Obschon es nahe liegt sich mit der
+      neuen POM Struktur auseinanderzusetzen, sollten Sie sich zunächst auf
+      das Lebenszykluskonzept konzentrieren. Sobald Sie das
+      Lebenszykluskonzept verstanden haben, steht Ihnen nichts mehr im Weg,
+      Maven zur vollen Stärke einzusetzen.</para>
     </section>
   </section>
 
   <section id="installation-sect-uninstalling">
-    <title>Uninstalling Maven</title>
+    <title>Maven Deinstallieren</title>
 
-    <para>Most of the installation instructions involve unpacking of the Maven
-    distribution archive in a directory and setting of various environment
-    variables. If you need to remove Maven from your computer, all you need to
-    do is delete your Maven installation directory and remove the environment
-    variables. You will also want to delete the <filename>~/.m2</filename>
-    directory as it contains your local repository.</para>
+    <para>Die meisten Installationsanleitungen für Maven beinhalten das
+    Entpacken des Maven Bündel in ein Verzeichnis und das Setzen einiger
+    Umgebungsvariablen. Sollten Sie also Maven von Ihrem Arbeitsplatz
+    entfernen müssen, so müssen Sie lediglich das Maven
+    Installationsverzeichnis löschen und die Umgebungsvariablen entfernen. Sie
+    sollten ebenfalls das Verzeichnis ~/.m2 entfernen, da dies Ihr lokales
+    Repository enthält.</para>
   </section>
 
   <section id="installation-sect-getting-help">
-    <title>Getting Help with Maven</title>
+    <title>Hilfe bekommen beim Arbeiten mit Maven</title>
 
-    <para>While this book aims to be a comprehensive reference, there are
-    going to be topics we will miss and special situations and tips which are
-    not covered. While the core of Maven is very simple, the real work in
-    Maven happens in the plugins, and there are too many plugins available to
-    cover them all in one book. You are going to encounter problems and
-    features which have not been covered in this book; in these cases, we
-    suggest searching for answers at the following locations:</para>
+    <para>Während dieses Buch das Ziel hat, ein umfassendes Nachschlagewerk zu
+    sein, wird es Themen geben welche wir verpasst haben oder besondere
+    Umstände und Situationen sowie Tipps, welche nicht abgedeckt werden. Der
+    Kern von Maven ist sehr einfach, die eigentliche Arbeit geschieht in den
+    Maven Plugins; und deren gibt es zu viele um alle in diesem Buch abdecken
+    zu können. Sie werden zwangsläufig auf Schwierigkeiten stoßen und
+    Eigenheiten finden, welche in diesem Buch nicht berücksichtigt wurden. In
+    diesen Fällen empfehlen wir Ihnen die Suche nach Antworten an folgenden
+    Orten:</para>
 
     <variablelist>
       <varlistentry>
@@ -456,15 +419,17 @@ $ mvn one:convert</screen>
         url="http://maven.apache.org">http://maven.apache.org</ulink></term>
 
         <listitem>
-          <para>This will be the first place to look, the Maven web site
-          contains a wealth of information and documentation. Every plugin has
-          a few pages of documentation and there are a series of "quick start"
-          documents which will be helpful in addition to the content of this
-          book. While the Maven site contains a wealth of information, it can
-          also be a frustrating, confusing, and overwhelming. There is a
-          custom Google search box on the main Maven page that will search
-          known Maven sites for information. This provides better results than
-          a generic Google search.</para>
+          <para>Dies sollte der erste Ausgangspunk einer jeden Suche sein. Der
+          Maven-Website enthält eine Fülle von Informationen und
+          Dokumentation. Jedes offizielle Plugin hat ein paar Seiten
+          Dokumentation und es gibt eine Reihe von "Quick Start"-Dokumenten,
+          die zusätzlich zum Inhalt dieses Buches hilfreich sein werden.
+          Während die Maven Website eine Fülle von Informationen enthält, kann
+          es aber auch frustrierend, verwirrend und überwältigend sein, dort
+          zu suchen. Die Seite enthält ein spezielles Google-Suchfeld welches
+          die wichtigsten Informationsquellen bezüglich Maven durchsucht.
+          Diese Suchmaske liefert bessere Ergebnisse als eine generische
+          Google-Suche.</para>
         </listitem>
       </varlistentry>
 
@@ -472,18 +437,18 @@ $ mvn one:convert</screen>
         <term>Maven User Mailing List</term>
 
         <listitem>
-          <para>The Maven User mailing list is the place for users to ask
-          questions. Before you ask a question on the user mailing list, you
-          will want to search for any previous discussion that might relate to
-          your question. It is bad form to ask a question that has already
-          been asked without first checking to see if an answer already exists
-          in the archives. There are a number of useful mailing list archive
-          browsers, we've found Nabble to the be the most useful. You can
-          browse the User mailing list archives here: <ulink
-          url="http://www.nabble.com/Maven---Users-f178.html">http://www.nabble.com/Maven---Users-f178.html</ulink>.
-          You can join the user mailing list by following the instructions
-          available here <ulink
-          url="http://maven.apache.org/mail-lists.html">http://maven.apache.org/mail-lists.html</ulink>.</para>
+          <para>Die Maven User Mailing List ist der Ort für Nutzer Fragen zu
+          stellen. Bevor Sie sich mit einer Frage an die User Mailing List
+          wenden, durchsuchen Sie bitte vorangegangene Diskussionen zum
+          betreffenden Thema. Es zeugt von schlechtem Stil eine Frage stellen,
+          die bereits zuvor gestellt wurde, ohne vorher zu prüfen, ob in den
+          Archiven bereits eine Antwort schlummert. Es gibt eine Reihe von
+          nützlichen Mailing-List Archiv Browsern um Ihnen die Arbeit zu
+          erleichtern. Für unsere Recherchen hat sich Nabble als am
+          nützlichsten erwiesen. Sie können die User Mailing List Archive hier
+          finden: http://www.nabble.com/Maven---Users-f178.html. Eine
+          Beschreibung, wie Sie der User Mailingliste beitreten können finden
+          sie hier http://maven.apache.org/mail-lists.html.</para>
         </listitem>
       </varlistentry>
 
@@ -492,58 +457,56 @@ $ mvn one:convert</screen>
         url="http://www.sonatype.com">http://www.sonatype.com</ulink></term>
 
         <listitem>
-          <para>Sonatype maintains an online copy of this book and other
-          tutorials related to Apache Maven.</para>
+          <para>Sonatype unterhält eine Online-Kopie dieses Buches und andere
+          Tutorials im Zusammenhang mit Apache Maven. </para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <note>
-      <para>Despite the best efforts of some very dedicated Maven
-      contributors, the Maven web site is poorly organized and full of
-      incomplete (and sometimes) misleading snippets of documentation.
-      Throughout the Maven community there is a lack of a common standards for
-      plugin documentation, some plugins are heavily documented while others
-      lack even the most basic instructions for usage. Often your best bet is
-      to search for a solution in the archives of the user mailing list. If
-      you really want to help submit a patch to the Maven site (or this
-      book).</para>
+      <para>Trotz der größten Bemühungen von einigen sehr engagierten Maven
+      Mitwirkenden, ist die Maven Website ist schlecht organisiert und voller
+      unvollständiger (und manchmal) irreführender Auszügen und
+      Dokumentationen. In der Gemeinschaft der Maven Entwickler gibt es leider
+      einen Mangel gemeinsamer Standards der Plugin-Dokumentation. Einige
+      Plugins sind sehr gut dokumentiert, während andere nicht einmal die
+      elementarsten Anweisungen für den Gebrauch ausweisen. Oft der
+      erfolgversprechendste Ansatz die Suche nach einer Lösung in den Archiven
+      des User Mailing List. Und wenn Sie wirklich helfen wollen unterbreiten
+      Sie einen Patch der Maven Website (oder dieses Buchs).</para>
     </note>
   </section>
 
   <section id="installation-sect-help-plugin-install">
-    <title>Using the Maven Help Plugin</title>
+    <title>Das Maven Hilfe Plugin</title>
 
-    <para>Throughout the book, we will be introducing Maven plugins, talking
-    about Maven Project Object Model (<acronym>POM</acronym>) files, settings
-    files, and profiles. There are going to be times when you need a tool to
-    help you make sense of some of the models that Maven is using and what
-    goals are available on a specific plugin. The Maven Help plugin allows you
-    to list active Maven profiles, display an effective
-    <acronym>POM</acronym>, print the effective settings, or list the
-    attributes of a Maven plugin.</para>
+    <para>Im Laufe des Buches werden wir Maven-Plugins Einführen, sprechen von
+    Maven Project Object Model (POM)-Dateien, Einstellungen und Profilen. Es
+    werden Zeiten kommen, in denen Sie ein Werkzeug benötigen, um Ihnen dabei
+    zu helfen, den Sinn einiger in Maven genutzter Modelle zu erkennen sowie
+    die Zielsetzungen bestimmter Plugins nachzuvollziehen. Das Maven Hilfe
+    Plugin ermöglicht Ihnen die in Maven aktiven Profile auszugeben, das
+    tatsächlich aktive Projekt Objekt Modell (POM) anzusehen sowie die
+    Attribute der Maven Plugins darzustellen.</para>
 
     <note>
-      <para>For a conceptual overview of the POM and plugins see <xref
-      linkend="simple-project" xrefstyle="style:title" />.</para>
+      <para>Für einen konzeptionellen Überblick über das POM und Plug-Ins
+      verweisen wir Sie auf Kapitel 3, Ein einfaches Maven-Projekt.</para>
     </note>
 
-    <para>The Maven Help plugin has four goals. The first three
-    goals—<varname>active-profiles</varname>,
-    <varname>effective-pom</varname>, and
-    <varname>effective-settings</varname>—describe a particular project and
-    must be run in the base directory of a project. The last
-    goal—<varname>describe</varname>—is slightly more complex, showing you
-    information about a plugin or a plugin goal. The following commands
-    provide some general information about the four goals:</para>
+    <para>Die Hilfe Maven Plugin hat vier Goals. Die ersten drei Goals:
+    -active-profiles, effective-pom, sowie effective-settings beschreiben je
+    ein bestimmtes Projekt und müssen daher im Hauptverzeichnis des Projekts
+    aufgerufen werden. Das letzte Goal - describe - ist etwas komplexer, es
+    gibt Informationen über ein Plug-In oder dessen Zielsetzung aus.</para>
 
     <variablelist>
       <varlistentry>
         <term>help:active-profiles</term>
 
         <listitem>
-          <para>Lists the profiles (project, user, global) which are active
-          for the build.</para>
+          <para>Gibt die Profile (project, user, global) aus, welche für
+          diesen Build aktiv sind</para>
         </listitem>
       </varlistentry>
 
@@ -551,8 +514,8 @@ $ mvn one:convert</screen>
         <term>help:effective-pom</term>
 
         <listitem>
-          <para>Displays the effective <acronym>POM</acronym> for the current
-          build, with the active profiles factored in.</para>
+          <para>Zeigt das tatsächlich eintretende POM für den gegenwärtigen
+          Build unter Berücksichtigung der aktiven Profile aus</para>
         </listitem>
       </varlistentry>
 
@@ -560,9 +523,10 @@ $ mvn one:convert</screen>
         <term>help:effective-settings</term>
 
         <listitem>
-          <para>Prints out the calculated settings for the project, given any
-          profile enhancement and the inheritance of the global settings into
-          the user-level settings.</para>
+          <para>Gibt die Einstellungen des Projekts wieder, unter
+          Berücksichtigung von Profilerweiterungen sowie der Vererbung aus den
+          globalen Einstellungen auf die Benutzer speziefischen
+          Einstellungen</para>
         </listitem>
       </varlistentry>
 
@@ -570,29 +534,28 @@ $ mvn one:convert</screen>
         <term>help:describe</term>
 
         <listitem>
-          <para>Describes the attributes of a plugin. This need not run under
-          an existing project directory. You must at least give the
-          <varname>groupId</varname> and <varname>artifactId</varname> of the
-          plugin you wish to describe.</para>
+          <para>Beschreibt die Attribute eines Plugins. Dieses Goal muss
+          einzig nicht unter einem bestehendes Projekt Verzeichnis aufgerufen
+          werden. Es muss mindestens die groupId und artifactId des Plugin
+          welches Sie beschreiben wollen gegeben werden</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <section id="installation-sect-describing-plugin">
-      <title>Describing a Maven Plugin</title>
+      <title>Beschreibung eines Maven Plugin </title>
 
-      <para>Once you start using Maven, you'll spend most of your time trying
-      to get more information about Maven Plugins: How do plugins work? What
-      are the configuration parameters? What are the goals? The
-      <varname>help:describe</varname> goal is something you'll be using very
-      frequently to retrieve this information. With the
-      <varname>plugin</varname> parameter you can specify a plugin you wish to
-      investigate, passing in either the plugin prefix (e.g.
-      <varname>maven-help-plugin</varname> as <varname>help</varname>) or the
-      <varname>groupId:artifact[:version]</varname>, where version is
-      optional. For example, the following command uses the Help plugin's
-      <varname>describe</varname> goal to print out information about the
-      Maven Help plugin.</para>
+      <para>Sobald Sie beginnen mit Maven zu arbeiten, werden Sie die meiste
+      Zeit damit verbringen zu versuchen mehr Informationen zu Maven-Plugins
+      zu bekommen: Wie funktionieren Plugins? Was sind die
+      Konfigurations-Parameter? Was sind die Goals? Das Goal help:describe
+      werden Sie regelmässig benutzen um an diese Informationen zu gelangen.
+      Mit dem plugin-Parameter können Sie spezifizieren welches Plugin Sie
+      untersuchen möchten. Hierzu geben sie entweder das Plugin-Prefix an
+      (z.B. maven-help-plugin als help) oder die groupId:artifact[:version],
+      wobei die Version optional ist. hier ein Beispiel, der folgende Befehl
+      verwendet das Hilfe Plugin Goal describe um Informationen über das Maven
+      Hilfe Plugin auszugeben. </para>
 
       <screen>$ <command>mvn help:describe -Dplugin=help</command>
 ...
@@ -610,13 +573,12 @@ The Maven Help plugin provides goals aimed at helping to make sense out of
 ...
 </screen>
 
-      <para>Executing the <varname>describe</varname> goal with the
-      <varname>plugin</varname> parameter printed out the Maven coordinates
-      for the plugin, the goal prefix, and a brief description of the plugin.
-      While this information is helpful, you'll usually be looking for more
-      detail than this. If you want the Help plugin to print a full list of
-      goals with parameters, execute the <varname>help:describe</varname> goal
-      with the parameter <varname>full</varname> as follows:</para>
+      <para>Die Ausgabe des Goals describe mit dem Plugin-Parameter gibt die
+      Koordinaten des Plugins aus, dessen Goal, Prefix und eine kurze
+      Beschreibung. Obwohl diese Daten hilfreich sind, werden Sie in der Regel
+      ausführlichere Informationen suchen. Um dies zu erreichen, führen Sie
+      das Goal help:describe mit dem Parameter full aus, wie im folgenden
+      beschrieben: </para>
 
       <screen>$ <command>mvn help:describe -Dplugin=help -Dfull</command>
 ...
@@ -674,110 +636,94 @@ This mojo doesn't have any component requirements.
 ... removed the other goals ...
 </screen>
 
-      <para>This option is great for discovering all of a plugin's goals as
-      well as their parameters. But sometimes this is far more information
-      than necessary. To get information about a single goal, set the
-      <varname>mojo</varname> parameter as well as the
-      <varname>plugin</varname> parameter. The following command lists all of
-      the information about the Compiler plugin's <varname>compile</varname>
-      goal.</para>
+      <para>Diese Option ist ideal um alle Goals eines Plugins zu finden,
+      sowie deren Parameter. Aber manchmal ist dies weit mehr Informationen
+      als notwendig. Um Informationen über ein einziges Goal zu erlangen,
+      setzen Sie mit dem Plugin-Parameter auch den mojo-Parameter zu. Der
+      folgende Aufruf listet alle Informationen über das Goal compile des
+      Compiler-Plugins. </para>
 
       <screen>$ <command>mvn help:describe -Dplugin=compiler -Dmojo=compile -Dfull</command></screen>
 
       <note>
-        <para>What? A Mojo? In Maven, a Plugin goal is known as a
+        <para>Was? Ein Mojo? In Maven, ein Plugin Goal ist bekannt als
         "Mojo".</para>
       </note>
     </section>
   </section>
 
   <section id="installation-sect-license">
-    <title>About the Apache Software License</title>
+    <title>Die Apache Software Lizenz</title>
 
-    <para>Apache Maven is released under the Apache Software License, Version
-    2.0. If you want to read this license, you can read
-    <filename>\${M2_HOME}/LICENSE.txt</filename> or read this license on the
-    Open Source Initiative's web site here <ulink
-    url="http://www.opensource.org/licenses/apache2.0.php">http://www.opensource.org/licenses/apache2.0.php</ulink>.</para>
+    <para>Apache Maven ist unter der Apache Software Lizenz, Version 2.0
+    freigegeben. Wenn Sie die Lizenz lesen möchten, lesen Sie diese Lizenz
+    abgelegt in ${M2_HOME}/LICENSE oder lesen Sie diese auf der Webseiten der
+    Open-Source-Initiative http://www.opensource.org/licenses/apache2.0.php.
+    </para>
 
-    <para>There's a good chance that, if you are reading this book, you are
-    not a lawyer. If you are wondering what the Apache License, Version 2.0
-    means, the Apache Software Foundation has assembled a very helpful
-    Frequently Asked Questions (FAQ) page about the license available here
-    <ulink
-    url="http://www.apache.org/foundation/licence-FAQ.html">http://www.apache.org/foundation/licence-FAQ.html</ulink>.
-    Here's is the answer to the question "I am not a lawyer. What does it all
-    mean?"</para>
+    <para>Es gibt eine gute Chance, dass Sie, wenn Sie dieses Buch lesen, kein
+    Rechtsanwalt sind. Wenn Sie sich fragen, was die Apache Lizenz, Version
+    2.0 bedeutet, dann hat die Apache Software Foundation hat eine sehr
+    hilfreich "Häufig gestellte Fragen (FAQ)"- Seite bezüglich der Lizenz
+    zusammengestellt. Sie finden diese unter
+    http://www.apache.org/foundation/licence-FAQ.html. Da die FAQ in Englisch
+    gefasst sind, hier nur eine Beispielhafte Übersetzung der Frage "Ich bin
+    kein Jurist. Was bedeutet das alles ?"</para>
 
     <para><blockquote>
-        <para><emphasis>[This license] allows you to:</emphasis></para>
+        <para><emphasis>Die Apache Lizenz, Version 2.0, Erlaubt Ihnen
+        </emphasis></para>
 
         <itemizedlist>
           <listitem>
-            <para>freely download and use Apache software, in whole or in
-            part, for personal, company internal, or commercial
-            purposes;</para>
+            <para>die Apache Software kostenlos herunterladen und zu
+            verwenden. Ganz oder teilweise, für persönliche, Firmen-interne
+            oder kommerzielle Nutzung einzusetzen.</para>
           </listitem>
 
           <listitem>
-            <para>use Apache software in packages or distributions that you
-            create.</para>
+            <para>Apache Software in oder-Distributionen oder Pakete welche
+            Sie erstellen einzusetzen</para>
           </listitem>
         </itemizedlist>
 
-        <para><emphasis>It forbids you to:</emphasis></para>
+        <para><emphasis>Verbietet Ihnen:</emphasis></para>
 
         <itemizedlist>
           <listitem>
-            <para>redistribute any piece of Apache-originated software without
-            proper attribution;</para>
+            <para>Apache Software oder davon abgeleitete Software ohne
+            korrekte Angabe der Herkunft zu verbreiten;</para>
           </listitem>
 
           <listitem>
-            <para>use any marks owned by The Apache Software Foundation in any
-            way that might state or imply that the Foundation endorses your
-            distribution;</para>
+            <para>die Benutzung jeglicher Marken der Apache Software Stiftung
+            in einer solchen Weise zu dass daraus abzuleiten ist, dass die
+            Stiftung Ihr Produkt unterstützt</para>
           </listitem>
 
           <listitem>
-            <para>use any marks owned by The Apache Software Foundation in any
-            way that might state or imply that you created the Apache software
-            in question.</para>
+            <para>die Benutzung jeglicher Marken der Apache Software Stiftung
+            in einer solchen Weise zu dass daraus abzuleiten ist, dass Sie die
+            Apache Software erschaffen haben.</para>
           </listitem>
         </itemizedlist>
 
-        <para><emphasis>It requires you to:</emphasis></para>
+        <para><emphasis>Zwingt Sie nicht</emphasis></para>
 
         <itemizedlist>
           <listitem>
-            <para>include a copy of the license in any redistribution you may
-            make that includes Apache software;</para>
+            <para>die Source der Apache Software selbst, oder irgendwelcher
+            davon abgeleiteten Produkte welche Sie daraus hergestellt haben
+            einer Distribution oder einem Produkt welches Sie zusammengestellt
+            haben beizulegen.</para>
           </listitem>
 
           <listitem>
-            <para>provide clear attribution to The Apache Software Foundation
-            for any distributions that include Apache software.</para>
-          </listitem>
-        </itemizedlist>
-
-        <para><emphasis>It does not require you to:</emphasis></para>
-
-        <itemizedlist>
-          <listitem>
-            <para>include the source of the Apache software itself, or of any
-            modifications you may have made to it, in any redistribution you
-            may assemble that includes it;</para>
-          </listitem>
-
-          <listitem>
-            <para>submit changes that you make to the software back to the
-            Apache Software Foundation (though such feedback is
-            encouraged).</para>
+            <para>Änderungen welche sie an der Software der Apache Software
+            Stiftung angebracht haben dieser zurückgeben (Solcher Feedback
+            wird ermutigt)</para>
           </listitem>
         </itemizedlist>
       </blockquote></para>
-
-    <para>This ends the installation information. The next part of the book
-    contains Maven examples.</para>
   </section>
 </chapter>
