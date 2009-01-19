@@ -1,0 +1,2447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<appendix id="appendix-pom-details">
+  <title>Appendix: POM Details</title>
+
+  <para>POM stands for "Project Object Model". It is an XML representation of
+  a Maven project stored in a file named <filename>pom.xml</filename>. A
+  project is much more than just source code and configuration, software
+  projects are defined by the code, people, organizations, and systems
+  involved in the day to day collaboration that creates software. The POM
+  captures every aspect of a project. The POM encompasses concepts like
+  configuration files, the developers involved, the defect tracking system,
+  the organization, the licenses, the project's URL, the dependencies, and all
+  of the other information involved in a project. In Maven, code is secondary
+  to the POM; a project need not contain any code at all, simply a
+  <filename>pom.xml</filename>.</para>
+
+  <section id="appendix-pom-sect-intro">
+    <title>POM Structure</title>
+
+    <para>The following is a list of elements which can appear directly under
+    a POM's <sgmltag>project</sgmltag> element.</para>
+
+    <!--TODO: The separation of elements in the POM seems very arbitrary, why is dependencies in POM Relationships and not in the Build 
+environment.  I'm following Eric's lead here, I wonder if I should.-->
+
+    <para><example>
+        <title>Top-level Elements of a Project Object Model (POM)</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;!-- POM Relationships --&gt;
+  &lt;parent&gt;...&lt;/parent&gt;
+  &lt;groupId&gt;...&lt;/groupId&gt;
+  &lt;artifactId&gt;...&lt;/artifactId&gt;
+  &lt;version&gt;...&lt;/version&gt;
+  &lt;modules&gt;...&lt;/modules&gt;
+  &lt;dependencies&gt;...&lt;/dependencies&gt;
+  &lt;packaging&gt;...&lt;/packaging&gt;
+
+  &lt;!-- General Project Information --&gt;
+  &lt;name&gt;...&lt;/name&gt;
+  &lt;description&gt;...&lt;/description&gt;
+  &lt;url&gt;...&lt;/url&gt;
+  &lt;inceptionYear&gt;...&lt;/inceptionYear&gt;
+  &lt;licenses&gt;...&lt;/licenses&gt;
+  &lt;organization&gt;...&lt;/organization&gt;
+  &lt;developers&gt;...&lt;/developers&gt;
+  &lt;contributors&gt;...&lt;/contributors&gt;
+
+  &lt;!-- Build Settings --&gt;
+  &lt;build&gt;...&lt;/build&gt;
+  &lt;reporting&gt;...&lt;/reporting&gt;
+
+  &lt;!-- Build Environment Settings --&gt;
+  &lt;dependencyManagement&gt;...&lt;/dependencyManagement&gt;
+  &lt;properties&gt;...&lt;/properties&gt;
+  &lt;issueManagement&gt;...&lt;/issueManagement&gt;
+  &lt;ciManagement&gt;...&lt;/ciManagement&gt;
+  &lt;mailingLists&gt;...&lt;/mailingLists&gt; 
+  &lt;scm&gt;...&lt;/scm&gt;
+  &lt;prerequisites&gt;...&lt;/prerequisites&gt;
+  &lt;repositories&gt;...&lt;/repositories&gt;
+  &lt;pluginRepositories&gt;...&lt;/pluginRepositories&gt;
+  &lt;distributionManagement&gt;...&lt;/distributionManagement&gt;
+  &lt;profiles&gt;...&lt;/profiles&gt;
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>Notice that <sgmltag>modelVersion</sgmltag> contains 4.0.0. When
+    this book was written, this was the only supported POM version for Maven
+    2. <sgmltag>modelVersion</sgmltag> is always required.</para>
+
+    <figure>
+      <title>The Contents of a Project Object Model (POM)</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figs/web/pom-relationships_pom-small.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </section>
+
+  <section id="appendix-pom-sect-xml-schema">
+    <title>POM XML Schema</title>
+
+    <para>The POM XSD is available at <ulink
+    url="http://maven.apache.org/maven-v4_0_0.xsd">http://maven.apache.org/maven-v4_0_0.xsd</ulink>
+    and the Settings XSD is available at <ulink
+    url="http://maven.apache.org/xsd/settings-1.0.0.xsd">http://maven.apache.org/xsd/settings-1.0.0.xsd</ulink>.
+    They can be referenced in the POM by setting the &lt;project&gt; element
+    like so:</para>
+
+    <para><example>
+        <title>Namespace and XML Schema Location for pom.xml</title>
+
+        <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>And settings as such:</para>
+
+    <para><example>
+        <title>Namespace and XML Schema Location for settings.xml</title>
+
+        <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                              http://maven.apache.org/xsd/settings-1.0.0.xsd"&gt;
+  ...
+&lt;/settings&gt;
+</programlisting>
+      </example></para>
+
+    <para>Finally, this <ulink
+    url="http://sonatype.com/book/images/pom-details/pom-cheat-sheet.png">cheat
+    sheet</ulink> may help you visualize the layout.</para>
+  </section>
+
+  <section id="appendix-pom-sect-basics">
+    <title>The Basics</title>
+
+    <para>The POM contains all necessary information about a project, as well
+    as configurations of plugins to be used during the build process. It is,
+    effectively, the declarative manifestation of the "who", "what", and
+    "where", while the build lifecycle is the "when" and "how". That is not to
+    say that the POM cannot affect the flow of the lifecycle  it can. For
+    example, by configuring the maven-antrun-plugin, one can effectively embed
+    ant tasks inside of the POM. It is ultimately a declaration, however.
+    Where as a build.xml tells ant precisely what to do when it is run
+    (procedural), a POM states its configuration (declarative). If some
+    external force causes the lifecycle to skip the ant plugin execution, it
+    will not stop the plugins that are executed from doing their magic. This
+    is unlike a build.xml file, where tasks are almost always dependant on the
+    lines executed before it.</para>
+
+    <para><example>
+        <title>Defining Maven Coordinates in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;my-project&lt;/artifactId&gt;
+  &lt;version&gt;1.0&lt;/version&gt;
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <section id="appendix-pom-sect-coords">
+      <title>Maven Coordinates</title>
+
+      <para>The POM defined above is the minimum that Maven 2 will allow.
+      groupId:artifactId:version are all required fields (although, groupId
+      and version need not be explicitly defined if they are inherited from a
+      parent  more on inheritance later). The three fields act much like an
+      address and timestamp in one. This marks a specific place in a
+      repository, acting like a coordinate system for Maven projects.</para>
+
+      <para>* groupId: This is generally unique amongst an organization or a
+      project. For example, all core Maven artifacts do (well, should) live
+      under the groupId org.apache.maven. Group ID's do not necessarily use
+      the dot notation, for example, the junit project. Note that the
+      dot-notated groupId does not have to correspond to the package structure
+      that the project contains. It is, however, a good practice to follow.
+      When stored within a repository, the group acts much like the Java
+      packaging structure does in an operating system. The dots are replaced
+      by OS specific directory separators (such as / in Unix) which becomes
+      a relative directory structure from the base repository. In the example
+      given, the org.codehaus.mojo group lives within the directory
+      $M2_REPO/org/codehaus/mojo.</para>
+
+      <para>* artifactId: The artifactId is generally the name that the
+      project is known by. Although the groupId is important, people within
+      the group will rarely mention the groupId in discussion (they are often
+      all be the same ID, such as the <ulink
+      url="http://mojo.codehaus.org/">Codehaus Mojo</ulink> project groupId:
+      org.codehaus.mojo). It, along with the groupId, create a key that
+      separates this project from every other project in the world (at least,
+      it should :) ). Along with the groupId, the artifactId fully defines the
+      artifacts living quarters within the repository. In the case of the
+      above project, my-project lives in
+      $M2_REPO/org/codehaus/mojo/my-project.</para>
+
+      <para>* version: This is the last piece of the naming puzzle.
+      groupId:artifactId denote a single project but they cannot delineate
+      which incarnation of that project we are talking about. Do we want the
+      junit:junit of today (version 4), or of four years ago (version 2)? In
+      short: code changes, those changes should be versioned, and this element
+      keeps those versions in line. It is also used within an artifacts
+      repository to separate versions from each other. my-project version 1.0
+      files live in the directory structure
+      $M2_REPO/org/codehaus/mojo/my-project/1.0.</para>
+
+      <para>The three elements given above point to a specific version of a
+      project letting Maven knows who we are dealing with, and when in its
+      software lifecycle we want them.</para>
+
+      <para>* packaging: Now that we have our address structure of
+      groupId:artifactId:version, there is one more standard label to give us
+      a really complete address. That is the project's artifact type. In our
+      case, the example POM for org.codehaus.mojo:my-project:1.0 defined above
+      will be packaged as a jar. We could make it into a war by declaring a
+      different packaging:</para>
+
+      <para><example>
+          <title>Configuring a Project for WAR Packaging</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When no packaging is declared, Maven assumes the artifact is the
+      default: jar. The valid types are Plexus role-hints (read more on Plexus
+      for a explanation of roles and role-hints) of the component role
+      org.apache.maven.lifecycle.mapping.LifecycleMapping. The current core
+      packaging values are: pom, jar, maven-plugin, ejb, war, ear, rar, par.
+      These define the default list of goals which execute to each
+      corresponding build lifecycle stage for a particular package
+      structure.</para>
+
+      <para>You will sometimes see Maven print out a project coordinate as
+      groupId:artifactId:packaging:version.</para>
+
+      <para>* classifier: You may occasionally find a fifth element on the
+      coordinate, and that is the classifier. We will visit the classifier
+      later, but for now it suffices to know that those kinds of projects are
+      displayed as groupId:artifactId:packaging:classifier:version.</para>
+    </section>
+
+    <section id="appendix-pom-sect-relationships">
+      <title>POM Relationships</title>
+
+      <para>One powerful aspect of Maven is in its handling of project
+      relationships; that includes dependencies (and transitive dependencies),
+      inheritance, and aggregation (multi-module projects). Dependency
+      management has a long tradition of being a complicated mess for anything
+      but the most trivial of projects. "Jarmageddon" quickly ensues as the
+      dependency tree becomes large and complicated. "Jar Hell" follows, where
+      versions of dependencies on one system are not equivalent to versions as
+      those developed with, either by the wrong version given, or conflicting
+      versions between similarly named jars. Maven solves both problems
+      through a common local repository from which to link projects correctly,
+      versions and all.</para>
+    </section>
+
+    <section id="appendix-pom-sect-dependencies">
+      <title>Dependencies</title>
+
+      <para>The cornerstone of the POM is its dependency list. Most every
+      project depends upon others to build and run correctly, and if all Maven
+      does for you is manage this list for you, you have gained a lot. Maven
+      downloads and links the dependencies for you on compilation and other
+      goals that require them. As an added bonus, Maven brings in the
+      dependencies of those dependencies (transitive dependencies), allowing
+      your list to focus solely on the dependencies your project
+      requires.</para>
+
+      <para><example>
+          <title>Declaring Dependencies in a POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.0&lt;/version&gt;
+      &lt;type&gt;jar&lt;/type&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+      &lt;classifier&gt;memory&lt;/classifier&gt;
+      &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>groupId, artifactId, version—These elements are self-explanatory,
+      and you will see them often. This trinity represents the coordinate of a
+      specific project in time, demarcating it as a dependency of this
+      project. You may be thinking: "This means that my project can only
+      depend upon Maven artifacts!" The answer is, "Of course, but that's a
+      good thing." This forces you to depend solely on dependencies that Maven
+      can manage. There are times, unfortunately, when a project cannot be
+      downloaded from the central Maven repository. For example, a project may
+      depend upon a jar that has a closed-source license which prevents it
+      from being in a central repository. There are three methods for dealing
+      with this scenario.</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Install the dependency locally using the install plugin. The
+          method is the simplest recommended method. For example: <screen>
+mvn install:install-file -Dfile=non-maven-proj.jar -DgroupId=some.group -DartifactId=non-maven-proj -Dversion=1
+</screen></para>
+
+          <note>
+            <para>Notice that an address is still required, only this time you
+            use the command line and the install plugin will create a POM for
+            you with the given address.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>Create your own repository and deploy it there. This is a
+          favorite method for companies with an intranet and need to be able
+          to keep everyone in synch. There is a Maven goal called
+          deploy:deploy-file which is similar to the install:install-file goal
+          (read the plugin's goal page for more information).</para>
+        </listitem>
+
+        <listitem>
+          <para>Set the dependency scope to system and define a systemPath.
+          </para>
+        </listitem>
+      </orderedlist>
+
+      <para>Using a systemPath is not recommended. but leads us to explaining
+      the following elements:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>type</term>
+
+          <listitem>
+            <para>Corresponds to the dependant artifact's packaging type. This
+            defaults to jar. While it usually represents the extension on the
+            filename of the dependency, that is not always the case. A type
+            can be mapped to a different extension. Some examples are
+            ejb-client and test-jar, whose extension is actually jar.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <variablelist>
+        <varlistentry>
+          <term>scope</term>
+
+          <listitem>
+            <para>This element refers to the classpath of the task at hand
+            (compiling and runtime, testing, etc.) as well as how to limit the
+            transitivity of a depedency. There are five scopes
+            available:</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>compile</term>
+
+                <listitem>
+                  <para>this is the default scope, used if none is specified.
+                  Compile dependencies are available in all classpaths.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>provided</term>
+
+                <listitem>
+                  <para>this is much like compile, but indicates you expect
+                  the JDK or a container to provide it. It is only available
+                  on the compilation classpath, and is not transitive.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>runtime</term>
+
+                <listitem>
+                  <para>this scope indicates that the dependency is not
+                  required for compilation, but is for execution. It is in the
+                  runtime and test classpaths, but not the compile
+                  classpath.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>test</term>
+
+                <listitem>
+                  <para>this scope indicates that the dependency is not
+                  required for normal use of the application, and is only
+                  available for the test compilation and execution
+                  phases.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>system</term>
+
+                <listitem>
+                  <para>this scope is similar to provided except that you have
+                  to provide the JAR which contains it explicitly. The
+                  artifact is always available and is not looked up in a
+                  repository.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <variablelist>
+        <varlistentry>
+          <term>systemPath</term>
+
+          <listitem>
+            <para>is used only if the the dependency scope is system.
+            Otherwise, the build will fail if this element is set. The path
+            must be absolute, so it is recommended to use a property to
+            specify the machine-specific path (more on properties below), such
+            as \${java.home}/lib. Since it is assumed that system scope
+            dependencies are installed a priori, Maven will not check the
+            repositories for the project, but instead checks to ensure that
+            the file exists. If not, Maven will fail the build and suggest
+            that you download and install it manually.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <variablelist>
+        <varlistentry>
+          <term>classifier</term>
+
+          <listitem>
+            <para>This is an optional fifth element to define the coordinate
+            of a dependency that contains a classifier. Classifiers were
+            briefly mentioned above, and will be covered in more detail
+            below.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <variablelist>
+        <varlistentry>
+          <term>optional</term>
+
+          <listitem>
+            <para>Marks optional a dependency when this project itself is a
+            dependency. Confused? For example, imagine a project A that
+            depends upon project B to compile a portion of code that may not
+            be used at runtime, then we may have no need for project B for all
+            project. So if project X adds project A as its own dependency,
+            then Maven will not need to install project B at all.
+            Symbolically, if =&gt; represents a required dependency, and
+            --&gt; represents optional, although A=&gt;B may be the case when
+            building A X=&gt;A--&gt;B would be the case when building
+            X.</para>
+
+            <para>In the shortest terms, optional lets other projects know
+            that, when you use this project, you do not require this
+            dependency in order to work correctly.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="appendix-pom-sect-exclusions">
+      <title>Exclusions</title>
+
+      <para>Exclusions explicitly tell Maven that you don't want to include
+      the specified project that is a dependency of this dependency (in other
+      words, its transitive dependency). For example, the maven-embedder
+      requires maven-core, and we do not wish to use it or its dependencies,
+      then we would add it as an exclusion.</para>
+
+      <para><example>
+          <title>Configuring a Dependency Exclusion</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-embedder&lt;/artifactId&gt;
+      &lt;version&gt;2.0&lt;/version&gt;
+      &lt;exclusions&gt;
+        &lt;exclusion&gt;
+          &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
+          &lt;artifactId&gt;maven-core&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+      &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>exclusions—Exclusions contain one or more exclusion elements, each
+      containing a groupId and artifactId denoting a dependency to exclude.
+      Unlike optional, which may or may not be installed and used, exclusions
+      actively remove themselves from the dependency tree.</para>
+    </section>
+
+    <section id="appendix-pom-sect-inheritance">
+      <title>Inheritance</title>
+
+      <para>One powerful addition that Maven brings to build management is the
+      concept of project inheritance. Although in build systems such as Ant,
+      inheritance can certainly be simulated, Maven has gone the extra step in
+      making project inheritance explicit to the project object model.</para>
+
+      <para><example>
+          <title>A Parent POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;my-parent&lt;/artifactId&gt;
+  &lt;version&gt;2.0&lt;/version&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>The packaging type required to be pom for parent and aggregation
+      (multi-module) projects. These types define the goals bound to a set of
+      lifecycle stages. For example, if packaging is jar, then the package
+      phase will execute the jar:jar goal. If the packaging is pom, the goal
+      executed will be site:attach-descriptor. Now we may add values to the
+      parent POM, which will be inherited by its children. The elements in the
+      parent POM that are inherited by its children are:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>dependencies</para>
+        </listitem>
+      </itemizedlist>
+
+      <itemizedlist>
+        <listitem>
+          <para>developers and contributors</para>
+        </listitem>
+      </itemizedlist>
+
+      <itemizedlist>
+        <listitem>
+          <para>plugin lists</para>
+        </listitem>
+      </itemizedlist>
+
+      <itemizedlist>
+        <listitem>
+          <para>reports lists</para>
+        </listitem>
+      </itemizedlist>
+
+      <itemizedlist>
+        <listitem>
+          <para>plugin executions with matching ids</para>
+        </listitem>
+
+        <listitem>
+          <para>plugin configuration</para>
+        </listitem>
+      </itemizedlist>
+
+      <para><example>
+          <title>Project Inheritance in a Child POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;my-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.0&lt;/version&gt;
+    &lt;relativePath&gt;../my-parent&lt;/relativePath&gt;
+  &lt;/parent&gt;
+  &lt;artifactId&gt;my-project&lt;/artifactId&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Notice the relativePath element. It is not required, but may be
+      used as a signifier to Maven to first search the path given for this
+      project's parent, before searching the local and then remote
+      repositories.</para>
+    </section>
+  </section>
+
+  <section id="appendix-pom-sect-super-pom">
+    <title>The Super POM</title>
+
+    <para>Similar to the inheritance of objects in object oriented
+    programming, POMs that extend a parent POM inherit certain values from
+    that parent. Moreover, just as Java objects ultimately inherit from
+    java.lang.Object, all Project Object Models inherit from a base Super
+    POM.</para>
+
+    <para><example>
+        <title>The Super POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;name&gt;Maven Default Project&lt;/name&gt;
+
+  &lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;id&gt;central&lt;/id&gt;
+      &lt;name&gt;Maven Repository Switchboard&lt;/name&gt;
+      &lt;layout&gt;default&lt;/layout&gt;
+      &lt;url&gt;http://repo1.maven.org/maven2&lt;/url&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+      &lt;/snapshots&gt;
+    &lt;/repository&gt;
+  &lt;/repositories&gt;
+
+  &lt;pluginRepositories&gt;
+    &lt;pluginRepository&gt;
+      &lt;id&gt;central&lt;/id&gt;
+      &lt;name&gt;Maven Plugin Repository&lt;/name&gt;
+      &lt;url&gt;http://repo1.maven.org/maven2&lt;/url&gt;
+      &lt;layout&gt;default&lt;/layout&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+      &lt;/snapshots&gt;
+      &lt;releases&gt;
+        &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+      &lt;/releases&gt;
+    &lt;/pluginRepository&gt;
+  &lt;/pluginRepositories&gt;
+
+  &lt;build&gt;
+    &lt;directory&gt;target&lt;/directory&gt;
+    &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
+    &lt;finalName&gt;\${artifactId}-\${version}&lt;/finalName&gt;
+    &lt;testOutputDirectory&gt;target/test-classes&lt;/testOutputDirectory&gt;
+    &lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
+    &lt;scriptSourceDirectory&gt;src/main/scripts&lt;/scriptSourceDirectory&gt;
+    &lt;testSourceDirectory&gt;src/test/java&lt;/testSourceDirectory&gt;
+    &lt;resources&gt;
+      &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+      &lt;/resource&gt;
+    &lt;/resources&gt;
+    &lt;testResources&gt;
+      &lt;testResource&gt;
+        &lt;directory&gt;src/test/resources&lt;/directory&gt;
+      &lt;/testResource&gt;
+    &lt;/testResources&gt;
+  &lt;/build&gt;
+
+  &lt;reporting&gt;
+    &lt;outputDirectory&gt;target/site&lt;/outputDirectory&gt;
+  &lt;/reporting&gt;
+
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;release-profile&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;property&gt;
+          &lt;name&gt;performRelease&lt;/name&gt;
+          &lt;value&gt;true&lt;/value&gt;
+        &lt;/property&gt;
+      &lt;/activation&gt;
+
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;inherited&gt;true&lt;/inherited&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;id&gt;attach-sources&lt;/id&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;jar&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+
+          &lt;plugin&gt;
+            &lt;inherited&gt;true&lt;/inherited&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;id&gt;attach-javadocs&lt;/id&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;jar&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+
+          &lt;plugin&gt;
+            &lt;inherited&gt;true&lt;/inherited&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+              &lt;updateReleaseInfo&gt;true&lt;/updateReleaseInfo&gt;
+            &lt;/configuration&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>You can take a look at how the Super POM affects your Project Object
+    Model by creating a minimal pom.xml and executing on the command line: mvn
+    help:effective-pom</para>
+  </section>
+
+  <section id="appendix-pom-sect-depman">
+    <title>Dependency Management</title>
+
+    <para>Besides inheriting certain top-level elements, parents have elements
+    to configure values for child POMs that do not affect the parents own
+    build lifecycle. One of those elements is dependencyManagement.</para>
+
+    <para>* dependencyManagement: is used only by parent POMs to help manage
+    dependency information across all of its children. If the my-parent
+    project uses dependencyManagement to define a dependency on
+    junit:junit:4.0, then POMs inheriting from this one can set their
+    dependency giving the groupId=junit and artifactId=junit only, then Maven
+    will fill in the version set by the parent. The benefits of this method
+    are obvious. Dependency details can be set in one central location, which
+    will propagate to all inheriting POMs.</para>
+  </section>
+
+  <section id="appendix-pom-sect-aggreg">
+    <title>Aggregation (or Multi-Module)</title>
+
+    <para>A project with modules is known as a multimodule, or aggregator
+    project. Modules are projects that this POM lists, and are executed as a
+    group. An pom packaged project may aggregate the build of a set of
+    projects by listing them as modules, which are relative directories to
+    those projects.</para>
+
+    <para><example>
+        <title>Defining Project Modules in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;my-parent&lt;/artifactId&gt;
+  &lt;version&gt;2.0&lt;/version&gt;
+  &lt;modules&gt;
+    &lt;module&gt;my-project&lt;module&gt;
+  &lt;/modules&gt;
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>A final note on Inheritance vs. Aggregation: Inheritance and
+    aggregation create a nice dynamic to control builds through a single,
+    high-level POM. You will often see projects that are both parents and
+    aggregators. For example, the entire maven core runs through a single base
+    POM org.apache.maven:maven, so building the Maven project can be executed
+    by a single command: mvn compile. However, although both POM projects, an
+    aggregator project and a parent project are not one in the same and should
+    not be confused. A POM project may be inherited from - but does not
+    necessarily have - any modules that it aggregates. Conversely, a POM
+    project may aggregate projects that do not inherit from it.</para>
+  </section>
+
+  <section id="appendix-pom-sect-props">
+    <title>Properties</title>
+
+    <para>Properties are the last required piece in understanding POM basics.
+    Maven properties are value placeholder, like properties in Ant. Their
+    values are accessible anywhere within a POM by using the notation $\{X\},
+    where X is the property. They come in five different styles:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>env.X: Prefixing a variable with "env." will return the shells
+        environment variable. For example, $\{env.PATH\} contains the $path
+        environment variable (%PATH% in Windows). </para>
+      </listitem>
+
+      <listitem>
+        <para>project.x: A dot (.) notated path in the POM will contain the
+        corresponding elements value. For example:
+        &lt;project&gt;&lt;version&gt;1.0&lt;/version&gt;&lt;/project&gt; is
+        accessible via $\{project.version\}. </para>
+      </listitem>
+
+      <listitem>
+        <para>settings.x: A dot (.) notated path in the settings.xml will
+        contain the corresponding elements value. For example:
+        &lt;settings&gt;&lt;offline&gt;false&lt;/offline&gt;&lt;/settings&gt;
+        is accessible via $\{settings.offline\}. </para>
+      </listitem>
+
+      <listitem>
+        <para>Java System Properties: All properties accessible via
+        java.lang.System.getProperties() are available as POM properties, such
+        as $\{java.home\}. </para>
+      </listitem>
+
+      <listitem>
+        <para>x: Set within a &lt;properties /&gt; element or an external
+        files, the value may be used as $\{someVar\}.</para>
+      </listitem>
+    </orderedlist>
+  </section>
+
+  <section id="appendix-pom-sect-build">
+    <title>Build Settings</title>
+
+    <para>Beyond the basics of the POM given above, there are two more
+    elements that must be understood before claiming basic competency of the
+    POM. They are the build element, that handles things like declaring your
+    project's directory structure and managing plugins; and the reporting
+    element, that largely mirrors the build element for reporting
+    purposes.</para>
+
+    <section id="appendix-pom-sect-build-element">
+      <title>Build</title>
+
+      <para>According to the POM 4.0.0 XSD, the build element is conceptually
+      divided into two parts: there is a BaseBuild type which contains the set
+      of elements common to both build elements (the top-level build element
+      under project and the build element under profiles, covered below); and
+      there is the Build type, which contains the BaseBuild set as well as
+      more elements for the top level definition. Let us begin with an
+      analysis of the common elements between the two.</para>
+
+      <note>
+        <para>These different build elements may be denoted "project build"
+        and "profile build".</para>
+      </note>
+
+      <para><example>
+          <title>Configuring Build Settings in POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  &lt;!-- "Project Build" contains more elements than just the BaseBuild set --&gt;
+  &lt;build&gt;...&lt;/build&gt;
+
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;!-- "Profile Build" contains a subset of "Project Build"s elements --&gt;
+      &lt;build&gt;...&lt;/build&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+    </section>
+
+    <section id="appendix-pom-sect-basebuild">
+      <title>The BaseBuild Element Set</title>
+
+      <para>BaseBuild is exactly as it sounds: the base set of elements
+      between the two build elements in the POM.</para>
+
+      <para><example>
+          <title>Top-level Elements in Build Configuration</title>
+
+          <programlisting language="xml">
+&lt;build&gt;
+  &lt;defaultGoal&gt;install&lt;/defaultGoal&gt;
+  &lt;directory&gt;\${basedir}/target&lt;/directory&gt;
+  &lt;finalName&gt;\${artifactId}-\${version}&lt;/finalName&gt;
+  &lt;filters&gt;
+    &lt;filter&gt;filters/filter1.properties&lt;/filter&gt;
+  &lt;/filters&gt;
+  ...
+&lt;/build&gt;
+</programlisting>
+        </example></para>
+
+      <para><variablelist>
+          <varlistentry>
+            <term>defaultGoal</term>
+
+            <listitem>
+              <para>the default goal or phase to execute if none is given. If
+              a goal is given, it should be defined as it is in the command
+              line (such as jar:jar). The same goes for if a phase is defined
+              (such as install). </para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>directory</term>
+
+            <listitem>
+              <para>This is the directory where the build will dump its files
+              or, in Maven parlance, the build's target. It aptly defaults to
+              \${basedir}/target. </para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>finalName</term>
+
+            <listitem>
+              <para>This is the name of the bundled project when it is finally
+              built (sans the file extension, for example:
+              my-project-1.0.jar). It defaults to \${artifactId}-\${version}.
+              The term "finalName" is kind of a misnomer, however, as plugins
+              that build the bundled project have every right to ignore/modify
+              this name (but they usually do not). For example, if the
+              maven-jar-plugin is configured to give a jar a classifier of
+              test, then the actual jar defined above will be built as
+              my-project-1.0-test.jar. </para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>filter</term>
+
+            <listitem>
+              <para>Defines *.properties files that contain a list of
+              properties that apply to resources which accept their settings
+              (covered below). In other words, the "name=value" pairs defined
+              within the filter files replace $\{name\} strings within
+              resources on build. The example above defines the
+              filter1.properties file under the filter/ directory. Mavens
+              default filter directory is $\{basedir\}/src/main/filters</para>
+            </listitem>
+          </varlistentry>
+        </variablelist></para>
+
+      <section id="appendix-pom-sect-resources">
+        <title>Resources</title>
+
+        <para>Another feature of build elements is specifying where resources
+        exist within your project. Resources are not (usually) code. They are
+        not compiled, but are items meant to be bundled within your project or
+        used for various other reasons, such as code generation.</para>
+
+        <para>For example, a Plexus project requires a configuration.xml file
+        (which specifies component configurations to the container) to live
+        within the META-INF/plexus directory. Although we could just as easily
+        place this file within src/main/resource/META-INF/plexus, we want
+        instead to give Plexus its own directory of src/main/plexus. In order
+        for the JAR plugin to bundle the resource correctly, you would specify
+        resources similar to the following:</para>
+
+        <para><example>
+            <title>Configuring Resources in a POM</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    ...
+    &lt;resources&gt;
+      &lt;resource&gt;
+        &lt;targetPath&gt;META-INF/plexus&lt;/targetPath&gt;
+        &lt;filtering&gt;false&lt;/filtering&gt;
+        &lt;directory&gt;\${basedir}/src/main/plexus&lt;/directory&gt;
+        &lt;includes&gt;
+          &lt;include&gt;configuration.xml&lt;/include&gt;
+        &lt;/includes&gt;
+        &lt;excludes&gt;
+          &lt;exclude&gt;**/*.properties&lt;/exclude&gt;
+        &lt;/excludes&gt;
+      &lt;/resource&gt;
+    &lt;/resources&gt;
+    &lt;testResources&gt;
+      ...
+    &lt;/testResources&gt;
+    ...
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para><variablelist>
+            <varlistentry>
+              <term>resources</term>
+
+              <listitem>
+                <para>is a list of resource elements that each describe what
+                and where to include files associated with this
+                project.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>targetPath</term>
+
+              <listitem>
+                <para>Specifies the directory structure to place the set of
+                resources from a build. Target path defaults to the base
+                directory. A commonly specified target path for resources that
+                will be packaged in a JAR is META-INF.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>filtering</term>
+
+              <listitem>
+                <para>is true or false, denoting if filtering is to be enabled
+                for this resource. Note, that filter *.properties files do not
+                have to be defined for filtering to occur  resources can also
+                use properties that are by default defined in the POM (such as
+                \${project.version}), passed into the command line using the
+                "-D" flag (for example, "-Dname=value") or are explicitly
+                defined by the properties element. Filter files were covered
+                above.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>directory</term>
+
+              <listitem>
+                <para>This element's value defines where the resources are to
+                be found. The default directory for a build is
+                \${basedir}/src/main/resources.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>includes</term>
+
+              <listitem>
+                <para>A set of files patterns which specify the files to
+                include as resources under that specified directory, using *
+                as a wildcard.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>excludes</term>
+
+              <listitem>
+                <para>The same structure as includes, but specifies which
+                files to ignore. In conflicts between include and exclude,
+                exclude wins.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>testResources</term>
+
+              <listitem>
+                <para>The testResources element block contains testResource
+                elements. Their definitions are similar to resource elements,
+                but are naturally used during test phases. The one difference
+                is that the default (Super POM defined) test resource
+                directory for a project is $\{basedir\}/src/test/resources.
+                Test resources are not deployed.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist></para>
+      </section>
+
+      <section id="appendix-pom-sect-plugins">
+        <title>Plugins</title>
+
+        <para><example>
+            <title>Plugin Configuration in a POM</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    ...
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.0&lt;/version&gt;
+        &lt;extensions&gt;false&lt;/extensions&gt;
+        &lt;inherited&gt;true&lt;/inherited&gt;
+        &lt;configuration&gt;
+          &lt;classifier&gt;test&lt;/classifier&gt;
+        &lt;/configuration&gt;
+        &lt;dependencies&gt;...&lt;/dependencies&gt;
+        &lt;executions&gt;...&lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>Beyond the standard coordinate of groupId:artifactId:version,
+        there are elements which configure the plugin or this builds
+        interaction with it.</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>extensions</term>
+
+            <listitem>
+              <para>true or false, whether or not to load extensions of this
+              plugin. It is by default false. Extensions are covered later in
+              this document.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>inherited</term>
+
+            <listitem>
+              <para>true or false, whether or not this plugin configuration
+              should apply to POMs which inherit from this one.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>configuration</term>
+
+            <listitem>
+              <para>This is specific to the individual plugin. Without going
+              too in depth into the mechanics of how plugins work, suffice it
+              to say that whatever properties that the plugin Mojo may expect
+              (these are getters and setters in the Java Mojo bean) can be
+              specified here. In the above example, we are setting the
+              classifier property to test in the maven-jar-plugin's Mojo. It
+              may be good to note that all configuration elements, wherever
+              they are within the POM, are intended to pass values to another
+              underlying system, such as a plugin. In other words: values
+              within a configuration element are never explicitly required by
+              the POM schema, but a plugin goal has every right to require
+              configuration values.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>dependencies</term>
+
+            <listitem>
+              <para>Dependencies are seen a lot within the POM, and are an
+              element under all plugins element blocks. The dependencies have
+              the same structure and function as under that base build. The
+              major difference in this case is that instead of applying as
+              dependencies of the project, they now apply as dependencies of
+              the plugin that they are under. The power of this is to alter
+              the dependency list of a plugin, perhaps by removing an unused
+              runtime dependency via exclusions, or by altering the version of
+              a required dpendency. See above under Dependencies for more
+              information.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>executions</term>
+
+            <listitem>
+              <para> It is important to keep in mind that a plugin may have
+              multiple goals. Each goal may have a separate configuration,
+              possibly even binding a plugin's goal to a different phase
+              altogether. executions configure the execution of a plugins
+              goals.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>For example, suppose you wanted to bind the anrun:run goal to
+        the verify phase. We want the task to echo the build directory, as
+        well as avoid passing on this configuration to its children (assuming
+        it is a parent) by setting inherited to false. You would get an
+        execution like this:</para>
+
+        <para><example>
+            <title>Configuring an Execution in Plugin Configuration</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;
+
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;echodir&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;run&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;phase&gt;verify&lt;/phase&gt;
+            &lt;inherited&gt;false&lt;/inherited&gt;
+            &lt;configuration&gt;
+              &lt;tasks&gt;
+                &lt;echo&gt;Build Dir: \${project.build.directory}&lt;/echo&gt;
+              &lt;/tasks&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para><variablelist>
+            <varlistentry>
+              <term>id</term>
+
+              <listitem>
+                <para>Self explanatory. It specifies this execution block
+                between all of the others. When the phase is run, it will be
+                shown in the form: [plugin:goal {execution: id}]. In the case
+                of this example: [antrun:run {execution: echodir}]</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>goals</term>
+
+              <listitem>
+                <para>Like all pluralized POM elements, this contains a list
+                of singular elements. In this case, a list of plugin goals
+                which are being specified by this execution block.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>phase</term>
+
+              <listitem>
+                <para>This is the phase that the list of goals will execute
+                in. This is a very powerful option, allowing one to bind any
+                goal to any phase in the build lifecycle, altering the default
+                behavior of Maven.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>inherited</term>
+
+              <listitem>
+                <para>Like the inherited element above, setting this false
+                will supress Maven from passing this execution onto its
+                children. This element is only meaningful to parent
+                POMs.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>configuration</term>
+
+              <listitem>
+                <para>Same as above, but confines the configuration to this
+                specific list of goals, rather than all goals under the
+                plugin.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist></para>
+      </section>
+
+      <section id="appendix-pom-sect-plugman">
+        <title>Plugin Management</title>
+
+        <para>pluginManagement is an element that is seen along side plugins.
+        Plugin Management contains plugin elements in much the same way,
+        except that rather than configuring plugin information for this
+        particular project build, it is intended to configure project builds
+        that inherit from this one. However, this only configures plugins that
+        are actually referenced within the plugins element in the children.
+        The children have every right to override pluginManagement
+        definitions.</para>
+
+        <para><example>
+            <title>Plugin Management in a POM's Build Configuration</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    ...
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.0&lt;/version&gt;
+          &lt;executions&gt;
+            &lt;execution&gt;
+              &lt;id&gt;pre-process-classes&lt;/id&gt;
+              &lt;phase&gt;compile&lt;/phase&gt;
+              &lt;goals&gt;
+                &lt;goal&gt;jar&lt;/goal&gt;
+              &lt;/goals&gt;
+              &lt;configuration&gt;
+                &lt;classifier&gt;pre-process&lt;/classifier&gt;
+              &lt;/configuration&gt;
+            &lt;/execution&gt;
+          &lt;/executions&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    ...
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>If we added these specifications to the plugins element, they
+        would apply only to a single POM. However, if we apply them under the
+        pluginManagement element, then this POM and all inheriting POMs that
+        add the maven-jar-plugin to the build will get the pre-process-classes
+        execution as well. So rather than the above mess included in every
+        child pom.xml, only the following is required:</para>
+
+        <para><example>
+            <title>Adding a Plugin to a Parent POM</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    ...
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    ...
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+      </section>
+    </section>
+
+    <section id="appendix-pom-sect-build-element-set">
+      <title>The Build Element Set</title>
+
+      <para>The Build type in the XSD denotes those elements that are
+      available only for the "project build". Despite the number of extra
+      elements (six), there are really only two groups of elements that
+      project build contains that are missing from the profile build:
+      directories and extensions.</para>
+
+      <section id="appendix-pom-sect-basebuild-dirs">
+        <title>Directories</title>
+
+        <para>The set of directory elements live in the parent build element,
+        which set various directory structures for the POM as a whole. Since
+        they do not exist in profile builds, these cannot be altered by
+        profiles.</para>
+
+        <para><example>
+            <title>Configuring Directories in Build Configuration</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    &lt;sourceDirectory&gt;\${basedir}/src/main/java&lt;/sourceDirectory&gt;
+    &lt;scriptSourceDirectory&gt;\${basedir}/src/main/scripts&lt;/scriptSourceDirectory&gt;
+    &lt;testSourceDirectory&gt;\${basedir}/src/test/java&lt;/testSourceDirectory&gt;
+    &lt;outputDirectory&gt;\${basedir}/target/classes&lt;/outputDirectory&gt;
+    &lt;testOutputDirectory&gt;\${basedir}/target/test-classes&lt;/testOutputDirectory&gt;
+    ...
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>If the values of a *Directory element above is set as an
+        absolute path (when their properties are expanded) then that directory
+        is used. Otherwise, it is relative to the base build directory:
+        $\{basedir\}.</para>
+      </section>
+
+      <section id="appendix-pom-sect-extensions">
+        <title>Extensions</title>
+
+        <para>Extensions are a list of artifacts that are to be used in this
+        build. They will be included in the running build's classpath. They
+        can enable extensions to the build process (such as add an ftp
+        provider for the Wagon transport mechanism), as well as make plugins
+        active which make changes to the build lifecycle. In short, extensions
+        are artifacts that activated during build. The extensions do not have
+        to actually do anything nor contain a Mojo. For this reason,
+        extensions are excellent for specifying one out of multiple
+        implementations of a common plugin interface.</para>
+
+        <para><example>
+            <title>Declaring Extensions in Build Configuration</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  &lt;build&gt;
+    ...
+    &lt;extensions&gt;
+      &lt;extension&gt;
+        &lt;groupId&gt;org.apache.maven.wagon&lt;/groupId&gt;
+        &lt;artifactId&gt;wagon-ftp&lt;/artifactId&gt;
+        &lt;version&gt;1.0-alpha-3&lt;/version&gt;
+      &lt;/extension&gt;
+    &lt;/extensions&gt;
+    ...
+  &lt;/build&gt;
+&lt;/project&gt;</programlisting>
+          </example></para>
+      </section>
+    </section>
+  </section>
+
+  <section id="appendix-pom-sect-reporting">
+    <title>Reporting</title>
+
+    <para>Reporting contains the elements that correspond specifically for the
+    site generation phase. Certain Maven plugins can generate reports defined
+    and configured under the reporting element, for example: generating
+    Javadoc reports. Much like the build element's ability to configure
+    plugins, reporting commands the same ability. The glaring difference is
+    that rather than fine-grained control of plug-in goals within the
+    executions block, reporting configures goals within reportSet elements.
+    And the subtler difference is that a plugin configuration under the
+    reporting element works as build plugin configuration, although the
+    opposite is not true (a build plugin configuration does not affect a
+    reporting plugin).</para>
+
+    <para>Possibly the only item under the reporting element that would not be
+    familiar to someone who understood the build element is the Boolean
+    excludeDefaults element. This element signifies to the site generator to
+    exclude reports normally generated by default. When a site is generated
+    via the site build cycle, a Project Info section is placed in the
+    left-hand menu, chock full of reports, such as the Project Team report or
+    Dependencies list report. These report goals are generated by
+    maven-project-info-reports-plugin. Being a plugin like any other, it may
+    also be suppressed in the following, more verbose, way, which effectively
+    turns off project-info reports.</para>
+
+    <para><example>
+        <title>Configuring Reporting in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;outputDirectory&gt;\${basedir}/target/site&lt;/outputDirectory&gt;
+        &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+        &lt;reportSets&gt;
+          &lt;reportSet&gt;&lt;/reportSet&gt;
+        &lt;/reportSets&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>The other difference is the outputDirectory element under plugin. In
+    the case of reporting, the output directory is \${basedir}/target/site by
+    default.</para>
+
+    <para>It is important to keep in mind that an individual plugin may have
+    multiple goals. Each goal may have a separate configuration. Report sets
+    configure execution of a report plugins goals. Does this sound familiar 
+    deja-vu? The same thing was said about builds execution element with one
+    difference: you cannot bind a report to another phase. Sorry.</para>
+
+    <para>For example, suppose you wanted to configure the javadoc:javadoc
+    goal to link to "http://java.sun.com/j2se/1.5.0/docs/api/", but only the
+    javadoc goal (not the goal maven-javadoc-plugin:jar). We would also like
+    this configuration passed to its children, and set inherited to true. The
+    reportSet would resemble the following:</para>
+
+    <para><example>
+        <title>Configuring Properties for a Report Set</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        ...
+        &lt;reportSets&gt;
+          &lt;reportSet&gt;
+            &lt;id&gt;sunlink&lt;/id&gt;
+            &lt;reports&gt;
+              &lt;report&gt;javadoc&lt;/report&gt;
+            &lt;/reports&gt;
+            &lt;inherited&gt;true&lt;/inherited&gt;
+            &lt;configuration&gt;
+              &lt;links&gt;
+                &lt;link&gt;http://java.sun.com/j2se/1.5.0/docs/api/&lt;/link&gt;
+              &lt;/links&gt;
+            &lt;/configuration&gt;
+          &lt;/reportSet&gt;
+        &lt;/reportSets&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>Between build executions and reporting reportSets, it should be
+    clear now as to why they exist. In the simplest sense, they drill down in
+    configuration. The POM must have a way not only to configure plugins, but
+    they also must configure individual goals of those plugins. That is where
+    these elements come in, giving the POM ultimate granularity in control of
+    its build destiny.</para>
+  </section>
+
+  <section id="appendix-pom-sect-project-info">
+    <title>More Project Information</title>
+
+    <para>Although the above information is enough to get a firm grasp on POM
+    authoring, there are far more elements to make developer's live easier.
+    Many of these elements are related to site generation, but like all POM
+    declarations, they may be used for anything, depending upon how certain
+    plugins use it. The following are the simplest elements:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>name</term>
+
+        <listitem>
+          <para>Projects tend to have conversational names, beyond the
+          artifactId. The Sun engineers did not refer to their project as
+          "java-1.5", but rather just called it "Tiger". Here is where to set
+          that value.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>description</term>
+
+        <listitem>
+          <para>Description of a project is always good. Although this should
+          not replace formal documentation, a quick comment to any readers of
+          the POM is always helpful.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>url</term>
+
+        <listitem>
+          <para>The URL, like the name, is not required. This is a nice
+          gesture for projects users, however, so that they know where the
+          project lives.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>inceptionYear</term>
+
+        <listitem>
+          <para>This is another good documentation point. It will at least
+          help you remember where you have spent the last few years of your
+          life.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </section>
+
+  <section id="appendix-pom-sect-licenses">
+    <title>Licenses</title>
+
+    <para><example>
+        <title>Configuring Licenses in a POM</title>
+
+        <programlisting language="xml">&lt;licenses&gt;
+  &lt;license&gt;
+    &lt;name&gt;Apache 2&lt;/name&gt;
+    &lt;url&gt;http://www.apache.org/licenses/LICENSE-2.0.txt&lt;/url&gt;
+    &lt;distribution&gt;repo&lt;/distribution&gt;
+    &lt;comments&gt;A business-friendly OSS license&lt;/comments&gt;
+  &lt;/license&gt;
+&lt;/licenses&gt;
+</programlisting>
+      </example></para>
+
+    <para>Licenses are legal documents defining how and when a project (or
+    parts of a project) may be used. Note that a project should list only
+    licenses that may apply directly to this project, and not list licenses
+    that apply to this project's dependencies. Maven currently does little
+    with these documents other than displays them on generated sites. However,
+    there is talk of flexing for different types of licenses, forcing users to
+    accept license agreements for certain types of (non open source)
+    projects.</para>
+
+    <para>name, url and comments: are self explanatory, and have been
+    encountered before in other capacities. The fourth license element is:
+    distribution: This describes how the project may be legally distributed.
+    The two stated methods are repo (they may be downloaded from a Maven
+    repository) or manual (they must be manually installed).</para>
+  </section>
+
+  <section id="appendix-pom-sect-organization">
+    <title>Organization</title>
+
+    <para>Most projects are run by some sort of organization (business,
+    private group, etc.). Here is where the most basic information is
+    set.</para>
+
+    <para><example>
+        <title>Configuring Organizations in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;organization&gt;
+    &lt;name&gt;Codehaus Mojo&lt;/name&gt;
+    &lt;url&gt;http://mojo.codehaus.org&lt;/url&gt;
+  &lt;/organization&gt;
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+  </section>
+
+  <section id="appendix-pom-sect-developers">
+    <title>Developers</title>
+
+    <para>All projects consist of files that were created, at some time, by a
+    person. Like the other systems that surround a project, so to do the
+    people involved with a project have a stake in the project. Developers are
+    presumably members of the project's core development. Note that, although
+    an organization may have many developers (programmers) as members, it is
+    not good form to list them all as developers, but only those who are
+    immediately responsible for the code. A good rule of thumb is, if the
+    person should not be contacted about the project, they need not be listed
+    here.</para>
+
+    <para><example>
+        <title>Listing Developers in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;developers&gt;
+    &lt;developer&gt;
+      &lt;id&gt;eric&lt;/id&gt;
+      &lt;name&gt;Eric&lt;/name&gt;
+      &lt;email&gt;eredmond@codehaus.org&lt;/email&gt;
+      &lt;url&gt;http://eric.propellors.net&lt;/url&gt;
+      &lt;organization&gt;Codehaus&lt;/organization&gt;
+      &lt;organizationUrl&gt;http://mojo.codehaus.org&lt;/organizationUrl&gt;
+      &lt;roles&gt;
+        &lt;role&gt;architect&lt;/role&gt;
+        &lt;role&gt;developer&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;-6&lt;/timezone&gt;
+      &lt;properties&gt;
+        &lt;picUrl&gt;http://tinyurl.com/prv4t&lt;/picUrl&gt;
+      &lt;/properties&gt;
+    &lt;/developer&gt;
+  &lt;/developers&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term>id, name, email</term>
+
+          <listitem>
+            <para>These correspond to the developer's ID (presumably some
+            unique ID across an organization), the developer's name and email
+            address.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>organization, organizationUrl</term>
+
+          <listitem>
+            <para>As you probably guessed, these are the developer's
+            organization name and it's URL, respectively.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>roles</term>
+
+          <listitem>
+            <para>A role should specify the standard actions that the person
+            is responsible for. Like a single person can wear many hats, a
+            single person can take on multiple roles.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>timezone</term>
+
+          <listitem>
+            <para>A numerical offset in hours from GMT where the developer
+            lives.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>properties</term>
+
+          <listitem>
+            <para>This element is where any other properties about the person
+            goes. For example, a link to a personal image or an instant
+            messenger handle. Different plugins may use these properties, or
+            they may simply be for other developers who read the POM.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
+  </section>
+
+  <section id="appendix-pom-sect-contributors">
+    <title>Contributors</title>
+
+    <para>Contributors are like developers yet play an ancillary role in a
+    project's lifecycle. Perhaps the contributor sent in a bug fix, or added
+    some important documentation. A healthy open source project will likely
+    have more contributors than developers.</para>
+
+    <para><example>
+        <title>Listing Contributors in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;contributors&gt;
+    &lt;contributor&gt;
+      &lt;name&gt;Noelle&lt;/name&gt;
+      &lt;email&gt;some.name@gmail.com&lt;/email&gt;
+      &lt;url&gt;http://noellemarie.com&lt;/url&gt;
+      &lt;organization&gt;Noelle Marie&lt;/organization&gt;
+      &lt;organizationUrl&gt;http://noellemarie.com&lt;/organizationUrl&gt;
+      &lt;roles&gt;
+        &lt;role&gt;tester&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;-5&lt;/timezone&gt;
+      &lt;properties&gt;
+        &lt;gtalk&gt;some.name@gmail.com&lt;/gtalk&gt;
+      &lt;/properties&gt;
+    &lt;/contributor&gt;
+  &lt;/contributors&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>Contributors contain the same set of elements than developers sans
+    the id element.</para>
+  </section>
+
+  <section id="appendix-pom-sect-issue-man">
+    <title>Issue Management</title>
+
+    <para>This defines the defect tracking system (Bugzilla, TestTrack,
+    ClearQuest, etc) used. Although there is nothing stopping a plugin from
+    using this information for something, its primarily used for generating
+    project documentation.</para>
+
+    <para><example>
+        <title>Declaring an Issue Management System in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;issueManagement&gt;
+    &lt;system&gt;Bugzilla&lt;/system&gt;
+    &lt;url&gt;http://127.0.0.1/bugzilla&lt;/url&gt;
+  &lt;/issueManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+  </section>
+
+  <section id="appendix-pom-sect-contint">
+    <title>Continuous Integration</title>
+
+    <para>Continuous integration build systems based upon triggers or timings
+    (such as, hourly or daily) have grown in favor over manual builds in the
+    past few years. As build systems have become more standardized, so have
+    the systems that run the trigger those builds. Although the majority of
+    the configuration is up to the specific program used (Hudson, Cruise
+    Control, etc.), there are a few configurations which may take place within
+    the POM. Maven has captured a few of the recurring settings within the set
+    of notifier elements. A notifier is the manner in which people are
+    notified of certain build statuses. In the following example, this POM is
+    setting a notifier of type mail (meaning email), and configuring the email
+    address to use on the specified triggers sendOnError, sendOnFailure, and
+    not sendOnSuccess or sendOnWarning.</para>
+
+    <para><example>
+        <title>Configuring Continuous Integration in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;ciManagement&gt;
+    &lt;system&gt;hudson&lt;/system&gt;
+    &lt;url&gt;http://127.0.0.1:8080/hudson&lt;/url&gt;
+    &lt;notifiers&gt;
+      &lt;notifier&gt;
+        &lt;type&gt;mail&lt;/type&gt;
+        &lt;sendOnError&gt;true&lt;/sendOnError&gt;
+        &lt;sendOnFailure&gt;true&lt;/sendOnFailure&gt;
+        &lt;sendOnSuccess&gt;false&lt;/sendOnSuccess&gt;
+        &lt;sendOnWarning&gt;false&lt;/sendOnWarning&gt;
+        &lt;configuration&gt;&lt;address&gt;hudson@127.0.0.1&lt;/address&gt;&lt;/configuration&gt;
+      &lt;/notifier&gt;
+    &lt;/notifiers&gt;
+  &lt;/ciManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+  </section>
+
+  <section id="appendix-pom-sect-mailing-list">
+    <title>Mailing Lists</title>
+
+    <para>Mailing lists are a great tool for keeping in touch with people
+    about a project. Most mailing lists are for developers and users.</para>
+
+    <para><example>
+        <title>Describing Project Mailing Lists in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;mailingLists&gt;
+    &lt;mailingList&gt;
+      &lt;name&gt;User List&lt;/name&gt;
+      &lt;subscribe&gt;user-subscribe@127.0.0.1&lt;/subscribe&gt;
+      &lt;unsubscribe&gt;user-unsubscribe@127.0.0.1&lt;/unsubscribe&gt;
+      &lt;post&gt;user@127.0.0.1&lt;/post&gt;
+      &lt;archive&gt;http://127.0.0.1/user/&lt;/archive&gt;
+      &lt;otherArchives&gt;
+        &lt;otherArchive&gt;http://base.google.com/base/1/127.0.0.1&lt;/otherArchive&gt;
+      &lt;/otherArchives&gt;
+    &lt;/mailingList&gt;
+  &lt;/mailingLists&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term>subscribe, unsubscribe</term>
+
+          <listitem>
+            <para>There elements specify the email addresses which are used
+            for performing the relative actions To subscribe to the user list
+            above, a user would send an email to
+            user-subscribe@127.0.0.1.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>archive</term>
+
+          <listitem>
+            <para>This element specifies the url of the archive of old mailing
+            list emails, if one exists. If there are mirrored archives, they
+            can be specified under otherArchives.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>post</term>
+
+          <listitem>
+            <para>The email address which one would use in order to post to
+            the mailing list. Note that not all mailing lists have the ability
+            to post to (such as a build failure list).</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
+  </section>
+
+  <section id="appendix-pom-sect-config-man">
+    <title>Software Configuration Management</title>
+
+    <para>SCM (Software Configuration Management, also called Source
+    Code/Control Management or, succinctly, version control) is an integral
+    part of any healthy project. If your Maven project uses an SCM system (it
+    does, doesn't it?) then here is where you would place that information
+    into the POM.</para>
+
+    <para><example>
+        <title>Descrbing Source Control in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;scm&gt;
+    &lt;connection&gt;scm:svn:http://127.0.0.1/svn/my-project&lt;/connection&gt;
+    &lt;developerConnection&gt;scm:svn:https://127.0.0.1/svn/my-project&lt;/developerConnection&gt;
+    &lt;tag&gt;HEAD&lt;/tag&gt;
+    &lt;url&gt;http://127.0.0.1/websvn/my-project&lt;/url&gt;
+  &lt;/scm&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>connection, developerConnection: The two connection elements convey
+    to how one is to connect to the version control system through Maven.
+    Where connection requires read access for Maven to be able to find the
+    source code (for example, an update), developerConnection requires a
+    connection that will give write access. The Maven project has spawned
+    another project named Maven SCM, which creates a common API for any SCMs
+    that wish to implement it. The most popular are CVS and Subversion,
+    however, there is a growing list of other supported
+    {{{/scm/scms-overview.html}SCMs}}. All SCM connections are made through a
+    common URL structure.</para>
+
+    <screen>scm:[provider]:[provider_specific]
+</screen>
+
+    <para>Where provider is the type of SCM system. For example, connecting to
+    a CVS repository may look like this:</para>
+
+    <screen>scm:cvs:pserver:127.0.0.1:/cvs/root:my-project
+</screen>
+
+    <para>tag: Specifies the tag that this project lives under. HEAD (meaning,
+    the SCM root) should be the default.</para>
+
+    <para>url: A publicly browsable repository. For example, via
+    ViewCVS.</para>
+  </section>
+
+  <section id="appendix-pom-sect-prereqs">
+    <title>Prerequisites</title>
+
+    <para><example>
+        <title>Declaring a Prerequisite for a Project</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;prerequisites&gt;
+    &lt;maven&gt;2.0.4&lt;/maven&gt;
+  &lt;/prerequisites&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>prerequisites: The POM may have certain prerequisites in order to
+    execute correctly. For example, perhaps there was a fix in Maven 2.0.3
+    that you need in order to deploy using sftp. Here is where you give the
+    prerequisites to building. If these are not met, Maven will fail the build
+    before even starting. The only element that exists as a prerequisite in
+    POM 4.0 is the maven element, which takes a minimum version number</para>
+  </section>
+
+  <section id="appendix-pom-sect-repos">
+    <title>Repositories</title>
+
+    <para>Repositories are collections of artifacts which adhere to the Maven
+    repository directory layout. In order to be a Maven 2 repository artifact,
+    a POM file must live within the structure
+    $BASE_REPO/groupId/artifactId/version/artifactId-version.pom. $BASE_REPO
+    can be local (file structure) or remote (base URL); the remaining layout
+    will be the same. Repositories exist as a place to collect and store
+    artifacts. Whenever a project has a dependency upon an artifact, Maven
+    will first attempt to use a local copy of the specified artifact. If that
+    artifact does not exist in the local repository, it will then attempt to
+    download from a remote repository. The repository elements within a POM
+    specify those alternate repositories to search.</para>
+
+    <para>The repository is one of the most powerful features of the Maven
+    community. The default central Maven repository lives on
+    {{http://repo1.maven.org/maven2}}. Another source for artifacts not yet in
+    iBiblio is the Codehaus snapshots repo.</para>
+
+    <para><example>
+        <title>Configuring Repositories in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;releases&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+        &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
+      &lt;/releases&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+        &lt;checksumPolicy&gt;fail&lt;/checksumPolicy&gt;
+      &lt;/snapshots&gt;
+      &lt;id&gt;codehausSnapshots&lt;/id&gt;
+      &lt;name&gt;Codehaus Snapshots&lt;/name&gt;
+      &lt;url&gt;http://snapshots.maven.codehaus.org/maven2&lt;/url&gt;
+      &lt;layout&gt;default&lt;/layout&gt;
+    &lt;/repository&gt;
+  &lt;/repositories&gt;
+  &lt;pluginRepositories&gt;
+    ...
+  &lt;/pluginRepositories&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para>releases, snapshots: These are the policies for each type of
+    artifact, Release or snapshot. With these two sets, a POM has the power to
+    alter the policies for each type independent of the other within a single
+    repository. For example, one may decide to enable only snapshot downloads,
+    possibly for development purposes.</para>
+
+    <para>enabled: true or false for whether this repository is enabled for
+    the respective type (releases or snapshots).</para>
+
+    <para>updatePolicy: This element specifies how often updates should
+    attempt to occur. Maven will compare the local POMs timestamp (stored in
+    a repositorys maven-metadata file) to the remote. The choices are:
+    always, daily (default), interval:X (where X is an integer in minutes) or
+    never.</para>
+
+    <para>checksumPolicy: When Maven deploys files to the repository, it also
+    deploys corresponding checksum files. Your options are to ignore, fail, or
+    warn on missing or incorrect checksums.</para>
+
+    <para>layout: In the above description of repositories, it was mentioned
+    that they all follow a common layout. This is mostly correct. Maven 2 has
+    a default layout for its repositories; however, Maven 1.x had a different
+    layout. Use this element to specify which if it is default or
+    legacy.</para>
+
+    <section id="appendix-pom-sect-plug-repos">
+      <title>Plugin Repositories</title>
+
+      <para>Repositories are home to two major types of artifacts. The first
+      are artifacts that are used as dependencies of other artifacts. These
+      are the majority of plugins that reside within central. The other type
+      of artifact is plugins. Maven plugins are themselves a special type of
+      artifact. Because of this, plugin repositories may be separated from
+      other repositories (although, I have yet to hear a convincing argument
+      for doing so). In any case, the structure of the pluginRepositories
+      element block is similar to the repositories element. The
+      pluginRepository elements each specify a remote location of where Maven
+      can find new plugins</para>
+    </section>
+  </section>
+
+  <section id="appendix-pom-sect-distman">
+    <title>Distribution Management</title>
+
+    <para>Distribution management acts precisely as it sounds: it manages the
+    distribution of the artifact and supporting files generated throughout the
+    build process. Starting with the last elements first:</para>
+
+    <para><example>
+        <title>Configuring Distribution Management in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    ...
+    &lt;downloadUrl&gt;http://mojo.codehaus.org/my-project&lt;/downloadUrl&gt;
+    &lt;status&gt;deployed&lt;/status&gt;
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <para><variablelist>
+        <varlistentry>
+          <term>downloadUrl</term>
+
+          <listitem>
+            <para>is the url of the repository from whence another POM may
+            point to in order to grab this POMs artifact. In the simplest
+            terms, we told the POM how to upload it (through repository/url),
+            but from where can the public download it? This element answers
+            that question.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>status</term>
+
+          <listitem>
+            <para>Warning! Like a baby bird in a nest, the status should never
+            be touched by human hands! The reason for this is that Maven will
+            set the status of the project when it is transported out to the
+            repository. Its valid types are as follows.</para>
+
+            <variablelist>
+              <varlistentry>
+                <term>none</term>
+
+                <listitem>
+                  <para>No special status. This is the default for a
+                  POM.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>converted</term>
+
+                <listitem>
+                  <para>The manager of the repository converted this POM from
+                  an earlier version to Maven 2.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>partner</term>
+
+                <listitem>
+                  <para>This could just as easily have been called synched.
+                  This means that this artifact has been synched with a
+                  partner repository.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>deployed</term>
+
+                <listitem>
+                  <para>By far the most common status, meaning that this
+                  artifact was deployed from a Maven 2 instance. This is what
+                  you get when you manually deploy using the command-line
+                  deploy phase.</para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term>verified</term>
+
+                <listitem>
+                  <para>This project has been verified, and should be
+                  considered finalized.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+      </variablelist></para>
+
+    <section id="appendix-pom-sect-repository">
+      <title>Repository</title>
+
+      <para>Where as the repositories element specifies in the POM the
+      location and manner in which Maven may download remote artifacts for use
+      by the current project, distributionManagement specifies where (and how)
+      this project will get to a remote repository when it is deployed. The
+      repository elements will be used for snapshot distribution if the
+      snapshotRepository is not defined.</para>
+
+      <para><example>
+          <title>Configuring Distribution Repositories in a POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    &lt;repository&gt;
+      &lt;uniqueVersion&gt;false&lt;/uniqueVersion&gt;
+      &lt;id&gt;corp1&lt;/id&gt;
+      &lt;name&gt;Corporate Repository&lt;/name&gt;
+      &lt;url&gt;scp://repo1/maven2&lt;/url&gt;
+      &lt;layout&gt;default&lt;/layout&gt;
+    &lt;/repository&gt;
+    &lt;snapshotRepository&gt;
+      &lt;uniqueVersion&gt;true&lt;/uniqueVersion&gt;
+      &lt;id&gt;propSnap&lt;/id&gt;
+      &lt;name&gt;Propellors Snapshots&lt;/name&gt;
+      &lt;url&gt;sftp://propellers.net/maven&lt;/url&gt;
+      &lt;layout&gt;legacy&lt;/layout&gt;
+    &lt;/snapshotRepository&gt;
+    ...
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para><variablelist>
+          <varlistentry>
+            <term>id, name</term>
+
+            <listitem>
+              <para>The id is used to uniquely identify this repository
+              amongst many, and the name is a human readable form.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>uniqueVersion</term>
+
+            <listitem>
+              <para>The unique version takes a true or false value to denote
+              whether artifacts deployed to this repository should get a
+              uniquely generated version number, or use the version number
+              defined as part of the address.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>url</term>
+
+            <listitem>
+              <para>This is the core of the repository element. It specifies
+              both the location and the transport protocol to be used to
+              transfer a built artifact (and POM file, and checksum data) to
+              the repository.</para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>layout</term>
+
+            <listitem>
+              <para>These are the same types and purpose as the layout element
+              defined in the repository element. They are default and
+              legacy.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist></para>
+    </section>
+
+    <section id="appendix-pom-sect-site-dist">
+      <title>Site Distribution</title>
+
+      <para>More than distribution to the repositories, distributionManagement
+      is responsible for defining how to deploy the projects site and
+      documentation.</para>
+
+      <para><example>
+          <title>Configuring Site Distribution in a POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    ...
+    &lt;site&gt;
+      &lt;id&gt;mojo.website&lt;/id&gt;
+      &lt;name&gt;Mojo Website&lt;/name&gt;
+      &lt;url&gt;scp://beaver.codehaus.org/home/projects/mojo/public_html/&lt;/url&gt;
+    &lt;/site&gt;
+    ...
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>id, name, url: These elements are similar to their counterparts
+      above in the distributionManagement repository element.</para>
+    </section>
+
+    <section id="appendix-pom-sect-relocation">
+      <title>Relocation</title>
+
+      <para><example>
+          <title>Configuring Relocation in a POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;distributionManagement&gt;
+    ...
+    &lt;relocation&gt;
+      &lt;groupId&gt;org.apache&lt;/groupId&gt;
+      &lt;artifactId&gt;my-project&lt;/artifactId&gt;
+      &lt;version&gt;1.0&lt;/version&gt;
+      &lt;message&gt;We have moved the Project under Apache&lt;/message&gt;
+    &lt;/relocation&gt;
+    ...
+  &lt;/distributionManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Projects are not static; they are living things (or dying things,
+      as the case may be). A common thing that happens as projects grow, is
+      that they are forced to move to more suitable quarters. For example,
+      when your next wildly successful open source project moves under the
+      Apache umbrella, it would be good to give your users as heads-up that
+      the project is being renamed to org.apache:my-project:1.0. Besides
+      specifying the new address, it is also good form to provide a message
+      explaining why.</para>
+    </section>
+  </section>
+
+  <section id="appendix-pom-sect-profiles">
+    <title>Profiles</title>
+
+    <para>A new feature of the POM 4.0 is the ability of a project to change
+    settings depending on the environment where it is being built. A profile
+    element contains both an optional activation (a profile trigger) and the
+    set of changes to be made to the POM if that profile has been activated.
+    For example, a project built for a test environment may point to a
+    different database than that of the final deployment. Or dependencies may
+    be pulled from different repositories based upon the JDK version used. The
+    elements of profiles are as follows:</para>
+
+    <para><example>
+        <title>Configuring Profiles in a POM</title>
+
+        <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;test&lt;/id&gt;
+      &lt;activation&gt;...&lt;/activation&gt;
+      &lt;build&gt;...&lt;/build&gt;
+      &lt;modules&gt;...&lt;/modules&gt;
+      &lt;repositories&gt;...&lt;/repositories&gt;
+      &lt;pluginRepositories&gt;...&lt;/pluginRepositories&gt;
+      &lt;dependencies&gt;...&lt;/dependencies&gt;
+      &lt;reporting&gt;...&lt;/reporting&gt;
+      &lt;dependencyManagement&gt;...&lt;/dependencyManagement&gt;
+      &lt;distributionManagement&gt;...&lt;/distributionManagement&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+&lt;/project&gt;
+</programlisting>
+      </example></para>
+
+    <section id="appendix-pom-sect-activation">
+      <title>Activation</title>
+
+      <para>Activations are the key of a profile. The power of a profile comes
+      from its ability to modify the basic POM only under certain
+      circumstances. Those circumstances are specified via an activation
+      element.</para>
+
+      <para><example>
+          <title>Configuring Profile Activation in a POM</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;test&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;activeByDefault&gt;false&lt;/activeByDefault&gt;
+        &lt;jdk&gt;1.5&lt;/jdk&gt;
+        &lt;os&gt;
+          &lt;name&gt;Windows XP&lt;/name&gt;
+          &lt;family&gt;Windows&lt;/family&gt;
+          &lt;arch&gt;x86&lt;/arch&gt;
+          &lt;version&gt;5.1.2600&lt;/version&gt;
+        &lt;/os&gt;
+        &lt;property&gt;
+          &lt;name&gt;mavenVersion&lt;/name&gt;
+          &lt;value&gt;2.0.3&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;file&gt;
+          &lt;exists&gt;\${basedir}/file2.properties&lt;/exists&gt;
+          &lt;missing&gt;\${basedir}/file1.properties&lt;/missing&gt;
+        &lt;/file&gt;
+      &lt;/activation&gt;
+      ...
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Activation occurs when all specified criteria have been met,
+      though not all are required at once.</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>jdk</term>
+
+          <listitem>
+            <para>Activation has a built in, Java-centric check in the jdk
+            element. This will activate if the test is run under a jdk version
+            number that matches the prefix given. In the above example,
+            1.5.0_06 will match.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>os</term>
+
+          <listitem>
+            <para>The os element can define some operating system specific
+            properties shown above.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>property</term>
+
+          <listitem>
+            <para>The profile will activate if Maven detects a property (a
+            value which can be dereferenced within the POM by \${name}) of the
+            corresponding name=value pair.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>file</term>
+
+          <listitem>
+            <para>Finally, a given filename may activate the profile by the
+            existence of a file, or if it is missing.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>The activation element is not the only way that a profile may be
+      activated. The settings.xml file's activeProfile element may contain the
+      profile's id. They may also be activated explicitly through the command
+      line via a comma separated list after the P flag (e.g. -P test).</para>
+
+      <para>To see which profile will activate in a certain build, use the
+      maven-help-plugin.</para>
+
+      <screen>mvn help:active-profiles
+</screen>
+    </section>
+
+    <section id="appendix-pom-sect-basebuild-revisited">
+      <title>The BaseBuild Element Set (revisited)</title>
+
+      <para>As mentioned above, the reason for the two types of build elements
+      reside in the fact that it does not make sense for a profile to
+      configure build directories or extensions as it does in the top level of
+      the POM. Reguardless of in which environment the project is built, some
+      values will remain constant, such as the directory structure of the
+      source code.</para>
+
+      <note>
+        <para>If you find your project needing to keep two sets of code for
+        different environments, it may be prudent to investigate refactoring
+        the project into two or more separate projects.</para>
+      </note>
+    </section>
+  </section>
+
+  <section id="appendix-pom-sect-summary">
+    <title>Summary</title>
+
+    <para>The Maven 2 POM is big. However, its size is also a testament to its
+    versatility. The ability to abstract all of the aspects of a project into
+    a single artifact is powerful, to say the least. Gone are the days of
+    dozens of disparate build scripts and scattered documentation concerning
+    each individual project. Along with Maven's other stars that make up the
+    Maven galaxy a well defined build lifecycle, easy to write and maintain
+    plugins, centralized repositories, system-wide and user-based
+    configurations, as well as the increasing number of tools to make
+    developers jobs easier to maintain complex projects the POM is the large,
+    but bright, center.</para>
+  </section>
+</appendix>
