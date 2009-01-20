@@ -2,92 +2,60 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="web">
-  <title>A Simple Web Application</title>
+  <title>Eine einfache Web-Anwendung </title>
 
   <section id="web-sect-intro">
-    <title>Introduction</title>
+    <title>Einleitung </title>
 
-    <para>In this chapter, we create a simple web application with the
-    Maven<indexterm>
-        <primary>simple Web application</primary>
-
-        <see>Web applications</see>
-      </indexterm><indexterm class="startofrange" id="webapp1">
-        <primary>Web applications</primary>
-
-        <secondary>simple Web project (example)</secondary>
-      </indexterm><indexterm>
-        <primary>customizing projects</primary>
-
-        <secondary>Web applications</secondary>
-
-        <see>Web applications</see>
-      </indexterm><indexterm>
-        <primary>projects</primary>
-
-        <secondary>Web applications</secondary>
-
-        <see>Web applications</see>
-      </indexterm> Archetype plugin. We’ll run this web application in a
-    Servlet container named Jetty, add some dependencies, write a simple
-    Servlet, and generate a <acronym>WAR</acronym> file. At the end of this
-    chapter, you will be able to start using Maven to accelerate the
-    development of web applications.</para>
+    <para>In diesem Kapitel erstellen wir mit Hilfe des Archetype Maven Plugin
+    eine einfache Web-Applikation. Wir führen diese Web-Applikation ein,
+    benutzen hierfür einen Servlet-Container Jetty, fügen einige
+    Abhängigkeiten ein, schreiben ein einfaches Servlet und erzeugen ein
+    WAR-Archiv. Am Ende dieses Kapitels, werden Sie in der Lage sein Maven zur
+    Beschleunigung der Entwicklung von Web-Applikationen einzusetzen.</para>
 
     <section id="web-sect-downloading">
-      <title>Downloading this Chapter's Example</title>
+      <title>Herunterladen der Beispiele dieses Kapitels</title>
 
-      <para>The example in this chapter is generated with the Maven Archetype
-      plugin. While you should be able to follow the development of this
-      chapter without the example source code, we recommend downloading a copy
-      of the example code to use as a reference. This chapter's example
-      project may be downloaded with the book's example code at <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
-      or <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
-      Unzip this archive in any directory, and then go to the
-      <filename>ch05/</filename> directory. In the <filename>ch05/</filename>
-      directory you will see a directory named
-      <filename>simple-webapp/</filename> which contains the Maven project
-      developed in this chapter. If you wish to follow along with the example
-      code in a web browser, go to <ulink
-      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch05/</filename> directory.</para>
+      <para>Das Beispiel in diesem Kapitel wird mit dem Archetype Maven Plugin
+      erzeugt. Während Sie in der Lage sein sollten, der Entwicklung dieses
+      Kapitels ohne Beispiel-Quellcode zu folgen, empfehlen wir das
+      Herunterladen einer Kopie der Quellcodes als Referenz. Das
+      Beispielprojekt dieses Kapitel zusammen mit den anderen Beispielen
+      dieses Buchs kann von
+      http://books.sonatype.com/maven-book/mvn-examples-1.0.zip oder
+      http://books.sonatype.com/maven-book/mvn-examples-1.0.tar.gz
+      heruntergeladen werden. Entpacken Sie das Archiv in ein beliebiges
+      Verzeichnis, und gehen Sie dann zum Verzeichnis /ch05. Darin finden Sie
+      ein Verzeichnis mit dem Namen /simple web welches den Quellcode für
+      dieses Kapitel enthält. </para>
     </section>
   </section>
 
   <section id="web-sect-defining-simple-web">
-    <title>Defining the Simple Web Application</title>
+    <title>Eine kurze Einführung in die "Simple Web" Anwendung </title>
 
-    <para>We’ve purposefully kept this chapter focused on Plain-Old Web
-    Applications (<acronym>POWA</acronym>)—a servlet and a JavaServer Pages
-    (<acronym>JSP</acronym>) page. We’re not going to tell you how to develop
-    your Struts 2, Tapestry, Wicket, Java Server Faces
-    (<acronym>JSF</acronym>), or Waffle application in the next 20-odd pages,
-    and we’re not going to get into integrating an Inversion of Control
-    (<acronym>IoC</acronym>) container such as Plexus, Guice, or the Spring
-    Framework. The goal of this chapter is to show you the basic facilities
-    that Maven provides for developing web applications—no more, no less.
-    Later in this book, we’re going to take a look at developing two web
-    applications: one which that Hibernate, Velocity, and the Spring
-    Framework; and the other that uses Plexus.</para>
+    <para>Wir haben dieses Kapitel gezielt auf Plain-Old Web Applikationen
+    (POWA) konzentriert - ein Servlet und eine JSP-Seite. Wir werden Ihnen in
+    den nächsten 20 Seiten sicher nicht zeigen wie Sie Ihre Struts 2,
+    Tapestry, Wicket, JSF, oder Waffle Anwendung erstellen, auch nicht wie Sie
+    die Integration eines IoC Containers wie Plexus, Guice oder Spring
+    Framework bewerkstelligen. Das Ziel dieses Kapitels ist es, Ihnen die
+    grundlegenden Möglichkeiten welche Maven zur Entwicklung von
+    Web-Anwendungen bietet vorzustellen, nicht mehr und nicht weniger. Später
+    in diesem Buch, werden wir einen Blick auf die Entwicklung von zwei
+    Web-Anwendungen werfen: einer, welche Hibernate, Velocity sowie das Spring
+    Framework nutzt, und eine andere unter Verwendungen von Plexus.</para>
   </section>
 
   <section id="web-sect-creating-project">
-    <title>Creating the Simple Web Project</title>
+    <title>Erstellen des "Simple Web" Projekts</title>
 
-    <para>To create your web application <indexterm class="startofrange"
-        id="webapp2">
-        <primary>Web applications</primary>
-
-        <secondary>simple Web project (example)</secondary>
-
-        <tertiary>creating</tertiary>
-      </indexterm>project, run <command>mvn archetype:create</command> with an
-    <varname>artifactId</varname> and a <varname>groupId</varname>. Specify
-    the <varname>archetypeArtifactId</varname> as
-    <varname>maven-archetype-webapp</varname>. Running this will create the
-    appropriate directory structure and Maven <acronym>POM</acronym>:</para>
+    <para>Um das Web Applikations Projekt zu erstellen, führen Sie mvn
+    archetype:create mit einer artifactId und einer groupId aus. Wählen Sie
+    die archetypeArtifactId maven-archetype-webapp. Bei der Ausführung wird
+    die entsprechende Verzeichnis-Struktur und das grundlegende Maven POM
+    erstellt. </para>
 
     <screen>~/examples$ <command>mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch05 \
                             -DartifactId=simple-webapp \
@@ -106,18 +74,13 @@
 [INFO] *************** End of debug info from resources from generated POM **
 [INFO] Archetype created in dir: ~/examples/simple-webapp </screen>
 
-    <para>Once the Maven Archetype plugin creates the project, change
-    directories into the <filename role="keep-together">simple-web</filename>
-    directory and take a look at the <filename>pom.xml</filename>. You should
-    see the<indexterm>
-        <primary>pom.xml file</primary>
-
-        <secondary>for simple Web project (example)</secondary>
-      </indexterm> <acronym>XML</acronym> document shown in the following
-    example:</para>
+    <para>Sobald das Archetype Maven Plugin das Projekt erstellt hat, gehen
+    Sie in das Verzeichnis /simple-web und werfen Sie einen Blick auf die dort
+    abgelegte pom.xml Datei. Sie sollten das folgenden XML-Dokument
+    vorfinden:</para>
 
     <example>
-      <title>Initial <acronym>POM</acronym> for the simple-web project</title>
+      <title>Erstes POM des "Simple Web" Projekt</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -154,60 +117,37 @@
 </programlisting>
     </example>
 
-    <para>Notice the <sgmltag>packaging</sgmltag> element contains the value
-    <literal>war</literal>. This packaging type is what configures Maven to
-    <indexterm>
-        <primary>WAR files</primary>
-      </indexterm>produce a web application archive in a
-    <acronym>WAR</acronym> file. A project with <literal>war</literal>
-    packaging is going to create a <acronym>WAR</acronym> file in the
-    <filename>target/</filename> directory. The default name of this file is
-    <filename>\${artifactId}-\${version}.war</filename>. In this project, the
-    default <acronym>WAR</acronym> would be generated in
-    <filename>target/simple-webapp-1.0-SNAPSHOT.war</filename>. In the
-    <literal>simple-webapp</literal> project, we’ve customized the name of the
-    generated <acronym>WAR</acronym> file by adding a
-    <sgmltag>finalName</sgmltag> element inside of this project’s build
-    configuration. With a <sgmltag>finalName</sgmltag> of
-    <literal>simple-webapp</literal>, the <literal>package</literal> phase
-    produces a <acronym>WAR</acronym> file in<indexterm class="endofrange"
-    startref="webapp2"></indexterm>
-    <filename>target/simple-webapp.war</filename>.</para>
+    <para>Beachten Sie dass das Element packaging den Wert 'war' enthält. es
+    ist dies der Packagingtypes welcher in Maven konfiguriert, ein
+    Web-Applikations-Archiv in einer WAR-Datei erstellt. Ein Projekt des Types
+    war package, wird eine WAR-Datei im Zielverzeichnis erstellen, das
+    standardmäßig den Namen ${artifactId}-${Version}.war trägt. Für dieses
+    Projekt, wird das standardmäßige WAR in
+    /target/simple-webapp-1.0-SNAPSHOT.war abgelegt. Im "Simple Web" Projekt
+    haben wir den Namen der WAR-Datei vorbestimmt, indem wir ein Element
+    finalName in die Projekt Build Konfiguration eingefügt haben. Mit dem
+    finalName von 'simple-webapp' generiert die Phase package ein WAR-Archiv
+    in /target/simple-webapp.war. </para>
   </section>
 
   <section id="web-sect-configuring-jetty">
-    <title>Configuring the Jetty Plugin</title>
+    <title>Konfigurieren des Jetty-Plugins </title>
 
-    <para>Once you’ve compiled, tested, and packaged your web
-    application,<indexterm class="startofrange" id="webapp3a">
-        <primary>Web applications</primary>
-
-        <secondary>simple Web project (example)</secondary>
-
-        <tertiary>configuring Jetty plugin</tertiary>
-      </indexterm><indexterm class="startofrange" id="webapp3b">
-        <primary>Jetty plugin</primary>
-
-        <secondary>configuring in pom.xml</secondary>
-      </indexterm><indexterm class="startofrange" id="webapp3c">
-        <primary>Maven Jetty plugin</primary>
-
-        <secondary>configuring in pom.xml</secondary>
-      </indexterm> you’ll likely want to deploy it to a servlet container and
-    test the <filename>index.jsp</filename> that was created by the Maven
-    Archetype plugin. Normally, this would involve downloading something like
-    Jetty or Apache Tomcat, unpacking a distribution, copying your
-    application’s <acronym>WAR</acronym> file to a
-    <filename>webapps/</filename> directory, and then starting your container.
-    Although you can still do such a thing, there is no need. Instead, you can
-    use the Maven Jetty plugin to run your web application within Maven. To do
-    this, we’ll need to configure the Maven Jetty plugin in our project’s
-    <filename>pom.xml</filename>. Add the <literal>plugin</literal> element
-    shown in the following example to your project’s build
-    configuration.</para>
+    <para>Sobald Sie Ihre Web Anwendung kompiliert, getestet und verpackt
+    haben, werden Sie sie wahrscheinlich einen Servlet-Container einsetzen
+    wollen und diese mit der vom Archetype Maven Plugin erstellten index.jsp
+    testen wollen. Normalerweise wäre der Ablauf hierzu entlang der Linie von:
+    Herunterladen eines Containers wie etwas Jetty oder Apache Tomcat,
+    Auspacken einer Distribution, Kopieren Ihres Anwendungs WAR-Archivs in ein
+    /webapp-Verzeichnis, schliesslich starten des Containers. Und obschon man
+    das alles tun kann, gibt es keine Notwendigkeit, dies zu tun. Stattdessen
+    können Sie das Jetty Maven Plugin einsetzen, und Ihre Web-Applikation aus
+    Maven heraus starten. Um dies zu tun, müssen wir das Jetty Maven Plugin in
+    unserem Projekt pom.xml konfigurieren. Fügen Sie das folgende
+    Plugin-Element Ihrer Projekt Build Konfiguration an:</para>
 
     <example>
-      <title>Configuring the Jetty Plugin</title>
+      <title>Konfigurieren des Jetty-Plugins</title>
 
       <programlisting language="xml">&lt;project&gt;
   [...]
@@ -224,10 +164,10 @@
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>Once you've configured the Maven Jetty Plugin in your project's
-    <filename>pom.xml</filename>, you can then invoke the Run goal of the
-    Jetty plugin to start your web application in the Jetty Servlet container.
-    Run <command>mvn jetty:run</command> as follows:</para>
+    <para>Nachdem Sie das Jetty Plugin in der Projekt pom.xml-Datei
+    konfiguriert haben. können Sie das Goal jetty:run aufrufen, um Ihre Web
+    Anwendung im Jetty Container zu starten. Rufen sie mvn jetty:run wie folgt
+    auf:</para>
 
     <screen>~/examples$ <command>mvn jetty:run</command>
 ...
@@ -252,17 +192,16 @@
 [INFO] Started Jetty Server
 </screen>
 
-    <para>After Maven starts the Jetty Servlet container, load the URL <ulink
-    url="http://localhost:8080/simple-webapp/">http://localhost:8080/simple-webapp/</ulink>
-    in a web browser. The simple <filename>index.jsp</filename> generated by
-    the Archetype is trivial; it contains a second-level heading with the text
-    "Hello World!". Maven expects the document root of the web application to
-    be stored in <filename>src/main/webapp</filename>. It is in this directory
-    where you will find the <filename>index.jsp</filename> file shown in <xref
-    linkend="web-example-index" />.</para>
+    <para>Nach erfolgreichem Starten des Servlet-Containers durch Maven, laden
+    Sie die URL http://localhost:8080/simple-webapp/ in einen Web-Browser. Die
+    durch Archetype generierte index.jsp ist trivial, sie enthält eine
+    Überschrift mit dem Text: "Hallo Welt!". Maven erwartet, dass das Document
+    Root der Web-Applikation in /src/main/webapp liegt. In diesem Verzeichnis
+    finden Sie auch die Datei index.jsp welche im Beispiel 5.3: "Inhalt von
+    /src/main/webapp/index.jsp" aufgelistet wird. </para>
 
     <example id="web-example-index">
-      <title>Contents of src/main/webapp/index.jsp</title>
+      <title>Inhalt von /src/main/webapp/index.jsp </title>
 
       <programlisting language="xml">&lt;html&gt;
   &lt;body&gt;
@@ -272,16 +211,11 @@
 </programlisting>
     </example>
 
-    <para>In <filename>src/main/webapp/WEB-INF</filename>, we will find the
-    smallest possible web application <phrase
-    role="keep-together">descriptor</phrase> in<indexterm class="endofrange"
-    startref="webapp3a"></indexterm><indexterm class="endofrange"
-    startref="webapp3b"></indexterm><indexterm class="endofrange"
-    startref="webapp3c"></indexterm> <filename>web.xml</filename>, shown in
-    this next example:</para>
+    <para>Unter /src/main/webapp/ WEB-INF finden den kleinsten möglichen
+    Web-Applikations Beschrieb, der web.xml. </para>
 
     <example>
-      <title>Contents of src/main/webapp/WEB-INF/web.xml</title>
+      <title>Inhalt von src / main / webapp / WEB-INF / web.xml </title>
 
       <programlisting language="xml">&lt;!DOCTYPE web-app PUBLIC
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
@@ -294,34 +228,25 @@
   </section>
 
   <section id="web-sect-adding-simple-servlet">
-    <title>Adding a Simple Servlet</title>
+    <title>Das Hinzufügen eines einfachen Servlets </title>
 
-    <para>A web application with a single JSP page and no configured
-    servlets<indexterm class="startofrange" id="webapp4a">
-        <primary>Web applications</primary>
-
-        <secondary>simple Web project (example)</secondary>
-
-        <tertiary>adding simple servlet</tertiary>
-      </indexterm><indexterm class="startofrange" id="webapp4b">
-        <primary>servlets, adding to project</primary>
-      </indexterm> is next to useless. Let’s add a simple servlet to this
-    application and make some changes to the <filename>pom.xml</filename> and
-    <filename>web.xml</filename> to support this change. First, we’ll need to
-    create a new package under <filename>src/main/java</filename> named
-    <package>org.sonatype.mavenbook.web</package>:</para>
+    <para>Eine Web-Applikation mit einer einzigen JSP-Seite und keinen
+    konfigurierten Servlets ist so gut wie nutzlos. Lassen Sie uns ein
+    einfaches Servlet hinzufügen, und die entsprechenden Änderungen in der
+    pom.xml sowie der web.xml Datei vornehmen. Zu Beginn müssen wir ein neues
+    Package namens com.sonatype.maven.web im Verzeichnis /src/main/java
+    erstellen</para>
 
     <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
 $ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
 
-    <para>Once you’ve created this package, change to the
-    <filename>src/main/java/org/sonatype/mavenbook/web</filename> directory
-    and create a class named <classname>SimpleServlet</classname> in
-    <filename>SimpleServlet.java</filename>, which contains the code shown in
-    the <classname>SimpleServlet</classname> class:</para>
+    <para>Sobald Sie dieses Package kreiert haben, wechseln Sie in das
+    Verzeichnis (/src/main/java/com/sonatype/maven/web) und erstellen Sie eine
+    Klasse namens SimpleServlet in einer Datei SimpleServlet.java, welche den
+    folgenden Code enthält. </para>
 
     <example>
-      <title>SimpleServlet Class</title>
+      <title>SimpleServlet Klasse </title>
 
       <programlisting language="java">package org.sonatype.mavenbook.web;
 
@@ -343,22 +268,12 @@ public class SimpleServlet extends HttpServlet {
 </programlisting>
     </example>
 
-    <para>Our <classname>SimpleServlet</classname> class is just that: a
-    servlet that prints a simple message to the response’s
-    <classname>Writer</classname>. To add this servlet to your web application
-    and map it to a request path, add the <sgmltag>servlet</sgmltag> and
-    <sgmltag>servlet-mapping</sgmltag> elements shown in the following
-    <filename>web.xml</filename> to your project’s<indexterm>
-        <primary>web.xml file</primary>
-
-        <secondary>servlet and servlet-mapping attributes</secondary>
-      </indexterm><indexterm>
-        <primary>servlet-mapping attribute (web.xml)</primary>
-      </indexterm><indexterm>
-        <primary>servlet attribute (web.xml)</primary>
-      </indexterm> <filename>web.xml</filename> file. The
-    <filename>web.xml</filename> file can be found in
-    <filename>src/main/webapp/WEB-INF</filename>.</para>
+    <para>Unsere SimpleServlet Klasse ist eben dies, ein einfaches Servlet,
+    welches eine einfache Nachricht auf den responseWriter schreibt. Um dieses
+    Servlet Ihrer Web-Anwendung hinzuzufügen und auf einen Anfrage Pfad
+    abzubilden, fügen Sie die folgenden Servlet-und Servlet-Mapping-Elemente
+    zu Ihrer Projekt web.xml Datei. Die web.xml Datei finden Sie unter
+    /src/main/webapp/WEB-INF. </para>
 
     <example>
       <title>Mapping the Simple Servlet</title>
@@ -380,10 +295,10 @@ public class SimpleServlet extends HttpServlet {
 &lt;/web-app&gt;</programlisting>
     </example>
 
-    <para>Everything is in place to test this servlet; the class is in
-    <filename>src/main/java</filename> and the <filename>web.xml</filename>
-    has been updated. Before we launch the Jetty plugin, compile your project
-    by running <command>mvn compile</command>:</para>
+    <para>Nun ist alles vorhanden, um das Servlet zu testen, die Klasse
+    befindet sich unter /src/main/java und die web.xml-Datei wurde
+    aktualisiert. Bevor wir das Jetty-Plugin starten, kompilieren Sie Ihr
+    Projekt, durch den Aufruf von mvn compile: </para>
 
     <screen>~/examples$ <command>mvn compile</command>
 ...
@@ -421,37 +336,21 @@ public class SimpleServlet extends HttpServlet {
   location: class org.sonatype.mavenbook.web.SimpleServlet
 </screen>
 
-    <para>The compilation fails because your Maven project doesn't have a
-    dependency on the Servlet <acronym>API</acronym>. In the next section,
-    we'll add the Servlet <acronym>API</acronym> to this project's
-    <acronym>POM</acronym>.</para>
+    <para>Die Erstellung schlägt fehl, Ihr Maven-Projekt weist keine
+    Abhängigkeit zum Servlet-API aus. Im nächsten Abschnitt werden wir diese
+    hinzufügen und das Servlet-API in das Projekt POM eintragen. </para>
   </section>
 
   <section id="web-sect-adding-j2ee-depend">
-    <title>Adding J2EE Dependencies</title>
+    <title>Das Hinzufügen von J2EE-Abhängigkeiten </title>
 
-    <para>To write a servlet, we’ll need to add the Servlet<indexterm
-        class="startofrange" id="webapp5a">
-        <primary>Web applications</primary>
-
-        <secondary>simple Web project (example)</secondary>
-
-        <tertiary>adding J2EE dependences</tertiary>
-      </indexterm><indexterm class="startofrange" id="webapp5b">
-        <primary>J2EE dependencies, adding</primary>
-      </indexterm><indexterm class="startofrange" id="webapp5c">
-        <primary>dependencies</primary>
-
-        <secondary>J2EE dependencies, adding</secondary>
-      </indexterm><indexterm>
-        <primary>Servlet API, adding as dependency</primary>
-      </indexterm> <acronym>API</acronym> as a project dependency. To add the
-    Servlet specification <acronym>API</acronym> as a dependency to your
-    project’s <acronym>POM</acronym>, add the dependency element as shown in
-    this next example:</para>
+    <para>Um ein Servlet zu schreiben benötigen Sie die
+    Servlet-API-Spezifikation. Um die Servlet-API-Spezifikation als eine
+    Abhängigkeit zu Ihrem Projekt POM hinzuzufügen, fügen Sie das folgende
+    dependency Element Ihrer pom.xml an. </para>
 
     <example>
-      <title>Add the Servlet 2.4 Specification as a Dependency</title>
+      <title>Einfügen der Servlet-Spezifikation 2.4 als Abhängigkeit </title>
 
       <programlisting language="xml">&lt;project&gt;
   [...]
@@ -469,23 +368,17 @@ public class SimpleServlet extends HttpServlet {
 </programlisting>
     </example>
 
-    <para>It is also worth pointing out that we have used the
-    <literal>provided</literal> scope for this dependency. This tells Maven
-    that the jar is "provided" by the container and thus should not be
-    included in the war. If you were interested in writing a custom
-    <acronym>JSP</acronym><indexterm>
-        <primary>JSP 2.0 specification, dependency on</primary>
-      </indexterm><indexterm>
-        <primary>dependencies</primary>
-
-        <secondary sortas="JSP 2.0 specification">on JSP 2.0
-        specification</secondary>
-      </indexterm> tag for this simple web application, you would need to add
-    a dependency on the <acronym>JSP</acronym> 2.0 spec. Use the configuration
-    shown in this example:</para>
+    <para>Es ist auch darauf hinzuweisen, dass wir für diese Abhängigkeit den
+    Geltungsbereich provided verwendet haben. Dies sagt Maven, dass das Archiv
+    seitens des Containers bereitgestellt wird, und nicht in das war-Archiv
+    einfliessen soll. Wenn Sie daran interessiert waren, ein
+    benutzerdefiniertes JSP-Tag für dieses einfache Web-Anwendung zu
+    erstellen, so bräuchten Sie eine Abhängigkeit zur JSP-Spezifikation 2.0.
+    Verwenden Sie die folgende Konfiguration, um diese Abhängigkeit zu
+    schaffen.</para>
 
     <example>
-      <title>Adding the JSP 2.0 Specification as a Dependency</title>
+      <title>Hinzufügen der 2.0 JSP-Spezifikation als Abhängigkeit </title>
 
       <programlisting language="xml">&lt;project&gt;
   [...]
@@ -503,9 +396,9 @@ public class SimpleServlet extends HttpServlet {
 </programlisting>
     </example>
 
-    <para>Once you've added the Servlet specification as a dependency, run
-    <command>mvn clean install</command> followed by <command>mvn
-    jetty:run</command>.</para>
+    <para>Sobald Sie die Servlet Spezifikationsimplementierung als
+    Abhängigkeit hinzugefügt haben, führen Sie mvn clean install gefolgt von
+    mvn jetty:run aus. </para>
 
     <screen>[tobrien@t1 simple-webapp]$ <command>mvn clean install</command>
 ...
@@ -518,9 +411,9 @@ public class SimpleServlet extends HttpServlet {
 [INFO] Started Jetty Server
 </screen>
 
-    <para>At this point, you should be able to retrieve the output of the
-    <classname>SimpleServlet</classname>. From the command line, you can use
-    curl to print the output of this servlet to standard output:</para>
+    <para>An diesem Punkt sollten Sie in der Lage sein, die Ausgabe des
+    SimpleServlet zu erhalten. Von der Befehlszeile können Sie mittels curl
+    die Ausgabe des Servlet zur Standard-Ausgabe umleiten: </para>
 
     <screen>~/examples$ <command>curl http://localhost:8080/simple-webapp/simple</command>
 SimpleServlet Executed
@@ -528,12 +421,13 @@ SimpleServlet Executed
   </section>
 
   <section id="web-sect-conclusion">
-    <title>Conclusion</title>
+    <title>Zusammenfassung </title>
 
-    <para>After reading this chapter, you should be able to bootstrap a simple
-    web application. This chapter didn't dwell on the million different ways
-    to create a complete web application, other chapters provide a more
-    comprehensive overview of projects that involve some of the more popular
-    web frameworks and technologies.</para>
+    <para>Nach dem Lesen dieses Kapitels sollten Sie in der Lage sein eine
+    einfache Web-Applikation zu erstellen. In diesem Kapitel wurde nicht näher
+    auf die Millionen verschiedener Möglichkeiten eingegangen wie man eine
+    komplette Web-Anwendung erschafft. Weitere Kapitel werden einen
+    umfassenderen Überblick über Projekte geben, bei denen einige der
+    populären Web-Frameworks und Technologien zum Einsatz kommen.</para>
   </section>
 </chapter>
