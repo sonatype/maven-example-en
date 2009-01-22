@@ -97,6 +97,9 @@
         </div>
         <div style="clear:both;">
         </div>
+        <div id="blog-widget">
+<script type="text/javascript" src="http://cdn.widgetserver.com/syndication/subscriber/InsertWidget.js"></script><script>if (WIDGETBOX) WIDGETBOX.renderWidget('1e93e0c3-1ddb-4e8a-aa4b-741a3876bb2c');</script><noscript>Get the <a href="http://www.widgetbox.com/widget/sonatype-blog-pricew">Sonatype Blog</a> widget and many other <a href="http://www.widgetbox.com/">great free widgets</a> at <a href="http://www.widgetbox.com">Widgetbox</a>!</noscript>
+        </div>
       </div>
     </xsl:template>
     <!-- no other header navigation (prev, next, etc.) -->
