@@ -2,83 +2,85 @@
 <!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <preface id="preface-1">
-  <title>Preface</title>
+  <title>Einleitung</title>
 
   <section id="preface-1-section-fontConventions">
-    <title>Font Conventions</title>
+    <title>Typographische Konventionen</title>
 
-    <para>This book follows certain conventions for font usage. Understanding
-    these conventions up-front makes it easier to use this book.</para>
+    <para>Dieses Buch verwendet die folgenden typographischen
+    Konventionen:</para>
 
     <variablelist>
       <varlistentry>
-        <term><emphasis role="italic">Italic</emphasis></term>
+        <term><emphasis role="italic">Kursiv</emphasis></term>
 
         <listitem>
-          <para>Used for filenames, file extensions, URLs, application names,
-          emphasis, and new terms when they are first introduced.</para>
+          <para>Wird für wichtige Begriffe, Programm- und Dateinamen, URLs,
+          Ordner und Verzeichnispfade und zur Hervorhebung/Einführung von
+          Begriffen verwendet.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <variablelist>
       <varlistentry>
-        <term><literal moreinfo="none">Constant width</literal></term>
+        <term><literal
+        moreinfo="none">Nichtproportonalschrift</literal></term>
 
         <listitem>
-          <para>Used for Java class names, methods, variables, properties,
-          data types, database elements, and snippets of code that appear in
-          text.</para>
+          <para>Wird für Programmcode verwendet (Java Klassennamen, -methoden,
+          Variablen, Properties, Datentypen, Datenbank Elemente, und andere
+          Codebeispiele welche in den Text eingestreut sind).</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <variablelist>
       <varlistentry>
-        <term><emphasis role="bold"> <literal moreinfo="none">Constant width
-        bold</literal> </emphasis></term>
+        <term><emphasis role="bold">Fette
+        Nichtproportonalschrift</emphasis></term>
 
         <listitem>
-          <para>Used for commands you enter at the command line and to
-          highlight new code inserted in a running example.</para>
+          <para>Wird verwendet für Befehle welche Sie auf der Kommandozeile
+          eingeben, sowie um neue Codefragmente in fortlaufendne Beispielen
+          hervorzuheben. </para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <variablelist>
       <varlistentry>
-        <term><emphasis role="italic"> <literal moreinfo="none">Constant width
-        italic</literal> </emphasis></term>
+        <term><emphasis role="italic">Kursive <literal
+        moreinfo="none">Nichtproportonalschrift</literal> </emphasis></term>
 
         <listitem>
-          <para>Used to annotate output.</para>
+          <para>Wird verwendet um Ausgabetext zu kennzeichnen. </para>
         </listitem>
       </varlistentry>
     </variablelist>
   </section>
 
   <section id="preface-1-sect-writing-conventions">
-    <title>Maven Writing Conventions</title>
+    <title>Konventionen in Bezug auf Maven</title>
 
-    <para>The book follows certain conventions for naming and font usage in
-    relation to Apache Maven. Understanding these conventions up-front makes
-    it easier to read this book.</para>
+    <para>Dieses Buch folgt gewissen Konventionen bezüglich Namensgebung und
+    Schriftsatz bezüglich Apache Maven. </para>
 
     <variablelist>
       <varlistentry>
-        <term>Compiler plugin</term>
+        <term>Compiler Plugin</term>
 
         <listitem>
-          <para>Maven plugins are capitalized.</para>
+          <para>Maven Plugins werden gross geschrieben.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><varname>create</varname> goal</term>
+        <term><varname>Goal create</varname> </term>
 
         <listitem>
-          <para>Maven goal names are displayed in a constant width
-          font.</para>
+          <para>Maven Goal Namen werden in nichtproportionaler Schrift
+          wiedergegeben.</para>
         </listitem>
       </varlistentry>
 
@@ -86,48 +88,48 @@
         <term>"plugin"</term>
 
         <listitem>
-          <para>Maven revolves around the heavy use of plug-ins but you won't
-          find plugin defined in the dictionary. This book writes the term as
-          "plugin" both because it is easier to read and write and because it
-          is a standard throughout the Maven community.</para>
+          <para>Maven kreist stark um die Nutzung von Plugins, aber Sie werden
+          keine umfassende Definition von Plugin in einem Wörterbuch finden.
+          Dieses Buch benutzt den Terminus Plugin, da er einprägsam ist und
+          auch weil er sich in der Maven Community so eingebürgert hat.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Maven Lifecycle, Maven Standard Directory Layout, Maven Plugin,
-        Project Object Model</term>
+        <term>Maven Lebenszyklus, Maven Standard Verzeichnis Layout, Maven
+        Plugin, Projekt Objekt Modell</term>
 
         <listitem>
-          <para>Core Maven concepts are capitalized whenever they are being
-          referenced in the text.</para>
+          <para>Die Kernkonzepte von Maven werden im Text gross geschrieben,
+          insbesondere wenn darauf Bezug genommen wird. </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><varname>goalParameter</varname></term>
+        <term><varname>Goal Parameter</varname></term>
 
         <listitem>
-          <para>A Maven goal parameter is displayed in a constant width
-          font.</para>
+          <para>Ein Parameter eines Maven Goal wird in
+          nichtproportionalschrift wiedergegeben. </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><varname>compile</varname> phase</term>
+        <term><varname>Phase compile</varname> </term>
 
         <listitem>
-          <para>Lifecycle phases are displayed in a constant width
-          font.</para>
+          <para>Lebenszyklusphasen werden in nichtproportionalschrift
+          wiedergegeben. </para>
         </listitem>
       </varlistentry>
     </variablelist>
   </section>
 
   <section id="preface-1-sect-contactUs">
-    <title>How to Contact Us</title>
+    <title>So erreichen Sie uns</title>
 
-    <!--    <para>Please address comments and questions concerning this book to the
-    publisher:</para>
+    <!--    <para>Bitte senden Sie Kommentare und Fragen bezüglich diesem Buch and den Herausgeber:</para>
 
     <blockquote>
       <address>O’Reilly Media, Inc.
@@ -138,25 +140,27 @@ North Sebastopol, CA 95472
 (707) 829-0104 (fax)</address>
     </blockquote> -->
 
-    <para>O’Reilly’s web page for this book, where we list errata, examples,
-    or any additional information. You can access this page at:</para>
+    <para>Die O’Reilly’s Webseite für dieses Buch, auf welcher wir Errata,
+    Beispiele und weiterführende Informationen veröffentlichen finden Sie
+    unter: </para>
 
     <blockquote>
       <para><emphasis role="italic"> <systemitem moreinfo="none"
-      role="httpurl">www.oreilly.com/catalog/hibernate2/</systemitem>
+      role="httpurl">http://books.sonatype.com/maven-book/index.html/</systemitem>
       </emphasis></para>
     </blockquote>
 
-    <para>To comment or ask technical questions about this book, send email
-    to:</para>
+    <para>Kommentare, Anregungen und Fragen können Sie darüberhinaus an
+    folgende Addresse senden</para>
 
     <blockquote>
       <para><emphasis role="italic"> <email>bookquestions@oreilly.com</email>
       </emphasis></para>
     </blockquote>
 
-    <para>For more information about our books, conferences, Resource Centers,
-    and the O’Reilly Network, see our web site at:</para>
+    <para>Weitere Informationen bezüglich unserer Bücher, Konferenzen,
+    Ressourcezentren und dem O'Reilly Network finden Sie auf unserem Website
+    unter: </para>
 
     <blockquote>
       <para><emphasis role="italic"> <systemitem moreinfo="none"
@@ -165,12 +169,14 @@ North Sebastopol, CA 95472
   </section>
 
   <section id="preface-1-sect-acknowledgements">
-    <title>Acknowledgements</title>
+    <title>Danksagung</title>
 
-    <para>Sonatype would like to thank the following contributors. The people
-    listed below have provide feedback which has helped improve the quality of
-    this book. Thanks to Mangalaganesh Balasubramanian, Bertrand Florat, Chad Gorshing, Ali Colabawala, Bozhidar Batzov, and Mark Stewart.
-    Special thanks to Joel Costigliola for helping to debug and correct the
-    Spring web chapter.</para>
+    <para>Sonatype möchte sich insbesondere bei allen Mitwirkenden bedanken:
+    die folgende Liste ist in keiner Weise abschliessend oder vollständig und
+    alle haben mitgewirkt um die Qualität dieses Werkes zu verbessern. Vielen
+    Dank an Mangalaganesh Balasubramanian, Bertrand Florat, Chad Gorshing, Ali
+    Colabawala, Bozhidar Batzov sowie Mark Stewart. Besonderen Dank auch an
+    Joel Costigliola für die Hilfe und Korrektur des Kapitels bezüglich Spring
+    Web. </para>
   </section>
 </preface>
