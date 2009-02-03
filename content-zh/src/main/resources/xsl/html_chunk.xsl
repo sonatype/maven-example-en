@@ -327,8 +327,6 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 </script>
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1693297-1");
-pageTracker._initData();
-pageTracker._setDomainName(".sonatype.com");
 pageTracker._trackPageview();
 </script>
 <script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script>
