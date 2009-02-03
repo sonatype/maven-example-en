@@ -358,8 +358,34 @@ div.figure p.title {
 }
 
 #blog-widget {
-	position: absolute;
-	left: 800px;
-	top: 150px;
 	float:  right;
+    margin-right: -225px;
+    margin-top: -50px;
+}
+
+div.book, div.chapter, div.preface, div#forbg > div.index  {
+    margin-top: -400px;
+}
+
+div.list-of-figures, div.list-of-examples {
+    margin-top: -380px;
+}
+
+div#forbg > div.section {
+   position: relative;
+   top: -425px;
+}
+
+div.navheader {
+   position: relative;
+   top: -430px;
+}
+
+div#left-sidebar {
+   position: relative;
+   left: -210px;
+   top: 50px;
+   border: 1px solid black;
+   width: 160px;
+   padding: 10px;
 }
