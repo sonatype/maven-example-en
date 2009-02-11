@@ -7,9 +7,9 @@
   <para>This chapter is deprecated. While the original version of Maven: The
   Definitive Guide had an entire chapter dedicated to the Nexus Repository
   Manager, Sonatype found that the content was growing fast enough to deserve
-  its own dedicate titled. We've decided to spin off the content in the
+  its own dedicate title. We've decided to spin off the content in the
   Repository Management chapter into a new book called <ulink
-  url="${nexus.book.baseurl}">Repository Management with Nexus</ulink>. This
+  url="${nexus.book.baseurl}">${nexus.book.title}</ulink>. This
   new book covers both <ulink url="http://nexus.sonatype.org">Nexus Open
   Source</ulink> and <ulink url="http://www.sonatype.com/products/nexus">Nexus
   Professional</ulink>, it guides you through the process of downloading and
@@ -17,7 +17,7 @@
   the configuration options.</para>
 
   <para><ulink url="http://books.sonatype.com/nexus-book">Click here to read
-  Repository Management with Nexus.</ulink></para>
+  ${nexus.book.title}.</ulink></para>
 
   <note>
     <para>In the past, a book was a very static object, it was written,

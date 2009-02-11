@@ -29,6 +29,9 @@
     <nexus.version>1.2.0-beta-4</nexus.version>
     <maven.version>2.0.9</maven.version>
     <nexus.book.baseurl>http://books.sonatype.com/nexus-book-stage/</nexus.book.baseurl>
+    <nexus.book.title>Repository Management with Nexus</nexus.book.title>
+    <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book-stage/</m2eclipse.book.baseurl>
+    <m2eclipse.book.title>Developing with Eclipse and Maven</m2eclipse.book.title>
   </properties>
 
   <build>
@@ -173,6 +176,7 @@
       <properties>
         <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
+        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</nexus.book.baseurl>
       </properties>
     </profile>
     <profile>
