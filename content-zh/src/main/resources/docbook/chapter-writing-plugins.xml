@@ -2,285 +2,134 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="writing-plugins">
-  <title>Writing Plugins</title>
+  <title>编写插件</title>
 
   <section>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>While this chapter covers an advanced topic, don't let the idea of
-    writing a Maven plugin intimidate. For all of the theory and complexity of
-    this tool, the fundamental concepts are easy to understand and the
-    mechanics of writing a plugin are straightforward. After you read this
-    chapter, you will have a better grasp of what is involved in creating a
-    Maven plugin.</para>
+    <para>虽然本章介绍的是高级话题。讲述编写Maven插件，但不要被吓到。对于该工具的所有理论和复杂性来说，基本的概念还是比较容易理解的，而编写插件的方法也十分易懂。在你阅读本章之后，你会能更好的掌握编写Maven插件所涉及的内容。</para>
   </section>
 
   <section>
-    <title>Programming Maven</title>
+    <title>Maven编程</title>
 
-    <para>Most of this book has dealt with using Maven, and for a book on
-    Maven, you haven't seen too many code examples dealing with Maven
-    customization. In fact, you haven't yet seen any. This is by design, 99
-    out of 100 Maven users will never need to write a custom plugin to
-    customize Maven; there is an abundance of configurable plugins, and unless
-    your project has particularly unique requirements, you will have to work
-    to find a reason to write a new plugin. An even smaller percentage of
-    people who end up writing custom plugins will ever need to crack open the
-    source code for Maven and customize a core Maven component. If you really
-    need to customize the behavior of Maven, then you would write a plugin.
-    Modifying the core Maven code is as far out of scope for most developers
-    as modifying the TCP/IP stack on an operating system, it is that abstract
-    for most Maven users.</para>
+    <para>本书的绝大部分都在讲述使用Maven，在这本关于Maven的书中，你还没看到太多关于Maven自定义的样例代码。事实上，到目前为止这样的代码还没有。这本是设计的目的，99%的Maven用户将从来不需要编写自定义插件来定制Maven；有大量的可配置的插件可用，除非你有特别的单独需求，你没有理由自己去编写一个新的插件。而这那一小部分编写自定义插件的人中，也只有更少的人需要去查看Maven的源码以自定义Maven核心组件。如果你确实需要自定义Maven的行为，那么你可以编写一个插件。修改核心Maven代码与修改操作系统的TCP/IP堆栈一样，远远超出了大部分开发人员的范围，这对于大部分Maven用户来说过于抽象。</para>
 
-    <para>On the other hand, if you are going to start writing a custom
-    plugin, you are going to have to learn a bit about the internals of Maven:
-    How does it manage software components? What is a Plugin? How can I
-    customize the lifecycle? This section answers some of those questions, and
-    it introduces a few concepts at the core of Maven's design. Learning how
-    to write a custom Maven plugin is the gateway to customizing Maven itself.
-    If you were wondering how to start understanding the code behind Maven,
-    you've found the proper starting line.</para>
+    <para>另一方面，如果你想要开始编写自定义插件，你就需要学习一些Maven的内部原理：它如何管理软件组件？什么是一个插件？我如何能够自定义生命周期？本节将解答其中的一些问题，并介绍一些Maven设计核心的概念。学习如何编写Maven插件同时也是学习定制Maven本身一种很好的方式。如果你想知道如何开始理解Maven背后的代码，那么你已经找到了正确的出发点。</para>
 
     <section>
-      <title>What is Inversion of Control?</title>
+      <title>什么是反转控制？</title>
 
-      <para>At the heart of Maven is an Inversion of Control (IoC) named
-      Plexus. What does it do? It is a system for managing and relating
-      components. While there is a canonical essay about IoC written by Martin
-      Fowler, the concept and term have been so heavily overloaded in the past
-      few years it is tough to find a good definition of the concept that
-      isn't a self-reference (or just a lazy reference to the aforementioned
-      essay). Instead of resorting to a Wikipedia quote, we'll summarize
-      Inversion of Control and Dependency Injection with an analogy.</para>
+      <para>Maven的心脏是一个名为Plexus的反转控制（IoC）框架。它做什么呢？这是一个用来管理及关联组件的系统。虽然有一篇Martin
+      Fowler编写的关于Ioc的权威论文，但这个概念和术语在过去的一些年中已经被大量的重载，因此找出一个关于此概念的良好定义已经变得非常困难，很多定义都是自我指认的（或者对于上述论文的简单引用）。这里我们将通过一个比喻来简要介绍反转控制和依赖注入，而不是简单的援引维基百科。</para>
 
-      <para>Assume that you have a series of components which need to be wired
-      together. When you think about components, think stereo components not
-      software components. Imagine several stereo components hooked up to a
-      Playstation 3 and a Tivo that have to interface with both an Apple TV
-      box and a 50" flat panel LCD TV. You bring everything home from the
-      electronics store and you purchase a series of cables that you are going
-      to use to connect everything to everything else. You unpack all of these
-      components, put them in the right place and then get to the job of
-      hooking up fifty thousand coaxial cables and stereo jacks to fifty
-      thousand digital inputs and network cables. Step back from your home
-      entertainment center and turn on the TV, you've just performed
-      dependency injection, and you've just been an inversion of control
-      container.</para>
+      <para>假设你有一系列的组件需要装配在一起。当你考虑组件的时候，将其想象成立体声音响组件而非软件组件。想象一下有一些音响组件接通了一个Playstation
+      3和一个机顶盒，后者又需要连接一个苹果电视盒以及一个50英寸的平板液晶电视。你从电子产品商店将所有这些东西带回家，并购买了一些电缆准备用来连接这些电器。你将所有组件拆开，将其放到正确的位置，然后开始连接同轴电缆，数字输入设备，立体声控制设备，以及网线等等。从你的家庭娱乐中心后退一步，然后打开电视机，你已经完成了依赖注入，你刚才正处在一个反转控制容器中。</para>
 
-      <para>So what did that have to do with anything? Your Playstation 3 and
-      a Java Bean both provide an interface. The Playstation 3 has two inputs:
-      power and network, and one output to the TV. Your JavaBean has three
-      properties: <varname>power</varname>, <varname>network</varname>, and
-      <varname>tvOutput</varname>. When you open the box of your Playstation
-      3, it didn't provide you with detailed pictures and instructions for how
-      to connect it to every different kind of TV that might be in every
-      different kind of house, and when you look at your Java Bean it just
-      provides a set of properties, not an explicit recipe for creating and
-      managing an entire system of components. In an IoC container like
-      Plexus, you are responsible for declaring the relationships between a
-      set of components which simply provide an interface of inputs and
-      outputs. You don't instantiate objects, Plexus does; your application's
-      code isn't responsible for managing the state of components, Plexus is.
-      Even though it sounds very cheesy, when you start up Maven, it is
-      starting Plexus and managing a system of related components just like
-      your stereo system.</para>
+      <para>那么，你到底需要做什么？你的Playstation 3和一个Java Bean都提供接口。Playstation
+      3有两个输入：电源和网络，以及一个电视输出。你的Java
+      Bean有三个属性：power，network，和tvOutput。当你打开Playstation
+      3盒子的时候，它并不会提供关于连接所有不同种类电视的详细图片和指令，当你查看你的Java
+      Bean的时候，它也只是提供了一组属性，而不是创建和管理整个系统组件的显式的方法。在一个如Plexus的IoC容器中，你负责通过简单的提供输入输出接口声明组件之间的关系。你不需要初始化对象，Plexus会帮你完成；你的应用程序的代码不用去管理组件的状态，Plexus负责。虽然这听起来非常俗套，不过这里还是要说，当你启动Maven的时候，实际上是启动Plexus来管理一个带有很多相互关联组件的系统，就像你的家庭影音系统一样。</para>
 
-      <para>What are the advantages of using an IoC container? What is the
-      advantage of buying discrete stereo components? If one component breaks,
-      you can drop in a replacement for your Playstation 3 without having to
-      spend $20,000 on the entire system. If you are unhappy with your TV, you
-      can swap it out without affecting your CD player. Most important to you,
-      your stereo components cost less and are more capable and reliable
-      because manufacturers can build to a set of known inputs and outputs and
-      focus on building individual components. Inversion of Control containers
-      and Dependency Injection encourage Disaggregation and the emergence of
-      standards. The software industry likes to imagine itself as the font of
-      all new ideas, but dependency injection and inversion of control are
-      really just new words for the concepts of Disaggregation and
-      interchangeable machinery. If you really want to know about DI and IoC,
-      learn about the Model T, the Cotton Gin, and the emergence of a railroad
-      standard in the late 19th century.</para>
+      <para>那么，使用Ioc容器的优点是什么呢？购买离散的音响组件的优点是什么？如果一个组件坏了，你可以放一个Playstation
+      3的替代品，而不用花20,000美元去重新购买整个系统。如果你对电视机不满意，你可以在不影响CD播放器的情况下将电视换掉。对你来说最重要的是，你的音响组件现在花费更低，但功能更强，且更稳定，因为制造商现在根据一组通用的输入输出来制造组件，他们能够更加的关注组件本身。反转控制和依赖注入提倡分解以及标准的形成。软件产业喜欢自己给新的想法命名，但依赖注入和反转控制实际上只是对于分解以可交换体系的新词。如果你真的想要好好了解DI和IoC，你可以学习一下Model
+      T，Cotton Gin，以及19世纪末期形成的一个铁路系统标准。</para>
     </section>
 
     <section>
-      <title>Introduction to Plexus</title>
+      <title>Plexus简介</title>
 
-      <para>The most important feature of an <acronym>IoC</acronym> container
-      implemented in Java is a mechanism called dependency injection. The
-      basic idea of <acronym>IoC</acronym> is that the control of creating and
-      managing objects is removed from the code itself and placed into the
-      hands of an <acronym>IoC</acronym> framework. Using dependency injection
-      in an application that has been programmed to interfaces, you can create
-      components which are not bound to specific implementations of these
-      interfaces. Instead, you program to interfaces and then configure Plexus
-      to connect the appropriate implementation to the appropriate component.
-      While your code deals with interfaces, you can capture the dependencies
-      between classes and components in an <acronym>XML</acronym> file that
-      defines components, implementation classes, and the relationships
-      between your components. In other words, you can write isolated
-      components, then you can wire them together using an
-      <acronym>XML</acronym> file that defines how the components are wired
-      together. In the case of Plexus, system components are defined with an
-      <acronym>XML</acronym> document that is found in
-      <filename>META-INF/plexus/components.xml</filename>.</para>
+      <para>用Java实现的<acronym>IoC</acronym>容器中，最重要的一个功能是称作依赖注入的机制。<acronym>IoC</acronym>的基本想法是将对象的创建和管理从代码中剥离，并将控制放到<acronym>IoC</acronym>框架手中。在一个面向接口编程的应用程序中使用依赖注入，你创建的组件可以不与任何特定的接口实现绑定。你的程序也针对接口编程并通过配置Plexus来将正确的实现连接到正确的组件。虽然你的代码都是与接口打交道，但你仍然可以通过一个定义组件的<acronym>XML</acronym>文件来获得类和组件相互依赖的信息。换句话说，你可以编写独立的组件，然后你可以通过一个<acronym>XML</acronym>文件来定义组件应当如何被装配在一起。在Plexus的情形中，定义系统组件的<acronym>XML</acronym>文档位于<filename>META-INF/plexus/components.xml</filename>。</para>
 
-      <para>In a Java <acronym>IoC</acronym> container, there are several
-      methods for injecting dependencies values into a component object:
-      constructor, setter, or field injections. Although Plexus is capable of
-      all three dependency injection techniques, Maven only uses two types:
-      field and setter injection.</para>
+      <para>在一个Java
+      <acronym>IoC</acronym>容器中，有很多中方法来将依赖值注入到一个组件对象中：构造器，set方法，或者字段注入。虽然Plexus提供全部这三种依赖注入技术，Maven使用其中的两种：字段注入和set方法注入。</para>
 
       <variablelist>
         <varlistentry>
-          <term>Constructor Injection</term>
+          <term>构造器注入</term>
 
           <listitem>
-            <para>Constructor injection is populating an object's values
-            through its constructor when an instance of the object is created.
-            For example, if you had an object of type
-            <classname>Person</classname> which had a constructor
-            <methodname>Person(String name, Job job)</methodname>, you could
-            pass in values for both <varname>name</varname> and the
-            <varname>job</varname> via this constructor.</para>
+            <para>构造器注入是指当对象实例被创建的时候，通过对象的构造方法将填入对象的值。例如，如果你有类对象<classname>Person</classname>，其构造方法是<methodname>Person(String
+            name, Job
+            job)</methodname>，你就可以通过该构造器传入<varname>name</varname>和<varname>job</varname>的值。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Setter Injection</term>
+          <term>set方法注入</term>
 
           <listitem>
-            <para>Setter injection is using the setter method of a property on
-            a Java bean to populate object dependencies. For example, if you
-            were working with a <classname>Person</classname> object with the
-            properties <varname>name</varname> and <varname>job</varname>, an
-            <acronym>IoC</acronym> container which uses setter injection,
-            would create an instance of <classname>Person</classname> using a
-            no-arg constructor. Once it had an instance of
-            <classname>Person</classname>, it would proceed to call the
-            <methodname>setName()</methodname> and
-            <methodname>setJob()</methodname> methods.</para>
+            <para>set方法注入是指使用Java
+            Bean属性的set方法来填入对象依赖。例如，如果你有一个带有<varname>name</varname>和<varname>job</varname>属性的<classname>Person</classname>对象，一个使用set方法注入的<acronym>IoC</acronym>容器会使用无参构造器创建一个<classname>Person</classname>的实例，之后，它会继续调用<methodname>setName()</methodname>和<methodname>setJob()</methodname>方法。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Field Injection</term>
+          <term>字段注入</term>
 
           <listitem>
-            <para>Both Constructor and Setter injection rely on a call to a
-            public method. Using Field injection, an <acronym>IoC</acronym>
-            container populates a component's dependencies by setting an
-            object's fields directly. For example, if you were working with a
-            <classname>Person</classname> object that had two fields
-            <varname>name</varname> and <varname>job</varname>, your
-            <acronym>IoC</acronym> container would populate these dependencies
-            by setting these fields directly (i.e. <code>person.name =
-            "Thomas"; person.job = job;</code>)</para>
+            <para>构造器和set方法注入都依赖于公共方法。而使用字段注入的时候，<acronym>IoC</acronym>容器通过直接设置对象字段的值来填入组件依赖。例如，如果你有一个带有<varname>name</varname>和<varname>job</varname>字段的<classname>Person</classname>对象，你的<acronym>IoC</acronym>容器会直接设置这两个字段来填入依赖（如：<code>person.name
+            = "Thomas"; person.job = job;</code>）。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section>
-      <title>Why Plexus?</title>
+      <title>为什么使用Plexus?</title>
 
-      <para>Spring does happen to be the most popular IoC container at the
-      moment, and there's a good argument to be made that it has affected the
-      Java "ecosystem" for the better forcing companies like Sun Microsystems
-      to yield more control to the open source community and helping to open
-      up standards by providing a pluggable, component-oriented "bus". But,
-      Spring isn't the only IoC container in open source. There are many IoC
-      containers (like <ulink
-      url="http://www.picocontainer.org/">PicoContainer</ulink>).</para>
+      <para>目前Spring是最流行的IoC容器。它影响了Java的“生态系统”，迫使如Sun
+      Microsystems之类的公司让出更多的对于开源社区的控制，并通过提供一个更易插入的，面向组件的“总线”来帮助开发一些标准。但是Spring不是唯一的开源IoC容器。事实上有很多IoC容器（如<ulink
+      url="http://www.picocontainer.org/">PicoContainer</ulink>）。</para>
 
-      <para>Years and years ago, when Maven was created, Spring wasn't a
-      mature option. The initial team of committers on Maven were more
-      familiar with Plexus because they invented it, so they decided to use it
-      as an IoC container. While it might not be as popular as the Spring
-      Framework, it is no less capable. And, the fact that it was created by
-      the same person who created Maven makes it a perfect fit. After reading
-      this chapter you've have an idea of how Plexus works. If you already use
-      an IoC container you'll notice similarities and differences between
-      Plexus and the container you currently use.</para>
+      <para>很多年以前，当Maven被创建的时候，Spring并不是一个成熟的选项。最初的Maven提交者团队更熟悉Plexus因为正式它们发明了Plexus，因此他们决定使用Plexus做为Ioc容器。虽然它没有Spring
+      Framework流行，但并不是说它的功能没那么强大。而且，事实上它是由创建Maven的同一个人发明的，这使其更适合Maven。阅读本章之后你会了解Plexus如何工作。如果你使用过一个IoC容器你会注意到Plexus和你使用的另外一个IoC容器的相似性和差异性。</para>
 
       <note>
-        <para>Just because Maven is based on Plexus doesn't mean that the
-        Maven community is "anti-Spring" (we've included a whole chapter with
-        a Spring example in this book, portions of the Spring project are
-        moving to Maven as a build platform). The question, "Why didn't you
-        use Spring?" comes up often enough it did make sense to address it
-        here. We know it, Spring is a rock star, we don't deny it, and it is
-        on our continuing to-do list to introduce people to (and document)
-        Plexus: choice in the software industry is always a good thing.</para>
+        <para>Maven基于Plexus并不意味着Maven社区是“反Spring”的（我们在本书中包含了整整的一章关于Spring样例的内容，Spring项目的一部分也转移到Maven作为构建平台）。由于疑问“你们为什么不用Spring”经常出现，因此这里解释这个问题。我们知道，Spring是一个明星，我们并不拒绝它，但为人们介绍Plexus仍然是我们持续要做的工作：软件产业中，更多的选择总是好事。</para>
       </note>
     </section>
 
     <section>
-      <title>What is a Plugin?</title>
+      <title>什么是插件？</title>
 
-      <para>A Maven Plugin is a Maven artifact which contains a plugin
-      descriptor and one or more Mojos. A Mojo can be thought of as a goal in
-      Maven, and every goal corresponds to a Mojo. The
-      <varname>compiler:compile</varname> goal corresponds to the
-      <classname>CompilerMojo</classname> class in the Maven Compiler Plugin,
-      and the <varname>jar:jar</varname> goal corresponds to the
-      <classname>JarMojo</classname> class in the Maven Jar Plugin. When you
-      write your own plugin, you are simply grouping together a set of related
-      Mojos (or goals) in a single plugin artifact.<footnote
-          id="foot-mojo-def">
-          <para>"mojo." The American Heritage® Dictionary of the English
-          Language, Fourth Edition. Houghton Mifflin Company, 2004.
-          Answers.com 02 Mar. 2008. <ulink
+      <para>一个Maven插件是包含了一个插件描述符和一个或者多个Mojo的Maven构件。一个Mojo可以被认为是Maven中的一个目标，每一个目标对应了一个Mojo。<varname>compiler:compile</varname>目标对应了Maven
+      Compiler插件的<classname>CompilerMojo</classname>类，<varname>jar:jar</varname>目标对应了Maven
+      Jar插件的<classname>JarMojo</classname>类。当你编写自己的插件的时候，你在一个单独的插件构件中将一组相互关联的Mojo（或者目标）归类。</para>
+
+      <para><footnote id="foot-mojo-def">
+          <para>“mojo.”美国传统英语字典，第四版。Houghton Mifflin公司，2004，Answer.com 02 Mar.
+          2008. <ulink
           url="http://www.answers.com/topic/mojo-1">http://www.answers.com/topic/mojo-1</ulink></para>
         </footnote></para>
 
       <note>
-        <para>Mojo? What is a Mojo? The word mojo<footnoteref
-        linkend="foot-mojo-def" /> is defined as "a magic charm or spell", "an
-        amulet, often in a small flannel bag containing one or more magic
-        items", and "personal magnetism; charm". Maven uses the term Mojo
-        because it is a play on the word Pojo (Plain-old Java Object).</para>
+        <para>Mojo?什么是Mojo?词mojo<footnoteref
+        linkend="foot-mojo-def" />被定义为“一种神奇的魔力或咒语”，“一个护身符，通常是一个包含了一个或多个神奇物件的法兰绒小包”，以及“个人魅力；吸引力”。Maven使用术语Mojo因为这是一个对于Pojo（Plan-old
+        Java Object）的玩笑。</para>
       </note>
 
-      <para>A Mojo is much more than just a goal in Maven, it is a component
-      managed by Plexus that can include references to other Plexus
-      components.</para>
+      <para>Mojo不仅仅是Maven中的一个目标，它是一个由Plexus管理的组件，可以引用其它Plexus组件。</para>
     </section>
   </section>
 
   <section>
-    <title>Plugin Descriptor</title>
+    <title>插件描述符</title>
 
-    <para>A Maven plugin contains a road-map for Maven that tells Maven about
-    the various Mojos and plugin configuration. This plugin descriptor is
-    present in the plugin <acronym>JAR</acronym> file in
-    <filename>META-INF/maven/plugin.xml</filename>. When Maven loads a plugin,
-    it reads this <acronym>XML</acronym> file, instantiates and configures
-    plugin objects to make the Mojos contained in a plugin available to
-    Maven.</para>
+    <para>Maven插件包含了一个告诉Maven各种Mojo和插件配置的路线图。这就是插件描述符，它位于<acronym>JAR</acronym>文件中的<filename>META-INF/maven/plugin.xml</filename>。当Maven载入一个插件的时候，它读取该<acronym>XML</acronym>文件，初始化并配置插件对象是Mojo被包含在插件中，供Maven使用。</para>
 
-    <para>When you are writing custom Maven plugins, you will almost never
-    need to think about writing a plugin descriptor. In <xref
-    linkend="lifecycle" />, the lifecycle goals bound to the
-    <varname>maven-plugin</varname> packaging type show that the
-    <varname>plugin:descriptor</varname> goal is bound to the
-    <varname>generate-resources</varname> phase. This goal generates a plugin
-    descriptor off of the annotations present in a plugin's source code. Later
-    in this chapter, you will see how Mojos are annotated, and you will also
-    see how the values in these annotations end up in the
-    <filename>META-INF/maven/plugin.xml</filename> file.</para>
+    <para>当你编写自定义Maven插件的时候，你几乎不会想到编写插件描述符。在<xref
+    linkend="lifecycle" />中，绑定到<varname>maven-plugin</varname>打包类型的生命周期目标显示，<varname>plugin:descriptor</varname>目标被绑定到了<varname>generate-resources</varname>生命周期阶段。该目标根据插件源码中的标注生成一个插件描述符。本章后面，你会看到如何标注Mojo，并且你会了解这些标注最终如何成为<filename>META-INF/maven/plugin.xml</filename>文件的内容。</para>
 
-    <para><xref linkend="ex-plugin-desc" /> shows a plugin descriptor for the
-    Maven Zip Plugin. This plugin is a contrived plugin that simply zips up
-    the output directory and produces an archive. Normally, you wouldn't need
-    to write a custom plugin to create an archive from Maven, you could simply
-    use the Maven Assembly Plugin which is capable of producing a distribution
-    archive in multiple formats. Read through the following plugin descriptor
-    to get an idea of the content it contains.</para>
+    <para><xref linkend="ex-plugin-desc" />展示了Maven
+    Zip插件的描述符。该插件简单的对输出目录进行zip压缩并归档。一般来说，你不需要编写自定义插件从Maven创建归档，你可以使用Maven
+    Assembly插件，该插件能够以多种格式帮助生成分发归档。仔细阅读下面的插件描述符以了解其包含的内容：</para>
 
     <!--TODO: Reference Assembly Plugin Chapter-->
 
     <example id="ex-plugin-desc">
-      <title>Plugin Descriptor</title>
+      <title>插件描述符</title>
 
       <programlisting language="xml">&lt;plugin&gt;
   &lt;description&gt;&lt;/description&gt;
@@ -343,25 +192,19 @@
 </programlisting>
     </example>
 
-    <para>There are three parts to a plugin descriptor: the top-level
-    configuration of the plugin which contains elements like
-    <sgmltag>groupId</sgmltag> and <sgmltag>artifactId</sgmltag>, the
-    declaration of mojos, and the declaration of dependencies. Let's examine
-    each of these sections in more detail.</para>
+    <para>该插件描述符有三个部分：插件的顶层配置包含了如<sgmltag>groupId</sgmltag>和<sgmltag>artifactId</sgmltag>之类的元素；mojo声明；以及依赖声明。让我们仔细解释一下每一部分。</para>
 
     <section>
-      <title>Top-level Plugin Descriptor Elements</title>
+      <title>顶层插件描述符元素</title>
 
-      <para>The top-level configuration values in the
-      <sgmltag>plugin</sgmltag> element are:</para>
+      <para><sgmltag>plugin</sgmltag>元素中顶层的配置元素有：</para>
 
       <variablelist>
         <varlistentry>
           <term>description</term>
 
           <listitem>
-            <para>This element contains a short description of the plugin. In
-            the case of the Zip plugin, this description is empty.</para>
+            <para>该元素包含了插件的简短描述。在Zip插件的情况中，该描述为空。</para>
           </listitem>
         </varlistentry>
 
@@ -369,9 +212,8 @@
           <term>groupId, artifactId, version</term>
 
           <listitem>
-            <para>Just like everything else in Maven, plugins need to have a
-            unique coordinate. The groupId, artifactId, and version are used
-            to locate the plugin artifact in a Maven repository.</para>
+            <para>就像Maven中的任何其它构件一样，插件也需要唯一的坐标。groupId,
+            artifactId,和version用来在Maven仓库中定位插件。</para>
           </listitem>
         </varlistentry>
 
@@ -379,33 +221,17 @@
           <term>goalPrefix</term>
 
           <listitem>
-            <para>This element controls the prefix used to reference goals in
-            a particular plugin. If you were to look at the Compiler plugin's
-            descriptor you would see that <varname>goalPrefix</varname> has a
-            value of <varname>compile</varname>, and if you look at the
-            descriptor for the Jar plugin, it would have a
-            <varname>goalPrefix</varname> of <varname>jar</varname>. It is
-            important that you choose a distinct goal prefix for your custom
-            plugin.</para>
+            <para>该元素（目标前缀）用来设置某个特定插件用来引用目标的前缀。如果你看一下Compiler插件的描述符，你会看到<varname>goalPrefix</varname>的值为<varname>compile</varname>，如果你看一下Jar插件的描述符，你会看到<varname>goalPrefix</varname>为<varname>jar</varname>。为自定义插件选择一个独一无二的前缀非常重要。</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>isolatedRealm (deprecated)</term>
+          <term>isolatedRealm (不赞成使用)</term>
 
           <listitem>
-            <para>This is a legacy property which is no longer used by Maven.
-            It is still present in the system to provide for backwards
-            compatibility with older plugins. Earlier versions of Maven used
-            to provide a mechanism to load a plugin's dependencies in an
-            isolated <classname>ClassLoader</classname>. Maven makes extensive
-            use of a project called <ulink
-            url="http://classworlds.codehaus.org/">ClassWorlds</ulink> from
-            the <ulink url="http://www.codehaus.org">Codehaus</ulink>
-            community to create hierarchies of
-            <classname>ClassLoader</classname> objects which are modeled by a
-            <classname>ClassRealm</classname> object. Feel free to ignore this
-            property and always set it to <varname>false</varname>.</para>
+            <para>该遗留属性不再被Maven使用。它的存在是为了给旧的插件提供向后兼容性。早期版本的Maven使用它提供一种在单独<classname>ClassLoader</classname>中载入插件依赖的机制。Maven扩展使用了<ulink
+            url="http://www.codehaus.org">Codehaus</ulink>社区中一个名为<ulink
+            url="http://classworlds.codehaus.org/">ClassWorlds</ulink>的项目，创建由<classname>ClassRealm</classname>对象建模的<classname>ClassLoader</classname>对象层次结构。尽管忽略该属性，永远将其设置成<varname>false</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -413,37 +239,23 @@
           <term>inheritedByDefault</term>
 
           <listitem>
-            <para>If inheritedByDefault is set to true, any mojo in this
-            plugin which is configured in a parent project will be configured
-            in a child project. If you configure a mojo to execute during a
-            specific phase in a parent project and the Plugin has
-            inheritedByDefault set to true, this execution will be inherited
-            by the child project. If inheritedByDefault is not set to true,
-            then an goal execution defined in a parent project will not be
-            inherited by a child project.</para>
+            <para>如果inheritedByDefault（缺省继承）被设置成true，所有在父项目配置的该插件的mojo会在子项目中生效。如果你配置一个mojo在父项目中特定的阶段执行，并且该插件inheritedByDefault属性的值为true，这段执行会被子项目继承。如果inheritedByDefault没有被设置成true，那么定义在父项目中的目标执行不会被子项目继承。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section>
-      <title>Mojo Configuration</title>
+      <title>Mojo配置</title>
 
-      <para>Next is the declaration of the each Mojo. The plugin element
-      contains an element named mojos which contains a mojo element for each
-      mojo present in the Plugin. Each mojo element contains the following
-      configuration elements:</para>
+      <para>接下来是每个Mojo的声明。plugin元素包含一个名为mojos的元素，它为每个插件中的mojo元素包含一个mojo元素。每个mojo元素包含如下的配置元素：</para>
 
       <variablelist>
         <varlistentry>
           <term>goal</term>
 
           <listitem>
-            <para>This is the name of the goal. If you were running the
-            <varname>compiler:compile</varname> goal, then
-            <varname>compiler</varname> is the plugin's
-            <varname>goalPrefix</varname> and <varname>compile</varname> would
-            be the name of the goal.</para>
+            <para>这是目标的名称。如果你在运行<varname>compiler:compile</varname>目标，<varname>compiler</varname>就是插件的<varname>goalPrefix</varname>，<varname>compile</varname>就是目标的名称。</para>
           </listitem>
         </varlistentry>
 
@@ -451,9 +263,7 @@
           <term>description</term>
 
           <listitem>
-            <para>This contains a short description of the goal to display to
-            the use when they use the Help plugin to generate plugin
-            documentation.</para>
+            <para>目标的简要描述，当用户使用Help插件生成插件文档的时候，该描述会被显示。</para>
           </listitem>
         </varlistentry>
 
@@ -461,12 +271,7 @@
           <term>requiresDirectInvocation</term>
 
           <listitem>
-            <para>If you set this to <varname>true</varname>, the goal can
-            only be executed if it is explicitly executed from the
-            command-line by the user. If someone tries to bind this goal to a
-            lifecycle phase in a <acronym>POM</acronym>, Maven will print an
-            error message. The default for this element is
-            <varname>false</varname>.</para>
+            <para>如果你将其设置成<varname>true</varname>，那么该目标就只能由用户在命令行显示的执行。如果有人想要将该目标绑定到一个生命周期阶段，Maven会打印错误信息。该元素默认值是<varname>false</varname>。</para>
 
             <!--TODO: Might want some justification.-->
           </listitem>
@@ -476,11 +281,7 @@
           <term>requiresProject</term>
 
           <listitem>
-            <para>Specifies that a given goal cannot be executed outside of a
-            project. The goal requires a project with a
-            <acronym>POM</acronym>. The default value for this
-            <varname>requiresProject</varname> is
-            <varname>true</varname>.</para>
+            <para>指定该目标不能在项目外部运行。目标需要一个带有<acronym>POM</acronym>的项目。<varname>requiresProject</varname>默认的值为<varname>true</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -488,13 +289,7 @@
           <term>requiresReports</term>
 
           <listitem>
-            <para>If you were creating a plugin that relies on the presence of
-            reports, you would need to set <varname>requiresReports</varname>
-            to <varname>true</varname>. For example, if you were writing a
-            plugin to aggregate information from a number of reports, you
-            would set <varname>requiresReports</varname> to
-            <varname>true</varname>. The default for this element is
-            <varname>false</varname>.</para>
+            <para>如果你正创建一个插件，它依赖于报告，那么你就需要将<varname>requiresReports</varname>设置成<varname>true</varname>。例如，如果你创建一个插件用来聚合许多报告的信息，那么就需要将<varname>requiresReports</varname>设置成<varname>true</varname>。该元素默认的值为<varname>false</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -502,17 +297,7 @@
           <term>aggregator</term>
 
           <listitem>
-            <para>A Mojo descriptor with <varname>aggregator</varname> set to
-            <varname>true</varname> is supposed to only run once during the
-            execution of Maven, it was created to give plugin developers the
-            ability to summarize the output of a series of builds; for
-            example, to create a plugin that summarizes a report across all
-            projects included in a build. A goal with
-            <varname>aggregator</varname> set to <varname>true</varname>
-            should only be run against the top-level project in a Maven build.
-            The default value of <varname>aggregator</varname> is
-            <varname>false</varname>. Aggregator is slated for deprecation in
-            a future release of Maven.</para>
+            <para>当Mojo描述符的<varname>aggregator</varname>设置成<varname>true</varname>的时候，那么该目标只会在Maven执行的时候运行一次，提供该配置是为了让开发人员能够对一系列构建进行总结；例如，创建一个插件来概述构建中所有项目的一类报告。一个<varname>aggregator</varname>设置成<varname>true</varname>的目标应该只在Maven构建的顶层项目中运行。<varname>aggregator</varname>默认值是<varname>false</varname>。Aggregator在未来版本的Maven中很有可能被弃用。</para>
           </listitem>
         </varlistentry>
 
@@ -520,13 +305,7 @@
           <term>requiresOnline</term>
 
           <listitem>
-            <para>Specifies that a given goal cannot be executed if Maven is
-            running in offline mode (<varname>-o</varname> command-line
-            option). If a goal depends on a network resource, you would
-            specify a value of <varname>true</varname> for this element and
-            Maven would print an error if the goal was executed in offline
-            mode. The default for <varname>requiresOnline</varname> is
-            <varname>false</varname>.</para>
+            <para>指定当Maven在离线模式（-o命令行选项）的时候该目标不能运行。如果一个目标依赖于网络资源，你就需要将该元素设置成<varname>true</varname>，那么如果在离线模式下运行，Maven就会输出错误信息。该元素默认值是<varname>false</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -534,15 +313,7 @@
           <term>inheritedByDefault</term>
 
           <listitem>
-            <para>If <varname>inheritedByDefault</varname> is set to
-            <varname>true</varname>, a mojo which is configured in a parent
-            project will be configured in a child project. If you configure a
-            mojo to execute during a specific phase in a parent project and
-            the Mojo descriptor has <varname>inheritedByDefault</varname> set
-            to <varname>true</varname>, this execution will be inherited by
-            the child project. If <varname>inheritedByDefault</varname> is not
-            set to <varname>true</varname>, then a goal execution defined in a
-            parent project will not be inherited by a child project.</para>
+            <para>如果<varname>inheritedByDefault</varname>被设置成<varname>true</varname>，在父项目中配置的mojo就会同样在子项目中生效。如果你配置一个mojo在父项目中特定的阶段执行，并且该插件inheritedByDefault属性的值为true，这段执行会被子项目继承。如果inheritedByDefault没有被设置成true，那么定义在父项目中的目标执行不会被子项目继承。</para>
           </listitem>
         </varlistentry>
 
@@ -550,10 +321,7 @@
           <term>phase</term>
 
           <listitem>
-            <para>If you don't bind this goal to a specific phase, this
-            element defines the default phase for this mojo. If you do not
-            specify a phase element, Maven will require the user to explicitly
-            specify a phase in a <acronym>POM</acronym>.</para>
+            <para>如果用户没有为该目标绑定一个阶段，那么该元素定义一个mojo默认的阶段。如果你没有不指定phase元素，Maven就会要求用户在<acronym>POM</acronym>中显式的指定一个阶段。</para>
           </listitem>
         </varlistentry>
 
@@ -561,9 +329,8 @@
           <term>implementation</term>
 
           <listitem>
-            <para>This element tells Maven which class to instantiate for this
-            Mojo. This is a Plexus component property (defined in Plexus
-            <classname>ComponentDescriptor</classname>).</para>
+            <para>该元素告诉Maven为该Mojo需要初始化什么类。这是一个Plexus组件属性（在Plexus
+            <classname>ComponentDescriptor</classname> 中定义）。</para>
           </listitem>
         </varlistentry>
 
@@ -571,14 +338,9 @@
           <term>language</term>
 
           <listitem>
-            <para>The default language for a Maven Mojo is
-            <varname>java</varname>. This controls the Plexus
-            <classname>ComponentFactory</classname> used to create instances
-            of this Mojo component. This chapter focuses on writing Maven
-            plugins in Java, but you can also write Maven in a number of
-            alternative languages such as Groovy, Beanshell, and Ruby. If you
-            were writing a plugin in one of these languages you would use a
-            language element value other than <varname>java</varname>.</para>
+            <para>Maven Mojo默认的语言是<varname>java</varname>。该配置控制Plexus
+            <classname>ComponentFactory</classname>初始化该Mojo组件。本章关注于使用Java编写Maven插件，但是你也可以使用其它很多语言来编写Maven插件，如Groovy,
+            Beanshell,和Ruby。如果你使用这其中的一种语言来编写插件，那么就需要设置language元素的值。</para>
           </listitem>
         </varlistentry>
 
@@ -586,12 +348,7 @@
           <term>instantiationStrategy</term>
 
           <listitem>
-            <para>This property is a Plexus component configuration property,
-            it tells Plexus how to create and manage instances of the
-            component. In Maven, all mojos are going to be configured with an
-            <varname>instantiationStrategy</varname> of
-            <varname>per-lookup</varname>; a new instance of the component
-            (mojo) is created every time it is retrieved from Plexus.</para>
+            <para>该属性是一个Plexus组件配置属性，它告诉Plexus如何创建和管理组件实例。在Maven中，所有mojo的<varname>instantiationStrategy</varname>都被配置成<varname>per-lookup</varname>，每次Maven从Plexus获取该mojo的时候，一个新的实例被创建。</para>
           </listitem>
         </varlistentry>
 
@@ -599,12 +356,7 @@
           <term>executionStrategy</term>
 
           <listitem>
-            <para>The execution strategy tells Maven when and how to execute a
-            Mojo. The valid values are <varname>once-per-session</varname> and
-            <varname>always</varname>. Honestly, the valid values are
-            anything, this particular property doesn't do a thing, it is a
-            hold over from an early design of Maven. This property is slated
-            for deprecation in a future release of Maven.</para>
+            <para>executionStrategy告诉Maven什么时候，怎样运行一个Mojo。可用的值是<varname>once-per-session</varname>和<varname>always</varname>。老实说，任何值都是可用的，这个特殊的属性并不做什么事情，它是从早期Maven设计中遗留下来的。在未来版本的Maven中该属性很有可能被弃用。</para>
           </listitem>
         </varlistentry>
 
@@ -612,17 +364,14 @@
           <term>parameters</term>
 
           <listitem>
-            <para>This element describes all of the parameters for this Mojo.
-            What's the name of the parameter What is the type of parameter? Is
-            it required? Each parameter has the following elements:</para>
+            <para>该元素描述Mojo的所有参数。参数名称是什么？参数类型是什么？是否是必须的？每个参数拥有如下的元素：</para>
 
             <variablelist>
               <varlistentry>
                 <term>name</term>
 
                 <listitem>
-                  <para>Is the name of the parameter (i.e.
-                  <varname>baseDirectory</varname>)</para>
+                  <para>参数名（如 <varname>baseDirectory</varname>）</para>
                 </listitem>
               </varlistentry>
 
@@ -630,8 +379,7 @@
                 <term>type</term>
 
                 <listitem>
-                  <para>This is the type (Java class) of the parameters (i.e.
-                  <classname>java.io.File</classname>)</para>
+                  <para>参数类型（Java类）（如<classname>java.io.File</classname>）</para>
                 </listitem>
               </varlistentry>
 
@@ -639,9 +387,7 @@
                 <term>required</term>
 
                 <listitem>
-                  <para>Is the parameter required? If <varname>true</varname>,
-                  the parameter must be non-null when the goal is
-                  executed.</para>
+                  <para>参数是否是必须的？如果为<varname>true</varname>，那么当目标运行的时候该参数不能为null。</para>
                 </listitem>
               </varlistentry>
 
@@ -649,15 +395,7 @@
                 <term>editable</term>
 
                 <listitem>
-                  <para>If a parameter is not editable (if
-                  <varname>editable</varname> is set to
-                  <varname>false</varname>), then the value of the parameter
-                  cannot be set in the <acronym>POM</acronym>. For example, if
-                  the plugin descriptor defines the value of
-                  <varname>buildDirectory</varname> to be
-                  <varname>${basedir}</varname> in the descriptor, a
-                  <acronym>POM</acronym> cannot override this value to be
-                  another value in a <acronym>POM</acronym>.</para>
+                  <para>如果一个参数不是可编辑的（如果<varname>editable</varname>被设置成<varname>false</varname>），那么该参数的值就不能在<acronym>POM</acronym>中设置。例如，如果插件描述符定义了<varname>buildDirectory</varname>的值为<varname>${basedir}</varname>，那么在<acronym>POM</acronym>中该值就不能被重写。</para>
                 </listitem>
               </varlistentry>
 
@@ -665,8 +403,7 @@
                 <term>description</term>
 
                 <listitem>
-                  <para>A short description to use when generating plugin
-                  documentation (using the Help Plugin)</para>
+                  <para>当生成插件文档的时候（使用Help插件），该插件的简短描述。</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -677,14 +414,7 @@
           <term>configuration</term>
 
           <listitem>
-            <para>This element provides default values for all of the Mojo's
-            parameters using Maven property notation. This example provides a
-            default value for the <varname>baseDir</varname> Mojo parameter
-            and the <varname>buildDirectory</varname> Mojo parameter. In the
-            parameter element, the implementation specifies the type of the
-            parameter (in this case <classname>java.io.File</classname>), the
-            value in the parameter element contains either a hard-coded
-            default or a Maven property reference.</para>
+            <para>该元素为所有Mojo参数提供默认值。本例中为Mojo参数<varname>baseDir</varname>和<varname>buildDirectory</varname>提供了默认值，这里，属性implementation指定了参数的类型（本例中是<classname>java.io.File</classname>），而其元素值包含了一个硬编码的默认值，或者一个Maven属性引用。</para>
           </listitem>
         </varlistentry>
 
@@ -692,11 +422,7 @@
           <term>requirements</term>
 
           <listitem>
-            <para>This is where the descriptor gets interesting. A Mojo is a
-            component that is managed by Plexus, and, because of this, it has
-            the opportunity to reference other components managed by Plexus.
-            This element allows you to define dependencies on other components
-            in Plexus.</para>
+            <para>这是一个描述符十分有趣的地方。一个mojo是一个由Plexus管理的组件，而且，由于该原因，它就有机会引用Plexus管理的其它组件。该元素能让你定义对于其它Plexus组件的依赖。</para>
 
             <!--TODO: Insert an XREF to an example?-->
           </listitem>
@@ -705,25 +431,19 @@
 
       <!--TODO: The following paragraph is Eric's and it is in the wrong place.-->
 
-      <para>While you should know how to read a Plugin Descriptor, you will
-      almost never need to write one of these descriptor files by hand. Plugin
-      Descriptor files are generated automatically off of a set of annotations
-      in the source for a Mojo.</para>
+      <para>虽然你的确应该能够读懂插件描述符，但你几乎从来不需要去手工的编写一个描述符文件。插件描述符会根据Mojo的一组注解自动的生成。</para>
     </section>
 
     <section>
-      <title>Plugin Dependencies</title>
+      <title>插件依赖</title>
 
-      <para>Lastly, the plugin descriptor declares a set of dependencies just
-      like a Maven project. When Maven uses a plugin, it will download any
-      required dependencies before it attempts to execute a goal from this
-      plugin. In this example, the plugin depends on Jakarta Commons IO
-      version 1.3.2.</para>
+      <para>最后，插件描述符像Mave项目一样声明了一组依赖。当Maven使用插件的时候，它会在运行插件目前之前下载所有需要的依赖。在本例中，该插件依赖于Jakarta
+      Commons IO 版本 1.3.2 。</para>
     </section>
   </section>
 
   <section id="writing-plugins-intro">
-    <title>Writing a Custom Plugin</title>
+    <title>编写自定义插件</title>
 
     <para>When you write a custom plugin, you are going to be writing a series
     of Mojos (goals). Every Mojo is a single Java class which contains a
@@ -733,7 +453,7 @@
     packaging and POM.</para>
 
     <section>
-      <title>Creating a Plugin Project</title>
+      <title>创建一个插件项目</title>
 
       <para>To create a plugin project, you should use the Maven Archetype
       plugin. The following command-line will create a plugin with a
@@ -799,7 +519,7 @@
     </section>
 
     <section>
-      <title>A Simple Java Mojo</title>
+      <title>一个简单的Java Mojo</title>
 
       <para>In this chapter, we're going to introduce a Maven Mojo written in
       Java. Each Mojo in your project is going to implement the
@@ -920,7 +640,7 @@ public class EchoMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>Configuring a Plugin Prefix</title>
+      <title>配置插件前缀</title>
 
       <para>Specifying the <varname>groupId</varname>,
       <varname>artifactId</varname>, <varname>version</varname>, and
@@ -1104,7 +824,7 @@ public class EchoMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>Logging from a Plugin</title>
+      <title>插件中的日志</title>
 
       <para>Maven takes care of connecting your Mojo to a logging provider by
       calling <methodname>setLog()</methodname> prior to the execution of your
@@ -1179,7 +899,7 @@ public class EchoMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>Mojo Class Annotations</title>
+      <title>Mojo类注解</title>
 
       <para>In <varname>first-maven-plugin</varname>, you didn't write the
       plugin descriptor yourself, you relied on Maven to generate the plugin
@@ -1329,7 +1049,7 @@ public class EchoMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>When a Mojo Fails</title>
+      <title>当Mojo失败的时候</title>
 
       <para>The <methodname>execute()</methodname> method in Mojo throws two
       exceptions <classname>MojoExecutionException</classname> and
@@ -1401,7 +1121,7 @@ public class EchoMojo extends AbstractMojo
   </section>
 
   <section>
-    <title>Mojo Parameters</title>
+    <title>Mojo参数</title>
 
     <para>Just as important as the <methodname>execute()</methodname> method
     and the Mojo annotations, a Mojo is configured via parameters. This
@@ -1409,7 +1129,7 @@ public class EchoMojo extends AbstractMojo
     parameters.</para>
 
     <section>
-      <title>Supplying Values for Mojo Parameters</title>
+      <title>为Mojo参数提供值</title>
 
       <para>In EchoMojo we declared the message parameter with the following
       annotations:</para>
@@ -1531,7 +1251,7 @@ private Object message;
     </section>
 
     <section>
-      <title>Multi-valued Mojo Parameters</title>
+      <title>多值的Mojo参数</title>
 
       <para>Plugins can have parameters which accept more than one value. Take
       a look at the <classname>ZipMojo</classname> shown in <xref
@@ -1635,7 +1355,7 @@ public class ZipMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>Depending on Plexus Components</title>
+      <title>依赖于一个Plexus组件</title>
 
       <para>A Mojo is a component managed by an <acronym>IoC</acronym>
       container called Plexus. A Mojo can depend on other components managed
@@ -1667,7 +1387,7 @@ private ZipArchiver zipArchiver;</programlisting>
     </section>
 
     <section>
-      <title>Mojo Parameter Annotations</title>
+      <title>Mojo参数标注</title>
 
       <para>Unless you insist on writing your Plugin descriptors by hand,
       you'll never have to write that <acronym>XML</acronym>. Instead, the
@@ -1769,7 +1489,7 @@ private ZipArchiver zipArchiver;</programlisting>
   </section>
 
   <section>
-    <title>Plugins and the Maven Lifecycle</title>
+    <title>插件和Maven生命周期</title>
 
     <para>In the <xref linkend="lifecycle" /> chapter, you learned that
     lifecycles can be customized by packaging types. A plugin can both
@@ -1779,7 +1499,7 @@ private ZipArchiver zipArchiver;</programlisting>
     execute a parallel lifecycle.</para>
 
     <section>
-      <title>Executing a Parallel Lifecycle</title>
+      <title>执行并行的生命周期</title>
 
       <para>Let's assume you write some goal that depends on the output from a
       previous build. Maybe the <classname>ZipMojo</classname> goal can only
@@ -1852,7 +1572,7 @@ private ZipArchiver zipArchiver;</programlisting>
     </section>
 
     <section>
-      <title>Creating a Custom Lifecycle</title>
+      <title>创建自定义的生命周期</title>
 
       <para>A custom lifecycle must be packaged in the plugin under the
       <filename>META-INF/maven/lifecycle.xml</filename> file. You can include
@@ -1946,7 +1666,7 @@ public class ZipForkMojo extends AbstractMojo
     </section>
 
     <section>
-      <title>Overriding the Default Lifecycle</title>
+      <title>覆盖默认生命周期</title>
 
       <para>Once you've created your own lifecycle and spawned it from a Mojo.
       The next question you might have is how do you override the default
