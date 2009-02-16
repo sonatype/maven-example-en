@@ -94,6 +94,14 @@
         <div id="right-header">
           <h2>${book.title}</h2>
           <h4>Edition: ${project.version}</h4>
+          <h4>Current Page: 
+<script>
+var idcomments_acct = '01f3f576c30dc25afbbe2f942d06dd3c';
+var idcomments_post_id;
+var idcomments_post_url;
+</script>
+<script type="text/javascript" src="http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+          </h4>
         </div>
         <div style="clear:both;">
         </div>
@@ -306,6 +314,13 @@
                     </table>
                 </xsl:if>
             </div>
+<script>
+var idcomments_acct = '01f3f576c30dc25afbbe2f942d06dd3c';
+var idcomments_post_id;
+var idcomments_post_url;
+</script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
             <br/>
             <center>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/us/88x31.png"/></a><br/><span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/StillImage" property="dc:title" rel="dc:type">Maven: The Definitive Guide</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.sonatype.com" property="cc:attributionName" rel="cc:attributionURL">Sonatype, Inc.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States License</a>.<br/>Based on a work at <a xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://www.sonatype.com/book" rel="dc:source">www.sonatype.com</a>.<br/><br/>
