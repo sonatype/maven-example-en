@@ -9,7 +9,7 @@
 
     <para>In diesem Kapitel führen wir ein einfaches Projekt ein, welches wir
     von Grund auf mit dem Maven Archetype Plugin erstellen. Diese Anwendung
-    bietet uns die Gelegenheit, einige grundlegende Konzepte von Maven
+    bietet uns die Gelegenheit einige grundlegende Konzepte von Maven
     einzuführen, während Sie einfach der Entwicklung des Projektes
     folgen.</para>
 
@@ -17,9 +17,9 @@
     festgestellt haben, dass Maven mit sehr wenigen Details gut zurecht kommt.
     Ihr Build wird "einfach funktionieren", und Sie brauchen sich nur um
     Details zu kümmern, wenn es notwendig ist, das Standardverhalten zu ändern
-    oder ein massgeschneidertes Plugin zu erstellen. Allerdings, sollten Sie
+    oder ein angepasstes Plugin zu erstellen. Allerdings, sollten Sie
     gezwungen sein sich um die Details von Maven zu kümmern, so ist ein
-    gründliches Verständnis der grundlegenden Konzepte von wesentlicher
+    gutes Verständnis der grundlegenden Konzepte von wesentlicher
     Bedeutung. Dieses Kapitel zielt darauf ab, das einfachste mögliche
     Maven-Projekt einzuführen und daran Ihnen einige der grundlegenden
     Konzepte, welche die Maven zu einer soliden Build Plattform machen,
@@ -34,12 +34,12 @@
       <para>Dieses Kapitel entwickelt ein sehr einfaches Beispiel, welches
       dazu dient einige Kern-Konzepte von Maven vorzustellen. Indem Sie den
       Schritten des Kapitels folgen, sollte es nicht notwendig werden die
-      Beispiel herunterzuladen um den von Maven erstellten Code
-      widerherzustellen. Um dieses Beispiel zu erstellen werden wir das
+      Beispiel herunterzuladen um den von Maven erstellten Quellcode einzusehen.
+      Um dieses Beispiel zu erstellen werden wir das
       Archetype Maven Plugin einsetzen. Dieses Kapitel ändert das Projekt in
-      keiner Weise. Sollten Sie es vorziehen, dieses Kapitel mit den letzten
-      Quellcode-Beispielen zu lesen, so kann das Beispielprojekt dieses
-      Kapitel zusammen mit den anderen Beispielen dieses Buchs von
+      keiner Weise. Sollten Sie es vorziehen, dieses Kapitel anhand der letzendlichen
+      Quellcode-Beispiele zu lesen, so kann das Beispielprojekt dieses
+      Kapitels zusammen mit den anderen Beispielen dieses Buchs von
       http://books.sonatype.com/maven-book/mvn-examples-1.0.zip oder
       http://books.sonatype.com/maven-book/mvn-examples-1.0.tar.gz
       heruntergeladen werden. Entpacken Sie das Archiv in ein beliebiges
@@ -79,20 +79,20 @@
 [INFO] Archetype created in dir: /Users/tobrien/svnw/sonatype/examples/simple
 </screen>
 
-    <para>mvn ist der Aufruf von Maven2 archetype:create bezeichnet ein Maven
+    <para><command>mvn</command> ist der Aufruf von Maven2; <command>archetype:create</command> bezeichnet ein Maven
     Goal. So Sie Ant kennen, ist ein Maven Goal gleichbedeutend mit einem Ant
     Target. Beide beschreiben eine Arbeitseinheit eines Builds. Die
-    '-Dname=wert' Wertepaare stellen Argumente dar, welche an das Goal
-    weitergereicht werden und nehmen die Form von '-D Eigenschaft' an, ähnlich
+    <command>-Dname=wert</command> Wertepaare stellen Argumente dar, welche an das Goal
+    weitergereicht werden und nehmen die Form von <command>-D Eigenschaft</command> an, ähnlich
     deren welche Sie der Java Virtual Machine über die Befehlszeile
-    weitergeben. Der Zweck des Goals archetype:create ist, schnell ein Projekt
+    weitergeben. Der Zweck des Goals <code>archetype:create</code> ist, schnell ein Projekt
     auf der Grundlage eines Archetypen zu erstellen. Ein Archetyp in diesem
     Kontext ist definiert als "ein originalgetreues Modell oder Typmuster nach
-    dem andere, ähnliche Dinge gemustert sind, ein Prototyp" [1][2]. In Maven
-    sind etliche Archetypen bereitgehalten, diese reichen von der einfachen
-    Swing Anwendung bis hin zur komplexen Web-Applikation. In Diesem Kapitel
+    dem andere, ähnliche Dinge gemustert sind, ein Prototyp" [1][2]. Von Maven
+    werden etliche Archetypen bereitgehalten, diese reichen von der einfachen
+    Swing Anwendung bis hin zur komplexen Web-Applikation. In diesem Kapitel
     werden wir den aller einfachsten Archtetypen nutzen um ein einfaches
-    Gerüst eines Starter-Projekts zu erstellen. Das Plugin hat den Präfix
+    Gerüst eines Starter-Projekts zu erstellen. Das Plugin hat das Präfix
     "archetype" und das entsprechende Goal ist "create". Sobald wir das
     Projekt generiert haben, sehen Sie sich das Verzeichnis /simple und die
     von Maven darin generierte Verzeichnisstruktur näher an: </para>
@@ -114,38 +114,38 @@ simple/pom.xml<co id="coDef-simple-fs-pom" linkends="coRef-simple-fs-pom" />
     <calloutlist>
       <callout arearefs="coDef-simple-fs-root" id="coRef-simple-fs-root">
         <para>Das Archetype Maven Plugin erstellt ein Verzeichnis, das mit der
-        artifactId einhergeht: /simple. Dieses Verzeichnis ist bekannt als das
+        artifactId einhergeht: <code>/simple</code>. Dieses Verzeichnis ist bekannt als das
         Projekt Basis-Verzeichnis.</para>
       </callout>
 
       <callout arearefs="coDef-simple-fs-pom" id="coRef-simple-fs-pom">
         <para>Jedes Maven-Projekt benötigt was als als Projekt Objekt Modell
-        (POM) bekannt ist, in einer Datei mit dem Namen pom.xml. Diese Datei
+        (POM) bekannt ist, in einer Datei mit dem Namen <code>pom.xml</code>. Diese Datei
         beschreibt das Projekt, konfiguriert Plugins, und definiert
         Abhängigkeiten. </para>
       </callout>
 
       <callout arearefs="coDef-simple-fs-main" id="coRef-simple-fs-main">
-        <para>Unser Projekt-Quellcode und Ressourcen werden unter /src/main
+        <para>Unser Projekt-Quellcode und zugehörige Ressourcen werden unter <code>/src/main</code>
         abgelegt. Im Falle unseres einfachen Java-Projekt wird dies aus ein
-        paar Java-Klassen und einigen Property-Datei bestehen. In einem
+        paar Java-Klassen und einigen Property-Dateien bestehen. In einem
         anderen Projekt könnte dies das Root-Dokument einer Web-Anwendung
         sein, oder Konfigurationsdateien für einen Applikations-Server. In
-        einem Java-Projekt werden die Java-Klassen in /src/main/java sowie
-        Ressoucen in /src/main/resources abgelegt.</para>
+        einem Java-Projekt werden die Java-Klassen in <code>/src/main/java</code> sowie
+        Ressoucen in <code>/src/main/resources</code> abgelegt.</para>
       </callout>
 
       <callout arearefs="coDef-simple-fs-test" id="coRef-simple-fs-test">
-        <para>Unsere Projekt-Testfälle befinden sich in /src/test. In diesem
+        <para>Unsere Projekt-Testfälle befinden sich unter <code>/src/test</code>. In diesem
         Verzeichnis werden Java-Klassen wie z.B. JUnit oder TestNG Tests
-        (/src/test/java) abgelegt, sowie Klassenpfad relevante classpath
-        Ressourcen für Tests in /src/test/resources. </para>
+        (<code>/src/test/java</code>) abgelegt, sowie Klassenpfad relevante
+        Ressourcen für Tests unter <code>/src/test/resources</code>. </para>
       </callout>
     </calloutlist>
 
-    <para>Die Maven Archetype Plugin erzeugt eine einzige Klasse
-    com.sonatype.maven.App. Dies ist eine dreizeilige Java-Klasse mit einer
-    statischen Main-Funktion welche eine Nachricht ausgibt: </para>
+    <para>Das Maven Archetype Plugin erzeugt eine einzige Klasse
+    <code>com.sonatype.maven.App</code>. Dies ist eine dreizeilige Java-Klasse mit einer
+    statischen main()-Funktion welche eine Nachricht ausgibt: </para>
 
     <programlisting language="java">package org.sonatype.mavenbook;
 
@@ -174,7 +174,7 @@ public class App
     haben, indem Sie die Anweisungen aus Abschnitt 3.2: Erstellen eines
     einfachen Projekts ausführen, werden Sie es builden und als Anwendung
     paketieren wollen. Um dies zu bewerkstelligen, rufen Sie im Verzeichnis in
-    welchem sich die pom.xml befindet den Befehl mvn install von der
+    welchem sich die pom.xml-Datei befindet den Befehl <command>mvn install</command> von der
     Befehlszeile auf. </para>
 
     <screen><command>$ mvn install
@@ -227,9 +227,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
     <para>Bei der Ausführung von Maven richtet dieses sich nach dem Projekt
     Objekt Modell (POM), um an Informationen über das Projekt zu gelangen. Das
-    POM liefert Antworten auf Fragen wie: Welche Art von Projekte ist das? Wie
-    lautet der Projekt Name? Gibt es irgendwelche Anpassungen am Build
-    bezüglich diesem Projekt? Hier die grundlegende pom.xml Datei wie sie vom
+    POM liefert Antworten auf Fragen wie: Welche Art von Projekte ist es? Wie
+    lautet der Projektname? Gibt es irgendwelche Anpassungen am Build
+    bezüglich diesem Projekt? Hier die grundlegende pom.xml-Datei wie sie vom
     Archetype Maven Plugin Goal create erstellt wurde. </para>
 
     <example id="example_simple-project-pom">
@@ -260,21 +260,21 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <para>Diese pom.xml-Datei stellt das elementarste POM dar mit welchem Sie
     je in einem Maven Projekt zu tun haben werden. In der Regel ist eine
     POM-Datei wesentlich komplexer: Abhängigkeiten werden definiert und Plugin
-    Verhalten angepasst. Die ersten Elemente- groupId, artifactId, packaging
-    sowie version sind als Maven-Koordinaten bekannt. Sie sind der eindeutigen
-    Identifizierung eines Projekts gewidmet. name und url sind beschreibende
+    Verhalten angepasst. Die ersten Elemente- <code>groupId</code>, <code>artifactId</code>, <code>packaging</code>
+    sowie <code>version</code> sind als Maven-Koordinaten bekannt. Sie sind der eindeutigen
+    Identifizierung eines Projekts gewidmet. <code>name</code> und <code>url</code> sind beschreibende
     Elemente des POM, welche in einer einfach lesbare Art den Namen des
     Projektes sowie einer zugeordneten Projekt-Website wiedergeben. Zuletzt
-    wird im dependency Element eine einzige Beziehung als "Test-Scoped"
+    wird im <code>dependency</code> Element eine einzige Beziehung als "Test-Scoped"
     Abhängigkeit zum JUnit-Test Framework unter dem Namen JUnit definiert.
-    Diese Themen werden im Abschnitt 3.5: "Kern Konzepte" ausgeführt. Zum
+    Diese Themen werden im Abschnitt 3.5: "Kernkonzepte" ausgeführt. Zum
     jetzigen Zeitpunkt ist alles was sie wissen müssen, dass die pom.xml-Datei
     Maven zum Leben erweckt. </para>
 
     <para>Bei der Ausführung von Maven wird dieses gesteuert durch eine
     Kombination von Einstellungen innerhalb der pom.xml-Datei, einer Art
     "Super"-POM welche sich im Installationsverzeichnis von Maven befindet,
-    sowie (möglicherweise) einigen Benutzer spezifischen Einstellungen. Um
+    sowie (möglicherweise) einigen benutzerspezifischen Einstellungen. Um
     sich das "tatsächliche" POM, oder das POM, gegen welches Maven ausgeführt
     wird anzusehen, geben Sie im Stammverzeichnis Ihres Projekts den folgenden
     Befehl ein:</para>
@@ -289,12 +289,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <title>Kern Konzepte </title>
 
     <para>Nachdem Sie nun zum ersten Mal Maven eingesetzt haben, ist ein guter
-    Zeitpunkt gekommen einige Kernkonzepte von Maven einzuführen. Im vorigen
-    Beispiel haben Sie, aufbauend auf ein einfaches POM, ein einfaches Project
+    Zeitpunkt gekommen einige der Kernkonzepte von Maven einzuführen. Im vorigen
+    Beispiel haben Sie, aufbauend auf ein einfaches POM, ein einfaches Projekt
     generiert, welches im Standard Layout von Maven (der Konvention folgend)
     strukturiert die Quelldateien abgelegt hat. Sie haben dann Maven mit einer
     Lebenszyklusphase als Argument aufgerufen und damit ausgelöst, dass Maven
-    eine Anzahl Plugin Goals abarbeitete. Zuletzt haben Sie einen Maven
+    eine Anzahl Plugin Goals abgearbeitet hat. Zuletzt haben Sie einen Maven
     Artifact in Ihr lokales Repository installiert. Moment! Was ist ein
     "Lebenszyklus"? Was ist ein "lokales Repository"? Die folgenden Abschnitte
     beschreiben einige der für Maven zentralen Konzepte.</para>
@@ -307,8 +307,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Plugin Goal, das Goal create des Archetype Maven Plugin. Der zweite
       Aufruf von Maven war hingegen gekoppelt mit einer Lifecycle-Phase -
       install. Um ein einzelnes (bestimmtes) Maven Plugin Goal auszuführen,
-      benutzten wir die Syntax mvn archetype:create, hierbei ist archetype die
-      Kennung eines Plugins und create die Kennung eines Goals. Wann immer
+      benutzten wir die Syntax <command>mvn archetype:create</command>, hierbei ist <code>archetype</code> die
+      Kennung eines Plugins und <code>create</code> die Kennung eines Goals. Wann immer
       Maven ein Plugin Goal ausführt, gibt es die Plugin- sowie die
       Goal-Kennung auf der Standardausgabe aus:</para>
 
@@ -323,14 +323,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 </screen>
 
       <para>Ein Maven-Plugin ist eine Sammlung von einem oder mehreren Goals.
-      Beispiele von Maven-Plugins sind einfache Core Plugins wie das
-      JAR-Plugin welches das Goal zur Erzeugung von JAR-Archiven beinhaltet,
+      Beispiele von Maven-Plugins sind einfache Core-Plugins wie das
+      JAR-Plugin welches das Goal zur Erzeugung von JAR-Archiven beinhaltet;
       das Compiler-Plugin mit den Goals Source Code kompilieren oder Unit Test
       Quellcode zu kompilieren oder das Surefire Plugin welches Goals zum
       Abarbeiten von Unit Tests sowie der Report Generierung diesbezüglich
       beinhaltet. Andere, stärker spezialisierte Maven-Plugins sind z. B. das
       Hibernate3 Plugin zur Integration mit der beliebten Hibernate Persistenz
-      Bibliothek, dem JRuby Plugin, welches erlaubt Ruby als Teil de Builds
+      Bibliothek, dem JRuby Plugin, welches erlaubt Ruby als Teil des Builds
       auszuführen sowie Maven Plugins in Ruby zu schreiben. Maven sieht auch
       vor benutzerdefinierte Plugins einzubinden. Ein benutzerdefiniertes
       Plugin kann in Java geschrieben sein, oder aber auch in einer von vielen
@@ -357,31 +357,31 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Konfigurations-Parameter bestimmt, welche erlauben das Verhalten
       anzupassen. Ein Beispiel, das Goal compile des Compiler-Plugin definiert
       eine Reihe von Konfigurations-Parameter, mit denen Sie die gewünschte
-      JDK-Version Version bestimmen können, sowie über den Einsatz von
-      Compiler-Optimierungen bestimmen. Im vorigen Beispiel haben wir über die
-      Befehlszeile die Parameter groupId und artifactId an das Goal create des
-      Archetype Plugin weitergegeben (-DgroupId=com.sonatype.maven.ch03 sowie
-      -DartifactId=simple). Darüber hinaus haben wir den Parameter packageName
-      als com.sonatype.maven an das Goal create weitergegeben. Hätten wir den
+      JDK-Version Version bestimmen, sowie über den Einsatz von
+      Compiler-Optimierungen bestimmen können. Im vorigen Beispiel haben wir über die
+      Befehlszeile die Parameter <code>groupId</code> und <code>artifactId</code> an das Goal create des
+      Archetype Plugin weitergegeben (<code>-DgroupId=com.sonatype.maven.ch03</code> sowie
+      <code>-DartifactId=simple</code>). Darüber hinaus haben wir den Parameter <code>packageName</code>
+      als <code>com.sonatype.maven</code> an das Goal create weitergegeben. Hätten wir den
       Parameter packageName ausgelassen, wäre die Voreinstellung
-      com.sonatype.maven.ch03 zum Zug gekommen. </para>
+      <code>com.sonatype.maven.ch03</code> zum Zug gekommen. </para>
 
       <para><note>
           <para>Im weiteren Text werden wir häufig, wenn wir auf ein Plugin
-          Goal verweisen eine verkürzte Notation benutzen: pluginId:goalId;
+          Goal verweisen eine verkürzte Notation benutzen: <code>pluginId:goalId</code>;
           Ein Beispiel: um sich auf das Goal create des Archetype Maven Plugin
-          zu beziehen schreiben wir archetype:create. </para>
+          zu beziehen schreiben wir <code>archetype:create</code>. </para>
         </note></para>
 
       <para>Goals legen Parameter fest, für welche vernünftige Standardwerte
-      definiert sein können. Im vorangehenden Beispiel archtetype:create,
-      wurde der archetype nicht spezifiziert, es wurde lediglich eine groupId
-      sowie eine artifactId weitergegeben. Hier kommen wir das erste mal mit
+      definiert sein können. Im vorangehenden Beispiel <code>archtetype:create</code>,
+      wurde der Archetype nicht spezifiziert, es wurde lediglich eine <code>groupId</code>
+      sowie eine <code>artifactId</code> weitergegeben. Hier kommen wir das erste mal mit
       Konvention vor Konfiguration in Berührung. Die Konvention, oder
-      Standard, des Goals create ist die Generierung eines einfachen Projektes
+      der Standard, des Goals create ist die Generierung eines einfachen Projektes
       namens Quickstart. Das Goal create definiert einen Parameter
-      archetype:ArtifactId welcher auf den Standardwert
-      maven-archetype-quickstart gesetzt ist. Der Archetyp 'Quickstart'
+      <code>archetype:artifactId</code> welcher auf den Standardwert
+      <code>maven-archetype-quickstart</code> gesetzt ist. Der Archetyp 'Quickstart'
       erzeugt eine minimale Projekthülse, mit zugehörigem POM sowie einer
       einzigen Klasse. Das Archetype Plugin ist wesentlich mächtiger als
       dieses Beispiel andeutet, jedoch ist es eine gute Möglichkeit, um neue
@@ -394,17 +394,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Aufgaben welche am Build Ihres Projektes beteiligt sind. Von sich aus
       weiss Maven nicht wie man Ihre Quelldateien kompiliert oder gar ein
       JAR-Archive packt. Maven delegiert all diese Arbeiten an Maven-Plugins
-      wie das Compiler Plugin oder das JAR-Plugin, welche, sobald sie
+      wie das Compiler Plugin oder das JAR-Plugin. Diese können, sobald sie
       gebraucht werden, aus dem zentralen Maven Repository heruntergeladen und
       periodisch aktualisiert werden. Wenn Sie Maven herunterladen, so
-      bekommen Sie den Kern oder Core von Maven. Dieser besteht aus einer sehr
+      bekommen Sie lediglich den Kern oder Core von Maven. Dieser besteht aus einer sehr
       grundlegenden Shell, welche nur in der Lage ist die Befehlszeile zu
       analysieren, den Klassenpfad zu verwalten, eine POM-Datei zu analysieren
       und nach Bedarf Plugins herunterzuladen. Indem das Compiler Plugin vom
       Core getrennt gehalten wurde und über einen Update Mechanismus verfügt,
       ist es ein Leichtes für den Benutzer, auch die neusten Compiler Optionen
       zum Einsatz zu bringen. Auf diese Weise ermöglichen Maven-Plugins
-      universelle Wiederverwendbarkeit von übergreifender Build Logik, Sie
+      universelle Wiederverwendbarkeit von übergreifender Buildlogik, Sie
       definieren nicht einen Kompilierungs-Task innerhalb des Builds, Sie
       benutzen das Compiler Plugin wie es von jedem Maven Benutzer eingesetzt
       wird. Wird das Plugin weiterentwickelt, kann jedes Projekt auf der Basis
@@ -416,7 +416,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <section id="simple-project-sect-lifecycle">
       <title>Maven Lifecycle</title>
 
-      <para>Der zweite Aufruf des vorangegangenen Abschnitts war mvn package.
+      <para>Der zweite Aufruf des vorangegangenen Abschnitts war <command>mvn package</command>.
       Bei diesem Aufruf wurde kein Plugin Goal angegeben, statt dessen wurde
       eine Lebenszyklusphase angegeben. Eine Phase ist ein Schritt in dem was
       Maven den "Build Lifecycle" nennt. Der Build Lebenszyklus ist eine
@@ -438,15 +438,15 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <para>Plugin-Goals können an Lebenszyklus-Phasen gebunden werden. Mit
       dem Durchschreiten des Lebenszykluses arbeitet Maven die Goals der
-      einzelnen Phasen ab. An jeder Phase können keine (0) oder mehr Goals
-      gebunden sein. Im vorangegangenen Abschnitt, beim Aufruf von mvn
-      package, haben Sie vielleicht bemerkt, dass mehr als ein Ziel ausgeführt
-      wurde. Sehen Sie sich die Ausgabe nach dem Ausführen von mvn package
-      genau an, Sie werden sehen dass verschiedenen Goals ausgeführt wurden.
-      Als dieses einfache Beispiel die package Phase erreichte, führte es das
-      JAR Goal des Jar Plugins aus. Da unser einfaches Schnellstart-Projekt
+      einzelnen Phasen ab. An jeder Phase können keine (0) oder mehrere Goals
+      gebunden sein. Im vorangegangenen Abschnitt, beim Aufruf von <command>mvn
+      package</command>, haben Sie vielleicht bemerkt, dass mehr als ein Ziel ausgeführt
+      wurde. Sehen Sie sich die Ausgabe nach dem Ausführen von <command>mvn package</command>
+      genau an, Sie werden sehen, dass verschiedene Goals ausgeführt wurden.
+      Als dieses einfache Beispiel die Phase package erreichte, führte es das
+      Goal jar des Jar Plugins aus. Da unser einfaches Schnellstart-Projekt
       (standardmäßig) den Paketierungstyp jar setzt, wird das Goal jar:jar an
-      die package Phase gebunden. </para>
+      die Phase package gebunden. </para>
 
       <para><figure>
           <title>Ein Goal wird an eine Phase gebunden </title>
@@ -458,15 +458,15 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </mediaobject>
         </figure></para>
 
-      <para>Wir wissen nun, dass die package Phase für ein Projekt mit
+      <para>Wir wissen nun, dass die Phase package für ein Projekt mit
       jar-Paketierung ein JAR-Archive erstellen wird. Aber wie steht es um die
-      vorangehenden Goals, deren wie etwa compiler:compile und surefire:test?
+      vorangehenden Goals, deren wie etwa <code>compiler:compile</code> und <code>surefire:test</code>?
       Diese Goals werden von Maven beim Durchschreiten der vorhergehenden
       Phasen des Lebenszykluses abgearbeitet. Der Aufruf einer bestimmten
       Phase löst aus, dass alle vorgängigen Phasen in entsprechender
       Reihenfolge abgearbeitet werden. Mit dem Abschluss der spezifizierten
-      Phase endet die Bearbeitung. Jede Phase entspricht keinem oder mehr
-      abzuarbeitender Goals, und da wir keine weitere Plugin-Konfiguration
+      Phase endet die Bearbeitung. Jede Phase entspricht keinem oder mehreren
+      abzuarbeitenden Goals, und da wir keine weitere Plugin-Konfiguration
       oder Anpassung durchgeführt haben, bindet dieses Beispiel lediglich eine
       Reihe von Standard-Plugin-Goals an den Standard-Lebenszyklus. Läuft
       Maven entlang des definierten Standard-Lebenszykluses bis zur Phase
@@ -480,7 +480,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <listitem>
             <para>Das Goal resources des Resouces Plugin wird an die Phase
             resources gebunden. Dieses Goal kopiert alle Ressourcen von
-            /src/main/resources und allen anderen, konfigurierten Ressource
+            <code>/src/main/resources</code> und allen anderen, konfigurierten Ressource-
             Verzeichnissen in das Ausgabe-Verzeichnis. </para>
           </listitem>
         </varlistentry>
@@ -491,7 +491,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <listitem>
             <para>Das Goal compile des Compiler Plugin wird an die Phase
             compile gebunden. Dieses Ziel kompiliert den gesamten Quellcode
-            von /src/main/java oder jedem anderen konfigurierten
+            von <code>/src/main/java</code> oder jedem anderen konfigurierten
             Quellen-Verzeichnisse in das Ausgabe-Verzeichnis. </para>
           </listitem>
         </varlistentry>
@@ -502,7 +502,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <listitem>
             <para>Das Goal testResources des Resources Plugin wird an die
             Phase test-resources gebunden. Dieses Goal kopiert alle Ressourcen
-            von /src/test/resources und jedem anderen, konfigurierten
+            von <code>/src/test/resources</code> und jedem anderen, konfigurierten
             Test-Ressource Verzeichnis in ein Test Ausgabe Verzeichnis.
             </para>
           </listitem>
@@ -514,7 +514,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <listitem>
             <para>Das Goal testCompile des Compiler-Plugin wird an die Phase
             test-compile gebunden. Dieses Goal kompiliert die Testfälle von
-            /src/test/java und allen anderen konfigurierten
+            <code>/src/test/java</code> und allen anderen konfigurierten
             Test-Quellen-Verzeichnissen in ein Test Ausgabe
             Verzeichnis.</para>
           </listitem>
@@ -527,7 +527,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
             <para>Das Goal test des Surefire Plugin wird an die Phase test
             gebunden. Dieses Ziel führt alle Tests aus und generiert
             Ausgabedateien der detaillierten Ergebnissen. Standardmäßig wird
-            dieses Goal den Build beenden sollte ein Test scheitern.</para>
+            dieses Goal den Build beenden, sollte ein Test scheitern.</para>
           </listitem>
         </varlistentry>
 
@@ -554,8 +554,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </mediaobject>
         </figure></para>
 
-      <para>Wir fassen zusammen: beim Ausführen von mvn package durchläuft
-      Maven alle Lebenszyklus Phasen bis und mit package, und führt hierbei in
+      <para>Wir fassen zusammen: beim Ausführen von <command>mvn package</command> durchläuft
+      Maven alle Lebenszyklus Phasen bis und mit <code>package</code>, und führt hierbei in
       Abfolge alle Goals aus, welche zugehörig an Phasen gebunden sind.
       Anstelle der Angabe eines Maven Lifecycle Goals, können Sie das gleiche
       Ergebnis erreichen, indem Sie eine Abfolge von Plugin Goals
@@ -616,22 +616,23 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </mediaobject>
         </figure></para>
 
-      <para>Wir haben die Maven Koordinaten für dieses Projekt: groupId,
-      artifactId, version und packaging vorgestellt. Die Einheit dieser
+      <para>Wir haben die Maven Koordinaten für dieses Projekt: <code>groupId</code>,
+      <code>artifactId</code>, <code>version</code> und <code>packaging</code> vorgestellt.
+      Die Einheit dieser
       Identifikatoren bildet die Koordinaten eines Projekts[3]. Genau wie in
       jedem anderen Koordinatensystem, fixieren diese Koordinaten einen
       bestimmten Punkt im Raum: vom Allgemeinen zum Spezifischen. Maven
-      bestimmt ein Projekt mit dessen Koordinaten, so sich Projekt auf ein
-      anderes bezieht, entweder als Abhängigkeit, Plugin oder auch elterlich
+      bestimmt ein Projekt mit dessen Koordinaten, so sich ein Projekt auf ein
+      anderes bezieht, entweder als Abhängigkeit, Plugin oder auch elterliche
       Projekt Referenz. Maven Koordinaten werden gewöhnlich durch einen
       Doppelpunkt getrennt in folgender Form wiedergegeben:
-      groupId:artifactId:version:packaging. Die Koordinate des im obigen
-      Beispiel einer pom.xml Datei eines Projektes sind daher folgendermassen
-      wiedergegeben: mavenbook:my-app:jar:1.0-SNAPSHOT. Diese Notation gilt
+      <code>groupId:artifactId:version:packaging</code>. Die Koordinate des im obigen
+      Beispiel einer pom.xml-Datei eines Projektes sind daher folgendermassen
+      wiedergegeben: <code>mavenbook:my-app:jar:1.0-SNAPSHOT</code>. Diese Notation gilt
       auch für Projekt-Abhängigkeiten; unser Projekt basiert auf JUnit Version
-      3.8.1, es enthält daher eine Abhängigkeit zu junit:junit:jar:3.8.1 .
+      3.8.1, es enthält daher eine Abhängigkeit zu <code>junit:junit:jar:3.8.1</code> .
       <footnote id="foot-simple-classify">
-          <para>Es gibt eine weitere, fünfte Koordinate: classifier. Diese
+          <para>Es gibt eine weitere, fünfte Koordinate: <code>classifier</code>. Diese
           kommt nur selten zum Einsatz und wir werden die Einführung daher auf
           später im Buch zurückstellen. Nehmen Sie sich die Freiheit diese
           Koordinate im Moment zu ignorieren. </para>
@@ -642,13 +643,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>groupId</varname></term>
 
           <listitem>
-            <para>Die Gruppe (Firma, Team, Organisation, Projekt, oder
-            anderweitige Gruppe). Es gilt die ungeschriebene Regel, dass dies
-            Gruppe in der Reverse-Domain-Name Notation der der Organisation
-            die das Projekt erstellt wiedergegeben wird. Projekte von Sonatype
-            hätte eine groupId welche mit com.sonatype beginnt, Projekte der
-            Apache Software Foundation hätte eine groupId welche mit
-            org.apache beginnt. </para>
+            <para>Die "Gruppe" (Firma, Team, Organisation, Projekt, oder
+            anderweitige Gruppe). Es gilt die ungeschriebene Regel, dass die
+            <code>groupId</code> in der Reverse-Domain-Name Notation der Organisation
+            die das Projekt erstellt, wiedergegeben wird. Projekte von Sonatype
+            hätte eine <code>groupId</code> welche mit <code>com.sonatype</code> beginnt, Projekte der
+            Apache Software Foundation hätte eine <code>groupId</code> welche mit
+            <code>org.apache</code> beginnt. </para>
           </listitem>
         </varlistentry>
 
@@ -656,7 +657,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>artifactId</varname></term>
 
           <listitem>
-            <para>Eine eindeutige hierarchische Kennung unter der groupId,
+            <para>Eine eindeutige hierarchische Kennung unter der <code>groupId</code>,
             identifiziert ein einzelnes Projekt. </para>
           </listitem>
         </varlistentry>
@@ -674,10 +675,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </varlistentry>
       </variablelist>
 
-      <para>Der Identifikator packaging ist ebenfalls ein wichtiger
+      <para>Der Identifikator <code>packaging</code> ist ebenfalls ein wichtiger
       Bestandteil der Maven Koordinaten, aber nicht Teil der eindeutigen
       Projektkennung. Eine Projektdarstellung der Art
-      groupId:artifactId:version bezeichnet ein Projekt einzigartig
+      <code>groupId:artifactId:version</code> bezeichnet ein Projekt einzigartig
       (kanonisch). Es ist nicht möglich ein weiteres Projekt mit dem gleichen
       Bezeichnern zu erstellen.</para>
 
@@ -686,20 +687,20 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>packaging</varname></term>
 
           <listitem>
-            <para>Die Art in welcher das Projekt 'verpackt' ist, auf den
+            <para>Die Art in welcher das Projekt 'gepackt' ist, dies ist auf den
             Standardwert 'jar' gesetzt. Ein Projekt vom Packaging Typ 'jar'
             wird als JAR-Archive bereitgestellt, eines des Types 'war' in Form
-            einer WebApplikation (WAR-Archive).</para>
+            eines WAR-Archives.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <para>Diese vier Elemente bestimmen den Schlüssel um ein Projekt
-      eindeutig im weiten Raum "Mavenized" Projekte aufzufinden.
+      eindeutig im weiten Raum "mavenisierter" Projekte aufzufinden.
       Maven-Repositories (öffentliche, private und lokale) sind nach diesen
       Identifikatoren organisiert. Sobald ein Projekt im lokalen
       Maven-Repository eingestellt ist, steht es augenblicklich für alle
-      weiteren Projekte bereit eingebunden zu werden. Alles was zu tun bleibt,
+      weiteren Projekte (welche gegen dieses Repository arbeiten) bereit, eingebunden zu werden. Alles was zu tun bleibt,
       ist die Koordinaten in einem anderen Projekt als Abhängigkeit
       einzutragen.</para>
 
@@ -721,62 +722,64 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <para>Beim ersten Ausführen von Maven, werden Sie feststellen, dass
       Maven eine Reihe von Dateien von einem Maven Remote Repository
-      herunterlädt. Sollte die Erstellung des einführende Projektes das erste
+      herunterlädt. Sollte die Erstellung des einführenden Projektes das erste
       Mal sein, dass Sie Maven aufrufen, so ist das erste was passiert, dass
       Maven die neuste Version des Resource Plugins herunterlädt, ausgelöst
-      durch das Goal resources:resource. Maven lädt Artefakte und Plugins aus
+      durch das Goal <code>resources:resource</code>. Maven lädt Artefakte und Plugins aus
       einem Remote Repository sobald diese benötigt werden. Einer der Gründe,
       weshalb der Maven Download ist so klein ist (1,5 MiB) ist, dass Maven
       nicht mit allerlei Plugins ausgeliefert wird. Ausgeliefert wird nur das
-      Nötigste, alles weitere holt es sich bei Bedarf aus einem
+      Allernötigste, alles weitere holt sich Maven bei Bedarf aus einem
       Remote-Repository. Maven kommt hierzu mit einer Standardeinstellung
-      eines Remote Repositories (http://repo1.maven.org/maven2) welches es
-      verwendet, um die Core Maven-Plugins und deren Abhängigkeiten
-      herunterzuladen. </para>
+      eines Remote Repositories (http://repo1.maven.org/maven2) von welchem es versuchen wird
+      die Core Maven-Plugins und deren Abhängigkeiten herunterzuladen. </para>
 
       <para>Oftmals werden Sie an einem Projekt arbeiten, welches auf
       Bibliotheken aufbaut, welche weder frei noch öffentlich zu verbreiten
-      sind. In einem solchen Fall müssen Sie entweder eine massgeschneidertes
+      sind. In einem solchen Fall müssen Sie entweder ein benutzerdefiniertes
       Repository innerhalb Ihrer Organisation aufbauen oder die Abhängigkeiten
       manuell herunterladen und installieren. Die Standard (Remote)
-      Repositories können durch Verweisen auf benutzerdefinierte Maven
-      Repositories ersetzt oder ergänzt werden. Es gibt eine Reihe Produkte
-      welche Organisationen dabei unterstützen eigene Repositories zu
-      verwalten sowie Spiegel-Repositories von öffentlichen Maven-Repositories
+      Repositorien können durch Verweise auf benutzerdefinierte Maven
+      Repositorien ersetzt oder ergänzt werden. Es gibt eine Reihe Produkte
+      welche Organisationen dabei unterstützen eigene Repositorien zu
+      verwalten sowie Spiegel-Repositorien von öffentlichen Maven-Repositorien
       zu erstellen.</para>
 
-      <para>Was macht ein Maven Repository zu einem Maven Repository? Die
+      <para>Was macht ein Maven Repository zu einem Maven Repository? Ein 
       Maven-Repository zeichnet sich durch seine Struktur aus, ein Repository
       ist eine Sammlung von Projekt Artefakten in einer Struktur und Form
       welche für Maven leicht leicht nachvollziehbar ist. Die Artefakte in
-      einem Maven-Repository sind einer Verzeichnis-Struktur abgelegt, welche
+      einem Maven-Repository sind in einer Verzeichnis-Struktur abgelegt, welche
       eng mit den Maven Projekt Koordinaten korrespondieren. Sie können sich
-      diese Struktur ansehen, öffnen Sie mit einem Web-Browser das zentrale
+      diese Struktur ansehen: öffnen Sie mit einem Web-Browser das zentrale
       Maven Repository auf http://repo1.maven.org/maven2/. Sie können dort ein
-      Artefakt mit den Koordinaten org.apache.commons:commons-email:1.1 im
-      Verzeichnis /org/apache/commons/commons-email/1.1/ in einer Datei namens
-      "commons-email.jar" vorfinden. Der Standard für ein Maven-Repository ist
-      es einen Artefakten in folgender Struktur relativ zum Wurzelverzeichnis
-      des Repositories abzulegen:<screen>/&lt;<varname>groupId</varname>&gt;/&lt;<varname>artifactId</varname>&gt;/&lt;<varname>version</varname>&gt;/&lt;<varname>artifactId</varname>&gt;-&lt;version&gt;.&lt;<varname>packaging</varname>&gt;</screen></para>
+      Artefakt mit den Koordinaten <code>org.apache.commons:commons-email:1.1</code> im
+      Verzeichnis <code>/org/apache/commons/commons-email/1.1/</code> in einer Datei namens
+      "<code>commons-email.jar</code>" vorfinden. Der Standard für ein Maven-Repository ist
+      es, einen Artefakten in folgender Struktur relativ zum Wurzelverzeichnis
+      des Repositories abzulegen:<screen>/&lt;<varname>groupId</varname>&gt;/&lt;
+      <varname>artifactId</varname>&gt;/&lt;<varname>version</varname>&gt;/&lt;
+      <varname>artifactId</varname>&gt;-&lt;version&gt;.&lt;<varname>packaging</varname>&gt;
+      </screen></para>
 
       <para>Maven lädt Artefakte und Plugins von einem Remote-Repository auf
-      Ihrem lokalen Rechner herunter und speichert diese Artefakte in Ihrem
-      lokalen Maven-Repository. Ist ein Artefakt einmal vom Remote Repository
+      Ihren lokalen Rechner herunter und speichert diese Artefakte in Ihrem
+      lokalen Maven-Repository. Ist ein Artefakt einmal von einem Remote Repository
       in das lokale Repository heruntergeladen, so wird Maven kein weiteres
       mal auf das Remote Repository zugreifen, da Maven immer zuerst auf das
-      lokale Repository zugreifen wird vor es anderswo sucht. Unter Windows XP
-      befindet sich Ihr lokales Repository wahrscheinlich unter 'C:\Dokumente
-      und Einstellungen\Benutzername\.m2\Repository', unter Windows Vista
+      lokale Repository zugreifen wird, vor es anderswo sucht. Unter Windows XP
+      befindet sich Ihr lokales Repository wahrscheinlich unter <code>C:\Dokumente
+      und Einstellungen\Benutzername\.m2\Repository</code>, unter Windows Vista
       befindet sich Ihr lokales Repository unter
-      'C:\Benutzer\Benutzername\.m2\Repository' auf Unix-Systemen werden Sie
-      Ihr lokales Maven-Repository unter '~/.m2/repository' wiederfinden.
-      Sobald Sie ein Projekt wie aus dem vorherigen Abschnitt erstellen, wird
-      in der install Phase ein Goal ausgeführt welches Ihren neuen Artifakten
+      <code>C:\Benutzer\Benutzername\.m2\Repository</code> auf Unix-Systemen werden Sie
+      Ihr lokales Maven-Repository unter <code>~/.m2/repository</code> wiederfinden.
+      Sobald Sie ein Projekt wie das aus dem vorherigen Abschnitt erstellen, wird
+      in der Phase install ein Goal ausgeführt welches den neuen Artifakten
       in Ihrem lokalen Maven Repository ablegt. </para>
 
       <para>Sie sollten nun in der Lage sein, das Artefakt Ihres eingängigen
       Projektes in Ihrem lokalen Maven Repository wiederzufinden. Beim Aufruf
-      von mvn install installiert Maven den Projekt Artefakt in Ihrem lokalen
+      von <command>mvn install</command> installiert Maven den Projekt Artefakt in Ihrem lokalen
       Repository. Probieren Sie es aus. </para>
 
       <screen>$ <command>mvn install</command>
@@ -789,11 +792,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <para>Betrachten Sie die Ausgabe dieses Befehls, Sie können sehen, wie
       Maven unseres Projekt's JAR-Archiv im lokalen Maven-Repository ablegt.
-      Maven nutzt das lokale Repository um Artefakte zwischen lokale Projekte
+      Maven nutzt das lokale Repository um Artefakte zwischen lokalen Projekten
       zu teilen. Sagen wir, Sie entwickeln zwei Projekte, Projekt A und
       Projekt B, dabei ist Projekt B von einem Artefakt von Maven-Projekt A
       abhängig. So wird Maven den Artefakt beim Build von Projekt B aus Ihrem
-      lokalen Repository holen. Maven Repositories sind beides, eine lokaler
+      lokalen Repository holen. Maven Repositorien sind beides, ein lokaler
       Zwischenspeicher (Cache) von Artefakten welche von einem Remote
       Repository heruntergeladen wurden, wie auch ein Mechanismus welcher
       erlaubt, dass Ihre Projekte zueinander abhängig sein können.</para>
@@ -803,14 +806,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <title>Maven Abhängigkeits-Management (Dependency Management)</title>
 
       <para>In dem einfachen Beispiel dieses Kapitels, löst Maven die
-      Koordinaten der JUnit-Abhängigkeit junit:junit:3.8.1 in einen Pfad
-      /junit/junit/3.8.1/junit-3.8.1.jar des Maven Repositories auf. Die
+      Koordinaten der JUnit-Abhängigkeit <code>junit:junit:3.8.1</code> in einen Pfad
+      <code>/junit/junit/3.8.1/junit-3.8.1.jar</code> des Maven Repositories auf. Die
       Möglichkeit, Artefakte in einem Repository basierend auf Maven
       Koordinaten zu lokalisieren gibt uns die Möglichkeit Abhängigkeiten in
-      einem Projekt POM zu definieren. Sehen Sie sich die pom.xml Datei
+      einem Projekt POM zu definieren. Sehen Sie sich die <code>pom.xml</code>-Datei
       genauer an. Sie werden einen Abschnitt finden, welcher sich mit den
       Abhängigkeiten (dependencies) befasst, dieser Abschnitt enthält eine
-      einzige Abhängigkeit: JUnit. </para>
+      einzige Abhängigkeit: <code>JUnit</code>. </para>
 
       <para>Ein komplexeres Projekt würde mehr als eine einzelne Abhängigkeit
       beinhalten, oder auch Abhängigkeiten welche von anderen Artefakten
@@ -829,9 +832,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <para>Werfen wir einen Blick auf eine Abhängigkeit, welche im
       vorangegangenen Beispiel in Ihr lokales Repository heruntergeladen
       wurde. Sehen Sie in Ihrem lokalen Repository-Pfad unter
-      '~/.m2/repository/junit/junit/3.8.1/' nach. Wie Ihnen nach der Lektüre
-      des Kapitels bekannt ist, gibt es eine Datei junit-3.8.1.jar sowie eine
-      junit-3.8.1.pom Datei, zusätzlich eine Anzahl Dateien; Prüfsummen welche
+      <code>~/.m2/repository/junit/junit/3.8.1/</code> nach. Wie Ihnen nach der Lektüre
+      des Kapitels bekannt ist, gibt es eine Datei <code>junit-3.8.1.jar</code> sowie eine
+      <code>junit-3.8.1.pom</code>-Datei und zusätzlich eine Anzahl Dateien; Prüfsummen welche
       Maven nutzt, um die Echtheit eines heruntergeladenen Artefakts zu
       überprüfen. Beachten Sie, dass Maven nicht nur das JUnit JAR-Archive
       herunterlädt. Maven lädt zusätzlich das POM des Artefakts herunter. Die
@@ -840,14 +843,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       von transitiven Abhängigkeiten durch Maven.</para>
 
       <para>Sie werden feststellen, dass Maven bei der Installation Ihres
-      Projekt-Artefakts in das lokale Maven-Repository zugleich eine leicht
-      modifizierte Version der zugehörigen pom.xml Datei im selben Verzeichnis
+      Projekt-Artefaktes in das lokale Maven-Repository zugleich eine leicht
+      modifizierte Version der zugehörigen pom.xml-Datei im selben Verzeichnis
       des JAR-Archives ablegt. Zugleich eine POM-Datei im Repository abzulegen
       gibt anderen Projekten Informationen zu diesem Projekt, als Wichtigstes
       dessen Abhängigkeiten. Projekt B, abhängig von Projekt A, hängt auch von
       den Abhängigkeiten des Projekts A ab. Wenn Maven eine Abhängigkeit zu
       einem Artefakt anhand einer Reihe von Artefaktkoordinaten auflöst, so
-      ruft Maven die POM Dateien auf und nimmt sich deren Abhängigkeiten an,
+      ruft Maven die POM-Dateien auf und nimmt sich deren Abhängigkeiten an,
       um bestehende transitive Abhängigkeiten aufzulösen. Jene transitiven
       Abhängigkeiten werden sodann den Projektabhängigkeiten zugefügt.</para>
 
@@ -883,9 +886,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Klassenpfad auszuschliessen.</para>
 
       <para>Maven kennt auch das Konzept des Gültigkeitsbereichs (Scope). Die
-      pom.xml Datei des Beispielprojektes kennt nur eine einzige Abhängigkeit
-      junit:junit:jar:3.8.1 in einem Gültigkeitsbereich von test. Wenn eine
-      Abhängigkeit bezüglich eines Gültigkeitsbereichs test definiert ist, so
+      <code>pom.xml</code>-Datei des Beispielprojektes kennt nur eine einzige Abhängigkeit
+      <code>junit:junit:jar:3.8.1</code> in einem Gültigkeitsbereich <code>test</code>. Wenn eine
+      Abhängigkeit bezüglich eines Gültigkeitsbereich <code>test</code> definiert ist, so
       bedeutet dies, dass diese nicht dem Goal compile des Compiler Plugins
       zur Verfügung steht. Die Abhängigkeit wird dem Klassenpfad nur für die
       Goals compiler:testCompile sowie surefire:test zugefügt.</para>
@@ -896,12 +899,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       konfigurieren, ob Sie Abhängigkeiten in den erstellten Artefakt
       einschliessen möchten. Ebenfalls möglich ist der Ausschluss bestimmter
       Abhängigkeiten abhängig vom gewählten Gültigkeitsbereich. Der
-      Gültigkeitsbereich provided bestimmt, dass die Abhängigkeit benötigt
+      Gültigkeitsbereich <code>provided</code> bestimmt, dass die Abhängigkeit benötigt
       wird um zu kompilieren, aber nicht in den Erstellten Artefakt
-      eingebunden werden soll. Dieser Gültigkeitsbereich (provided) ist
-      nützlich, wenn Sie eine Web Applikation erstellen; Sie müssen gegen die
+      eingebunden werden soll. Dieser Gültigkeitsbereich (<code>provided</code>) ist
+      nützlich, wenn Sie eine Web Applikation erstellen; Sie müssen z.B. gegen die
       Servlet Spezifikation kompilieren, jedoch werden Sie vermeiden, das
-      Servlet API JAR-Archiv in das /WEB-INF/lib Verzeichnis Ihrer
+      Servlet API JAR-Archiv in das <code>/WEB-INF/lib</code> Verzeichnis Ihrer
       Webanwendung abzulegen. </para>
     </section>
 
@@ -919,10 +922,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       den Standard-Build Lifecycle Phasen welche sich mit der Verwaltung von
       Codegeneration, der Manipulation von Ressourcen, Kompilierung,
       Packetierung und so weiter befassen betrifft diese Phase ausschließlich
-      die Bearbeitung von Website-Content im Rahmen des /src/site
+      die Bearbeitung von Website-Content im Rahmen des <code>/src/site</code>
       Verzeichnisses und der Generierung von Reports. Nach Abschluss diesen
-      Befehls, sollten Sie einen Projekt-Website im Verzeichnis /target/site
-      vorfinden. Nach dem Laden der Datei /target/site/index.html sollten Sie
+      Befehls, sollten Sie einen Projekt-Website im Verzeichnis <code>/target/site</code>
+      vorfinden. Nach dem Laden der Datei <code>/target/site/index.html</code> sollten Sie
       das Skelett eines Projekt (Web-)Sites sehen. Diese Shell enthält bereits
       einige Berichte unter der Rubrik "Projekt Reports" der linken Navigation
       im Menü, sowie Informationen über das Projekt, dessen Abhängigkeiten und
