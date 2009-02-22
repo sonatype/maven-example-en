@@ -8,7 +8,7 @@
     <title>Einleitung </title>
 
     <para>In diesem Kapitel erstellen wir mit Hilfe des Archetype Maven Plugin
-    eine einfache Web-Applikation. Wir führen diese Web-Applikation ein,
+    eine einfache Web-Anwendung. Wir führen diese Web-Applikation ein,
     benutzen hierfür einen Servlet-Container Jetty, fügen einige
     Abhängigkeiten ein, schreiben ein einfaches Servlet und erzeugen ein
     WAR-Archiv. Am Ende dieses Kapitels, werden Sie in der Lage sein Maven zur
@@ -26,8 +26,8 @@
       http://books.sonatype.com/maven-book/mvn-examples-1.0.zip oder
       http://books.sonatype.com/maven-book/mvn-examples-1.0.tar.gz
       heruntergeladen werden. Entpacken Sie das Archiv in ein beliebiges
-      Verzeichnis, und gehen Sie dann zum Verzeichnis /ch05. Darin finden Sie
-      ein Verzeichnis mit dem Namen /simple web welches den Quellcode für
+      Verzeichnis, und gehen Sie dann zum Verzeichnis <code>/ch05</code>. Darin finden Sie
+      ein Verzeichnis mit dem Namen <code>/simple web</code> welches den Quellcode für
       dieses Kapitel enthält. </para>
     </section>
   </section>
@@ -42,7 +42,7 @@
     die Integration eines IoC Containers wie Plexus, Guice oder Spring
     Framework bewerkstelligen. Das Ziel dieses Kapitels ist es, Ihnen die
     grundlegenden Möglichkeiten welche Maven zur Entwicklung von
-    Web-Anwendungen bietet vorzustellen, nicht mehr und nicht weniger. Später
+    Web-Anwendungen bietet vorzustellen. Nicht mehr und nicht weniger! Später
     in diesem Buch, werden wir einen Blick auf die Entwicklung von zwei
     Web-Anwendungen werfen: einer, welche Hibernate, Velocity sowie das Spring
     Framework nutzt, und eine andere unter Verwendungen von Plexus.</para>
@@ -51,9 +51,9 @@
   <section id="web-sect-creating-project">
     <title>Erstellen des "Simple Web" Projekts</title>
 
-    <para>Um das Web Applikations Projekt zu erstellen, führen Sie mvn
-    archetype:create mit einer artifactId und einer groupId aus. Wählen Sie
-    die archetypeArtifactId maven-archetype-webapp. Bei der Ausführung wird
+    <para>Um das Web Applikationsprojekt zu erstellen, führen Sie <command>mvn
+    archetype:create</command> mit einer <code>artifactId</code> und einer <code>groupId</code> aus. Wählen Sie
+    die <code>archetypeArtifactId</code> maven-archetype-webapp. Bei der Ausführung wird
     die entsprechende Verzeichnis-Struktur und das grundlegende Maven POM
     erstellt. </para>
 
@@ -75,8 +75,8 @@
 [INFO] Archetype created in dir: ~/examples/simple-webapp </screen>
 
     <para>Sobald das Archetype Maven Plugin das Projekt erstellt hat, gehen
-    Sie in das Verzeichnis /simple-web und werfen Sie einen Blick auf die dort
-    abgelegte pom.xml Datei. Sie sollten das folgenden XML-Dokument
+    Sie in das Verzeichnis <code>/simple-web</code> und werfen Sie einen Blick auf die dort
+    abgelegte pom.xml-Datei. Sie sollten das folgenden XML-Dokument
     vorfinden:</para>
 
     <example>
@@ -117,17 +117,15 @@
 </programlisting>
     </example>
 
-    <para>Beachten Sie dass das Element packaging den Wert 'war' enthält. es
-    ist dies der Packagingtypes welcher in Maven konfiguriert, ein
-    Web-Applikations-Archiv in einer WAR-Datei erstellt. Ein Projekt des Types
+    <para>Beachten Sie dass das Element packaging den Wert 'war' enthält. Ein Projekt des Types
     war package, wird eine WAR-Datei im Zielverzeichnis erstellen, das
-    standardmäßig den Namen ${artifactId}-${Version}.war trägt. Für dieses
+    standardmäßig den Namen <code>${artifactId}-${Version}.war</code> trägt. Für dieses
     Projekt, wird das standardmäßige WAR in
-    /target/simple-webapp-1.0-SNAPSHOT.war abgelegt. Im "Simple Web" Projekt
+    <code>/target/simple-webapp-1.0-SNAPSHOT.war</code> abgelegt. Im "Simple Web" Projekt
     haben wir den Namen der WAR-Datei vorbestimmt, indem wir ein Element
-    finalName in die Projekt Build Konfiguration eingefügt haben. Mit dem
+    <code>finalName</code> in die Projekt Build Konfiguration eingefügt haben. Mit dem
     finalName von 'simple-webapp' generiert die Phase package ein WAR-Archiv
-    in /target/simple-webapp.war. </para>
+    in <code>/target/simple-webapp.war</code>. </para>
   </section>
 
   <section id="web-sect-configuring-jetty">
@@ -135,15 +133,16 @@
 
     <para>Sobald Sie Ihre Web Anwendung kompiliert, getestet und verpackt
     haben, werden Sie sie wahrscheinlich einen Servlet-Container einsetzen
-    wollen und diese mit der vom Archetype Maven Plugin erstellten index.jsp
-    testen wollen. Normalerweise wäre der Ablauf hierzu entlang der Linie von:
+    wollen und diese mit der vom Archetype Maven Plugin erstellten index.jsp-Datei
+    testen wollen. Normalerweise wäre der Ablauf hierzu entsprechend:
     Herunterladen eines Containers wie etwas Jetty oder Apache Tomcat,
     Auspacken einer Distribution, Kopieren Ihres Anwendungs WAR-Archivs in ein
-    /webapp-Verzeichnis, schliesslich starten des Containers. Und obschon man
+    <code>/webapp</code>-Verzeichnis, schliesslich starten des Containers.</para>
+    <para>Obschon man
     das alles tun kann, gibt es keine Notwendigkeit, dies zu tun. Stattdessen
     können Sie das Jetty Maven Plugin einsetzen, und Ihre Web-Applikation aus
     Maven heraus starten. Um dies zu tun, müssen wir das Jetty Maven Plugin in
-    unserem Projekt pom.xml konfigurieren. Fügen Sie das folgende
+    unserem Projekt POM konfigurieren. Fügen Sie das folgende
     Plugin-Element Ihrer Projekt Build Konfiguration an:</para>
 
     <example>
@@ -165,8 +164,8 @@
     </example>
 
     <para>Nachdem Sie das Jetty Plugin in der Projekt pom.xml-Datei
-    konfiguriert haben. können Sie das Goal jetty:run aufrufen, um Ihre Web
-    Anwendung im Jetty Container zu starten. Rufen sie mvn jetty:run wie folgt
+    konfiguriert haben. können Sie das Goal <code>jetty:run</code> aufrufen, um Ihre Web
+    Anwendung im Jetty Container zu starten. Rufen sie <command>mvn jetty:run</command> wie folgt
     auf:</para>
 
     <screen>~/examples$ <command>mvn jetty:run</command>
@@ -194,10 +193,10 @@
 
     <para>Nach erfolgreichem Starten des Servlet-Containers durch Maven, laden
     Sie die URL http://localhost:8080/simple-webapp/ in einen Web-Browser. Die
-    durch Archetype generierte index.jsp ist trivial, sie enthält eine
+    durch Archetype generierte <code>index.jsp</code>-Datei ist trivial: sie enthält eine
     Überschrift mit dem Text: "Hallo Welt!". Maven erwartet, dass das Document
-    Root der Web-Applikation in /src/main/webapp liegt. In diesem Verzeichnis
-    finden Sie auch die Datei index.jsp welche im Beispiel 5.3: "Inhalt von
+    Root der Web-Applikation in <code>/src/main/webapp</code> liegt. In diesem Verzeichnis
+    finden Sie auch die Datei <code>index.jsp</code> welche im Beispiel 5.3: "Inhalt von
     /src/main/webapp/index.jsp" aufgelistet wird. </para>
 
     <example id="web-example-index">
@@ -211,11 +210,11 @@
 </programlisting>
     </example>
 
-    <para>Unter /src/main/webapp/ WEB-INF finden den kleinsten möglichen
-    Web-Applikations Beschrieb, der web.xml. </para>
+    <para>Unter <code>/src/main/webapp/WEB-INF</code> finden Sie den kleinsten möglichen
+    Web-Applikations Beschrieb; der web.xml. </para>
 
     <example>
-      <title>Inhalt von src / main / webapp / WEB-INF / web.xml </title>
+      <title>Inhalt von src/main/webapp/WEB-INF/web.xml </title>
 
       <programlisting language="xml">&lt;!DOCTYPE web-app PUBLIC
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
@@ -232,18 +231,18 @@
 
     <para>Eine Web-Applikation mit einer einzigen JSP-Seite und keinen
     konfigurierten Servlets ist so gut wie nutzlos. Lassen Sie uns ein
-    einfaches Servlet hinzufügen, und die entsprechenden Änderungen in der
-    pom.xml sowie der web.xml Datei vornehmen. Zu Beginn müssen wir ein neues
-    Package namens com.sonatype.maven.web im Verzeichnis /src/main/java
+    einfaches Servlet hinzufügen und die entsprechenden Änderungen in der
+    pom.xml- sowie der web.xml-Datei vornehmen. Zu Beginn müssen wir ein neues
+    Package namens <code>com.sonatype.maven.web</code> im Verzeichnis <code>/src/main/java</code>
     erstellen</para>
 
     <screen>$ <command>mkdir -p src/main/java/org/sonatype/mavenbook/web</command>
 $ <command>cd src/main/java/org/sonatype/mavenbook/web</command></screen>
 
     <para>Sobald Sie dieses Package kreiert haben, wechseln Sie in das
-    Verzeichnis (/src/main/java/com/sonatype/maven/web) und erstellen Sie eine
-    Klasse namens SimpleServlet in einer Datei SimpleServlet.java, welche den
-    folgenden Code enthält. </para>
+    Verzeichnis (<code>/src/main/java/com/sonatype/maven/web</code>) und erstellen Sie eine
+    Klasse <code>SimpleServlet</code> in einer Datei <code>SimpleServlet.java</code>, welche den
+    folgenden Quellcode enthält. </para>
 
     <example>
       <title>SimpleServlet Klasse </title>
@@ -268,12 +267,12 @@ public class SimpleServlet extends HttpServlet {
 </programlisting>
     </example>
 
-    <para>Unsere SimpleServlet Klasse ist eben dies, ein einfaches Servlet,
+    <para>Unsere Klasse SimpleServlet ist eben dies, ein einfaches Servlet,
     welches eine einfache Nachricht auf den responseWriter schreibt. Um dieses
-    Servlet Ihrer Web-Anwendung hinzuzufügen und auf einen Anfrage Pfad
+    Servlet Ihrer Web-Anwendung hinzuzufügen und auf einen Anfragepfad
     abzubilden, fügen Sie die folgenden Servlet-und Servlet-Mapping-Elemente
-    zu Ihrer Projekt web.xml Datei. Die web.xml Datei finden Sie unter
-    /src/main/webapp/WEB-INF. </para>
+    zu Ihrer Projekt web.xml-Datei an. Die web.xml-Datei finden Sie unter
+    <code>/src/main/webapp/WEB-INF</code>. </para>
 
     <example>
       <title>Mapping the Simple Servlet</title>
@@ -296,9 +295,9 @@ public class SimpleServlet extends HttpServlet {
     </example>
 
     <para>Nun ist alles vorhanden, um das Servlet zu testen, die Klasse
-    befindet sich unter /src/main/java und die web.xml-Datei wurde
+    befindet sich unter <code>/src/main/java</code> und die web.xml-Datei wurde
     aktualisiert. Bevor wir das Jetty-Plugin starten, kompilieren Sie Ihr
-    Projekt, durch den Aufruf von mvn compile: </para>
+    Projekt, durch den Aufruf von <command>mvn compile</command>: </para>
 
     <screen>~/examples$ <command>mvn compile</command>
 ...
@@ -397,8 +396,8 @@ public class SimpleServlet extends HttpServlet {
     </example>
 
     <para>Sobald Sie die Servlet Spezifikationsimplementierung als
-    Abhängigkeit hinzugefügt haben, führen Sie mvn clean install gefolgt von
-    mvn jetty:run aus. </para>
+    Abhängigkeit hinzugefügt haben, führen Sie <command>mvn clean install</command> gefolgt von
+    <command>mvn jetty:run</command> aus. </para>
 
     <screen>[tobrien@t1 simple-webapp]$ <command>mvn clean install</command>
 ...
