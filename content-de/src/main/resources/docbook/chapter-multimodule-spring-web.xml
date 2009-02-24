@@ -5,91 +5,87 @@
   <title>Multi-module Enterprise Project</title>
 
   <section id="multimodule-web-spring-sect-intro">
-    <title>Introduction</title>
+    <title>Einleitung</title>
 
-    <para>In this chapter, we create a multimodule project that evolves
-    the<indexterm class="startofrange" id="enterprise1a">
-        <primary>multimodule project (example)</primary>
-
-        <secondary>multimodule enterprise project</secondary>
-      </indexterm><indexterm class="startofrange" id="enterprise1b">
-        <primary>Web applications</primary>
-
-        <secondary>multimodule enterprise project example</secondary>
-      </indexterm><indexterm class="startofrange" id="enterprise1c">
-        <primary>enterprise project, multimodule (example)</primary>
-      </indexterm> examples from <xref linkend="multimodule" /> and <xref
-    linkend="web" /> into a project that uses the Spring Framework and
-    Hibernate to create both a simple web application and a command-line
-    utility to read data from the Yahoo! Weather feed. The
-    <varname>simple-weather</varname> code developed in <xref
-    linkend="customizing" /> will be combined with the
-    <varname>simple-webapp</varname> project defined in <xref
-    linkend="web" />. In the process of creating this multimodule project,
-    we’ll explore Maven and discuss the different ways it can be used to
-    create modular projects that encourage reuse.</para>
+    <para>In diesem Kapitel werden wir, aufbauend auf die Beispiele der
+    Kapitel 6: Ein Multi-Projekt-Modul sowie Kapitel 5. Eine einfache
+    Web-Anwendung, ein Multi-Modul-Projekt entwickeln. In dieses Beispiel
+    werden wir das Spring Framework und auch Hibernate einbinden, um eine
+    einfache Web-Anwendung und gleichzeitig ein einfaches
+    Befehlszeilen-Dienstprogramm zum Lesen von Daten des Yahoo! Wetter
+    Dienstes zu erstellen. Den Quellcode des "Simple Weather" Beispiels aus
+    <xref linkend="customizing" /> (Kapitel 4: Anpassen eines Maven Projekts)
+    werden wir mit dem Quellcode aus <xref linkend="web" /> (Kapitel 5: Eine
+    einfache Web-Anwendung) kombinieren. Im Laufe der Entwicklung dieses Multi
+    Modul Projekts werden wir Fragenstellungen bezüglich des Einsatzes von
+    Maven erörtern und verschiedene Möglichkeiten der Umsetzung darlegen, um
+    den Aufbau modularer Projekte zu fördern und die Wiederverwendung von
+    Komponenten aufzuzeigen.</para>
 
     <section id="multimodule-web-spring-sect-downloading-example">
-      <title>Downloading this Chapter's Example</title>
+      <title>Herunterladen der Beispiele dieses Kapitels</title>
 
-      <para>The multi-module project developed in this example consists of
-      modified versions of the projects developed in <xref
-      linkend="customizing" /> and <xref linkend="web" />, and we are not
-      using the Maven Archetype plug-in to generate this multi-module project.
-      We strongly recommend downloading a copy of the example code to use as a
-      supplemental reference while reading the content in this chapter.
-      Without the examples, you won't be able to recreate this chapter's
-      example code. This chapter's example project may be downloaded with the
-      book's example code at <ulink
+      <para>Das multi-modulare Projekt welches wir in diesem Kapitel erstellen
+      werden, besteht aus modifizierten Versionen der Projekte der
+      vorhergehenden Kapitel; <xref linkend="customizing" /> (Kapitel 4:
+      Anpassen eines Maven Projekts) sowie <xref linkend="web" /> (Kapitel 5:
+      Eine einfache Web-Anwendung). Wir werden dieses multi-modulare Projekt
+      nicht mit dem Archetype Maven Plugin generieren. Wir empfehlen Ihnen
+      eine Kopie der Beispiel-Code als zusätzliche Referenz beim Lesen der
+      Inhalte in diesem Kapitel herunterzuladen. Das Beispielprojekt dieses
+      Kapitel zusammen mit den anderen Beispielen dieses Buchs kann von <ulink
+      type=""
       url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
-      or <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
-      Unzip this archive in any directory, and then go to the
-      <filename>ch07/</filename> directory. In the <filename>ch07/</filename>
-      directory you will see a directory named
-      <filename>simple-parent/</filename> which contains the multi-module
-      Maven project developed in this chapter. In the
-      <filename>simple-parent/</filename> project directory you will see a
-      <filename>pom.xml</filename> and the five submodule directories
-      <filename>simple-model/</filename>,
-      <filename>simple-persist/</filename>,
-      <filename>simple-command/</filename>,
-      <filename>simple-weather/</filename> and
-      <filename>simple-webapp/</filename>. If you wish to follow along with
-      the example code in a web browser, go to <ulink
-      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch07/</filename> directory.</para>
+      oder <ulink type=""
+      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://books.sonatype.com/maven-book/mvn-examples-1.0.tar.gz</ulink>
+      heruntergeladen werden. Entpacken Sie das Archiv in ein beliebiges
+      Verzeichnis, und gehen Sie dann zum Verzeichnis
+      <code><filename>/ch07</filename></code>. Darin finden Sie ein
+      Verzeichnis mit dem Namen
+      <code><filename>/simple-parent</filename></code> welches das multi
+      modulare Projekt dieses Kapitels enthält. Innerhalb des Verzeichnisses
+      <code><filename>/simple-parent</filename> </code>werden Sie auf eine
+      <filename>pom.xml</filename>-Datei sowie zwei Unterverzeichnisse
+      <code><filename>/simple weather</filename></code> und
+      <code><filename>/simple web app</filename></code> stossen welche den
+      Quellcode für dieses Kapitel enthalten.</para>
     </section>
 
     <section id="multimodule-web-spring-sect-project-description">
-      <title>Multi-module Enterprise Project</title>
+      <title>Multi-Modul Enterprise Projekt </title>
 
-      <para>Presenting the complexity of a massive Enterprise-level project
-      far exceeds the scope of this book. Such projects are characterized by
-      multiple databases, integration with external systems, and subprojects
-      which may be divided by departments. These projects usually span
-      thousands of lines of code, and involve the effort of tens or hundreds
-      of software developers. While such a complete example is outside the
-      scope of this book, we can provide you with a sample project that
-      suggests the complexity of a larger Enterprise application. In the
-      conclusion we suggest some possibilities for modularity beyond that
-      presented in this chapter.</para>
+      <para>Die Komplexität einer extensiven Enterprise Applikation
+      aufzuzeigen würde den Rahmen dieses Buches bei weitem sprengen. Solche
+      Projekte sind gekennzeichnet durch den Einsatz mehrerer Datenbanken, der
+      Integration externer Systeme und Teilprojekte welche weiter z.B. nach
+      Abteilungen aufgeteilt werden. Solcherlei Projekte beinhalten in der
+      Regel tausende von Zeilen Quellcode, und reflektieren die Arbeit von
+      Dutzenden oder Hunderten von Software-Entwicklern. Da ein solches
+      Beispiel den Rahmen des Buches sprengen würde, können wir Ihnen hier
+      lediglich anhand eines Beispielprojekts die Komplexitäten größerer
+      Enterprise-Anwendungen aufzeigen. Im Abschluss geben wir einige
+      Ratschläge der modularen Strukturierung welche über dieses Kapitel
+      hinausgehen. </para>
 
-      <para>In this chapter, we're going to look at a multi-module Maven
-      project that will produce two applications: a command-line query tool
-      for the Yahoo! Weather feed and a web application which queries the
-      Yahoo! Weather feed. Both of these applications will store the results
-      of queries in an embedded database. Each will allow the user to retrieve
-      historical weather data from this embedded database. Both applications
-      will reuse application logic and share a persistence library. This
-      chapter's example builds upon the Yahoo! Weather parsing code introduced
-      in <xref linkend="customizing" />. This project is divided into five
-      submodules shown in <xref
-      linkend="fig-multimodule-web-spring-projects" />.</para>
+      <para>In diesem Kapitel wenden wir uns einem Multi Modul Projekt zu,
+      welches zwei Benutzerschnittstellen definiert: ein
+      Befehlszeilen-Abfrage-Tool für die Yahoo! Wetter-Dienste, sowie eine
+      Web-Anwendung welche auf diese Dienste aufbaut. Beide Anwendungen
+      speichern die Resultate der Abfragen in einer eingebetteten Datenbank.
+      Beide Anwendungen erlauben es dem Benutzer auf historisierte
+      Abfragewerte der eingebetteten Datenbank zuzugreifen. Beide Anwendungen
+      teilen sich die Anwendungslogik und auch eine Persistenz Bibliothek.
+      Dieses Kapitel baut auf den Code zur Auswertung des Yahoo! Wetter
+      Dienstes auf, welcher in <xref linkend="customizing" /> (Kapitel 4
+      Anpassen eines Maven Projekts) eingeführt wurde. Dieses Projekt gliedert
+      sich in fünf Untermodule wie in <xref
+      linkend="fig-multimodule-web-spring-projects" /> (Abbildung 7.1:
+      "Beziehungen der Module einer komplexen Enterprise Anwendung")
+      veranschaulicht wird.</para>
 
       <figure id="fig-multimodule-web-spring-projects">
-        <title>Multi-module Enterprise Application Module
-        Relationships</title>
+        <title>Beziehungen der Module einer komplexen Enterprise
+        Anwendung</title>
 
         <mediaobject>
           <imageobject>
@@ -99,28 +95,30 @@
         </mediaobject>
       </figure>
 
-      <para>In <xref linkend="fig-multimodule-web-spring-projects" />, you can
-      see that there are five submodules of simple-parent, they are:</para>
+      <para>Aus <xref linkend="fig-multimodule-web-spring-projects" />
+      (Abbildung 7.1: "Beziehungen der Module einer komplexen Enterprise
+      Anwendung") sehen Sie, dass es fünf Untermodule des "Eltern"-Projekt
+      gibt. Diese sind:</para>
 
       <variablelist>
         <varlistentry>
           <term>simple-model</term>
 
           <listitem>
-            <para>This module defines a simple object model which models the
-            data returned from the Yahoo! Weather feed. This object model
-            contains the <classname>Weather</classname>,
-            <classname>Condition</classname>,
+            <para>Dieses Modul definiert ein einfaches Objektmodell, welches
+            die vom Yahoo! Wetter-Dienst zurückgegebenen Daten abbildet.
+            Dieses Objektmodell beinhaltet die Objekte
+            <classname>Weather</classname>, <classname>Condition</classname>,
             <classname>Atmosphere</classname>,
-            <classname>Location</classname>, and <classname>Wind</classname>
-            objects. When our application parses the Yahoo! Weather feed, the
-            parsers defined in <varname>simple-weather</varname> will parse
-            the <acronym>XML</acronym> and create
-            <classname>Weather</classname> objects which are then used by the
-            application. This project contains model objects annotated with
-            Hibernate 3 Annotations which are used by the logic in
-            simple-persist to map each model object to a corresponding table
-            in a relational database.</para>
+            <classname>Location</classname><classname> und Wind
+            (</classname>Wetterlage, Zustand, Atmosphäre, Ort sowie
+            Windrichtung). Beim parsen der vom Yahoo! Wetter Dienst
+            zurückgegebenen <acronym>XML</acronym>-Antwort werden
+            <classname>weather</classname> Objekte erstellt, welche an die
+            Anwendung weitergegeben werden. Dieses Projekt beinhaltet Objekte
+            welche mit Hibernate 3 Annotations versehen sind um die Zuordnung
+            eines jeden Objektes zu einem Datensatz in der Datenbank
+            sicherzustellen.</para>
           </listitem>
         </varlistentry>
 
@@ -128,16 +126,17 @@
           <term>simple-weather</term>
 
           <listitem>
-            <para>This module contains all of the logic required to retrieve
-            data from the Yahoo! Weather feed and parse the resulting
-            <acronym>XML</acronym>. The <acronym>XML</acronym> returned from
-            this feed is converted into the model objects defined in
-            <varname>simple-model</varname>. <varname>simple-weather</varname>
-            has a dependency on <varname>simple-model</varname>.
-            <varname>simple-weather</varname> defines a
-            <classname>WeatherService</classname> object which is referenced
-            by both the <varname>simple-command</varname> and
-            <varname>simple-webapp</varname> projects.</para>
+            <para>Dieses Modul enthält alle Logik welche erforderlich ist, um
+            Daten des Yahoo! Wetter-Dienstes anzuziehen und das zurückgegebene
+            <acronym>XML</acronym> auszuwerten. Aus dem zurückgegebenen
+            <acronym>XML</acronym> werden anschliessend Objekte wie diese in
+            "<varname>Simple Model</varname>" definiert wurden, erstellt. Das
+            "<varname>Simple Weather</varname>"-Modul ist abhängig vom Modul
+            "<varname>Simple Model</varname>". "<varname>Simple
+            Weather</varname>" stellt einen Dienst bereit
+            ("<classname>WeatherService</classname>"), welcher sowohl von
+            "<varname>Simple Command</varname>" wie auch von "<varname>Simple
+            Web</varname>" konsumiert wird. </para>
           </listitem>
         </varlistentry>
 
@@ -145,18 +144,20 @@
           <term>simple-persist</term>
 
           <listitem>
-            <para>This module contains some Data Access Objects
-            (<acronym>DAO</acronym>) which are configured to store
-            <classname>Weather</classname> objects in an embedded database.
-            Both of the applications defined in this multi-module project will
-            use the <acronym>DAO</acronym>s defined in
-            <varname>simple-persist</varname> to store data in an embedded
-            database. The <acronym>DAO</acronym>s defined in this project
-            understand and return the model objects defined in
-            <varname>simple-model</varname>. <varname>simple-persist</varname>
-            has a direct dependency on <varname>simple-model</varname> and it
-            depends upon the Hibernate Annotations present on the model
-            objects.</para>
+            <para>Dieses Modul enthält einige Data Access Objekte
+            (<acronym>DAO</acronym>). Konfiguriert, um
+            <classname>Weather</classname> Objekte in einer eingebetteten
+            Datenbank abzuspeichern. Beide Benutzerschnittstellen dieser
+            multi-modularen Anwendung (Web/Befehlszeile) bauen auf einfache
+            <acronym>DAO</acronym>s (Data Access Objekts=Datenzugriffsobjekte)
+            auf, welche zur Speicherung (speichern=to persist) herangezogen
+            werden. Die Modellobjekte welche in "<varname>Simple
+            Model</varname>" bereitgestellt werden, können von den
+            <acronym>DAO</acronym>s sowohl verstanden wie auch zurückgegeben
+            werden. "<varname>Simple Persist</varname>" ist direkt von
+            "<varname>Simple Model</varname>" abhängig und definiert weitere
+            Abhängigkeiten zu den Modellobjekten, gekennzeichnet durch
+            Hibernate Annotations.</para>
           </listitem>
         </varlistentry>
 
@@ -164,15 +165,14 @@
           <term>simple-webapp</term>
 
           <listitem>
-            <para>The web application project contains two Spring
-            <acronym>MVC</acronym> Controller implementations which use the
-            <classname>WeatherService</classname> defined in
-            <varname>simple-weather</varname> and the <acronym>DAO</acronym>s
-            defined in <varname>simple-persist</varname>.
-            <varname>simple-webapp</varname> has a direct dependency on
-            <varname>simple-weather</varname> and
-            <varname>simple-persist</varname>; it has a transitive dependency
-            on <varname>simple-model</varname>.</para>
+            <para>Das Web-Anwendungs Projekt definiert zwei Spring
+            <acronym>MVC</acronym>-Controller-Implementierungen welche unter
+            Verwendung des <classname>WeatherService</classname> definiert
+            werden, sowie die <acronym>DAO</acronym>s aus "<varname>Simple
+            Persist</varname>". "<varname>Simple Web</varname>" verfügt über
+            eine direkte Abhängigkeit zu "<varname>Simple Weather</varname>"
+            sowie eine transitive Abhängigkeit zu "<varname>Simple
+            Model</varname>".</para>
           </listitem>
         </varlistentry>
 
@@ -180,113 +180,118 @@
           <term>simple-command</term>
 
           <listitem>
-            <para>This module contains a simple command-line tool which can be
-            used to query the Yahoo! Weather feed. This project contains a
-            class with a static <methodname>main()</methodname> function and
-            interacts with the <classname>WeatherService</classname> defined
-            in <varname>simple-weather</varname> and the
-            <acronym>DAO</acronym>s defined in
-            <varname>simple-persist</varname>.
-            <varname>simple-command</varname> has a direct dependency on
-            <varname>simple-weather</varname> and
-            <varname>simple-persist</varname>; is has a transitive dependency
-            on <varname>simple-model</varname>.</para>
+            <para>Dieses Modul enthält eine einfache Befehlszeilen-Anwendung
+            welche dazu eingesetzt werden kann, die Yahoo! Wetter-Dienste
+            abzufragen. Das Modul enthält eine statisch definierte Klasse
+            <methodname>main()</methodname> welche mit
+            <classname>WeatherService</classname> aus "<varname>Simple
+            Weather</varname>" sowie der <acronym>DAO</acronym>s welche in
+            "<varname>Simple Persist</varname>" definiert wurden arbeitet.
+            "<varname>Simple Command</varname>" hat eine direkte Abhängigkeit
+            zu "<varname>Simple Weather</varname>" sowie "<varname>Simple
+            Persist</varname>"; es besteht eine transitive Abhängigkeit zu
+            "<varname>Simple Model</varname>".</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>This chapter contains a contrived example simple enough to
-      introduce in a book, yet complex enough to justify a set of five
-      submodules. Our contrived example has a model project with five classes,
-      a persistence library with two service classes, and a weather parsing
-      library with five or six classes, but a real-world system might have a
-      model project with a hundred objects, several persistence libraries, and
-      service libraries spanning multiple departments. Although we’ve tried to
-      make sure that the code contained in this example is straightforward
-      enough to comprehend in a single sitting, we’ve also gone out of our way
-      to build a modular project. You might be tempted to look at the examples
-      in this chapter and walk away with the idea that Maven encourages too
-      much complexity given that our model project has only five classes.
-      Although using Maven does suggest a certain level of modularity, do
-      realize that we’ve gone out of our way to complicate our simple example
-      projects for the purpose of demonstrating Maven’s multimodule
-      features.</para>
+      <para>Hiermit ist das Beispiel in diesem Kapitel vorgestellt; es ist
+      einfach genug um es in einem Lehrbuch einzuführen, und doch komplex
+      genug um eine Aufspaltung in fünf Untermodule zu rechtfertigen. Während
+      unser künstliches Beispiel ein Modell-Projekt von fünf Klassen, eine
+      Persistenz-Bibliothek mit zwei Service-Klassen und eine
+      Parsing-Bibliothek mit fünf oder sechs Klassen hat, kann ein
+      tatsächliches "Reale-Welt-System" leicht ein Modell-Projekt mit
+      hunderten von Klassen, mehrere Persistenz- und Service-Bibliotheken
+      welche über mehrere Bereiche reichen, umfassen. Während wir versucht
+      haben sicherzustellen, dass der Quellcode des Beispiels einfach genug
+      ist, um diesen in einer Sitzung zu verstehen, haben wir uns ebenso
+      bemüht ein modulares Beispiel zu erstellen. Es wäre nachvollziehbar,
+      würden Sie nach der Betrachtung des Quellcodes, sich von Maven abwenden
+      und den Eindruck mitnehmen, Maven ermuntere dazu Komplexität
+      einzuführen, da das Beispiel lediglich fünf Klassen umfasst. Jedoch
+      sollten Sie immer bedenken, dass wir keine Mühen scheuten, das einfache
+      Beispiel anzureichern, um die Möglichkeiten zur Bearbeitung komplexer
+      Fragestellungen beispielhaft aufzuzeigen und darzustellen, insbesondere
+      die von Maven gegebenen Multi-Modul-Funktionalitäten.</para>
     </section>
 
     <section id="multimodule-web-spring-sect-example-tech">
-      <title>Technology Used in this Example</title>
+      <title>Technologie des Beispiels</title>
 
-      <para>This chapter's example involves some technology which, while
-      popular, is not directly related to Maven. These technologies are the
-      Spring Framework and Hibernate. The Spring Framework is an Inversion of
-      Control (<acronym>IoC</acronym>) container and a set of frameworks that
-      aim to simplify interaction with various <acronym>J2EE</acronym>
-      libraries. Using the Spring Framework as a foundational framework for
-      application development gives you access to a number of helpful
-      abstractions that can take much of the meddlesome busywork out of
-      dealing with persistence frameworks like Hibernate or iBatis or
-      enterprise <acronym>API</acronym>s like <acronym>JDBC</acronym>,
-      <acronym>JNDI</acronym>, and <acronym>JMS</acronym>. The Spring
-      Framework has grown in popularity over the past few years as a
-      replacement for the heavy weight enterprise standards coming out of Sun
-      Microsystems. Hibernate is a widely used Object-Relational Mapping
-      framework which allows you to interact with a relational database as if
-      it were a collection of Java objects. This example focuses on building a
-      simple web application and a command-line application that uses the
-      Spring Framework to expose a set of reusable components to applications
-      and which also uses Hibernate to persist weather data in an embedded
-      database.</para>
+      <para>Die in diesem Kapitel eingesetzten Technologien umfassen solche,
+      welche zwar populär sind, aber nicht in direktem Zusammenhang mit dem
+      Einsatz von Maven stehen. Die angedeuteten Technologien sind: das
+      <productname>Spring Framework</productname> und
+      <productname>Hibernate</productname>. Das Spring Framework stellt einen
+      'Inversion of Control (<acronym>IoC</acronym>) Container' bereit, sowie
+      eine Reihe von Frameworks welche auf die Vereinfachung der Interaktion
+      mit verschiedenen <acronym>J2EE</acronym>-Bibliotheken abzielen. Mit dem
+      Spring Framework als Fundament der Anwendungsentwicklung erhalten Sie
+      Zugriff auf eine Reihe von hilfreichen Abstraktionen, welche Ihnen einen
+      Großteil der mühseligen Fummelei im Umgang mit z.B. Persistenz
+      Frameworks wie Hibernate oder <productname>iBatis</productname> oder
+      auch Enterprise-<acronym>API</acronym>s wie <acronym>JDBC</acronym>,
+      <acronym>JNDI</acronym> und <acronym>JMS</acronym> nehmen. Das Spring
+      Framework hat in den vergangenen Jahren stark an Popularität gewonnen,
+      insbesondere als Alternative zu den schwergewichtigen Enterprise
+      Standards aus dem Hause Sun Microsystems. Hibernate ist ein weit
+      verbreitetes Object-Relational-Mapping- (<acronym>ORM</acronym>-)
+      Framework, das eine Interaktion mit relationalen Datenbanken
+      bereitstellt, als ob es sich um eine Sammlung von Java-Objekten handele.
+      Dieses Beispiel konzentriert sich auf den Aufbau einer einfachen
+      Web-Anwendung und eines Befehlszeilen-Programms, welche, aufbauend auf
+      das Spring Framework und Hibernate, eine Reihe von wiederverwendbaren
+      Komponenten bereitstellt, welche es erlauben die bestehenden
+      Wetter-Daten in einer eingebettete Datenbank abzulegen
+      (persistieren).</para>
 
-      <para>We’ve decided to include references to these frameworks to
-      demonstrate how one would construct projects using these technologies
-      when using Maven. Although we make brief efforts to introduce these
-      technologies throughout this chapter, we will not go out of our way to
-      fully explain these technologies. For more information about the Spring
-      Framework, please see the project’s web site at <ulink
-      url="http://www.springframework.org/"></ulink>. For more information
-      about Hibernate and Hibernate <phrase
-      role="keep-together">Annotations</phrase>, please see the project’s web
-      site at <ulink url="http://www.hibernate.org"></ulink>. This chapter
-      uses Hyper-threaded Structured Query Language Database
-      (<acronym>HSQLDB</acronym>) as an embedded database; for more
-      information about this database, see the project’s web site at <ulink
-      url="http://hsqldb.org/"></ulink>.</para>
+      <para>Wir haben uns entschlossen diese Frameworks einzubinden, um Ihnen
+      am Beispiel aufzuzeigen, wie man beim Einsatz von Maven diese
+      Technologien einbinden kann. Obschon es in das Kapitel eingestreut kurze
+      Einführungen zu diesen Technologien gibt, so ist es nicht das erklärte
+      Ziel dieses Kapitels diese Technologien im Detail darzustellen.
+      Bezüglich weiterführender Dokumentation dieser Frameworks verweisen wir:
+      bezüglich Spring auf die Projekt Website <ulink
+      url="http://www.springframework.org">http://www.springframework.org</ulink>,
+      bezüglich Hibernate auf den Projekt Website <ulink
+      url="http://www.hibernate.org">http://www.hibernate.org</ulink>. Dieses
+      Kapitel setzt als eingebettete Datenbank auf <acronym>HSQLDB</acronym>,
+      weitere Informationen zu dieser Datenbank finden Sie auf der Projekt
+      Website <ulink url="http://hsqldb.org">http://hsqldb.org</ulink>.</para>
     </section>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-parent">
-    <title>The Simple Parent Project</title>
+    <title>Das "Simple Parent" Projekt - Top Level</title>
 
-    <para>This <varname>simple-parent</varname> project has a<indexterm
+    <para>Das "<varname>Simple Parent</varname>" Hauptmodul hat ein
+    <acronym>POM</acronym> welches auf fünf Untermodule verweist: <indexterm
         class="startofrange" id="enterprise2a">
         <primary>simple parent project (example)</primary>
 
         <secondary>multimodule enterprise</secondary>
-      </indexterm><indexterm class="startofrange" id="enterprise2b">
+      </indexterm>(simple-command), <indexterm class="startofrange"
+        id="enterprise2b">
         <primary>multimodule project (example)</primary>
 
         <secondary>multimodule enterprise project</secondary>
 
         <tertiary>simple parent project</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise2c">
+      </indexterm>(simple-model), (simple-weather), (simple-persist) und
+    <indexterm class="startofrange" id="enterprise2c">
         <primary>Web applications</primary>
 
         <secondary>multimodule enterprise project example</secondary>
 
         <tertiary>simple parent project</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise2d">
-        <primary>enterprise project, multimodule (example)</primary>
-
-        <secondary>simple parent project</secondary>
-      </indexterm> <filename>pom.xml</filename> that references five
-    submodules: <varname>simple-command</varname>,
-    <varname>simple-model</varname>, <varname>simple-weather</varname>,
-    <varname>simple-persist</varname>, and <varname>simple-webapp</varname>.
-    The top-level <filename>pom.xml</filename> is shown in <xref
-    linkend="ex-multimodule-web-spring-parent" />.</para>
+      </indexterm>(simple-webapp). Das Top-Level POM
+    (<filename>pom.xml</filename>-Datei) ist im <xref
+    linkend="ex-multimodule-web-spring-parent" /> (Beispiel 7.1, "Simple
+    Parent POM Projekt") dargestellt. </para>
 
     <example id="ex-multimodule-web-spring-parent">
-      <title>simple-parent Project POM</title>
+      <title>Simple Parent POM Projekt</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -337,51 +342,58 @@
     </example>
 
     <note>
-      <para>If you are already familiar with Maven POMs, you might notice that
-      this top-level POM does not define a
-      <sgmltag>dependencyManagement</sgmltag> element. The
-      <sgmltag>dependencyManagement</sgmltag> element allows you to define
-      dependency versions in a single, top-level POM, and it is introduced in
-      <xref linkend="optimizing" />.</para>
+      <para>Sollten Sie bereits mit Maven <acronym>POM</acronym>s vertraut
+      sein, so werden Sie jetzt bemerken, dass dieses top level
+      <acronym>POM</acronym> kein Element dependencyManagement definiert. Das
+      Element dependencyManagement erlaubt es Ihnen, Abhängigkeitsversionen in
+      einem einzigen top-level <acronym>POM</acronym> zu definieren und wird
+      in <xref linkend="optimizing" /> (Kapitel 8: Optimieren und
+      Refaktorieren von POMs) eingeführt.</para>
     </note>
 
-    <para>Note the similarities of this parent <acronym>POM</acronym> to the
-    parent <acronym>POM</acronym> defined in <xref
-    linkend="ex-multimodule-parent-pom" />. The only real difference between
-    these two <acronym>POM</acronym>s is the list of submodules. Where that
-    example only listed two submodules, this parent <acronym>POM</acronym>
-    lists five submodules. The next few sections explore each of these five
-    submodules in some detail. Because our example uses Java annotations,
-    we've configured the compiler to target the Java 5
-    <acronym>JVM</acronym>.</para>
+    <para>Bemerken Sie bitte die Ähnlichkeiten dieses Hauptmodul
+    <acronym>POM</acronym>s zu jenem Hauptmodul POM des Projekts in <xref
+    linkend="ex-multimodule-parent-pom" /> (Kapitel 6.1: "Simple Parent
+    Projekt POM"). Der einzige, wirkliche Unterschied zwischen diesen beiden
+    <acronym>POM</acronym>s ist die Liste der Untermodule. Wo das
+    vorangegangene Beispiel nur zwei Untermodule aufführte, hat dieses
+    Hauptmodul deren fünf. In den nächsten Abschnitten wird jedes dieser fünf
+    Untermodule in einigen Details dargestellt. Da unsere Beispiel
+    Java-Annotationen einsetzt, haben wir es so konfiguriert, dass der
+    Compiler auf die Java 5 Virtual Machine (<acronym>JVM</acronym>)
+    aufsetzt.</para>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-model-project">
-    <title>The Simple Model Module</title>
+    <title>Das Simple Model" Modul - Das Objektmodell</title>
 
-    <para>The first thing most enterprise projects need is an object model. An
-    object model captures the core set of domain objects in any system. A
-    banking system might have an object model which consists of an
-    <classname>Account</classname>, <classname>Customer</classname>, and
-    <classname>Transaction</classname> object, or a system to capture and
-    communicate sports scores might have a <classname>Team</classname> and a
-    <classname>Game</classname> object. Whatever it is, there's a good chance
-    that you've modeled the concepts in your system in an object model. It is
-    a common practice in Maven projects to separate this project into a
-    separate project which is widely referenced. In this system we are
-    capturing each query to the Yahoo! Weather feed with a
-    <classname>Weather</classname> object which references four other objects.
-    Wind direction, chill, and speed are stored in a
-    <classname>Wind</classname> object. Location data including the zip code,
-    city, region, and country are stored in a <classname>Location</classname>
-    class. Atmospheric conditions such as the humidity, maximum visibility,
-    barometric pressure, and whether the pressure is rising or falling is
-    stored in an <classname>Atmosphere</classname> class. A textual
-    description of conditions, the temperature, and the date of the
-    observation is stored in a <classname>Condition</classname> class.</para>
+    <para>Das erste, was die meisten Enterprise Projekte benötigen, ist ein
+    Objekt-Modell. Ein Objekt-Modell erfasst die Grundmenge aller
+    Domain-Objekte eines Systems. Ein Banken-System könnten ein Objekt-Modell
+    haben, welches aus einem <classname>Konto</classname>,
+    <classname>Kunden</classname>- und
+    <classname>Transaktions</classname>-Objekt besteht, ein System zum
+    Erfassen und Verbreiten von Sportergebnisse besässe ein
+    <classname>Mannschafts</classname>- und ein
+    <classname>Spiel</classname>-Objekt. Was auch immer Ihr Projekt umfasst,
+    die Chancen stehen gut, dass Sie die entsprechenden Konzepte Ihres Systems
+    in einem Objekt-Modell erfasst haben. Eine gängige Praxis im Umgang mit
+    Maven ist es, dieses Modul separate auszulagern um es fortan als häufig
+    referenziertes Modul weiterzuführen. In unserem System erfassen wir jede
+    Abfrage des Yahoo! Wetter-Dienstes mit einem Objekt, das Objekt
+    <classname>weather</classname>, welches weitere vier Objekte referenziert:
+    Windrichtung, Chill und Geschwindigkeit werden in einem Objekt
+    <classname>Wind</classname> erfasst. Standortdaten einschließlich der
+    Postleitzahl, Stadt, Region und Land sind in einer Klasse
+    <classname>Location</classname> zusammengefasst. Die atmosphärischen
+    Bedingungen wie die Feuchtigkeit, maximale Sichtbarkeit, Luftdruck, und ob
+    der Druck steigt oder fällt, wird in einer Klasse
+    <classname>Atmosphere</classname> gehalten. Eine textuelle Beschreibung
+    der Zustände, der Temperatur, und die Daten der Beobachtung werden einer
+    Klasse <classname>Condition</classname> zusammengefasst.</para>
 
     <figure>
-      <title>Simple Object Model for Weather Data</title>
+      <title>Einfaches Objektmodell für Wetter-Daten</title>
 
       <mediaobject>
         <imageobject>
@@ -391,22 +403,21 @@
       </mediaobject>
     </figure>
 
-    <para>The <filename>pom.xml</filename> file for this simple model object
-    contains one dependency that bears some explanation. Our object model
-    is<indexterm>
+    <para>Die <filename>pom.xml</filename>-Datei für dieses schlichte Modell
+    hat nur eine Abhängigkeitsdefinition welche der Erläuterung bedarf: Unser
+    Objekt-Modell wird mit <indexterm>
         <primary>Hibernate annotations</primary>
       </indexterm><indexterm>
         <primary>annotations (Hibernate)</primary>
-      </indexterm> annotated with Hibernate Annotations. We use these
-    annotations to map the model objects in this model to tables in a
-    relational database. The dependency is
-    <varname>org.hibernate:hibernate-annotations:3.3.0.ga</varname>. Take a
-    look at the <filename>pom.xml</filename> shown in <xref
-    linkend="example_simple-model_pom.xml" />, and then look at the next few
-    examples for some illustrations of these annotations.</para>
+      </indexterm> Hibernate Annotations realisiert. Wir verwenden Annotations
+    um die Modell-Objekte auf Tabellen einer relationalen Datenbank
+    abzubilden. Die Abhängigkeit besteht zu <classname>org.hibernate:
+    hibernate-annotaions: 3.3.0.ga</classname>. Werfen Sie einen Blick in
+    diese <filename>pom.xml</filename> sowie einige der kommenden Beispiele
+    worin dies verdeutlicht wird:</para>
 
     <example id="example_simple-model_pom.xml">
-      <title>simple-model pom.xml</title>
+      <title>pom.xml des Projektmoduls: simple-model</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -438,28 +449,28 @@
 &lt;/project&gt;
 </programlisting>
 
-      <para>In
-      <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>,
-      we have <filename>Weather.java</filename>, which contains the annotated
-      <classname>Weather</classname> model object. The
-      <classname>Weather</classname> object is a simple Java bean. This means
-      that we have private member variables like <varname>id</varname>,
-      <varname>location</varname>, <varname>condition</varname>,
-      <varname>wind</varname>, <varname>atmosphere</varname>, and
-      <varname>date</varname> exposed with public getter and setter methods
-      that adhere to the following pattern: if a property is named
-      <literal>name</literal>, there will be a public no-arg getter method
-      named <methodname>getName()</methodname>, and there will be a
-      one-argument <phrase>setter</phrase> named <methodname
-      role="keep-together">setName(String name)</methodname>. Although we show
-      the getter and setter method for the <varname>id</varname> property,
-      we’ve omitted most of the getters and setters for most of the other
-      properties to save a few trees. See <xref
-      linkend="example_weather_model_object" />.</para>
+      <para>Unter
+      <filename>/src/main/java/de/sonatype/Maven/weather/model</filename>
+      liegt <filename>Weather.java</filename> welche das annotierte
+      Wetter-Objekt-Modell beinhaltet. Das
+      <classname>Weather</classname>-Objekt ist ein einfaches Java Bean. Das
+      bedeutet, es werden private Member Variablen gesetzt
+      (<varname>id</varname>, <varname>location</varname>,
+      <varname>condition</varname>, <varname>wind</varname>,
+      <varname>amosphere</varname> und <varname>date</varname>) welche durch
+      public Getter und Setter-Methoden offengelegt werden. Dabei wird
+      folgende Regel umgesetzt: gibt es ein String-Property mit dem Namen
+      "name" so wird eine public Getter-Methode ohne Argumente namens
+      <methodname>getName()</methodname> gesetzt, sowie eine public Setter
+      Methode mit einem Argument <methodname>setName(String
+      name)</methodname>; analog für andere Typen. Während wir hier die Getter
+      und Setter-Methode für das <varname>id</varname>-Property zeigen, haben
+      wir die Mehrheit der anderen Properties ausgelassen um an dieser Stelle
+      einer Anzahl Bäume das Leben zu wahren.</para>
     </example>
 
     <example id="example_weather_model_object">
-      <title>Annotated Weather Model Object</title>
+      <title>Annotiertes Wetter Modell Objekt</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.model;
 
@@ -497,53 +508,46 @@ public class Weather {
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
-    // All getter and setter methods omitted...
+    // Alle weiteren getter/setter Methoden ausgelassen...
 }
 </programlisting>
     </example>
 
-    <para>In the <classname>Weather</classname> class, we are using Hibernate
-    annotations to provide guidance to the <varname>simple-persist</varname>
-    project. These annotations are used by Hibernate to map an object to a
-    table in a relational database. Although a full explanation of Hibernate
-    annotations is beyond the scope of this chapter, here is a brief<indexterm>
-        <primary sortas="Entity annotation (Hibernate)">@Entity annotation
-        (Hibernate)</primary>
-      </indexterm> explanation for the curious. The
-    <classname>@Entity</classname> annotation marks this class as a persistent
-    entity. We’ve omitted the<indexterm>
-        <primary sortas="Table annotation (Hibernate)">@Table annotation
-        (Hibernate)</primary>
-      </indexterm> <classname>@Table</classname> annotation on this class, so
-    Hibernate is going to use the name of the class as the name of the table
-    to map <classname>Weather</classname> to. The<indexterm>
-        <primary sortas="NamedQueries annotation (Hibernate)">@NamedQueries
-        annotation (Hibernate)</primary>
-      </indexterm> <classname>@NamedQueries</classname> annotation defines a
-    query that is used by the <classname>WeatherDAO</classname> in
-    <varname>simple-persist</varname>. The query language in the<indexterm>
-        <primary sortas="NamedQuery annotation (Hibernate)">@NamedQuery
-        annotation (Hibernate)</primary>
-      </indexterm> <classname>@NamedQuery</classname> annotation is written in
-    something<indexterm>
-        <primary>HQL (Hibernate Query Language)</primary>
-      </indexterm> called Hibernate Query Language (<acronym>HQL</acronym>).
-    Each member variable is annotated with annotations that define the type of
-    column and any relationships implied by that column:</para>
+    <para>In der Klasse <classname>Weather</classname>, setzen wir auf
+    Hibernate Annotationen, um dem "<varname>simple persist</varname>" Projekt
+    Anleitung zu geben. Diese Annotationen werden von Hibernate benutzt, um
+    ein Objekt auf eine Tabelle einer relationalen Datenbank abzubilden.
+    Während eine ausführliche Einführung in die Hibernate Annotationen weit
+    über den Rahmen dieses Kapitels hinausgeht, hier eine kurze Erklärung für
+    Neugierige: Die Annotation <classname>@Entity</classname> bezeichnet diese
+    Klasse als zu persistierende Einheit, die <classname>@Table</classname>
+    Annotation haben wir ausgelassen, Hibernate wird daher den Klassennamen
+    als Tabellennamen einsetzen und so das Objekt
+    <classname>Weather</classname> auf eine Tabelle
+    <classname>Weather</classname> abbilden. Die
+    <classname>@NamedQueries</classname> Annotation definiert eine Abfrage,
+    welche vom <classname>WeatherDAO</classname> aus dem "<varname>Simple
+    Persist</varname>" Projekt verwendet wird. Die Abfragesprache, welche von
+    der <classname>@NamedQuery</classname> Annotation benutzt wird ist
+    Hibernate Query Language (<acronym>HQL</acronym>). Jede Variable wird mit
+    Annotationen versehen welche den Typ, die Spalte sowie jegliche
+    Beziehungen der Spalte zu anderen Spalten definiert:</para>
 
     <variablelist>
       <varlistentry>
         <term role="plain"><varname>Id</varname></term>
 
         <listitem>
-          <para>The <varname>id</varname> property is annotated with
-          <classname>@Id</classname>. This marks the <varname>id</varname>
-          property as the property that contains the primary key in a database
-          table. The <classname>@GeneratedValue</classname> controls how new
-          primary key values are generated. In the case of
-          <varname>id</varname>, we’re using the <varname>IDENTITY</varname>
-          <classname>GenerationType</classname>, which will use the underlying
-          database’s identity generation facilities.</para>
+          <para>Das Property <varname>id</varname> wird mit
+          <classname>@Id</classname> gekennzeichnet. Dies zeichnet das
+          Property <varname>id</varname> als das Property aus, welches den
+          Primärschlüssel bezüglich der Tabelle in der Datenbank trägt. Die
+          Kennzeichnung <classname>@GeneratedValue</classname> bestimmt wie
+          neue Primärschlüssel generiert werden. Im Falle von
+          <varname>id</varname>, bestimmen wir den
+          <classname>GenerationType</classname> <varname>IDENTITY</varname>,
+          welcher auf die Verwendung des Datenbank eigenen
+          Generierungsalgoryhtmus aufsetzt. </para>
         </listitem>
       </varlistentry>
 
@@ -551,16 +555,16 @@ public class Weather {
         <term role="plain"><varname>Location</varname></term>
 
         <listitem>
-          <para>Each <classname>Weather</classname> object instance
-          corresponds to a <classname>Location</classname> object. A
-          <classname>Location</classname> object represents a zip code, and
-          the <classname>@ManyToOne</classname> makes sure that
-          <classname>Weather</classname> objects that point to the same
-          <classname>Location</classname> object reference the same instance.
-          The <varname>cascade</varname> attribute of the
-          <classname>@ManyToOne</classname> makes sure that we persist a
-          <classname>Location</classname> object every time we persist a
-          <classname>Weather</classname> object.</para>
+          <para>Jede Instanz eines Wetter-Objekts
+          (<classname>Weather</classname>) ist an eine Instanz eines Standort
+          Objekts (<classname>Location</classname>) gebunden. Ein Standort
+          Objekt repräsentiert eine Postleitzahl und die Kennzeichnung
+          <classname>@ManyToOne</classname> stellt sicher, dass
+          Wetter-Objekte, welche an den selben Standort gebunden sind auch auf
+          dieselbe Instanz zeigen. Das Attribut <varname>cascade</varname> der
+          Annotation <classname>@ManyToOne</classname> stellt sicher, dass wir
+          bei jedem persistieren des Wetter Objekts auch das zugehörige
+          Standort Objekt persistieren.</para>
         </listitem>
       </varlistentry>
 
@@ -569,14 +573,14 @@ public class Weather {
         <varname>Wind</varname>, <varname>Atmosphere</varname></term>
 
         <listitem>
-          <para>Each of these objects is mapped as a
-          <classname>@OneToOne</classname> with the
-          <classname>CascadeType</classname> of <varname>ALL</varname>. This
-          means that every time we save a <classname>Weather</classname>
-          object, we’ll be inserting a row into the <varname>Weather</varname>
-          table, the <varname>Condition</varname> table, the
-          <varname>Wind</varname> table, and the <varname>Atmosphere</varname>
-          table.</para>
+          <para>Jedes dieser Objekte wird mit einer Kennzeichnung von
+          <classname>@OneToOne</classname> und dem
+          <classname>CascadeType</classname> <varname>ALL</varname>
+          abgebildet. Dies bedeutet, dass jedes Mal, wenn wir ein
+          Wetter-Objekt speichern, eine Zeile in der Tabelle
+          <classname>Weather</classname>, aber auch in den Tabellen
+          <classname>Condition</classname>, <classname>Wind</classname> und
+          <classname>Atmosphere</classname> erzeugt wird.</para>
         </listitem>
       </varlistentry>
 
@@ -584,16 +588,17 @@ public class Weather {
         <term role="plain"><varname>Date</varname></term>
 
         <listitem>
-          <para><varname>Date</varname> is not annotated. This means that
-          Hibernate is going to use all of the column defaults to define this
-          mapping. The column name is going to be <literal>date</literal>, and
-          the column type is going to be the appropriate time to match the
-          <classname>Date</classname> object.</para>
+          <para>Das Property <varname>date</varname> ist nicht annotiert, das
+          bedeutet, dass Hibernate in Bezug auf die Spalten alle Standardwerte
+          benutzt um diese Zuordung zu definieren. Der Spaltenname wird als
+          <varname>date</varname> gesetzt, und der Datentyp der Spalte auf den
+          entsprechenden Typ um dem <classname>date-</classname>Objekt zu
+          entsprechen. </para>
 
           <note>
-            <para>If you have a property you wish to omit from a table
-            mapping, you would annotate that property with
-            <classname>@Transient</classname>.</para>
+            <para>Sollten Sie ein Property in der Abbildung nicht
+            berücksichtingen, so würden Sie dieses Property mit
+            <classname>@Transient</classname> annotieren.</para>
           </note>
         </listitem>
       </varlistentry>
@@ -604,8 +609,13 @@ public class Weather {
     linkend="example_condition_model_object" />. This class also resides in
     <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>.</para>
 
+    <para>Als nächstes, schauen Sie sich das weiterführende Objekt Modell
+    <classname>Condition</classname> an. Diese Klasse ist ebenfalls unter
+    <filename>/src/main/java/de/sonatype/maven/weather/model</filename>
+    abgelegt. </para>
+
     <example id="example_condition_model_object">
-      <title>simple-model's Condition model object.</title>
+      <title>'Condition' Modell Objekt des Projektes "simple-model"</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.model;
 
@@ -632,64 +642,50 @@ public class Condition {
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
-    // All getter and setter methods omitted...
+    // Alle weiteren getter/setter Methoden ausgelassen...
 }</programlisting>
     </example>
 
-    <para>The <classname>Condition</classname> class resembles the
-    <classname>Weather</classname> class. It is annotated as an
-    <classname>@Entity</classname>, and it has similar annotations on the
-    <varname>id</varname> property. The <varname>text</varname>,
-    <varname>code</varname>, <varname>temp</varname>, and
-    <varname>date</varname> properties are all left with the default column
-    settings, and the <varname>weather</varname> property is annotated with a
-    <classname>@OneToOne</classname> annotation and another annotation that
-    references the associated <classname>Weather</classname> object with a
-    foreign key column named <varname>weather_id</varname>.</para>
+    <para>Die Klasse <classname>Condition</classname> entspricht der Klasse
+    <classname>weather</classname>. Sie wird mit
+    <classname>@Entity</classname> annotiert, und hat eine gleichartige
+    Kennzeichnung des Properties <varname>id</varname>. Die Properties
+    <varname>text</varname>, <varname>code</varname>, <varname>temp</varname>
+    sowie <varname>date</varname> werden alle auf Standardwerten belassen, das
+    Property <varname>weather</varname> ist mit der Kennzeichnung
+    <classname>@OneToOne</classname> versehen sowie einer weiteren Annotation
+    welche das entsprechende Objekt <classname>Weather</classname> mit dem
+    Fremdschlüssel des Namens <varname>weather_id</varname> in Verbindung
+    bringt.</para>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-weather">
-    <title>The Simple Weather Module</title>
+    <title>Das "Simple Weather" Modul - Die Dienste</title>
 
-    <para>The next module we’re going to examine could be considered
-    something<indexterm class="startofrange" id="enterprise4a">
-        <primary>multimodule project (example)</primary>
-
-        <secondary>multimodule enterprise project</secondary>
-
-        <tertiary>Simple Weather module of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise4b">
-        <primary>Web applications</primary>
-
-        <secondary>multimodule enterprise project example</secondary>
-
-        <tertiary>Simple Weather module of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise4c">
-        <primary>enterprise project, multimodule (example)</primary>
-
-        <secondary>Simple Weather module of</secondary>
-      </indexterm> of a “service.” The Simple Weather module is the module
-    that contains all of the logic necessary to retrieve and parse the data
-    from the Yahoo! Weather <acronym>RSS</acronym> feed. Although Simple
-    Weather contains three Java classes and one JUnit test, it is going to
-    present a single component, <classname>WeatherService</classname>, to both
-    the Simple Web Application and the Simple Command-line Utility. Very often
-    an enterprise project will contain several <acronym>API</acronym> modules
-    that contain critical business logic or logic that interacts with external
-    systems. A banking system might have a module that retrieves and parses
-    data from a third-party data provider, and a system to display sports
-    scores might interact with an <acronym>XML</acronym> feed that presents
-    real-time scores for basketball or soccer. In <xref
-    linkend="example_simple-weather_module_pom" />, this module encapsulates
-    all of the network activity and <acronym>XML</acronym> parsing that is
-    involved in the interaction with Yahoo! Weather. Other modules can depend
-    on this module and simply call out to the <methodname
-    role="keep-together">retrieveForecast()</methodname> method on
-    <classname>WeatherService</classname>, which takes a zip code as an
-    argument and which returns a <classname>Weather</classname> object.</para>
+    <para>Das nächste Modul welches wir betrachten werden, ist so etwas wie
+    ein "Dienst". Das "<varname>Simple Weather</varname>" Modul ist das Modul,
+    das alle für den Abruf und die Analyse der Daten vom Yahoo! Wetter Dienst
+    notwendige Logik enthält. Obwohl das "<varname>Simple Weather</varname>"
+    Modul aus drei Java-Klassen und einem JUnit-Test besteht, stellt es eine
+    einzige Komponente <classname>WeatherService</classname>, dar. Dieser wird
+    sowohl durch "<varname>Simple Web</varname>" der Webapplikation, und auch
+    "S<varname>imple Command</varname>" konsumiert. Häufig enthalten
+    Enterprise Projekte ein oder mehrere API-Module welche kritische
+    Business-Logik oder Logik zur Interaktion mit externen Systemen
+    beinhalten. Ein Banken System könnten ein Modul beinhalten, welches Daten
+    eines externen Providers abruft und analysiert; ein System zur Anzeige von
+    Sportergebnisse könnte einen <acronym>XML</acronym>-Datenstrom verarbeiten
+    um in Echtzeit die Ergebnisse von Basketball oder Fußball darzustellen. In
+    unserem Beispiel kapselt dieses Modul alle notwendigen
+    Netzwerk-Aktivitäten sowie das <acronym>XML</acronym>-Parsing zur
+    Interaktion mit dem Yahoo! Wetter Dienst. Andere Module können auf dieses
+    Modul aufbauen, Sie rufen einfach die Methode
+    <methodname>retrieveForecast()</methodname> der Klasse
+    <classname>WeatherService</classname> auf. Diese nimmt als Argument eine
+    Postleitzahl und liefert ein Weather-Objekt zurück.</para>
 
     <example id="example_simple-weather_module_pom">
-      <title>simple-weather Module POM</title>
+      <title>POM des simple-weather Moduls</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -739,20 +735,20 @@ public class Condition {
 </programlisting>
     </example>
 
-    <para>The <varname>simple-weather</varname> <acronym>POM</acronym> extends
-    the <varname>simple-parent</varname> <acronym>POM</acronym>, sets the
-    packaging to <varname>jar</varname>, and then adds the following
-    dependencies:</para>
+    <para>Das "<varname>Simple Weather</varname>" <acronym>POM</acronym>
+    erweitert das darüberliegende (elterliche) <acronym>POM</acronym>, setzt
+    das Packaging auf <varname>jar</varname> und fügt die folgenden
+    Abhängigkeiten ein:</para>
 
     <variablelist>
       <varlistentry>
         <term><literal>org.sonatype.mavenbook.ch07:simple-model:1.0</literal></term>
 
         <listitem>
-          <para><varname>simple-weather</varname> parses the Yahoo! Weather
-          <acronym>RSS</acronym> feed into a <classname>Weather</classname>
-          object. It has a direct dependency on
-          <varname>simple-model</varname>.</para>
+          <para>"<varname>Simple-Weather"</varname> analysiert den Yahoo!
+          Wetter Dienst (<acronym>RSS</acronym>) und verpackt dieses in ein
+          Objekt <classname>Weather</classname>. Es verfügt über eine direkte
+          Abhängigkeit zum "<varname>Simple Model</varname>" Modul.</para>
         </listitem>
       </varlistentry>
 
@@ -760,8 +756,9 @@ public class Condition {
         <term><literal>log4j:log4j:1.2.14</literal></term>
 
         <listitem>
-          <para><varname>simple-weather</varname> uses the Log4J library to
-          print log messages.</para>
+          <para>"<varname>Simple Weather</varname>" setzt auf die Bibliothek
+          <productname>Log4J</productname> zum Ausgeben von Log-Nachrichten
+          auf. </para>
         </listitem>
       </varlistentry>
 
@@ -770,8 +767,9 @@ public class Condition {
         jaxen:jaxen:1.1.1</literal></term>
 
         <listitem>
-          <para>Both of these dependencies are used to parse the
-          <acronym>XML</acronym> returned from Yahoo! Weather.</para>
+          <para>Diese Beide Abhängigkeiten sind notwendig um das vom Yahoo!
+          Wetter Dienst zurückgegebene <acronym>XML</acronym> zu verarbeiten.
+          </para>
         </listitem>
       </varlistentry>
 
@@ -780,8 +778,9 @@ public class Condition {
         (scope=test)</literal></term>
 
         <listitem>
-          <para>This <literal>test</literal>-scoped dependency is used by the
-          <classname>YahooParserTest</classname>.</para>
+          <para>Diese Abhängigkeit mit Gültigkeitsbereich
+          <literal>test</literal> wird von der Klasse
+          <classname>YahooParserTest</classname> benötigt.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -799,8 +798,23 @@ public class Condition {
     and <classname>YahooParser</classname> are both bean properties of the
     <classname>WeatherService</classname> bean.</para>
 
+    <para>Als nächstes betrachten wir die Klasse
+    <classname>WeatherService</classname> (<xref
+    linkend="example_weatherservice_class" />), diese Klasse ist sehr ähnlich
+    zur Klasse <classname>WeatherService</classname> aus <xref
+    linkend="multimodule-weather-service" /> (Beispiel 6.3: Die WeatherService
+    Klasse). Während die Klasse <classname>WeatherService</classname> die
+    Gleiche ist, gibt es in diesem Kapitel einige subtile Unterschiede des
+    Beispiels zu beachten. Diese Version der Methode
+    <methodname>retrieveForecast()</methodname> liefert ein Objekt
+    <classname>Weather</classname> zurück und überlässt die Formatierung der
+    aufrufenden Anwendungen. Die andere große Änderung ist, dass die Klassen
+    <classname>YahooRetriever</classname> und
+    <classname>YahooParser</classname> beide Bean Properties des Beans
+    <classname>WeatherService</classname> sind.</para>
+
     <example id="example_weatherservice_class">
-      <title>The WeatherService class</title>
+      <title>Die Klasse WeatherService</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -816,10 +830,10 @@ public class WeatherService {
   public WeatherService() {}
 
   public Weather retrieveForecast(String zip) throws Exception {
-    // Retrieve Data
+    // Daten holen
     InputStream dataIn = yahooRetriever.retrieve(zip);
 
-    // Parse DataS
+    // Daten auswerten 
     Weather weather = yahooParser.parse(zip, dataIn);
 
     return weather;
@@ -844,32 +858,33 @@ public class WeatherService {
 </programlisting>
     </example>
 
-    <para>Finally, in this project we have an <acronym>XML</acronym> file that
-    is used by the Spring Framework to create something called an<indexterm>
+    <para>Schlussendlich haben wir in diesem Projekt eine
+    <acronym>XML</acronym>-Datei. Diese wird vom Spring Framework benutzt, um
+    den so genannten <classname><indexterm>
         <primary>ApplicationContext (Spring Framework)</primary>
-      </indexterm> <classname>ApplicationContext</classname>. First, some
-    explanation: both of our applications, the web application and the
-    command-line utility, need to interact with the
-    <classname>WeatherService</classname> class, and they both do so by
-    retrieving an instance of this class from a Spring
-    <classname>ApplicationContext</classname> using the name
-    <varname>weatherService</varname>. Our web application uses a Spring
-    <acronym>MVC</acronym> controller that is associated with an instance of
-    <classname>WeatherService</classname>, and our command-line utility loads
-    the <classname>WeatherService</classname> from an
-    <classname>ApplicationContext</classname> in a static
-    <methodname>main()</methodname> function. To encourage reuse, we’ve
-    included an <filename>applicationContext-weather.xml</filename> file in
-    <filename>src/main/resources</filename>, which is available on the
-    classpath. Modules that depend on the <varname>simple-weather</varname>
-    module can load this application context using the
-    <classname>ClasspathXmlApplicationContext</classname> in the Spring
-    Framework. They can then reference a named instance of the
-    <classname>WeatherService</classname> named
-    <varname>weatherService</varname>.</para>
+      </indexterm>ApplicationContext</classname> zu erstellen. Zunächst einige
+    Erläuterungen: unsere beiden Anwendungen, die Web-Anwendung und das
+    Befehlszeilen-Dienstprogramm, müssen mit der Klasse
+    <classname>WeatherService</classname> interagieren. Sie tun dies indem sie
+    aus dem Spring <classname>ApplicationContext</classname> eine Instanz der
+    Klasse mit dem Namen <classname>WeatherService</classname> holen. Unsere
+    Web-Applikation, verwendet einen Spring <acronym>MVC</acronym>-Controller
+    welcher einer Instanz des <classname>WeatherService</classname> zugeordnet
+    ist, und unsere Dienstprogramm lädt die Klasse
+    <classname>WeatherService</classname> von einem Spring
+    <classname>ApplicationContext</classname> in einer statischen Methode
+    <methodname>main()</methodname>. Um die Wiederverwendbarkeit zu fördern,
+    haben wir unter <filename>/src/main/resources</filename> eine Datei
+    <filename>applicationContext-weather.xml</filename> beigefügt, welche im
+    Klassenpfad zur Verfügung steht. Module, welche eine Abhängigkeit zum
+    "<varname>Simple Weather</varname>" Modul haben, können diesen Context mit
+    dem <classname>ClasspathXmlApplicationContext</classname> des Spring
+    Framework laden. Hierauf können Sie auf eine benannte Instanz der Klasse
+    <classname>WeatherService</classname> namens
+    <varname>weatherService</varname> zugreifen. </para>
 
     <example>
-      <title>Spring Application Context for the simple-weather Module</title>
+      <title>Spring Application Context fdes simple-weather Moduls</title>
 
       <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
@@ -893,61 +908,53 @@ public class WeatherService {
 &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>This document defines three beans: <varname>yahooParser</varname>,
-    <varname>yahooRetriever</varname>, and <varname>weatherService</varname>.
-    The <varname>weatherService</varname> bean is an instance of
-    <classname>WeatherService</classname>, and this <acronym>XML</acronym>
-    document populates the <varname>yahooParser</varname> and
-    <varname>yahooRetriever</varname> properties with references to the named
-    instances of the corresponding classes. Think of this
-    <filename>applicationContext-weather.xml</filename> file as defining the
-    architecture of a subsystem in this multi-module project. Projects like
-    <varname>simple-webapp</varname> and <varname>simple-command</varname> can
-    reference this context and retrieve an instance of
-    <classname>WeatherService</classname> which already has relationships to
-    instances of <classname>YahooRetriever</classname> and
-    <classname>YahooParser</classname>.</para>
+    <para>Diese Konfiguration definiert drei Beans:
+    <classname>yahooParser</classname>, <classname>yahooRetriever</classname>
+    und <classname>weatherService</classname>. Das Bean
+    <varname>weatherService </varname>ist eine Instanz von
+    <classname>WeatherService</classname>, und das
+    <acronym>XML</acronym>-Dokument belegt die Properties
+    <varname>yahooParser</varname> und <varname>yahooRetriever</varname> mit
+    Verweisen auf benannten Instanzen der entsprechenden Klassen. Sehen Sie in
+    der Datei <filename>applicationContext-weather.xml</filename> die
+    Definition der Architektur eines Teilsystems in diesem
+    Multi-Modul-Projekt. Projekte wie "<varname>Simple Web</varname>" oder
+    "<varname>Simple Command</varname>" können diesen Context referenzieren,
+    und somit eine Instanz des <classname>WeatherService</classname> abrufen
+    welcher bereits in Bezug zu Instanzen von
+    <classname>YahooRetriever</classname> und
+    <classname>YahooParser</classname> steht. </para>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-persist">
-    <title>The Simple Persist Module</title>
+    <title>Das "Simple Persist" Modul - Die Datenabstraktion</title>
 
-    <para>This module defines two very simple Data Access Objects (DAOs). A
-    DAO<indexterm>
-        <primary>DAO (Data Access Objects)</primary>
-      </indexterm><indexterm class="startofrange" id="enterprise5a">
-        <primary>multimodule project (example)</primary>
+    <para>Dieses Modul definiert zwei sehr einfache Daten Zugriffsobjekte
+    (Data Access Objects: <acronym>DAO</acronym>). Ein <acronym>DAO</acronym>
+    ist ein Objekt, das eine Schnittstelle für die Persistenz bereitstellt.
+    </para>
 
-        <secondary>multimodule enterprise project</secondary>
+    <para><note>
+        <para>Warum Persistenz und nicht Speicherung? Persistenz ist der
+        allgemeine Begriff, während Speicherung sich hinlänglich auf ein
+        lokales Medium bezieht, was in keinem Fall gegeben sein muss.</para>
+      </note></para>
 
-        <tertiary>Simple Persist module of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise5b">
-        <primary>Web applications</primary>
-
-        <secondary>multimodule enterprise project example</secondary>
-
-        <tertiary>Simple Persist module of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise5c">
-        <primary>enterprise project, multimodule (example)</primary>
-
-        <secondary>Simple Persist module of</secondary>
-      </indexterm> is an object that provides an interface for persistence
-    operations. In an application that makes use of an Object-Relational
-    Mapping (ORM) framework such as Hibernate, DAOs are usually defined around
-    objects. In this project, we are defining two DAO objects: <varname
-    role="keep-together">WeatherDAO</varname> and
-    <varname>LocationDAO</varname>. The <varname>WeatherDAO</varname> class
-    allows us to save a <varname>Weather</varname> object to a database and
-    retrieve a <varname>Weather</varname> object by <literal>id</literal>, and
-    to retrieve <varname>Weather</varname> objects that match a specific
-    <varname>Location</varname>. The <varname>LocationDAO</varname> has a
-    method that allows us to retrieve a <varname>Location</varname> object by
-    zip code. First, let’s take a look at the
-    <literal>simple-persist</literal> POM in <xref
-    linkend="ex-simple-persist-POM" />.</para>
+    <para>In einer Anwendung welche auf Object-Relational-Mapping
+    (<acronym>ORM</acronym>) Werkzeuge wie Hibernate zur Abbildung aufbaut,
+    werden in der Regel <acronym>DAO</acronym>s um die zu persistierenden
+    Objekte erstellt. In diesem Projekt definieren wir zwei DAO-Objekte:
+    <classname>WeatherDAO</classname> und <classname>LocationDAO</classname>.
+    Die Klasse <classname>WeatherDAO</classname> erlaubt es uns,
+    Wetter-Objekte in einer Datenbank abzuspeichern bzw. Wetter-Objekte anhand
+    eines Schlüssels (<varname>weatherId</varname>) oder auch zu einem
+    bestimmten Standort abzurufen. Das <classname>LocationDAO</classname>
+    besitzt eine Methode, welche es uns erlaubt zu einer gegebenen
+    Postleitzahl das entspreche Standort-Objekt zu holen. Lassen Sie uns einen
+    Blick auf die "<varname>Simple Persist</varname>" POM werfen: </para>
 
     <example id="ex-simple-persist-POM">
-      <title>simple-persist POM</title>
+      <title>POM des "simple-persist" Moduls</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1007,19 +1014,20 @@ public class WeatherService {
 </programlisting>
     </example>
 
-    <para>This <acronym>POM</acronym> file references
-    <varname>simple-parent</varname> as a parent <acronym>POM</acronym>, and
-    it defines a few dependencies. The dependencies listed in
-    <varname>simple-persist</varname>'s <acronym>POM</acronym> are:</para>
+    <para>Diese <acronym>POM</acronym>-Datei referenziert "<varname>Simple
+    Parent</varname>" als darüberliegendes, elterliches
+    <acronym>POM</acronym>, sowie eine Anzahl Abhängigkeiten. Im Rahmen des
+    "<varname>Simple Persist</varname>" Moduls sind diese:</para>
 
     <variablelist>
       <varlistentry>
         <term><literal>org.sonatype.mavenbook.ch07:simple-model:1.0</literal></term>
 
         <listitem>
-          <para>Just like the <varname>simple-weather</varname> module, this
-          persistence module references the core model objects defined in
-          <varname>simple-model</varname>.</para>
+          <para>Genau wie bereits im "<varname>Simple Weather</varname>"
+          Modul, wird hier eine Abhängigkeit zum grundlegenden Objekt Modell
+          wie es in "<varname>Simple Model</varname>" definiert ist,
+          beschrieben.</para>
         </listitem>
       </varlistentry>
 
@@ -1027,23 +1035,18 @@ public class WeatherService {
         <term><literal>org.hibernate:hibernate:3.2.5.ga</literal></term>
 
         <listitem>
-          <para>We define a dependency on Hibernate version 3.2.5.ga, but
-          notice that we’re excluding a dependency of Hibernate. We’re doing
-          this because the
-          <varname>javax.</varname><varname>transaction:</varname><varname>javax</varname>
-          <indexterm>
-              <primary>dependencies</primary>
-
-              <secondary>javax.transaction:javax (unavailable)</secondary>
-            </indexterm><indexterm>
-              <primary>javax.transaction:javax dependency
-              (unavailable)</primary>
-            </indexterm>dependency is not available in the public Maven
-          repository. This dependency happens to be one of those Sun
-          dependencies that has not yet made it into the free central Maven
-          repository. To avoid an annoying message telling us to go download
-          these nonfree dependencies, we simple exclude this dependency from
-          Hibernate and add a dependency on...</para>
+          <para>Wir definieren eine Abhängigkeit zu
+          <productname>Hibernate</productname> <productnumber>Version
+          3.2.5.ga</productnumber>, aber wie Sie richtig bemerkt haben, wird
+          eine (transitive) Abhängigkeit von Hibernate ausgeschlossen. Wir tun
+          dies, da die Abhängigkeit <varname>javax.transaction:javax</varname>
+          nicht im öffentlichen Maven-Repository verfügbar ist. Diese
+          Abhängigkeit ist eine dieser Abhängigkeiten zu Sun Microsystems
+          Quellcode, welche es noch nicht in die freien zentralen
+          Maven-Repositories geschafft hat. Um zu verhindern, dass ein immer
+          eine ärgerlicher Meldung uns auf den notwendigen Download dieser
+          (unfreien) Abhängigkeit hinweist, schliessen wir diese einfach aus,
+          und fügen eine neue Abhängigkeit hinzu ...</para>
         </listitem>
       </varlistentry>
 
@@ -1051,8 +1054,8 @@ public class WeatherService {
         <term><literal>javax.servlet:servlet-api:2.4</literal></term>
 
         <listitem>
-          <para>Since this project contains a Servlet, we need to include the
-          Servlet API version 2.4.</para>
+          <para>Da das Projekt ein Servlet beinhaltet, müssen wir das Servlet
+          API version 2.4 einschliessen. </para>
         </listitem>
       </varlistentry>
 
@@ -1060,30 +1063,31 @@ public class WeatherService {
         <term><literal>org.springframework:spring:2.0.7</literal></term>
 
         <listitem>
-          <para>This includes the entire Spring Framework as a
-          dependency<indexterm>
+          <para>Dies umfasst das gesamte Spring Framework als Abhängigkeit
+          <indexterm>
               <primary>Spring Framework</primary>
-            </indexterm>.</para>
+            </indexterm>. </para>
 
           <note>
-            <para>It is generally a good practice to depend on only the
-            components of Spring you happen to be using. The Spring Framework
-            project has been nice enough to create focused artifacts such as
-            <varname>spring-hibernate3</varname>.</para>
+            <para>Es ist generell besser, eine Abhängigkeit zu den Komponenten
+            von Spring zu definieren, zu denen diese tatsächlich besteht. Das
+            Spring Framework-Projekt kommt Ihnen hier sehr entgegen, indem es
+            genau definierende Artefakte wie z.B.
+            <classname>spring-hibernate3</classname> erschaffen hat.)</para>
           </note>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Why depend on Spring? When it comes to Hibernate integration, Spring
-    allows us to leverage helper classes such as
-    <classname>HibernateDaoSupport</classname>. For an example of what is
-    possible with the help of <classname>HibernateDaoSupport</classname>, take
-    a look at the code for the <classname>WeatherDAO</classname> in <xref
-    linkend="ex-persist-weatherdao-class" />.</para>
+    <para>Warum sich von Spring abhängig machen? Bei der Integration von
+    Hibernate, erlaubt uns der Einsatz von Spring Helfer-Klassen wie die
+    Klasse <classname>HibernateDaoSupport </classname>auszunützen. Um Ihnen
+    ein Beispiel dafür zu geben, was unter Einsatz des
+    <classname>HibernateDaoSupport</classname> möglich ist, werfen Sie einen
+    Blick auf den Quellcode für das <classname>WeatherDAO</classname>:</para>
 
     <example id="ex-persist-weatherdao-class">
-      <title>simple-persist's WeatherDAO Class</title>
+      <title>WeatherDAO Klasse des "simple persist" Moduls</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.persist;
 
@@ -1128,76 +1132,76 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
 }</programlisting>
     </example>
 
-    <para>That's it. No really, you are done writing a class that can insert
-    new rows, select by primary key, and find all rows in Weather that join to
-    an id in the Location table. Clearly, we can't stop this book and insert
-    the five hundred pages it would take to get you up to speed on the
-    intricacies of Hibernate, but we can do some very quick
-    explanation:</para>
+    <para>Das ist alles! Nein wirklich, das ist die gesamte Klasse mit welcher
+    Sie neue Zeilen einfügen, anhand von Primärschlüsseln Werte suchen, oder
+    auch alle Zeilen in der Weather-Tabelle finden welche eine Referenz auf
+    einen Ort setzen. Sie werden verstehen, dass wir an dieser Stelle nicht
+    einfach das Buch schliessen können um die notwendigen fünfhundert Seiten
+    Erklärung der Feinheiten des Hibernate Frameworks einzuschieben, aber was
+    wir tun können ist, Ihnen ein paar kurze Erklärungen geben: </para>
 
     <calloutlist>
       <callout arearefs="coDef-hibDao-1" id="coRef-hibDao-1">
-        <para>This class extends <classname>HibernateDaoSupport</classname>.
-        What this means is that the class is going to be associated with a
-        Hibernate <classname>SessionFactory</classname> which it is going to
-        use to create Hibernate <classname>Session</classname> objects. In
-        Hibernate, every operation goes through a
-        <classname>Session</classname> object, a
-        <classname>Session</classname> mediates access to the underlying
-        database and takes care of managing the connection to the JDBC
-        <classname>DataSource</classname>. Extending
-        <classname>HibernateDaoSupport</classname> also means that we can
-        access the <classname>HibernateTemplate</classname> using
-        <methodname>getHibernateTemplate()</methodname>. For an example of
-        what can be done with the
-        <classname>HibernateTemplate</classname>...</para>
+        <para>Die Klasse leitet sich von
+        <classname>HibernateDaoSupport</classname> ab. Das bedeutet, dass die
+        Klasse mit einer Hibernate <classname>SessionFactory</classname>
+        verbunden ist, welche zum Einsatz kommt Hibernate Session Objekte zu
+        erstellen. In Hibernate wird jeder Aufruf über ein Session-Objekt
+        ausgeführt. Eine Session vermittelt Zugang zu der zugrunde liegenden
+        Datenbank und kümmert sich um die Verwaltung der Verbindung zur
+        <acronym>JDBC</acronym>-Datenquelle. Die Erweiterung von
+        <classname>HibernateDaoSupport</classname> bedeutet auch, dass wir
+        Zugriff auf <classname>HibernateTemplates</classname> mittels
+        <methodname>getHibernateTemplate()</methodname> haben. Um Ihnen ein
+        Beispiel davon zu geben, was mit
+        <classname>HibernateTemplates</classname> möglich ist ... </para>
       </callout>
 
       <callout arearefs="coDef-hibDao-2" id="coRef-hibDao-2">
-        <para>The <methodname>save()</methodname> method takes an instance of
-        <classname>Weather</classname> and calls the
-        <methodname>save()</methodname> method on a
-        <classname>HibernateTemplate</classname>. The
-        <classname>HibernateTemplate</classname> simplifies calls to common
-        Hibernate operations and converts any database specific exceptions to
-        runtime exceptions. Here we call out to
-        <methodname>save()</methodname> which inserts a new record into the
-        <classname>Weather</classname> table. Alternatives to
-        <methodname>save()</methodname> are <methodname>update()</methodname>
-        which updates an existing row, or
-        <methodname>saveOrUpdate()</methodname> which would either save or
-        update depending on the presence of a non-null <varname>id</varname>
-        property in Weather.</para>
+        <para>...die Methode <methodname>save()</methodname> nimmt sich einer
+        Instanz eines Wetter Objekts an, und ruft die Methode
+        <methodname>save()</methodname> eines
+        <classname>HibernateTemplate</classname> auf. Das
+        <classname>HibernateTemplate</classname> verwandelt den Aufruf in
+        einfache Hibernate Operationen um, und wandelt jegliche Datenbank
+        spezifische Exeptions in entsprechende Runtime-Exceptions um. In
+        diesem Fall rufen wir <methodname>save()</methodname> auf, um einen
+        Datensatz in der Datenbank, in der Tabelle
+        <classname>Weather</classname> abzulegen. Alternativen zu diesem
+        Aufruf wären <methodname>update()</methodname> sollten wir einen
+        Eintrag aktualisieren, oder <methodname>saveOrUpdate()</methodname>,
+        welches den Datensatz entweder anlegt oder aktualisiert, abhängig von
+        der Anwesenheit eines Properties <varname>id</varname> des Objekts
+        Weather, das nicht Null sein darf.</para>
       </callout>
 
       <callout arearefs="coDef-hibDao-3" id="coRef-hibDao-3">
-        <para>The <methodname>load()</methodname> method, once again, is a
-        one-liner that just calls a method on an instance of
-        <classname>HibernateTemplate</classname>.
-        <methodname>load()</methodname> on
-        <classname>HibernateTemplate</classname> takes a
-        <classname>Class</classname> object and a
-        <classname>Serializable</classname> object. In this case,
-        the<classname> Serializable</classname> corresponds to the
-        <varname>id</varname> value of the <classname>Weather</classname>
-        object to load.</para>
+        <para>Die Methode <methodname>load()</methodname> ist ein weiterer
+        Einzeiler, welcher lediglich eine Methode einer Instanz des
+        <classname>HibernateTemplates</classname> aufruft. Die Methode
+        <methodname>load()</methodname> des
+        <classname>HibernateTemplates</classname> hat zwei Parameter eine
+        Klasse sowie eine serialisierbares Objekt. In diesem Fall entspricht
+        das serialisierbare Objekt dem Wert der <varname>id</varname> des
+        Objekts <classname>Weather</classname> welches geladen werden soll.
+        </para>
       </callout>
 
       <callout arearefs="coDef-hibDao-4" id="coRef-hibDao-4">
-        <para>This last method <methodname>recentForLocation()</methodname>
-        calls out to a <classname>NamedQuery</classname> defined in the
-        <classname>Weather</classname> model object. If you can think back
-        that far, the <classname>Weather</classname> model object defined a
-        named query <code>"Weather.byLocation"</code> with a query of
-        <code>"from Weather w where w.location = :location"</code>. We're
-        loading this <classname>NamedQuery</classname> using a reference to a
-        Hibernate <classname>Session</classname> object inside a
-        <classname>HibernateCallback</classname> which is executed by the
-        <methodname>execute()</methodname> method on
-        <classname>HibernateTemplate</classname>. You can see in this method
-        that we're populating the named parameter location with the parameter
-        passed in to the <methodname>recentForLocation()</methodname>
-        method.</para>
+        <para>Diese letzte Methode
+        <methodname>recentForLocation()</methodname> beruft sich auf ein
+        <classname>NamedQuery</classname> das im Wetter-Objekt-Modell
+        festgelegt wurde. Sollten Sie sich erinnern, wir haben im
+        Wetter-Objekt-Modell eine Abfrage "<code>Weather.byLocation</code>" in
+        der Form "<code>from Weather w where w.location = :location</code>"
+        definiert. Wir Laden dieses <classname>NamedQuery</classname> mit
+        einem Verweis auf ein Hibernate Session-Objekt in einem
+        <classname>HibernateCallback</classname> der ausgeführt wird, indem
+        die Methode <methodname>execute()</methodname> eines
+        <classname>HibernateTemplate</classname> aufgerufen wird. In dieser
+        Methode sehen Sie, wie wir die benannten Parameter mit dem Parameter
+        des Aufrufs der Methode <methodname>recentForLocation()</methodname>
+        bevölkern.</para>
       </callout>
     </calloutlist>
 
@@ -1213,8 +1217,22 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
     <filename>src/main/resources</filename> in a file named <filename
     role="keep-together">applicationContext-persist.xml</filename>.</para>
 
+    <para>Es ist an der Zeit für einige Klarstellungen:
+    <classname>HibernateDaoSupport</classname> und
+    <classname>HibernateTemplate</classname> sind Klassen des
+    <productname>Spring Framework</productname>. Sie wurden von den
+    Entwicklern des Spring Framework bereitgestellt, um das Bearbeiten von
+    Hibernate DAO-Objekte schmerzloser zu gestalten. Um dieses
+    <acronym>DAO</acronym> zu unterstützen, müssen wir noch einige wenige
+    Einstellungen in der Definition des Spring
+    <classname>ApplicationContext</classname> von "<varname>Simple
+    Persist</varname>" vornehmen. Das folgende <acronym>XML</acronym>-Dokument
+    ist unter <filename>/src/main/resources</filename> in einer Datei mit dem
+    Namen <filename>applicationContext-persist.xml</filename> abgelegt.</para>
+
     <example id="ex-persist-spring">
-      <title>Spring Application Context for simple-persist</title>
+      <title>Spring Application Context Definition für das "simple-persist"
+      Modul</title>
 
       <programlisting language="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1270,29 +1288,31 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
  &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>In this application context, we're accomplishing a few things. The
-    <varname>sessionFactory</varname> bean is the bean from which the
-    <acronym>DAO</acronym>s retrieve Hibernate <classname>Session</classname>
-    objects. This bean is an instance of
-    <classname>AnnotationSessionFactoryBean</classname> and is supplied with a
-    list of <varname>annotatedClasses</varname>. Note that the list of
-    annotated classes is the list of classes defined in our
-    <varname>simple-model</varname> module. Next, the
-    <varname>sessionFactory</varname> is configured with a set of Hibernate
-    configuration properties (<varname>hibernateProperties</varname>). In this
-    example, our Hibernate properties define a number of settings:</para>
+    <para>Dieser ApplicationContext erreicht eine Anzahl verschiedener Dinge:
+    zunächst wird ein <classname>SessionFactory</classname> Bean
+    bereitgestellt, ein Bean von welchem die <acronym>DAO</acronym>s die
+    Hibernate Session Objekte beziehen. Dieses Bean ist eine Instanz des
+    <classname>AnnotatedServiceFactoryBean</classname> und wird mit einer
+    Anzahl <varname>annotatedClasses</varname> bereitgestellt. Hier sei
+    bemerkt, dass die Liste der bereitgestellten annotierten Klassen die Liste
+    der Klassen darstellt, welche in unserem Modul "<varname>Simple
+    Model</varname>" definiert wurden. Als nächstes wird die
+    <classname>sessionFactory</classname> entsprechend einer Reihe von
+    Hibernate Konfigurationseigenschaften (hibernateProperties) konfiguriert.
+    In diesem Beispiel definieren die HibernateProperties eine Reihe von
+    Einstellungen:</para>
 
     <variablelist>
       <varlistentry>
         <term><literal>hibernate.dialect</literal></term>
 
         <listitem>
-          <para>This setting controls how <acronym>SQL</acronym> is to be
-          generated for our database. Since we are using the
-          <acronym>HSQLDB</acronym> database, our database dialect is set to
-          <classname>org.</classname><classname>hibernate.</classname><classname>dialect.</classname><classname>HSQLDialect</classname>.
-          Hibernate has dialects for all major databases such as Oracle,
-          MySQL, Postgres, and SQL Server.</para>
+          <para>Diese Einstellung definiert, welcher SQL-Dialekt für unsere
+          Datenbank generiert wird. Da wir als Datenbank HSQLDB einsetzen, ist
+          der gewählte Datenbank Dialekt
+          <classname>org.hibernate.dialect.HSQLDialect</classname>. Hibernate
+          unterstützt die SQL-Dialekte aller wichtigen Datenbank Systeme wie
+          Oracle, MySQL, PostgreSQL und SQL Server.</para>
         </listitem>
       </varlistentry>
 
@@ -1300,28 +1320,29 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
         <term><literal>hibernate.connection.*</literal></term>
 
         <listitem>
-          <para>In this example, we’re configuring the <acronym>JDBC</acronym>
-          connection properties from the Spring configuration. Our
-          applications are configured to run against a
-          <acronym>HSQLDB</acronym> in the <filename
-          role="keep-together">./data/weather</filename> directory. In a real
-          enterprise application, it is more likely you would use something
-          like <acronym>JNDI</acronym> to externalize database configuration
-          from your application’s code.</para>
+          <para>In diesem Beispiel werden die
+          <acronym>JDBC</acronym>-Verbindungsparameter aus der Spring
+          Konfiguration heraus gesetzt. Unsere Anwendungen sind so
+          konfiguriert, dass sie gegen eine HSQLDB unter dem Verzeichnis
+          <filename>./data/weather</filename> arbeiten. In einer echten
+          Enterprise Applikation ist es wahrscheinlicher, dass Sie die
+          Datenbankkonfiguration mittles <acronym>JNDI</acronym>
+          externalisieren und somit von Ihrem Quellcode trennen.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>Lastly, in this bean definition file, both of the
-    <varname>simple-persist</varname> <acronym>DAO</acronym> objects are
-    created and given a reference to the <varname>sessionFactory</varname>
-    bean just defined. Just like the Spring application context in
-    <varname>simple-weather</varname>, this
-    <filename>applicationContext-persist.xml</filename> file defines the
-    architecture of a submodule in a larger enterprise design. If you were
-    working with a larger collection of persistence classes, you might find it
-    useful to capture them in an application context which is separate from
-    your application.</para>
+    <para>Schließlich werden in der Definitionsdatei der Bean die beiden
+    <acronym>DAO</acronym>-Objekte des "<varname>Simple Persist</varname>"
+    Moduls erstellt und mit einer Referenz auf die eben erstellte
+    <classname>sessionFactory</classname> Bean versehen. Genau wie im Spring
+    Applikations- Context von "<varname>Simple Weather</varname>" definiert
+    diese Datei <filename>applicationContext-persit.xml</filename> die
+    Architektur eines Submoduls einer grösseren Anwendung. Sollten Sie mit
+    einer grösseren Anzahl von Persistenzklassen arbeiten, bietet es sich
+    unter Umständen an, diese in einem eigenen
+    <classname>applicationContext</classname> ausserhalb Ihrer Anwendung
+    zusammenzufassen.</para>
 
     <para>There’s one last piece of the puzzle in
     <varname>simple-persist</varname>. Later in this chapter, we’re going to
@@ -1344,8 +1365,23 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     to generate Data Definition Language (<acronym>DDL</acronym>) from nothing
     more than our annotations. See <xref linkend="ex-hibernate-cfg" />.</para>
 
+    <para>Als letztes Puzzleteil des "<varname>Simple Persist</varname>"
+    Beispiels werden wir später im Kapitel erfahren, wie wir mit der Hilfe des
+    Hibernate3 Maven Plugins aus den annotierten Modellobjekten unser
+    Datenbankschema erzeugen können. Damit dies funktioniert, muss das
+    Hibernate3 Maven Plugin die Parameter der
+    <acronym>JDBC</acronym>-Verbindungskonfiguration, die Liste der
+    kommentierten Klassen und andere Hibernate-Konfigurations Parameter aus
+    einer Datei mit dem Namen <filename>hibernate.cfg.xml</filename> unter
+    <filename>/src/main/resources</filename> auslesen können. Der Zweck dieser
+    Datei (welche einige Konfigurationen der
+    <filename>applicationContext-persist.xml</filename> dupliziert) ist es,
+    das Hibernate3 Maven Plugin so zu nutzen, dass wir aus nichts weiter als
+    unseren annotierten Klassen die gesamte <acronym>DDL</acronym> erstellen
+    können.</para>
+
     <example id="ex-hibernate-cfg">
-      <title>simple-persist hibernate.cfg.xml</title>
+      <title>hibernate.cfg.xml des "simple-persist" Moduls</title>
 
       <programlisting language="xml">&lt;!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -1354,34 +1390,34 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 &lt;hibernate-configuration&gt;
   &lt;session-factory&gt;
         
-    &lt;!-- SQL dialect --&gt;
+    &lt;!-- SQL Dialekt --&gt;
     &lt;property name="dialect"&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt;
     
-    &lt;!-- Database connection settings --&gt;
+    &lt;!-- Datenbank Verbindungsparamenter --&gt;
     &lt;property name="connection.driver_class"&gt;org.hsqldb.jdbcDriver&lt;/property&gt;
     &lt;property name="connection.url"&gt;jdbc:hsqldb:data/weather&lt;/property&gt;
     &lt;property name="connection.username"&gt;sa&lt;/property&gt;
     &lt;property name="connection.password"&gt;&lt;/property&gt;
     &lt;property name="connection.shutdown"&gt;true&lt;/property&gt;
     
-    &lt;!-- JDBC connection pool (use the built-in one) --&gt;
+    &lt;!-- JDBC connection pool (den gestellten pool benutzen) --&gt;
     &lt;property name="connection.pool_size"&gt;1&lt;/property&gt;
     
-    &lt;!-- Enable Hibernate's automatic session context management --&gt;
+    &lt;!-- Aktivierung des automatischen Hibernate Session Context Management --&gt;
     &lt;property name="current_session_context_class"&gt;thread&lt;/property&gt;
     
-    &lt;!-- Disable the second-level cache  --&gt;
+    &lt;!-- Deaktivierung des second Level Cache --&gt;
     &lt;property name="cache.provider_class"&gt;
       org.hibernate.cache.NoCacheProvider
     &lt;/property&gt;
     
-    &lt;!-- Echo all executed SQL to stdout --&gt;
+    &lt;!-- Ausgabe allen SQL auf stdout --&gt;
     &lt;property name="show_sql"&gt;true&lt;/property&gt;
     
-    &lt;!-- disable batching so HSQLDB will propagate errors correctly. --&gt;
+    &lt;!-- deaktivierung der Batch funktionalität von HSQLDB um Fehler korrekt weiterzugeben --&gt;
     &lt;property name="jdbc.batch_size"&gt;0&lt;/property&gt;
     
-    &lt;!-- List all the mapping documents we're using --&gt;
+    &lt;!-- Auflisten aller bestehender Property Dateien --&gt;
     &lt;mapping class="org.sonatype.mavenbook.weather.model.Atmosphere"/&gt;
     &lt;mapping class="org.sonatype.mavenbook.weather.model.Condition"/&gt;
     &lt;mapping class="org.sonatype.mavenbook.weather.model.Location"/&gt;
@@ -1392,59 +1428,47 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 &lt;/hibernate-configuration&gt;</programlisting>
     </example>
 
-    <para>The contents of <xref linkend="ex-persist-spring" /> and <xref
-    linkend="ex-multimodule-web-spring-parent" /> are redundant. While the
-    Spring Application Context <acronym>XML</acronym> is going to be used by
-    the web application and the command-line application, the
-    <filename>hibernate.cfg.xml</filename> exists only to support the Maven
-    Hibernate3 plugin. Later in this chapter, we'll see how to use this
-    <filename>hibernate.cfg.xml</filename> and the Maven Hibernate3 plugin to
-    generate a database schema based on the annotated object model defined in
-    <varname>simple-model</varname>. This
-    <filename>hibernate.cfg.xml</filename> file is the file that will
-    configure the <acronym>JDBC</acronym> connection properties and enumerate
-    the list of annotated model classes for the Maven Hibernate3
-    plugin.</para>
+    <para>Die Inhalte von <xref linkend="ex-persist-spring" /> (Beispiel 7.10:
+    "'Simple Persist' Spring Application Context") und <xref
+    linkend="ex-multimodule-web-spring-parent" /> (Beispiel 7.1: "Simple
+    Parent POM Project" ) sind redundant. Während die Datei
+    <filename>SpringApplicationContext.xml</filename> von der Web- sowie der
+    Befehlszeilen-Anwendung benutzt wird, findet die Datei
+    <filename>hibernate.cfg.xml</filename> nur Einsatz zur Unterstützung des
+    Hibernate3 Maven Plugins. Später in diesem Kapitel werden wir sehen, wie
+    man mittels der Datei <filename>hibernate.cfg.xml</filename> und dem
+    Hibernate3 Maven Plugin ein Datenbank-Schema, basierend auf dem
+    kommentierten Objektmodell wie dieses in "<varname>Simple Model</varname>"
+    besteht, generieren kann. Es ist die Datei
+    <filename>hibernate.cfg.xml</filename> welche die Eigenschaften der
+    <acronym>JDBC</acronym>-Verbindung konfiguriert und die annotierten
+    Modelklassen in form einer Aufzählung dem Hibernate3 Maven Plugin
+    bereitstellt.</para>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-web">
-    <title>The Simple Web Application Module</title>
+    <title>Das "Simple Web" Modul - Das Web-Interface</title>
 
-    <para>The web application is defined in a <varname>simple-webapp</varname>
-    <indexterm class="startofrange" id="enterprise6a">
-        <primary>multimodule project (example)</primary>
-
-        <secondary>multimodule enterprise project</secondary>
-
-        <tertiary>Simple Web Application of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise6b">
-        <primary>Web applications</primary>
-
-        <secondary>multimodule enterprise project example</secondary>
-
-        <tertiary>Simple Web Application of</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise6c">
-        <primary>enterprise project, multimodule (example)</primary>
-
-        <secondary>Simple Web Application of</secondary>
-      </indexterm>project. This simple web application project is going to
-    define two Spring <acronym>MVC</acronym> Controllers:
-    <classname>WeatherController</classname> and <classname
-    role="keep-together">HistoryController</classname>. Both of these
-    controllers are going to reference components defined in
-    <varname>simple-weather</varname> and <varname>simple-persist</varname>.
-    The Spring container is configured in this application’s
-    <filename>web.xml</filename>, which references the
-    <filename>applicationContext-weather.xml</filename> file in <varname
-    role="keep-together">simple-weather</varname> and the
-    <filename>applicationContext-persist.xml</filename> file in
-    <varname>simple-persist</varname>. The component architecture of this
-    simple web application is shown in <xref
-    linkend="fig-web-components" />.</para>
+    <para>Die Web-Anwendung wird in einem einfachen Web Applikations Projekt
+    definiert. Dieses einfache Web Applikations Projekt definiert zwei Spring
+    <acronym>MVC</acronym> Controller Objekte:
+    <classname>WeatherController</classname> und
+    <classname>HistoryController</classname>. Beide Controller werden auf
+    Komponenten der "<varname>Simple Weather</varname>" und "<varname>Simple
+    Persist</varname>" Module abgebildet. Der Spring Container wird in der zu
+    dieser Applikation zugehörigen Datei <filename>web.xml</filename>
+    konfiguriert. Diese referenziert die Datei
+    <filename>applicationContext-weather.xml</filename> unter "<varname>Simple
+    Weather</varname>" sowie die Datei
+    <filename>applicationContext-persist.xml </filename>in "<varname>Simple
+    Persist</varname>". Die Komponenten-Architektur von dieser einfachen
+    Web-Anwendung ist in <xref linkend="fig-web-components" /> (Abbildung 7.3:
+    "Abhängigkeiten des Spring MVC Controllers zu den Komponenten aus 'Simple
+    Weather' sowie 'Simple Persist' ") dargestellt. </para>
 
     <figure id="fig-web-components">
-      <title>Spring MVC Controllers Referencing Components in simple-weather
-      and simple-persist.</title>
+      <title>Abhängigkeiten des Spring MVC Controllers zu den Komponenten aus
+      'Simple Weather' sowie 'Simple Persist'</title>
 
       <mediaobject>
         <imageobject>
@@ -1454,11 +1478,10 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       </mediaobject>
     </figure>
 
-    <para>The POM for <varname>simple-webapp</varname> is shown in <xref
-    linkend="example_pom-for-simple-webapp" />.</para>
+    <para>Das POM des Moduls "Simple Webapp" wird unten aufgeführt:</para>
 
     <example id="example_pom-for-simple-webapp">
-      <title>POM for simple-webapp</title>
+      <title>POM fder simple-webapp</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1545,96 +1568,95 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 </programlisting>
     </example>
 
-    <para>As this book progresses and the examples become more and more
-    substantial, you’ll notice that the <filename>pom.xml</filename> begins to
-    take on some weight. In this POM, we’re configuring four dependencies and
-    two plugins. Let’s go through this POM in detail and dwell on some of the
-    important configuration points:</para>
+    <para>Mit dem fortschreiten des Buches werden Sie festellen, dass die
+    Datei <filename>pom.xml</filename> an Länge gewinnt. In diesem POM werden
+    wir vier Abhängigkeiten und zwei Plugins konfigurieren. Lassen Sie uns
+    Schritt für Schritt das POM durchgehen und die für die Konfiguration
+    wichtigen Punkte genauer erläutern:</para>
 
     <calloutlist>
       <callout arearefs="coDef-spring-web-1" id="coRef-spring-web-1">
-        <para>This <varname>simple-webapp</varname> project defines four
-        dependencies: the Servlet 2.4 specification, the simple-weather
-        service library, the simple-persist persistence library, and the
-        entire Spring Framework 2.0.7.</para>
+        <para>Das "<varname>Simple Web</varname>" Applikationsmodul definiert
+        vier Abhängigkeiten: die Servlet-Spezifikation 2.4, die
+        "<varname>Simple Weather</varname>" Dienste, die "<varname>Simple
+        Persist</varname>" Applikations-Bibliothek sowie das gesamte Spring
+        Framework 2.0.7.</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-2" id="coRef-spring-web-2">
-        <para>The Maven Jetty plugin couldn’t be easier to add to this
-        <indexterm>
-            <primary>Maven Jetty plugin</primary>
-          </indexterm><indexterm>
-            <primary>Jetty plugin</primary>
-          </indexterm>project; we simply add a <literal>plugin</literal>
-        element that references the appropriate <literal>groupId</literal> and
-        <literal>artifactId</literal>. The fact that this plugin is so trivial
-        to configure means that the plugin developers did a good job of
-        providing adequate defaults that don’t need to be overridden in most
-        cases. If you did need to override the configuration of the Jetty
-        plugin, you would do so by providing a
-        <literal>configuration</literal> element.</para>
+        <para>Das Jetty Maven Plugin könnte nicht einfacher in dieses Projekt
+        einzufügen sein: wir fügen einfach ein Plugin-Element, welches die
+        entsprechenden Koordinaten <literal>groupId</literal> und
+        <literal>artifactId</literal> setzt, ein. Die Tatsache, dass dieses
+        Plugin so trivial zu konfigurieren ist bedeutet, dass die
+        Plugin-Entwickler einen guten Dienst getan haben. Es wurden sinnvolle
+        Standardwerte gesetzt, welche wir in den meisten Fällen nicht
+        übersteuern müssen. Sollten Sie dennoch die Standardeinstellungen
+        übersteuern wollen/müssen, so tun Sie dies indem Sie ein
+        Konfigurationselement mit den entsprechenden Werten einfügen.</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-3" id="coRef-spring-web-3">
-        <para>In our build configuration, we're going to be configuring the
-        Maven Hibernate3 Plugin to hit an embedded HSQLDB instance. For the
-        Maven Hibernate 3 plugin to successfully connect to this database
-        using JDBC, the plugin will need reference the HSQLDB JDBC driver on
-        the classpath. To make a dependency available for a plugin, we add a
-        <sgmltag>dependency</sgmltag> declaration right inside
-        <sgmltag>plugin</sgmltag> declaration. In this case, we're referencing
-        hsqldb:hsqldb:1.8.0.7. The Hibernate plugin also needs the JDBC driver
-        to create the database, so we have also added this dependency to its
-        configuration.</para>
+        <para>In unserer Build Konfiguration werden wir das Hibernate3 Maven
+        Plugin so konfigurieren, dass dieses gegen eine eingebettete Instanz
+        einer HSSQL Datenbank läuft. Damit das Hibernate3 Maven Plugin auf die
+        Datenbank zugreifen kann, muss diese einen Verweis auf die
+        JDBC-Treiber der HSSQL-Datenbank im Klassenpfad bekommen. Um diese
+        Abhängigkeit eines Plugins bereitzustellen, erklären wir diese direkt
+        im Plugin-Element. Hier referenzieren wir
+        <productname>hsqldb:hsqldb:1.8.0.7</productname>. Das Hibernate Plugin
+        benötigt die JDBC-Treiber ebenfalls, um die Datenbank zu erstellen.
+        Aus diesem Grund haben wir diese dort ebenfalls referenziert.</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-4" id="coRef-spring-web-4">
-        <para>The Maven Hibernate plugin is when this POM starts to get
-        <indexterm>
-            <primary>Maven Hibernate plugin</primary>
-          </indexterm><indexterm>
-            <primary>Hibernate plugin</primary>
-          </indexterm>interesting. In the next section, we’re going to run the
-        <literal>hbm2ddl</literal> goal to generate a HSQLDB database. In this
-        <filename>pom.xml</filename>, we’re including a reference to version
-        2.0 of the <literal>hibernate3-maven-plugin</literal> hosted by the
-        Codehaus Mojo plugin.</para>
+        <para>Es ist hier im Hibernate Maven Plugin ist, wo dieses POM anfängt
+        interessant zu werden: Im nächsten Abschnitt werden wir das Goal
+        <literal>hbm2ddl</literal> ausführen, um die HSQLDB Struktur zu
+        erstellen. In dieser Datei <filename>pom.xml </filename>schliessen wir
+        ebenfalls eine Referenz auf die Version 2.0 des <literal>Hibernate3
+        Maven Plugin</literal> von Codehouse MoJo ein.</para>
       </callout>
 
       <callout arearefs="coDef-spring-web-5" id="coRef-spring-web-5">
-        <para>The Maven Hibernate3 plugin has different ways to obtain
-        Hibernate mapping information that are appropriate for different usage
-        scenarios of the Hibernate3 plugin. If you were using Hibernate
-        Mapping XML (<filename>.hbm.xml</filename>) files, and you wanted to
-        generate model classes using the <literal>hbm2java</literal> goal, you
-        would set your implementation to configuration. If you were using the
-        Hibernate3 plugin to reverse engineer a database to produce
-        <filename>.hbm.xml</filename> files and model classes from an existing
-        database, you would use an implementation of
-        <literal>jdbcconfiguration</literal>. In this case, we’re simply using
-        an existing annotated object model to generate a database. In other
-        words, we have our Hibernate mapping, but we don’t yet have a
-        database. In this usage scenario, the appropriate implementation value
-        is <literal>annotationconfiguration</literal>. The Maven Hibernate3
-        plugin is discussed in more detail in the later section <xref
-        linkend="multimodule-web-spring-sect-spring-running-web" />.”</para>
+        <para>Das <literal>Hibernate3 Maven Plugin</literal> kann auf
+        verschiedenerlei Wegen an die Hibernate Mapping Informationen
+        gelangen; abhängig vom jeweiligen Einsatzszenario des Hibernate
+        Plugins. Sollten sie <filename>Hibernate Mapping
+        XML(.hbm.xml)-Dateien</filename> einsetzen und hätten vor,
+        Modellklassen mit Hilfe des Goals <literal>hbmjava</literal> zu
+        generieren, so würden Sie Ihre Implementierung auf
+        <emphasis>configuration</emphasis> stellen. Würden Sie jedoch
+        Hiberante3 einsetzen um eine bestehende Datenbank zu re-engineeren, um
+        daraus die entsprechenden <filename>.hbm.xml Dateien</filename> zu
+        generieren und die Klassen dann daraus abzuleiten, so würden Sie die
+        Implementierung <emphasis>jdbcconfiguration</emphasis> wählen. In
+        unserem Fall benutzen wir einfach ein annotiertes Objekt Modell um
+        eine Datenbank zu generieren. In anderen Worten, wir haben bereits
+        unser Hibernate Mapping, jedoch keine bestehende Datenbank. In diesem
+        Fall ist wählen wir <emphasis>annotationconfiguration</emphasis>. Das
+        Hiberante3 Maven Plugin wird unter <xref
+        linkend="multimodule-web-spring-sect-spring-running-web" /> (Abschnitt
+        7.7: "Aufrufen der Web-Anwendung") näher beleuchtet. </para>
       </callout>
     </calloutlist>
 
     <note>
-      <para>A common mistake is to use the <sgmltag>extensions</sgmltag>
-      configuration to add dependencies required by a plugin. This is strongly
-      discouraged as the extensions can cause classpath pollution across your
-      project, among other nasty side-effects. Additionally, the extensions
-      behavior is being reworked in 2.1 and you'll eventually need to change
-      it anway. The only normal use for <sgmltag>extensions</sgmltag> is to
-      define new wagon implementations</para>
+      <para>Ein häufiger auftretender Fehler ist die Verwendung der
+      <sgmltag>extensions</sgmltag>-Konfiguration um Abhängigkeiten von
+      Plugins zu definieren. Wir raten von dieser Praxis dringend ab, denn
+      dies kann dazu führen, dass Ihr Klassenpfad -neben anderen unschönen
+      Nebeneffekten- projektweit "verschmutzt" wird. Außerdem wird in der
+      Version 2.1 genau diese Funktionalität stark überarbeitet werden, was
+      bedeutet, dass Sie hier in jedem Fall noch einmal Hand anlegen müssten.
+      Die einzige "normale" Nutzung für <sgmltag>Extensions</sgmltag> ist die,
+      eine neue Paketdefinition zu erstellen.</para>
     </note>
 
-    <para>Next, we turn our attention to the two Spring MVC controllers that
-    will handle all of the requests. Both of these controllers reference the
-    beans defined in <varname>simple-weather</varname> and
-    <varname>simple-persist</varname>.</para>
+    <para>Nun werden wir uns den beiden Spring MVC Controllern und deren
+    Konfiguration zuwenden. Beide dieser Controller beziehen sich auf Beans
+    welche in "<varname>Simple Weather</varname>" bzw "<varname>Simple
+    Persist</varname>" definiert wurden. </para>
 
     <example>
       <title>simple-webapp WeatherController</title>
@@ -1680,31 +1702,32 @@ public class WeatherController implements Controller {
 }</programlisting>
     </example>
 
-    <para><varname>WeatherController</varname> implements the Spring MVC
-    Controller interface that mandates the presence of a
-    <methodname>handleRequest()</methodname> method with the signature shown
-    in the example. If you look at the meat of this method, you’ll see that it
-    invokes the <methodname>retrieveForecast()</methodname> method on the
-    <varname>weatherService</varname> instance variable. Unlike the previous
-    chapter, which had a Servlet that instantiated the
-    <classname>WeatherService</classname> class, the
-    <classname>WeatherController</classname> is a bean with a
-    <varname>weatherService</varname> property. The Spring IoC container is
-    responsible for wiring the controller to the
-    <varname>weatherService</varname> component. Also notice that we’re not
-    using the <classname role="keep-together">WeatherFormatter</classname> in
-    this Spring controller implementation; instead, we’re passing the
-    <classname>Weather</classname> object returned by
-    <methodname>retrieveForecast()</methodname> to the constructor of
-    <classname>ModelAndView</classname>. This
-    <classname>ModelAndView</classname> class is going to be used to render a
-    <indexterm>
-        <primary>Velocity template</primary>
-      </indexterm>Velocity template, and this template will have references to
-    a <varname>\${weather}</varname> variable. The
-    <filename>weather.vm</filename> template is stored in
-    <filename>src/main/webapp/WEB-INF/vm</filename> and is shown in <xref
-    linkend="ex-weather-vm" />.</para>
+    <para>Die Klasse WeatherController implementiert das Spring MVC Controller
+    Interface, welches die Existenz einer Methode
+    <methodname>handleRequest()</methodname> in der oben angegebenen Form
+    vorschreibt. Wenn Sie das Innenleben dieser Methode betrachten, so werden
+    Sie feststellen, dass diese die Methode
+    <methodname>retrieveForecast()</methodname> der Instanzvariablen
+    <varname>weatherService</varname> aufruft. Anders als im vorgehenden
+    Beispiel in welchem die Klasse <classname>WeatherService</classname> durch
+    ein Servlet instanziert wurde, ist
+    <classname>weatherController</classname> ein Bean, mit einem
+    <varname>weatherService</varname> Property. </para>
+
+    <para>Es liegt in der Verantwortung des Spring IoC Containers die
+    Verdrahtung der Komponennte <classname>weatherService</classname>
+    bereitzustellen. Darüber hinaus werden Sie bemerkt haben, dass wir in
+    dieser Implementierung auf den <classname>weatherFormatter</classname>
+    verzichten, an dessen Statt geben wir das Objekt
+    <classname>Weather</classname>, welches von
+    <methodname>retrieveForecast()</methodname> zurückgegeben wird an den
+    Konstruktor von <classname>ModelAndView</classname>. Die Klasse
+    <classname>ModelAndView</classname> werden wir benutzen um Velocity
+    Templates darzustellen, welche eine Referenz zu einer Variablen
+    <varname>${weather}</varname> halten. Das zugehörige Template
+    <filename>weather.vm</filename> liegt unter
+    <filename>/src/main/webapp/WEB-INF/vm</filename> abgelegt und wird in
+    <xref linkend="ex-weather-vm" /> (Beispiel 7.14) ausgeführt. </para>
 
     <para>In the <classname>WeatherController</classname>, before we render
     the output of the forecast, we pass the <classname>Weather</classname>
@@ -1716,39 +1739,55 @@ public class WeatherController implements Controller {
     how we can retrieve a history of weather forecasts that were saved by the
     <classname>WeatherController</classname>.</para>
 
-    <example>
-      <title>weather.vm template rendered by WeatherController</title>
+    <para>Innerhalb des <classname>WeatherController</classname>, geben wir
+    das vom <classname>WeatherService</classname> zurückgegebene Objekt
+    <classname>Weather</classname> an die Methode
+    <methodname>save()</methodname> des <classname>WeatherDAO</classname>.
+    Dort wird das Objekt <classname>Weather</classname> mit Hilfe von
+    Hibernate in der HSQLDB abgespeichert. Später im
+    <classname>HistoryController</classname> werden wir sehen wie man die
+    Vergangenheit bezüglich einer Wettervorhersage welche von HSQLDB
+    gespeichert wurde, zurückgeholen kann.</para>
 
-      <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Current Weather Conditions for:
+    <example>
+      <title>Die von WeatherController wiedergegebene Vorlage weather.vm
+      </title>
+
+      <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Derzeitiges Wetter von:
   \${weather.location.city}, \${weather.location.region}, 
   \${weather.location.country}&lt;/b&gt;&lt;br/&gt;
   
 &lt;ul&gt;
-  &lt;li&gt;Temperature: \${weather.condition.temp}&lt;/li&gt;
-  &lt;li&gt;Condition: \${weather.condition.text}&lt;/li&gt;
-  &lt;li&gt;Humidity: \${weather.atmosphere.humidity}&lt;/li&gt;
-  &lt;li&gt;Wind Chill: \${weather.wind.chill}&lt;/li&gt;
-  &lt;li&gt;Date: \${weather.date}&lt;/li&gt;
+  &lt;li&gt;Temperatur: \${weather.condition.temp}&lt;/li&gt;
+  &lt;li&gt;Wetterlage: \${weather.condition.text}&lt;/li&gt;
+  &lt;li&gt;Feuchtigkeit: \${weather.atmosphere.humidity}&lt;/li&gt;
+  &lt;li&gt;Wind Chill Faktor: \${weather.wind.chill}&lt;/li&gt;
+  &lt;li&gt;Datum: \${weather.date}&lt;/li&gt;
 &lt;/ul&gt;
 </programlisting>
     </example>
 
-    <para>The syntax for this Velocity template is straightforward, variables
-    are referenced using <code>\${}</code> notation. The expression between the
-    curly braces references a property, or a property of a property on the
-    <varname>weather</varname> variable which was passed to this template by
-    the <classname>WeatherController</classname>.</para>
+    <para>Die Syntax der Velocity Vorlagen ist einfach, Variablen werden durch
+    vorangestelltes Dollarzeichen in geschwungenen Klammern markiert
+    <varname>${Variable}</varname>. Der Ausdruck zwischen den geschweiften
+    Klammern verweist auf ein Property, oder ein Property eines Properties der
+    Variable <varname>weather</varname>, welche durch den
+    <classname>WeatherController</classname> an das Template weitergegeben
+    wurde. </para>
 
-    <para>The <classname>HistoryController</classname> is used to retrieve
-    recent forecasts that have been requested by the
-    <classname>WeatherController</classname>. Whenever we retrieve a forecast
-    from the <classname>WeatherController</classname>, that controller saves
-    the <classname>Weather</classname> object to the database via the
-    <classname>WeatherDAO</classname>. <classname>WeatherDAO</classname> then
-    uses Hibernate to dissect the <classname>Weather</classname> object into a
-    series of rows in a set of related database tables. The
-    <classname>HistoryController</classname> is shown in <xref
-    linkend="ex-spring-history" />.</para>
+    <para>Der <classname>HistoryController</classname> wird eingesetzt, um auf
+    Prognosen aus der Vergangenheit zuzugreifen welche zuvor vom
+    <classname>WeatherController</classname> angefragt wurden. Immer, wenn wir
+    wieder eine Prognose mittels dem <classname>WeatherController</classname>
+    abrufen, speichert der Controller das Objekt
+    <classname>Weather</classname> mittels dem
+    <classname>WeatherDAO</classname> in der Datenbank. Das
+    <classname>WeatherDAO</classname> nutzt Hibernate um das Objekt
+    <classname>Weather</classname> in eine Reihe von Zeilen zu zerlegen und in
+    eine Anzahl in Relation stehende Datenbanktabellen abzuspeichern. Der
+    <classname>HistoryController</classname> ist im <xref
+    linkend="ex-spring-history" /> (Beispiel 7.15: "Simple Web"
+    HistoryController) ausgeführt.</para>
 
     <example id="ex-spring-history">
       <title>simple-web HistoryController</title>
@@ -1798,65 +1837,68 @@ public class HistoryController implements Controller {
 }</programlisting>
     </example>
 
-    <para>The <classname>HistoryController</classname> is wired to two
-    <acronym>DAO</acronym> objects defined in
-    <varname>simple-persist</varname>. The <acronym>DAO</acronym>s are bean
-    properties of the <classname>HistoryController</classname>:
-    <classname>WeatherDAO</classname> and <classname>LocationDAO</classname>.
-    The goal of the <classname>HistoryController</classname> is to retrieve a
-    <classname>List</classname> of <classname>Weather</classname> objects
-    which correspond to the <varname>zip</varname> parameter. When the
-    <classname>WeatherDAO</classname> saves the <classname>Weather</classname>
-    object to the database, it doesn't just store the zip code, it stores a
-    <classname>Location</classname> object which is related to the
-    <classname>Weather</classname> object in the
-    <varname>simple-model</varname>. To retrieve a <classname>List</classname>
-    of <classname>Weather</classname> objects, the
-    <classname>HistoryController</classname> first retrieves the
-    <classname>Location</classname> object that corresponds to the
-    <varname>zip</varname> parameter. It does this by invoking the
-    <methodname>findByZip()</methodname> method on
-    <classname>LocationDAO</classname>.</para>
+    <para>Der <classname>HistoryController</classname> ist mit zwei in
+    "<varname>Simple Persist</varname>" definierten
+    <acronym>DAO</acronym>-Objekten verdrahtet. Dabei sind die
+    <acronym>DAO</acronym>s Bean-Properties des
+    <classname>HistoryControllers</classname>:
+    <classname>WeatherDAO</classname> und <classname>LocationDAO</classname>.
+    Die Aufgabe des <classname>HistoryController</classname> ist, eine Liste
+    von <classname>Weather</classname> Objekten entsprechend einer bestimmten
+    Postleitzahl zurückzugeben. Wenn das <classname>WeatherDAO</classname> ein
+    Objekt <classname>Weather</classname> in die Datenbank speichert, so legt
+    es nicht eine Postleitzahl ab, sonder es speichert zusätzlich eine
+    Referenz auf ein Objekt <classname>Location</classname> welches an das
+    Objekt <classname>Weather</classname> gebunden ist, wie in
+    "<varname>Simple Model</varname>" definiert. Um eine Liste von
+    <classname>Weather</classname>-Objekte abzurufen, ruft der
+    <classname>HistoryController</classname> zunächst das Objekt
+    <classname>Lokation</classname> auf, welches der Postleitzahl entspricht.
+    Dies wird durch den Aufruf der Methode
+    <methodname>findByZip()</methodname> des
+    <classname>LocationDAO</classname> bewerkstelligt.</para>
 
-    <para>Once the <classname>Location</classname> object has been retrieved,
-    the <classname>HistoryController</classname> will then attempt to retrieve
-    recent <classname>Weather</classname> objects that match the given
-    <classname>Location</classname>. Once the
-    <classname>List&lt;Weather&gt;</classname> has been retrieved, a
-    <classname>HashMap</classname> is created to hold two variables for the
-    <filename>history.vm</filename> Velocity template shown in <xref
-    linkend="ex-spring-history-velocity" />.</para>
+    <para>Nachdem ein Objekt <classname>Lokation</classname> abgerufen wurde,
+    versucht der <classname>HistoryController</classname> die vorgängigen
+    <classname>Weather</classname> Objekte mit Referenz auf das Objekt
+    <classname>Lokation</classname> abzurufen. Das Ergebnis, welches in in der
+    Form <classname>List&lt;Weather&gt;</classname> besteht, wird dann in eine
+    <classname>HashMap</classname> von zwei Variablen der Velocity Vorlage
+    <filename>history.vm</filename> wie im <xref
+    linkend="ex-spring-history-velocity" /> (Beispiel 7.16: "history.vm
+    dargestellt vom HistoryController") dargestellt, umgewandelt.</para>
 
     <example>
-      <title>history.vm rendered by the HistoryController</title>
+      <title>history.vm dargestellt vom HistoryController</title>
 
       <programlisting id="ex-spring-history-velocity" language="java">&lt;b&gt;
-Weather History for: \${location.city}, \${location.region}, \${location.country}
+Derzeitige Wetterlage von: \${location.city}, \${location.region}, \${location.country}
 &lt;/b&gt;
 &lt;br/&gt;
   
 #foreach( $weather in $weathers )
   &lt;ul&gt;
-    &lt;li&gt;Temperature: $weather.condition.temp&lt;/li&gt;
-    &lt;li&gt;Condition: $weather.condition.text&lt;/li&gt;
-    &lt;li&gt;Humidity: $weather.atmosphere.humidity&lt;/li&gt;
-    &lt;li&gt;Wind Chill: $weather.wind.chill&lt;/li&gt;
-    &lt;li&gt;Date: $weather.date&lt;/li&gt;
+    &lt;li&gt;Temperatur: $weather.condition.temp&lt;/li&gt;
+    &lt;li&gt;Zustand: $weather.condition.text&lt;/li&gt;
+    &lt;li&gt;Feuchtigkeit: $weather.atmosphere.humidity&lt;/li&gt;
+    &lt;li&gt;Wind Chill Faktor: $weather.wind.chill&lt;/li&gt;
+    &lt;li&gt;Datum: $weather.date&lt;/li&gt;
   &lt;/ul&gt;
 #end
 </programlisting>
     </example>
 
-    <para>The <filename>history.vm</filename> template in
-    <filename>src/main/webapp/WEB-INF/vm</filename> references the
-    <varname>location</varname> variable to print out information about the
-    location of the forecasts retrieved from the
-    <classname>WeatherDAO</classname>. This template then uses a Velocity
-    control structure, <code>#foreach</code>, to loop through each element in
-    the <varname>weathers</varname> variable. Each element in
-    <varname>weathers</varname> is assigned to a variable named
-    <varname>weather</varname> and the template between <code>#foreach</code>
-    and <code>#end</code> is rendered for each forecast.</para>
+    <para>Die Vorlage <filename>history.vm</filename> is unter
+    <filename>/src/main/webapp/WEB-INF/vm</filename> abgelegt und verweist auf
+    die Variable <varname>location</varname> um Angaben zum Standort/Lokation
+    der Prognose, welche vom <classname>WeatherDAO</classname> zurückgegeben
+    wurde auszugeben. Diese Vorlage unterliegt einer Velocity
+    Kontrollstruktur, <code>#foreach</code>, welche sicherstellt, dass durch
+    alle Elemente der Variablen <varname>weathers</varname> geschlauft wird.
+    Jedes Element in <varname>weathers</varname> wird einer Variable
+    <varname>weather</varname> zugeordnet und mit der Vorlage welche sich
+    zwischen <code>#foreach</code> und <code>#end</code> befindet, verknüpft
+    und ausgegeben. </para>
 
     <para>You've seen these <classname>Controller</classname> implementations,
     and you've seen that they reference other beans defined in
@@ -1873,8 +1915,27 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     Let's take a closer look at the <filename>weather-servlet.xml</filename>
     shown in <xref linkend="ex-spring-weather-servlet" />.</para>
 
+    <para>Sie haben nun die Controller-Implementierung gesehen, und Sie haben
+    gesehen, dass sich deren Implementierung auf weitere Beans welche in
+    "<varname>Simple Weather</varname>" sowie "<varname>Simple
+    Persist</varname>" definiert sind, stützt. Sie reagieren auf
+    <acronym>HTTP</acronym>-Anfragen, und übernehmen die Kontrolle eines
+    misteriösen Templating-Systems welches weiß, wie man Velocity-Vorlagen
+    verarbeitet. Diese ganze Magie wurde im Spring
+    <classname>applicationContext</classname> definiert, welcher sich unter
+    <filename>/src/main/webapp/WEB-INF/weather-servlet.xml</filename>
+    befindet. Diese <acronym>XML</acronym>-Konfiguration konfiguriert die
+    Controller und definiert weitere Referenzen zu Beans welche von Spring
+    verwaltet werden. die Datei <filename>weather-servlet.xml</filename> wird
+    von einem <classname>ServletContextListener</classname> geladen, welcher
+    zugleich so konfiguriert ist, dass er die Datei
+    <filename>applicationContext-weather.xml</filename> sowie
+    <filename>applicationContext-persist.xml</filename> vom Klassenpfad lädt.
+    Lassen Sie uns die datei <filename>weather-servlet.xml</filename> einmal
+    genauer anschauen.</para>
+
     <example>
-      <title>Spring Controller configuration weather-servlet.xml</title>
+      <title>Spring Controller Konfiguration weather-servlet.xml</title>
 
       <programlisting id="ex-spring-weather-servlet" language="xml">&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
@@ -1890,7 +1951,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
        &lt;property name="locationDAO" ref="locationDAO"/&gt;
      &lt;/bean&gt;
 
-     &lt;!-- you can have more than one handler defined --&gt;
+     &lt;!-- Sie können mehr als einen Controller definieren  --&gt;
      &lt;bean id="urlMapping" 
      class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"&gt;
           &lt;property name="urlMap"&gt;
@@ -1927,52 +1988,56 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 
     <calloutlist>
       <callout arearefs="coDef-weather-servlet-1" id="coRef-weather-servlet-1">
-        <para>The <filename>weather-servlet.xml</filename> defines the two
-        controllers as Spring-managed beans.
-        <varname>weatherController</varname> has two properties which are
-        references to <varname>weatherService</varname> and
-        <varname>weatherDAO</varname>. <varname>historyController</varname>
-        references the beans <varname>weatherDAO</varname> and
-        <varname>locationDAO</varname>. When this
-        <classname>ApplicationContext</classname> is created, it is created in
-        an environment that has access to the
-        <classname>ApplicationContext</classname>s defined in both
-        <varname>simple-persist</varname> and
-        <varname>simple-weather</varname>. In <xref
-        linkend="ex-spring-webxml" /> you will see how Spring is configured to
-        merge components from multiple Spring configuration files.</para>
+        <para>Die Datei <filename>weather-servlet.xml</filename> definiert die
+        beiden Controller als Spring-verwaltete Beans.
+        <classname>weatherController</classname> besitzt zwei Properties,
+        welche Verweise auf <filename>weatherService</filename> und
+        <filename>weatherDAO</filename> darstellen;
+        <classname>historyController</classname> verweist auf die Beans
+        <classname>weatherDAO</classname> und
+        <classname>locationDAO</classname>. Wenn dieser
+        <classname>ApplicationContext</classname> erstellt wird, so geschieht
+        dies in einem Umfeld, welches den Zugang zu den
+        <classname>ApplicationContexten</classname> definiert, sowohl zum
+        "<varname>Simple Persist</varname>" wie auch zum "<varname>Simple
+        Weather</varname>" Application Context. Im <xref
+        linkend="ex-spring-webxml" /> Beispiel werden Sie sehen, wie man
+        Spring konfigurieren kann, um mehrere Komponenten aus verschiedenen
+        Spring Konfigurations-Dateien zusammenzuführen.</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-2" id="coRef-weather-servlet-2">
-        <para>The <varname>urlMapping</varname> bean defines the
-        <acronym>URL</acronym> patterns which invoke the
-        <classname>WeatherController</classname> and the
-        <classname>HistoryController</classname>. In this example, we are
-        using the <classname>SimpleUrlHandlerMapping</classname> and mapping
-        <filename>/weather.x</filename> to
-        <classname>WeatherController</classname> and
-        <filename>/history.x</filename> to
-        <classname>HistoryController</classname>.</para>
+        <para>Das Bean <classname>urlMapping</classname> definiert
+        <acronym>URL</acronym>-Muster, welche den
+        <classname>WeatherController</classname> und den
+        <classname>HistoryController</classname> aufrufen. In diesem Beispiel
+        benutzen wir <classname>SimpleUrlHandlerMapping</classname> und bilden
+        <filename>/weather.x</filename> auf den
+        <classname>WeatherController</classname> sowie
+        <filename>/history.x</filename> auf den
+        <classname>HistoryController</classname> ab.</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-3" id="coRef-weather-servlet-3">
-        <para>Since we are using the Velocity templating engine, we will need
-        to pass in some configuration options. In the
-        <varname>velocityConfig</varname> bean, we are telling Velocity to
-        look for all templates in the <filename>/WEB-INF/vm</filename>
-        directory.</para>
+        <para>Da wir mit der Velocity-Templating-Engine arbeiten, sind wir
+        gezwungen etliche Konfigurations-Optionen weiterzugeben. Hierzu weisen
+        wir in der Datei <filename>velocityConfig.xml</filename> Velocity an,
+        Vorlagen immer unter <filename>/WEB-INF/vm</filename> zu
+        suchen.</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-4" id="coRef-weather-servlet-4">
-        <para>Last, the <varname>viewResolver</varname> is configured with the
-        class <classname>VelocityViewResolver</classname>. There are a number
-        of <classname>ViewResolver</classname> implementations in Spring from
-        a standard ViewResolver to render <acronym>JSP</acronym> or
-        <acronym>JSTL</acronym> pages to a resolver which can render
-        Freemarker templates. In this example, we're configuring the Velocity
-        templating engine and setting the default prefix and suffix which will
-        be automatically appended to the names of the template passed to
-        <classname>ModelAndView</classname>.</para>
+        <para>Zuletzt wird der <classname>viewResolver</classname> mit der
+        Klasse <classname>VelocityViewResolver</classname> konfiguriert. Es
+        gibt bereits eine Reihe von Implementierungen des
+        <classname>ViewResolvers</classname> in Spring; diese reichen von
+        einem Standard-ViewResolver um
+        <acronym>JSTL</acronym>/<acronym>JSP</acronym>-Seiten zu generieren,
+        und reicht bis zu solchen welcher Freemaker Templates erstellen
+        können. In unserem Beispiel werden wir die Velocity-Templating-Engine
+        konfigurieren, sowie die Standard-Präfix und Suffixe setzen, welche
+        automatisch an die Namen der Vorlagen angefügt werden und an
+        <classname>ModelAndView</classname> weitergegeben werden.</para>
       </callout>
     </calloutlist>
 
@@ -1981,8 +2046,14 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     the web application. The <filename>web.xml</filename> file is shown in
     <xref linkend="ex-spring-webxml" />.</para>
 
+    <para>Schließlich ist das "<varname>Simple Web</varname>" Projekt eine
+    Webanwendung, und benötigt somit eine Datei <filename>web.xml</filename>
+    als Basiskonfiguration der Anwendung. Die zugehörige Datei
+    <filename>web.xml</filename> ist <xref linkend="ex-spring-webxml" />
+    (7.18: "web.xml von 'Simple Web' ") wiedergegeben.</para>
+
     <example>
-      <title>web.xml for simple-webapp</title>
+      <title>web.xml von 'Simple Web' </title>
 
       <programlisting id="ex-spring-webxml" language="xml">&lt;web-app id="simple-webapp" version="2.4" 
      xmlns="http://java.sun.com/xml/ns/j2ee" 
@@ -2038,106 +2109,92 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 
     <calloutlist>
       <callout arearefs="coDef-spring-webx-1" id="coRef-spring-webx-1">
-        <para>Here's a bit of magic which allows us to reuse the
-        <filename>applicationContext-weather.xml</filename> and
-        <filename>applicationContext-persist.xml</filename> in this project.
-        The <varname>contextConfigLocation</varname> is used by the
-        <classname>ContextLoaderListener</classname> to create an
-        <classname>ApplicationContext</classname>. When the weather servlet is
-        created, the <filename>weather-servlet.xml</filename> from <xref
-        linkend="ex-spring-weather-servlet" /> is going to be evaluated with
-        the <classname>ApplicationContext</classname> created from this
-        <varname>contextConfigLocation</varname>. In this way, you can define
-        a set of beans in another project and you can reference these beans
-        via the classpath. Since the <varname>simple-persist</varname> and
-        <varname>simple-weather</varname> <acronym>JAR</acronym>s are going to
-        be in <filename>WEB-INF/lib</filename>, all we do is use the
-        <literal>classpath:</literal> prefix to reference these files.
-        (Another option would have been to copy these files to
-        <filename>/WEB-INF</filename> and reference them with something like
-        <filename>/WEB-INF/applicationContext-persist.xml</filename>).</para>
+        <para>Hier ein kleines Kusntstück das uns die Wiederverwendung des
+        <filename>applicationContext-weather.xml</filename> sowie
+        <filename>applicationContest.persist.xml</filename> innerhalb dieses
+        Projekts erlaubt. Die <varname>contextConfigLocation</varname> wird
+        vom <classname>ContextLoaderListener</classname> zur Erstellung eines
+        <classname>ApplicationContext</classname> benutzt. Beim Erstellen des
+        Weather Servlets wird die Datei
+        <filename>weather-servlet.xml</filename> -wie in <xref
+        linkend="ex-spring-weather-servlet" /> (Beispiel 7.17: Spring
+        Controller Konfiguration weather-servlet.xml) dargestellt - im
+        Zusammenhang mit dem <classname>applicationContext</classname> welcher
+        aus der <varname>contextConfigLocation</varname> geladen wird,
+        ausgewertet. Auf diese Weise können Sie in einem anderen Projekt eine
+        Anzahl Beans definieren und auf diese über den Klassenpfad zugreifen.
+        Da sowohl "<varname>Simple Persist</varname>" als auch
+        "<varname>Simple Weather</varname>" als JAR-Archiv unter
+        <filename>/WEB-INF/lib</filename> verfügbar sein werden, müssen wir
+        nur noch das Präfix <literal>classpath</literal>: benutzen, um diese
+        Dateien zu referenzieren. (Eine andere Möglichkeit wäre gewesen, diese
+        Dateien nach <filename>/WEB-INF</filename> zu kopieren, um sie dort
+        mit einem Konstrukt wie etwa
+        <filename>/WEB-INF/applicationContext-persist.xml</filename> zu
+        referenzieren).</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-2" id="coRef-spring-webx-2">
-        <para>The <varname>log4jConfigLocation</varname> is used to tell the
-        <classname>Log4JConfigListener</classname> where to look for Log4J
-        logging configuration. In this example, we tell Log4J to look in
-        <filename>/WEB-INF/log4j.properties</filename>.</para>
+        <para>Die <varname>log4jConfigLocation</varname> wird verwendet, um
+        dem <classname>Log4JConfigListener</classname> mitzuteilen, wo dieser
+        die Log4J Logging-Konfiguration finden kann. In diesem Beispiel weisen
+        wir log4J an, unter <filename>/WEB-INF/log4j.properties</filename> zu
+        suchen.</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-3" id="coRef-spring-webx-3">
-        <para>This makes sure that the Log4J system is configured when the web
-        application starts. It is important to put this
-        <classname>Log4JConfigListener</classname> before the<classname>
-        ContextLoaderListener</classname>; otherwise, you may miss important
-        logging messages which point to a problem preventing application
-        startup. If you have a particularly large set of beans managed by
-        Spring, and one of them happens to blow up on application startup,
-        your application will fail. If you have logging initialized before
-        Spring starts, you might have a chance to catch a warning or an error.
-        If you don't have logging initialized before Spring starts up, you'll
-        have no idea why your application refuses to start.</para>
+        <para>Hiermit stellen wir sicher, dass das Log4J Subsystem
+        konfiguriert ist, sobald die Web-Applikation gestartet wird. Es ist
+        wichtig, den <classname>Log4JConfigListener</classname> vor dem
+        <classname>ContextLoaderListener</classname> zu platzieren, da Sie
+        anderenfalls unter Umständen wichtige Logging-Nachrichten verpassen,
+        welche auf Probleme hinweisen können, die den ordungsgemässen Start
+        der Anwendung verhindern. Insbesondere wenn Sie eine besonders große
+        Anzahl Beans unter der Verwaltung von Spring haben, und eines der
+        Beans beim Applikationsstart umfällt, wird Ihre Anwendung scheitern.
+        Haben Sie dann bereits zuvor das Logging initialisiert, so haben Sei
+        vielleicht die Möglichkeit eine Warnung oder eine Fehlermeldung
+        aufzufangen; andernfalls werden Sie wohl keinerlei Ahnung haben warum
+        Ihnen der Anwendungsstart misglückt ist.</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-4" id="coRef-spring-webx-4">
-        <para>The <classname>ContextLoaderListener</classname> is essentially
-        the Spring container. When the application starts, this listener will
-        build an <classname>ApplicationContext</classname> from the
-        <varname>contextConfigLocation</varname> parameter.</para>
+        <para>Der <classname>ContextLoaderListener</classname> ist im
+        Wesentlichen der Spring Container. Beim Start einer Anwendung erstellt
+        dieser Listner einen <classname>ApplicationContext</classname> aus dem
+        Wert des <varname>contextConfigLocation</varname> Parameters.</para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-5" id="coRef-spring-webx-5">
-        <para>We define a Spring <acronym>MVC</acronym>
-        <classname>DispatcherServlet</classname> with a name of
-        <varname>weather</varname>. This will cause Spring to look for a
-        Spring configuration file in
-        <filename>/WEB-INF/weather-servlet.xml</filename>. You can have as
-        many <classname>DispatcherServlet</classname>s as you need, a
-        <classname>DispatcherServlet</classname> can contain one or more
-        Spring <acronym>MVC</acronym> <classname>Controller</classname>
-        implementations.</para>
+        <para>Wir definieren ein Spring <acronym>MVC</acronym>
+        <classname>DispatcherServlet</classname> mit dem Namen
+        <varname>weather</varname>. Hierdurch wird Spring unter
+        <filename>/WEB-INF/weather-servlet.xml</filename> nach einer Spring
+        Konfigurationsdatei suchen. Sie können so viele
+        <classname>DispatcherServlets</classname> erstellen, wie Sie
+        benötigen, ein <classname>DispatcherServlet</classname> kann eine oder
+        mehrere Spring <acronym>MVC</acronym>-Controller-Implementierungen
+        enthalten </para>
       </callout>
 
       <callout arearefs="coDef-spring-webx-6" id="coRef-spring-webx-6">
-        <para>All requests ending in <filename>.x</filename> will be routed to
-        the <varname>weather</varname> servlet. Note that the
-        <filename>.x</filename> extension has no particular meaning, it is an
-        arbitrary choice and you can use whatever <acronym>URL</acronym>
-        pattern you like.</para>
+        <para>Alle in der Endung "<filename>.x</filename>" endenden Anfragen
+        werden zum <classname>Weather Servlet </classname>geleitet. Wir
+        möchten hier darauf hinweisen, dass die Endung
+        "<filename>.x</filename>" keine tiefere Bedeutung hat, es ist eine
+        willkürliche Auswahl welche Sie mit jedem beliebigen
+        <acronym>URL</acronym>-Muster ersetzen können.</para>
       </callout>
     </calloutlist>
   </section>
 
   <section id="multimodule-web-spring-sect-spring-running-web">
-    <title>Running the Web Application</title>
+    <title>Aufrufen der Web-Anwendung</title>
 
-    <para>To run the web application, you’ll first need to build the database
-    <indexterm class="startofrange" id="enterprise7a">
-        <primary>multimodule project (example)</primary>
-
-        <secondary>multimodule enterprise project</secondary>
-
-        <tertiary>running Web application</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise7b">
-        <primary>Web applications</primary>
-
-        <secondary>multimodule enterprise project example</secondary>
-
-        <tertiary>running Web application</tertiary>
-      </indexterm><indexterm class="startofrange" id="enterprise7c">
-        <primary>enterprise project, multimodule (example)</primary>
-
-        <secondary>running Web application</secondary>
-      </indexterm><indexterm>
-        <primary>Maven Hibernate3 plugin</primary>
-
-        <secondary>building database using</secondary>
-      </indexterm><indexterm>
-        <primary>Hibernate3 plugin</primary>
-
-        <secondary>building database using</secondary>
-      </indexterm>using the Hibernate3 plugin. To do this, run the following
-    from the <varname>simple-webapp</varname> project directory:</para>
+    <para>Um die Web-Anwendung aufrufen zu können müssen Sei zunächst mittels
+    dem Hibernate3 Maven Plugin die Datenbank erstellen. Um dies zu tun, geben
+    Sie bitte das folgende Kommando auf der Befehlszeile im Verzeichnis des
+    "<varname>Simple Web</varname>" Projekts ein :</para>
 
     <screen>$ <command>mvn hibernate3:hbm2ddl</command>
 [INFO] Scanning for projects...
@@ -2155,9 +2212,10 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-    <para>Once you've done this, there should be a
-    <filename>\${basedir}/data</filename> directory which will contain the
-    HSQLDB database. You can then start the web application with:</para>
+    <para>Nach Abschluss der Ausführung sollte ein Verzeichnis
+    <filename>${basedir}/data</filename> erstellt sein welches die HSQLDB
+    Datenbank enthält. Um die Web Applikation nun zu starten geben Sie
+    folgenden Befehl ein: </para>
 
     <screen>$ <command>mvn jetty:run</command>
 [INFO] Scanning for projects...
@@ -2184,36 +2242,37 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 [INFO] Started Jetty Server
 </screen>
 
-    <para>Once Jetty is started, you can load <ulink
-    url="http://localhost:8080/simple-webapp/weather.x?zip=60202">http://localhost:8080/simple-webapp/weather.x?zip=60202</ulink>
-    and you should see the weather for Evanston, IL in your web browser.
-    Change the ZIP code and you should be able to get your own weather
-    report.</para>
+    <para>Nach dem Start von Jetty, können Sie mit dem Aufruf <link
+    linkend="???">http://localhost:8080/simple-webapp/weather.x?zip=60202</link>
+    das Wetter von Evanston, IL aufrufen. Mit der Änderung der Postleitzahl
+    sollte es Ihnen möglich sein Ihren eigenen Wetterbericht abzurufen.
+    </para>
 
-    <screen>Current Weather Conditions for: Evanston, IL, US
+    <screen>Derzeitige Wetterlage von: Evanston, IL, US
 
-    * Temperature: 42
-    * Condition: Partly Cloudy
-    * Humidity: 55
-    * Wind Chill: 34
-    * Date: Tue Mar 25 10:29:45 CDT 2008
+    * Temperatur: 42
+    * Zustand: Partly Cloudy
+    * Feuchtigkeit: 55
+    * Wind Chill Faktor: 34
+    * Datum: Tue Mar 25 10:29:45 CDT 2008
 </screen>
   </section>
 
   <section id="multimodule-web-spring-sect-simple-command">
-    <title>The Simple Command Module</title>
+    <title>Das "Simple Command" Modul - Das Kommandozeilen Modul</title>
 
-    <para>The <varname>simple-command</varname> project is a command-line
-    version of the <varname>simple-webapp</varname>. It is a utility that
-    relies on the same dependencies: <varname>simple-persist</varname> and
-    <varname>simple-weather</varname>. Instead of interacting with this
-    application via a web browser, you would run the
-    <classname>simple-command</classname> utility from the
-    command-line.</para>
+    <para>Das "<varname>Simple Command</varname>" Modul ist die
+    Befehlszeilen-Version der "<varname>Simple Web</varname>" Anwendung. Es
+    ist ein Dienstprogramm, das auf den selben Abhängigkeiten aufbaut:
+    "<varname>Simple Weather</varname>" und "<varname>Simple
+    Persist</varname>". Statt der Interaktion über einen Web-Browser, rufen
+    Sie für diese Anwendung ein Dienstprogramm
+    <classname>'simple-command'</classname> von der Befehlszeile aus
+    auf.</para>
 
     <figure>
-      <title>Command line application referencing simple-weather and
-      simple-persist</title>
+      <title>Dienstprogramm aufbauend auf die Modue Simple-Weather und
+      Simple-Persist</title>
 
       <mediaobject>
         <imageobject>
@@ -2224,7 +2283,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     </figure>
 
     <example>
-      <title>POM for simple-command</title>
+      <title>POM des Simple-Command Moduls</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -2316,19 +2375,20 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 </programlisting>
     </example>
 
-    <para>This <acronym>POM</acronym> creates an <acronym>JAR</acronym> file
-    which will contain the
-    <classname>org.sonatype.mavenbook.weather.Main</classname> class shown in
-    <xref linkend="ex-spring-command-main-class" />. In this
-    <acronym>POM</acronym> we configure the Maven Assembly plugin to use a
-    built-in assembly descriptor named
-    <varname>jar-with-dependencies</varname> which creates a single
-    <acronym>JAR</acronym> file containing all the bytecode a project needs to
-    execute including the bytecode from the project you are building and all
-    the dependency bytecode.</para>
+    <para>Dieses <acronym>POM</acronym> wird die Erstellung eines
+    <acronym>JAR</acronym> files veranlassen, welches die Klasse
+    <classname>org.sonatype.mavenbook.weather.Main</classname> beinhaltet.
+    Diese Klasse wird in <xref linkend="ex-spring-command-main-class" />
+    (Beispiel 7.20:"Klasse Main des Simple-Command Moduls" dargestellt. In
+    dieser <filename>pom.xml</filename>-Datei werden wir das Maven Plugin
+    Assembly um einen bereits mitgelieferten "Assembly Beschrieb" mit dem
+    Namen "<varname>jar-with-dependencies</varname>" konfigurieren. Dieses
+    Plugin wird sodann ein <acronym>JAR-</acronym> Archive erstellen, welches
+    allen Bytecode beinhaltet welcher gebraucht wird, um das Projekt
+    auszuführen, wie auch alle weitergehenden Abhängigkeiten.</para>
 
     <example id="ex-spring-command-main-class">
-      <title>The Main class for simple-command</title>
+      <title>Klasse Main des Simple-Command Moduls</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -2406,59 +2466,65 @@ public class Main {
 </programlisting>
     </example>
 
-    <para>The <classname>Main</classname> class has a reference to
-    <classname>WeatherDAO</classname>, <classname>LocationDAO</classname>, and
-    <classname>WeatherService</classname>. The static
-    <methodname>main()</methodname> method in this class:</para>
+    <para>Die Klasse Main hält eine Referenz auf die Klassen
+    <classname>WeatherDAO</classname>, <classname>LocationDAO</classname> und
+    <classname>WeatherService</classname>. Folgende Aufgaben werden durch
+    deren statische Methode <methodname>main()</methodname> wahrgenommen:
+    </para>
 
     <itemizedlist>
       <listitem>
-        <para>Reads the Zip Code from the first command line argument</para>
+        <para>Die Postleitzahl aus dem ersten Argument ([0]) der Befehlszeile
+        auslesen </para>
       </listitem>
 
       <listitem>
-        <para>Reads the Operation from the second command line argument. If
-        the operation is "weather", the latest weather will be retrieved from
-        the web service. If the operation is "history", the program will fetch
-        historical weather records from the local database.</para>
+        <para>Das Kommando aus dem zweiten Argument ([1]) der Befehlszeile
+        auslesen. Ist das Kommando "weather", so werden die aktuellen
+        Wetterdaten vom Webservice angefragt. Ist das Kommando
+        "<emphasis>history</emphasis>" so werden die Wetterdaten aus der
+        lokalen Datenbank abgerufen. </para>
       </listitem>
 
       <listitem>
-        <para>Loads a Spring <classname>ApplicationContext</classname> using
-        two <acronym>XML</acronym> files loaded from
-        <varname>simple-persist</varname> and
-        <varname>simple-weather</varname></para>
+        <para>Laden des Spring ApplicationContext unter Bezug auf zwei XML
+        Dateien, welche von den Modulen "<varname>Simple Persist</varname>"
+        und "<varname>Simple Weather</varname>" geladen wurden.</para>
       </listitem>
 
       <listitem>
-        <para>Creates an instance of <classname>Main</classname></para>
+        <para>Instanzieren der Klasse <classname>Main</classname></para>
       </listitem>
 
       <listitem>
-        <para>Populates the <varname>weatherService</varname>,
-        <varname>weatherDAO</varname>, and <varname>locationDAO</varname> with
-        beans from the Spring <classname>ApplicationContext</classname></para>
+        <para>Befruchten von <classname>WeatherService</classname>,
+        <classname>WeatherDAO</classname> sowie
+        <classname>LocationDAO</classname> mit Beans aus dem Spring
+        <classname>ApplicationContext</classname> </para>
       </listitem>
 
       <listitem>
-        <para>Runs the appropriate method
-        <methodname>getWeather()</methodname> or
-        <methodname>getHistory()</methodname> depending on the specified
-        operation.</para>
+        <para>Aufrufen der entsprechenden Methode
+        <methodname>getWeather()</methodname> oder
+        <methodname>getHistory()</methodname> entsprechend dem übergebenen
+        Kommando</para>
       </listitem>
     </itemizedlist>
 
-    <para>In the web application we use Spring
-    <classname>VelocityViewResolver</classname> to render a Velocity template.
-    In the stand-alone implementation, we need to write a simple class which
-    renders our weather data with a Velocity template. <xref
-    linkend="ex-spring-weather-formatter" /> is a listing of the
-    <classname>WeatherFormatter</classname>, a class with two methods that
-    render the weather report and the weather history.</para>
+    <para>Als Teil der Web Applikation benutzen wir Spring
+    <classname>VelocityViewResolver</classname> um eine Velocity Vorlage
+    darzustellen. Für die befehlszeilenorientierte Applikation ist es
+    notwendig eine einfache Klasse zu erstellen, welche unsere Wetterdaten mit
+    Hilfe einer Velocity Vorlage darstellt. <xref
+    linkend="ex-spring-weather-formatter" /> (Beispiel 7.21:
+    "<classname>WeatherFormatter</classname> stellt Wetterdaten unter Einbezug
+    einer Velocity Vorlage dar") ist der Auszug der Klasse
+    <classname>WeatherFormatter</classname>, einer Klasse mit zwei Methoden
+    welche den Wetterbericht und die Wettergeschichte darstellen.</para>
 
     <example id="ex-spring-weather-formatter">
-      <title>WeatherFormatter renders weather data using a Velocity
-      template</title>
+      <title><classname>WeatherFormatter</classname> stellt Wetterdaten unter
+      Einbezug einer Velocity Vorlage dar</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -2507,15 +2573,15 @@ public class WeatherFormatter {
 </programlisting>
     </example>
 
-    <para>The <filename>weather.vm</filename> template simply prints the zip
-    code's city, country, and region as well as the current temperature. The
-    <filename>history.vm</filename> template prints the location and then
-    iterates through the weather forecast records stored in the local
-    database. Both of these templates are in
-    <filename>\${basedir}/src/main/resources</filename>.</para>
+    <para>Die Vorlage <filename>weather.vm</filename> gibt die zugehörige
+    Stadt, den Staat, die Region sowie die aktuelle Temperatur aus. Die
+    Vorlage <filename>history.vm</filename> gibt die Örtlichkeit aus, und
+    iteriert dann über alle gespeicherten Wetterwerte der lokalen Datenbank.
+    Diese beiden Vorlagen befinden sich unter
+    <filename>${basedir}/src/main/resource</filename>.</para>
 
     <example>
-      <title>The weather.vm Velocity template</title>
+      <title>Die velocity Vorlage weather.vm</title>
 
       <programlisting language="java">****************************************
 Current Weather Conditions for:
@@ -2533,7 +2599,7 @@ Current Weather Conditions for:
     </example>
 
     <example>
-      <title>The history.vm Velocity template</title>
+      <title>Die Velocity Vorlage history.vm</title>
 
       <para><programlisting>Weather History for:
 \${location.city},
@@ -2553,14 +2619,15 @@ Current Weather Conditions for:
   </section>
 
   <section id="multimodule-web-spring-sect-running-simple-command">
-    <title>Running the Simple Command</title>
+    <title>Aufrufen der Kommandozeilen-Anwendung</title>
 
-    <para>The <varname>simple-command</varname> project is configured to
-    create a single <acronym>JAR</acronym> containing the bytecode of the
-    project and all of the bytecode from the dependencies. To create this
-    assembly, run the <varname>assembly</varname> goal of the Maven Assembly
-    plugin from the <varname>simple-command</varname> project
-    directory:</para>
+    <para>Das Projekt Modul <varname>simple-command</varname> ist
+    konfiguriert, ein einziges JAR Archiv, welches den Bytecode des Projektes
+    sowie aller Bytecode der Abhängigkeiten enthält, zu erstellen. Um diese
+    Baueinheit (Assembly) zu erzeugen, rufen Sie das Goal
+    <varname>assembly</varname> des Maven Assembly Plugin von innerhalb des
+    Verzeichnisses des Projektes <varname>"Simple Command"</varname> auf:
+    </para>
 
     <screen>$ <command>mvn assembly:assembly</command>
 [INFO] ------------------------------------------------------------------------
@@ -2595,20 +2662,21 @@ Current Weather Conditions for:
 [INFO] Building jar: .../simple-parent/simple-command/target/simple-command-jar-with-dependencies.jar
 </screen>
 
-    <para>The build progresses through the lifecycle compiling bytecode,
-    running tests, and finally building a <acronym>JAR</acronym> for the
-    project. Then the <varname>assembly:assembly</varname> goal creates a
-    <acronym>JAR</acronym> with dependencies by unpacking all of the
-    dependencies to temporary directories and then collecting all of the
-    bytecode into a single <acronym>JAR</acronym> in
-    <filename>target/</filename> named
-    <filename>simple-command-jar-with-dependencies.jar</filename>. This "uber"
-    <acronym>JAR</acronym> weighs in at 15 MB.</para>
+    <para>Der Build schreitet durch die Lebenszyklusphasen Kompilieren des
+    Bytecodes, Aufrufen der Tests und schliesslich Erstellen des JAR-Archives.
+    Zuletzt erstellt das Goal <varname>assembly:assembly</varname> ein
+    einziges JAR Archiv inklusive aller Abhängigkeiten, indem es allen
+    abhängigen Bytecode in temporäre Verzeichnisse entpackt um diesen
+    schliesslich in einem einzigen JAR Archiv zusammenzufassen und im
+    Zielverzeichnis <filename>/target</filename> unter dem Namen
+    <filename>simple-command-jar-with-dependencies.jar</filename> abzulegen.
+    Dieses "über" JAR Archiv kommt auf stolze 15 MB. </para>
 
-    <para>Before you run the command-line tool, you will need to invoke the
-    <varname>hbm2ddl</varname> goal of the Hibernate3 plugin to create the
-    HSQLDB database. Do this by running the following command from the
-    <varname>simple-command</varname> directory:</para>
+    <para>Vor Sie nun das kommandozeilenorientierte Programm aufrufen, müssen
+    Sie noch das Goal <varname>hbm2ddl</varname> des Maven Hibernate3 Plugin
+    aufrufen, um die HSQL Datenbank zu erstellen. Sie tun dies, indem Sie den
+    folgenden Befehl innerhalb des Verzeichnisses von "<varname>Simple
+    Command</varname>" absetzen: </para>
 
     <para><screen>$ <command>mvn hibernate3:hbm2ddl</command>
 [INFO] Scanning for projects...
@@ -2624,11 +2692,14 @@ Current Weather Conditions for:
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
 [INFO] ------------------------------------------------------------------------
-</screen>Once you run this, you should see a <filename>data/</filename>
-    directory under <varname>simple-command</varname>. This
-    <filename>data/</filename> directory holds the HSQLDB database. To run the
-    command-line weather forecaster, run the following from the
-    <filename>simple-command/</filename> project directory:</para>
+</screen></para>
+
+    <para>Nach dem Aufruf sollten Sie innerhalb des "<varname>Simple
+    Command</varname>" Verzeichnisses ein Verzeichnis
+    <filename>/data</filename> vorfinden. Dieses Verzeichnis beinhaltet die
+    HSQL Datenbank. Um nun das befehlszeilenorientierte Programm aufzurufen,
+    setzen Sie den folgenden Befehl von innerhalb des "<varname>Simple
+    Command</varname>" Verzeichnisses ab: </para>
 
     <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
            org.sonatype.mavenbook.weather.Main 60202</command>
@@ -2650,7 +2721,8 @@ Current Weather Conditions for:
  * Date: Wed Aug 06 09:35:30 CDT 2008
 </screen>
 
-    <para>To run a history query, execute the following command:</para>
+    <para>Um eine Abfrage der vergangenen Werte abzusetzen, geben Sie den
+    folgenden Befehl ein: </para>
 
     <screen>$ <command>java -cp target/simple-command-jar-with-dependencies.jar \
            org.sonatype.mavenbook.weather.Main 60202 history</command>
@@ -2679,61 +2751,70 @@ Evanston, IL, US
   </section>
 
   <section id="multimodule-web-spring-sect-conclusion">
-    <title>Conclusion</title>
+    <title>Fazit</title>
 
-    <para>We've spent a great deal of time on topics not directly related
-    Maven to get this far. We've done this to present a complete and
-    meaningful example project which you can use to implement real-world
-    systems. We didn't take any short-cuts to produce slick, canned results
-    quickly, and we're not going to dazzle you with some Ruby on Rails-esque
-    wizardry and lead you to believe that you can create a finished Java
-    Enterprise application in "10 easy minutes!" There's too much of this in
-    the market, there are too many people trying to sell you the easiest
-    framework that requires zero investment of time or attention. What we're
-    trying to do in this chapter is present the entire picture, the entire
-    ecosystem of a multi-module build. What we've done is present Maven in the
-    context of a application which resembles something you could see in the
-    wild—not the fast-food, 10 minute screen-cast that slings mud at Apache
-    Ant and tries to convince you to adopt Apache Maven.</para>
+    <para>Nun, wir haben viel Zeit damit verbracht, uns Themen anzunehmen,
+    welche nicht im Zusammenhang mit Maven stehen. Wir haben dies getan, um
+    ein vollständiges und aussagekräftiges Beispielprojekt mit Bezug zur
+    realen Welt zu implementieren. Wir haben uns keine schnellen Abkürzungen
+    geleistet, um Ihnen ein hochglanzpoliertes fix fertiges Produkt zu
+    liefern. Auch war unser Ziel nicht, Sie mit einer Ruby on Rails artigen
+    Zauberei zur Annahme zu führen, dass Sie nun in wenigen Minuten eine
+    fix-fertige Java-Enterprise-Anwendung hinstellen könnten. - Hiervon gibt
+    es bereits zu viele Beispiel im Markt, zu viele Menschen welche Ihnen das
+    einfachste, umfassenste Framework zu verkaufen versuchen, welches Ihnen
+    erlaubt mit Null Investition von Zeit und Aufmerksamkeit weiterzukommen.
+    Unser Ziel diese Kapitels war es, Ihnen ein umfassendes Bild zu
+    vermitteln: das gesamte Ökosystem eines Multi-Modul Projekt Builds. Was
+    wir bieten ist Maven im Rahmen einer Anwendung einer Art ähnlich deren,
+    welche Sie in freier Wildbahn antreffen, darzustellen. Es ist nicht unsere
+    Art Ihnen eine Art Fast-Food anzubieten: 10 Minuten Bildschirm Show, etwas
+    Schlamm in die Richtung Apache Ant geworfen und Sie davon überzeugt haben
+    Maven einzusetzen!</para>
 
-    <para>If you walk away from this chapter wondering what it has to do with
-    Maven, we've succeeded. We present a complex set of projects, using
-    popular frameworks, and we tie them together using declarative builds. The
-    fact that more than 60% of this chapter was spent explaining Spring and
-    Hibernate should tell you that Maven, for the most part, stepped out of
-    the way. It worked. It allowed us to focus on the application itself, not
-    on the build process. Instead of spending time discussing Maven, and the
-    work you would have to do to "build a build" that integrated with Spring
-    and Hibernate, we talked almost exclusively about the technologies used in
-    this contrived project. If you start to use Maven, and you take the time
-    to learn it, you really do start to benefit from the fact that you don't
-    have to spend time coding up some procedural build script. You don't have
-    to spend your time worrying about mundane aspects of your build.</para>
+    <para>Sollten Sie sich nach dem Lesen dieses Kapitels fragen, was es mit
+    Maven zu tun hat, so waren wir erfolgreich. Wir haben eine Reihe von
+    komplex vernetzten Projekten, unter Einsatz von populären Frameworks
+    erzeugt, und wir haben diese unter Verwendung von deklarativen Methoden
+    verbunden. Die Tatsache, dass mehr als 60% dieses Kapitel der Erklärung
+    von Spring und Hibernate gewidment wurde, sollte Ihnen aufzeigen, dass
+    Maven grösstenteils zurücksteht. Es funktionierte einfach. Es erlaubt uns,
+    uns auf die Anwendung selbst zu konzentrieren, und nicht so sehr auf der
+    Build-Prozess. Sie werden bemerken, dass haben wir ein Projekt erstellt
+    haben, welches Daten in einer Datenbank speichert, ohne ein einziges
+    SQL-Statement abzusetzen. Daraufhin haben Sie eine Web-Anwendung erstellt,
+    ohne sich mit den Erstellung eines Build Skriptes inklusive 20 plus
+    Abhängigkeiten herumzuschlagen um am Ende ein WAR-Archiv zu erstellen.
+    Anstelle Zeit damit zu verbringen Maven zu diskutieren, verbrachten wir
+    die Zeit damit Spring und Hiberante in den Grundzügen einzuführen.</para>
 
-    <para>You can use the skeleton project introduced in this chapter as the
-    foundation for your own, and chances are that when you do, you'll find
-    yourself creating more and more modules as you need them. For example, the
-    project on which this chapter was based has two distinct model projects,
-    two persistence projects which persist to dramatically different
-    databases, several web applications, and a Java mobile application. In
-    total, the real world system I based this on contains at least 15
-    interrelated modules. The point is that, you've seen the most complex
-    multi-module example we're going to include in this book, but you should
-    also know that this example just scratches the surface of what is possible
-    with Maven.</para>
+    <para>Sie können das eingeführte Skelett Projekt dieses Kapitels als
+    Grundlage für Ihre eigene Projekte verwenden, und die Chancen stehen gut,
+    dass, sollten Sie das tun, Sie sich in der Lage befinden über die Zeit
+    hinweg mehr und mehr Module nach Bedarf anzulegen. So umfasst das
+    ursprüngliche Projekt, auf welchem dieses Beispiel beruht zwei
+    verschiedene Modell-Projekte, mit zwei Persistenzprojekten welche den
+    Anschuss an völlig unterschiedliche Datenbanksysteme übernehmen, mehrere
+    Web-Applikationen, sowie eine Java-Mobil Anwendung. Insgesamt stützt sich
+    das reale Welt-System auf mindestens 15 miteinander verknüpften Module.
+    Was wir hiermit sagen wollen ist, Sie haben soeben das komplexeste
+    Beispiel welches in diesem Buch dargestellt wird gesehen, aber Sie sollten
+    auch wissen, dass dieses Beispiel nur Kratzer an der Oberfläche dessen was
+    mit Maven möglich ist, darstellt. </para>
 
     <section id="multimodule-web-spring-sect-interface-projects">
-      <title>Programming to Interface Projects</title>
+      <title>Programmierung gegen Interface-Projekte</title>
 
-      <para>This chapter explored a multi-module project which was more
-      complex than the simple example presented in <xref
-      linkend="multimodule" />, yet it was still a simplification of a
-      real-world project. In a larger project, you might find yourself
-      building a system resembling <xref
-      linkend="fig-multimodule-web-spring-projects-complex" />.</para>
+      <para>Dieses Kapitel stieg in die Tiefe der Multi-Modul-Projekte hinab
+      und war komplexer als die einfachen Beispiele in <xref
+      linkend="multimodule" /> (Kapitel 6: Ein Multi-Projekt-Modul), und
+      dennoch war es eine starke Vereinfachung eines Reale- Welt-Projektes. In
+      einem größeren Projekt finden Sie vielleicht sogar selbst ein System
+      ähnlich <xref linkend="fig-multimodule-web-spring-projects-complex" />
+      (Abbildung 7.5) wieder. </para>
 
       <figure id="fig-multimodule-web-spring-projects-complex">
-        <title>Programming to Interface Projects</title>
+        <title>Programmierung gegen Interface-Projekte</title>
 
         <mediaobject>
           <imageobject>
@@ -2743,24 +2824,26 @@ Evanston, IL, US
         </mediaobject>
       </figure>
 
-      <para>When we use the term interface project we are referring to a Maven
-      project which contains interfaces and constants only. In <xref
-      linkend="fig-multimodule-web-spring-projects-complex" /> the interface
-      projects would be <varname>persist-api</varname> and
-      <varname>parse-api</varname>. If <varname>big-command</varname> and
-      <varname>big-webapp</varname> are written to the interfaces defined in
-      <varname>persist-api</varname>, then it is very easy to just swap in
-      another implementation of the persistence library. This particular
-      diagram shows two implementations of the <varname>persist-api</varname>
-      project, one which stores data in an <acronym>XML</acronym> database,
-      and the other which stores data in a relational database. If you use
-      some of the concepts in this chapter, you can see how you could just
-      pass in a flag to the program that swaps in a different Spring
-      application context <acronym>XML</acronym> file to swap out data sources
-      of persistence implementations. Just like the OO design of the
-      application itself, it is often wise to separate the interfaces of an
-      <acronym>API</acronym> from the implementation of the API into separate
-      Maven projects.</para>
+      <para>Wenn wir den Begriff <emphasis>Interface Projekt</emphasis>
+      benutzen, so beziehen wir uns auf ein Maven Projekt, welches einzig aus
+      Interfaces und Konstanten besteht. In <xref
+      linkend="fig-multimodule-web-spring-projects-complex" /> (Abbildung 7.5
+      Programmierung gegen ein Interface Projekt), stellen die Einheiten
+      <varname>persist-api</varname> sowie <varname>parse-api</varname>
+      Interfaceprojekte dar. Sollten <varname>big-command</varname> sowie
+      <varname>big-webapp</varname> gegen diese Interface Projekte
+      programmiert werden, ist es ein leichtes zu einem späteren Zeitpunkt die
+      Implementierung der Persistenz gegen eine andere auszutauschen. Auf
+      dieser Abbildung werden zwei Implementierungen dargestellt: eine welche
+      die Persistenz aufbauend auf einen XML-Store implementiert, sowie einer
+      weiteren auf der Basis einer relationalen Datenbank. Bei der Anwendung
+      der in diesem Kapitel vorgestellten Konzepte ist es einfach zu sehen,
+      wie Sie, getrieben durch einen an das Programm übergebenen Wert, eine
+      andere Spring ApplicationContext XML Datei übergeben, um damit die
+      unterliegende Persistenzimplementierung auszutauschen. Wie bereits im
+      OO-Design der Applikation, ist oftmals sinnvoll das Interface einer API
+      von der Implementierung einer API in seperate Maven Projekte
+      aufzutrennen. </para>
     </section>
   </section>
 </chapter>
