@@ -26,8 +26,8 @@
       http://books.sonatype.com/maven-book/mvn-examples-1.0.zip oder
       http://books.sonatype.com/maven-book/mvn-examples-1.0.tar.gz
       heruntergeladen werden. Entpacken Sie das Archiv in ein beliebiges
-      Verzeichnis, und gehen Sie dann zum Unterverzeichnis <code>/ch04</code>. Darin befindet sich
-      ein Verzeichnis mit dem Namen <code>/simple weather</code> welches den Quellcode für
+      Verzeichnis, und gehen Sie dann zum Unterverzeichnis <filename>/ch04</filename>. Darin befindet sich
+      ein Verzeichnis mit dem Namen <filename>/simple weather</filename> welches den Quellcode für
       dieses Kapitel enthält.</para>
     </section>
   </section>
@@ -51,7 +51,7 @@
     über die Befehlszeile; diese nehmen wir auf, schicken die Anfrage an
     den Yahoo! Wetter Dienst (RSS), analysieren das Ergebnis und geben zuletzt einige
     Daten auf den Bildschirm aus. Dieses Beispiel besteht aus einer einfachen
-    <code>main()</code>-Klasse und einigen Hilfsklassen, es gibt kein Enterprise Framework
+    <methodname>main()</methodname>-Klasse und einigen Hilfsklassen, es gibt kein Enterprise Framework
     einzuführen, lediglich einfaches XML-Parsen sowie einige
     Logging-Anweisungen. Zum anderen gibt dieses Beispiel uns eine gute
     Gelegenheit einige interessante Bibliotheken wie Velocity, Dom4J und Log4J
@@ -117,7 +117,7 @@
 
     <para>Sobald das Archetype Maven Plugin das Projekt erstellt hat, wechseln
     Sie in das Verzeichnis der "Simple Weather" Anwendung und werfen Sie einen
-    Blick auf die <code>pom.xml</code> Datei. Sie sollten das folgende XML-Dokument
+    Blick auf die <filename>pom.xml</filename> Datei. Sie sollten das folgende XML-Dokument
     vorfinden:</para>
 
     <example id="ex-initial-pom-for-simple-weather">
@@ -157,11 +157,11 @@
 </programlisting>
     </example>
 
-    <para>Bitte beachten Sie, dass wir den Parameter <code>version</code> und das Goal
-    <code>archetype:create</code> übergeben haben. Hiermit wird der Standardwert des
+    <para>Bitte beachten Sie, dass wir den Parameter <varname>version</varname> und das Goal
+    <varname>archetype:create</varname> übergeben haben. Hiermit wird der Standardwert des
     1.0-SNAPSHOT überschrieben. In diesem Projekt entwickeln wir die Version
     1.0 des "Simple Weather" Beispielprogramms, wie Sie leicht am Element
-    <code>version</code> der pom.xml-Datei ablesen können. </para>
+    <varname>version</varname> der <filename>pom.xml</filename>-Datei ablesen können. </para>
   </section>
 
   <section id="customizing-sect-customizing-project-info">
@@ -226,10 +226,10 @@
     bezüglich der Organisation, rechtlicher Belange sowie der Entwickler in
     der pom.xml-Datei" sind eine Abkürzung für ein stark gekürztes Listing.
     Wenn Sie in diesem Buch auf eine pom.xml Datei stossen, welche direkt
-    hinter dem Element-Tag <code>project</code> mit "..." beginnt und mit "..." direkt vor
-    dem Element <code>project</code> aufhört, so zeigt dies an, dass wir nicht die gesamte
-    pom.xml-Datei wiedergeben. In diesem Fall wurden die Tag-Elemente <code>licenses</code>,
-    <code>organization</code> und <code>developers</code> vor dem Element <code>dependencies</code>
+    hinter dem Element-Tag <varname>project</varname> mit "..." beginnt und mit "..." direkt vor
+    dem Element <varname>project</varname> aufhört, so zeigt dies an, dass wir nicht die gesamte
+    pom.xml-Datei wiedergeben. In diesem Fall wurden die Tag-Elemente <varname>licenses</varname>,
+    <varname>organization</varname> und <varname>developers</varname> vor dem Element <varname>dependencies</varname>
     eingefügt.</para>
   </section>
 
@@ -292,9 +292,9 @@
     Abhängigkeiten in Ihr lokales Maven Repository herunterlädt.</para>
 
     <para>Nun wie wussten wir die Koordinaten dieser Abhängigkeiten? "Weiss"
-    man schlicht die entsprechenden Werte für <code>groupId</code> und <code>artifactId</code>? Manche
-    Artefakte sind so weit verbreitet (z.B. <code>Log4J</code>), dass Sie, wann immer Sie
-    sie brauchen, sich an die Werte der <code>groupId</code> und <code>artifactId</code> erinnern werden.
+    man schlicht die entsprechenden Werte für <varname>groupId</varname> und <varname>artifactId</varname>? Manche
+    Artefakte sind so weit verbreitet (z.B. <classname>Log4J</classname>), dass Sie, wann immer Sie
+    sie brauchen, sich an die Werte der <varname>groupId</varname> und <varname>artifactId</varname> erinnern werden.
     Velocity, Dom4J und Jaxen haben wir unter Einsatz einer hilfreichen
     Website (http://www.mvnrepository.com) aufgelöst. Diese Website bietet
     eine Maske zur Suche über das Maven-Repository an. Sie können die Site
@@ -303,13 +303,13 @@
     versuchen Sie es selbst: laden Sie die Seite http://www.mvnrepository.com
     und suchen Sie nach einigen häufig verwendeten Bibliotheken wie Hibernate
     oder dem Spring Framework. Wenn Sie auf dieser Site nach einem Artefakt
-    suchen, werden Ihnen der <code>artefactId</code>-Wert sowie alle im zentralen
-    Repository verfügbaren <code>version</code>-Werte ausgegeben. Ein Klick auf die Details
+    suchen, werden Ihnen der <varname>artefactId</varname>-Wert sowie alle im zentralen
+    Repository verfügbaren <varname>version</varname>-Werte ausgegeben. Ein Klick auf die Details
     einer bestimmten Version lädt eine Seite, welche das Element dependency
     wiedergibt, dieses können Sie kopieren und in die pom.xml Datei Ihres eigenen Projekt einfügen.
     Wenn Sie eine Abhängigkeit finden müssen, so lohnt es
     sich, mvnrepository.com zu benutzen. Auch werden Sie dann werden festestellen, dass
-    bestimmte Bibliotheken über mehr als eine <code>groupId</code> verfügen. Dieses
+    bestimmte Bibliotheken über mehr als eine <varname>groupId</varname> verfügen. Dieses
     Werkzeug wird Ihnen helfen das Maven-Repository zu verstehen. </para>
   </section>
 
@@ -324,7 +324,7 @@
         <term><classname>org.sonatype.mavenbook.weather.Main</classname></term>
 
         <listitem>
-          <para>Diese Klasse enthält eine statische <code>main()</code>-Funktion, es ist der
+          <para>Diese Klasse enthält eine statische <methodname>main()</methodname>-Funktion, es ist der
           Ausgangspunkt für dieses System.</para>
         </listitem>
       </varlistentry>
@@ -377,12 +377,12 @@
     berücksichtigen, welche den Beispielen innerhalb des Kapitels
     Schritt-für-Schritt folgen. Die folgenden Abschnitte legen den Quellcode
     der Klassen des "Simple Weather" Projekt dar. Diese Klassen sollten alle in
-    das gleiche Paket <code>com.sonatype.maven.weather</code> abgelegt werden.</para>
+    das gleiche Paket <classname>com.sonatype.maven.weather</classname> abgelegt werden.</para>
 
     <para>Lassen Sie uns die App sowie die AppTest Klassen welche das Goal
-    <code>archetype:create</code> erzeugt hat, entfernen und unsere neuen Klassen dem
+    <varname>archetype:create</varname> erzeugt hat, entfernen und unsere neuen Klassen dem
     Package zufügen. In einem Maven-Projekt, liegen alle Quellen eines
-    Projektes unter <code>/src/main/java</code>. Aus dem Basis-Verzeichnis des neuen
+    Projektes unter <filename>/src/main/java</filename>. Aus dem Basis-Verzeichnis des neuen
     Projekts heraus, führen Sie die folgenden Befehle aus:</para>
 
     <screen>$ <command>cd src/test/java/org/sonatype/mavenbook</command>
@@ -393,7 +393,7 @@ $ <command>rm App.java</command>
 $ <command>mkdir weather</command>
 $ <command>cd weather</command></screen>
 
-    <para>Sie haben ein neues Paket <code>com.sonatype.maven.weather</code> erstellt. Nun
+    <para>Sie haben ein neues Paket <classname>com.sonatype.maven.weather</classname> erstellt. Nun
     sollten wir etliche Klassen in diesem Verzeichnis erstellen. Benutzen Sie hierfür Ihren
     Lieblings-Text-Editor und erstellen Sie eine neue Datei mit dem Namen
     Weather.java mit folgendem Inhalt:</para>
@@ -448,7 +448,7 @@ public class Weather {
     Beschreibung der gegenwärtigen Bedingungen.</para>
 
     <para>Im gleichen Verzeichnis erstellen Sie nun eine Datei mit dem Namen
-    <code>Main.java</code>. Diese Haupt-Klasse wird die statische main()-Funktion
+    <filename>Main.java</filename>. Diese Haupt-Klasse wird die statische main()-Funktion
     beinhalten, welche der Einstiegspunkt dieses Beispiels ist.</para>
 
     <example>
@@ -498,8 +498,8 @@ public class Main {
 </programlisting>
     </example>
 
-    <para>Die oben gezeigte <code>main()</code>-Funktion konfiguriert Log4J indem es eine
-    Ressource (<code>log4j.properties</code>) auf dem Klassenpfad sucht, um anschliessend
+    <para>Die oben gezeigte <methodname>main()</methodname>-Funktion konfiguriert Log4J indem es eine
+    Ressource (<filename>log4j.properties</filename>) auf dem Klassenpfad sucht, um anschliessend
     einen ZIP-Code/eine Postleitzahl von der Befehlszeile zu lesen. Wird eine
     während des Leseversuchs eine Exception geworfen, wird standardmässig auf die
     Postleitzahl 60202 zurückgegriffen. Sobald dem Programm eine Postleitzahl
@@ -603,9 +603,9 @@ public class YahooParser {
     zurück. Um dies zu tun, muss sie das XML-Dokument per DOM4J analysieren.
     Da wir an Elementen des Yahoo!Wetter Namespaces interessiert sind, ist es
     notwendig einen Namespace bewussten SAXReader in der
-    Methode <code>createXmlReader()</code> zu erstellen. Sobald wir diesen Reader erstellt
+    Methode <methodname>createXmlReader()</methodname> zu erstellen. Sobald wir diesen Reader erstellt
     haben und damit das Dokument analysiert haben, bekommen wir ein
-    <code>org.dom4j.Document</code>-Objekt zurück. Statt durch alle Kind-Elemente zu
+    <classname>org.dom4j.Document</classname>-Objekt zurück. Statt durch alle Kind-Elemente zu
     iterieren, adressieren wir die für uns relevanten Informationen direkt mit
     Hilfe eines XPath-Ausdrucks. Dom4J liefert in diesem Beispiel das
     XML-Parsing und Jaxen die XPath-Funktionalität.</para>
@@ -651,8 +651,8 @@ public class WeatherFormatter {
     Weather Bean auf und gibt eine formatierte Zeichenkette zurück. Das erste,
     was die format()-Methode macht, ist eine Velocity Vorlage namens
     poutput.vm vom Klassenpfad zu laden. Wir erstellen dann einen
-    VelocityContext welcher mit einem einzigen Weather Objekt namens <code>weather</code>
-    bestückt wird. Ein <code>StringWriter</code> wird erstellt, um die Ergebnisse mit der
+    VelocityContext welcher mit einem einzigen Weather Objekt namens <varname>weather</varname>
+    bestückt wird. Ein <classname>StringWriter</classname> wird erstellt, um die Ergebnisse mit der
     Vorlage zu fusionieren. Die Vorlage wird mit einem Aufruf an
     Velocity.evaluate() ausgewertet und die Ergebnisse als String
     zurückgegeben.</para>
@@ -665,14 +665,14 @@ public class WeatherFormatter {
     <title>Resourcen Hinzufügen</title>
 
     <para>Dieses Projekt hängt von zwei Klassenpfad Ressourcen ab: Die
-    main()-Klasse konfiguriert Log4J mit <code>log4j.properties</code> vom Klassenpfad, und
-    die WeatherFormatter Klasse greift auf eine Velocity Vorlage namens <code>output.vm</code>
+    main()-Klasse konfiguriert Log4J mit <filename>log4j.properties</filename> vom Klassenpfad, und
+    die WeatherFormatter Klasse greift auf eine Velocity Vorlage namens <filename>output.vm</filename>
     zurück. Beide Ressourcen müssen im Standard-Package (oder dem
     Wurzelverzeichnis des Klassenpfades) vorhanden sein.</para>
 
     <para>Um diese Ressourcen zuzufügen, müssen wir im Wurzelverzeichnis ein
-    neues Verzeichnis <code>/project-src/main/resources</code> erstellen. Da das
-    Verzeichnis nicht nicht vom Goal <code>archetype:create</code> geschaffen wurde, müssen
+    neues Verzeichnis <filename>/project-src/main/resources</filename> erstellen. Da das
+    Verzeichnis nicht nicht vom Goal <varname>archetype:create</varname> geschaffen wurde, müssen
     wir dieses durch folgende Befehle aus dem Projekt Verzeichnis heraus erstellen:
     </para>
 
@@ -681,7 +681,7 @@ $ <command>mkdir resources</command>
 $ <command>cd resources</command></screen>
 
     <para>Sobald das Ressourcen-Verzeichnis erstellt ist, können wir die
-    beiden Ressourcen zufügen. Zunächst fügen Sie die Datei <code>log4j.properties</code>
+    beiden Ressourcen zufügen. Zunächst fügen Sie die Datei <filename>log4j.properties</filename>
     in das Ressourcen-Verzeichnis ein.</para>
 
     <example id="ex-simple-weather-log4j-config">
@@ -697,7 +697,7 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</programlisting>
     </example>
 
-    <para>Diese Datei <code>log4j.properties</code> konfiguriert Log4J alle Log-Nachrichten
+    <para>Diese Datei <filename>log4j.properties</filename> konfiguriert Log4J alle Log-Nachrichten
     mit einem PatternLayout an die Standard-Ausgabe zu senden. Schließlich
     brauchen wir eine Velocity Vorlage output.vm um die Ausgabe der
     Applikation darzustellen. Erstellen Sie output.vm im
@@ -719,8 +719,8 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     </example>
 
     <para>Diese Vorlage enthält eine Reihe von Verweisen auf eine Variable
-    namens <code>weather</code>. Die Variable <code>weather</code> ist das Weather Bean, welches an den
-    WeatherFormatter gegeben wurde, die Syntax <code>${weather.temp}</code> ist eine
+    namens <varname>weather</varname>. Die Variable <varname>weather</varname> ist das Weather Bean, welches an den
+    WeatherFormatter gegeben wurde, die Syntax <varname>${weather.temp}</varname> ist eine
     Kurzform um die Werte der Weather Bean aufzurufen und anzuzeigen. Nun, da
     wir allen Projekt-Code an den richtigen Stellen haben, können wir Maven
     benutzen, um dieses Beispiel aufzurufen.</para>
@@ -806,7 +806,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       stellt, auflisten. Das Help Plugin, wird auch alle gültigen Parameter des
       Exec-Plugins aufzeigen, sollten Sie dessen Verhalten anpassen wollen. Um
       dem Exec Plugin Kommandozeilenargumente mitzugeben, sehen Sie in der
-      Dokumentation des Plugins nach, welche von <code>help:describe</code> wiedergegeben wird.
+      Dokumentation des Plugins nach, welche von <varname>help:describe</varname> wiedergegeben wird.
       Obschon das Exec-Plugin nützlich ist, solltens Sie es nicht ausserhalb
       der laufenden Tests während der Entwicklungsphase zur Ausführung von
       Anwendungen benutzen. Als robustere Lösung, verwenden Sie das Maven
@@ -820,7 +820,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       <para>Das Exec-Plugin ermöglicht es uns, die Anwendung auszuführen, ohne
       die Abhängigkeiten explizit in den Klassenpfad aufzunehmen. In jedem
       anderen Build-System, wäre es notwendig geworden, alle Abhängigkeiten in
-      eine Art <code>/lib</code>-Verzeichnis zu kopieren, welches eine Sammlung von
+      eine Art <filename>/lib</filename>-Verzeichnis zu kopieren, welches eine Sammlung von
       JAR-Dateien enthält. Dann hätten wir ein einfaches Skript, welches den
       Bytecode des Programms sowie alle unsere Abhängigkeiten in den
       Klassenpfad einschliesst. Nur dann könnten wir <command>java
@@ -835,7 +835,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       Abhängigkeiten. Um herauszufinden, wie Ihr Klassenpfad tatsächlich
       aussieht, können Sie das Dependency Maven Plugin zur Ausgabe einer Liste der
       aufgelösten Abhängigkeiten benutzen. Um die Liste der Abhängigkeiten des
-      "Simple Weather" Projekts auszugeben, führen Sie das Goal <code>dependency:resolve</code>
+      "Simple Weather" Projekts auszugeben, führen Sie das Goal <varname>dependency:resolve</varname>
       aus. </para>
 
       <screen>$ <command>mvn dependency:resolve</command>
@@ -867,7 +867,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       davon ab, dass Xalan sich im Klassenpfad befindet. Das Dependency Maven
       Plugin wird ihnen die endgültige Kombination von Abhängigkeiten unter
       welchen Ihr Projekt kompiliert wird ausgeben. Wollen Sie den gesamten
-      Baum aller Abhängigkeiten sehen, so können Sie das Goal <code>dependency:tree</code>
+      Baum aller Abhängigkeiten sehen, so können Sie das Goal <varname>dependency:tree</varname>
       aufrufen: </para>
 
       <screen>$ <command>mvn dependency:tree</command>
@@ -944,7 +944,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     <para>Maven hat eine eingebaute Unterstützung für Unit-Tests. Testen ist
     ein Teil des ursprünglichen Maven Lebenszyklus. Lassen Sie uns ein paar
     Unit-Tests zum "Simple Weather" Projekt hinzufügen. Zuerst werden wir ein
-    Package <code>com.sonatype.maven.weather</code> unter <code>/src/test/java</code> erstellen.</para>
+    Package <classname>com.sonatype.maven.weather</classname> unter <classname>/src/test/java</classname> erstellen.</para>
 
     <screen>$ <command>cd src/test/java</command>
 $ <command>cd org/sonatype/mavenbook</command>
@@ -1001,8 +1001,8 @@ public class YahooParserTest extends TestCase {
     geladen. Wir fügen Test Ressourcen in Abschnitt 4.11: "Hinzufügen von Unit
     Test Ressourcen" an. In unserem Verzeichnisaufbau des Maven-Projekts
     befindet sich die Datei ny-weather.xml im Verzeichnis der Test-Ressourcen
-    <code>-- ${basedir}/src/test/resources</code> unter
-    <code>/com/sonatype/maven/wetter/yahoo/ny-weather.xml</code> . Die Datei wird als
+    <filename>-- ${basedir}/src/test/resources</filename> unter
+    <filename>/com/sonatype/maven/wetter/yahoo/ny-weather.xml</filename> . Die Datei wird als
     InputStream eingelesen und an die parse()-Methode des YahooParser
     geleitet. Die parse()-Methode liefert ein Weather Objekt zurück,welches
     über eine Anzahl von assertEquals() Aufrufen, eine innerhalb der Klasse TestCase definierte
@@ -1050,8 +1050,8 @@ public class WeatherFormatterTest extends TestCase {
     Klasse WeatherFormatter. Wie bereits die Klasse YahooParserTest, erweitert
     auch die Klasse WeatherFormatterTest die Klasse TestCase des JUnit Frameworks. Die
     einzige Testfunktion liest die gleiche Testressource von
-    <code>${basedir}/src/test/resources</code> umter dem
-    <code>/com/sonatype/Maven/Wetter/yahoo</code>-Verzeichnis unter Einbezug des Unit Test
+    <filename>${basedir}/src/test/resources</filename> umter dem
+    <filename>/com/sonatype/Maven/Wetter/yahoo</filename>-Verzeichnis unter Einbezug des Unit Test
     Klassenpfades. Wir fügen Test Ressourcen wie im Abschnitt 4.11:
     "Hinzufügen Unit Test Ressourcen" beschrieben an. WeatherFormatterTest
     zieht diese Beispiel-Eingabedatei durch den YahooParser an, welcher ein
@@ -1059,7 +1059,7 @@ public class WeatherFormatterTest extends TestCase {
     WeatherFormatter ausgegeben. Da WeatherFormatter eine Zeichenkette
     ausgibt, müssen wir gegen eine gesetzte Eingabe testen. Unser
     "gesetzter" Input wurde einer Text-Datei mit dem Namen
-    <code>format-expected.dat</code> erfasst, welche sich im gleichen Verzeichnis wie
+    <filename>format-expected.dat</filename> erfasst, welche sich im gleichen Verzeichnis wie
     ny-weather.xml befindet. Um die Test-Ausgabe mit der erwarteten Ausgabe zu
     vergleichen, wird diese als InputStream eingelesen und unter Einbezug der
     Klasse IOUtils aus Apache Commons IO in einen String umgewandelt. Diese
@@ -1074,7 +1074,7 @@ public class WeatherFormatterTest extends TestCase {
     aus Apache Commons IO- die Klasse IOUtils. IOUtils bietet eine Reihe von
     hilfreichen statische Funktionen, welche den Grossteil der Arbeit der
     Input/Output-Operationen übernehmen. In diesem speziellen Unit Test
-    benutzen wir IOUtils.toString() um die <code>format-expected.dat</code>
+    benutzen wir IOUtils.toString() um die <filename>format-expected.dat</filename>
     Klassenpfadressource in einen String zu verwandeln. Wir hätten dies auch
     ohne den Einsatz von Commons IO bewerkstelligen können, aber es hätte
     zusätzliche sechs oder sieben Zeilen Code bedingt um mit den verschiedenen
@@ -1123,11 +1123,11 @@ public class WeatherFormatterTest extends TestCase {
     Ressourcen. Häufig werden Sie Dateien mit den erwarteten Ergebnissen und
     Dummy-Dateien mit Eingabetexten auf dem Testklassenpfad ablegen. In diesem
     Projekt legen wir ein Test XML-Dokument für den YahooParserTest namens
-    <code>ny-weather.xml</code> sowie eine Datei mit der erwarteten Ausgabe des
-    WeatherFormatter unter <code>format-expected.dat</code> ab.</para>
+    <filename>ny-weather.xml</filename> sowie eine Datei mit der erwarteten Ausgabe des
+    WeatherFormatter unter <filename>format-expected.dat</filename> ab.</para>
 
     <para>Um Test Ressourcen einzufügen, müssen Sie zunächst das Verzeichnis
-    <code>/src/test/resources</code> erstellen. Dies ist das Standard-Verzeichnis, in
+    <filename>/src/test/resources</filename> erstellen. Dies ist das Standard-Verzeichnis, in
     welchem Maven nach Unit-Test Ressourcen sucht. Erstellen Sie dieses
     Verzeichnis indem Sie die folgenden Befehle aus Ihrem
     Projekt-Basis-Verzeichnis heraus ausführen.</para>
@@ -1137,7 +1137,7 @@ $ <command>mkdir resources</command>
 $ <command>cd resources</command></screen>
 
     <para>Sobald Sie das Ressourcen-Verzeichnis erstellt haben, erstellen Sie
-    eine Datei mit dem Namen <code>format-expected.dat</code> in diesem Verzeichnis.</para>
+    eine Datei mit dem Namen <filename>format-expected.dat</filename> in diesem Verzeichnis.</para>
 
     <example>
       <title>"Simple Weather" WeatherFormatterTest erwartete Ausgabe</title>
@@ -1158,7 +1158,7 @@ $ <command>cd resources</command></screen>
     welche generiert wurde, als Sie das "Simple Weather" Projekt mit dem Exec
     Maven Exec starteten. Die zweite Datei welche Sie benötigen werden und
     daher im Ressourcen-Verzeichnis erstellen sollten ist
-    <code>ny-weather.xml</code>.</para>
+    <filename>ny-weather.xml</filename>.</para>
 
     <example>
       <title>"Simple Weather" YahooParserTest XML-Eingabe</title>
@@ -1260,13 +1260,13 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     Ausführung aller Phasen des Lebenszyklus' bis und mit der Testphase. Das
     Surefire Maven Plugin hat ein Goal test, welches an die Testphase gebunden
     ist. Dieses Goal test führt alle Unit-Tests des Projektes aus, welche sich
-    unter <code>/src/test/java</code> befinden und einen Dateinamen von <code>**/Test*.java</code>,
-    <code>**/*Test.java</code> sowie <code>**/*TestCase.java</code> haben. Für unser Projekt können Sie
+    unter <filename>/src/test/java</filename> befinden und einen Dateinamen von <filename>**/Test*.java</filename>,
+    <filename>**/*Test.java</filename> sowie <filename>**/*TestCase.java</filename> haben. Für unser Projekt können Sie
     sehen, dass das Surefire Plugin mit dem Goal test die Unittests
     WeatherFormatterTest und YahooParserTest ausgeführt hat. Bei der
     Ausführung des Surefire Maven Plugins werden nicht nur die Tests
     ausgeführt, es werden auch XML- und Text-Berichte erzeugt und unter dem
-    Verzeichnis <code>${basedir}/target/surefire-reports</code> abgelegt. Sollten Ihre
+    Verzeichnis <filename>${basedir}/target/surefire-reports</filename> abgelegt. Sollten Ihre
     Tests fehlschlagen, so können Sie in diesem Verzeichnis von den Unit Tests
     angelegte Detailsangaben wie Fehlermeldungen oder Stack Traces der Unit
     Tests finden.</para>
@@ -1282,7 +1282,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
       anweisen, diese Unit Tests zu ignorieren. Das Standardverhalten von
       Maven ist es, nach einem gescheiterten Test den Build abzubrechen. Um
       den Build auch bei auftreten gescheiterter Tests weiterzuführen, müssen
-      sie den Konfigurationseintrag <code>testFailureIgnore</code> des Surefire Maven
+      sie den Konfigurationseintrag <varname>testFailureIgnore</varname> des Surefire Maven
       Plugins auf "true" setzen. </para>
 
       <example>
@@ -1343,9 +1343,9 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
       arbeiten, welches eine Reihe von scheiternden Unit-Tests umfasst. Anstelle
       der Behebung der Unit-Test Fehlern möchten Sie lediglich ein JAR-Archive
       erstellen. Maven sieht für diese Fälle vor, und stellt die Fähigkeit mit
-      dem Parameter <code>skip</code> des Surefire Plugins zum überspringen von Unit-Tests
+      dem Parameter <varname>skip</varname> des Surefire Plugins zum überspringen von Unit-Tests
       bereit. Um beim Aufruf von der Befehlszeile die Unit Tests zu
-      überspringen, fügen Sie einfach den Parameter <code>maven.test.skip</code> Ihrem
+      überspringen, fügen Sie einfach den Parameter <varname>maven.test.skip</varname> Ihrem
       angestrebten Goal an:</para>
 
       <screen>$ mvn install -Dmaven.test.skip=true
@@ -1357,7 +1357,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ...</screen>
 
       <para>Wenn das Surefire Plugin das Goal test erreicht, überspringt es
-      die Unit-Tests, sollte der Parameter <code>maven.test.skip</code> auf "true" gesetzt
+      die Unit-Tests, sollte der Parameter <varname>maven.test.skip</varname> auf "true" gesetzt
       sein. Eine weitere Art Maven zu konfigurieren Unit Tests zu
       überspringen ist, diese Konfiguration in Ihrer Projekt pom.xml-Datei
       vorzunehmen. Um dies zu tun, würde man ein Element plugin Ihrer Build
@@ -1408,7 +1408,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     Definitionsdatei erstellen. In einem späteren Kapitel werden wir Ihnen
     zeigen wie man eine zugeschnittene Assembly Definitionsdatei erstellt, um
     die "Simple Weather" in einem komplexeren Archiv zu deployen. In diesem
-    Kapitel werden wir das vordefinierte Format <code>jar-with-dependencies</code>
+    Kapitel werden wir das vordefinierte Format <varname>jar-with-dependencies</varname>
     einsetzen. Um das Assembly Maven Plugin einzusetzen, müssen wir die
     folgende Anpassung an der bestehenden Konfiguration in der pom.xml-Datei
     vornehmen:</para>
@@ -1456,8 +1456,8 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 </screen>
 
     <para>Nach dem Abarbeiten befindet sich unser Ergebnis im Verzeichnis
-    <code>/target</code> in der Datei <code>simple-weather-1.0-jar-with-dependencies.jar</code>. Wieder
-    können wir die <code>main()</code>-Klasse ausführen. Um die "Simple Weather"
+    <filename>/target</filename> in der Datei <filename>simple-weather-1.0-jar-with-dependencies.jar</filename>. Wieder
+    können wir die <methodname>main()</methodname>-Klasse ausführen. Um die "Simple Weather"
     aufzurufen, geben sie folgenden Befehl auf der Kommandozeile
     im Projekt-Basis-Verzeichnis ein:</para>
 
