@@ -58,6 +58,23 @@
     </resources>
     <plugins>
       <plugin>
+        <groupId>org.sonatype.book</groupId>
+        <artifactId>maven-book-sitemesh-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>mesh-velocity</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>mesh-velocity</goal>
+            </goals>
+            <configuration>
+            	<velocityTemplate>src/main/resources/vm/site.vm</velocityTemplate>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.3</version>
@@ -82,7 +99,7 @@
 
           <execution>
             <id>generate-pdf</id>
-            <phase>pre-site</phase>
+            <phase>compile</phase>
             <goals>
               <goal>generate-pdf</goal>
             </goals>
@@ -98,7 +115,7 @@
           </execution>
           <execution>
             <id>generate-html</id>
-            <phase>pre-site</phase>
+            <phase>compile</phase>
             <goals>
               <goal>generate-html</goal>
             </goals>
