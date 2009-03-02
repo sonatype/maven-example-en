@@ -498,15 +498,8 @@
     <section>
       <title>一个简单的Java Mojo</title>
 
-      <para>In this chapter, we're going to introduce a Maven Mojo written in
-      Java. Each Mojo in your project is going to implement the
-      <classname>org.apache.maven.plugin.Mojo</classname> interface, the
-      <classname>Mojo</classname> implementation shown in the following
-      example implements the Mojo interface by extending the
-      <classname>org.apache.maven.plugin.AbstractMojo</classname> class.
-      Before we dive into the code for this Mojo, let's take some time to
-      explore the methods on the Mojo interface. Mojo provides the following
-      methods:</para>
+      <para>本章，我们将介绍一个用Java编写的Maven
+      Mojo。你项目中每一个Mojo都要实现<classname>org.apache.maven.plugin.Mojo</classname>接口，下例中的<classname>Mojo</classname>通过扩展<classname>org.apache.maven.plugin.AbstractMojo</classname>类实现了该接口。在我们深入Mojo的代码之前，让我们花一些时间看一下Mojo接口。Mojo提供过了如下的方法：</para>
 
       <variablelist>
         <varlistentry>
@@ -514,13 +507,7 @@
           log )</methodname></term>
 
           <listitem>
-            <para>Every <classname>Mojo</classname> implementation has to
-            provide a way for the plugin to communicate the progress of a
-            particular goal. Did the goal succeed? Or, was there a problem
-            during goal execution? When Maven loads and executes a Mojo, it is
-            going to call the <methodname>setLog()</methodname> method and
-            supply the Mojo instance with a suitable logging destination to be
-            used in your custom plugin.</para>
+            <para>每一个Mojo实现都必须提供一种方法让插件能够和某个特定目标的过程相交流。该目标成功了么？或者，是否在运行目标的时候遇到了问题？当Maven加载并运行Mojo的时候，它会调用<methodname>setLog()</methodname>方法，为Mojo实例提供正确的日志目标，以让你在自定义插件中使用。</para>
           </listitem>
         </varlistentry>
 
@@ -528,13 +515,7 @@
           <term><methodname>protected Log getLog()</methodname></term>
 
           <listitem>
-            <para>Maven is going to call <methodname>setLog()</methodname>
-            before your <classname>Mojo</classname> is executed, and your
-            <classname>Mojo</classname> can retrieve the logging object by
-            calling <methodname>getLog()</methodname>. Instead of printing out
-            status to Standard Output or the console, your
-            <classname>Mojo</classname> is going to invoke methods on the
-            <classname>Log</classname> object.</para>
+            <para>Maven会在Mojo运行之前调用<methodname>setLog()</methodname>方法，然后你的Mojo就可以通过调用<methodname>getLog()</methodname>获得日志对象。你的Mojo应该去调用这个<classname>Log</classname>对象的方法，而不是直接将输出打印到标准输出或者控制台。</para>
           </listitem>
         </varlistentry>
 
@@ -543,27 +524,16 @@
           org.apache.maven.plugin.MojoExecutionException</methodname></term>
 
           <listitem>
-            <para>This method is called by Maven when it is time to execute
-            your goal.</para>
+            <para>轮到运行你目标的时候，Maven就会调用该方法。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>The <classname>Mojo</classname> interface is concerned with two
-      things: logging the results of goal execution and executing a goal. When
-      you are writing a custom plugin, you'll be extending
-      <classname>AbstractMojo</classname>. <classname>AbstractMojo</classname>
-      takes care of handling the <varname>setLog()</varname> and
-      <varname>getLog()</varname> implementations and contains an abstract
-      <methodname>execute()</methodname> method. When you extend
-      <classname>AbstractMojo</classname>, all you need to do is implement the
-      <methodname>execute()</methodname> method. <xref
-      linkend="ex-simple-echomojo" /> shows a trivial
-      <classname>Mojo</classname> implement which simply prints out a message
-      to the console.</para>
+      <para>Mojo接口只关心两件事情：目标运行的结果记录日志，以及运行一个目标。当你编写自定义插件的时候，你会要扩展<classname>AbstractMojo</classname>。<classname>AbstractMojo</classname>处理<varname>setLog()</varname>和<varname>getLog()</varname>的实现，并包含一个抽象的<methodname>execute()</methodname>方法。在你扩展<classname>AbstractMojo</classname>的时候，你所需要做的只是实现<methodname>execute()</methodname>方法。<xref
+      linkend="ex-simple-echomojo" />展示了一个简单的Mojo实现，它只是打印一条简单的信息到控制台。</para>
 
       <example id="ex-simple-echomojo">
-        <title>A Simple EchoMojo</title>
+        <title>一个简单的EchoMojo</title>
 
         <programlisting language="java">package org.sonatype.mavenbook.plugins;
 
@@ -592,72 +562,37 @@ public class EchoMojo extends AbstractMojo
 </programlisting>
       </example>
 
-      <para>If you create this Mojo in <varname>${basedir}</varname> under
-      <filename>src/main/java</filename> in
-      <filename>org/sonatype/mavenbook/mojo/EchoMojo.java</filename> in the
-      project created in the previous section and run <command>mvn
-      install</command>, you should be able to invoke this goal directly from
-      the command-line with:</para>
+      <para>如果你在前一节中创建的项目的<varname>${basedir}</varname>下，按照路径<filename>src/main/java/<filename>org/sonatype/mavenbook/mojo/EchoMojo.java</filename></filename>创建该Mojo，然后运行<command>mvn
+      install</command>，你就可以在命令行直接调用该目标。</para>
 
       <screen>$ <command>mvn org.sonatype.mavenbook.plugins:first-maven-plugin:1.0-SNAPSHOT:echo</command></screen>
 
-      <para>That large command-line is <command>mvn</command> followed by the
-      <varname>groupId:artifactId:version:goal</varname>. When you run this
-      command-line you should see output that contains the output of the echo
-      goal with the default message: "Hello Maven World...". If you want to
-      customize the message, you can pass the value of the message parameter
-      with the following command-line:</para>
+      <para>这一长串命令行是<command>mvn</command>后面加上<varname>groupId:artifactId:version:goal</varname>。在你运行该命令之后你应该会看到一个包含了目标echo信息的输出：“Hello
+      Maven World”。如果你想要自定义该信息，你可以如下在命令行传入信息参数：</para>
 
       <screen>$ <command>mvn org.sonatype.mavenbook.plugins:first-maven-plugin:1.0-SNAPSHOT:echo \
              -Decho.message="The Eagle has Landed"</command></screen>
 
-      <para>The previous command-line is going to execute the
-      <classname>EchoMojo</classname> and print out the message "The Eagle has
-      Landed".</para>
+      <para>仍然按照前一条命令运行<classname>EchoMojo</classname>，会得到这样的输出：“The Eagle has
+      Landed”。</para>
     </section>
 
     <section>
       <title>配置插件前缀</title>
 
-      <para>Specifying the <varname>groupId</varname>,
-      <varname>artifactId</varname>, <varname>version</varname>, and
-      <varname>goal</varname> on the command-line is cumbersome. To address
-      this, Maven assigns a plugin a prefix. Instead of typing:</para>
+      <para>在命令行声明groupId，artifactId，version和goal十分麻烦。为了处理这个问题，Maven为插件分配了前缀。你可以使用插件前缀jar，然后使用命令<command>mvn
+      jar:jar</command>，而非：</para>
 
       <screen>$ mvn org.apache.maven.plugins:maven-jar-plugin:2.2:jar</screen>
 
-      <para>You can use the plugin prefix <varname>jar</varname> and turn that
-      command-line into <command>mvn jar:jar</command>. How does Maven resolve
-      something like <varname>jar:jar</varname> to
-      <varname>org.apache.mven.plugins:maven-jar:2.3</varname>? Maven looks at
-      a file in the Maven repository to obtain a list of plugins for a
-      specific <varname>groupId</varname>. By default, Maven is configured to
-      look for plugins in two groups:
-      <varname>org.apache.maven.plugins</varname> and
-      <varname>org.codehaus.mojo</varname>. When you specify a new plugin
-      prefix like <command>mvn hibernate3:hbm2ddl</command>, Maven is going to
-      scan the repository metadata for the appropriate plugin prefix. First,
-      Maven is going to scan the <varname>org.apache.maven.plugins</varname>
-      group for the plugin prefix <varname>hibernate3</varname>. If it doesn't
-      find the plugin prefix <varname>hibernate3</varname> in the
-      <varname>org.apache.maven.plugins</varname> group it will scan the
-      metadata for the <varname>org.codehaus.mojo</varname> group.</para>
+      <para>Maven是如何解析<varname>jar:jar</varname>至<varname>org.apache.mven.plugins:maven-jar:2.3</varname>的呢？Maven查看Maven仓库中的一个文件然后获得一些列含有特定groupId的插件。默认情况下，Maven被配置成从两个组寻找插件：<varname>org.apache.maven.plugins</varname>和<varname>org.codehaus.mojo</varname>。当你指定一个新的插件前缀如<command>mvn
+      hibernate3:hbm2ddl</command>的时候，Maven会为了正确的插件前缀扫描仓库元数据。首先，Maven会扫描<varname>org.apache.maven.plugins</varname>组来查找插件前缀<varname>hibernate3</varname>。如果它没有在这个组中找到该插件前缀，它就会接着扫描<varname>org.codehaus.mojo</varname>组的元数据。</para>
 
-      <para>When Maven scans the metadata for a particular
-      <varname>groupId</varname>, it is retrieving an <acronym>XML</acronym>
-      file from the Maven repository which captures metadata about the
-      artifacts contained in a group. This <acronym>XML</acronym> file is
-      specific for each repository referenced, if you are not using a custom
-      Maven repository, you will be able to see the Maven metadata for the
-      <varname>org.apache.maven.plugins</varname> group in your local Maven
-      repository (<filename>~/.m2/repository</filename>) under
-      <filename>org/apache/maven/plugins/maven-metadata-central.xml</filename>.
-      <xref linkend="ex-maven-metadata" /> shows a snippet of the
-      <filename>maven-metadata-central.xml</filename> file from the
-      <varname>org.apache.maven.plugin</varname> group.</para>
+      <para>当Maven针对某个特定的groupId扫描元数据的时候，它从Maven仓库获取一个XML文件，该文件包含了这个组中构件的元数据。该XML文件对于每个参考实现仓库来说都是明确的，如果你没有使用过一个自定义仓库，你就能在你的本地Maven仓库（<filename>~/.m2/repository</filename>）路径<filename>org/apache/maven/plugins/maven-metadata-central.xml</filename>下看到组<varname>org.apache.maven.plugins</varname>的Maven元数据。<xref
+      linkend="ex-maven-metadata" />展示了这样一个XML文件的代码片段。</para>
 
       <example id="ex-maven-metadata">
-        <title>Maven Metadata for the Maven Plugin Group</title>
+        <title>Maven插件组的Maven元数据</title>
 
         <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;metadata&gt;
@@ -682,34 +617,18 @@ public class EchoMojo extends AbstractMojo
 &lt;/metadata&gt;</programlisting>
       </example>
 
-      <para>As you can see in <xref linkend="ex-maven-metadata" />, this
-      <filename>maven-metadata-central.xml</filename> file in your local
-      repository is what makes it possible for your to execute <command>mvn
-      surefire:test</command>. Maven scans
-      <varname>org.apache.maven.plugins</varname> and
-      <varname>org.codehaus.mojo</varname>: plugins from
-      <varname>org.apache.maven.plugins</varname> are considered core Maven
-      plugins and plugins from <varname>org.codehaus.mojo</varname> are
-      considered extra plugins. The Apache Maven project manages the
-      <varname>org.apache.maven.plugins</varname> group, and a separate
-      independent open source community manages the Codehaus Mojo project. If
-      you would like to start publishing plugins to your own
-      <varname>groupId</varname>, and you would like Maven to automatically
-      scan your own <varname>groupId</varname> for plugin prefixes, you can
-      customize the groups that Maven scans for plugins in your Maven
-      Settings.</para>
+      <para>正如你在<xref
+      linkend="ex-maven-metadata" />中所看到的，你本地仓库的<filename>maven-metadata-central.xml</filename>文件能帮助你运行<command>mvn
+      surefire:test</command>。Maven扫描<varname>org.apache.maven.plugins</varname>和<varname>org.codehaus.mojo</varname>：<varname>org.apache.maven.plugins</varname>中的插件被认为是核心Maven插件，而<varname>org.codehaus.mojo</varname>中的被认为是额外的插件。Apache
+      Maven项目管理<varname>org.apache.maven.plugins</varname>组，而另外一个独立的开源社区管理Codehaus
+      Mojo项目。如果你想要发布插件到你自己的groupId下，你就需要让Maven自动扫描你的groupId以获得插件前缀，你就可以通过Maven
+      settings自定义Maven需要扫描的插件组。</para>
 
-      <para>If you wanted to be able to run the
-      <varname>first-maven-plugin</varname>'s echo goal by running
-      <varname>first:echo</varname>, add the
-      <varname>org.sonatype.mavenbook.plugins</varname> groupId to your
-      <filename>~/.m2/settings.xml</filename> as shown in <xref
-      linkend="ex-plugin-groups" />. This will prepend the
-      <varname>org.sonatype.mavenbook.plugins</varname> to the list of groups
-      which Maven scans for Maven plugins.</para>
+      <para>如果你想要通过<varname>first:echo</varname>命令就能运行<varname>first-maven-plugin</varname>的echo目标，如所示，添加<varname>org.sonatype.mavenbook.plugins</varname>
+      groupId至你的<filename>~/.m2/settings.xml</filename>文件中。这会让Maven优先扫描<varname>org.sonatype.mavenbook.plugins</varname>插件组。</para>
 
       <example id="ex-plugin-groups">
-        <title>Customizing the Plugin Groups in Maven Settings</title>
+        <title>在Maven Settings中自定义插件组</title>
 
         <programlisting language="xml">&lt;settings&gt;
   ...
@@ -719,20 +638,9 @@ public class EchoMojo extends AbstractMojo
 &lt;/settings&gt;</programlisting>
       </example>
 
-      <para>You can now run <command>mvn first:echo</command> from any
-      directory and see that Maven will properly resolve the goal prefix to
-      the appropriate plugin identifiers. This worked because our project
-      adhered to a naming convention for Maven plugins. If your plugin project
-      has an <varname>artifactId</varname> which follows the pattern
-      <varname>maven-first-plugin</varname> or
-      <varname>first-maven-plugin</varname>. Maven will automatically assign a
-      plugin goal prefix of <varname>first</varname> to your plugin. In other
-      words, when the Maven Plugin Plugin is generating the Plugin descriptor
-      for your plugin and you have not explicitly set the
-      <varname>goalPrefix</varname> in your project, the
-      <varname>plugin:descriptor</varname> goal will extract the prefix from
-      your plugin's <varname>artifactId</varname> when it matches the
-      following patterns:</para>
+      <para>你可以在任何目录运行<command>mvn
+      first:echo</command>，并看到Maven正确解析了目标前缀。这样子行得通是因为我们遵循了Maven插件的命名约定。如果你的插件有一个artifactId，并且它遵循模式<varname>maven-first-plugin</varname>，或者<varname>first-maven-plugin</varname>。Maven就会自动为你的插件赋予前缀<varname>first</varname>。换句话说，当Maven
+      Plugin插件为你的插件生成插件描述符的时候，你不需要显式的为你的项目设定<varname>goalPrefix</varname>，<varname>当你的artifactId符合如下模式的时候，plugin:descriptor</varname>目标会从你插件的artifactId中抽取前缀。</para>
 
       <itemizedlist>
         <listitem>
@@ -744,14 +652,9 @@ public class EchoMojo extends AbstractMojo
         </listitem>
       </itemizedlist>
 
-      <para>If you would like to set an explicit plugin prefix, you'll need to
-      configure the Maven Plugin Plugin. The Maven Plugin Plugin is a plugin
-      that is responsible for building the Plugin descriptor and performing
-      plugin specific tasks during the package and load phases. The Maven
-      Plugin Plugin can be configured just like any other plugin in the build
-      element. To set the plugin prefix for your plugin, add the following
-      build element to the <varname>first-maven-plugin</varname> project's
-      <filename>pom.xml</filename>.</para>
+      <para>如果你想要显式的设定插件前缀，你需要配置Maven Plugin插件。Maven
+      Plugin插件被用来构建插件描述符，并在打包和加载阶段运行一些插件特定的任务。Maven
+      Plugin插件可以像其它任何插件一样在build元素下配置。要为你的插件设置插件前缀，在项目<varname>first-maven-plugin</varname>的pom.xml中添加如下的build元素：</para>
 
       <example id="ex-plugin-prefix">
         <title>Configuring a Plugin Prefix</title>
@@ -791,29 +694,16 @@ public class EchoMojo extends AbstractMojo
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para><xref linkend="ex-plugin-prefix" /> sets the plugin prefix to
-      <varname>blah</varname>. If you've added the
-      <varname>org.sonatype.mavenbook.plugins</varname> to the
-      <sgmltag>pluginGroups</sgmltag> in your
-      <filename>~/.m2/settings.xml</filename>, you should be able to execute
-      the <classname>EchoMojo</classname> by running <command>mvn
-      echo:blah</command> from any directory.</para>
+      <para><xref
+      linkend="ex-plugin-prefix" />设置了插件前缀为<varname>blah</varname>。如果在<filename>~/.m2/settings.xml</filename>中的<sgmltag>pluginGroups</sgmltag>下添加了<varname>org.sonatype.mavenbook.plugins</varname>元素，你就应该能够在任何目录通过<command>mvn
+      blah：echo</command>命令运行<classname>EchoMojo</classname>。</para>
     </section>
 
     <section>
       <title>插件中的日志</title>
 
-      <para>Maven takes care of connecting your Mojo to a logging provider by
-      calling <methodname>setLog()</methodname> prior to the execution of your
-      Mojo. It supplies an implementation of
-      <classname>org.apache.maven.monitor.logging.Log</classname>. This class
-      exposes methods that you can use to communicate information back to the
-      user. This <classname>Log</classname> class provides multiple levels of
-      logging similar to that <acronym>API</acronym> provided by <ulink
-      url="http://logging.apache.org/">Log4J</ulink>. Those levels are
-      captured by a series of methods available for each level: debug, info,
-      error and warn. To save trees, we've only listed the methods for a
-      single logging level: debug.</para>
+      <para>Maven通过在运行你的Mojo之前调用<methodname>setLog()</methodname>来连接你的Mojo至日志提供程序。该提供程序提供了一个<classname>org.apache.maven.monitor.logging.Log</classname>的实现。该类暴露了一些你可以用来和用户交流信息的方法。这个<classname>Log</classname>类提供了很多日志级别，与<ulink
+      url="http://logging.apache.org/">Log4J</ulink>提供的API十分类似。每个级别：debug，info，error，warn，都有一些列可用的方法。为了节省时间，我们只列出了debug级别的方法：</para>
 
       <variablelist>
         <varlistentry>
@@ -821,7 +711,7 @@ public class EchoMojo extends AbstractMojo
           )</methodname></term>
 
           <listitem>
-            <para>Prints a message to the debug logging level.</para>
+            <para>打印信息至debug日志级别。</para>
           </listitem>
         </varlistentry>
 
@@ -830,10 +720,7 @@ public class EchoMojo extends AbstractMojo
           )</methodname></term>
 
           <listitem>
-            <para>Prints a message to the debug logging level which includes
-            the stack trace from the <classname>Throwable</classname> (either
-            <classname>Exception</classname> or
-            <classname>Error</classname>)</para>
+            <para>打印信息至debug日志级别，并包含一个<classname>Throwable</classname>（<classname>Exception</classname>或者<classname>Error</classname>）的堆栈信息。</para>
           </listitem>
         </varlistentry>
 
@@ -841,38 +728,14 @@ public class EchoMojo extends AbstractMojo
           <term><methodname>void debug( Throwable t )</methodname></term>
 
           <listitem>
-            <para>Prints out the stack trace of the
-            <classname>Throwable</classname> (either
-            <classname>Exception</classname> or
-            <classname>Error</classname>)</para>
+            <para>打印一个<classname>Throwable</classname>（<classname>Exception</classname>或者<classname>Error</classname>）的堆栈信息。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>Each of the four levels exposes the same three methods. The four
-      logging levels serve different purposes. The debug level exists for
-      debugging purposes and for people who want to see a very detailed
-      picture of the execution of a Mojo. You should use the debug logging
-      level to provide as much detail on the execution of a Mojo, but you
-      should never assume that a user is going to see the debug level. The
-      info level is for general informational messages that should be printed
-      as a normal course of operation. If you were building a plugin that
-      compiled code using a compiler, you might want to print the output of
-      the compiler to the screen.</para>
+      <para>每个级别暴露同样的一组方法。这四个日志级别服务于不同的目的。debug级别是为了调试目的，人们用来观察mojo运行的详细情况。你应该使用debug日志级别来提供Mojo运行尽可能详细的细节，但你从不应该去假设用户会看到debug级别信息。info级别是为了生成一些正常操作的信息。如果你构建一个插件使用编译器来编译代码，你可能就需要打印编译的输出至屏幕。</para>
 
-      <para>The warn logging level is used for messages about unexpected
-      events and errors that your Mojo can cope with. If you were trying to
-      run a plugin that compiled Ruby source code, and there was no Ruby
-      source code available, you might want to just print a warning message
-      and move on Warnings are not fatal, but errors are usually
-      build-stopping conditions. For the completely unexpected error
-      condition, there is the error logging level. You would use error if you
-      couldn't continue executing a Mojo. If you were writing a Mojo to
-      compile some Java code and the compiler wasn't available, you'd print a
-      message to the error level and possibly pass along an Exception that
-      Maven could print out for the user. You should assume that a user is
-      going to see most of the messages in info and all of the messages in
-      error.</para>
+      <para>warn日志级别用来记录一些非预期的，但你的Mojo还能够处理的事件和错误。如果你试图运行编译Ruby源码的插件，而实际上没有可用的Ruby源码，你就需要打印一个警告信息，然后继续运行。警告（warn）不是致命的，但是错误（error）就是一些终止程序运行的情况。对于那些完全非预期的错误情况，这里有error日志级别。如果你不再能够继续运行一个Mojo，你就需要使用error。如果你在编写一个Mojo编译Java源码，但编译器不可用，你就需要打印一条信息到error级别，然后传递一条异常，以让Maven能够输出给用户。你应该假设用户能够看到大多数的info信息，以及所有的error信息。</para>
     </section>
 
     <section>
