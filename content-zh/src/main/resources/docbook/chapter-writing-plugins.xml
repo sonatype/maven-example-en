@@ -741,23 +741,14 @@ public class EchoMojo extends AbstractMojo
     <section>
       <title>Mojo类注解</title>
 
-      <para>In <varname>first-maven-plugin</varname>, you didn't write the
-      plugin descriptor yourself, you relied on Maven to generate the plugin
-      descriptor from your source code. The descriptor was generated using
-      your plugin project's <acronym>POM</acronym> information and a set of
-      annotations on your <classname>EchoMojo</classname> class.
-      <classname>EchoMojo</classname> only specifies the
-      <classname>@goal</classname> annotation, here is a list of other
-      annotations you can place on your <classname>Mojo</classname>
-      implementation.</para>
+      <para>在<varname>first-maven-plugin</varname>中，我们并没有编写插件描述符，我们依赖于Maven从源码生成插件描述符。该描述符根据你插件项目的POM信息以及<classname>EchoMojo</classname>类上一系列的注解生成。<classname>EchoMojo</classname>仅仅声明了一个<classname>@goal</classname>注解，这里偶一个注解的列表，你可以将其用到Mojo实现上。</para>
 
       <para><variablelist>
           <varlistentry>
             <term>@goal &lt;goalName&gt;</term>
 
             <listitem>
-              <para>This is the only required annotation which gives a name to
-              this goal unique to this plugin.</para>
+              <para>这是唯一必需的注解，它给予目标一个插件中唯一的名称。</para>
             </listitem>
           </varlistentry>
 
@@ -765,12 +756,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresDependencyResolution &lt;requireScope&gt;</term>
 
             <listitem>
-              <para>Flags this mojo as requiring the dependencies in the
-              specified scope (or an implied scope) to be resolved before it
-              can execute. Supports compile, runtime, and test. If this
-              annotation had a value of <varname>test</varname>, it would tell
-              Maven that the Mojo cannot be executed until the dependencies in
-              the test scope had been resolved.</para>
+              <para>标记该mojo在可以运行之前，需要特定范围（或者一个暗指的范围）的依赖。支持的范围有compile，runtime，和test。如果该注解有一个值为test，那么就是告诉Maven除非测试范围的所有依赖都被正确解析了，否则该mojo不能运行。</para>
             </listitem>
           </varlistentry>
 
@@ -778,9 +764,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresProject (true|false)</term>
 
             <listitem>
-              <para>Marks that this goal must be run inside of a project,
-              default is <literal>true</literal>. This is opposed to plugins
-              like archetypes, which do not.</para>
+              <para>标记该mojo必须在一个项目中运行，默认为true。这一点插件类型和骨架类型（archetype）相反，后者默认为false。</para>
             </listitem>
           </varlistentry>
 
@@ -788,10 +772,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresReports (true|false)</term>
 
             <listitem>
-              <para>If you were creating a plugin that relies on the presence
-              of reports, you would need to set
-              <varname>requiresReports</varname> to <varname>true</varname>.
-              The default value of this annotation is false.</para>
+              <para>如果你正创建一个依赖于报告的项目，你就需要将<varname>requiresReports</varname>设置成true。该注解默认的值是false。</para>
             </listitem>
           </varlistentry>
 
@@ -799,16 +780,7 @@ public class EchoMojo extends AbstractMojo
             <term>@aggregator (true|false)</term>
 
             <listitem>
-              <para>A Mojo with <varname>aggregator</varname> set to
-              <varname>true</varname> is supposed to only run once during the
-              execution of Maven, it was created to give plugin developers the
-              ability to summarize the output of a series of builds; for
-              example, to create a plugin that summarizes a report across all
-              projects included in a build. A goal with
-              <varname>aggregator</varname> set to <varname>true</varname>
-              should only be run against the top-level project in a Maven
-              build. The default value of <varname>aggregator</varname> is
-              <varname>false</varname>.</para>
+              <para>一个<varname>aggregator</varname>设置成true的Mojo在Maven运行的时候只会被执行一次，有了该选项，插件开发者就可以汇总一系列构建的输出；例如，创建一个插件用来汇总一次构建包含的所有项目的报告。<varname>aggregator</varname>设置成true的目标只针对Maven构建的顶层项目运行。该注解默认的值是false。</para>
             </listitem>
           </varlistentry>
 
@@ -816,10 +788,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresOnline (true|false)</term>
 
             <listitem>
-              <para>When set to <varname>true</varname>, Maven must not be
-              running in offline mode when this goal is executed. Maven will
-              throw an error if one attempts to execute this goal offline.
-              Default: <varname>false</varname>.</para>
+              <para>当该注解的值是true的时候，Maven在脱机模式运行的时候该目标运行就会失败。Maven会抛出一个错误。默认值：false。</para>
             </listitem>
           </varlistentry>
 
@@ -827,11 +796,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresDirectInvocation</term>
 
             <listitem>
-              <para>When set to <varname>true</varname>, the goal can only be
-              executed if it is explicitly executed from the command-line by
-              the user. Maven will throw an error if someone tries to bind
-              this goal to a lifecycle phase. The default for this annotation
-              is <varname>false</varname>.</para>
+              <para>当设置成true的时候，只有当用户显式的从命令行触发的时候，该插件才能得以执行。如果有人试图将其绑定到一个生命周期阶段，Maven就会抛出一个错误。默认值是false。</para>
             </listitem>
           </varlistentry>
 
@@ -839,11 +804,7 @@ public class EchoMojo extends AbstractMojo
             <term>@phase &lt;phaseName&gt;</term>
 
             <listitem>
-              <para>This annotation specifies the default phase for this goal.
-              If you add an execution for this goal to a
-              <filename>pom.xml</filename> and do not specify the phase, Maven
-              will bind the goal to the phase specified in this annotation by
-              default.</para>
+              <para>该注解指定目标默认的生命周期阶段。如果你将该目标的执行配置到了pom.xml而且没有指定一个阶段。Maven就会使用该注解的值将其绑定到一个默认的阶段。</para>
             </listitem>
           </varlistentry>
 
@@ -858,15 +819,21 @@ public class EchoMojo extends AbstractMojo
               execution will be made available in the Maven property
               <varname>${executedProperty}</varname>.</para>
 
+              <para>该注解有很多种使用方式。如果提供了一个阶段，Maven就会在指定生命周期阶段的末尾执行一次并行的生命周期。</para>
+
               <para>The second way of using this annotation is to specify an
               explicit goal using the <varname>prefix:goal</varname> notation.
               When you specify just a goal, Maven will execute this goal in a
               parallel environment that will not affect the current Maven
               build.</para>
 
+              <para>第二种使用该注解的方式是使用<varname>prefix:goal</varname>标记指定一个显式的目标。当你仅仅指定一个目标的时候，Maven会在一个并行的环境中执行该目标，不会影响当前的Maven构建。</para>
+
               <para>The third way of using this annotation would be to specify
               a phase in an alternate lifecycle using the identifier of a
               lifecycle.</para>
+
+              <para>第三种使用该注解的方式是，使用一个生命周期定义符，并指定一个阶段。</para>
 
               <programlisting language="java">@execute phase="package" lifecycle="zip"
 @execute phase="compile"
@@ -875,58 +842,30 @@ public class EchoMojo extends AbstractMojo
           </varlistentry>
         </variablelist></para>
 
-      <para>If you look at the source for <classname>EchoMojo</classname>,
-      you'll notice that Maven is not using the standard annotations available
-      in Java 5. Instead, it is using <ulink
-      url="http://commons.apache.org/attributes/">Commons Attributes</ulink>.
-      Commons Attributes provided a way for Java programmers to use
-      annotations before annotations were a part of the Java language
-      specification. Why doesn't Maven use Java 5 annotations? Maven doesn't
-      use Java 5 annotations because it is designed to target pre-Java 5
-      <acronym>JVM</acronym>s. Because Maven has to support older versions of
-      Java, it cannot use any of the newer features available in Java
-      5.</para>
+      <para>如果你看一下<classname>EchoMojo</classname>的源码，你会注意到Maven并没有使用Java
+      5的标准注解。而是使用了<ulink url="http://commons.apache.org/attributes/">Commons
+      Attributes</ulink>。在注解成为Java语言的一部分之前，Commons
+      Attributes为Java程序员提供了一种使用注解的方式。为什么Maven不使用Java 5的注解呢？这是因为Maven是针对Java
+      5之前的<acronym>JVM</acronym>设计的。因为Maven必须支持Java比较老的版本，所以它不能使用任何Java
+      5的新特性。</para>
     </section>
 
     <section>
       <title>当Mojo失败的时候</title>
 
-      <para>The <methodname>execute()</methodname> method in Mojo throws two
-      exceptions <classname>MojoExecutionException</classname> and
-      <classname>MojoFailureException</classname>. The difference between
-      these two exception is both subtle and important, and it relates to what
-      happens when a goal execution "fails". A
-      <classname>MojoExecutionException</classname> is a fatal exception,
-      something unrecoverable happened. You would throw a
-      <classname>MojoExecutionException</classname> if something happens that
-      warrants a complete stop in a build; you re trying to write to disk, but
-      there is no space left, or you were trying to publish to a remote
-      repository, but you can't connect to it. Throw a
-      <classname>MojoExecutionException</classname> if there is no chance of a
-      build continuing; something terrible has happened and you want the build
-      to stop and the user to see a "BUILD ERROR" message.</para>
+      <para>Mojo中的<methodname>execute()</methodname>方法抛出两个异常，<classname>MojoExecutionException</classname>和<classname>MojoFailureException</classname>。这两个异常的区别既微妙又重要，这要看当目标运行“失败”的时候发生了什么。一个<classname>MojoExecutionException</classname>应该是一个致命的异常，发生了一些不可恢复的错误。如果有什么事情导致构建完全终止，你就需要抛出一个<classname>MojoExecutionException</classname>；比如说你正试图往磁盘写数据，但没有可用空间，或者，你试图发布构件到一个远程仓库，但是连接不了远程服务器。如果没有机会继续构建，就抛出一个<classname>MojoExecutionException</classname>；发生了一些严重的事情，你希望停止构建并让用户看到“BUILD
+      ERROR”信息。</para>
 
-      <para>A <classname>MojoFailureException</classname> is something less
-      catastrophic, a goal can fail, but it might not be the end of the world
-      for your Maven build. A unit test can fail, or a <acronym>MD5</acronym>
-      checksum can fail; both of these are potential problems, but you don't
-      want to return an exception that is going to kill the entire build. In
-      this situation you would throw a
-      <classname>MojoFailureException</classname>. Maven provides for
-      different "resiliency" settings when it comes to project failure. Which
-      are described below.</para>
+      <para>而<classname>MojoFailureException</classname>就相对没有那么严重，一个目标可以失败，但它可能并不是Maven构建的世界末日。一个单元测试可以失败，或者MD5校验和可以失败；两者都是潜在的问题，但是你不会想要抛出一个异常去终止整个构建。在这种情况下，你可以抛出一个<classname>MojoFailureException</classname>。当Maven遇到项目失败的时候，他会提供不同的“弹性”设置。如下所述：</para>
 
-      <para>When you run a Maven build, it could involve a series of projects
-      each of which can succeed or fail. You have the option of running Maven
-      in three failure modes:</para>
+      <para>当你运行一个Maven构建的时候，它会包含一系列的项目，每个项目可以成功或者失败。你可以三种可选的失败模式：</para>
 
       <variablelist>
         <varlistentry>
           <term>mvn -ff</term>
 
           <listitem>
-            <para>Fail-fast mode: Maven will fail (stop) at the first build
-            failure.</para>
+            <para>最快失败模式：Maven会在遇到第一个失败的时候失败（停止）。</para>
           </listitem>
         </varlistentry>
 
@@ -934,10 +873,8 @@ public class EchoMojo extends AbstractMojo
           <term>mvn -fae</term>
 
           <listitem>
-            <para>Fail-at-end: Maven will fail at the end of the build. If a
-            project in the Maven reactor fails, Maven will continue to build
-            the rest of the builds and report a failure at the end of the
-            build.</para>
+            <para>最后失败模式：Maven会在构建最后失败（停止）。如果Maven
+            refactor中一个失败了，Maven会继续构建其它项目，并在构建最后报告失败。</para>
           </listitem>
         </varlistentry>
 
@@ -945,18 +882,12 @@ public class EchoMojo extends AbstractMojo
           <term>mvn -fn</term>
 
           <listitem>
-            <para>Fail never: Maven won't stop for a failure and it won't
-            report a failure.</para>
+            <para>从不失败模式：Maven从来不会为一个失败停止，也不会报告失败。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>You might want to ignore failure if you are running a continuous
-      integration build and you want to attempt a build regardless of the
-      success of failure of an individual project build. As a plugin
-      developer, you'll have to make a call as to whether a particular failure
-      condition is a <classname>MojoExecutionException</classname> or a
-      <classname>MojoFailureExeception</classname>.</para>
+      <para>如果你正在运行一个持续集成构建，不管单个项目构建成败与否都要继续构建，你可能想要忽略失败。作为一个插件开发者，你必须根据你某个特定的失败条件来判断使用<classname>MojoExecutionException</classname>还是<classname>MojoFailureExeception</classname>。</para>
     </section>
   </section>
 
