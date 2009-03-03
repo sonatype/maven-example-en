@@ -813,27 +813,11 @@ public class EchoMojo extends AbstractMojo
             [lifecycle=lifecycleId]]</term>
 
             <listitem>
-              <para>This annotation can be used in a number of ways. If a
-              phase is supplied, Maven will execute a parallel lifecycle
-              ending in the specified phase. The results of this separate
-              execution will be made available in the Maven property
-              <varname>${executedProperty}</varname>.</para>
+              <para>该注解有很多种使用方式。如果提供了一个阶段，Maven就会执行一个平行的生命周期（直到指定的阶段）。这个单独执行的结果可以通过Maven属性<varname>${executedProperty}</varname>供插件使用。</para>
 
-              <para>该注解有很多种使用方式。如果提供了一个阶段，Maven就会在指定生命周期阶段的末尾执行一次并行的生命周期。</para>
+              <para>第二种使用该注解的方式是使用<varname>prefix:goal</varname>标记指定一个显式的目标。当你仅仅指定一个目标的时候，Maven会在一个平行的环境中执行该目标，不会影响当前的Maven构建。</para>
 
-              <para>The second way of using this annotation is to specify an
-              explicit goal using the <varname>prefix:goal</varname> notation.
-              When you specify just a goal, Maven will execute this goal in a
-              parallel environment that will not affect the current Maven
-              build.</para>
-
-              <para>第二种使用该注解的方式是使用<varname>prefix:goal</varname>标记指定一个显式的目标。当你仅仅指定一个目标的时候，Maven会在一个并行的环境中执行该目标，不会影响当前的Maven构建。</para>
-
-              <para>The third way of using this annotation would be to specify
-              a phase in an alternate lifecycle using the identifier of a
-              lifecycle.</para>
-
-              <para>第三种使用该注解的方式是，使用一个生命周期定义符，并指定一个阶段。</para>
+              <para>第三种使用该注解的方式是，使用一个生命周期定义文件，并指定这个生命周期的一个阶段。</para>
 
               <programlisting language="java">@execute phase="package" lifecycle="zip"
 @execute phase="compile"
@@ -894,16 +878,12 @@ public class EchoMojo extends AbstractMojo
   <section>
     <title>Mojo参数</title>
 
-    <para>Just as important as the <methodname>execute()</methodname> method
-    and the Mojo annotations, a Mojo is configured via parameters. This
-    section deals with some configuration and topics surrounding Mojo
-    parameters.</para>
+    <para>通过参数配置Mojo，和<methodname>execute()</methodname>方法及Mojo注解相比同样重要。本节讲述有关Mojo参数的配置和主题。</para>
 
     <section>
       <title>为Mojo参数提供值</title>
 
-      <para>In EchoMojo we declared the message parameter with the following
-      annotations:</para>
+      <para>在EchoMojo中我们使用如下的注解声明了message参数。</para>
 
       <programlisting language="java">/**
  * Any Object to print out.
@@ -914,27 +894,13 @@ public class EchoMojo extends AbstractMojo
 private Object message;
 </programlisting>
 
-      <para>The default expression for this parameter is
-      <varname>${echo.message}</varname>, this means that Maven will try to
-      use the value of the <varname>echo.message</varname> property to set the
-      value for message. If the value of the <varname>echo.message</varname>
-      property is null, the default-value attribute of the
-      <classname>@parameter</classname> annotation will be used instead.
-      Instead of using the <varname>echo.message</varname> property, we can
-      configure a value for the message parameter of the EchoMojo directly in
-      a project's <acronym>POM</acronym>.</para>
+      <para>该参数的默认表达式是<varname>${echo.message}</varname>，意思是Maven会使用<varname>echo.message</varname>属性的值来设置message的值。如果<varname>echo.message</varname>属性的值是null，<classname>@parameter</classname>注解的default-value属性就会被使用。除了使用<varname>echo.message</varname>属性，我们也可以在项目的POM中配置EchoMojo的message参数的值。</para>
 
-      <para>There are a few ways to populate the message parameter in the
-      <classname>EchoMojo</classname>. First we can pass in a value from the
-      command-line like this (assuming that you've added
-      <varname>org.sonatype.mavenbook.plugins</varname> to your
-      <sgmltag>pluginGroups</sgmltag>):</para>
+      <para>有很多中方式可以填充<classname>EchoMojo</classname>的message参数的值。首先我们可以从命令行传入一个值（假设你已经将<varname>org.sonatype.mavenbook.plugins</varname>添加到你的<sgmltag>pluginGroups</sgmltag>中）：</para>
 
       <screen>$ mvn first:echo -Decho.message="Hello Everybody"</screen>
 
-      <para>We could also specify the value of this message parameter, by
-      setting a property in our <acronym>POM</acronym> or in our
-      <filename>settings.xml</filename>.</para>
+      <para>我们也可以通过在POM或者settings.xml中设定一个属性来指定该message参数的值：</para>
 
       <programlisting language="xml">&lt;project&gt;
   ...
@@ -944,12 +910,7 @@ private Object message;
 &lt;/project&gt;
 </programlisting>
 
-      <para>This parameter could also be configured directly as a
-      configuration value for the plugin. If we wanted to customize the
-      message parameter directly, we could use the following build
-      configuration. The following configuration bypasses the echo.message
-      property and populates the Mojo parameter in plugin
-      configuration.</para>
+      <para>该参数还可以直接通过配置插件来进行配置。如果我们想要直接自定义message参数，我们可以使用如下的build配置。下面的配置绕开了echo.message属性，而是在插件配置中填充Mojo参数：</para>
 
       <programlisting language="xml">&lt;project&gt;
   ...
@@ -967,11 +928,7 @@ private Object message;
   &lt;/build&gt;
 &lt;/project&gt;</programlisting>
 
-      <para>If we wanted to run the <classname>EchoMojo</classname> twice at
-      difference phases in a lifecycle, and we wanted to customize the message
-      parameter for each execution separately, we could configure the
-      parameter value at the execution level in a <acronym>POM</acronym> like
-      this:</para>
+      <para>如果我们想要在一个生命周期的不同阶段中运行<classname>EchoMojo</classname>两次，并且希望每次运行都能自定义message参数，我们可以在如下在POM中的execution级别配置这个参数值：</para>
 
       <programlisting language="xml">&lt;build&gt;
   &lt;build&gt;
@@ -1007,33 +964,20 @@ private Object message;
   &lt;/build&gt;
 &lt;/build&gt;</programlisting>
 
-      <para>While this last configuration example seems very verbose, it
-      illustrates the flexibility of Maven. In the previous configuration
-      example, you've bound the <classname>EchoMojo</classname> to both the
-      <varname>validate</varname> and <varname>generate-resources</varname>
-      phases in the default Maven lifecycle. The first execution is bound to
-      <varname>generate-resources</varname>, it supplies a string value to the
-      message parameter of "The Eagle has Landed!". The second execution is
-      bound to the <varname>validate</varname> phase, it supplies a property
-      reference to <varname>${project.version}</varname>. When you run
-      <command>mvn install</command> for his project, you'll see that the
-      <varname>first:echo</varname> goal executes twice and prints out two
-      different messages.</para>
+      <para>虽然上面的配置样例看起来有些啰嗦，但它展示了Maven的弹性。在前面的配置样例中，我们将<classname>EchoMojo</classname>同时绑定到了默认Maven生命周期的<varname>validate</varname>和<varname>generate-resources</varname>阶段。第一次执行被绑定到了<varname>generate-resources</varname>，它为message参数提供了字符串值“he
+      Eagle has
+      Landed!”。第二次运行则被绑定到了<varname>validate</varname>阶段，它提供了一个属性引用<varname>${project.version}</varname>。当你为该项目运行<command>mvn
+      install</command>的时候，你会看到<varname>first:echo</varname>目标执行了两次，并打印了不同的信息。</para>
     </section>
 
     <section>
       <title>多值的Mojo参数</title>
 
-      <para>Plugins can have parameters which accept more than one value. Take
-      a look at the <classname>ZipMojo</classname> shown in <xref
-      linkend="ex-plugin-multivalue" />. Both the <varname>includes</varname>
-      and <varname>excludes</varname> parameters are multivalued
-      <classname>String</classname> arrays which specify the inclusion and
-      exclusion patterns for a component that creates a <acronym>ZIP</acronym>
-      file.</para>
+      <para>插件的参数可以接受多于一个的值。看一下<xref
+      linkend="ex-plugin-multivalue" />中的<classname>ZipMojo</classname>。参数<varname>includes</varname>和<varname>excludes</varname>都是多值的<classname>String</classname>数组，它们为一个创建ZIP文件的组件指定了包含和排除的模式。</para>
 
       <example id="ex-plugin-multivalue">
-        <title>A Plugin with Multi-valued Parameters</title>
+        <title>一个带有多值参数的插件</title>
 
         <programlisting language="java">package org.sonatype.mavenbook.plugins
 
@@ -1092,17 +1036,7 @@ public class ZipMojo extends AbstractMojo
 }
 </programlisting>
 
-        <para>To configure a multi-valued Mojo parameter, you use a series of
-        elements for each value. If the name of the multi-valued parameter is
-        <varname>includes</varname>, you would use an element
-        <sgmltag>includes</sgmltag> with child elements
-        <sgmltag>include</sgmltag>. If the multi-valued parameter is
-        <varname>excludes</varname>, you would use an element
-        <sgmltag>excludes</sgmltag> with child elements
-        <sgmltag>exclude</sgmltag>. To configure the
-        <classname>ZipMojo</classname> to ignore all files ending in
-        <varname>.txt</varname> and all files ending in a tilde, you would use
-        the following plugin configuration.</para>
+        <para>要配置一个多值的Mojo参数，你应该为这类参数使用一组元素。如果这个多值参数的名称是includes，你就可以使用一个includes元素，它包含一组include子元素。如果这个多值参数的名称是excludes，你就应该使用带有exclude子元素的excludes元素。要配置<classname>ZipMojo</classname>使其忽略所有以.txt及波浪号结尾的文件，你可以使用如下的插件配置。</para>
       </example>
 
       <programlisting language="xml">&lt;project&gt;
@@ -1128,18 +1062,11 @@ public class ZipMojo extends AbstractMojo
     <section>
       <title>依赖于一个Plexus组件</title>
 
-      <para>A Mojo is a component managed by an <acronym>IoC</acronym>
-      container called Plexus. A Mojo can depend on other components managed
-      by Plexus by declaring a Mojo parameter and using the
-      <classname>@parameter</classname> or the
-      <classname>@component</classname> annotation. <xref
-      linkend="ex-plugin-multivalue" /> shows a <classname>ZipMojo</classname>
-      which depends on a Plexus component using the
-      <classname>@parameter</classname> annotation, this dependency could be
-      declared using the <classname>@component</classname> annotation.</para>
+      <para>一个Mojo是一个由名为Plexus的Ioc容器管理的组件。Mojo可以通过使用<classname>@parameter或</classname><classname>@component</classname>注解声明Mojo参数，然后依赖于其它Plexu管理的组件。<xref
+      linkend="ex-plugin-multivalue" />展示了<classname>ZipMojo</classname>使用<classname>@parameter</classname>注解依赖于一个Plexus组件，该依赖也可以使用<classname>@component</classname>注解来声明。</para>
 
       <example>
-        <title>Depending on a Plexus Component</title>
+        <title>依赖于一个Plexus组件</title>
 
         <programlisting language="java">/**
  * The Zip archiver.
@@ -1148,27 +1075,17 @@ public class ZipMojo extends AbstractMojo
 private ZipArchiver zipArchiver;</programlisting>
       </example>
 
-      <para>When Maven instantiates this Mojo, it will then attempt to
-      retrieve the Plexus component with the specified role and role hint. In
-      this example, the Mojo will be related to a ZipArchiver component which
-      will allow the <classname>ZipMojo</classname> to create a
-      <acronym>ZIP</acronym> file.</para>
+      <para>当Maven初始化该Mojo的时候，它会尝试通过指定的role和role
+      hint来获取Plexus组件。在该例中，这个Mojo关联到一个ZipArchiver组件，后者能帮助<classname>ZipMojo</classname>创建ZIP文件。</para>
 
       <!--TODO: OK, we need more here.  How do I get my hands on components?  How to a bundle components?-->
     </section>
 
     <section>
-      <title>Mojo参数标注</title>
+      <title>Mojo参数注解</title>
 
-      <para>Unless you insist on writing your Plugin descriptors by hand,
-      you'll never have to write that <acronym>XML</acronym>. Instead, the
-      Maven Plugin Plugin has a <varname>plugin:descriptor</varname> goal
-      bound to the generate-resources phase. This goal generates the plugin
-      descriptor from annotations on your Mojo. To configure a Mojo parameter,
-      you should use the following annotations on either the private member
-      variables for each of your Mojo's parameters. You can also use these
-      annotations on public setter methods, but the most common convention for
-      Maven plugins is to annotate private member variables directly.</para>
+      <para>除非你坚持要手工编写自己的插件描述符，否则你完全不需要编写那个XML文件。Maven
+      Plugin插件有一个<varname>plugin:descriptor</varname>目标绑定到了generate-resources阶段。该目标根据Mojo的注解生成插件描述符。要配置Mojo参数，你应该使用下列的注解，将其声明到私有成员变量上。你也可以在公有setter方法上使用这些注解，但Maven插件一般的约定是直接注解私有成员变量。</para>
 
       <variablelist>
         <varlistentry>
@@ -1176,17 +1093,7 @@ private ZipArchiver zipArchiver;</programlisting>
           [expression="${someExpression}"] [default-value="value"]</term>
 
           <listitem>
-            <para>Marks a private field (or a setter method) as a parameter.
-            The <varname>alias</varname> provides the name of the parameter.
-            If <varname>alias</varname> is omitted, Maven will use the name of
-            the variable as the parameter name. The
-            <varname>expression</varname> is an expression that Maven will
-            evaluate to obtain a value. Usually the expression is a property
-            reference like <varname>${echo.message}</varname>.
-            <varname>default-value</varname> is the value that this Mojo will
-            use if no value can be derived from the expression or if a value
-            was not explicitly supplied via plugin configuration in a
-            <acronym>POM</acronym>.</para>
+            <para>标记一个私有字段（或者一个setter方法）为一个参数。<varname>alias</varname>提供该参数的名称。如果没有<varname>alias</varname>，Maven会使用变量名为参数名。<varname>expression</varname>是一个Maven用来计算并获值的一个表达式。通常这个表达式只是一个属性引用如<varname>${echo.message}</varname>。<varname>default-value</varname>是当表达式不能求得值，POM的插件配置中也没有显式提供时，Mojo会使用的值。</para>
           </listitem>
         </varlistentry>
 
@@ -1194,10 +1101,7 @@ private ZipArchiver zipArchiver;</programlisting>
           <term>@required</term>
 
           <listitem>
-            <para>If this annotation is present, a valid value for this
-            parameter is required prior to Mojo execution. If Maven tries to
-            execute this Mojo and the parameter has a null value, Maven will
-            throw and error when it tries to execute this goal.</para>
+            <para>如果使用了该注解，那么在该Mojo运行前该参数就必须要有一个可用的值。如果Maven试图运行该Mojo的时候该参数的值为null，Maven就会抛出一个错误。</para>
           </listitem>
         </varlistentry>
 
@@ -1205,17 +1109,7 @@ private ZipArchiver zipArchiver;</programlisting>
           <term>@readonly</term>
 
           <listitem>
-            <para>If this annotation is present, the user cannot directly
-            configuration this parameter in the <acronym>POM</acronym>. You
-            would use this annotation with the expression attribute of the
-            parameter annotation. For example, if you wanted to make sure that
-            a particular parameter always had the value of the
-            <varname>finalName</varname> <acronym>POM</acronym> property, you
-            would list an expression of <varname>${build.finalName}</varname>
-            and then add the <classname>@readOnly</classname> annotation. If
-            this were the case, the user could only change the value of this
-            parameter by changing the value of <varname>finalName</varname> in
-            the <acronym>POM</acronym>.</para>
+            <para>如果使用该注解，用户就不能从POM直接配置这个参数。你就需要parameter注解的expression属性。例如，如果你想要确保一个特定参数的值永远是POM中finalName属性的值，你就可以使用表达式<varname>${build.finalName}</varname>，并添加这个<classname>@readOnly</classname>注解。这样，用户就只能通过更改POM中<varname>finalName</varname>的值来更改这个参数的值。</para>
           </listitem>
         </varlistentry>
 
@@ -1223,26 +1117,18 @@ private ZipArchiver zipArchiver;</programlisting>
           <term>@component</term>
 
           <listitem>
-            <para>Tells Maven to populate a field with a Plexus Component. A
-            valid value for the <classname>@component</classname> annotation
-            would be:</para>
+            <para>告诉Maven使用Plexus组件填充该字段。一个正确的<classname>@component</classname>注解值如下：</para>
 
             <programlisting language="java">@component role="org.codehaus.plexus.archiver.Archiver" roleHint="zip"
 </programlisting>
 
-            <para>This would have the effect of retrieving the
-            <classname>ZipArchiver</classname> from Plexus. The
-            <classname>ZipArchiver</classname> is the Archiver which
-            corresponds to the role hint <varname>zip</varname>. Instead of
-            component, you could also use the @parameter annotation with an
-            expression attribute of:</para>
+            <para>该配置的效果是可以从Plexus获得<classname>ZipArchiver</classname>组件。<classname>ZipArchiver</classname>是一个对应role
+            hint为<varname>zip</varname>的Archiver组件。除了@component注解，你也可以使用@parameter注解和一个expression属性，如：</para>
 
             <programlisting language="java">@parameter expression="${component.org.codehaus.plexus.archiver.Archiver#zip}"
 </programlisting>
 
-            <para>While the two annotations are effectively the same, the
-            <classname>@component</classname> annotation is the preferred way
-            to configure dependencies on Plexus components.</para>
+            <para>虽然两种注解的效果一样，但对于配置Plexus组件依赖来说，<classname>@component</classname>注解是更推荐的方式。</para>
           </listitem>
         </varlistentry>
 
@@ -1250,9 +1136,7 @@ private ZipArchiver zipArchiver;</programlisting>
           <term>@deprecated</term>
 
           <listitem>
-            <para>The parameter will be deprecated. Users can continue
-            configuring this parameter, but a warning message will be
-            displayed.</para>
+            <para>该参数以过期，不再推荐使用。用户可以继续配置该参数，但会得到一条警告信息。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1262,59 +1146,24 @@ private ZipArchiver zipArchiver;</programlisting>
   <section>
     <title>插件和Maven生命周期</title>
 
-    <para>In the <xref linkend="lifecycle" /> chapter, you learned that
-    lifecycles can be customized by packaging types. A plugin can both
-    introduce a new packaging type and customize the lifecycle. In this
-    section, you are going to learn how you can customize the lifecycle from a
-    custom Maven plugin. You are also some to see how you can tell a Mojo to
-    execute a parallel lifecycle.</para>
+    <para>在<xref
+    linkend="lifecycle" />中，你学习了生命周期可以通过打包类型定制。一个插件可以同时引入一个新的打包类型，并自定义该生命周期。在本节中，我们将会学习如果通过一个自定义的Maven插件来自定义生命周期。你同时也会看到如何让Mojo在平行的生命周期中执行。</para>
 
     <section>
-      <title>执行并行的生命周期</title>
+      <title>执行平行的生命周期</title>
 
-      <para>Let's assume you write some goal that depends on the output from a
-      previous build. Maybe the <classname>ZipMojo</classname> goal can only
-      run if there is output to include in an archive. You can specify
-      something like a prerequisite goal by using the
-      <classname>@execute</classname> annotation on a Mojo class. This
-      annotation will cause Maven to spawn a parallel build and execute a goal
-      or a lifecycle in a parallel instance of Maven that isn't going to
-      affect the current build. Maybe you wrote some Mojo that you can to run
-      once a day that runs <command>mvn install</command> and then packages up
-      all of the output in some sort of customized distribution format. Your
-      Mojo descriptor could tell Maven that before you execute your
-      <classname>CustomMojo</classname>, you'd like it to execute the default
-      lifecycle up to the install phase and then expose the results of that
-      project to your Mojo as the property
-      <varname>${executedProject}</varname>. You could then reference
-      properties in that project to before some sort of post
-      processing.</para>
+      <para>让我们假设你编写了一些目标，它们依赖于前一个构建的输出。也许<classname>ZipMojo</classname>目标只有在拥有归档输出的前提下才能运行。你可以使用Mojo类的<classname>@execute</classname>注解来指定这样的前置目标。该注解会让Maven生成一个平行的构建，并在这个平行的Maven实例中执行一个目标或者生命周期，该运行并不会影响当前构建。也许你编写了一个Mojo，它每天只运行一次，它首先会运行<command>mvn
+      install</command>，然后将所有的输出打包至某种自定义的分发格式。你的Mojo描述符可以告诉Maven，在运行这个自定义Mojo之前，你想要运行默认生命周期的所有直到install的阶段，然后以属性<varname>${executedProject}</varname>的形式将项目结果暴露给你的Mojo。然后你就可以在进行某种后期处理之前引用那个项目的属性。</para>
 
-      <para>Another possibility is that you have a goal that does something
-      completely unrelated to the default lifecycle. Let's consider something
-      completely unexpected, maybe you have a goal that turns a
-      <acronym>WAV</acronym> file into an <acronym>MP3</acronym> using
-      something like <acronym>LAME</acronym>, but before you do that, you want
-      to step through a lifecycle that turns a <acronym>MIDI</acronym> file to
-      a <acronym>WAV</acronym>. (You can use Maven for anything, this isn't
-      that "far out".) You've created a "midi-sound" lifecycle, and you want
-      to include the output of the <varname>midi-sound</varname> lifecycle's
-      <varname>install</varname> phase in your web application project which
-      has a <varname>war</varname> packaging type. Since your project is
-      running in the <varname>war</varname> packaging lifecycle, you'll need
-      to have goal that effectively forks off an isolated build and runs
-      through the <varname>midi-source</varname> lifecycle. You would do this
-      by annotating your mojo with <varname>@execute lifecycle="midi-source"
-      phase="install"</varname>.</para>
+      <para>另一种可能性是，你有一个目标做一些与默认生命周期完全无关的工作。让我们考虑这样一个例子，你有一个目标使用LAME将WAV文件转换成MP3，但在这之前你需要运行一个生命周期，将MIDI文件转换成WAV。（你可以用Maven做任何事，这里的例子并没有太“离谱”）你已经创建了一个“midi-sound”生命周期，现在你想要包含midi-sound生命周期install阶段的输出，而现在你自己的web应用项目的打包类型是war。由于你的项目在war打包类型生命周期运行，你需要让mojo能够fork一个完全独立的，使用midi-sound的生命周期。你可以通过在你的mojo上添加注解<varname>@execute
+      lifecycle="midi-source" phase="install"</varname>来达到这样的目的。</para>
 
       <variablelist>
         <varlistentry>
           <term>@execute goal="&lt;goal&gt;"</term>
 
           <listitem>
-            <para>This will execute the given goal before execution of this
-            one. The goal name is specified using the
-            <varname>prefix:goal</varname> notation.</para>
+            <para>会在执行当前目标之前运行声明的目标。目标名称使用<varname>prefix:goal</varname>标记指定。</para>
           </listitem>
         </varlistentry>
 
@@ -1322,10 +1171,7 @@ private ZipArchiver zipArchiver;</programlisting>
           <term>@execute phase="&lt;phase&gt;"</term>
 
           <listitem>
-            <para>This will fork an alternate build lifecycle up to the
-            specified phase before continuing to execute the current one. If
-            no lifecycle is specified, Maven will use the lifecycle of the
-            current build.</para>
+            <para>在执行当前生命周期之前，fork出另一个构建生命周期（直到指定的阶段）。如果没有指定生命周期，Maven会使用当前构建的生命周期。</para>
           </listitem>
         </varlistentry>
 
@@ -1334,9 +1180,7 @@ private ZipArchiver zipArchiver;</programlisting>
           phase="&lt;phase&gt;"</term>
 
           <listitem>
-            <para>This will execute the given alternate lifecycle. A custom
-            lifecycle can be defined in
-            <filename>META-INF/maven/lifecycle.xml</filename>.</para>
+            <para>会执行给定的生命周期。自定义的生命周期可以在<filename>META-INF/maven/lifecycle.xml</filename>中定义。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1345,17 +1189,10 @@ private ZipArchiver zipArchiver;</programlisting>
     <section>
       <title>创建自定义的生命周期</title>
 
-      <para>A custom lifecycle must be packaged in the plugin under the
-      <filename>META-INF/maven/lifecycle.xml</filename> file. You can include
-      a lifecycle under <filename>src/main/resources</filename> in
-      <filename>META-INF/maven/lifecycle.xml</filename>. The following
-      <filename>lifecycle.xml</filename> declares a lifecycle named
-      <varname>zipcycle</varname> that contains only the
-      <varname>zip</varname> goal in a <varname>package</varname>
-      phase.</para>
+      <para>自定义生命周期必须在插件项目的<filename>META-INF/maven/lifecycle.xml</filename>文件中定义。你可以引入这个定义在<filename>src/main/resources</filename>下的<filename>META-INF/maven/lifecycle.xml</filename>文件。以下的<filename>lifecycle.xml</filename>声明了一个名为<varname>zipcycle</varname>的生命周期，它在<varname>package</varname>阶段包含了一个<varname>zip</varname>目标。</para>
 
       <para><example>
-          <title>Define a Custom Lifecycle in lifecycle.xml</title>
+          <title>在lifecycle.xml中自定义生命周期</title>
 
           <programlisting language="xml">&lt;lifecycles&gt;
   &lt;lifecycle&gt;
@@ -1377,15 +1214,10 @@ private ZipArchiver zipArchiver;</programlisting>
 </programlisting>
         </example></para>
 
-      <para>If you wanted to execute the <varname>zipcycle</varname> phase
-      within another build, you could then create a
-      <classname>ZipForkMojo</classname> which uses the
-      <classname>@execute</classname> annotation to tell Maven to step through
-      the <varname>zipcycle</varname> phase to package when the
-      <classname>ZipForkMojo</classname> is executed.</para>
+      <para>如果你想要在另一个构建中运行这个<varname>zipcycle</varname>生命周期，你可以创建一个<classname>ZipForkMojo</classname>，然后使用<classname>@execute</classname>注解来告诉Maven，当<classname>ZipForkMojo</classname>运行的时候，逐步通过<varname>zipcycle</varname>生命周期的阶段。</para>
 
       <para><example>
-          <title>Forking a Customer Lifecycle from a Mojo</title>
+          <title>在Mojo中Fork一个自定义生命周期</title>
 
           <programlisting language="java">/**
  * Forks a zip lifecycle.
@@ -1403,10 +1235,7 @@ public class ZipForkMojo extends AbstractMojo
 </programlisting>
         </example></para>
 
-      <para>Running the <classname>ZipForkMojo</classname> will fork the
-      lifecycle. If you've configured your plugin to execute with the goal
-      prefix <varname>zip</varname>, running <varname>zip-fork</varname>
-      should produce something similar to the following output.</para>
+      <para>运行<classname>ZipForkMojo</classname>的时候会fork出另一个生命周期。如果你配置了你插件的前缀为zip，运行<varname>zip-fork</varname>会得到类似于如下输出的结果：</para>
 
       <screen>$ mvn zip:zip-fork
 [INFO] Scanning for projects...
@@ -1430,39 +1259,22 @@ public class ZipForkMojo extends AbstractMojo
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-      <para>Calling <varname>zip-fork</varname> spawned another lifecycle,
-      Maven executed the <varname>zipcycle</varname> lifecycle then it printed
-      out the message from <classname>ZipFormMojo</classname>'s execute
-      method.</para>
+      <para>调用<varname>zip-fork</varname>会衍生出另外一个生命周期，Maven运行<varname>zipcycle</varname>生命周期，然后从<classname>ZipFormMojo</classname>的execute方法打印信息。</para>
     </section>
 
     <section>
       <title>覆盖默认生命周期</title>
 
-      <para>Once you've created your own lifecycle and spawned it from a Mojo.
-      The next question you might have is how do you override the default
-      lifecycle. You do you create custom lifecycles and then attach them to
-      projects? In <xref linkend="lifecycle" />, we saw that the packaging of
-      a project defines the lifecycle of a project. There's something
-      different about almost every packaging type; <varname>war</varname>
-      attached different goals to package, custom lifecycles like
-      <varname>swf</varname> from the Israfil Flex 3 plugin attach different
-      goals to the compile phase. When you create a custom lifecycle, you can
-      attach that lifecycle to a packaging type by supplying some Plexus
-      configuration in your plugin's archive.</para>
+      <para>你已经创建了自己的生命周期，并能在一个Mojo中将其衍生使用。下一个你可能要问的问题是，如何覆盖默认的生命周期。如何如何创建定制的生命周期并将其绑定到项目上？在<xref
+      linkend="lifecycle" />中，我们看到了项目的打包类型定义了项目的生命周期。所有打包类型都有差异；war绑定不同的目标到package阶段，自定义的生命周期如来自Israfil
+      Flex
+      3的swf绑定不同的目标到compile阶段。在你创建自定义生命周期的时候，你可以通过为插件提供一些Plexus配置，将生命周期绑定到特定的打包类型。</para>
 
-      <para>To define a new lifecycle for a new packaging type, you'll need to
-      configure a <classname>LifecycleMapping</classname> component in Plexus.
-      In your plugin project, create a
-      <filename>META-INF/plexus/components.xml</filename> under
-      src/main/resources. In components.xml add the content from <xref
-      linkend="ex-override-lifecycle" />. Set the name of the packaging type
-      under <varname>role-hint</varname>, and the set of phases containing the
-      coordinates of the goals to bind (omit the version). Multiple goals can
-      be associated with a phase using a comma delimited list.</para>
+      <para>要为新的生命周期定义新的打包类型，你需要配置Plexus中的<classname>LifecycleMapping</classname>组件。在你的插件项目中，在src/main/resources下创建一个<filename>META-INF/plexus/components.xml</filename>文件。在这个components.xml中添加如<xref
+      linkend="ex-override-lifecycle" />的内容。在<varname>role-hint</varname>下设置打包类型的名称，在pheases中设置包含所有需要绑定目标的坐标（省略version）。多个目标可以用逗号分隔，绑定到同一个阶段。</para>
 
       <para><example id="ex-override-lifecycle">
-          <title>Overriding the Default Lifecycle</title>
+          <title>覆盖默认生命周期</title>
 
           <programlisting language="xml">&lt;component-set&gt;
   &lt;components&gt;
@@ -1483,17 +1295,10 @@ public class ZipForkMojo extends AbstractMojo
 </programlisting>
         </example></para>
 
-      <para>If you create a plugin which defines a new packaging type and a
-      customized lifecycle, Maven won't know anything it until you add the
-      plugin to your project's <acronym>POM</acronym> and set the extensions
-      element to true. Once you do this, Maven will scan your plugin for more
-      than just Mojos to execute, it will look for the
-      <filename>components.xml</filename> under
-      <filename>META-INF/plexus</filename>, and it will make the packaging
-      type available to your project.</para>
+      <para>如果你创建了一个插件，它定义了新的打包类型和定制的生命周期，Maven在将你的插件添加到项目POM中并设置extensions元素为true之前，对你插件的定义一概不知。只有在那之后，Maven才会扫描你的插件，而不仅仅只是运行Mojo，它会查找<filename>META-INF/plexus</filename>下的<filename>components.xml</filename>文件，然后它会在你的项目中使新的打包类型可用。</para>
 
       <para><example>
-          <title>Configuring a Plugin as an Extension</title>
+          <title>作为一个Extension配置一个插件</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -1511,9 +1316,7 @@ public class ZipForkMojo extends AbstractMojo
 </programlisting>
         </example></para>
 
-      <para>Once you add the plugin with the extensions element set to true,
-      you can use the custom packaging type and your project will be able to
-      execute the custom lifecycle associated with that packaging type.</para>
+      <para>一旦你添加了插件，并将extensions元素设置成true，你就可以使用这个定制的打包类型，你的项目就能运行关联到该打包类型的定制生命周期。</para>
     </section>
   </section>
 </chapter>
