@@ -7,15 +7,15 @@
   <section>
     <title>简介</title>
 
-    <para>虽然本章介绍的是高级话题。讲述编写Maven插件，但不要被吓到。对于该工具的所有理论和复杂性来说，基本的概念还是比较容易理解的，而编写插件的方法也十分易懂。在你阅读本章之后，你会能更好的掌握编写Maven插件所涉及的内容。</para>
+    <para>虽然本章介绍的是高级话题,关于编写Maven插件，但不要被吓到。当对于其所有理论和复杂性来说，基本的概念还是比较容易理解的，而编写插件的方法也十分易懂。在你阅读本章之后，你将能更好的掌握编写Maven插件所涉及的内容。</para>
   </section>
 
   <section>
     <title>Maven编程</title>
 
-    <para>本书的绝大部分都在讲述使用Maven，在这本关于Maven的书中，你还没看到太多关于Maven自定义的样例代码。事实上，到目前为止这样的代码还没有。这本是设计的目的，99%的Maven用户将从来不需要编写自定义插件来定制Maven；有大量的可配置的插件可用，除非你有特别的单独需求，你没有理由自己去编写一个新的插件。而这那一小部分编写自定义插件的人中，也只有更少的人需要去查看Maven的源码以自定义Maven核心组件。如果你确实需要自定义Maven的行为，那么你可以编写一个插件。修改核心Maven代码与修改操作系统的TCP/IP堆栈一样，远远超出了大部分开发人员的范围，这对于大部分Maven用户来说过于抽象。</para>
+    <para>本书的绝大部分都在讲述使用Maven，在这本关于Maven的书中，你还没看到太多关于定制Maven的样例代码。事实上，到目前为止这样的代码还没有。这原是设计的目的，99%的Maven用户将从来不需要编写自定义插件来定制Maven；有大量的可配置的插件可用，除非你有特别的单独需求，你没有理由自己去编写一个新的插件。而在那一小部分编写自定义插件的人中，也只有更少的人需要去查看Maven的源码以自定义Maven核心组件。如果你确实需要自定义Maven的行为，那么你可以编写一个插件。修改核心Maven代码与修改操作系统的TCP/IP堆栈一样，远远超出了大部分开发人员的范围，这对于大部分Maven用户来说过于抽象。</para>
 
-    <para>另一方面，如果你想要开始编写自定义插件，你就需要学习一些Maven的内部原理：它如何管理软件组件？什么是一个插件？我如何能够自定义生命周期？本节将解答其中的一些问题，并介绍一些Maven设计核心的概念。学习如何编写Maven插件同时也是学习定制Maven本身一种很好的方式。如果你想知道如何开始理解Maven背后的代码，那么你已经找到了正确的出发点。</para>
+    <para>另一方面，如果你想开始编写自定义插件，你就需要学习一些Maven的内部原理：它如何管理软件组件？什么是一个插件？我如何能够自定义生命周期？本节将解答其中的一些问题，并介绍一些Maven设计核心的概念。学习如何编写Maven插件同时也是学习定制Maven本身一种很好的方式。如果你想了解如何开始探究Maven背后的代码，那么你已经找到了正确的出发点。</para>
 
     <section>
       <title>什么是反转控制？</title>
@@ -30,10 +30,10 @@
       3有两个输入：电源和网络，以及一个电视输出。你的Java
       Bean有三个属性：power，network，和tvOutput。当你打开Playstation
       3盒子的时候，它并不会提供关于连接所有不同种类电视的详细图片和指令，当你查看你的Java
-      Bean的时候，它也只是提供了一组属性，而不是创建和管理整个系统组件的显式的方法。在一个如Plexus的IoC容器中，你负责通过简单的提供输入输出接口声明组件之间的关系。你不需要初始化对象，Plexus会帮你完成；你的应用程序的代码不用去管理组件的状态，Plexus负责。虽然这听起来非常俗套，不过这里还是要说，当你启动Maven的时候，实际上是启动Plexus来管理一个带有很多相互关联组件的系统，就像你的家庭影音系统一样。</para>
+      Bean的时候，它也只是提供了一组属性，而不是创建和管理整个系统组件的显式的方法。在一个如Plexus的IoC容器中，你负责通过简单的提供输入输出接口来声明组件之间的关系。你不需要初始化对象，Plexus会帮你完成；你的应用程序的代码不用去管理组件的状态，Plexus负责。虽然这听起来非常俗套，不过这里还是要说，当你启动Maven的时候，实际上是启动Plexus来管理一个带有很多相互关联组件的系统，就像你的家庭影音系统一样。</para>
 
       <para>那么，使用Ioc容器的优点是什么呢？购买离散的音响组件的优点是什么？如果一个组件坏了，你可以放一个Playstation
-      3的替代品，而不用花20,000美元去重新购买整个系统。如果你对电视机不满意，你可以在不影响CD播放器的情况下将电视换掉。对你来说最重要的是，你的音响组件现在花费更低，但功能更强，且更稳定，因为制造商现在根据一组通用的输入输出来制造组件，他们能够更加的关注组件本身。反转控制和依赖注入提倡分解以及标准的形成。软件产业喜欢自己给新的想法命名，但依赖注入和反转控制实际上只是对于分解以可交换体系的新词。如果你真的想要好好了解DI和IoC，你可以学习一下Model
+      3的替代品，而不用花20,000美元去重新购买整个系统。如果你对电视机不满意，你可以在不影响CD播放器的情况下将电视换掉。对你来说最重要的是，你的音响组件现在花费更低，但功能更强，且更稳定，因为制造商现在根据一组通用的输入输出来制造组件，他们能够更加的关注组件本身。反转控制和依赖注入提倡分解以及标准的形成。软件产业喜欢自己给新的想法命名，但依赖注入和反转控制实际上只是对于分解及可交换体系的重新命名。如果你真的想要好好了解DI和IoC，你可以学习一下Model
       T，Cotton Gin，以及19世纪末期形成的一个铁路系统标准。</para>
     </section>
 
@@ -43,14 +43,14 @@
       <para>用Java实现的<acronym>IoC</acronym>容器中，最重要的一个功能是称作依赖注入的机制。<acronym>IoC</acronym>的基本想法是将对象的创建和管理从代码中剥离，并将控制放到<acronym>IoC</acronym>框架手中。在一个面向接口编程的应用程序中使用依赖注入，你创建的组件可以不与任何特定的接口实现绑定。你的程序也针对接口编程并通过配置Plexus来将正确的实现连接到正确的组件。虽然你的代码都是与接口打交道，但你仍然可以通过一个定义组件的<acronym>XML</acronym>文件来获得类和组件相互依赖的信息。换句话说，你可以编写独立的组件，然后你可以通过一个<acronym>XML</acronym>文件来定义组件应当如何被装配在一起。在Plexus的情形中，定义系统组件的<acronym>XML</acronym>文档位于<filename>META-INF/plexus/components.xml</filename>。</para>
 
       <para>在一个Java
-      <acronym>IoC</acronym>容器中，有很多中方法来将依赖值注入到一个组件对象中：构造器，set方法，或者字段注入。虽然Plexus提供全部这三种依赖注入技术，Maven使用其中的两种：字段注入和set方法注入。</para>
+      <acronym>IoC</acronym>容器中，有很多中方法将依赖值注入到一个组件对象中：构造器，set方法，或者字段注入。虽然Plexus提供全部这三种依赖注入技术，Maven只使用其中的两种：字段注入和set方法注入。</para>
 
       <variablelist>
         <varlistentry>
           <term>构造器注入</term>
 
           <listitem>
-            <para>构造器注入是指当对象实例被创建的时候，通过对象的构造方法将填入对象的值。例如，如果你有类对象<classname>Person</classname>，其构造方法是<methodname>Person(String
+            <para>构造器注入是指当对象实例被创建的时候，通过对象的构造方法填入对象的值。例如，如果你有类对象<classname>Person</classname>，其构造方法是<methodname>Person(String
             name, Job
             job)</methodname>，你就可以通过该构造器传入<varname>name</varname>和<varname>job</varname>的值。</para>
           </listitem>
@@ -83,11 +83,11 @@
       Microsystems之类的公司让出更多的对于开源社区的控制，并通过提供一个更易插入的，面向组件的“总线”来帮助开发一些标准。但是Spring不是唯一的开源IoC容器。事实上有很多IoC容器（如<ulink
       url="http://www.picocontainer.org/">PicoContainer</ulink>）。</para>
 
-      <para>很多年以前，当Maven被创建的时候，Spring并不是一个成熟的选项。最初的Maven提交者团队更熟悉Plexus因为正式它们发明了Plexus，因此他们决定使用Plexus做为Ioc容器。虽然它没有Spring
-      Framework流行，但并不是说它的功能没那么强大。而且，事实上它是由创建Maven的同一个人发明的，这使其更适合Maven。阅读本章之后你会了解Plexus如何工作。如果你使用过一个IoC容器你会注意到Plexus和你使用的另外一个IoC容器的相似性和差异性。</para>
+      <para>很多年以前，当Maven被创建的时候，Spring并不是一个成熟的选项。最初的Maven提交者团队更熟悉Plexus因为正是它们发明了Plexus，因此他们决定使用Plexus做为Ioc容器。虽然它没有Spring
+      Framework流行，但并不是说它的功能没那么强大。而且，事实上它是由创建Maven的同一个人发明的，这使其更适合Maven。阅读本章之后你会了解Plexus如何工作。如果你使用过一个IoC容器你会看到Plexus和你使用的另外一个IoC容器的相似性和差异性。</para>
 
       <note>
-        <para>Maven基于Plexus并不意味着Maven社区是“反Spring”的（我们在本书中包含了整整的一章关于Spring样例的内容，Spring项目的一部分也转移到Maven作为构建平台）。由于疑问“你们为什么不用Spring”经常出现，因此这里解释这个问题。我们知道，Spring是一个明星，我们并不拒绝它，但为人们介绍Plexus仍然是我们持续要做的工作：软件产业中，更多的选择总是好事。</para>
+        <para>Maven基于Plexus并不意味着Maven社区是“反Spring”的（我们在本书中包含了整整的一章关于Spring样例的内容，Spring项目的一部分也转移到Maven作为构建平台）。由于“你们为什么不用Spring”这个问题经常出现，因此在这里解释这个问题。我们知道，Spring是一个明星，我们并不拒绝它，但为人们介绍Plexus仍然是我们持续要做的工作：软件产业中，更多的选择总是好事。</para>
       </note>
     </section>
 
@@ -117,10 +117,10 @@
   <section>
     <title>插件描述符</title>
 
-    <para>Maven插件包含了一个告诉Maven各种Mojo和插件配置的路线图。这就是插件描述符，它位于<acronym>JAR</acronym>文件中的<filename>META-INF/maven/plugin.xml</filename>。当Maven载入一个插件的时候，它读取该<acronym>XML</acronym>文件，初始化并配置插件对象是Mojo被包含在插件中，供Maven使用。</para>
+    <para>Maven插件包含了一个告诉Maven各种Mojo和插件配置的路线图。这就是插件描述符，它位于<acronym>JAR</acronym>文件中的<filename>META-INF/maven/plugin.xml</filename>。当Maven载入一个插件的时候，它读取该<acronym>XML</acronym>文件，初始化并配置插件对象，使Mojo被包含在插件中，供Maven使用。</para>
 
-    <para>当你编写自定义Maven插件的时候，你几乎不会想到编写插件描述符。在<xref
-    linkend="lifecycle" />中，绑定到<varname>maven-plugin</varname>打包类型的生命周期目标显示，<varname>plugin:descriptor</varname>目标被绑定到了<varname>generate-resources</varname>生命周期阶段。该目标根据插件源码中的标注生成一个插件描述符。本章后面，你会看到如何标注Mojo，并且你会了解这些标注最终如何成为<filename>META-INF/maven/plugin.xml</filename>文件的内容。</para>
+    <para>当你编写自定义Maven插件的时候，你几乎不需要编写插件描述符。在<xref
+    linkend="lifecycle" />中，绑定到<varname>maven-plugin</varname>打包类型的生命周期目标显示，<varname>plugin:descriptor</varname>目标被绑定到了<varname>generate-resources</varname>生命周期阶段。该目标根据插件源码中的注解生成一个插件描述符。本章后面，你会看到如何注解Mojo，并且你会了解这些注解最终如何成为<filename>META-INF/maven/plugin.xml</filename>文件的内容。</para>
 
     <para><xref linkend="ex-plugin-desc" />展示了Maven
     Zip插件的描述符。该插件简单的对输出目录进行zip压缩并归档。一般来说，你不需要编写自定义插件从Maven创建归档，你可以使用Maven
@@ -192,7 +192,7 @@
 </programlisting>
     </example>
 
-    <para>该插件描述符有三个部分：插件的顶层配置包含了如<sgmltag>groupId</sgmltag>和<sgmltag>artifactId</sgmltag>之类的元素；mojo声明；以及依赖声明。让我们仔细解释一下每一部分。</para>
+    <para>该插件描述符有三个部分：插件的顶层配置，包含如<sgmltag>groupId</sgmltag>和<sgmltag>artifactId</sgmltag>之类的元素；mojo声明；以及依赖声明。让我们仔细解释一下每一部分。</para>
 
     <section>
       <title>顶层插件描述符元素</title>
@@ -297,7 +297,7 @@
           <term>aggregator</term>
 
           <listitem>
-            <para>当Mojo描述符的<varname>aggregator</varname>设置成<varname>true</varname>的时候，那么该目标只会在Maven执行的时候运行一次，提供该配置是为了让开发人员能够对一系列构建进行总结；例如，创建一个插件来概述构建中所有项目的一类报告。一个<varname>aggregator</varname>设置成<varname>true</varname>的目标应该只在Maven构建的顶层项目中运行。<varname>aggregator</varname>默认值是<varname>false</varname>。Aggregator在未来版本的Maven中很有可能被弃用。</para>
+            <para>当Mojo描述符的<varname>aggregator</varname>设置成<varname>true</varname>的时候，那么该目标只会在Maven执行的时候运行一次，提供该配置是为了让开发人员能够对一系列构建进行总结；例如，创建一个插件来概述构建中所有项目的一类报告。一个<varname>aggregator</varname>设置成<varname>true</varname>的目标应该只在Maven构建的顶层项目中运行。<varname>aggregator</varname>默认值是<varname>false</varname>。aggregator在未来版本的Maven中很有可能被弃用。</para>
           </listitem>
         </varlistentry>
 
@@ -329,7 +329,7 @@
           <term>implementation</term>
 
           <listitem>
-            <para>该元素告诉Maven为该Mojo需要初始化什么类。这是一个Plexus组件属性（在Plexus
+            <para>该元素告诉Maven需要为该Mojo初始化什么类。这是一个Plexus组件属性（在Plexus
             <classname>ComponentDescriptor</classname> 中定义）。</para>
           </listitem>
         </varlistentry>
@@ -431,13 +431,13 @@
 
       <!--TODO: The following paragraph is Eric's and it is in the wrong place.-->
 
-      <para>虽然你的确应该能够读懂插件描述符，但你几乎从来不需要去手工的编写一个描述符文件。插件描述符会根据Mojo的一组注解自动的生成。</para>
+      <para>虽然你的确应该能够读懂插件描述符，但你几乎从不需要去手工的编写一个描述符文件。插件描述符会根据Mojo的一组注解自动的生成。</para>
     </section>
 
     <section>
       <title>插件依赖</title>
 
-      <para>最后，插件描述符像Mave项目一样声明了一组依赖。当Maven使用插件的时候，它会在运行插件目前之前下载所有需要的依赖。在本例中，该插件依赖于Jakarta
+      <para>最后，插件描述符像Mave项目一样声明了一组依赖。当Maven使用插件的时候，它会在运行插件之前之前下载所有需要的依赖。在本例中，该插件依赖于Jakarta
       Commons IO 版本 1.3.2 。</para>
     </section>
   </section>
@@ -445,13 +445,13 @@
   <section id="writing-plugins-intro">
     <title>编写自定义插件</title>
 
-    <para>在你编写自定义插件的时候，你实际上是要编写一系列的Mojo（目标）。每个Mojo是一个但是的Java类，它包含了一系列标注来告诉Maven如何生成插件描述符。在编写Mojo类之前，你需要使用正确的打包类型和POM来创建一个Maven项目。</para>
+    <para>在你编写自定义插件的时候，你实际上是要编写一系列的Mojo（目标）。每个Mojo是一个单独的Java类，它包含了一系列注解来告诉Maven如何生成插件描述符。在编写Mojo类之前，你需要使用正确的打包类型和POM来创建一个Maven项目。</para>
 
     <section>
       <title>创建一个插件项目</title>
 
       <para>要创建一个插件项目，你应该使用Maven
-      Archetype插件。一下的命令会创建一个插件，其<varname>groupId</varname>是<varname>org.sonatype.mavenbook.plugins</varname>，<varname>artifactId</varname>是<varname>first-maven-plugin</varname>：</para>
+      Archetype插件。以下的命令会创建一个插件，其<varname>groupId</varname>是<varname>org.sonatype.mavenbook.plugins</varname>，<varname>artifactId</varname>是<varname>first-maven-plugin</varname>：</para>
 
       <screen>$ <command>mvn archetype:create \
   -DgroupId=org.sonatype.mavenbook.plugins \
@@ -529,7 +529,7 @@
         </varlistentry>
       </variablelist>
 
-      <para>Mojo接口只关心两件事情：目标运行的结果记录日志，以及运行一个目标。当你编写自定义插件的时候，你会要扩展<classname>AbstractMojo</classname>。<classname>AbstractMojo</classname>处理<varname>setLog()</varname>和<varname>getLog()</varname>的实现，并包含一个抽象的<methodname>execute()</methodname>方法。在你扩展<classname>AbstractMojo</classname>的时候，你所需要做的只是实现<methodname>execute()</methodname>方法。<xref
+      <para>Mojo接口只关心两件事情：目标运行结果的日志记录，以及运行一个目标。当你编写自定义插件的时候，你会要扩展<classname>AbstractMojo</classname>。<classname>AbstractMojo</classname>处理<varname>setLog()</varname>和<varname>getLog()</varname>的实现，并包含一个抽象的<methodname>execute()</methodname>方法。在你扩展<classname>AbstractMojo</classname>的时候，你所需要做的只是实现<methodname>execute()</methodname>方法。<xref
       linkend="ex-simple-echomojo" />展示了一个简单的Mojo实现，它只是打印一条简单的信息到控制台。</para>
 
       <example id="ex-simple-echomojo">
@@ -588,7 +588,7 @@ public class EchoMojo extends AbstractMojo
       <para>Maven是如何解析<varname>jar:jar</varname>至<varname>org.apache.mven.plugins:maven-jar:2.3</varname>的呢？Maven查看Maven仓库中的一个文件然后获得一些列含有特定groupId的插件。默认情况下，Maven被配置成从两个组寻找插件：<varname>org.apache.maven.plugins</varname>和<varname>org.codehaus.mojo</varname>。当你指定一个新的插件前缀如<command>mvn
       hibernate3:hbm2ddl</command>的时候，Maven会为了正确的插件前缀扫描仓库元数据。首先，Maven会扫描<varname>org.apache.maven.plugins</varname>组来查找插件前缀<varname>hibernate3</varname>。如果它没有在这个组中找到该插件前缀，它就会接着扫描<varname>org.codehaus.mojo</varname>组的元数据。</para>
 
-      <para>当Maven针对某个特定的groupId扫描元数据的时候，它从Maven仓库获取一个XML文件，该文件包含了这个组中构件的元数据。该XML文件对于每个参考实现仓库来说都是明确的，如果你没有使用过一个自定义仓库，你就能在你的本地Maven仓库（<filename>~/.m2/repository</filename>）路径<filename>org/apache/maven/plugins/maven-metadata-central.xml</filename>下看到组<varname>org.apache.maven.plugins</varname>的Maven元数据。<xref
+      <para>当Maven针对某个特定的groupId扫描元数据的时候，它从Maven仓库获取一个XML文件，该文件包含了这个组中构件的元数据。该XML文件对于每个遵循参考实现的仓库来说都是明确的，如果你不在使用一个自定义仓库，你就能在你的本地Maven仓库（<filename>~/.m2/repository</filename>）路径<filename>org/apache/maven/plugins/maven-metadata-central.xml</filename>下看到组<varname>org.apache.maven.plugins</varname>的Maven元数据。<xref
       linkend="ex-maven-metadata" />展示了这样一个XML文件的代码片段。</para>
 
       <example id="ex-maven-metadata">
@@ -702,8 +702,8 @@ public class EchoMojo extends AbstractMojo
     <section>
       <title>插件中的日志</title>
 
-      <para>Maven通过在运行你的Mojo之前调用<methodname>setLog()</methodname>来连接你的Mojo至日志提供程序。该提供程序提供了一个<classname>org.apache.maven.monitor.logging.Log</classname>的实现。该类暴露了一些你可以用来和用户交流信息的方法。这个<classname>Log</classname>类提供了很多日志级别，与<ulink
-      url="http://logging.apache.org/">Log4J</ulink>提供的API十分类似。每个级别：debug，info，error，warn，都有一些列可用的方法。为了节省时间，我们只列出了debug级别的方法：</para>
+      <para>Maven通过在运行Mojo之前调用<methodname>setLog()</methodname>来连接你的Mojo至日志提供程序。该提供程序提供了一个<classname>org.apache.maven.monitor.logging.Log</classname>的实现。该类暴露了一些你可以用来和用户交流信息的方法。这个<classname>Log</classname>类提供了很多日志级别，与<ulink
+      url="http://logging.apache.org/">Log4J</ulink>提供的API十分类似。每个级别：debug，info，error，warn，都有一系列可用的方法。为了节省时间，我们只列出了debug级别的方法：</para>
 
       <variablelist>
         <varlistentry>
@@ -741,14 +741,14 @@ public class EchoMojo extends AbstractMojo
     <section>
       <title>Mojo类注解</title>
 
-      <para>在<varname>first-maven-plugin</varname>中，我们并没有编写插件描述符，我们依赖于Maven从源码生成插件描述符。该描述符根据你插件项目的POM信息以及<classname>EchoMojo</classname>类上一系列的注解生成。<classname>EchoMojo</classname>仅仅声明了一个<classname>@goal</classname>注解，这里偶一个注解的列表，你可以将其用到Mojo实现上。</para>
+      <para>在<varname>first-maven-plugin</varname>中，我们并没有编写插件描述符，我们依赖于Maven从源码生成插件描述符。该描述符根据你插件项目的POM信息以及<classname>EchoMojo</classname>类上一系列的注解生成。<classname>EchoMojo</classname>仅仅声明了一个<classname>@goal</classname>注解，这里有一个注解的列表，你可以将其用到Mojo实现上。</para>
 
       <para><variablelist>
           <varlistentry>
             <term>@goal &lt;goalName&gt;</term>
 
             <listitem>
-              <para>这是唯一必需的注解，它给予目标一个插件中唯一的名称。</para>
+              <para>这是唯一必需的注解，它给予目标一个在插件中唯一的名称。</para>
             </listitem>
           </varlistentry>
 
@@ -756,7 +756,7 @@ public class EchoMojo extends AbstractMojo
             <term>@requiresDependencyResolution &lt;requireScope&gt;</term>
 
             <listitem>
-              <para>标记该mojo在可以运行之前，需要特定范围（或者一个暗指的范围）的依赖。支持的范围有compile，runtime，和test。如果该注解有一个值为test，那么就是告诉Maven除非测试范围的所有依赖都被正确解析了，否则该mojo不能运行。</para>
+              <para>标记该mojo在可以运行之前，需要特定范围（或者一个暗指的范围）的依赖。支持的范围有compile，runtime，和test。如果该注解有一个值为test，那么就是告诉Maven，除非测试范围的所有依赖都被正确解析了，否则该mojo不能运行。</para>
             </listitem>
           </varlistentry>
 
@@ -871,7 +871,7 @@ public class EchoMojo extends AbstractMojo
         </varlistentry>
       </variablelist>
 
-      <para>如果你正在运行一个持续集成构建，不管单个项目构建成败与否都要继续构建，你可能想要忽略失败。作为一个插件开发者，你必须根据你某个特定的失败条件来判断使用<classname>MojoExecutionException</classname>还是<classname>MojoFailureExeception</classname>。</para>
+      <para>如果你正在运行一个持续集成构建，无论单个项目构建成败与否都要继续构建，你可能想要忽略失败。作为一个插件开发者，你必须根据你某个特定的条件来判断使用<classname>MojoExecutionException</classname>还是<classname>MojoFailureExeception</classname>。</para>
     </section>
   </section>
 
@@ -964,7 +964,7 @@ private Object message;
   &lt;/build&gt;
 &lt;/build&gt;</programlisting>
 
-      <para>虽然上面的配置样例看起来有些啰嗦，但它展示了Maven的弹性。在前面的配置样例中，我们将<classname>EchoMojo</classname>同时绑定到了默认Maven生命周期的<varname>validate</varname>和<varname>generate-resources</varname>阶段。第一次执行被绑定到了<varname>generate-resources</varname>，它为message参数提供了字符串值“he
+      <para>虽然上面的配置样例看起来有些啰嗦，但它展示了Maven的弹性。在前面的配置样例中，我们将<classname>EchoMojo</classname>同时绑定到了默认Maven生命周期的<varname>validate</varname>和<varname>generate-resources</varname>阶段。第一次执行被绑定到了<varname>generate-resources</varname>，它为message参数提供了字符串值“The
       Eagle has
       Landed!”。第二次运行则被绑定到了<varname>validate</varname>阶段，它提供了一个属性引用<varname>${project.version}</varname>。当你为该项目运行<command>mvn
       install</command>的时候，你会看到<varname>first:echo</varname>目标执行了两次，并打印了不同的信息。</para>
@@ -974,7 +974,7 @@ private Object message;
       <title>多值的Mojo参数</title>
 
       <para>插件的参数可以接受多于一个的值。看一下<xref
-      linkend="ex-plugin-multivalue" />中的<classname>ZipMojo</classname>。参数<varname>includes</varname>和<varname>excludes</varname>都是多值的<classname>String</classname>数组，它们为一个创建ZIP文件的组件指定了包含和排除的模式。</para>
+      linkend="ex-plugin-multivalue" />中的<classname>ZipMojo</classname>。参数<varname>includes</varname>和<varname>excludes</varname>都是多值的<classname>String</classname>数组，它们为一个创建ZIP文件的组件指定了包含和排除模式。</para>
 
       <example id="ex-plugin-multivalue">
         <title>一个带有多值参数的插件</title>
