@@ -1,13 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-	<groupId>org.sonatype.mavenbook</groupId>
-	<artifactId>book</artifactId>
-	<version>1-SNAPSHOT</version>
-  </parent>
+	<parent>
+		<groupId>org.sonatype.mavenbook</groupId>
+		<artifactId>book</artifactId>
+		<version>1-SNAPSHOT</version>
+	</parent>
   <artifactId>content-de</artifactId>
-  <version>0.22.0</version>
   <packaging>jar</packaging>
   <name>Maven: The Definitive Guide</name>
   <description>A book about Apache Maven 2.x</description>
@@ -27,8 +26,11 @@
     <nexus.bundle.name>nexus-enterprise-webapp-1.2.0-beta-4-bundle</nexus.bundle.name>
     <nexus.version.name>nexus-enterprise-1.2.0-beta-4</nexus.version.name>
     <nexus.version>1.2.0-beta-4</nexus.version>
-    <maven.version>2.0.9</maven.version>
+    <maven.version>2.0.10</maven.version>
     <nexus.book.baseurl>http://books.sonatype.com/nexus-book-stage/</nexus.book.baseurl>
+    <nexus.book.title>Repository Management with Nexus</nexus.book.title>
+    <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book-stage/</m2eclipse.book.baseurl>
+    <m2eclipse.book.title>Developing with Eclipse and Maven</m2eclipse.book.title>
   </properties>
 
   <build>
@@ -80,7 +82,7 @@
 
           <execution>
             <id>generate-pdf</id>
-            <phase>pre-site</phase>
+            <phase>compile</phase>
             <goals>
               <goal>generate-pdf</goal>
             </goals>
@@ -88,7 +90,7 @@
               <imgSrcPath>${basedir}/target/classes/docbook/</imgSrcPath>
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
               <postProcess>
-                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide-de.pdf">
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_de.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
                 </copy>
               </postProcess>
@@ -96,7 +98,7 @@
           </execution>
           <execution>
             <id>generate-html</id>
-            <phase>pre-site</phase>
+            <phase>compile</phase>
             <goals>
               <goal>generate-html</goal>
             </goals>
@@ -122,6 +124,23 @@
 	      <includes>public-book.xml</includes>
 	      <xincludeSupported>true</xincludeSupported>
 	    </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.book</groupId>
+        <artifactId>maven-book-sitemesh-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>mesh-velocity</id>
+            <phase>site</phase>
+            <goals>
+              <goal>mesh-velocity</goal>
+            </goals>
+            <configuration>
+            	<velocityTemplate>src/main/resources/vm/site.vm</velocityTemplate>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -159,6 +178,7 @@
       <properties>
         <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
+        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
       </properties>
     </profile>
     <profile>
