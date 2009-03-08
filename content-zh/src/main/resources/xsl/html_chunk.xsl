@@ -10,10 +10,9 @@
     <!--###################################################
                      HTML Settings
     ################################################### -->
-    <xsl:param name="chunk.section.depth">'1'</xsl:param>
+    <xsl:param name="chunk.section.depth">'2'</xsl:param>
 	<xsl:param name="chunker.output.indent">yes</xsl:param>
     <xsl:param name="use.id.as.filename">'1'</xsl:param>
-    <xsl:param name="html.stylesheet">../css/html_zh.css</xsl:param>
     <!-- These extensions are required for table printing and other stuff -->
     <xsl:param name="use.extensions">1</xsl:param>
     <xsl:param name="tablecolumns.extension">0</xsl:param>
@@ -68,9 +67,6 @@
             <xsl:call-template name="person.name"/> 
             (<xsl:value-of select="affiliation"/>)
             <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
-            <!--
-            <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
-            -->
         </span>
     </xsl:template>
     <xsl:template match="authorgroup" mode="titlepage.mode">
@@ -85,28 +81,8 @@
     ################################################### -->
     <xsl:template name="user.head.content">
 
-      <title></title>
-
-
     </xsl:template>
     <xsl:template name="user.header.navigation">
-
-      <div id="user-header">
-        <div id="logo">
-            <a href="http://www.sonatype.com/" title="Sonatype: Build Success for your Enterprise">
-                <img src="http://www.sonatype.com/images/sonatype_banner3_optima.png" border="0"/>
-            </a>
-        </div>
-        <div id="right-header" style="margin-top: -14px;">
-          <h2>Maven: The Definitive Guide</h2>
-          <a href="http://del.icio.us/post" onclick="window.open('http://del.icio.us/post?v=4&amp;noui&amp;jump=close&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=700,height=400'); return false;"><img src="http://images.del.icio.us/static/img/delicious.small.gif" border="0"/> Bookmark This Page</a><br/>
-          <a href="http://getsatisfaction.com/sonatype" style="color: black;">
-           <img alt="Favicon" src="http://www.getsatisfaction.com/favicon.gif" style="vertical-align: middle;" border="0"/>
-             Question and Discuss at Get Satisfaction</a>
-        </div>
-        <div style="clear:both;">
-        </div>
-      </div>
     </xsl:template>
     <!-- no other header navigation (prev, next, etc.) -->
     <xsl:template name="header.navigation">
@@ -193,8 +169,6 @@
                 </xsl:if>
             </div>
         </xsl:if>
-      <xsl:variable name="codefile" select="document('includes/blogs-div.html',/)"/>
-      <xsl:value-of disable-output-escaping="yes" select="$codefile"/>
     </xsl:template>
     <xsl:param name="navig.showtitles">1</xsl:param>
     <xsl:template name="footer.navigation">
@@ -314,27 +288,7 @@
                     </table>
                 </xsl:if>
             </div>
-            <br/>
-            <center>
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/us/88x31.png"/></a><br/><span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/StillImage" property="dc:title" rel="dc:type">Maven: The Definitive Guide</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.sonatype.com" property="cc:attributionName" rel="cc:attributionURL">Sonatype, Inc.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States License</a>.<br/>Based on a work at <a xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://www.sonatype.com/book" rel="dc:source">www.sonatype.com</a>.<br/><br/>
-          <a href="http://getsatisfaction.com/sonatype" style="color: black;">
-           <img alt="Favicon" src="http://www.getsatisfaction.com/favicon.gif" style="vertical-align: middle;" border="0"/>
-             Report Typos, Errors, Ask Questions, Discuss, Share Your Ideas with us at Get Satisfaction</a>
-            </center>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-1693297-1");
-pageTracker._trackPageview();
-</script>
-<script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script>
-<script type="text/javascript">
-_lf_cid = "LF_5208d25a";
-_lf_remora();
-</script>
-        </xsl:if>
+	</xsl:if>
     </xsl:template>
     
     
@@ -361,9 +315,6 @@ _lf_remora();
     </xsl:call-template>
 
     <body>
-      <div id="frame">
-        <img src="http://www.sonatype.com/images/top.gif" style="float:left;position:relative;left:6px;"/><br/>
-        <div id="forbg">
       <xsl:call-template name="body.attributes"/>
       <xsl:call-template name="user.header.navigation"/>
 
@@ -386,9 +337,6 @@ _lf_remora();
       </xsl:call-template>
 
       <xsl:call-template name="user.footer.navigation"/>
-        </div>
-        <div class="end" style="right:14px"><img src="http://www.sonatype.com/images/end.gif"/></div>
-      </div>
     </body>
   </html>
   <xsl:value-of select="$chunk.append"/>
@@ -443,10 +391,6 @@ _lf_remora();
     </xsl:if>
     <xsl:copy-of select="$title"/>
   </xsl:element>
-  <div class="section-icon">
-          <a href="http://getsatisfaction.com/sonatype" style="color: black;">
-           <img alt="Favicon" src="http://www.getsatisfaction.com/favicon.gif" style="vertical-align: middle;" border="0"/></a>
-  </div>
 </xsl:template>
 
 </xsl:stylesheet>
