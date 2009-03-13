@@ -21,6 +21,9 @@ public class VelocityMerger {
 	public void mergeFile( File htmlFile, SiteMeshPageExtractor extractor ) throws Exception {
 
 		
+	    Velocity.setProperty("input.encoding", "UTF-8");
+	    Velocity.setProperty("output.encoding", "UTF-8");
+	    Velocity.setProperty("response.encoding", "UTF-8");
 		Velocity.init();
 		
 		VelocityContext context = new VelocityContext();
