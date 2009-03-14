@@ -2,59 +2,64 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="resource-filtering">
-  <title>Properties and Resource Filtering</title>
+  <title>Properties and Ressource Filterung</title>
 
   <section id="resource-filtering-sect-intro">
-    <title>Introduction</title>
+    <title>Einleitung</title>
 
-    <para>Throughout this book, you will notice references to properties which
-    can be used in a <acronym>POM</acronym> file. Sibling dependencies in a
-    multi-project build can be referenced using the
-    <varname>\${project.groupId}</varname> and
-    <varname>\${project.version}</varname> properties and any part of the
-    <acronym>POM</acronym> can be referenced by prefixing the variable name
-    with "project.". Environment variables and Java System properties can be
-    referenced, as well as values from your
-    <filename>~/.m2/settings.xml</filename> file. What you haven't seen yet is
-    an enumeration of the possible property values and some discussion about
-    how they can be used to help you create portable builds. This chapter
-    provides such an enumeration.</para>
+    <para>In diesem Buch finden Sie durchgängig Hinweise auf
+    <emphasis>Properties</emphasis> (Eigenschaften) welche Sie in
+    <acronym>POM</acronym>-Dateien referenzieren können. Auf geerbte
+    Abhängigkeiten eines multi-projekt Builds kann mittels der Properties
+    <varname>${project.groupId}</varname> sowie
+    <varname>${project.version}</varname> zugegriffen werden und jeder
+    Abschnitt eines <acronym>POM</acronym> kann referenziert werden indem man
+    einer Variablen die Vorsilbe „<varname>project.</varname>“ Anfügt.
+    Umgebungsvariablen und Java System Einstellungen können referenziert
+    werden, wie auch alle Einstellungen aus Ihrer
+    <filename>~/.m2/settings.xml</filename> Datei. Was Ihnen noch nicht auf
+    den Weg gegeben wurde ist eine Aufstellung der möglichen Property
+    Variablen, und eine Beschreibung wie diese zum Einsatz kommen um einen
+    portablen Build zu erstellen. Dieses Kapitel nun liefert Ihnen diese
+    Aufstellung.</para>
 
-    <para>If you've been using property references in your
-    <acronym>POM</acronym>, you should also know that Maven has a feature
-    called Resource Filtering which allows you to replace property references
-    in any resource files stored under
-    <filename>src/main/resources</filename>. By default this feature is
-    disabled to prevent accidental replacement of property references. This
-    feature can be used to target builds toward a specific platform and to
-    externalize important build variables to properties files,
-    <acronym>POM</acronym>s, or profiles. This chapter introduces the resource
-    filtering feature and provides a brief discussion of how it can be used to
-    create portable enterprise builds.</para>
+    <para>Sollten Sie bereits Property Referenzen in Ihrem
+    <acronym>POM</acronym> einsetzen, so sollte Ihnen ebenfalls bewusst sein,
+    dass Maven eine Funktionalität mit dem Namen Ressource Filter anbietet,
+    welche Ihnen erlaubt, jegliche Property Referenz zu ändern, welche in
+    einer Ressource Datei unter <filename>src/main/resources</filename>
+    abgelegt ist. Standardmässig ist diese Funktion deaktiviert, um
+    unbeabsichtigte Veränderung von Property Referenzen zu verhindern. Diese
+    Funktionalität kann jedoch Einsatz finden, um einen Build auf eine
+    bestimmte Plattform zu richten, oder um wichtige Property Einstellungen in
+    Ressource Dateien, POMs oder Profilen zu externalisieren. Dieses Kapitel
+    hat zum Ziel, die Funktionalität des Ressource Filtering darzustellen und
+    gibt eine kurze Einführung wie diese zum Einsatz kommt um einen portablen
+    Enterprise Build herzustellen.</para>
   </section>
 
   <section id="resource-filtering-sect-properties">
     <title>Maven Properties</title>
 
-    <para>You can use Maven properties in a <filename>pom.xml</filename> file
-    or in any resource that is being processed by the Maven Resource plugin's
-    filtering features. A property is always surrounded by
-    <varname>\${</varname> and <varname>}</varname>. For example, to reference
-    the <varname>project.version</varname> property, one would write:</para>
+    <para>Sie können Maven Properties in einer <filename>pom.xml</filename>
+    Datei, oder irgendeiner anderen Ressource ablegen, welche vom Maven
+    Ressource Plugin und dessen Filter Funktion verarbeitet wird. Ein Property
+    ist immer umschlossen von <varname>${</varname> und <varname>}</varname> .
+    Um auf das Property <varname>project.version</varname> zu referenzieren,
+    würden Sie folgende Variable benutzen:</para>
 
     <programlisting language="java">\${project.version}</programlisting>
 
-    <para>There some implicit properties available in any Maven project, these
-    implicit properties are:</para>
+    <para>Es bestehen einige implizite Maven Properties, diese sind:</para>
 
     <variablelist>
       <varlistentry>
         <term><varname>project.*</varname></term>
 
         <listitem>
-          <para>Maven Project Object Model (<acronym>POM</acronym>). You can
-          use the <varname>project.*</varname> prefix to reference values in a
-          Maven <acronym>POM</acronym>.</para>
+          <para>Maven Project Objekt Modell (<acronym>POM</acronym>). Benutzen
+          Sie das Präfix <varname>project.*</varname> um Werte des Maven
+          <acronym>POM</acronym> zu referenzieren.</para>
         </listitem>
       </varlistentry>
 
@@ -62,9 +67,10 @@
         <term><varname>settings.*</varname></term>
 
         <listitem>
-          <para>Maven Settings. You use the <varname>settings.*</varname>
-          prefix to reference values from your Maven Settings in
-          <filename>~/.m2/settings.xml</filename>.</para>
+          <para>Maven Settings; Benutzen Sie das Präfix
+          <varname>settings.*</varname> um Werte aus der lokalen Maven
+          Settings Datei (gewöhnlich unter
+          <filename>~/.m2/settings.xml</filename> zu referenzieren.</para>
         </listitem>
       </varlistentry>
 
@@ -72,9 +78,9 @@
         <term><varname>env.*</varname></term>
 
         <listitem>
-          <para>Environment variables like <varname>PATH</varname> and
-          <varname>M2_HOME</varname> can be referenced using the
-          <varname>env.*</varname> prefix.</para>
+          <para>Umgebungsvariables wie z.B. <varname>PATH</varname> sowie
+          <varname>M2_HOME</varname> können mittels dem Präfix
+          <varname>env.*</varname> benannte werden.</para>
         </listitem>
       </varlistentry>
 
@@ -82,54 +88,57 @@
         <term>System Properties</term>
 
         <listitem>
-          <para>Any property which can be retrieved from the
-          <methodname>System.getProperty()</methodname> method can be
-          referenced as a Maven property.</para>
+          <para>Jeglicher Wert welcher durch die
+          <methodname>System.getProperty()</methodname> Methode abgefragt
+          werden kann, kann als Maven Property referenziert werden.</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
-    <para>In addition to the implicit properties listed above, a Maven
-    <acronym>POM</acronym>, Maven Settings, or a Maven Profile can define a
-    set of arbitrary, user-defined properties. The following sections provide
-    so detail on the various properties available in a Maven project.</para>
+    <para>Zusätzlich zu den impliziten Properties wie oben dargestellt, können
+    das Maven <acronym>POM</acronym>, die Maven Settings Datei sowie das Maven
+    Profil weitere freidefinierte Werte enthalten. Der folgende Abschnitt wird
+    Ihnen einigen Einblick in die verschiedenen in einem Maven Projekt
+    verfügbaren Werte geben.</para>
 
     <section id="resource-filtering-sect-project-properties">
-      <title>Maven Project Properties</title>
+      <title>Maven Projekt Einstellungen</title>
 
-      <para>When a Maven Project Property is referenced, the property name is
-      referencing a property of the Maven Project Object Model
-      (<acronym>POM</acronym>). Specifically, you are referencing a property
-      of the <classname>org.apache.maven.model.Model</classname> class which
-      is being exposed as the implicit variable project. When you reference a
-      property using this implicit variable, you are using simple dot notation
-      to reference a bean property of the <classname>Model</classname> object.
-      For example, when you reference <varname>\${project.version}</varname>,
-      you are really invoking the <methodname>getVersion()</methodname> method
-      on the instance of <classname>Model</classname> that is being exposed as
-      project.</para>
+      <para>Immer wenn ein Maven Projekt Property referenziert wird, zeigt der
+      Name des Property auf einen Wert des Projekt Objekt Modell
+      (<acronym>POM</acronym>). Genauer gesagt, Sie setzen eine Referenz auf
+      ein Property der Klasse
+      <classname>org.apache.maven.model.Model</classname> welche als implizite
+      Projektvariable dargestellt wird. Wollen Sie sich auf ein Property
+      dieser impliziten Variablen beziehen, so wenden Sie die einfache
+      Punkt-Notation an, um auf ein Bean-Property des Modell-Objektes zu
+      zeigen. Referenzieren Sie zum Beispiel
+      <varname>${project.version}</varname>, so rufen Sie tatsächlich die
+      Methode <methodname>getVersion()</methodname> der Instanz des Modell
+      Objektes auf, als welches das Projekt offengelegt wird.</para>
 
-      <para>The <acronym>POM</acronym> is also represented in the
-      <filename>pom.xml</filename> document present in all Maven projects.
-      Anything in a Maven <acronym>POM</acronym> can be referenced with a
-      property. A complete reference for the <acronym>POM</acronym> structure
-      is available at <ulink
+      <para>Das <acronym>POM</acronym> wird ebenfalls durch die Datei
+      <filename>pom.xml</filename> dargestellt, welche in allen Maven
+      Projekten präsent ist. Alle Bestandteile des Maven
+      <acronym>POM</acronym> können als Property angesprochen werden. Eine
+      komplette Referenz der POM Struktur finden Sie unter <ulink
       url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>.
-      The following list shows some common property references from the Maven
-      project.</para>
+      In der folgenden Liste werden wir einige der häufiger gebrauchten
+      Referenzen auf Maven Projekt Properties ausführen:</para>
 
       <variablelist>
         <varlistentry>
-          <term><varname>project.groupId</varname> and
+          <term><varname>project.groupId</varname>,
           <varname>project.version</varname></term>
 
           <listitem>
-            <para>Projects in a large, multi-module build often share the same
-            <varname>groupId</varname> and <varname>version</varname>
-            identifiers. When you are declaring interdependencies between two
-            modules which share the same <varname>groupId</varname> and
-            <varname>version</varname>, it is a good idea to use a property
-            reference for both:</para>
+            <para>Projekte die Bestandteil eines grossen multi-modularen Build
+            sind, benutzen häufig die selbe <varname>groupId</varname> und
+            <varname>version</varname> Bezeichner. Sollten Sie Abhängigkeiten
+            zwischen verschiedenen Modulen deklarieren welche die gleiche
+            <varname>groupId</varname> und <varname>version</varname> tragen,
+            so tun Sie gut daran, für beide eine Property Referenz zu
+            definieren:</para>
 
             <programlisting language="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
@@ -145,12 +154,13 @@
           <term><varname>project.artifactId</varname></term>
 
           <listitem>
-            <para>A project's artifactId is often used as the name of a
-            deliverable. For example, in a project with <acronym>WAR</acronym>
-            packaging, you will want to generate a a <acronym>WAR</acronym>
-            file without the version identifiers. To do this, you would
-            reference the <varname>project.artifactId</varname> in your
-            <acronym>POM</acronym> file like this:</para>
+            <para>Die <varname>artifactId</varname> eines Projektes wird oft
+            als Name eines Paketes eingesetzt. So möchten Sie, im Falle eines
+            Projektes das als <acronym>WAR</acronym> paketiert wird, ein
+            <acronym>WAR</acronym> ohne Versionsbezug im Namen generieren. Um
+            dies zu bewerkstelligen würden Sie
+            <varname>project.artifactId</varname> wie folgt
+            referenzieren:</para>
 
             <programlisting language="xml">&lt;build&gt;
   &lt;finalName&gt;\${project.artifactId}&lt;/finalName&gt;
@@ -159,14 +169,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term><varname>project.name</varname> and
-          <varname>project.description</varname></term>
+          <term><varname>project.name,
+          </varname><varname>project.description</varname></term>
 
           <listitem>
-            <para>The name and project description can often be useful
-            properties to reference from documentation. Instead of having to
-            worry that all of your site documents maintain the same short
-            descriptions, you can just reference these properties.</para>
+            <para>Der Name und die Projektbeschreibung sind ofmals nützliche
+            Referenzen in einer Dokumentation. Anstatt sich damit abzumüchen,
+            dass der gesamte Site die gleiche Kurzbeschreibung benutzt, ist es
+            viel einfacher diese Werte zu referenzieren.</para>
           </listitem>
         </varlistentry>
 
@@ -174,10 +184,11 @@
           <term><varname>project.build.*</varname></term>
 
           <listitem>
-            <para>If you are ever trying to reference output directories in
-            Maven, you should never use a literal value like
-            <filename>target/classes</filename>. Instead you should use
-            property references to refer to these directories.</para>
+            <para>Sollten Sie sich auf Ausgabeverzeichnisse berufen müssen, so
+            vermeiden Sie den Einsatz von direkten Bezügen zu den
+            Verzeichnissen wie z.B. <filename>target/classes</filename>. Statt
+            dessen sollten Sie Property Referenzen auf die Verzeichnisse
+            setzen.</para>
 
             <itemizedlist>
               <listitem>
@@ -206,79 +217,84 @@
             </itemizedlist>
 
             <para><varname>sourceDirectory</varname>,
-            <varname>scriptSourceDirectory</varname>, and
-            <varname>testSourceDirectory</varname> provide access to the
-            source directories for the project.
-            <varname>outputDirectory</varname> and
-            <varname>testOutputDirectory</varname> provide access to the
-            directories where Maven is going to put bytecode or other build
-            output. <varname>directory</varname> refers to the directory which
-            contains all of these output directories.</para>
+            <varname>scriptSourceDirectory</varname>, und
+            <varname>testSourceDirectory</varname> geben Ihnen Zugriff auf die
+            Quellverzeichnisse des Projektes.
+            <varname>outputDirectory</varname> sowie
+            <varname>testOutputDirectory</varname> geben Ihnen Zugriff auf die
+            Verzeichnisse, welche Maven nutzt um den Byte Code oder Build
+            Output abzulegen. <varname>directory</varname> bezieht sich auf
+            das Verzeichnis, das alle derartigen Ausgabeverzeichnisse
+            umfasst.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>Other Project Property references</term>
+          <term>Weitere Projekt Property Referenzes</term>
 
           <listitem>
-            <para>There are hundreds of properties to reference in a
-            <acronym>POM</acronym>. A complete reference for the
-            <acronym>POM</acronym> structure is available at <ulink
+            <para>Darüber hinaus gibt es hunderte Properties welche man
+            innerhalb eines <acronym>POM</acronym> referenzieren kann. Eine
+            vollständige Referenz des <acronym>POM</acronym> finden Sie unter
+            <ulink
             url="http://maven.apache.org/ref/2.0.9/maven-model/maven.html">http://maven.apache.org/ref/2.0.9/maven-model/maven.html</ulink>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>For a full list of properties available on the Maven
-      <classname>Model</classname> object, take a look at the JavaDoc for the
-      <varname>maven-model</varname> project here <ulink
+      <para>Sollten Sie eine vollständige Dokumentation der Maven Modell
+      Objekt Properties benötigen, so bitte wir Sie auf die JavaDoc des
+      Projektes <classname>maven-model</classname> zurückzugreifen, diese
+      finden Sie unter: <ulink
       url="http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html">http://maven.apache.org/ref/2.0.9/maven-model/apidocs/index.html</ulink>.
-      Once you load this JavaDoc, take a look at the
-      <classname>Model</classname> class. From this
-      <classname>Model</classname> class JavaDoc, you should be able to
-      navigate to the <acronym>POM</acronym> property you wish to reference.
-      If you needed to reference the output directory of the build, you can
-      use the Maven Model JavaDoc to see that the output directory is
-      referenced via
-      <methodname>model.getBuild().getOutputDirectory()</methodname>; this
-      method call would be translated to the Maven property reference
-      <varname>\${project.build.outputDirectory}</varname>.</para>
+      Nach dem Laden der JavaDoc, sehen Sie sich die Klasse
+      <classname>Model</classname> an. Von dieser Klasse aus sollten Sie alle
+      von Ihnen gesuchten <acronym>POM</acronym> Properties ansteuern können.
+      Sollten Sie das Ausgabeverzeichnis des Builds referenzieren wollen, so
+      sehen Sie in der Maven Model JavaDoc, dass dieses mittels
+      <methodname>model.getBuild().getOutputDirectory();</methodname> erfolgt.
+      Diesen Methodenaufruf würden Sie in die Maven Property Referenz:
+      <varname>${project.build.outputDirectory}</varname> wiederfinden.</para>
 
-      <para>For more information about the Maven Model module, the module
-      which defines the structure of the <acronym>POM</acronym>, see the Maven
-      Model project page at <ulink
-      url="http://maven.apache.org/ref/2.0.9/maven-model">http://maven.apache.org/ref/2.0.9/maven-model</ulink>.</para>
+      <para>Bezüglich weiterer Informationen zum Maven Model Module, dem
+      Modul, welches die Struktur des <acronym>POM</acronym> definiert,
+      möchten wir auf die Maven Model Seite unter <ulink
+      url="http://maven.apache.org/ref/2.0.9/maven-model">http://maven.apache.org/ref/2.0.9/maven-model</ulink>
+      verweisen.</para>
     </section>
 
     <section id="resource-filtering-sect-settings-properties">
-      <title>Maven Settings Properties</title>
+      <title>Properties der Maven Einstellungen (settings.xml)</title>
 
-      <para>You can also reference any properties in the Maven Local Settings
-      file which is usually stored in <filename>~/.m2/settings.xml</filename>.
-      This file contains user-specific configuration such as the location of
-      the local repository and any servers, profiles, and mirrors configured
-      by a specific user.</para>
+      <para>Sie können auf jedes Property der lokalen Einstellungsdatei
+      zugreifen, welche normalerweise unter
+      <filename>~/.m2/settings.xml</filename> abgelegt ist. Diese Datei
+      enthält benutzerspezifische Einstellungen bezüglich der Maven
+      Installation wie z.B. dem Ort des lokalen Repository, der lokalen Server
+      Infrastruktur, Profilen sowie Spiegel-Repositorien wie diese von einem
+      Benutzer definiert wurden.</para>
 
-      <para>A full reference for the Local Settings file and corresponding
-      properties is available here <ulink
+      <para>Eine ausführliche Referenz der lokalen Einstellungen sowie der
+      entsprechenden Properties finden Sie unter <ulink
       url="http://maven.apache.org/ref/2.0.9/maven-settings/settings.html">http://maven.apache.org/ref/2.0.9/maven-settings/settings.html</ulink>.</para>
     </section>
 
     <section id="resource-filtering-sect-enviroment-variable">
-      <title>Environment Variable Properties</title>
+      <title>Properties der Umgebungsvariablen</title>
 
-      <para>Environment variables can be referenced with the env.* prefix.
-      Some interesting environment variables are listed in the following
-      list:</para>
+      <para>Umgebungsvariablen werden mit einem vorangestellten
+      <varname>env.*</varname> eingeleitet. Einige der interessanteren
+      Umgebungsvariablen sind in der folgenden Liste aufgeführt:</para>
 
       <variablelist>
         <varlistentry>
           <term><varname>env.PATH</varname></term>
 
           <listitem>
-            <para>Contains the current <varname>PATH</varname> in which Maven
-            is running. The <varname>PATH</varname> contains a list of
-            directories used to locate executable scripts and programs.</para>
+            <para>Enthält den aktuellen Pfad (<varname>PATH</varname>)in
+            welchem Maven läuft. <varname>PATH</varname> enthält eine Liste
+            von Verzeichnissen, in welchen ausführbare Skripte und Programme
+            gesucht werden sollen.</para>
           </listitem>
         </varlistentry>
 
@@ -286,9 +302,9 @@
           <term><varname>env.HOME</varname></term>
 
           <listitem>
-            <para>(On *nix systems) this variable points to a user's home
-            directory. Instead of referencing this, you should use the
-            \${user.home}</para>
+            <para>(Unter *nix Systemen) zeigt diese Variable auf das
+            “Heimatverzeichnis” des Benutzers. Besser und portabler ist es
+            statt dessen <varname>\${user.home}</varname> einzusetzen.</para>
           </listitem>
         </varlistentry>
 
@@ -296,11 +312,11 @@
           <term><varname>env.JAVA_HOME</varname></term>
 
           <listitem>
-            <para>Contains the Java installation directory. This can point to
-            either a Java Development Kit (<acronym>JDK</acronym>)
-            installation or a Java Runtime Environment
-            (<acronym>JRE</acronym>). Instead of using this, you should
-            consider referencing the \${java.home} property.</para>
+            <para>Enthält das Java Installationsverzeichnis. Dieses wird
+            entweder auf einen Java Development Kit (<acronym>JDK</acronym>)
+            oder auf eine Java Laufzeitumgebung (<acronym>JRE</acronym>)
+            zeigen. Es empfiehlt sich statt dessen
+            <varname>${java.home}</varname> zu benutzen.</para>
           </listitem>
         </varlistentry>
 
@@ -308,27 +324,28 @@
           <term><varname>env.M2_HOME</varname></term>
 
           <listitem>
-            <para>Contains the Maven 2 installation directory.</para>
+            <para>Beinhaltet das Maven 2 Installationsverzeichnis</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>While they are available, you should always use the Java System
-      properties if you have the choice. If you need a user's home directory
-      use <varname>\${user.home}</varname> instead of
-      <varname>\${env.HOME}</varname>. If you do this, you'll end up with a
-      more portable build that is more likely to adhere to the
-      Write-One-Run-Anywhere (<acronym>WORA</acronym>) promise of the Java
-      platform.</para>
+      <para>Solange die Java System Einstellungen verfügbar sind, sollten Sie
+      diese einsetzen. Um auf das Heimatverzeichnis eines Benutzers
+      zuzugreifen benutzen Sie <varname>\${user.home}</varname> statt
+      <varname>\${env.HOME}</varname>. Sie erzeugen damit einen portablerern
+      Build welcher dem Versprechen von
+      <literal>Write-One-Run-Anywhere</literal> (<acronym>WORA</acronym>) der
+      Java Plattform näherkommt.</para>
     </section>
 
     <section id="resource-filtering-sect-system-properties">
       <title>Java System Properties</title>
 
-      <para>Maven exposes all properties from
-      <classname>java.lang.System</classname>. Anything you can retrieve from
-      <methodname>System.getProperty()</methodname> you can reference in a
-      Maven property. The following table lists available properties:</para>
+      <para>Maven legt alle Properties von
+      <classname>java.lang.System</classname> offen. Alle Daten, welche Sie
+      mittels <methodname>System.getProperty()</methodname> beziehen können,
+      sind auch für Maven angreifbar. Die nachfolgende Tabelle führt die
+      verfügbaren Properties auf:</para>
 
       <table>
         <title>Java System Properties</title>
@@ -338,7 +355,7 @@
             <row>
               <entry>System Property</entry>
 
-              <entry>Description</entry>
+              <entry>Beschreibung</entry>
             </row>
           </thead>
 
@@ -346,151 +363,152 @@
             <row>
               <entry><varname>java.version</varname></entry>
 
-              <entry>Java Runtime Environment version</entry>
+              <entry>Java Laufzeitumgebung Version</entry>
             </row>
 
             <row>
               <entry><varname>java.vendor</varname></entry>
 
-              <entry>Java Runtime Environment vendor</entry>
+              <entry>Java Laufzeitumgebung Hersteller</entry>
             </row>
 
             <row>
               <entry>java.vendor.url</entry>
 
-              <entry>Java vendor URL</entry>
+              <entry>Java Hersteller URL</entry>
             </row>
 
             <row>
               <entry><varname>java.home</varname></entry>
 
-              <entry>Java installation directory</entry>
+              <entry>Java Installationsverzeichnis</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.version</varname></entry>
 
-              <entry>Java Virtual Machine specification version</entry>
+              <entry>Java Virtual Machine Spezifikation Version</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.vendor</varname></entry>
 
-              <entry>Java Virtual Machine specification vendor</entry>
+              <entry>Java Virtual Machine Spezifikation Hersteller</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.specification.name</varname></entry>
 
-              <entry>Java Virtual Machine specification name</entry>
+              <entry>Java Virtual Machine Spezifikation Name</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.version</varname></entry>
 
-              <entry>Java Virtual Machine implementation version</entry>
+              <entry>Java Virtual Machine Implementierung Version</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.vendor</varname></entry>
 
-              <entry>Java Virtual Machine implementation vendor</entry>
+              <entry>Java Virtual Machine Implementierung Hersteller</entry>
             </row>
 
             <row>
               <entry><varname>java.vm.name</varname></entry>
 
-              <entry>Java Virtual Machine implementation name</entry>
+              <entry>Java Virtual Machine Implementierung Name</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.version</varname></entry>
 
-              <entry>Java Runtime Environment specification version</entry>
+              <entry>Java Laufzeitumgebung Spezifikation Version</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.vendor</varname></entry>
 
-              <entry>Java Runtime Environment specification vendor</entry>
+              <entry>Java Laufzeitumgebung Spezifikation Hersteller</entry>
             </row>
 
             <row>
               <entry><varname>java.specification.name</varname></entry>
 
-              <entry>Java Runtime Environment specification name</entry>
+              <entry>Java Laufzeitumgebung Spezifikation Name</entry>
             </row>
 
             <row>
               <entry><varname>java.class.version</varname></entry>
 
-              <entry>Java class format version number</entry>
+              <entry>Java Klassenformat Versionsnummber</entry>
             </row>
 
             <row>
               <entry><varname>java.class.path</varname></entry>
 
-              <entry>Java class path</entry>
+              <entry>Java Klassenpfad</entry>
             </row>
 
             <row>
               <entry><varname>java.ext.dirs</varname></entry>
 
-              <entry>Path of extension directory or directories</entry>
+              <entry>Pfad zum Verzeichnis der Erweiterungen</entry>
             </row>
 
             <row>
               <entry><varname>os.name</varname></entry>
 
-              <entry>Operating system name</entry>
+              <entry>Betriebssystem Name</entry>
             </row>
 
             <row>
               <entry><varname>os.arch</varname></entry>
 
-              <entry>Operating system architecture</entry>
+              <entry>Betriebssystem System Architekture</entry>
             </row>
 
             <row>
               <entry><varname>os.version</varname></entry>
 
-              <entry>Operating system version</entry>
+              <entry>Betriebssystem System Version</entry>
             </row>
 
             <row>
               <entry><varname>file.separator</varname></entry>
 
-              <entry>File separator ("/" on UNIX, "\" on Windows)</entry>
+              <entry>Datei Trennzeichen ("/" auf UNIX, "\" auf
+              Windows)</entry>
             </row>
 
             <row>
               <entry><varname>path.separator</varname></entry>
 
-              <entry>Path separator (":" on UNIX, ";" on Windows)</entry>
+              <entry>Pfad Trennzeichen (":" auf UNIX, ";" auf Windows)</entry>
             </row>
 
             <row>
               <entry><varname>line.separator</varname></entry>
 
-              <entry>Line separator ("\n" on UNIX and Windows)</entry>
+              <entry>Zeilenumbruch ("\n" auf UNIX und Windows)</entry>
             </row>
 
             <row>
               <entry><varname>user.name</varname></entry>
 
-              <entry>User's account name</entry>
+              <entry>Benutzerkonto Name</entry>
             </row>
 
             <row>
               <entry><varname>user.home</varname></entry>
 
-              <entry>User's home directory</entry>
+              <entry>Benutzerverzeichnis (home)</entry>
             </row>
 
             <row>
               <entry><varname>user.dir</varname></entry>
 
-              <entry>User's current working</entry>
+              <entry>Aktuelles Arbeitsverzeichnis (des Benutzers) </entry>
             </row>
           </tbody>
         </tgroup>
@@ -498,22 +516,22 @@
     </section>
 
     <section id="resource-filtering-sect-user-defined">
-      <title>User-defined Properties</title>
+      <title>Benuzerdefinierte Properties</title>
 
-      <para>In addition to the implicit properties provided by the
-      <acronym>POM</acronym>, Maven Settings, environment variables, and the
-      Java System properties, you have the ability to define your own
-      arbitrary properties. Properties can be defined in a
-      <acronym>POM</acronym> or in a Profile. The properties set in a
-      <acronym>POM</acronym> or in a Maven Profile can be referenced just like
-      any other property available throughout Maven. User-defined properties
-      can be referenced in a <acronym>POM</acronym>, or they can be used to
-      filter resources via the Maven Resource plugin. Here's an example of
-      defining some arbitrary properties in a Maven
-      <acronym>POM</acronym>.</para>
+      <para>Zusätzlich zu den implizit von <acronym>POM</acronym>, den Maven
+      Einstellungen, Umgebungsvariablen und Java System Einstellungen
+      bereitgestellten Properties haben Sie die Möglichkeit Ihre eigenen
+      beliebigen Properties zu setzen. Properties können als Teil eines
+      <acronym>POM</acronym> oder Profil definiert werden. Die Menge der
+      Properties eines POMs oder Maven Profils kann wie alle anderen
+      Properties in Maven angesprochen werden. Benutzerdefinierte Properties
+      können innerhalb einer <acronym>POM</acronym> Datei referenziert werden,
+      oder Sie können eingesetzt werden um Ressourcen mittels dem Maven
+      Resource Plugin zu filtern. Hier ein Beispiel wie man ein beliebiges
+      Property innnerhalb einer POM Datei definiert:</para>
 
       <example>
-        <title>User-defined Properties in a POM</title>
+        <title>Definition eines benutzerdefinierten Property im POM</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -533,19 +551,19 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>The previous example defines two properties:
-      <varname>arbitrary.property.a</varname> and
-      <varname>hibernate.version</varname>. The
-      <varname>hibernate.version</varname> is referenced in a dependency
-      declaration. Using the period character as a separator in property names
-      is a standard practice throughout Maven <acronym>POM</acronym>s and
-      Profiles. There is nothing special about using a period as a separator;
-      to Maven "hibernate.version" is just a key used to retrieve the property
-      value "3.3.0.ga". The next example shows you how to define a property in
-      a profile from a Maven <acronym>POM</acronym>.</para>
+      <para>Das vorgehende Beispiel definiert zwei Properties:
+      <varname>arbitrary.property.a</varname> und
+      <varname>hibernate.version</varname>.
+      <varname>hibernate.version</varname> wird innerhalb einer
+      Abhängigkeitsdefinition eingesetzt. Der Einsatz des Punkt-Zeichens (.)
+      als Trennzeichen in Propertynamen hat sich als gängige Schreibweise für
+      Properties durchgesetzt; Für Maven ist
+      „<varname>hibernate.version</varname>“ lediglich ein Schlüssel um den
+      Wert „<varname>3.3.0.ga</varname>“ aufzufinden.</para>
 
       <example>
-        <title>User-defined Properties in a Profile in a POM</title>
+        <title>Definition eines benutzerdefinierten Property innerhalb einer
+        Profildefinition im POM</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -561,52 +579,57 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>The previous example demonstrates the process of defining a
-      user-defined property in a profile from a Maven <acronym>POM</acronym>.
-      For more information about user-defined properties and profiles, see
-      <xref linkend="profiles" />.</para>
+      <para>Das vorangegangene Beispiel verdeutlicht wie man ein
+      benutzerdefiniertes Property innerhalb einer Profildefinition eines
+      Maven <acronym>POM</acronym> definiert. Weitere Details und
+      Informationen bezüglich benutzerdefinierter Properties und Profilen
+      finden sie im <xref linkend="profiles" /> (Kapitel 11: Build
+      Profile).</para>
     </section>
   </section>
 
   <section id="resource-filtering-sect-description">
-    <title>Resource Filtering</title>
+    <title>Ressource Filterung</title>
 
-    <para>You can use Maven to perform variable replacement on project
-    resources. When resource filtering is activated, Maven will scan resources
-    for references to Maven property references surrounded by
-    <varname>\${</varname> and <varname>}</varname>. When it finds these
-    references it will replace them with the appropriate value in much the
-    same way the properties defined in the previous section can be referenced
-    from a <acronym>POM</acronym>. This feature is especially helpful when you
-    need to parameterize a build with different configuration values depending
-    on the target deployment platform.</para>
+    <para>Sie können Maven auch dazu einsetzen, Variablen innerhalb von
+    Projektressourcen zu ersetzen. Sobald Ressourcen Filterung aktiviert ist,
+    durchsucht Maven Ressourcen nach Property Referenzen eingeschlossen in
+    <varname>${</varname> und<varname>}</varname>. Sobald es eine derartige
+    Referenz gefunden hat, ersetzt es diese mit dem entsprechenden Wert ganz
+    ähnlich wie dies auch mit den Property Referenzen eines
+    <acronym>POM</acronym> geschieht und im letzen Abschnitt beschrieben
+    wurde. Diese Möglichkeit ist insbesondere dann hilfreich, wenn es
+    notwendig wird einen Build zu parametrisieren um verschiede
+    Konfigurationen zu übergeben, abhängig von der entsprechenden
+    Zielplattform.</para>
 
-    <para>Often a <filename>.properties</filename> file or an
-    <acronym>XML</acronym> document in <filename>src/main/resources</filename>
-    will contain a reference to an external resource such as a database or a
-    network location which needs to be configured differently depending on the
-    target deployment environment. For example, a system which reads data from
-    a database has an <acronym>XML</acronym> document which contains the
-    <acronym>JDBC</acronym> <acronym>URL</acronym> along with credentials for
-    the database. If you need to use a different database in development and a
-    different database in production. You can either use a technology like
-    JNDI to externalize the configuration from the application in an
-    application server, or you can create a build which knows how to replace
-    variables with different values depending on the target platform.</para>
+    <para>Oftmals wird eine Datei <filename>.properties</filename> oder ein
+    <acronym>XML</acronym> Dokument unter
+    <filename>/src/main/resources</filename> die Definition externer Ressource
+    wie Datenbankverbindungen oder Netzwerkparameter enthalten, welche
+    abhängig von der Zielplatform unterschiedlich konfiguriert werden müssen.
+    So hat z.B. ein System welches von einer Datenbank lesen muss eine Datei
+    welche die <acronym>JDBC URL</acronym> zusammen mit den entsprechenden
+    Parametern für den Datenbankzugriff angibt. Benutzen Sie eine andere
+    Datenbank während der Entwicklung als in der Produktion (was zu erwarten
+    ist), so können Sie entweder diese Ressourcedefinition mittels einer
+    Technologie wie z.B. <acronym>JNDI</acronym> externalisieren, oder aber
+    Sie generieren einen Build welcher es versteht, die Zielplattform
+    abhängigen Werte mit den entsprechenden Werten zu setzen.</para>
 
-    <para>Using Maven resource filtering you can reference Maven properties
-    and then use Maven profiles to define different configuration values for
-    different target deployment environments. To illustrate this feature,
-    assume that you have a project which uses a the Spring Framework to
-    configure a <classname>BasicDataSource</classname> from the <ulink
-    url="http://commons.apache.org/dbcp">Commons DBCP</ulink> project. Your
-    project may contain a file in <filename>src/main/resources</filename>
-    named <filename>applicationContact.xml</filename> which contains the
-    <acronym>XML</acronym> listed in <xref
-    linkend="ex-filter-spring" />.</para>
+    <para>Unter Einsatz von Maven Ressource Filterung können Sie Maven
+    Properties setzen und diese dann mittels Maven Profilen entsprechend der
+    benötigten Zielplattform definieren. Um diese Möglichkeit zu illustrieren,
+    hier ein Beispiel: gehen Sie davon aus, dass Ihr Projekt auf dem Spring
+    Framework beruht, welches eine <classname>BasicDataSource</classname> aus
+    dem <classname>CommonsDBCP</classname> Projekt konfiguriert. Ihr Projekt
+    wird also unter <filename>src/main/resources</filename> eine Datei mit dem
+    Namen <filename>applicationContext.xml</filename> ablegen, welche die in
+    <xref linkend="ex-filter-spring" /> (Beispiel 13.3: Maven Properties aus
+    einer Ressource Datei referenzieren) ausgeführten Daten enthält.</para>
 
     <example id="ex-filter-spring">
-      <title>Referencing Maven Properties from a Resource</title>
+      <title>Maven Properties aus einer Ressource Datei referenzieren</title>
 
       <programlisting language="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -627,19 +650,24 @@
 &lt;/beans&gt;</programlisting>
     </example>
 
-    <para>Your program would read this file at runtime, and your build is
-    going to replace the references to properties like
-    <varname>jdbc.url</varname> and <varname>jdbc.username</varname> with the
-    values you defined in your pom.xml. Resource filtering is disabled by
-    default to prevent any unintentional resource filtering. To turn on
-    resource filter, you need to use the resources child element of the build
-    element in a <acronym>POM</acronym>. <xref linkend="ex-filter-pom" />
-    shows a <acronym>POM</acronym> which defines the variables referenced in
-    <xref linkend="ex-filter-spring" /> and which activates resource filtering
-    for every resource under <filename>src/main/resources</filename>.</para>
+    <para>Ihr Programm würde diese Datei zur Laufzeit lesen, und Ihr Build
+    wird Referenzen auf Properties wie z.B. <varname>jdbc.url</varname> oder
+    <varname>jdbc.username</varname> mit den Werten welche Sie in Ihrer
+    <filename>pom.xml</filename>-Datei setzen ersetzen. Ressource Filterung
+    ist standardmässig ausgeschaltet, um die unbewusste und ungewollte
+    Filterung von Werten zu verhindern. Um den Ressource Filter einzustellen,
+    müssen Sie das abgeleitete Element <varname>resource</varname> innerhalb
+    ihrer <acronym>POM</acronym> Datei setzen. <xref
+    linkend="ex-filter-pom" /> (Beispiel 13.4: Definieren von Variablen und
+    Aktivierung von Ressource Filterung) illustriert ein
+    <acronym>POM</acronym> welches die Variablen aus <xref
+    linkend="ex-filter-spring" /> (Beispiel 13.3: Maven Properties aus einer
+    Ressource Datei referenzieren) definiert und Ressource Filterung für alle
+    Ressourcen unter <filename>src/main/resources</filename> aktiviert</para>
 
     <example id="ex-filter-pom">
-      <title>Defining Variables and Activating Resource Filtering</title>
+      <title>Definieren von Variablen und Aktivierung von Ressource
+      Filterung</title>
 
       <programlisting language="xml">&lt;project&gt;
   ...
@@ -672,17 +700,19 @@
 &lt;/project&gt;</programlisting>
     </example>
 
-    <para>The four variables are defined in the <sgmltag>properties</sgmltag>
-    element, and resource filtering is activated for resources under
-    <filename>src/main/resources</filename>. Resource filtering is deactivated
-    by default, and to activate it you must explicitly set
-    <sgmltag>filtering</sgmltag> to <varname>true</varname> for the resources
-    stored in your project. Filtering is deactivated by default to prevent
-    accidental, unintentional filtering during your build. If you build a
-    project with the resource from <xref linkend="ex-filter-spring" /> and the
-    POM from <xref linkend="ex-filter-pom" /> and if you list the contents of
-    the resource in target/classes, you should see that it contains the
-    filtered resource:</para>
+    <para>Die vier entsprechenden Variablen werden jeweils innerhalb des
+    Elements <varname>properties</varname> definiert und Ressource Filterung
+    wird für Ressourcen unter <filename>src/main/ressources</filename>
+    gesetzt. Da Ressource Filterung standardmässig deaktiviert ist, ist es
+    notwendig für Ihr Projekt explizit den Wert des Elements
+    <varname>filtering</varname> auf <varname>true</varname> zu setzen. Wenn
+    Sie nun ein Projekt mit der Ressource aus <xref
+    linkend="ex-filter-spring" /> (Beispiel 13.3: Maven Properties aus einer
+    Ressource Datei referenzieren) und den POM Einträgen aus <xref
+    linkend="ex-filter-pom" /> (Beispiel 13.4: Definieren von Variablen und
+    Aktivierung von Ressource Filterung) builden und Sie dann den Inhalt der
+    Ressource unter <filename>target/classes</filename> ansehen, so sollten
+    Sie dort die folgende, gefilterte Ressource wiederfinden:</para>
 
     <screen>$ <command>mvn install</command>
 ...
@@ -697,21 +727,22 @@ $ <command>cat target/classes/applicationContext.xml</command>
     &lt;/bean&gt;
 ...</screen>
 
-    <para>The <acronym>POM</acronym> in <xref linkend="ex-filter-pom" /> also
-    defines a <varname>production</varname> profile under the
-    <varname>profiles/profile</varname> element which overrides the default
-    properties with values that would be appropriate for a production
-    environment. In this particular <acronym>POM</acronym>, the default values
-    for the database connection are for a local MySQL database installed on a
-    developer's machine. When the project is built with the production profile
-    activated, Maven will configure the system to connect to a production
-    Oracle database using a different driver class, URL, username, and
-    password. If you build a project with the resource from <xref
-    linkend="ex-filter-spring" /> and the POM from <xref
-    linkend="ex-filter-pom" /> with the <varname>production</varname> profile
-    activated and if you list the contents of the resource in target/classes,
-    you should see that it contains the filtered resource with production
-    values:</para>
+    <para>Das <abbrev>POM</abbrev> aus <xref linkend="ex-filter-pom" />
+    (Beispiel 13.4: Definieren von Variablen und Aktivierung von Ressource
+    Filterung) definiert ebenfalls unter dem Element
+    <varname>profiles/profile</varname> ein Profile
+    <varname>production</varname>, welches das Standardprofil mit Werten
+    welche für eine Produktionsumgebung sinnvoll sind, übersteuert. In diesem
+    ausgeführten Beispiel definiert das <acronym>POM</acronym> Standardwerte
+    für die Datenbankverbindung auf eine lokal installierte
+    <productname>MySQL</productname> Instanz. Sollte der Build mit aktiviertem
+    Profil <varname>production</varname> erstellt werden, so wird Maven das
+    System derart konfigurieren, dass fortan das System gegen eine Oracle
+    Datenbank mit anderen Treibern, URL, Benutzername und Passwort zum Zuge
+    kommt. Wenn sie also den Build mit den oben ausgeführten Beispielen und
+    aktivierten Profil <varname>production</varname> ausgeführt haben, so
+    sollten Sie unter <filename>target/classes</filename> eine Ressource mit
+    den unten aufgeführten produktiven Werten auffinden.</para>
 
     <screen>$ <command>mvn -Pproduction install</command>
 ...

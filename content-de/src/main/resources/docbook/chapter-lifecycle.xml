@@ -2,42 +2,50 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="lifecycle">
-  <title>The Build Lifecycle</title>
+  <title>Der Build Lebenszyklus</title>
 
   <section id="lifecycle-sect-structure">
-    <title>Introduction</title>
+    <title>Einführung</title>
 
-    <para>Maven models projects as nouns which are described by a
-    <acronym>POM</acronym>. The <acronym>POM</acronym> captures the identity
-    of a project: What does a project contain? What type of packaging a
-    project needs? Does the project have a parent? What are the dependencies?
-    We've explored the idea of describing a project in the previous chapters,
-    but we haven't introduced the mechanism that allows Maven to act upon
-    these objects. In Maven the "verbs" are goals packaged in Maven plugins
-    which are tied to a phases in a build lifecycle. A Maven lifecycle
-    consists of a sequence of named phases: prepare-resources, compile,
-    package, and install among other. There is phase that captures compilation
-    and a phase that captures packaging. There are pre- and post- phases which
-    can be used to register goals which must run prior to compilation, or
-    tasks which must be run after a particular phase. When you tell Maven to
-    build a project, you are telling Maven to step through a defined sequence
-    of phases and execute any goals which may have been registered with each
-    phase.</para>
+    <para>Maven modelliert Projekte als <emphasis>Nomen</emphasis> welche von
+    einem Projekt Objekt Modell (<acronym>POM</acronym>) beschrieben werden.
+    Das <acronym>POM</acronym> fängt die Identität des Projektes ein: Was
+    beinhaltet das Projekt? Welche Art der Packetierung benötigt das Projekt?
+    Ist das Projekt ein abgeleitetes Projekt? Was sind die Abhängigkeiten? Im
+    vorangegangenen Kapitel haben wir eingeführt wie ein Projekt beschrieben
+    werden kann, was wir nicht eingeführt haben sind die Mechanismen mittels
+    welchen Maven auf diesen Objekten agieren kann. Im Maven Universum werden
+    <emphasis>Verben</emphasis> durch <literal>Goals</literal>, welche in
+    Maven Plugins verpackt und an Lebenszyklusphasen gebunden sind,
+    dargestellt. Ein Maven Lebenszyklus besteht aus einer Reihe namentlich
+    benannter Lebenszyklusphasen: <varname>prepare-resources</varname>,
+    <varname>compile</varname>, <varname>package</varname> und
+    <varname>install</varname> neben anderen. Es gibt also eine Phase welche
+    die Kompilierung beschreibt und eine Phase welche die Packetierung
+    umfasst. Darüber hinaus gibt es vorbereitende und nachbereitende Phasen,
+    welche benutzt werden, um Goals welche vor oder gerade nach einer
+    bestimmten Phase abgearbeitet werden müssen zu registrieren. Sobald Sie
+    Maven aufrufen um einen Build zu erstellen, rufen Sie tatsächlich Maven
+    dazu auf eine bestimmte Kette von Phasen zu durchlaufen und alle an eine
+    Phase gebndene Goals abzuarbeiten. </para>
 
-    <para>A build lifecycle is an organized sequence of phases that exist to
-    give order to a set of goals. Those goals are chosen and bound by the
-    packaging type of the project being acted upon. There are three standard
-    lifecycles in Maven: clean, default (sometimes called build) and site. In
-    this chapter, you are going to learn how Maven ties goals to lifecycle
-    phases and how the lifecycle can be customized. You will also learn about
-    the default lifecycle phases.</para>
+    <para>Ein Build Lebenszyklus ist eine Abfolge von Phasen welche existiert,
+    um einer Anzahl Goals zu ordnen. Diese Goals sind gewählt und an Phasen
+    gebunden abhängig vom entsprechenden Packetierungstyp des Projektes in
+    Verarbeitung. In Maven gibt es drei Standard Lebenszyklen:
+    <literal>clean</literal>, <literal>default</literal> (auch
+    <literal>build</literal> genannt) und <literal>site</literal>. Dieses
+    Kapitel wird erläutern, wie Maven Goals an Lebenszyklusphasen bindet und
+    wie Lebenszyklen angepasst werden können. Die Standard Lebenszyklusphasen
+    werden ebenfalls eingeführt. </para>
 
     <section id="lifecycle-sect-clean">
-      <title>Clean Lifecycle (clean)</title>
+      <title>Lebenszyklus: clean </title>
 
-      <para>The first lifecycle you'll be interested in is the simplest
-      lifecycle in Maven. Running <command>mvn clean</command> invokes the
-      clean lifecycle which consists of three lifecycle phases:</para>
+      <para>Der erste Lebenszyklus für welchen Sie sich interessieren werden
+      ist zugleich der einfachste Lebenszyklus von Maven. Der Aufruf von
+      <command>mvn clean</command> started den Lebenszyklus
+      <varname>clean</varname> welcher aus drei Phasen besteht:</para>
 
       <itemizedlist>
         <listitem>
@@ -53,41 +61,43 @@
         </listitem>
       </itemizedlist>
 
-      <para>The interesting phase in the clean lifecycle is the
-      <varname>clean</varname> phase. The Clean plugin's clean goal
-      (<varname>clean:clean</varname>) is bound to the
-      <varname>clean</varname> phase in the <varname>clean</varname>
-      lifecycle. The <varname>clean:clean</varname> goal deletes the output of
-      a build by deleting the build directory. If you haven't customized the
-      location of the build directory it will be the
-      <filename>\${basedir}/target</filename> directory as defined by the Super
-      <acronym>POM</acronym>. When you execute the
-      <varname>clean:clean</varname> goal you do not do so by executing the
-      goal directly with <command>mvn clean:clean</command>, you do so by
-      executing the <varname>clean</varname> phase of the clean lifecycle.
-      Executing the <varname>clean</varname> phase gives Maven an opportunity
-      to execute any other goals which may be bound to the
-      <varname>pre-clean</varname> phase.</para>
+      <para>Die interessante Phase des Lebenszyklus <varname>clean</varname>
+      ist die Phase <varname>clean</varname>. Das Goal
+      <varname>clean</varname> (<varname>clean:clean</varname>) des Plugins
+      <varname>clean</varname> wird an die Phase <varname>clean</varname> des
+      Lebenszyklus <varname>clean</varname> gebunden. (Noch ganz sauber oder
+      was!?!) Das Goal <varname>clean:clean</varname> löscht die Ergebnisse
+      des vorgehenden Builds indem es das Zielverzeichnis löscht. Sollten Sie
+      das Zielverzeichnis nicht weiter angepasst haben, so ist dieses
+      Zielverzeichnis das Verzeichnis <filename>${basedir}/target</filename>
+      wie dies im Super POM definiert ist. Die Ausführung des Goals
+      <varname>clean:clean</varname> wird nicht direkt mit dem Aufruf
+      <command>mvn clean:clean</command> gestartet, statt dessen wird die
+      Phase <varname>clean</varname> des Lebenszyklus zur Ausführung gebracht.
+      Die Ausführung der Phase <varname>clean</varname> ermöglicht Maven auch
+      Goals welche an die Phase <varname>pre-clean</varname> gebunden sind
+      auszuführen. </para>
 
-      <para>For example, suppose you wanted to trigger an
-      <varname>antrun:run</varname> goal task to echo a notification on
-      <varname>pre-clean</varname>, or to make an archive of a project's build
-      directory before it is deleted. Simply running the
-      <varname>clean:clean</varname> goal will not execute the lifecycle at
-      all, but specifying the <varname>clean</varname> phase will use the
-      <varname>clean</varname> lifecycle and advance through the three
-      lifecycle phases until it reaches the <varname>clean</varname> phase.
-      <xref linkend="ex-trigger-pre-clean" /> shows an example of build
-      configuration which binds the <varname>antrun:run</varname> goal to the
-      <varname>pre-clean</varname> phase to echo an alert that the project
-      artifact is about to be deleted. In this example, the
-      <varname>antrun:run</varname> goal is being used to execute some
-      arbitrary Ant commands to check for an existing project artifact. If the
-      project's artifact is about to be deleted it will print this to the
-      screen</para>
+      <para>Ein Beispiel: nehmen wir an Sie möchten das Goal
+      <varname>antrun:run</varname> während der Phase
+      <varname>pre-clean</varname> anstossen, um eine Nachricht auszugeben,
+      oder um ein Archiv des Project Build Verzeichnis anzulegen bevor dieses
+      gelöscht wird. Der Aufruf von <varname>clean:clean</varname> wird den
+      Lebenszyklus gar nicht ausführen, jedoch wird die Angabe der Phase
+      <varname>clean</varname> auslösen, dass die drei Lebenszyklusphasen bis
+      zur Phase <varname>clean</varname> ausgeführt werden. <xref
+      linkend="ex-trigger-pre-clean" /> (Beispiel 10.1: Auslösen eines Goals
+      in der Phase pre-clean) zeigt beispielhaft eine Build Konfiguration
+      welche das Goal <varname>antrun:run</varname> and die Phase
+      <varname>pre-clean</varname> bindet um eine Warnung auszugeben, welche
+      mitteilt, dass der Projektartefakt gelöscht werden soll. In diesem
+      Beispiel wird das Goal <varname>antrun:run</varname> benutzt, um ein
+      beliebiges Ant Kommando auszuführen um zu prüfen ob es den Artefakten
+      gibt. Besteht der Artefakt und soll gelöscht werden, so wird dies auf
+      der Konsole ausgegeben. </para>
 
       <example id="ex-trigger-pre-clean">
-        <title>Triggering a Goal on pre-clean</title>
+        <title>Auslösen eines Goals in der Phase pre-clean</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -140,9 +150,9 @@
 &lt;/project&gt;
 </programlisting>
 
-        <para>Running <command>mvn clean</command> on a project with this
-        build configuration will produce output similar to the
-        following:</para>
+        <para>Das Ausführen von <command>mvn clean</command> auf einem Projekt
+        mit der oben gegebenen Build Konfiguration wird eine Ausgabe ähnlich
+        der unten wiedergegebenen erzeugen. </para>
       </example>
 
       <screen>[INFO] Scanning for projects...
@@ -167,17 +177,18 @@
 [INFO] ------------------------------------------------------------------------
 </screen>
 
-      <para>In addition to configuring Maven to run a goal during the<varname>
-      pre-clean</varname> phase, you can also customize the Clean plugin to
-      delete files in addition to the build output directory. You can
-      configure the plugin to remove specific files in a
-      <sgmltag>fileSet</sgmltag>. The example below configures clean to remove
-      all <filename>.class</filename> files in a directory named
-      <filename>target-other/</filename> using standard Ant file wildcards:
-      <varname>*</varname> and <varname>**</varname>.</para>
+      <para>Zusätzlich zur Möglichkeit Maven so zu konfigurieren, dass es ein
+      Goal während der Phase <varname>pre-clean</varname> ausführt wird, kann
+      man das Clean Plugin so anzupassen, dass es Dateien über denen des
+      Zielverzeichnisses hinaus löscht. Sie können das Plugin so
+      konfigurieren, dass es bestimmte in einer Aufzählung angegebene Dateien
+      löscht. Das unten aufgeführte Beispiel konfiguriert
+      <varname>clean</varname> so, dass es unter Einsatz der standard Ant
+      Wildcards (* und **) alle <filename>.class</filename> Dateien in einem
+      Verzeichnis mit dem Namen <varname>target-other/</varname> löscht</para>
 
       <para><example>
-          <title>Customizing Behavior of the Clean Plugin</title>
+          <title>Anpassen des Verhaltens des Clean Plugin</title>
 
           <programlisting language="xml">&lt;project&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -204,23 +215,24 @@
     </section>
 
     <section id="lifecycle-sect-default">
-      <title>Default Lifecycle (default)</title>
+      <title>Standard Lebenszyklus: default</title>
 
-      <para>Most Maven users will be familiar with the default lifecycle. It
-      is a general model of a build process for a software application. The
-      first phase is <varname>validate</varname> and the last phase is
-      <varname>deploy</varname>. The phases in the default Maven lifecycle are
-      shown in <xref linkend="tbl-default-lifecycle" />.</para>
+      <para>Die meisten Maven Benutzer sind mit dem Standardlebenszyklus
+      vertraut. Dieser bildet das algemeine Modell des Build Prozesses einer
+      Software Applikation ab. Die erste Phase ist <varname>validate</varname>
+      und die letzte Phase <varname>deploy</varname>. Die Phasen des Maven
+      Standard Lebenszyklus sind in <xref linkend="tbl-default-lifecycle" />
+      (Tabelle 10.1: Maven Lebenszyklusphasen) aufgeführt. </para>
 
       <table id="tbl-default-lifecycle">
-        <title>Maven Lifecycle Phases</title>
+        <title>Maven Lebenszyklusphasen</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
-              <entry>Description</entry>
+              <entry>Beschreibung</entry>
             </row>
           </thead>
 
@@ -228,151 +240,157 @@
             <row>
               <entry>validate</entry>
 
-              <entry>Validate the project is correct and all necessary
-              information is available to complete a build</entry>
+              <entry>Validieren, dass ein Projekt komplett ist, und dass alle
+              notwendigen Informationen um einen Build zu erstellen verfügbar
+              sind. </entry>
             </row>
 
             <row>
               <entry>generate-sources</entry>
 
-              <entry>Generate any source code for inclusion in
-              compilation</entry>
+              <entry>Generieren jeglicher Quellen welche benötigt werden um in
+              ein Kompilat eingefügt zu werden. </entry>
             </row>
 
             <row>
               <entry>process-sources</entry>
 
-              <entry>Process the source code, for example to filter any
-              values</entry>
+              <entry>Verarbeiten der Quellen, zum Beispiel um Werte zu Filtern
+              </entry>
             </row>
 
             <row>
               <entry>generate-resources</entry>
 
-              <entry>Generate resources for inclusion in the package</entry>
+              <entry>Generieren der Ressourcen welche einem Paket beigefügt
+              werden</entry>
             </row>
 
             <row>
               <entry>process-resources</entry>
 
-              <entry>Copy and process the resources into the destination
-              directory, ready for packaging</entry>
+              <entry>Kopieren und Verarbeiten der Ressourcen, Ablage in das
+              Zielverzeichnis bereit um zu packetieren. </entry>
             </row>
 
             <row>
               <entry>compile</entry>
 
-              <entry>Compile the source code of the project</entry>
+              <entry>Kompilieren der Quellen des Projektes. </entry>
             </row>
 
             <row>
               <entry>process-classes</entry>
 
-              <entry>Post-process the generated files from compilation, for
-              example to do bytecode enhancement on Java classes</entry>
+              <entry>Nachverarbeitung der generierten Dateien der
+              Kompilierung, zum Beispiel um Bytecode Modifikationen
+              einzufügen. </entry>
             </row>
 
             <row>
               <entry>generate-test-sources</entry>
 
-              <entry>Generate any test source code for inclusion in
-              compilation</entry>
+              <entry>Generieren von Test Quellcode welcher in das Kompilat
+              eingefügt werden muss. </entry>
             </row>
 
             <row>
               <entry>process-test-sources</entry>
 
-              <entry>Process the test source code, for example to filter any
-              values</entry>
+              <entry> Verarbeiten des Test Quellcodes, z.B. um Werte zu
+              filtern </entry>
             </row>
 
             <row>
               <entry>generate-test-resources</entry>
 
-              <entry>Create resources for testing</entry>
+              <entry>Erstellen der Test Ressourcen</entry>
             </row>
 
             <row>
               <entry>process-test-resources</entry>
 
-              <entry>Copy and process the resources into the test destination
-              directory</entry>
+              <entry>Verarbeiten und Kopieren der Ressourcen in das
+              Test-Zielverzeichnis</entry>
             </row>
 
             <row>
               <entry>test-compile</entry>
 
-              <entry>Compile the test source code into the test destination
-              directory</entry>
+              <entry>Kompilieren der Test Quelldateien in das Test
+              Zielverzeichnis</entry>
             </row>
 
             <row>
               <entry>test</entry>
 
-              <entry>Run tests using a suitable unit testing framework. These
-              tests should not require the code be packaged or
-              deployed</entry>
+              <entry>Abarbeiten der Tests unter Einsatz eines geeigneten Unit
+              Test Frameworks. Diese Tests sollten nicht voraussetzen, dass
+              der Code Packetiert und Deployed wird. </entry>
             </row>
 
             <row>
               <entry>prepare-package</entry>
 
-              <entry>Perform any operations necessary to prepare a package
-              before the actual packaging. This often results in an unpacked,
-              processed version of the package (coming in Maven 2.1+)</entry>
+              <entry>Ausführen jeglicher notwendiger Schritte, um die
+              Packetierung vorzubereiten, dies führt oftmals zu einer
+              unpacketierten verarbeiteten Version des Pakets (Teil von Maven
+              2.1+)</entry>
             </row>
 
             <row>
               <entry>package</entry>
 
-              <entry>Take the compiled code and package it in its
-              distributable format, such as a <acronym>JAR</acronym>,
-              <acronym>WAR</acronym>, or <acronym>EAR</acronym></entry>
+              <entry>Paketieren des Kompilates in ein verteilbares Format wie
+              z.B. <acronym>JAR</acronym>, <acronym>WAR</acronym> oder
+              <acronym>EAR</acronym> </entry>
             </row>
 
             <row>
               <entry>pre-integration-test</entry>
 
-              <entry>Perform actions required before integration tests are
-              executed. This may involve things such as setting up the
-              required environment</entry>
+              <entry>Ausführen vorbereitender Schritte für Integrationstests.
+              Dies kann die Erstellung des notwendigen Testumfeldes umfassen.
+              </entry>
             </row>
 
             <row>
               <entry>integration-test</entry>
 
-              <entry>Process and deploy the package if necessary into an
-              environment where integration tests can be run</entry>
+              <entry>Verarbeiten und deployen des Packages in eine Umgebung in
+              welcher Integrationstests ausgeführt werden können. </entry>
             </row>
 
             <row>
               <entry>post-integration-test</entry>
 
-              <entry>Perform actions required after integration tests have
-              been executed. This may include cleaning up the
-              environment</entry>
+              <entry>Ausführen von abschliessenden Schritten nachdem die
+              Integrationstests ausgeführt wurden, dies kann auch die
+              Bereinigung der Umgebung beinhalten. </entry>
             </row>
 
             <row>
               <entry>verify</entry>
 
-              <entry>Run any checks to verify the package is valid and meets
-              quality criteria</entry>
+              <entry>Jegliche Prüfungen ausführen um sicherzustellen dass das
+              Package die erforderlichen Kriterien erfüllt. </entry>
             </row>
 
             <row>
               <entry>install</entry>
 
-              <entry>Install the package into the local repository, for use as
-              a dependency in other projects locally</entry>
+              <entry>Installieren des Packages in das lokale Repository um
+              dort lokal als Abhängigkeit für andere Projekte bereitzustehen.
+              </entry>
             </row>
 
             <row>
               <entry>deploy</entry>
 
-              <entry>Copies the final package to the remote repository for
-              sharing with other developers and projects (usually only
-              relevant during a formal release)</entry>
+              <entry>Kopiert das endgültige Paket in das ferne Repository um
+              dieses anderen Entwicklern und Projekten bereitzustellen. Dieser
+              Schritt ist gewöhnlich nur bei offiziellen Versionen von
+              Bedeutung. </entry>
             </row>
           </tbody>
         </tgroup>
@@ -380,12 +398,13 @@
     </section>
 
     <section id="lifecycle-sect-site">
-      <title>Site Lifecycle (site)</title>
+      <title>Lebenszyklus: site </title>
 
-      <para>Maven does more than build software artifacts from project, it can
-      also generate project documentation and reports about the project, or a
-      collection of projects. Project documentation and site generation have a
-      dedicated lifecycle which contains four phases:</para>
+      <para>Maven kann mehr als nur Software Artefakte von Projekten
+      erstellen. Es kann auch Projektdokumentation und Reports bezüglich dem
+      Projekt oder eine Reihe von Projekten, erstellen. Projektdokumentation
+      und Site Generierung haben einen eigenen Lebenszyklus zugeordnet,
+      welcher vier Phasen kennt: </para>
 
       <orderedlist>
         <listitem>
@@ -405,7 +424,8 @@
         </listitem>
       </orderedlist>
 
-      <para>The default goals bound to the site lifecycle is:</para>
+      <para>Die an den Lebenszyklus <varname>site</varname> gebundenen Goals
+      sind: </para>
 
       <orderedlist>
         <listitem>
@@ -417,56 +437,67 @@
         </listitem>
       </orderedlist>
 
-      <para>The packaging type does not usually alter this lifecycle since
-      packaging types are concerned primarily with artifact creation, not with
-      the type of site generated. The Site plugin kicks off the execution of
-      <ulink url="http://maven.apache.org/doxia/">Doxia</ulink> document
-      generation and other report generation plugins. You can generate a site
-      from a Maven project by running the following command:</para>
+      <para>Die Art der Packetierung ändert im allgemeinen diesen Lebenszyklus
+      nicht, da Packetierungstypen sich primär mit der Artefakt Erzeugung
+      befassen, nicht mit der Art des Sites der Generiert wird. Das Site
+      Plugin started die Ausführung der Doxia Dokument Generierung und anderer
+      Report generierender Plugins. Sie können einen Site eines Maven Projekts
+      erstellen indem Sie das folgende Kommando absetzen: </para>
 
       <screen>$ <command>mvn site</command>
 </screen>
 
-      <para>For more information about Maven Site generation, see <xref
-      linkend="site-generation" />.</para>
+      <para>Die Generierung von Sites mittels Maven wird in <xref
+      linkend="site-generation" /> (Kapitel 15: Site Generierung) weiter
+      vertieft. </para>
     </section>
   </section>
 
   <section id="lifecycle-sect-package-specific">
-    <title>Package-specific Lifecycles</title>
+    <title>Package-spezifische Lebenszyklen </title>
 
-    <para>The specific goals bound to each phase default to a set of goals
-    specific to a project's packaging. A project with packaging
-    <varname>jar</varname> has a different set of default goals from a project
-    with a packaging of <varname>war</varname>. The
-    <sgmltag>packaging</sgmltag> element affects the steps required to build a
-    project. For an example of how the packaging affects the build, consider
-    two projects: one with <varname>pom</varname> packaging and the other with
-    <varname>jar</varname> packaging. The project with <varname>pom</varname>
-    packaging will run the <varname>site:attach-descriptor</varname> goal
-    during the <varname>package</varname> phase, and the project with
-    <varname>jar</varname> packaging will run the <varname>jar:jar</varname>
-    goal instead.</para>
+    <para>Die genauen Goals welche an eine Phase gebunden werden sind bestimmt
+    durch die Menge der Goals welche durch die projektspezifische Packetierung
+    festgelegt wird. Ein Projekt welches vom Packetierungs Typ
+    <varname>jar</varname> ist hat einen anderen Standardsatz Goals als das
+    ein Projekt vom Typ <varname>war</varname> hat. Das Element
+    <varname>packaging</varname> beeinflusst den Satz der Goals welche beim
+    Build abgearbeitet werden müssen. Um Ihnen beispielhaft vorzuführen wie
+    sehr <varname>packaging</varname> den Build beeinflusst, hier zwei
+    Projekte: Eines mit <varname>packaging</varname>-Element
+    <varname>pom</varname> und eines vom Typ <varname>jar</varname>. Das
+    Projekt vom Typ <varname>pom</varname> wird das Goal
+    <varname>site:attach-descriptor</varname> in der Phase
+    <varname>packaging</varname> abarbeiten, das Projekt vom Typ
+    <varname>jar</varname> wird satt dessen das Goal
+    <varname>jar:jar</varname> abarbeiten. </para>
 
     <para>The following sections describe the lifecycle for all built-in
     packaging types in Maven. Use these sections to find out what default
     goals are mapped to default lifecycle phases.</para>
 
-    <section id="lifecycle-sect-jar">
-      <title>JAR</title>
+    <para>Der folgende Abschnitt beschreibt den Lebenszyklus aller
+    standardmässig verfügbaren Package Typen in Maven. Benutzen Sie diesen
+    Abschnitt als Referenz um herauszufinden welche Goals standardmässig an
+    welche Phase gebunden werden. </para>
 
-      <para><acronym>JAR</acronym> is the default packaging type, the most
-      common, and thus the most commonly encountered lifecycle configuration.
-      The default goals for the <acronym>JAR</acronym> lifecycle are shown in
-      <xref linkend="tbl-jar-lifecycle" />.</para>
+    <section id="lifecycle-sect-jar">
+      <title>jar </title>
+
+      <para><acronym>JAR</acronym> ist der Standard Paketierungstyp, es ist
+      der am häufigsten benutzte und die am meisten in Lebenszyklen
+      angetroffene Konfiguration. Die Standard Goals des
+      <acronym>JAR</acronym> Lebenszyklus sind in <xref
+      linkend="tbl-jar-lifecycle" /> (Tabelle 10.2: Standard Goals des JAR
+      Packaging) aufgeführt.</para>
 
       <table id="tbl-jar-lifecycle">
-        <title>Default Goals for JAR Packaging</title>
+        <title>Standard Goals des JAR Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebesnzyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -526,22 +557,23 @@
     </section>
 
     <section id="lifecycle-sect-pom">
-      <title>POM</title>
+      <title>pom </title>
 
-      <para><acronym>POM</acronym> is the simplest packaging type. The
-      artifact that it generates is itself only, rather than a
-      <acronym>JAR</acronym>, <acronym>SAR</acronym>, or
-      <acronym>EAR</acronym>. There is no code to test or compile, and there
-      are no resources the process. The default goals for projects with POM
-      packaging are shown in <xref linkend="tbl-pom-lifecycle" />.</para>
+      <para><acronym>POM</acronym> ist der einfachste Paketierungstyp. Der
+      generierte Artefakt ist sich selbst, kein <acronym>JAR</acronym>,
+      <acronym>WAR</acronym> oder <acronym>EAR</acronym>. Es gibt keinen Code
+      zu Testen oder Kompilieren, und es gibt auch keine Ressourcen zu
+      verarbeiten. Die Standard Goals des <acronym>POM</acronym> Lebenszyklus
+      sind in <xref linkend="tbl-pom-lifecycle" /> (Tabelle 10.3: Standard
+      Goals des POM Packaging) aufgeführt: </para>
 
       <table id="tbl-pom-lifecycle">
-        <title>Default Goals for POM Packaging</title>
+        <title>Standard Goals des POM Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -571,23 +603,25 @@
     </section>
 
     <section id="lifecycle-sect-plugin-lifecycle">
-      <title>Maven Plugin</title>
+      <title> plugin</title>
 
-      <para>This packaging type is similar to <acronym>JAR</acronym> packaging
-      type with three additions: <varname>plugin:descriptor</varname>,
-      <varname>plugin:addPluginArtifactMetadata</varname>, and
-      <varname>plugin:updateRegistry</varname>. These goals generate a
-      descriptor file and perform some modifications to the repository data.
-      The default goals for projects with plugin packaging are shown in <xref
-      linkend="tbl-plugin-lifecycle" />.</para>
+      <para>Dieser Paketierungstyp ist ähnlich dem der <acronym>JAR</acronym>
+      Packetierung mit drei Unterschieden:
+      <varname>plugin:descriptor</varname>,
+      <varname>plugin:addPluginArtifactMetadata</varname>, und
+      <varname>plugin:updateRegistry</varname>. Diese Goals generieren eine
+      Descriptor Datei und führen gewisse Änderungen an den Repository Daten
+      aus. Die Standard Goals des <varname>plugin</varname> Lebenszyklus sind
+      in <xref linkend="tbl-plugin-lifecycle" /> (Tabelle 10.4: Standard Goals
+      des plugin Packaging) aufgeführt: </para>
 
       <table id="tbl-plugin-lifecycle">
-        <title>Default Goals for Plugin Packaging</title>
+        <title>Standard Goals des plugin Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -653,24 +687,26 @@
     </section>
 
     <section id="lifecycle-sect-ejb">
-      <title>EJB</title>
+      <title>ejb </title>
 
-      <para><acronym>EJB</acronym>s, or Enterprise Java Beans, are a common
-      data access mechanism for model-driven development in Enterprise Java.
-      Maven provides support for <acronym>EJB</acronym> 2 and 3. Though you
-      must configure the <acronym>EJB</acronym> plugin to specifically package
-      for <acronym>EJB3</acronym>, else the plugin defaults to 2.1 and looks
-      for the presence of certain <acronym>EJB</acronym> configuration files.
-      The default goals for projects with <acronym>EJB</acronym> packaging are
-      shown in <xref linkend="tbl-ejb-lifecycle" />.</para>
+      <para>Enterprise Java Beans (<acronym>EJB</acronym>s) sind eine häufing
+      angewandte Technologie für die Modell getriebene Entwicklung von
+      Enterprise Java Applikationen. Maven unterstützt <acronym>EJB</acronym>
+      2 und <acronym>EJB</acronym> 3, obschon man das Plugin speziell
+      konfigurieren muss um <acronym>EJB</acronym> 3 zu unterstützen.
+      Standardmässig wird <acronym>EJB</acronym> 2.1 umgesetzt, wobei das
+      Plugin nach bestimmten <acronym>EJB</acronym> Konfigurationsdateien
+      sucht. Die Standard Goals des <varname>ejb</varname> Lebenszyklus sind
+      in <xref linkend="tbl-ejb-lifecycle" /> (Tabelle 10.5: Standard Goals
+      des ejb Packaging) aufgeführt: </para>
 
       <table id="tbl-ejb-lifecycle">
-        <title>Default Goals for EJB Packaging</title>
+        <title>Standard Goals des ejb Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -730,24 +766,25 @@
     </section>
 
     <section id="lifecycle-sect-war">
-      <title>WAR</title>
+      <title>war </title>
 
-      <para>The <acronym>WAR</acronym> packaging type is similar to
-      the<acronym> JAR</acronym> and <acronym>EJB</acronym> types. The
-      exception being the <varname>package</varname> goal of
-      <varname>war:war</varname>. Note that the <varname>war:war</varname>
-      plugin requires a <filename>web.xml</filename> configuration in your
-      <filename>src/main/webapp/WEB-INF</filename> directory. The default
-      goals for projects with <acronym>WAR</acronym> packaging are shown in
-      <xref linkend="tbl-war-lifecycle" />.</para>
+      <para>Der Paketeierungstyp <varname>war</varname> ist ähnlich dem des
+      Types <varname>jar</varname> oder <varname>ejb</varname>. Die Ausnahme
+      hierbei ist das Goal <varname>war:war</varname>. Bitte beachten Sie,
+      dass das <varname>war</varname> Plugin eine <filename>web.xml</filename>
+      Konfigurationsdatei im Verzeichnis
+      <filename>src/main/webapp/WEB-INF</filename> voraussetzt. Die Standard
+      Goals des <varname>war</varname> Lebenszyklus sind in <xref
+      linkend="tbl-war-lifecycle" /> (Tabelle 10.6: Standard Goals des war
+      Packaging) aufgeführt: </para>
 
       <table id="tbl-war-lifecycle">
-        <title>Default Goals for WAR Packaging</title>
+        <title>Standard Goals des war Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -807,25 +844,26 @@
     </section>
 
     <section id="lifecycle-sect-ear">
-      <title>EAR</title>
+      <title>ear</title>
 
-      <para><acronym>EAR</acronym>s are probably the simplest Java
-      <acronym>EE</acronym> constructs, consisting primarily of the deployment
-      descriptor <filename>application.xml</filename> file, some resources and
-      some modules. The <acronym>EAR</acronym> plugin has a goal named
-      <varname>generate-application-xml</varname> which generates the
-      <filename>application.xml</filename> based upon the configuration in the
-      <acronym>EAR</acronym> project's <acronym>POM</acronym>. The default
-      goals for projects with <acronym>EAR</acronym> packaging are shown in
-      <xref linkend="tbl-ear-lifecycle" />.</para>
+      <para><acronym>EAR</acronym>s sind wohl das einfachste <acronym>Java
+      EE</acronym> Konstrukt, bestehen Sie ja lediglich aus der Deployment
+      Beschreibungsdatei (Descriptor) <filename>application.xml</filename>,
+      Ressourcen und einigen Modulen. Das <varname>ear</varname> Plugin hat
+      besitzt ein Goal mit dem Namen
+      <varname>generate-application.xml</varname> welche die
+      <varname>applicaiton.xml</varname> Datei auf der Basis des POM
+      generiert. Die Standard Goals des <varname>ear</varname> Lebenszyklus
+      sind in <xref linkend="tbl-ear-lifecycle" /> (Tabelle 10.7: Standard
+      Goals des <varname>ear</varname> Packaging) aufgeführt: </para>
 
       <table id="tbl-ear-lifecycle">
-        <title>Default Goals for EAR Packaging</title>
+        <title>Standard Goals des POM Packaging</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -867,27 +905,29 @@
     </section>
 
     <section id="lifecycle-sect-other-packaging">
-      <title>Other Packaging Types</title>
+      <title>Andere Packetierungs Typen</title>
 
-      <para>This is not an exhaustive list of every packaging type available
-      for Maven. There are a number of packaging formats available through
-      external projects and plugins: the <acronym>NAR</acronym> (native
-      archive) packaging type, the <acronym>SWF</acronym> and
-      <acronym>SWC</acronym> packaging types for projects that produce Adobe
-      Flash and Flex content, and many others. You can also define a custom
-      packaging type and customize the default lifecycle goals to suit your
-      own project packaging requirements.</para>
+      <para>Dies ist keine abschliessende Liste aller für Maven verfügbarer
+      Paketierungstypen. Es bestehen eine ganze Anzahl Paketierungs Formate
+      verfügbar mittels externer Projekte und Plugins: der Typ native archive
+      (<acronym>NAR</acronym>), die Typen <acronym>SWF</acronym> und
+      <acronym>SWC</acronym> für Projekte welche Adobe Flash und Flex Inhalte
+      erzeugen und viele andere. Sie können ebenfalls eigene Benutzer
+      spezifische Paketierungs Typen definieren und den standardmässigen
+      Lebenszyklus Ihren spezifischen Bedürfnissen anpassen. </para>
 
-      <para>To use one of these custom packaging types, you need two things: a
-      plugin which defines the lifecycle for a custom packaging type and a
-      repository which contains this plugin. Some custom packaging types are
-      defined in plugins available from the central Maven repository. Here is
-      an example of a project which references the Israfil Flex plugin and
-      uses a custom packaging type of <acronym>SWF</acronym> to produce output
-      from Adobe Flex source.</para>
+      <para>Um einen derart angepassten Paketierungstypen einzusetzen braucht
+      es zwei Dinge: ein Plugin welches den angepassten Lebenszyklus definiert
+      und ein Repository welches dieses Plugin beinhaltet. Manche angepassten
+      Paketierungs Typen sind in Plugins definiert und über das zentrale
+      Repository verfügbar. Hier ein Beispiel eines Projekts welches sich auf
+      das Israfil Flex Plugin stützt und einen benutzerdefinierten
+      Paketierungstyp <acronym>SWF</acronym> benutzt um die Ausgabe aus Adobe
+      Flex Quellen zu erstellen. </para>
 
       <para><example>
-          <title>Custom Packaging Type for Adobe Flex (SWF)</title>
+          <title>Benutzerdefinierter Packetierungs -Type für Adobe Flex
+          (SWF)</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -914,25 +954,28 @@
 </programlisting>
         </example></para>
 
-      <para>In <xref linkend="writing-plugins-sect-plugins-lifecycle" />, we
-      show you how to create your own packaging type with a customized
-      lifecycle. This example should give you an idea of what you'll need to
-      do to reference a custom packaging type. All you need to do is reference
-      the plugin which supplies the custom packaging type. The Israfil Flex
-      plugin is a third-party Maven plugin hosted at Google Code, for more
-      information about this plugin and how to use Maven to compile Adobe Flex
-      go to <ulink
-      url="http://code.google.com/p/israfil-mojo">http://code.google.com/p/israfil-mojo</ulink>.
-      This plugin supplies the following lifecycle for the
-      <acronym>SWF</acronym> packaging type:</para>
+      <para>In <xref linkend="writing-plugins-sect-plugins-lifecycle" />
+      (Abschnitt 17.6 Plugins und der Maven Lebenszyklus) führen wir aus, wie
+      Sie Ihren eigenen Paketierungstypen mit angepasstem Lebenszyklus
+      erstellen. Das Beispiel sollte Ihnen aufzeigen was notwendig ist, um
+      einen angepassten Paketierungstypen einzusetzen. Das einzige was Sie
+      tatsächlich dazu beitragen müssen ist, das Plugin welches den
+      angepassten Paketierungstyp mitbringt zu referenzieren. Das Israfil FLex
+      Plugin ist ein Drittpartei Maven Plugin welches von Google Code
+      bereitgehalten wird. Für weitere Informationen bezüglich des Plugins,
+      oder den Schritten die notwendig sind um Adobe Flex zu Kompilieren,
+      wenden Sie sich bitte an <ulink
+      url="http://code.google.com/code.google.com/p/israfil-mojo">http://code.google.com/code.google.com/p/israfil-mojo</ulink>.
+      Das Plugin liefert die folgenden Lebenszyklen des <acronym>SWF</acronym>
+      Packetierungs Typ. </para>
 
       <table>
-        <title>Default Lifecycle for SWF Packaging</title>
+        <title>Standard Lebenszyklus für SWF Packetierung </title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Lifecycle Phase</entry>
+              <entry>Lebenszyklus Phase</entry>
 
               <entry>Goal</entry>
             </row>
@@ -963,60 +1006,62 @@
   </section>
 
   <section id="lifecycle-sect-common-goals">
-    <title>Common Lifecycle Goals</title>
+    <title>Gebräuchliche Lebenszyklus Goals </title>
 
-    <para>Many of the packaging lifecycles have similar goals. If you look at
-    the goals bound to the <acronym>WAR</acronym> and <acronym>JAR</acronym>
-    lifecycles, you'll see that they differ only in the
-    <varname>package</varname> phase. The <varname>package</varname> phase of
-    the <acronym>WAR</acronym> lifecycle calls <varname>war:war</varname> and
-    the <varname>package</varname> phase of the <acronym>JAR</acronym>
-    lifecycle calls <varname>jar:jar</varname>. Most of the lifecycles you
-    will come into contact share some common lifecycle goals for managing
-    resources, running tests, and compiling source code. In this section,
-    we'll explore some of these common lifecycle goals in detail.</para>
+    <para>Viele der Paketierungs-Lebenszyklen haben ähnliche Goals. Wenn Sie
+    die Goals des <varname>war</varname> und des <varname>jar</varname>
+    Lebenszyklus vergleichen, so werden Sie feststellen, dass diese sich
+    lediglich in der Phase <varname>package</varname> unterscheiden. Die Phase
+    <varname>package</varname> des Lebenszyklus <varname>war</varname> ruft
+    <varname>war:war</varname> auf, die des Lebenszyklus
+    <varname>jar</varname> ruft <varname>jar:jar</varname> auf. Die meisten
+    der Lebenszyklen mit welchen Sie in Kontakt kommen werden teilen sich
+    einige gemeinsame Lebenszyklus Goals um Ressourcen zu Managen, Tests
+    Abzuarbeiten sowie Quellen zu Kompilieren. In diesem Abschnitt wollen wir
+    nun einige dieser gemeinsamen Lebenszyklus Goals genauer betrachten.
+    </para>
 
     <section id="lifecycle-sect-process-resources-phase">
-      <title>Process Resources</title>
+      <title>Ressourcen Verarbeiten </title>
 
-      <para>Most lifecycles bind the <varname>resources:resources</varname>
-      goal to the <varname>process-resources</varname> phase. The
-      <varname>process-resources</varname> phase "processes" resources and
-      copies them to the output directory. If you haven't customized the
-      default directory locations defined in the Super <acronym>POM</acronym>,
-      this means that Maven will copy the files from
-      <filename>\${basedir}/src/main/resources</filename> to
-      <filename>\${basedir}/target/classes</filename> or the directory defined
-      in <filename>\${project.build.outputDirectory}</filename>. In addition to
-      copying the resources to the output directory, Maven can also apply a
-      filter to the resources that allows you to replace tokens within
-      resource file. Just like variables are referenced in a
-      <acronym>POM</acronym> using <varname>\${...}</varname> notation, you can
-      reference variables in your project's resources using the same syntax.
-      Coupled with build profiles, such a facility can be used to produce
-      build artifacts which target different deployment platforms. This is
-      something that is common in environments which need to produce output
-      for development, testing, staging, and production platforms from the
-      same project. For more information about build profiles, see <xref
-      linkend="profiles" />.</para>
+      <para>Die meisten Lebenszyklen binden das Goal
+      <varname>resources:resources</varname> an die Phase
+      <varname>process-resources</varname>. Diese Phase „verarbeitet“
+      Ressourcen und kopiert diese in das Zielverzeichnis. So Sie dieses nicht
+      angepasst haben, gelten die im Super POM festegelegten
+      Standardverzeichnisse, das heisst, Maven kopiert die Dateien von
+      <filename>${basedir}/src/main/resources</filename> nach
+      <filename>${project.build.outputDirectory}</filename>. Zusätzlich zu der
+      reinen Kopieraktion kann Maven auch die Ressourcen filtern, d.h. Sie
+      können gewisse Token in den Dateien ersetzen. Genau wie Variablen
+      innerhalb der <acronym>POM</acronym> Datei mittels <varname>${ …
+      }</varname> markiert sind, so können Sie die gleiche Syntax einsetzen um
+      Variablen innerhalb von Ressourcen zu referenzieren. Im Zusammenspiel
+      mit Build-Profilen kann diese Eigenschaft dazu benutzt werden, um Builds
+      für unterschiedliche Zielplattformen zu erstellen. Dies trifft man
+      häufig in Umgebungen an, welche für das gleiche Projekt unterschiedliche
+      Builds für das Development, Test, Integrationstest und Produktion
+      erstellen müssen. Bezüglich weiter Informationen zu Build-Profilen
+      verweisen wir auf <xref linkend="profiles" /> (Kapitel 11: Build
+      Profile).</para>
 
-      <para>To illustrate resource filtering, assume that you have a project
-      with an <acronym>XML</acronym> file in
-      <filename>src/main/resources/META-INF/service.xml</filename>. You want
-      to externalize some configuration variables to a properties file. In
-      other words, you might want to reference a <acronym>JDBC</acronym>
-      <acronym>URL</acronym>, username, and password for your database, and
-      you don't want to put these values directly into the
-      <filename>service.xml</filename> file. Instead, you would like to use a
-      properties file to capture all of the configuration points for your
-      program. Doing this will allow you to consolidate all configuration into
-      a single properties file and make it easier to change configuration
-      values when you need to target a new deployment environment. First, take
-      a look at the contents of <filename>service.xml</filename> in
-      <filename>src/main/resources/META-INF</filename>.</para>
+      <para>Um Ressource Filterung zu veranschaulichen, stellen Sie sich vor,
+      Sie habe ein Projekt mit einer <acronym>XML</acronym>-Datei unter
+      <filename>/src/main/resources/META-INF/services.xml</filename>. Hierbei
+      möchten Sie eine Konfigurationseinstellung in eine Property-Datei
+      auslagern. In anderen Worten, Sie möchten zum Beispiel die Werte der
+      <acronym>JDBC URL</acronym>, <emphasis>Benutzername</emphasis> und
+      <emphasis>Passwort</emphasis> der Datenbank nicht direkt in der
+      <filename>service.xml</filename> Datei ablegen. Statt dessen möchten Sie
+      eine Property Datei mit den variablen Werten Ihres Programms anlegen.
+      Das ermöglicht Ihnen, alle Konfigurationsparameter in einer Datei
+      zusammenzufassen, um diese an einem Ort zu ändern sobald Sie von einer
+      Umgebung in eine andere wechseln. Sehen Sie sich also zuallererts den
+      Inhalt der entsprechenden Datei <filename>services.xml</filename> unter
+      <filename>/src/main/resources/META-INF</filename> an: </para>
 
       <para><example>
-          <title>Using Properties in Project Resources</title>
+          <title>Einsatz von Properties in den Projektressourcen </title>
 
           <programlisting language="xml">&lt;service&gt;
   &lt;!-- This URL was set by project version \${project.version} --&gt;
@@ -1027,19 +1072,21 @@
 </programlisting>
         </example></para>
 
-      <para>This <acronym>XML</acronym> file uses the same property reference
-      syntax you can use in the <acronym>POM</acronym>. In fact, the first
-      variable referenced is the <varname>project</varname> variable which is
-      also an implicit variable made available in the <acronym>POM</acronym>.
-      The <varname>project</varname> variable provides access to
-      <acronym>POM</acronym> information. The next three variable references
-      are <varname>jdbc.url</varname>, <varname>jdbc.username</varname>, and
-      <varname>jdbc.password</varname>. These custom variables are defined in
-      a properties file
-      <filename>src/main/filters/default.properties</filename>.</para>
+      <para>Die in der <acronym>XML</acronym> Datei zum Einsatz kommende
+      Syntax ist die selbe welche bereits in der <acronym>POM</acronym> Datei
+      zum Einsatz kommt. Die erste zum Einsatz kommende Variable ist sogar
+      eine Maven-implizite Variable welche vom <acronym>POM</acronym>
+      bereitgestellt wird. Die Variable <varname>projekt</varname> erlaubt den
+      Zugriff auf die Werte des <acronym>POM</acronym>. Die folgenden drei
+      Referenzen sind <varname>jdbc.url</varname>,
+      <varname>jdbc.username</varname> und <varname>jdbc.passwort</varname>.
+      Diese benutzerdefinierten Variablen wurden in der Property Datei unter
+      <filename>src/main/filters/default.properties</filename> definiert.
+      </para>
 
       <example>
-        <title>default.properties in src/main/filters</title>
+        <title>Datei <filename>default.properties</filename> unter
+        <filename>src/main/filters</filename></title>
 
         <programlisting>jdbc.url=jdbc:hsqldb:mem:mydb
 jdbc.username=sa
@@ -1047,20 +1094,21 @@ jdbc.password=
 </programlisting>
       </example>
 
-      <para>To configure resource filtering with this
-      <filename>default.properties</filename> file, we need to specify two
-      things in a project's <acronym>POM</acronym>: a list of properties files
-      in the <sgmltag>filters</sgmltag> element of the build configuration,
-      and a flag to Maven that the resources directory is to be filtered. The
-      default Maven behavior is to skip filtering and just copy the resources
-      to the output directory; you'll need to explicitly configure resource
-      filter, or Maven will skip the step altogether. This default ensures
-      that Maven's resource filtering feature doesn't surprise you out of
-      nowhere and clobbering any <varname>\${...}</varname> references you
-      didn't want it to replace.</para>
+      <para>Um Ressourcenfilterung der Datei
+      <filename>default.properties</filename> einzustellen, müssen innerhalb
+      des <acronym>POM</acronym> zwei Dinge gesetzt werden: eine Liste der
+      properties-Dateien innerhalb des Elements <varname>filters</varname> der
+      Buildkonfiguration, sowie eine Maven Einstellung dass das
+      Ressourcenverzeichnis der Filterung unterliegt. Standardmässig ist
+      dieses Verhalten abgestellt und Ressourcen werden direkt in das
+      Ausgabeverzeichnis kopiert, oder Maven übergeht diesen Schritt ganz.
+      Diese Einstellung ist standardmässig so gewählt, damit es nicht
+      vorkommt, dass ohne ersichtlichen Grund alle bestehenden
+      <varname>${...}</varname>-Referenzen ersetzt werden, welche Sie gar
+      nicht ersetzen wollten. </para>
 
       <para><example>
-          <title>Filter Resources (Replacing Properties)</title>
+          <title>Ressourcen Filtern (Ersetzen von Properties)</title>
 
           <programlisting language="xml">&lt;build&gt;
   &lt;filters&gt;
@@ -1076,23 +1124,26 @@ jdbc.password=
 </programlisting>
         </example></para>
 
-      <para>As with all directories in Maven, the resources directory does not
-      need to be in <filename>src/main/resources</filename>. This is just the
-      default value defined in the Super <acronym>POM</acronym>. You should
-      also note that you don't need to consolidate all of your resources into
-      a single directory. You can always separate resources into separate
-      directories under <filename>src/main</filename>. Assume that you have
-      project which contains hundreds of <acronym>XML</acronym> documents and
-      hundreds of images. Instead of mixing the resources in the
-      <filename>src/main/resources</filename> directory, you might want to
-      create two directories <filename>src/main/xml</filename> and
-      <filename>src/main/images</filename> to hold this content. To add
-      directories to the list of resource directories, you would add the
-      following <sgmltag>resource</sgmltag> elements to your build
-      configuration.</para>
+      <para>Wie mit allen Verzeichnissen unter Maven, ist es nicht Bedingung,
+      das das Ressourcenverzeichnis unbedingt unter
+      <filename>src/main/ressources</filename> liegt. Das ist lediglich der
+      entsprechende Standardpfad wie er im Super <acronym>POM</acronym>
+      festgelegt ist. Ebenfalls ist es gut zu wissen, dass Sie nicht gezwungen
+      sind, alle Ihre Ressourcen in ein einzigen Verzeichniss zu
+      konsolidieren. Sie können Ressourcen auch in getrennten Verzeichnissen
+      unter <filename>src/main</filename> ablegen. Nehmen Sie einmal an, Sie
+      arbeiten an einem Projekt mit hunderten von
+      <acronym>XML</acronym>-Dokumenten und hunderten von Bildern. Anstatt nun
+      alle diese Dateien unter dem Verzeichnis
+      <filename>src/main/ressources</filename> gemischt abzulegen, ist es
+      möglich, zwei Verzeichnisse <filename>src/main/xml</filename> und
+      <filename>src/main/images</filename> anzulegen um die Inhalte dort
+      abzulegen. Um weitere Verzeichnisse Ihrer Liste von
+      Ressourceverzeichnissen zuzufügen, müssen Sie folgendes Element
+      <varname>resource</varname> Ihrer Buildkonfiguration zufügen: </para>
 
       <example>
-        <title>Configuring Additional Resource Directories</title>
+        <title>Festlegen zusätzlicher Ressource Verzeichnisse</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1111,21 +1162,23 @@ jdbc.password=
 &lt;/build&gt;</programlisting>
       </example>
 
-      <para>When you are building a project that produces a console
-      application or a command-line tool, you'll often find yourself writing
-      simple shell scripts that need to reference the <acronym>JAR</acronym>
-      produced by a build. When you are using the assembly plugin to produce a
-      distribution for an application as a <acronym>ZIP</acronym> or
-      <acronym>TAR</acronym>, you might place all of you scripts in a
-      directory like <filename>src/main/command</filename>. In the following
-      <acronym>POM</acronym> resource configuration, you'll see how we can use
-      resource filtering and a reference to the project variable to capture
-      the final output name of the <acronym>JAR</acronym>. For more
-      information about the Maven Assembly plugin, see <xref
-      linkend="assemblies" />.</para>
+      <para>Sollten Sie ein Projekt erstellen, welches eine
+      Befehlszeilenapplikation erzeugt, so finden Sie sich oftmals in einer
+      Situation wieder, in welcher Sie einfache Shell Skripte erstellen,
+      welche ein Jar-Dateien des Builds referenzieren. Sollten Sie dann das
+      Assembly Plugin benutzen um ein Distributionspaket in Form eines
+      <acronym>ZIP</acronym>- oder <acronym>TAR</acronym>-Archivs zu
+      erstellen, so macht es Sinn, alle ihre Skripte in einem Verzeichniss wie
+      etwa <filename>src/main/command</filename> zusammenzufassen. Im
+      folgenden Ausschnitt einer <acronym>POM</acronym>
+      Ressourcenkonfiguration können Sie sehen, wie wir Ressourcenfilterung
+      und eine Referenz auf eine Projektvariable benutzen können, um den
+      endgültigen Ausgabenamen des jar-Archives zu definieren. Weitere
+      Informationen bezüglich des Maven Assembly Plugins finden Sie in <xref
+      linkend="assemblies" /> (Kapitel 12: Maven Assemblies). </para>
 
       <para><example id="ex-filter-script">
-          <title>Filtering Script Resources</title>
+          <title>Filterung von Skript Ressourcen</title>
 
           <programlisting language="xml">&lt;build&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
@@ -1150,64 +1203,72 @@ jdbc.password=
 &lt;/build&gt;</programlisting>
         </example></para>
 
-      <para>If you run <filename>mvn process-resources</filename> in this
-      project, you will end up with two files, <filename>run.sh</filename> and
-      <filename>run.bat</filename>, in <varname>\${basedir}</varname>. We've
-      singled out these two files in a <sgmltag>resource</sgmltag> element,
-      configuring filtering, and set the <sgmltag>targetPath</sgmltag> to be
-      <varname>\${basedir}</varname>. In a second <sgmltag>resource</sgmltag>
-      element, we've configured the default resources path to be copied to the
-      default output directory without any filtering. <xref
-      linkend="ex-filter-script" /> shows you how to declare two resource
-      directories and supply them with different filtering and target
-      directory preferences. The project from <xref
-      linkend="ex-filter-script" /> would contain a
-      <filename>run.bat</filename> file in
-      <filename>src/main/command</filename> with the following content:</para>
+      <para>Der Aufruf von <command>mvn process-resources</command> dieses
+      Projektes erzeugt zwei Dateien, <filename>run.sh</filename> sowie
+      <filename>run.bat</filename>, beide unter
+      <filename>${basedir}</filename>. Wir haben innerhalb eines Elements
+      <varname>resource</varname> diese zwei Dateien herausgepickt, Filterung
+      eingestellt, und den Zielpfad (<filename>targetPath</filename>) auf
+      <filename>${basedir}</filename> gesetzt. In einem zweiten Elememt
+      Resource haben wir definiert, dass die Ressourcen des Standard
+      Ressourcenpfades in das Standardausgabeverzeichnis kopiert werden ohne
+      diese zu filtern. <xref linkend="ex-filter-script" /> (Beispiel 10.8:
+      Filterung von Skript Ressourcen) zeigt beispielhaft auf, wie Sie zwei
+      Resourceverzeichnisse bestimmen und diese mit unterschiedlichen
+      Filterkriterien sowie Zielverzeichnissen versehen. Das Projekt des <xref
+      linkend="ex-filter-script" /> (Beispiels 10.8: Filterung von Skript
+      Ressourcen) würde eine Datei <filename>run.bat</filename> unter
+      <filename>src/main/command</filename> mit folgendem Inhalt enthalten:
+      </para>
 
       <programlisting>@echo off
 java -jar \${project.build.finalName}.jar %*
 </programlisting>
 
-      <para>After running <command>mvn process-resources</command>, a file
-      named <filename>run.bat</filename> would appear in
-      <varname>\${basedir}</varname> with the following content:</para>
+      <para>Nach der Ausführung von <command>mvn process-resources</command>,
+      erscheint eine Datei <filename>run.bat</filename> im Verzeichnis
+      <varname>${basedir}</varname> mit folgendem Inahlt: </para>
 
       <programlisting>@echo off
 java -jar simple-cmd-2.3.1.jar %*
 </programlisting>
 
-      <para>The ability to customize filtering for specific subsets of
-      resources is another reason why complex projects with many different
-      kinds of resources often find it advantageous to separate resources into
-      multiple directories. The alternative to storing different kinds of
-      resources with different filtering requirements in different directories
-      is to use a more complex set of include and exclude patterns to match
-      all resource files which match a certain pattern.</para>
+      <para>Die Möglichkeit unterschiedliche Filter für speziefische
+      Untergruppen von Ressourcen zu setzen, ist ein weiterere Grund weshalb
+      Projekte mit vielen verschiedenen Arten von Artefakten es oftmals als
+      hilfreich erachten, diese in verschiedenen Verziechnissen abzulegen. Die
+      Alternative zum Ablegen verschiedener Ressourcetypen in
+      unterschiedlichen Verzichnissen ist der Einsatz von komplexeren Sätzen
+      von Ein- und Ausschlusskriterien, um die entsprechenden Ressource
+      Dateien welche einem Muster genügen, zu spezifizieren. </para>
     </section>
 
     <section id="lifecycle-sect-compile-phase">
-      <title>Compile</title>
+      <title>compile</title>
 
-      <para>Most lifecycles bind the Compiler plugin's
-      <varname>compile</varname> goal to the <varname>compile</varname> phase.
-      This phase calls out to <varname>compile:compile</varname> which is
-      configured to compile all of the source code and copy the bytecode to
-      the build output directory. If you haven't customized the values defined
-      in the Super <acronym>POM</acronym>, <varname>compile:compile</varname>
-      is going to compile everything from <filename>src/main/java</filename>
-      to <filename>target/classes</filename>. The Compiler plugin calls out to
-      <filename>javac</filename> and uses default source and target settings
-      of 1.3 and 1.1. In other words, the compiler plugin assumes that your
-      Java source conforms to Java 1.3 and that you are targeting a Java 1.1
-      JVM. If you would like to change these settings, you'll need to supply
-      the target and source configuration to the Compiler plugin in your
-      project's POM as shown in <xref
-      linkend="ex-compilesrc-target" />.</para>
+      <para>Die allermeisten Lebenszyklen binden das Goal
+      <varname>compile</varname> des Compiler Plugin an die Phase
+      <varname>compile</varname>. Diese Phase ruft
+      <varname>compile:compile</varname> auf, welches konfiguriert ist, alle
+      Quellen zu verarbeiten und den resultierenden Bytecode im Build
+      Ausgabeverzeichniss abzulegen. Sollten Sie die Standardeinstellungen des
+      SuperPOM nicht angepasst haben, so wird
+      <varname>compile:compile</varname> alle Quellen unter
+      <filename>src/main/java</filename> verarbeiten und das Ergebnis unter
+      <filename>/target/classes</filename> ablegen. Das Compile Plugin ruft
+      <productname>javac</productname> auf, und hat die Standardeinstellungen
+      1.3 und 1.1, in anderen Worten, das Compiler Plugin geht davon aus, dass
+      Sie Java 1.3 konformen Code erzeugen und diesen an eine Java Virtual
+      Machine 1.1 addressieren. Sollten Sie diese Einstellungen verändern
+      wollen, so müssen sie die Ziel und Quellkonfiguration ihres Projektes
+      dem Compiler Plugin mit auf den Weg geben. Sie tun dies mittels einem
+      Eintrag in der <acronym>POM</acronym> Datei wie dies in <xref
+      linkend="ex-compilesrc-target" /> (Beispiel 10.9: Einstellen der Quell-
+      und Zielkonfiguration des Kompiler Plugins). </para>
 
       <para><example id="ex-compilesrc-target">
-          <title>Setting the Source and Target Versions for the Compiler
-          Plugin</title>
+          <title>Einstellen der Quell- und Zielkonfiguration des Compiler
+          Plugins</title>
 
           <programlisting language="xml">&lt;project&gt;
   ...
@@ -1229,31 +1290,30 @@ java -jar simple-cmd-2.3.1.jar %*
 </programlisting>
         </example></para>
 
-      <para>Notice we are configuring the Compiler plugin, and not the
-      specific <varname>compile:compile</varname> goal. If we were going to
-      configure the source and target for just the
-      <varname>compile:compile</varname> goal, we would place the
-      <sgmltag>configuration</sgmltag> element below an
-      <sgmltag>execution</sgmltag> element for the
-      <varname>compile:compile</varname> goal. We've configured the target and
-      source for the plugin because <varname>compile:compile</varname> isn't
-      the only goal we're interested in configuring. The Compiler plugin is
-      reused when Maven compiles tests using the
-      <varname>compile:testCompile</varname> goal, and configuring target and
-      source at the plugin level allows us to define it once for all goals in
-      a plugin.</para>
+      <para>Beachten Sie, dass wir das Compiler Plugin konfigurieren, und
+      nicht das spezifische Goal <varname>compile:compile</varname>. Um nur
+      das spezifische Goal <varname>compile:compile</varname> zu
+      konfigurieren, müssten wir das Element <varname>configuration</varname>
+      unterhalb eines Elements <varname>execution</varname> des Goals
+      <varname>compile:compile</varname> spezifizieren. Wir haben aber das
+      Quell-und Zielverzeichnis des Compile Plugins konfiguriert, denn wir
+      wollten nicht nur dieses eine Goal konfigurieren. Das Compiler Plugin
+      kommt ebenfalls zum Einsatz, wenn Maven die Testquellen mittels dem Goal
+      <varname>compile:testCompile</varname> verarbeitet. Die Definition des
+      Plugin erlaubt uns die Konfiguration einmal auf der Pluginebene für alle
+      Goals vorzunehmen. </para>
 
-      <para>If you need to customize the location of the source code, you can
-      do so by changing the build configuration. If you wanted to store your
-      project's source code in <filename>src/java</filename> instead of
-      <filename>src/main/java</filename> and if you wanted build output to go
-      to <filename>classes</filename> instead of
-      <filename>target/classes</filename>, you could always override the
-      default <sgmltag>sourceDirectory</sgmltag> defined by the Super
-      <acronym>POM</acronym>.</para>
+      <para>Sollten Sie den Ort Ihrer Quelldateien umdefinieren müssen, so
+      können Sie dies durch die Veränderung der Build Konfiguration erreichen.
+      Sollten Sie zum Beispiel ihre Quellen unter
+      <filename>src/java</filename> statt <filename>src/main/java</filename>
+      ablegen, und sollten das Ergebnis unter <filename>classes</filename>
+      anstatt <filename>target/classes</filename> ablegen wollen, so können
+      Sie jederzeit die Standarwerte <varname>sourceDirectory</varname>
+      (Quellverzeichnis) des SuperPOM übersteuern. </para>
 
       <example>
-        <title>Overriding the Default Source Directory</title>
+        <title>Übersteuern des Standard Quellverzeichnisses</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1264,56 +1324,58 @@ java -jar simple-cmd-2.3.1.jar %*
       </example>
 
       <warning>
-        <para>While it might seem necessary to bend Maven to your own idea of
-        project directory structure, we can't emphasize enough that you should
-        sacrifice your own ideas of directory structure in favor of the Maven
-        defaults. This isn't because we're trying to brainwash you into
-        accepting the Maven Way, but it will be easier for people to
-        understand your project if it adheres to the most basic conventions.
-        Just forget about this. Don't do it.</para>
+        <para>Obschon es Gründe geben mag die dafür sprechen, Maven ihren
+        Wünschen bezüglich Verzeichnisstruktur anzupassen, so können wir hier
+        nicht stark genug betonen, dass es besser ist Ihre eingene Struktur
+        zugunsten der Maven Standardverzeichnisstruktur aufzugeben. Dies ist
+        keinesfalls darin begründet, dass wir Sie von dieser Struktur bekehren
+        wollen, sondern es ist einfacher für andere Entwickler, ihre
+        Projektstruktur zu verstehen, sollte diese den grundlegenden
+        Konventionen folgen. Vergessen Sie schon den Ansatz! - Tun Sie sich
+        diesen Gefallen. </para>
       </warning>
     </section>
 
     <section id="lifecycle-sect-process-test-resources-phase">
-      <title>Process Test Resources</title>
+      <title>Verarbeiten von Test Ressourcen </title>
 
-      <para>The <varname>process-test-resources</varname> phase is almost
-      indistinguishable from the <varname>process-resources</varname> phase.
-      There are some trivial differences in the <acronym>POM</acronym>, but
-      most everything the same. You can filter test resources just as you
-      filter regular resources. The default location for test resources is
-      defined in the Super <acronym>POM</acronym> as
-      <filename>src/test/resources</filename>, and the default output
-      directory for test resources is <filename>target/test-classes</filename>
-      as defined in
-      <varname>\${project.build.testOutputDirectory}</varname>.</para>
+      <para>Die Phase <varname>process-test-resources</varname> lässt sich
+      kaum von der Phase <varname>process-ressources</varname> unterscheiden.
+      Es gibt einige triviale Unterschiede des <acronym>POM</acronym>, alles
+      andere ist gleich. Sie können Test Ressourcen filtern wie die anderen
+      Ressourcen auch. Der standardmässige Ort der Testressourcen ist im Super
+      POM mit <filename>src/test/resources</filename> gesetzt und das
+      standardmässige Ausgabeverzeichnis von Testressourcen auf
+      <filename>target/test-classes</filename> wie dies unter
+      <filename>${project.build.testOutputDirectory}</filename> definiert ist.
+      </para>
     </section>
 
     <section id="lifecycle-sect-test-compile-phase">
-      <title>Test Compile</title>
+      <title>Kompilieren der Test Klassen (testCompile) </title>
 
-      <para>The <varname>test-compile</varname> phase is almost identical to
-      the <varname>compile</varname> phase. The only difference is that
-      <varname>test-compile</varname> is going to invoke
-      <varname>compile:testCompile</varname> to compile source from the test
-      source directory to the test build output directory. If you haven't
-      customized the default directories from the Super
-      <acronym>POM</acronym>, <varname>compile:testCompile</varname> is going
-      to compile the source in <filename>src/test/java</filename> to the
-      <filename>target/test-classes</filename> directory.</para>
+      <para>Die Phase <varname>test-compile</varname> ist beinahe identisch
+      mit der Phase <varname>compile</varname>. Der einzige Unterschied ist,
+      dass <varname>test-compile</varname> das Goal
+      <varname>compile:testCompile</varname> anzieht, um Testquellen vom
+      Quellverzeichnis anzuziehen und die Ausgabe im Test-Ausgabeverzeichnis
+      abzulegen. Sollten Sie die Standardverzeichnisse des SuperPOM nicht
+      übersteuert haben, so wird <varname>compile:Test</varname> die Sourcen
+      aus dem Verzeichnis <filename>src/test/java</filename> in das
+      Verzeichnis <varname>target/test-classes</varname> kompilieren. </para>
 
-      <para>As with the source code directory, if you want to customize the
-      location of the test source code and the output of test compilation, you
-      can do so by overriding the <varname>testSourceDirectory</varname> and
-      the testOutputDirectory. If you wanted to store test source in
-      <filename>src-test/</filename> instead of
-      <filename>src/test/java</filename> and you wanted to save test bytecode
-      to <filename>classes-test/</filename> instead of
-      <filename>target/test-classes</filename>, you would use the following
-      configuration.</para>
+      <para>Wie mit den Quellverzeichnissen gilt, sollten Sie den Ort der Test
+      Verzeichnisse ändern wollen, so können Sie dies tun indem Sie
+      <filename>testSourceDirectory</filename> und
+      <filename>testOutputDirectory</filename> anpassen. Sollten Sie
+      Testquellen unter <filename>src-test/</filename> anstatt
+      <filename>src/test/java</filename> ablegen und den Bytecode unter
+      <filename>classes-test/</filename> anstatt
+      <filename>target/test-classes</filename> ablegen wollen, so wüden Sie
+      auf die folgende Konfiguration vornehmen. </para>
 
       <example>
-        <title>Overriding the Location of Test Source and Output</title>
+        <title>Übersteuern des Ortes der Testquellen und -ausgabe</title>
 
         <programlisting language="xml">&lt;build&gt;
   ...
@@ -1325,38 +1387,44 @@ java -jar simple-cmd-2.3.1.jar %*
     </section>
 
     <section id="lifecycle-sect-test-phase">
-      <title>Test</title>
+      <title>test </title>
 
-      <para>Most lifecycles bind the test goal of the Surefire plugin to the
-      test phase. The Surefire plugin is Maven's unit testing plugin, the
-      default behavior of Surefire is to look for all classes ending in *Test
-      in the test source directory and to run them as <ulink
-      url="http://www.junit.org">JUnit</ulink> tests. The Surefire plugin can
-      also be configured to run <ulink
-      url="http://www.testng.org">TestNG</ulink> unit tests.</para>
+      <para>Die meisten Lebenszyklen binden das Goal <varname>test</varname>
+      des Surefire Plugin an die Phase <varname>test</varname>. Das Surefire
+      Plugin ist das UnitTest Plugin von Maven. Das Standardverhalten des
+      Surefire Plugin ist, nach allen Klassen welche im Test
+      Quellenverzeichnis auf *Test enden zu suchen, um diese als <ulink
+      url="http://www.junit.org">JUnit</ulink> Tests auszuführen. Das Surefire
+      Plugin kann auch konfiguriert werden die Tests als <ulink
+      url="http://www.testng.org">TestNG</ulink> Unit Test abzuarbeiten.
+      </para>
 
-      <para>After running <command>mvn test</command>, you should also notice
-      that the Surefire produces a number of reports in
-      <filename>target/surefire-reports</filename>. This reports directory
-      will have two files for each test executed by the Surefire plugin: an
-      <acronym>XML</acronym> document containing execution information for the
-      test, and a text file containing the output of the unit test. If there
-      is a problem during the test phase and a unit test has failed, you can
-      use the output of Maven and the contents of this directory to track down
-      the cause of a test failure. This <filename>surefire-reports/</filename>
-      directory is also used during site generation to create an easy to read
-      summary of all the unit tests in a project.</para>
+      <para>Nach der Ausführung von <command>mvn test</command> sollten Sie
+      feststellen können, das das Surefire Plugin eine Anzahl Reports unter
+      <filename>target/surefire-reports</filename> ablegt. Dieses
+      Reportverzeichnis beinhaltet zwei Dateien für jeden ausgeführten Test:
+      eine <acronym>XML</acronym> Datei welche Informationen bezüglich des
+      Tests enthält und eine Textdatei welche die Ausgabe des UnitTest
+      enthält. Sollte ein Problem während der Phase <varname>test</varname>
+      auftreten und ein Unit Test nicht bestehen, so können Sie die Ausgabe
+      von Maven zusammen mit dieser Datei benutzen, um den Grund des Abbruchs
+      zu finden. Dieses Verzeichnis <varname>surefire-reports/</varname> kommt
+      ebenfalls zum Einsatz während der Site Generierung wobei eine einfach zu
+      lesende Zusammenfassung der Unit Tests des Projektes erstellt wird.
+      </para>
 
-      <para>If you are working on a project that has some failing unit tests,
-      but you want the project to produce output, you'll need to configure the
-      Surefire plugin to continue a build even if it encounters a failure. The
-      default behavior is to stop a build whenever a unit test failure is
-      encountered. To override this behavior, you'll need to set the
-      <varname>testFailureIgnore</varname> configuration property on the
-      Surefire plugin to true.</para>
+      <para>Sollten Sie an einem Projekt arbeiten, bei welchem einige
+      abbrechende Unit Test bestehen, Sie möchten aber dennoch eine Ausgabe
+      erzeugen, so müssen Sie das Surefire Plugin so konfigurieren, dass
+      dieses die Ausführung beim Auftreten eines Fehlers nicht abbricht. Das
+      Standardverhalten ist, dass der Build beim ersten auftreten eines Unit
+      Test Fehlers abbricht. Um dieses Verhalten zu ändern, müssen Sie das
+      Property <varname>testFailureIgnore</varname> des SureFire Plugin auf
+      <varname>true</varname> setzen. </para>
 
       <example>
-        <title>Configuring Surefire to Ignore Test Failures</title>
+        <title>Konfiguration des Surefire Plugins um Testabbrüche zu
+        ignorieren</title>
 
         <programlisting language="xml">&lt;build&gt;
   &lt;plugins&gt;
@@ -1372,53 +1440,56 @@ java -jar simple-cmd-2.3.1.jar %*
 &lt;/build&gt;</programlisting>
       </example>
 
-      <para>If you would like to skip tests altogether, you can do so by
-      executing the following command:</para>
+      <para>Sollten Sie die Tests komplett übergehen wollen, so können Sie
+      dies durch den folgenden Aufruf erreichen: </para>
 
       <screen>$ mvn install -Dmaven.test.skip=true</screen>
 
-      <para>The <varname>maven.test.skip</varname> variable controls both the
-      Compiler and the Surefire plugin, if you pass in
-      <varname>maven.test.skip</varname> you've told Maven to ignore tests
-      altogether.</para>
+      <para>Die Variable <varname>maven.test.skip</varname> beeinflusst
+      beides, den Compiler und das Surefire Plugin. Geben Sie
+      <varname>maven.test.skip=true</varname> an, so weisen Sie Maven an die
+      Tests insgesamt zu ignorieren.</para>
     </section>
 
     <section id="lifecycle-sect-install-phase">
-      <title>Install</title>
+      <title>install </title>
 
-      <para>The <varname>install</varname> goal of the Install plugin is
-      almost always bound to the <varname>install</varname> lifecycle phase.
-      This <varname>install:install</varname> goal simply installs a project's
-      main artifact to the local repository. If you have a project with a
-      <sgmltag>groupId</sgmltag> of <package>org.sonatype.mavenbook</package>,
-      an <sgmltag>artifactId</sgmltag> of <varname>simple-test</varname>, and
-      a <sgmltag>version</sgmltag> of 1.0.2, the
-      <varname>install:install</varname> goal is going to copy the
-      <acronym>JAR</acronym> file from
-      <filename>target/simple-test-1.0.2.jar</filename> to
-      <filename>~/.m2/repository/org/sonatype/mavenbook/simple-test/1.0.2/simple-test-1.0.2.jar</filename>.
-      If the project has <acronym>POM</acronym> packaging, this goal will copy
-      the <acronym>POM</acronym> to the local repository.</para>
+      <para>Das Goal <varname>install</varname> des Install Plugin ist immer
+      an die Lebenszyklusphase <varname>install</varname> gebunden. Das Goal
+      <varname>install:install</varname> installiert den Artefakt in das
+      lokale Repository. Sollten Sie ein Projekt mit der
+      <varname>groupId</varname> von <varname>org.sonatype.mavenbook</varname>
+      einen Artefakten mit <varname>artifactId</varname> von
+      <varname>simple-test</varname> und einer <varname>version</varname> von
+      <varname>1.0.2</varname> haben, so wird das Goal
+      <varname>install:install</varname> das <acronym>JAR</acronym> von
+      <filename>target/simple-test-1.0.2.jar</filename> in
+      <filename>~/.m2/repository/org/sonatype/mavenbook/simple-test/1.0.2/simpletest-1.0.2.jar</filename>
+      kopieren. Ist das Projekt ein Projekt vom Typ <acronym>POM</acronym>
+      Pakageing, so wird das POM in das lokale Repository eingestellt. </para>
     </section>
 
     <section id="lifecycle-sect-deploy-phase">
-      <title>Deploy</title>
+      <title>deploy</title>
 
-      <para>The <varname>deploy</varname> goal of the Deploy plugin is usually
-      bound to the <varname>deploy</varname> lifecycle phase. This phase is
-      used to deploy an artifact to a remote Maven repository, this is usually
-      required to update a remote repository when you are performing a
-      release. The deployment procedure can be as simple as copying a file to
-      another directory or as complex as transferring a file over
-      <acronym>SCP</acronym> using a public key. Deployment settings usually
-      involve credentials to a remote repository, and, as such, deployment
-      settings are usually not stored in a <filename>pom.xml</filename>.
-      Instead, deployment settings are more frequently found in an individual
-      user's <filename>~/.m2/settings.xml</filename>. For now, all you need to
-      know is that the <varname>deploy:deploy</varname> goal is bound to the
-      <varname>deploy</varname> phase and it takes care of transporting an
-      artifact to a published repository and updating any repository
-      information which might be affected by such a deployment.</para>
+      <para>Das Goal <varname>deploy</varname> des Plugins Deploy wird
+      gewöhnlich an die Lebenszyklusphase <varname>deploy</varname> gebunden.
+      Diese Phase wird benutzt, um einen Artefakten in ein entferntes
+      Repository einzustellen. Gewöhnlich geschiet dies um ein entferntes
+      Repository bei einer Freigabe aktuell zu halten. Der Deployment Vorgang
+      kann eine einfache Kopieraktion einer Datei darstellen, oder aber auch
+      eine Übertragung einer Datei mittles <acronym>SCP</acronym> und einem
+      publicKey. Deployment Einstellungen beinhalten gewöhnlich Zugangsdaten
+      zu einem entfernten Repository, aus welchem Grund Deployment
+      Einstellungen gewöhnlich nicht in der <filename>pom.xml</filename> Datei
+      gehalten werden. Statt dessen gehen diese gewöhnlich in die
+      benutzerspezifische Datei <filename>~/m2/settings.xml</filename>. Zu
+      diesem Zeitpunkt reicht es zu wissen, das das Goal
+      <varname>deploy:deploy</varname> an die Phase <varname>deploy</varname>
+      gebunden ist und sich der Übertragung der Artefakten zu einem
+      veröffentlichten Repository und dem damit verbundenen Update der
+      Repository Informationen welche von einem solchen Vorgang betroffen sein
+      könnten, annimmt. </para>
     </section>
   </section>
 </chapter>

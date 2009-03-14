@@ -2,24 +2,30 @@
 <!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <appendix id="appendix-enterprise">
-  <title>Appendix: Sun Specification Alternatives</title>
+  <title>Appendix: Alternativen zu den Sun Spezifikationen</title>
 
-  <para>The Apache Geronimo project maintains implementations of various
-  enterprise Java specifications. <xref linkend="table-spec-alternatives" />
-  lists the artifactId and artifact version for all of the specifications
-  implemented by the Geronimo project. To use one of these dependencies, use a
-  groupId of <varname>org.apache.geronimo.specs</varname>, locate the version
-  of the Specification you want to use and reference the dependency with the
-  Artifact Id and Artifact Version listed in <xref
-  linkend="table-spec-alternatives" />.</para>
+  <para>Das Apache Projekt Geronimo unterhält eine ganze Anzahl der Java
+  Enterprise Spezifikationen. <xref linkend="table-spec-alternatives" />
+  (Tabelle A.1: „Alternative Implementierungs-Artefakte der Spezifikationen“)
+  führt alle vom Geronimo Projekt bereitgestellten Artefakte mit deren
+  <varname>artifactId</varname> sowie Artifact <varname>version</varname> auf.
+  Um eine dieser Abhängigkeiten zu benutzen setzen Sie die
+  <varname>groupId</varname> auf
+  <classname>org.apache.geronimo.specs</classname>, gehen zu der Version der
+  Spezifikationsimplementierung welche Sie benutzen möchten, und definieren
+  Sie die Abhängigkeit indem Sie <varname>artifactId</varname> und artifact
+  <varname>version</varname> wie in der Tabelle angegeben einsetzen. </para>
 
   <note>
-    <para>All artifacts in <xref linkend="table-spec-alternatives" />, have a
-    groupId of <varname>org.apache.geronimo.specs</varname>.</para>
+    <para>Alle Artefakte der <xref linkend="table-spec-alternatives" />
+    (Tabelle A.1: „Alternative Implementierungs-Artefakte der
+    Spezifikationen“) benutzen eine <varname>groupId</varname> von
+    <classname>org.apache.geronimo.specs</classname>. </para>
   </note>
 
   <table id="table-spec-alternatives">
-    <title>Alternate Spec Implementations Artifacts</title>
+    <title>Tabelle A.1: „Alternative Implementierungs-Artefakte der
+    Spezifikationen“</title>
 
     <tgroup cols="4">
       <colspec colwidth="3*" />
@@ -32,7 +38,7 @@
 
       <thead>
         <row>
-          <entry>Specification</entry>
+          <entry>Spezifikation</entry>
 
           <entry>Spec Version</entry>
 
@@ -387,20 +393,26 @@
   </table>
 
   <note>
-    <para>The version numbers in the Artifact Version column may be out of
-    date by the time you read this book. To check on the version number, visit
+    <para>Zum Zeitpunkt, zu dem Sie das Buch lesen, kann die in der Spalte
+    "Artifact Version" aufgeführte Version bereits veraltet sein. Um die
+    aktuelle Versionsnummer zu überprüfen, gehen Sie mit Ihrem Browser auf
     <ulink
-    url="http://repo1.maven.org/maven2/org/apache/geronimo/specs/">http://repo1.maven.org/maven2/org/apache/geronimo/specs/</ulink>
-    in a web browser, and click on the artifactId you want to add. Choose the
-    highest version of the spec you want to depend upon.</para>
+    url="???">http://repo1.maven.org/maven2/org/apache/geronimo/specs/</ulink>
+    und wählen die <varname>artifactId</varname> welche Sie benutzen wollen,
+    durch anklicken, aus. Wählen Sie die höchste Version der Spezifikation von
+    welcher Sie abhängig sind. </para>
   </note>
 
-  <para>To illustrate how one would use <xref
-  linkend="table-spec-alternatives" />, if we wanted to write some code in our
-  project which interacted with the <acronym>JTA</acronym> 1.0.1B
-  specification, we would need to add the following dependency to our
-  project:<example>
-      <title>Adding JTA 1.0.1B to a Maven Project</title>
+  <para>Hier ein Beispiel wie Sie die <xref
+  linkend="table-spec-alternatives" /> (Tabelle A.1: „Alternative
+  Implementierungs-Artefakte der Spezifikationen“) benutzen würden: Sollten
+  Sie eine Implementierung vornehmen, welche von der Implementierung der
+  <acronym>JTA </acronym>1.0.1B Spezifikation abhängt, so würden Sie die
+  folgende Abhängigkeitsdefinition in ihres Projektes
+  <filename>pom.xml-Datei</filename> einfügen: </para>
+
+  <para><example>
+      <title>Hinzufügen von JTA 1.0.1B zu einem Maven Projekt</title>
 
       <programlisting language="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;
@@ -409,10 +421,12 @@
 &lt;/dependency&gt;</programlisting>
     </example></para>
 
-  <para>Notice how the version of the artifact isn't going to line up with the
-  version of the specification—the previous dependency configuration adds
-  version 1.0.1B of the JTA specification using the artifact version of 1.1.1.
-  Be aware of this when depending on the alternate Geronimo implementations,
-  and always double check that you are using the latest artifact version
-  number for your specifications.</para>
+  <para>Beachten Sie wie die Version des Artifaktes sich nicht mit der Version
+  der Spezifikation deckt – die vorgehende Abhängigkeitdefinition fügt Version
+  1.0.1B der JTA <emphasis>Spezifikation</emphasis> ein, benutzt aber eine
+  Artifaktkennung von 1.1.1 (<emphasis>Geronimo Implementierung</emphasis>).
+  Seien Sie auf der Hut, wenn Sie alternative Implementierungen einsetzen und
+  stellen Sie jeweils sicher, dass Sie die neuste und höchste
+  <emphasis>Artifaktversion</emphasis> der entsprechenden
+  <emphasis>Spezifikationsversion</emphasis> einsetzen. </para>
 </appendix>

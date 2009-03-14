@@ -2,36 +2,39 @@
 <!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <appendix id="appendix-settings">
-  <title>Appendix: Settings Details</title>
+  <title>Appendix: Detailinformationen zur settings.xml-Datei</title>
 
   <section id="appendix-settings-sect-quick-overview">
-    <title>Quick Overview</title>
+    <title>Übersicht</title>
 
-    <para>The settings element in the <filename>settings.xml</filename> file
-    contains elements used to define values which configure Maven execution.
-    Settings in this file are settings which apply to many projects and which
-    should not be bundled to any specific project, or distributed to an
-    audience. These include values such as the local repository location,
-    alternate remote repository servers, and authentication information. There
-    are two locations where a <filename>settings.xml</filename> file may
-    live:</para>
+    <para>Das Element settings der <filename>setting.xml</filename> Datei
+    beinhaltet die Elemente welche benutzt werden, die Laufzeitumgebung von
+    Maven zu konfigurieren. Einstellungen dieser Datei sind von solcher Natur,
+    dass diese über Projektgrenzen hinweg zum Einsatz kommen und daher nicht
+    an ein spezifisches Projekt gebunden sein sollten oder an eine bestimmte
+    Kundschaft verbreitet werden. Werte, welche darin enthalten sind, sind
+    z.B. die Einstellung des lokalen Repository, alternative Remote
+    Repositorien und Authentifizierungsdaten. Die
+    <filename>settings.xml</filename> kann bei einer Standardinstallation an
+    zweierlei Orten aufgefunden werden:</para>
 
     <itemizedlist>
       <listitem>
-        <para>Maven Installation Directory:
+        <para>Im Maven Installationsverzeichnis:
         <filename>$M2_HOME/conf/settings.xml</filename></para>
       </listitem>
 
       <listitem>
-        <para>User-specific Settings File:
+        <para>Als benutzerspezifische Datei des Profils:
         <filename>~/.m2/settings.xml</filename></para>
       </listitem>
     </itemizedlist>
 
-    <para>Here is an overview of the top elements under settings:</para>
+    <para>Hier eine Übersicht der Elemente der
+    <filename>settings.xml</filename>-Datei:</para>
 
     <para><example>
-        <title>Overview of top-level elements in settings.xml</title>
+        <title>Übersicht der Elemente einer settings.xml-Datei</title>
 
         <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -53,17 +56,18 @@
   </section>
 
   <section id="appendix-settings-sect-details">
-    <title>Settings Details</title>
+    <title>Die Details der settings.xml Datei</title>
 
     <section id="appendix-settings-sect-simpleval">
-      <title>Simple Values</title>
+      <title>Einfache Wertangaben</title>
 
-      <para>Half of the top-level settings elements are simple values,
-      representing a range of values which configure the core behavior of
-      Maven:</para>
+      <para>Die Hälfte der Elemente auf oberster Ebene innerhalb des Elementes
+      settings sind einfache Wertangaben welche benutzt werden um das
+      Verhalten von Maven zu steuern:</para>
 
       <para><example>
-          <title>Simple top-level elements in settings.xml</title>
+          <title>Einfache Wertangaben im top level Element der
+          settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -83,24 +87,29 @@
 
       <para>The simple top-level elements are:</para>
 
+      <para>Diese top-level Wertangaben sind:</para>
+
       <variablelist>
         <varlistentry>
           <term>localRepository</term>
 
           <listitem>
             <para>This value is the path of this build system's local
-            repository. The default value is
-            <filename>\${user.dir}/.m2/repository</filename>.</para>
+            repository. The default value is</para>
+
+            <para>Dieser Wert bestimmt den Pfad des lokalen Repository des
+            Build Systems. Der Standardwert ist<filename>
+            \${user.dir}/.m2/repository</filename></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>interactiveMode</term>
+          <term>InteractiveMode</term>
 
           <listitem>
-            <para><varname>true</varname> if Maven should attempt to interact
-            with the user for input, <varname>false</varname> if not. Defaults
-            to <varname>true</varname>.</para>
+            <para><varname>true</varname> sollte Maven auf Benutzereingaben
+            warten, ansonsten <varname>false</varname>. Standardwert
+            <varname>true</varname>.</para>
           </listitem>
         </varlistentry>
 
@@ -108,10 +117,10 @@
           <term>usePluginRegistry</term>
 
           <listitem>
-            <para><varname>true</varname> if Maven should use the
-            <filename>\${user.dir}/.m2/plugin-registry.xml</filename> file to
-            manage plugin versions, defaults to
-            <varname>false</varname>.</para>
+            <para><varname>true</varname> wenn Maven auf
+            <filename>${user.dir}/.m2/plugin-registry.xml</filename>
+            zurückgreifen soll um die Plugin Versionen zu verwalten,
+            Standardwert ist <varname>false</varname>.</para>
           </listitem>
         </varlistentry>
 
@@ -119,11 +128,12 @@
           <term>offline</term>
 
           <listitem>
-            <para><varname>true</varname> if this build system should operate
-            in offline mode, defaults to <varname>false</varname>. This
-            element is useful for build servers which cannot connect to a
-            remote repository, either because of network setup or security
-            reasons</para>
+            <para><varname>true</varname> sollte das Build-System im offline
+            Modus arbeiten, Standardwert ist <varname>false</varname>. Dieser
+            Wert ist insbesondere wichtig für serverseitige Build-Syteme,
+            welche nicht auf ein externes Repository zugreifen dürfen, sei
+            dies aufgrund des Netzwerkes oder auch wegen
+            Sicherheitsbestimmungen.</para>
           </listitem>
         </varlistentry>
 
@@ -131,12 +141,12 @@
           <term>pluginGroups</term>
 
           <listitem>
-            <para>This element contains a list of
-            <sgmltag>pluginGroup</sgmltag> elements, each contains a
-            <sgmltag>groupId</sgmltag>. The list is searched when a plugin is
-            used and the <sgmltag>groupId</sgmltag> is not provided in the
-            command line. This list contains
-            <varname>org.apache.maven.plugins</varname> by default.</para>
+            <para>Dieses Element enthält eine Liste von Elementen
+            <varname>pluginGroup</varname>, jedes enthält eine
+            <varname>groupId</varname>. Die Liste wird durchsucht, sollte ein
+            Plugin von der Kommandozeile angezogen werden und der Parameter
+            der groupId nicht gesetzt sein. Standardmässig enthält diese Liste
+            die <classname>org.apache.maven.plugins</classname>.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -145,15 +155,16 @@
     <section id="appendix-settings-sect-servers">
       <title>Servers</title>
 
-      <para>The <sgmltag>distributionManagement</sgmltag> element of the
-      <acronym>POM</acronym> defines the repositories for deployment. However,
-      certain settings such as security credentials should not be distributed
-      along with the <filename>pom.xml</filename>. This type of information
-      should exist on the build server in the
-      <filename>settings.xml</filename>.</para>
+      <para>Das Element <sgmltag>distributionManagement</sgmltag> eines
+      <acronym>POM</acronym> definiert die Repositorien für die Verteilung.
+      Gewisse Angaben, wie z.B. die Security Credentials sollten nicht mit der
+      <filename>pom.xml</filename> Datei verteilt werden. Diese Art der
+      Angaben sollte auf einem Build Server in der
+      <filename>settings.xml</filename> Datei im Element
+      <varname>servers</varname> abgelegt werden:</para>
 
       <para><example>
-          <title>Server configuration in settings.xml</title>
+          <title>Server Konfiguration der settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -177,17 +188,18 @@
 </programlisting>
         </example></para>
 
-      <para>The elements under server are:</para>
+      <para>Die Elemente unter <varname>server</varname> sind:</para>
 
       <variablelist>
         <varlistentry>
           <term>id</term>
 
           <listitem>
-            <para>This is the <sgmltag>id</sgmltag> of the server (not of the
-            user to login as) that matches the
-            <sgmltag>distributionManagement</sgmltag> repository element's
-            <sgmltag>id</sgmltag>.</para>
+            <para>Die eindeutige Kennung - <varname>id</varname> - des Servers
+            (nicht des Benutzers welcher beim Einloggen zum Einsatz kommt)
+            welche mit der <varname>id</varname> des Elementes
+            <varname>distributionManagement</varname> des Repositories
+            übereinstimmt.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -197,8 +209,9 @@
           <term>username, password</term>
 
           <listitem>
-            <para>These elements appear as a pair denoting the login and
-            password required to authenticate to this server.</para>
+            <para>Diese Elemente bilden ein Paar, sie bezeichnen das Login und
+            Passwort welches notwendig ist, um sich gegenüber dem Server
+            auszuweisen.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -208,12 +221,14 @@
           <term>privateKey, passphrase</term>
 
           <listitem>
-            <para>Like the previous two elements, this pair specifies a path
-            to a private key (default is
-            <filename>\${user.home}/.ssh/id_dsa</filename>) and a passphrase,
-            if required. The passphrase and password elements may be
-            externalized in the future, but for now they must be set
-            plain-text in the <filename>settings.xml</filename> file.</para>
+            <para>Wie vorangehend ebenfalls zwei Elemente, dieses Paar
+            beschreibt den Pfad zu einem Privaten Schlüssel (Standardwert ist
+            <varname>${user.home}/.ssh/id_dsa</varname>) und einer Passphrase,
+            sollte diese notwendig sein. Hinweis: Zukünftig sollte es möglich
+            sein die Elemente <varname>passphrase</varname> und
+            <varname>password</varname> zu externalisieren, zur Zeit jedoch
+            müssen diese in Klartext in der <filename>settings.xml</filename>
+            enthalten sein.</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -223,20 +238,22 @@
           <term>filePermissions, directoryPermissions</term>
 
           <listitem>
-            <para>When a repository file or directory is created on
-            deployment, these are the permissions to use. The legal values of
-            each is a three digit number corresponding to *nix file
-            permissions, i.e. 664, or 775.</para>
+            <para>Sollte während des Deployments eine Repository Datei oder
+            ein Verzeichnis angelegt werden, so sind dies die Rechte welche
+            dort gesetzt werden. Die möglichen Werte beider Parameter sind
+            eine dreistellige *nix artige Angabe entsprechend der Dateirechte,
+            z.B. 664, oder 775.</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section id="appendix-settings-sect-mirrors">
-      <title>Mirrors</title>
+      <title>Spiegelrepositorien</title>
 
       <para><example>
-          <title>Mirror configuration in settings.xml</title>
+          <title>Konfiguration eines Spiegelrepositories in der
+          settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -261,8 +278,10 @@
             <term>id, name</term>
 
             <listitem>
-              <para>The unique identifier of this mirror. The id is used to
-              differentiate between mirror elements.</para>
+              <para>Die eindeutige Kennung, <varname>id</varname>, des
+              Spiegelrepositories. Diese <varname>id</varname> wird benutzt,
+              um zwischen verschiedenen Elementen <varname>mirror</varname> zu
+              unterscheiden.</para>
             </listitem>
           </varlistentry>
         </variablelist><variablelist>
@@ -270,10 +289,10 @@
             <term>url</term>
 
             <listitem>
-              <para>The base <acronym>UR</acronym>L of this mirror. The build
-              system will use prepend this <acronym>URL</acronym> to connect
-              to a repository rather than the default server
-              <acronym>URL</acronym>.</para>
+              <para>Die <acronym>Basis URL</acronym> des Spiegelrepositories.
+              Das Build System wird diese <acronym>URL</acronym> einem
+              Repository Aufruf voransetzen, satt diese an die URL des
+              Standard Server Repostory zu senden.</para>
             </listitem>
           </varlistentry>
         </variablelist><variablelist>
@@ -281,12 +300,13 @@
             <term>mirrorOf</term>
 
             <listitem>
-              <para>The id of the server that this is a mirror of. For
-              example, to point to a mirror of the Maven central server
-              (<ulink
+              <para>Die <varname>id</varname> des Servers, welcher von diesem
+              Server gespiegelt wird. Ein Beispiel, um auf eine
+              Spiegelrepository des Maven central Server zu verweisen (<ulink
               url="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</ulink>),
-              set this element to central. This must not match the mirror
-              id.</para>
+              setzen Sie diesen Wert auf <varname>central</varname>. Der Wert
+              muss nicht mit der <varname>id</varname> des Spiegelrepositories
+              übereinstimmen.</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
@@ -296,7 +316,7 @@
       <title>Proxies</title>
 
       <para><example>
-          <title>Proxy configuration in settings.xml</title>
+          <title>Konfiguration eines Proxy in der settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -325,8 +345,10 @@
             <term>id</term>
 
             <listitem>
-              <para>The unique identifier for this proxy. This is used to
-              differentiate between proxy elements.</para>
+              <para>Die eindeutige Kennung, <varname>id</varname>, des Proxy.
+              Diese <varname>id</varname> wird benutzt, um zwischen
+              verschiedenen Elementen <varname>proxy</varname> zu
+              unterscheiden</para>
             </listitem>
           </varlistentry>
 
@@ -334,9 +356,9 @@
             <term>active</term>
 
             <listitem>
-              <para><varname>true</varname> if this proxy is active. This is
-              useful for declaring a set of proxies, but only one may be
-              active at a time.</para>
+              <para><varname>true</varname>, wenn dieser Proxy aktiviert ist.
+              Insbesondere nützlich wenn mehrere Proxy konfiguriert sind, aber
+              nur einer tatsächlich zum Einsatz kommen darf.</para>
             </listitem>
           </varlistentry>
 
@@ -346,6 +368,10 @@
             <listitem>
               <para>The <varname>protocol://host:port</varname> of the proxy,
               separated into discrete elements.</para>
+
+              <para>Die Bestandteile der URL des Proxy:
+              <varname>protocol://host:port;</varname>die Elemente werden
+              getrennt geführt.</para>
             </listitem>
           </varlistentry>
 
@@ -353,8 +379,9 @@
             <term>username, password</term>
 
             <listitem>
-              <para>These elements appear as a pair denoting the login and
-              password required to authenticate to this proxy server.</para>
+              <para>Diese Elemente bilden ein Paar, sie bezeichnen das Login
+              und Passwort welches notwendig ist, um sich gegenüber dem Proxy
+              auszuweisen.</para>
             </listitem>
           </varlistentry>
 
@@ -362,10 +389,11 @@
             <term>nonProxyHosts</term>
 
             <listitem>
-              <para>This is a list of hosts which should not be proxied. The
-              delimiter of the list is the expected type of the proxy server;
-              the example above is pipe delimited - comma delimited is also
-              common.</para>
+              <para>Unter diesem Element befindet sich eine Liste der
+              Ressourcen welche nicht durch den Proxy abgebildet werden
+              sollten. Das Trennsymbol der Liste ist das vom Proxy Server
+              erwartete Zeichen; in unserem Beispiel das ‚Pipe’-Symbol.
+              Ebenfalls häufig angewandt ist die Komma getrennte Liste.</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
@@ -374,31 +402,36 @@
     <section id="appendix-settings-sect-profiles">
       <title>Profiles</title>
 
-      <para>The <sgmltag>profile</sgmltag> element in the
-      <filename>settings.xml</filename> is a truncated version of the
-      <filename>pom.xml</filename> profile element. It consists of the
-      <sgmltag>activation</sgmltag>, <sgmltag>repositories</sgmltag>,
-      <sgmltag>pluginRepositories</sgmltag> and <sgmltag>properties</sgmltag>
-      elements. The profile elements only include these four elements because
-      they concern themselves with the build system as a whole (which is the
-      role of the <filename>settings.xml</filename> file), not about
-      individual project object model settings.</para>
+      <para>Das Element <varname>profile</varname> der
+      <filename>settings.xml</filename>-Datei ist ein verkürzter Auszug des
+      Elements <varname>profile</varname> der
+      <filename>pom.xml</filename>-Datei. Es besteht aus den Elementen
+      <varname>activation</varname>, <varname>repositories</varname>,
+      <varname>pluginRepositories</varname> und <varname>properties</varname>.
+      Das Element beinhaltet nur diese vier Elemente, da diese das Build
+      System als ganzes betreffen (welches der Rolle der
+      <varname>settings.xml</varname> entspricht) und nicht einzelne Aspekte
+      der Projekt Modell Einstellungen.</para>
 
-      <para>If a profile is active from settings, its values will override any
-      equivalent profiles which matching identifiers in a
-      <acronym>POM</acronym> or <filename>profiles.xml</filename> file.</para>
+      <para>Wird ein Profil innerhalb einer <varname>settings.xml</varname>
+      aktiviert, so übersteuert dies jedes entsprechende Profil einer
+      <filename>pom.xml</filename> oder <varname>profiles.xml</varname>
+      Datei.</para>
     </section>
 
     <section id="appendix-settings-sect-activation">
       <title>Activation</title>
 
-      <para>Activations are the key of a profile. Like the
-      <acronym>POM</acronym>'s profiles, the power of a profile comes from its
-      ability to modify some values only under certain circumstances; those
-      circumstances are specified via an activation element.</para>
+      <para>Aktivierungen sind Schlüsselemente eines Profiles. Wie Profile
+      eines <acronym>POM</acronym> rührt die Mächtigkeit der Profile der
+      <filename>settings.xml </filename>von der Möglichkeit her, Werte nur
+      unter bestimmten Umständen/Bedingungen zu beeinflussen. Diese
+      Bedingungen werden im Element <varname>activation</varname>
+      bestimmt.</para>
 
       <para><example>
-          <title>Defining Activation Parameters in settings.xml</title>
+          <title>Definition eines Activation Parameters in der
+          settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -434,18 +467,20 @@
 </programlisting>
         </example></para>
 
-      <para>Activation occurs when all specified criteria have been met,
-      though not all are required at once.</para>
+      <para>Die Aktivierung tritt ein, wenn alle definierten Kriterien erfüllt
+      sind, jedoch nicht notwendigerweise alle zur gleichen Zeit.</para>
 
       <variablelist>
         <varlistentry>
           <term>jdk</term>
 
           <listitem>
-            <para>activation has a built in, Java-centric check in the jdk
-            element. This will activate if the test is run under a jdk version
-            number that matches the prefix given. In the above example,
-            1.5.0_06 will match.</para>
+            <para><varname>activation</varname> beinhaltet eine eingebaute
+            Java spezifische Prüfung des Elements <varname>jdk</varname>.
+            Dieses Element wird aktiviert, sobald ein Test unter einer
+            bestimmten Version eines JDK (angegeben durch ein entsprechendes
+            Kürzel) läuft. Im oben angegebenen Beispiel wäre dies für 1.5.0_06
+            der Fall.</para>
           </listitem>
         </varlistentry>
 
@@ -453,8 +488,9 @@
           <term>os</term>
 
           <listitem>
-            <para>The <sgmltag>os</sgmltag> element can define some operating
-            system specific properties shown above.</para>
+            <para>Mittels des Elements <varname>os</varname> können, wie oben
+            ausgeführt, Betriebssystem spezifische Eigenschaften geprüft
+            werden.</para>
           </listitem>
         </varlistentry>
 
@@ -462,9 +498,10 @@
           <term>property</term>
 
           <listitem>
-            <para>The profile will activate if Maven detects a property (a
-            value which can be dereferenced within the POM by \${name}) of the
-            corresponding name=value pair.</para>
+            <para>Das Profil wird aktiviert, sollte Maven ein Property (ein
+            Wert, welcher innerhalb des POM mittels <varname>${name}</varname>
+            referenziert werden kann) mit dem entsprechenden Wertepaar finden.
+            </para>
           </listitem>
         </varlistentry>
 
@@ -472,21 +509,22 @@
           <term>file</term>
 
           <listitem>
-            <para>Finally, a given filename may activate the profile by the
-            existence of a file, or if it is missing.</para>
+            <para>Schliesslich kann ein Profil durch die Existenz oder das
+            Fehlen einer bestimmten Datei aktiviert werden.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>The <sgmltag>activation</sgmltag> element is not the only way that
-      a profile may be activated. The <filename>settings.xml</filename> file's
-      <sgmltag>activeProfile</sgmltag> element may contain the profile's id.
-      They may also be activated explicitly through the command line via a
-      comma separated list after the P flag (e.g. <varname>-P</varname>
-      test).</para>
+      <para>Das Element <varname>activation</varname> ist nicht der einzige
+      Weg, wie ein Profil aktiviert werden kann. Die Profil
+      <varname>id</varname> kann ebenfalls innerhalb der Datei
+      <filename>settings.xml</filename> im Element
+      <varname>activeProfile</varname> bestimmt werden. Profile können auch
+      explizit von der Befehlszeile mittels einer Komma getrennten Liste einem
+      P-flag folgend, aufgerufen werden (z.B. –p test).</para>
 
-      <para>To see which profile will activate in a certain build, use the
-      maven-help-plugin.</para>
+      <para>Um festzustellen, welche Profile von einem bestimmten Build
+      aktiviert werden, benutzen Sie das Maven Help Plugin.</para>
 
       <screen>mvn help:active-profiles
 </screen>
@@ -495,26 +533,24 @@
     <section id="appendix-settings-sect-properties">
       <title>Properties</title>
 
-      <para>Maven properties are value placeholder, like properties in Ant.
-      Their values are accessible anywhere within a <acronym>POM</acronym> by
-      using the notation <varname>\${X}</varname>, where X is the property.
-      They come in five different styles, all accessible from the settings.xml
-      file:</para>
+      <para>Maven Properties sind ein Platzhalter für Werte - wie auch
+      Properties unter Ant. Auf deren Werte ist mittels der Notation
+      <varname>${x}</varname>, x ist der Name des Properties, von überall
+      innerhalb eines <acronym>POM</acronym> zuzugreifen. Properties kommen in
+      fünf verschiedenen Varianten, alle zugreifbar von innerhalb der
+      <filename>settings.xml</filename>:</para>
 
       <variablelist>
         <varlistentry>
           <term><literal>env.</literal><replaceable>X</replaceable></term>
 
           <listitem>
-            <para>Prefixing a variable with <literal>env.</literal> will
-            <indexterm>
-                <primary>env.* properties</primary>
-              </indexterm><indexterm>
-                <primary>environment variables, referencing</primary>
-              </indexterm>return the shell’s environment variable. For
-            example, <varname>\${env.PATH}</varname> contains the
-            <varname>$path</varname> environment variable.
-            (<varname>%PATH%</varname> in Windows.)</para>
+            <para>Kennzeichnet man eine Variable mit vorangestelltem
+            ‘<literal>env.</literal>’ so wird der Wert der entsprechende Shell
+            Variablen zurückgegeben. Ein Beispiel:
+            <varname>${env.PATH}</varname> enthält den Wert der
+            Umgebungsvariablen <varname>$PATH</varname>
+            (<varname>%PATH%</varname> unter Windows).</para>
           </listitem>
         </varlistentry>
 
@@ -522,18 +558,9 @@
           <term><literal>project.</literal><replaceable>x</replaceable></term>
 
           <listitem>
-            <para>A dot-notated (.) path in the <acronym>POM</acronym> will
-            <indexterm>
-                <primary>project.* properties</primary>
-              </indexterm><indexterm>
-                <primary>POM (Project Object Model)</primary>
-
-                <secondary>referencing properties in</secondary>
-              </indexterm><indexterm>
-                <primary>pom.xml file</primary>
-
-                <secondary>referencing properties in</secondary>
-              </indexterm>contain the corresponding elements value.</para>
+            <para>Ein punktnotierter (.) Pfad innerhalb der
+            <filename>pom.xml</filename> Datei wird den entsprechenden Wert
+            enthalten.</para>
           </listitem>
         </varlistentry>
 
@@ -541,16 +568,9 @@
           <term><literal>settings.</literal><replaceable>x</replaceable></term>
 
           <listitem>
-            <para>A dot-notated (.) path in the<indexterm>
-                <primary>settings.* properties</primary>
-              </indexterm><indexterm>
-                <primary>settings.xml file</primary>
-
-                <secondary>properties in</secondary>
-
-                <tertiary>referencing</tertiary>
-              </indexterm> <filename>settings.xml</filename> will contain the
-            corresponding elements value.</para>
+            <para>Ein punktnotierter (.) Pfad innerhalb der
+            <filename>settings.xml</filename> Datei wird den entsprechenden
+            Wert enthalten.</para>
           </listitem>
         </varlistentry>
 
@@ -558,14 +578,11 @@
           <term>Java system properties</term>
 
           <listitem>
-            <para>All properties accessible via<indexterm>
-                <primary>system properties, referencing</primary>
-              </indexterm><indexterm>
-                <primary>Java system properties, referencing</primary>
-              </indexterm>
-            <methodname>java.lang.System.getProperties()</methodname> are
-            available as <acronym>POM</acronym> properties, such as
-            <varname>\${java.home}</varname>.</para>
+            <para>Alle Properties welche durch
+            <classname>java.lang.System.getProperties()</classname>
+            offengelegt werden sind ebenfalls als POM Properties zugänglich,
+            so zum Beispiel das Property
+            <varname>${java.home}</varname>.</para>
           </listitem>
         </varlistentry>
 
@@ -573,15 +590,16 @@
           <term><replaceable>x</replaceable></term>
 
           <listitem>
-            <para>Set within a <literal>properties</literal> element or an
-            external file, the value may be used as <varname
-            role="keep-together">\${someVar}</varname>.</para>
+            <para>Innerhalb eines Elements <varname>properties</varname> oder
+            innerhalb einer externen Datei gesetzt, ist der Wert durch
+            <varname>${einWert}</varname> zugänglich.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <para><example>
-          <title>Setting the \${user.install} property in settings.xml</title>
+          <title>Setzen des Properties ${user.install} property in der
+          settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -602,22 +620,22 @@
 </programlisting>
         </example></para>
 
-      <para>The property <varname>\${user.install}</varname> is accessible from
-      a <acronym>POM</acronym> if this profile is active.</para>
+      <para>Das Property <varname>${user.install}</varname> ist für dieses POM
+      zugänglich, wenn das Profil aktiv ist.</para>
     </section>
 
     <section id="appendix-settings-sect-settings-repository">
       <title>Repositories</title>
 
-      <para>Repositories are remote collections of projects from which Maven
-      uses to populate the local repository of the build system. It is from
-      this local repository that Maven calls it plugins and dependencies.
-      Different remote repositories may contain different projects, and under
-      the active profile they may be searched for a matching release or
-      snapshot artifact.</para>
+      <para>Repositorien sind entfernte Objektsammlungen, von welchen Maven
+      das lokale Repository bestückt. Von diesem lokalen Repository ruft Maven
+      die entsprechenden Abhängigkeiten oder Plugins ab. Verschiedene ferne
+      Repositorien können verschiedene Projekte enthalten, und mittels aktiver
+      Profile können diese nach entsprechenden Releases und Snapshot
+      Artefakten durchsucht werden.</para>
 
       <para><example>
-          <title>Repository Configuration in settings.xml</title>
+          <title>Repository Konfiguration in der settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -661,12 +679,13 @@
             <term>releases, snapshots</term>
 
             <listitem>
-              <para>These are the policies for each type of artifact, Release
-              or snapshot. With these two sets, a <acronym>POM</acronym> has
-              the power to alter the policies for each type independent of the
-              other within a single repository. For example, one may decide to
-              enable only snapshot downloads, possibly for development
-              purposes.</para>
+              <para>Zu jedem Artefakttyp <varname>release</varname> und
+              <varname>snapshot</varname> bestehen Regeln. Mit diesen zwei
+              Gruppen hat ein <acronym>POM</acronym> die Möglichkeit die
+              Regeln innerhalb eines Repositories typspezifisch und unabhängig
+              von den anderen Typen anzupassen. Zum Beispiel kann man eine
+              Einschränkung erstellen welche es nur erlaubt in der Entwicklung
+              <varname>snapshot</varname> Artefakte herunterzuladen.</para>
             </listitem>
           </varlistentry>
 
@@ -674,9 +693,10 @@
             <term>enabled</term>
 
             <listitem>
-              <para><varname>true</varname> or <varname>false</varname> for
-              whether this repository is enabled for the respective type
-              (releases or snapshots).</para>
+              <para><varname>true</varname> oder <varname>false</varname>
+              entsprechend ob ein Repository für den entsprechenden Typ
+              zugelassen ist oder nicht (<varname>release</varname> oder
+              <varname>snapshot</varname>)</para>
             </listitem>
           </varlistentry>
 
@@ -684,12 +704,14 @@
             <term>updatePolicy</term>
 
             <listitem>
-              <para>This element specifies how often updates should attempt to
-              occur. Maven will compare the local <acronym>POM</acronym>s
-              timestamp to the remote. The choices are:
-              <varname>always</varname>, <varname>daily</varname> (default),
-              <varname>interval:X</varname> (where X is an integer in minutes)
-              or <varname>never</varname>.</para>
+              <para>Dieses Element bestimmt wie oft ein Update Versuch
+              stattfinden soll. Maven wird den Timestamp des lokalen
+              <acronym>POM</acronym> mit dem des fernen Artefakten
+              vergleichen. Die möglichen Werte sind:
+              <varname>always</varname>, <varname>daily</varname>
+              (Standardeinstellung), <varname>interval:X</varname> (wobei
+              <varname>X</varname> eine ganze Zahl in Minuten ist) oder
+              <varname>never</varname></para>
             </listitem>
           </varlistentry>
 
@@ -697,11 +719,11 @@
             <term>checksumPolicy</term>
 
             <listitem>
-              <para>When Maven deploys files to the repository, it also
-              deploys corresponding checksum files. Your options are to
-              <varname>ignore</varname>, <varname>fail</varname>, or
-              <varname>warn</varname> on missing or incorrect
-              checksums.</para>
+              <para>Wann immer Maven eine Datei in ein Repository einstellt,
+              wird ebenfalls eine Quersummendatei eingesetellt. Sie haben hier
+              die Wahlmöglichkeit bezüglich <varname>ignore</varname>,
+              <varname>fail</varname>, oder <varname>warn</varname> sollte
+              eine Quersummendatei fehlen oder fehlerhaft sein.</para>
             </listitem>
           </varlistentry>
 
@@ -709,14 +731,16 @@
             <term>layout</term>
 
             <listitem>
-              <para>In the above description of repositories, it was mentioned
-              that they all follow a common layout. This is mostly correct.
-              Maven 2 has a default layout for its repositories; however,
-              Maven 1.x had a different layout. Use this element to specify
-              which if it is default or legacy. If you are upgrading from
-              Maven 1 to Maven 2, and you want to use the same repository
-              which was used in your Maven 1 build, list the layout as
-              <varname>legacy</varname>.</para>
+              <para>In der vorangegangenen Beschreibung der Repositorien wurde
+              erwähnt, dass alle Repositorien einem gemeinsamen Layout
+              entsprechen. Das stimmt <emphasis>meistens</emphasis>. Maven 2
+              besitzt ein bestimmtes Standardlayout; jedoch baut Maven 1 auf
+              ein anderes Format auf. Benutzen Sie diesen Parameter, um zu
+              bestimmen, ob es <varname>default</varname> oder
+              <varname>legacy</varname> ist. Sollten Sie von Maven 1 auf Maven
+              2 migrieren, und Sie möchten das bisherige Repository , welches
+              unter Maven 1 benutzt wurde weiterverwenden, so setzen Sie
+              <varname>layout</varname> auf <varname>legacy</varname>.</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
@@ -725,13 +749,14 @@
     <section id="appendix-settings-sect-plugin-repositories">
       <title>Plugin Repositories</title>
 
-      <para>The structure of the <sgmltag>pluginRepositories</sgmltag> element
-      block is similar to the <sgmltag>repositories</sgmltag> element. The
-      <sgmltag>pluginRepository</sgmltag> elements each specify a remote
-      location of where Maven can find plugins artifacts.</para>
+      <para>Die Struktur des Elementblocks
+      <varname>pluginRepositories</varname> ist ähnlich dem des Elementblocks
+      <varname>repositories</varname>. Das Element
+      <varname>pluginRepository</varname> spezifiziert jeweils eine entfernte
+      Lokation, in welcher Maven Plugin Artefakte finden kann.</para>
 
       <example>
-        <title>Plugin Repositories in settings.xml</title>
+        <title>Plugin Repositories in der settings.xml</title>
 
         <programlisting>&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -772,10 +797,10 @@
     </section>
 
     <section id="appendix-settings-sect-active-profiles">
-      <title>Active Profiles</title>
+      <title>Aktive Profile</title>
 
       <para><example>
-          <title>Setting active profiles in settings.xml</title>
+          <title>Setzen von aktiven Profiles in der settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -789,17 +814,19 @@
 </programlisting>
         </example></para>
 
-      <para>The final piece of the <filename>settings.xml</filename> puzzle is
-      the <sgmltag>activeProfiles</sgmltag> element. This contains a set of
-      <sgmltag>activeProfile</sgmltag> elements, which each have a value of a
-      profile id. Any profile id defined as an
-      <sgmltag>activeProfile</sgmltag> will be active, regardless of any
-      environment settings. If no matching profile is found nothing will
-      happen. For example, if <varname>env-test</varname> is an
-      <sgmltag>activeProfile</sgmltag>, a <sgmltag>profile</sgmltag> in a
-      <filename>pom.xml</filename> (or <filename>profile.xml</filename> with a
-      corresponding id it will be active. If no such profile is found then
-      execution will continue as normal.</para>
+      <para>Der letzte Baustein des <filename>settings.xml</filename> Puzzles
+      ist das Element <varname>activeProfiles</varname>. Dieses bestimmt die
+      Menge der Elemente <varname>activeProfile</varname>, welche alle einen
+      eigenen Wert <varname>id</varname> haben. Jede Profile-id, welche als
+      <varname>activeProfile</varname> definiert wurde wird immer aktiv sein,
+      ungeachtet jeglicher Umgebungseinflüsse. Sollte kein entsprechendes
+      Profil gefunden werden, so wird nichts passieren. So wird zum Beispiel,
+      sollte <varname>env-test</varname> ein aktives Profil in
+      <varname>activeProfile</varname> sein, ein Profil einer
+      <filename>pom.xml</filename> (oder auch
+      <filename>profile.xml</filename>) mit einer entsprechenden <varname>id
+      </varname>aktiviert. Sollte kein solches Profil gefunden werden, so wird
+      die Verarbeitung unberührt fortfahren.</para>
     </section>
   </section>
 </appendix>
