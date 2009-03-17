@@ -4,14 +4,14 @@
 <chapter>
   <title>Developing with Flexmojos</title>
 
-  <section>
+  <section id="flex-dev-sect-intro">
     <title>Introduction</title>
 
     <para>This chapter provides an overview of the Flexmojos project for
     people interested in helping to develop and customize the plugin.</para>
   </section>
 
-  <section>
+  <section id="flex-dev-sect-config">
     <title>Configuring Build Environment for Flexmojos</title>
 
     <para>The Flexmojos build uses Maven, but before you attempt to compile
@@ -120,7 +120,7 @@
       building Flex applications.</para>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-proxy-nexus">
       <title>Proxying Sonatype's Repository with Nexus</title>
 
       <para>Instead of pointing directly at the Sonatype public repository,
@@ -302,7 +302,7 @@
     </section>
   </section>
 
-  <section>
+  <section id="flex-dev-sect-creating-project">
     <title>Creating a Flex Mojos Project</title>
 
     <para>Flexmojos has a set of archetypes which can be used to quickly
@@ -340,7 +340,7 @@
       </varlistentry>
     </variablelist>
 
-    <section>
+    <section id="flex-dev-sect-creating-lib">
       <title>Creating a Flex Library</title>
 
       <para>To create a Flex Library Project, execute the following command at
@@ -557,7 +557,7 @@ package: org.sonatype.test
     </section>
   </section>
 
-  <section>
+  <section id="flex-dev-sect-dev-custom">
     <title>Developing and Customizing Flexmojos</title>
 
     <para>The following sections guide you through some of first steps toward
