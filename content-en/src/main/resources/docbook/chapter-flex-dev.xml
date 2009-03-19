@@ -4,14 +4,14 @@
 <chapter>
   <title>Developing with Flexmojos</title>
 
-  <section id="flex-dev-sect-intro">
+  <section>
     <title>Introduction</title>
 
     <para>This chapter provides an overview of the Flexmojos project for
     people interested in helping to develop and customize the plugin.</para>
   </section>
 
-  <section id="flex-dev-sect-config">
+  <section>
     <title>Configuring Build Environment for Flexmojos</title>
 
     <para>The Flexmojos build uses Maven, but before you attempt to compile
@@ -120,7 +120,7 @@
       building Flex applications.</para>
     </section>
 
-    <section id="flex-dev-sect-proxy-nexus">
+    <section>
       <title>Proxying Sonatype's Repository with Nexus</title>
 
       <para>Instead of pointing directly at the Sonatype public repository,
@@ -302,7 +302,7 @@
     </section>
   </section>
 
-  <section id="flex-dev-sect-creating-project">
+  <section>
     <title>Creating a Flex Mojos Project</title>
 
     <para>Flexmojos has a set of archetypes which can be used to quickly
@@ -329,7 +329,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term>flexmojos-modular-webapp </term>
+        <term>flexmojos-archetypes-modular-webapp </term>
 
         <listitem>
           <para>Creates a Multimodule project which consists of a project that
@@ -340,7 +340,7 @@
       </varlistentry>
     </variablelist>
 
-    <section id="flex-dev-sect-creating-lib">
+    <section>
       <title>Creating a Flex Library</title>
 
       <para>To create a Flex Library Project, execute the following command at
@@ -550,14 +550,127 @@ package: org.sonatype.test
       the libraries and the dependencies for the Flex compiler. Much like
       Maven excels at helping Java developers manage the contents of a Java
       classpath, Maven can help Flex developers manage the complex of compile
-      paths. If you ran this on a machine with a web browser, you also might
-      have been shocked when the Flexmojos project started a web browser and
-      used it to execute the TestApp.as class against the project's source
-      code.</para>
+      paths. You also might have been shocked when the Flexmojos project
+      started a web browser or the Flash Player and used it to execute the
+      TestApp.as class against the project's source code. </para>
+    </section>
+
+    <section>
+      <title>Creating a Flex Application</title>
+
+      <para>To create a Flex application from a Maven archetype, execute the
+      following command:</para>
+
+      <screen>$ <command>mvn archetype:generate \
+      -DarchetypeRepository=http://repository.sonatype.com/content/groups/public \
+      -DarchetypeGroupId=org.sonatype.flexmojos \
+      -DarchetypeArtifactId=flexmojos-archetypes-application \
+      -DarchetypeVersion=3.0.0</command>
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO] com.sonatype.maven.plugins: checking for updates from central
+...
+[INFO] [archetype:generate]
+[INFO] Generating project in Interactive mode
+[INFO] Archetype defined by properties
+...
+Define value for groupId: : <command>org.sonatype.test</command>
+Define value for artifactId: : <command>sample-application</command>
+Define value for version:  1.0-SNAPSHOT: : <command>1.0-SNAPSHOT</command>
+Define value for package:  org.sonatype.test: : <command>org.sonatype.test</command> 
+Confirm properties configuration:
+groupId: org.sonatype.test
+artifactId: sample-library
+version: 1.0-SNAPSHOT
+package: org.sonatype.test
+ Y: : <command>Y</command>
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:3.0.0
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: org.sonatype.test
+[INFO] Parameter: packageName, Value: org.sonatype.test
+[INFO] Parameter: basedir, Value: /Users/Tim/flex-sample
+[INFO] Parameter: package, Value: org.sonatype.test
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: artifactId, Value: sample-application
+[INFO] BUILD SUCCESSFUL
+
+</screen>
+
+      <para>If you look in the directory sample-application/ you will see the
+      filesystem shown in <xref linkend="fig-flex-dev-dir-app-fs" />.</para>
+
+      <figure id="fig-flex-dev-dir-app-fs">
+        <title>Directory Structure for Flex Application Archetype</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/flex-dev-arche-simple-app-fs.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Creating a Multi-module Project: Web Application with a Flex
+      Dependency</title>
+
+      <para>To create a multi-module project consisting of a Flex Library
+      project referenced by a Flex Application, referenced by a Web
+      Application.</para>
+
+      <screen>$ <command>mvn archetype:generate \
+      -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
+      -DarchetypeGroupId=org.sonatype.flexmojos -DarchetypeArtifactId=flexmojos-archetypes-modular-webapp \
+      -DarchetypeVersion=3.0.0</command>
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO] com.sonatype.maven.plugins: checking for updates from central
+...
+[INFO] [archetype:generate]
+[INFO] Generating project in Interactive mode
+[INFO] Archetype defined by properties
+...
+Define value for groupId: : <command>org.sonatype.test</command>
+Define value for artifactId: : <command>sample-multimodule</command>
+Define value for version:  1.0-SNAPSHOT: : <command>1.0-SNAPSHOT</command>
+Define value for package:  org.sonatype.test: : <command>org.sonatype.test</command> 
+Confirm properties configuration:
+groupId: org.sonatype.test
+artifactId: sample-library
+version: 1.0-SNAPSHOT
+package: org.sonatype.test
+ Y: : <command>Y</command>
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-modular-webapp:3.0.0
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: org.sonatype.test
+[INFO] Parameter: packageName, Value: org.sonatype.test
+[INFO] Parameter: basedir, Value: /Users/Tim
+[INFO] Parameter: package, Value: org.sonatype.test
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: artifactId, Value: sample-multimodule
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+</screen>
+
+      <para>If you look in the sample-multimodule/ directory, you will see a
+      directory structure which contains three projects swc, swf, and
+      war.</para>
+
+      <figure>
+        <title>Directory Structure for Flex Multimodule Archetype</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/flex-dev-arche-multimodule-fs.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
     </section>
   </section>
 
-  <section id="flex-dev-sect-dev-custom">
+  <section>
     <title>Developing and Customizing Flexmojos</title>
 
     <para>The following sections guide you through some of first steps toward
