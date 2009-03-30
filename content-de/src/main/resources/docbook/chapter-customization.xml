@@ -720,7 +720,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
 
     <para>Diese Vorlage enthält eine Reihe von Verweisen auf eine Variable
     namens <varname>weather</varname>. Die Variable <varname>weather</varname> ist das Weather Bean, welches an den
-    WeatherFormatter gegeben wurde, die Syntax <varname>${weather.temp}</varname> ist eine
+    WeatherFormatter gegeben wurde, die Syntax <varname>\${weather.temp}</varname> ist eine
     Kurzform um die Werte der Weather Bean aufzurufen und anzuzeigen. Nun, da
     wir allen Projekt-Code an den richtigen Stellen haben, können wir Maven
     benutzen, um dieses Beispiel aufzurufen.</para>
@@ -1001,7 +1001,7 @@ public class YahooParserTest extends TestCase {
     geladen. Wir fügen Test Ressourcen in Abschnitt 4.11: "Hinzufügen von Unit
     Test Ressourcen" an. In unserem Verzeichnisaufbau des Maven-Projekts
     befindet sich die Datei ny-weather.xml im Verzeichnis der Test-Ressourcen
-    <filename>-- ${basedir}/src/test/resources</filename> unter
+    <filename>-- \${basedir}/src/test/resources</filename> unter
     <filename>/com/sonatype/maven/wetter/yahoo/ny-weather.xml</filename> . Die Datei wird als
     InputStream eingelesen und an die parse()-Methode des YahooParser
     geleitet. Die parse()-Methode liefert ein Weather Objekt zurück,welches
@@ -1050,7 +1050,7 @@ public class WeatherFormatterTest extends TestCase {
     Klasse WeatherFormatter. Wie bereits die Klasse YahooParserTest, erweitert
     auch die Klasse WeatherFormatterTest die Klasse TestCase des JUnit Frameworks. Die
     einzige Testfunktion liest die gleiche Testressource von
-    <filename>${basedir}/src/test/resources</filename> umter dem
+    <filename>\${basedir}/src/test/resources</filename> umter dem
     <filename>/com/sonatype/Maven/Wetter/yahoo</filename>-Verzeichnis unter Einbezug des Unit Test
     Klassenpfades. Wir fügen Test Ressourcen wie im Abschnitt 4.11:
     "Hinzufügen Unit Test Ressourcen" beschrieben an. WeatherFormatterTest
@@ -1266,7 +1266,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     WeatherFormatterTest und YahooParserTest ausgeführt hat. Bei der
     Ausführung des Surefire Maven Plugins werden nicht nur die Tests
     ausgeführt, es werden auch XML- und Text-Berichte erzeugt und unter dem
-    Verzeichnis <filename>${basedir}/target/surefire-reports</filename> abgelegt. Sollten Ihre
+    Verzeichnis <filename>\${basedir}/target/surefire-reports</filename> abgelegt. Sollten Ihre
     Tests fehlschlagen, so können Sie in diesem Verzeichnis von den Unit Tests
     angelegte Detailsangaben wie Fehlermeldungen oder Stack Traces der Unit
     Tests finden.</para>

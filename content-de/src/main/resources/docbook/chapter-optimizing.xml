@@ -306,14 +306,14 @@
     Projekt POM. Dies ist sicherlich ein gültiges Konzept.</para>
 
     <para>Allerdings können wir dieses Problem mittles dem Einsatz zweier
-    eingebauter Variablen lösen: <varname>${project.groupId}</varname> und
-    <varname>${project.version}</varname>. Da es sich um Geschwister
+    eingebauter Variablen lösen: <varname>\${project.groupId}</varname> und
+    <varname>\${project.version}</varname>. Da es sich um Geschwister
     Abhängigkeiten handelt, macht es nicht viel Sinn, einen numerischen Wert
     im übergeordneten POM zu definieren, daher stützen wir uns auf die
-    eingebaute Eigenschaft <varname>${project.version}</varname>. Da alle
+    eingebaute Eigenschaft <varname>\${project.version}</varname>. Da alle
     Geschwister derselben Gruppe angehören, können wir weitere
     Zukunftssicherheit einbauen, indem wir auf das bestehende POM mittels der
-    Eigenschaft <varname>${project.groupId}</varname> verweisen. Der Abschnitt
+    Eigenschaft <varname>\${project.groupId}</varname> verweisen. Der Abschnitt
     der Abhängigkeiten des <varname>Simple Command Moduls</varname> sieht nun
     wie folgt aus:</para>
 
@@ -366,11 +366,11 @@
 
         <listitem>
           <para>Um sich auf ein Geschwisterprojekt zu beziehen, verwenden Sie
-          <varname>${project.version}</varname> und
-          <varname>${project.groupId}</varname>. Geschwister-Projekte umfassen
+          <varname>\${project.version}</varname> und
+          <varname>\${project.groupId}</varname>. Geschwister-Projekte umfassen
           fast immer die gleiche <varname>groupId</varname> und
           Release-<varname>Version</varname>. Mittels
-          <varname>${project.version}</varname> entschärfen Sie das oben
+          <varname>\${project.version}</varname> entschärfen Sie das oben
           aufgeführte Problem der Geschwister-Version Missverhältnisse.</para>
         </listitem>
       </varlistentry>
@@ -609,8 +609,8 @@
     Abhängigkeit unter Geschwistern handelt welche beide die gleiche
     <varname>groupId</varname> sowie <varname>version</varname> haben, können
     Sie die Abhängigkeit im <acronym>POM</acronym> von <varname>Simple
-    Web</varname> in der Form <varname>${project.goupId}</varname> und
-    <varname>${project.version}</varname> vornehmen.</para>
+    Web</varname> in der Form <varname>\${project.goupId}</varname> und
+    <varname>\${project.version}</varname> vornehmen.</para>
 
     <para>Wie konnte Maven diese Abhängigkeiten überhaupt aufdecken? Woher
     weiss <varname>dependency:analyse</varname> überhaupt welche Klassen und

@@ -11,8 +11,8 @@
     <emphasis>Properties</emphasis> (Eigenschaften) welche Sie in
     <acronym>POM</acronym>-Dateien referenzieren können. Auf geerbte
     Abhängigkeiten eines multi-projekt Builds kann mittels der Properties
-    <varname>${project.groupId}</varname> sowie
-    <varname>${project.version}</varname> zugegriffen werden und jeder
+    <varname>\${project.groupId}</varname> sowie
+    <varname>\${project.version}</varname> zugegriffen werden und jeder
     Abschnitt eines <acronym>POM</acronym> kann referenziert werden indem man
     einer Variablen die Vorsilbe „<varname>project.</varname>“ Anfügt.
     Umgebungsvariablen und Java System Einstellungen können referenziert
@@ -44,7 +44,7 @@
     <para>Sie können Maven Properties in einer <filename>pom.xml</filename>
     Datei, oder irgendeiner anderen Ressource ablegen, welche vom Maven
     Ressource Plugin und dessen Filter Funktion verarbeitet wird. Ein Property
-    ist immer umschlossen von <varname>${</varname> und <varname>}</varname> .
+    ist immer umschlossen von <varname>\${</varname> und <varname>}</varname> .
     Um auf das Property <varname>project.version</varname> zu referenzieren,
     würden Sie folgende Variable benutzen:</para>
 
@@ -113,7 +113,7 @@
       dieser impliziten Variablen beziehen, so wenden Sie die einfache
       Punkt-Notation an, um auf ein Bean-Property des Modell-Objektes zu
       zeigen. Referenzieren Sie zum Beispiel
-      <varname>${project.version}</varname>, so rufen Sie tatsächlich die
+      <varname>\${project.version}</varname>, so rufen Sie tatsächlich die
       Methode <methodname>getVersion()</methodname> der Instanz des Modell
       Objektes auf, als welches das Projekt offengelegt wird.</para>
 
@@ -254,7 +254,7 @@
       sehen Sie in der Maven Model JavaDoc, dass dieses mittels
       <methodname>model.getBuild().getOutputDirectory();</methodname> erfolgt.
       Diesen Methodenaufruf würden Sie in die Maven Property Referenz:
-      <varname>${project.build.outputDirectory}</varname> wiederfinden.</para>
+      <varname>\${project.build.outputDirectory}</varname> wiederfinden.</para>
 
       <para>Bezüglich weiterer Informationen zum Maven Model Module, dem
       Modul, welches die Struktur des <acronym>POM</acronym> definiert,
@@ -316,7 +316,7 @@
             entweder auf einen Java Development Kit (<acronym>JDK</acronym>)
             oder auf eine Java Laufzeitumgebung (<acronym>JRE</acronym>)
             zeigen. Es empfiehlt sich statt dessen
-            <varname>${java.home}</varname> zu benutzen.</para>
+            <varname>\${java.home}</varname> zu benutzen.</para>
           </listitem>
         </varlistentry>
 
@@ -594,7 +594,7 @@
     <para>Sie können Maven auch dazu einsetzen, Variablen innerhalb von
     Projektressourcen zu ersetzen. Sobald Ressourcen Filterung aktiviert ist,
     durchsucht Maven Ressourcen nach Property Referenzen eingeschlossen in
-    <varname>${</varname> und<varname>}</varname>. Sobald es eine derartige
+    <varname>\${</varname> und<varname>}</varname>. Sobald es eine derartige
     Referenz gefunden hat, ersetzt es diese mit dem entsprechenden Wert ganz
     ähnlich wie dies auch mit den Property Referenzen eines
     <acronym>POM</acronym> geschieht und im letzen Abschnitt beschrieben

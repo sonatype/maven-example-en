@@ -72,14 +72,14 @@
     <para>Maven greift dieses Konzept auf und stellt vernünftige
     Standard-Verhalten für Projekte bereit. Ohne weitere Anpassungen, wird
     davon ausgegangen, dass sich Quellcode im Verzeichnis
-    <filename>${basedir}/src/main/java</filename> und Ressourcen sich im
-    Verzeichnis <filename>${basedir}/src/main/resources</filename> befinden.
+    <filename>\${basedir}/src/main/java</filename> und Ressourcen sich im
+    Verzeichnis <filename>\${basedir}/src/main/resources</filename> befinden.
     Von Tests wird davon ausgegangen, dass diese sich im Verzeichnis
-    ${basedir}/src/test befinden, sowie ein Projekt standardmäßig ein
+    \${basedir}/src/test befinden, sowie ein Projekt standardmäßig ein
     JAR-Archive bereitstellt. Maven geht davon aus, dass Sie den kompilierten
-    Byte-Code unter <filename>${basedir}/target/classes</filename> ablegen
+    Byte-Code unter <filename>\${basedir}/target/classes</filename> ablegen
     wollen und anschließend ein ausführbares JAR-Archive erstellen, welches im
-    Verzeichnis ${basedir}/target abgelegt wird. Zwar mag diese Lösung trivial
+    Verzeichnis \${basedir}/target abgelegt wird. Zwar mag diese Lösung trivial
     anmuten, jedoch bedenken Sie bitte die Tatsache, dass die meisten
     Ant-basierten Projekte die Lage dieser Verzeichnisse in jedem Teilprojekt
     festlegen müssen. Die Umsetzung von Konvention über Konfiguration in Maven
@@ -442,7 +442,7 @@
     Maven, um ein JAR-Archive aus einer Reihe von Java Quellcode Dateien zu
     erstellen, ist alles, was Sie tun müssen, ein einfaches POM (pom.xml
     Datei) zu generieren. Platzieren Sie den Quellcode in
-    <filename>/${basedir}/src/main/java</filename> und führen Sie dann <command>mvn
+    <filename>\${basedir}/src/main/java</filename> und führen Sie dann <command>mvn
     install</command> von der Befehlszeile aus . Das Beispiel der Maven
     pom.xml Datei, welches zum selben Ergebnis führt wie zuvor das Ant-Skript
     sehen Sie unten.</para>
@@ -556,12 +556,12 @@
     <para>Maven hat eine eingebaute Intelligenz bezüglich der gemeinsamen
     Projektaufgaben in Form von Maven-Plugins. Sollten Sie Unit Tests
     ausführen wollen, ist alles was Sie tun müssen, die Tests zu schreiben und
-    unter <filename>/${basedir}/src/test/java</filename> abzulegen, führen Sie eine
+    unter <filename>\${basedir}/src/test/java</filename> abzulegen, führen Sie eine
     Test bezogene Abhängigkeit zu entweder TestNG oder JUnit ein, und starten
     Sie <command>mvn test</command>. Sollten Sie anstelle eines JAR-Archives
     eine Web Anwendung erstellen, so ist alles was Sie tun müssen den
     Projekttyp auf "war" umstellen und Ihr Applikationsverzeichnis (docroot)
-    auf <filename>/${basedir}/src/main/webapp</filename> setzen. Klar, können Sie all
+    auf <filename>\${basedir}/src/main/webapp</filename> setzen. Klar, können Sie all
     dies auch mit Ant bewerkstelligen, aber Sie werden alle Anweisungen von
     Grund auf festhalten. In Ant würden Sie erst einmal herausfinden, wo die
     JUnit-JAR-Datei sich befindet, dann müssten Sie einen Klassenpfad

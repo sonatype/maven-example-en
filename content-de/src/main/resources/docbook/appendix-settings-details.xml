@@ -118,7 +118,7 @@
 
           <listitem>
             <para><varname>true</varname> wenn Maven auf
-            <filename>${user.dir}/.m2/plugin-registry.xml</filename>
+            <filename>\${user.dir}/.m2/plugin-registry.xml</filename>
             zurückgreifen soll um die Plugin Versionen zu verwalten,
             Standardwert ist <varname>false</varname>.</para>
           </listitem>
@@ -223,7 +223,7 @@
           <listitem>
             <para>Wie vorangehend ebenfalls zwei Elemente, dieses Paar
             beschreibt den Pfad zu einem Privaten Schlüssel (Standardwert ist
-            <varname>${user.home}/.ssh/id_dsa</varname>) und einer Passphrase,
+            <varname>\${user.home}/.ssh/id_dsa</varname>) und einer Passphrase,
             sollte diese notwendig sein. Hinweis: Zukünftig sollte es möglich
             sein die Elemente <varname>passphrase</varname> und
             <varname>password</varname> zu externalisieren, zur Zeit jedoch
@@ -499,7 +499,7 @@
 
           <listitem>
             <para>Das Profil wird aktiviert, sollte Maven ein Property (ein
-            Wert, welcher innerhalb des POM mittels <varname>${name}</varname>
+            Wert, welcher innerhalb des POM mittels <varname>\${name}</varname>
             referenziert werden kann) mit dem entsprechenden Wertepaar finden.
             </para>
           </listitem>
@@ -535,7 +535,7 @@
 
       <para>Maven Properties sind ein Platzhalter für Werte - wie auch
       Properties unter Ant. Auf deren Werte ist mittels der Notation
-      <varname>${x}</varname>, x ist der Name des Properties, von überall
+      <varname>\${x}</varname>, x ist der Name des Properties, von überall
       innerhalb eines <acronym>POM</acronym> zuzugreifen. Properties kommen in
       fünf verschiedenen Varianten, alle zugreifbar von innerhalb der
       <filename>settings.xml</filename>:</para>
@@ -548,7 +548,7 @@
             <para>Kennzeichnet man eine Variable mit vorangestelltem
             ‘<literal>env.</literal>’ so wird der Wert der entsprechende Shell
             Variablen zurückgegeben. Ein Beispiel:
-            <varname>${env.PATH}</varname> enthält den Wert der
+            <varname>\${env.PATH}</varname> enthält den Wert der
             Umgebungsvariablen <varname>$PATH</varname>
             (<varname>%PATH%</varname> unter Windows).</para>
           </listitem>
@@ -582,7 +582,7 @@
             <classname>java.lang.System.getProperties()</classname>
             offengelegt werden sind ebenfalls als POM Properties zugänglich,
             so zum Beispiel das Property
-            <varname>${java.home}</varname>.</para>
+            <varname>\${java.home}</varname>.</para>
           </listitem>
         </varlistentry>
 
@@ -592,13 +592,13 @@
           <listitem>
             <para>Innerhalb eines Elements <varname>properties</varname> oder
             innerhalb einer externen Datei gesetzt, ist der Wert durch
-            <varname>${einWert}</varname> zugänglich.</para>
+            <varname>\${einWert}</varname> zugänglich.</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
       <para><example>
-          <title>Setzen des Properties ${user.install} property in der
+          <title>Setzen des Properties \${user.install} property in der
           settings.xml</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
@@ -620,7 +620,7 @@
 </programlisting>
         </example></para>
 
-      <para>Das Property <varname>${user.install}</varname> ist für dieses POM
+      <para>Das Property <varname>\${user.install}</varname> ist für dieses POM
       zugänglich, wenn das Profil aktiv ist.</para>
     </section>
 

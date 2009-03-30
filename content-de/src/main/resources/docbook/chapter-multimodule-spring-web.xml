@@ -1724,7 +1724,7 @@ public class WeatherController implements Controller {
     Konstruktor von <classname>ModelAndView</classname>. Die Klasse
     <classname>ModelAndView</classname> werden wir benutzen um Velocity
     Templates darzustellen, welche eine Referenz zu einer Variablen
-    <varname>${weather}</varname> halten. Das zugehörige Template
+    <varname>\${weather}</varname> halten. Das zugehörige Template
     <filename>weather.vm</filename> liegt unter
     <filename>/src/main/webapp/WEB-INF/vm</filename> abgelegt und wird in
     <xref linkend="ex-weather-vm" /> (Beispiel 7.14) ausgeführt. </para>
@@ -1769,7 +1769,7 @@ public class WeatherController implements Controller {
 
     <para>Die Syntax der Velocity Vorlagen ist einfach, Variablen werden durch
     vorangestelltes Dollarzeichen in geschwungenen Klammern markiert
-    <varname>${Variable}</varname>. Der Ausdruck zwischen den geschweiften
+    <varname>\${Variable}</varname>. Der Ausdruck zwischen den geschweiften
     Klammern verweist auf ein Property, oder ein Property eines Properties der
     Variable <varname>weather</varname>, welche durch den
     <classname>WeatherController</classname> an das Template weitergegeben
@@ -2213,7 +2213,7 @@ Derzeitige Wetterlage von: \${location.city}, \${location.region}, \${location.c
 </screen>
 
     <para>Nach Abschluss der Ausführung sollte ein Verzeichnis
-    <filename>${basedir}/data</filename> erstellt sein welches die HSQLDB
+    <filename>\${basedir}/data</filename> erstellt sein welches die HSQLDB
     Datenbank enthält. Um die Web Applikation nun zu starten geben Sie
     folgenden Befehl ein: </para>
 
@@ -2578,7 +2578,7 @@ public class WeatherFormatter {
     Vorlage <filename>history.vm</filename> gibt die Örtlichkeit aus, und
     iteriert dann über alle gespeicherten Wetterwerte der lokalen Datenbank.
     Diese beiden Vorlagen befinden sich unter
-    <filename>${basedir}/src/main/resource</filename>.</para>
+    <filename>\${basedir}/src/main/resource</filename>.</para>
 
     <example>
       <title>Die velocity Vorlage weather.vm</title>
