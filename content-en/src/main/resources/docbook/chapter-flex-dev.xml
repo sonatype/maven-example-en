@@ -310,7 +310,7 @@
     <para>Flexmojos has a set of archetypes which can be used to quickly
     create a new Flex project. The following archetypes are all in the
     <package>org.sonatype.flexmojos</package> group with a version of
-    <varname>3.0.0</varname>:</para>
+    <varname>3.1.0</varname>:</para>
 
     <variablelist>
       <varlistentry>
@@ -352,7 +352,7 @@
       -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-library \
-      -DarchetypeVersion=3.0.0</command>
+      -DarchetypeVersion=3.1.0</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -372,7 +372,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library:3.0.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library:3.1.0
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -415,7 +415,7 @@ package: org.sonatype.test
   &lt;parent&gt;
     &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
     &lt;artifactId&gt;flexmojos-flex-super-pom&lt;/artifactId&gt;
-    &lt;version&gt;3.0.0&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
   &lt;/parent&gt;
 
   &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
@@ -513,7 +513,7 @@ package: org.sonatype.test
 [INFO] ------------------------------------------------------------------------
 [INFO] [resources:resources]
 [INFO] [flexmojos:compile-swc]
-[INFO] flexmojos 3.0.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [WARNING] Nothing expecified to include.  Assuming source and resources folders.
 [INFO] Flex compiler configurations:
 -compiler.headless-server=false 
@@ -528,7 +528,7 @@ package: org.sonatype.test
 [WARNING] Using platform encoding (MacRoman actually) to copy filtered resources, i.e. build is platform dependent!
 [INFO] skip non existing resourceDirectory src/test/resources
 [INFO] [flexmojos:test-compile]
-[INFO] flexmojos 3.0.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [INFO] Flex compiler configurations:
 -compiler.include-libraries ~/.m2/repository/org/sonatype/flexmojos/flexmojos-unittest-support...
 -compiler.keep-generated-actionscript=false 
@@ -541,7 +541,7 @@ package: org.sonatype.test
 -verify-digests=true -load-config= 
 [INFO] Already trust on target/test-classes/TestRunner.swf
 [INFO] [flexmojos:test-run]
-[INFO] flexmojos 3.0.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [INFO] flexunit setup args: null
 [INFO] ------------------------------------------------------------------------
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Time Elpased: 0 sec
@@ -568,7 +568,7 @@ package: org.sonatype.test
       -DarchetypeRepository=http://repository.sonatype.com/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-application \
-      -DarchetypeVersion=3.0.0</command>
+      -DarchetypeVersion=3.1.0</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -588,7 +588,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:3.0.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:3.1.0
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -628,7 +628,7 @@ package: org.sonatype.test
   &lt;parent&gt;
     &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
     &lt;artifactId&gt;flexmojos-flex-super-pom&lt;/artifactId&gt;
-    &lt;version&gt;3.0.0&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
   &lt;/parent&gt;
 
   &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
@@ -698,7 +698,7 @@ package: org.sonatype.test
       -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-modular-webapp \
-      -DarchetypeVersion=3.0.0</command>
+      -DarchetypeVersion=3.1.0</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -718,7 +718,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-modular-webapp:3.0.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-modular-webapp:3.1.0
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
