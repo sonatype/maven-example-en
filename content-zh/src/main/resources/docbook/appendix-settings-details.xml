@@ -2,36 +2,28 @@
 <!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <appendix id="settings-details">
-  <title>Appendix: Settings Details</title>
+  <title>附录: Settings细节</title>
 
   <section id="appendix-settings-details">
-    <title>Quick Overview</title>
+    <title>简介</title>
 
-    <para>The settings element in the <filename>settings.xml</filename> file
-    contains elements used to define values which configure Maven execution.
-    Settings in this file are settings which apply to many project and which
-    should not be bundled to any specific project, or distributed to an
-    audience. These include values such as the local repository location,
-    alternate remote repository servers, and authentication information. There
-    are two locations where a <filename>settings.xml</filename> file may
-    live:</para>
+    <para><filename>settings.xml</filename>文件中的settings元素包含了很多子元素，它们定义的一些值被用来配置Maven的执行情况。该settings文件的设置会应用到很多个项目上，因此这里的设置不应该和任何一个特定的项目绑定，并且该设置的内容也不应该分发给它人。该文件定义的值包括本地仓库地址，替代的远程仓库仓库服务器，以及一些认证信息。<filename>settings.xml</filename>文件可位于两个地址：</para>
 
     <itemizedlist>
       <listitem>
-        <para>Maven Installation Directory:
+        <para>Maven安装目录:
         <filename>$M2_HOME/conf/settings.xml</filename></para>
       </listitem>
 
       <listitem>
-        <para>User-specific Settings File:
-        <filename>~/.m2/settings.xml</filename></para>
+        <para>用户特定的Settings文件: <filename>~/.m2/settings.xml</filename></para>
       </listitem>
     </itemizedlist>
 
-    <para>Here is an overview of the top elements under settings:</para>
+    <para>这里是settings元素下最高一层元素的概览：</para>
 
     <para><example>
-        <title>Overview of top-level elements in settings.xml</title>
+        <title>settings.xml中最高层元素的概览</title>
 
         <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -53,17 +45,15 @@
   </section>
 
   <section>
-    <title>Settings Details</title>
+    <title>Settings细节</title>
 
     <section>
-      <title>Simple Values</title>
+      <title>简单值</title>
 
-      <para>Half of the top-level settings elements are simple values,
-      representing a range of values which configure core behavior of
-      Maven:</para>
+      <para>一半顶层settings元素是简单值，它们表示的一系列值可以配置Maven的核心行为：</para>
 
       <para><example>
-          <title>Simple top-level elements in settings.xml</title>
+          <title>settings.xml中的简单顶层元素</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -81,16 +71,14 @@
 </programlisting>
         </example></para>
 
-      <para>The simple top-level elements are:</para>
+      <para>这些简单顶层元素是：</para>
 
       <variablelist>
         <varlistentry>
           <term>localRepository</term>
 
           <listitem>
-            <para>This value is the path of this build system's local
-            repository. The default value is
-            <filename>${user.dir}/.m2/repository</filename>.</para>
+            <para>该值表示构建系统本地仓库的路径。其默认值为<filename>${user.dir}/.m2/repository</filename>。</para>
           </listitem>
         </varlistentry>
 
@@ -98,9 +86,7 @@
           <term>interactiveMode</term>
 
           <listitem>
-            <para><varname>true</varname> if Maven should attempt to interact
-            with the user for input, <varname>false</varname> if not. Defaults
-            to <varname>true</varname>.</para>
+            <para>如果Maven需要和用户交互以获得输入，则设置成<varname>true</varname>，反之则应为<varname>false</varname>。默认为<varname>true</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -108,10 +94,7 @@
           <term>usePluginRegistry</term>
 
           <listitem>
-            <para><varname>true</varname> if Maven should use the
-            <filename>${user.dir}/.m2/plugin-registry.xml</filename> file to
-            manage plugin versions, defaults to
-            <varname>false</varname>.</para>
+            <para>如果需要让Maven使用文件<filename>${user.dir}/.m2/plugin-registry.xml</filename>来管理插件版本，则设为<varname>true</varname>。默认为<varname>false</varname>。</para>
           </listitem>
         </varlistentry>
 
@@ -119,11 +102,7 @@
           <term>offline</term>
 
           <listitem>
-            <para><varname>true</varname> if this build system should operate
-            in offline mode, defaults to <varname>false</varname>. This
-            element is useful for build servers which cannot connect to a
-            remote repository, either because of network setup or security
-            reasons</para>
+            <para>如果构建系统需要在离线模式下运行，则为<varname>true</varname>，默认为<varname>false</varname>。当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该元素就十分有用。</para>
           </listitem>
         </varlistentry>
 
@@ -131,29 +110,19 @@
           <term>pluginGroups</term>
 
           <listitem>
-            <para>This element contains a list of
-            <sgmltag>pluginGroup</sgmltag> elements, each contains a
-            <sgmltag>groupId</sgmltag>. The list is searched when a plugin is
-            used and the <sgmltag>groupId</sgmltag> is not provided in the
-            command line. This list contains
-            <varname>org.apache.maven.plugins</varname> by default.</para>
+            <para>该元素包含一个<sgmltag>pluginGroup</sgmltag>子元素列表，每个子元素包含了一个<sgmltag>groupId</sgmltag>。当我们使用某个插件，并且没有在命令行为其提供<sgmltag>groupId</sgmltag>的时候，Maven就会使用该列表。默认情况下该列表包含了<varname>org.apache.maven.plugins</varname>。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section>
-      <title>Servers</title>
+      <title>服务器（Servers）</title>
 
-      <para>The <sgmltag>distributionManagement</sgmltag> element of the
-      <acronym>POM</acronym> defines the repositories for deployment. However,
-      certain settings such as security credentials should not be distributed
-      along with the <filename>pom.xml</filename>. This type of information
-      should exist on the build server in the
-      <filename>settings.xml</filename>.</para>
+      <para><acronym>POM</acronym>中的<sgmltag>distributionManagement</sgmltag>元素定义了部署的仓库。然后，一些设置如安全证书不应该和<filename>pom.xml</filename>一起分发。这种类型的信息应该存在于构建服务器上的<filename>settings.xml</filename>文件中。</para>
 
       <para><example>
-          <title>Server configuration in settings.xml</title>
+          <title>settings.xml中的Server配置</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -177,17 +146,14 @@
 </programlisting>
         </example></para>
 
-      <para>The elements under server are:</para>
+      <para>server下的元素包括：</para>
 
       <variablelist>
         <varlistentry>
           <term>id</term>
 
           <listitem>
-            <para>This is the <sgmltag>id</sgmltag> of the server (not of the
-            user to login as) that matches the
-            <sgmltag>distributionManagement</sgmltag> repository element's
-            <sgmltag>id</sgmltag>.</para>
+            <para>这是server的<sgmltag>id</sgmltag>（注意不是用户登陆的<sgmltag>id</sgmltag>），该<sgmltag>id</sgmltag>与<sgmltag>distributionManagement</sgmltag>中repository元素的<sgmltag>id</sgmltag>相匹配。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -197,8 +163,7 @@
           <term>username, password</term>
 
           <listitem>
-            <para>These elements appear as a pair denoting the login and
-            password required to authenticate to this server.</para>
+            <para>这一对元素表示服务器认证所需要的登录名和密码。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -208,12 +173,7 @@
           <term>privateKey, passphrase</term>
 
           <listitem>
-            <para>Like the previous two elements, this pair specifies a path
-            to a private key (default is
-            <filename>${user.home}/.ssh/id_dsa</filename>) and a passphrase,
-            if required. The passphrase and password elements may be
-            externalized in the future, but for now they must be set
-            plain-text in the <filename>settings.xml</filename> file.</para>
+            <para>和前两个元素类似，这一对元素指定了一个私钥的路径（默认是<filename>${user.home}/.ssh/id_dsa</filename>）以及如果需要的话，一个密语。将来passphrase和password元素可能会被提取到外部，但目前它们必须在<filename>settings.xml</filename>文件以纯文本的形式声明。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -223,20 +183,17 @@
           <term>filePermissions, directoryPermissions</term>
 
           <listitem>
-            <para>When a repository file or directory is created on
-            deployment, these are the permissions to use. The legal values of
-            each is a three digit number corresponding to *nix file
-            permissions, i.e. 664, or 775.</para>
+            <para>如果在部署的时候一个仓库文件或者目录被创建了，这时候就可以使用权限（permission）。这两个元素合法的值是一个三位数字，其对应了*nix文件系统的权限，如664，或者775。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section>
-      <title>Mirrors</title>
+      <title>镜像（Mirrors）</title>
 
       <para><example>
-          <title>Mirror configuration in settings.xml</title>
+          <title>settings.xml中的Mirror配置</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -261,8 +218,7 @@
             <term>id, name</term>
 
             <listitem>
-              <para>The unique identifier of this mirror. The id is used to
-              differentiate between mirror elements.</para>
+              <para>该镜像的唯一定义符。id用来区分不同的mirror元素。</para>
             </listitem>
           </varlistentry>
         </variablelist><variablelist>
@@ -270,10 +226,7 @@
             <term>url</term>
 
             <listitem>
-              <para>The base <acronym>UR</acronym>L of this mirror. The build
-              system will use prepend this <acronym>URL</acronym> to connect
-              to a repository rather than the default server
-              <acronym>URL</acronym>.</para>
+              <para>该镜像的<acronym>URL</acronym>。构建系统会优先考虑使用该<acronym>URL</acronym>，而非使用默认的服务器<acronym>URL</acronym>。</para>
             </listitem>
           </varlistentry>
         </variablelist><variablelist>
@@ -281,22 +234,19 @@
             <term>mirrorOf</term>
 
             <listitem>
-              <para>The id of the server that this is a mirror of. For
-              example, to point to a mirror of the Maven central server
-              (<ulink
-              url="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</ulink>),
-              set this element to central. This must not match the mirror
-              id.</para>
+              <para>被镜像的服务器的id。例如，如果我们要设置了一个Maven中央仓库（<ulink
+              url="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</ulink>）的镜像，就需要将该元素设置成central。这必须和中央仓库的id
+              central完全一致。</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
     </section>
 
     <section>
-      <title>Proxies</title>
+      <title>代理（Proxies）</title>
 
       <para><example>
-          <title>Proxy configuration in settings.xml</title>
+          <title>settings.xml中的proxy配置</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -325,8 +275,7 @@
             <term>id</term>
 
             <listitem>
-              <para>The unique identifier for this proxy. This is used to
-              differentiate between proxy elements.</para>
+              <para>该代理的唯一定义符，用来区分不同的proxy元素。</para>
             </listitem>
           </varlistentry>
 
@@ -334,9 +283,7 @@
             <term>active</term>
 
             <listitem>
-              <para><varname>true</varname> if this proxy is active. This is
-              useful for declaring a set of proxies, but only one may be
-              active at a time.</para>
+              <para><varname>true</varname>则激活代理。当我们声明了一组代理，而某个时候只需要激活一个代理的时候，该元素就可以派上用处。</para>
             </listitem>
           </varlistentry>
 
@@ -344,8 +291,7 @@
             <term>protocol, host, port</term>
 
             <listitem>
-              <para>The <varname>protocol://host:port</varname> of the proxy,
-              separated into discrete elements.</para>
+              <para>该代理的<varname>protocol://host:port</varname>，（协议://主机名:端口），分隔成离散的元素以方便配置。</para>
             </listitem>
           </varlistentry>
 
@@ -353,8 +299,7 @@
             <term>username, password</term>
 
             <listitem>
-              <para>These elements appear as a pair denoting the login and
-              password required to authenticate to this proxy server.</para>
+              <para>这一对元素表示代理服务器认证的登录名和密码。</para>
             </listitem>
           </varlistentry>
 
@@ -362,10 +307,7 @@
             <term>nonProxyHosts</term>
 
             <listitem>
-              <para>This is a list of hosts which should not be proxied. The
-              delimiter of the list is the expected type of the proxy server;
-              the example above is pipe delimited - comma delimited is also
-              common.</para>
+              <para>这里定义一个不该被代理的主机名列表。该列表的分隔符由代理服务器指定；上述的例子中使用了竖线分隔符，使用逗号分隔也很常见。</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
@@ -374,31 +316,20 @@
     <section>
       <title>Profiles</title>
 
-      <para>The <sgmltag>profile</sgmltag> element in the
-      <filename>settings.xml</filename> is a truncated version of the
-      <filename>pom.xml</filename> profile element. It consists of the
-      <sgmltag>activation</sgmltag>, <sgmltag>repositories</sgmltag>,
-      <sgmltag>pluginRepositories</sgmltag> and <sgmltag>properties</sgmltag>
-      elements. The profile elements only include these four elements because
-      they concern themselves with the build system as a whole (which is the
-      role of the <filename>settings.xml</filename> file), not about
-      individual project object model settings.</para>
+      <para><filename>settings.xml</filename>中的<sgmltag>profile</sgmltag>元素是<filename>pom.xml</filename>中<sgmltag>profile</sgmltag>元素的裁剪版本。它包含了<sgmltag>activation</sgmltag>,
+      <sgmltag>repositories</sgmltag>, <sgmltag>pluginRepositories</sgmltag> 和
+      <sgmltag>properties</sgmltag>元素。这里的profile元素只包含这四个子元素是因为这里只关心构建系统这个整体（这正是<filename>settings.xml</filename>文件的角色定位），而不是单独的项目对象模型设置。</para>
 
-      <para>If a profile is active from settings, its values will override any
-      equivalent profiles which matching identifiers in a
-      <acronym>POM</acronym> or <filename>profiles.xml</filename> file.</para>
+      <para>如果一个settings中的profile被激活，它的值会覆盖任何其它定义在POM中或者profile.xml中的带有相同id的profile。</para>
     </section>
 
     <section>
-      <title>Activation</title>
+      <title>激活（Activation）</title>
 
-      <para>Activations are the key of a profile. Like the
-      <acronym>POM</acronym>'s profiles, the power of a profile comes from its
-      ability to modify some values only under certain circumstances; those
-      circumstances are specified via an activation element.</para>
+      <para>Activation是profile的开启钥匙。如<acronym>POM</acronym>中的profile一样，profile的力量来自于它能够在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。</para>
 
       <para><example>
-          <title>Defining Activation Parameters in settings.xml</title>
+          <title>在settings.xml中定义Activation参数</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -434,18 +365,14 @@
 </programlisting>
         </example></para>
 
-      <para>Activation occurs when all specified criteria have been met,
-      though not all are required at once.</para>
+      <para>当所有指定的条件符合的时候，profile机会被激活，虽然大部分情况我们不会需要所有的条件。</para>
 
       <variablelist>
         <varlistentry>
           <term>jdk</term>
 
           <listitem>
-            <para>activation has a built in, Java-centric check in the jdk
-            element. This will activate if the test is run under a jdk version
-            number that matches the prefix given. In the above example,
-            1.5.0_06 will match.</para>
+            <para>activation通过其jdk元素，提供了一个内置的，Java-核心的检查器。如果我们运行的一个jdk版本号，其匹配了所提供值的前缀，激活就会发生。在上述的例子中，1.5.0_06就能够匹配。</para>
           </listitem>
         </varlistentry>
 
@@ -453,8 +380,7 @@
           <term>os</term>
 
           <listitem>
-            <para>The <sgmltag>os</sgmltag> element can define some operating
-            system specific properties shown above.</para>
+            <para><sgmltag>os</sgmltag>元素可以定义一些操作系统相关的属性，如上例。</para>
           </listitem>
         </varlistentry>
 
@@ -462,9 +388,7 @@
           <term>property</term>
 
           <listitem>
-            <para>The profile will activate if Maven detects a property (a
-            value which can be dereferenced within the POM by ${name}) of the
-            corresponding name=value pair.</para>
+            <para>如果Maven检测到某一个属性（其值可以在POM中通过${名称}引用），其拥有对应的名称和值，Profile就会被激活。</para>
           </listitem>
         </varlistentry>
 
@@ -472,70 +396,53 @@
           <term>file</term>
 
           <listitem>
-            <para>Finally, a given filename may activate the profile by the
-            existence of a file, or if it is missing.</para>
+            <para>最后，通过提供一个文件名，如果该文件的存在或不存在来激活profile。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>The <sgmltag>activation</sgmltag> element is not the only way that
-      a profile may be activated. The <filename>settings.xml</filename> file's
-      <sgmltag>activeProfile</sgmltag> element may contain the profile's id.
-      They may also be activated explicitly through the command line via a
-      comma separated list after the P flag (e.g. <varname>-P</varname>
-      test).</para>
+      <para><sgmltag>activation</sgmltag>元素并不是激活profile的唯一方式。<filename>settings.xml</filename>文件中的<sgmltag>activeProfile</sgmltag>元素可以包含profile的id。profile也可以通过在命令行，使用-P标记和逗号分隔的列表来显式的激活（如，-P
+      test）。</para>
 
-      <para>To see which profile will activate in a certain build, use the
-      maven-help-plugin.</para>
+      <para>要了解在某个特定的构建中哪些profile会激活，可以使用maven-help-plugin。</para>
 
       <screen>mvn help:active-profiles
 </screen>
     </section>
 
     <section>
-      <title>Properties</title>
+      <title>属性（Properties）</title>
 
-      <para>Maven properties are value placeholder, like properties in Ant.
-      Their values are accessible anywhere within a <acronym>POM</acronym> by
-      using the notation <varname>${X}</varname>, where X is the property.
-      They come in five different styles, all accessible from the settings.xml
-      file:</para>
+      <para>Maven属性和Ant中的属性一样，是存放一些值的地方。这些值可以再POM中的任何地方使用标记${X}来使用，这里X是指属性的名称。属性有五种不同的形式，并且都能在settings.xml文件中访问。</para>
 
       <orderedlist>
         <listitem>
-          <para><varname>env.X</varname>: Prefixing a variable with "env."
-          will return the shells environment variable. For example,
-          <varname>${env.PATH}</varname> contains the <varname>$path</varname>
-          environment variable (<varname>%PATH%</varname> in Windows).</para>
+          <para><varname>env.X</varname>:
+          在一个变量前加上"env."的前缀，会返回一个shell环境变量。例如，<varname>${env.PATH}</varname>指代了<varname>$path</varname>环境变量（在Windows上是<varname>%PATH%</varname>）。</para>
         </listitem>
 
         <listitem>
-          <para><varname>project.x</varname>: A dot (.) notated path in the
-          <acronym>POM</acronym> will contain the corresponding elements
-          value. </para>
+          <para><varname>project.x</varname>：这个点（.）标记的路径，指代了POM中对应的元素值。</para>
         </listitem>
 
         <listitem>
-          <para><varname>settings.x</varname>: A dot (.) notated path in the
-          settings.xml will contain the corresponding elements value.</para>
+          <para><varname>settings.x</varname>:
+          这个点（.）标记的路径，指代了settings.xml中对应元素的值。</para>
         </listitem>
 
         <listitem>
-          <para>Java System Properties: All properties accessible via
-          <methodname>java.lang.System.getProperties()</methodname> are
-          available as POM properties, such as
-          <varname>${java.home}</varname>.</para>
+          <para>Java System Properties:
+          所有可通过<methodname>java.lang.System.getProperties()</methodname>访问的属性都能在POM中使用该形式访问，如<varname>${java.home}</varname>。</para>
         </listitem>
 
         <listitem>
-          <para><varname>x</varname>: Set within a &lt;properties /&gt;
-          element or an external files, the value may be used as
-          <varname>${someVar}</varname>.</para>
+          <para><varname>x</varname>:
+          在&lt;properties/&gt;元素中，或者外部文件中设置，以<varname>${someVar}</varname>的形式使用。</para>
         </listitem>
       </orderedlist>
 
       <para><example>
-          <title>Setting the ${user.install} property in settings.xml</title>
+          <title>在settings.xml中设置${user.install} 属性</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -556,22 +463,16 @@
 </programlisting>
         </example></para>
 
-      <para>The property <varname>${user.install}</varname> is accessible from
-      a <acronym>POM</acronym> if this profile is active.</para>
+      <para>如果该profile激活，属性<varname>${user.install}</varname>就可以再POM中被访问。</para>
     </section>
 
     <section>
-      <title>Repositories</title>
+      <title>仓库（Repositories）</title>
 
-      <para>Repositories are remote collections of projects from which Maven
-      uses to populate the local repository of the build system. It is from
-      this local repository that Maven calls it plugins and dependencies.
-      Different remote repositories may contain different projects, and under
-      the active profile they may be searched for a matching release or
-      snapshot artifact.</para>
+      <para>仓库是Maven用来填充构建系统本地仓库所使用的一组远程项目。而Maven是从本地仓库中使用其插件和依赖。不同的远程仓库可能含有不同的项目，而在某个激活的profile下，可能定义了一些仓库来搜索需要的发布版或快照版构件。</para>
 
       <para><example>
-          <title>Repository Configuration in settings.xml</title>
+          <title>settings.xml中的仓库配置</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -615,12 +516,7 @@
             <term>releases, snapshots</term>
 
             <listitem>
-              <para>These are the policies for each type of artifact, Release
-              or snapshot. With these two sets, a <acronym>POM</acronym> has
-              the power to alter the policies for each type independent of the
-              other within a single repository. For example, one may decide to
-              enable only snapshot downloads, possibly for development
-              purposes.</para>
+              <para>这里配置了两种构件，发布版（Release）和快照版（Snapshot）的策略。有了这两组配置，POM就可以在每个单独的仓库中，为每种类型类型的构件采取不同的策略。例如，可能有人会决定只为开发的目的开启对快照版本下载的支持。</para>
             </listitem>
           </varlistentry>
 
@@ -628,9 +524,7 @@
             <term>enabled</term>
 
             <listitem>
-              <para><varname>true</varname> or <varname>false</varname> for
-              whether this repository is enabled for the respective type
-              (releases or snapshots).</para>
+              <para><varname>true</varname>或者<varname>false</varname>表示该仓库是否为某种类型构件（发布版或者快照版）开启。</para>
             </listitem>
           </varlistentry>
 
@@ -638,12 +532,7 @@
             <term>updatePolicy</term>
 
             <listitem>
-              <para>This element specifies how often updates should attempt to
-              occur. Maven will compare the local <acronym>POM</acronym>s
-              timestamp to the remote. The choices are:
-              <varname>always</varname>, <varname>daily</varname> (default),
-              <varname>interval:X</varname> (where X is an integer in minutes)
-              or <varname>never</varname>.</para>
+              <para>该元素指定更新发生的频率。Maven会比较本地POM和远程POM的时间戳。这里的选项是：always（一直），daily（默认，每日），interval：X（这里X是以分钟为单位的时间间隔），或者never（从不）。</para>
             </listitem>
           </varlistentry>
 
@@ -651,11 +540,7 @@
             <term>checksumPolicy</term>
 
             <listitem>
-              <para>When Maven deploys files to the repository, it also
-              deploys corresponding checksum files. Your options are to
-              <varname>ignore</varname>, <varname>fail</varname>, or
-              <varname>warn</varname> on missing or incorrect
-              checksums.</para>
+              <para>当Maven将构件部署到仓库中时，它也会部署对应的校验和文件。当没有校验和文件，或者该文件不正确时，你的选项有ignore（忽略），fail（失败），或者warn（警告）。</para>
             </listitem>
           </varlistentry>
 
@@ -663,35 +548,25 @@
             <term>layout</term>
 
             <listitem>
-              <para>In the above description of repositories, it was mentioned
-              that they all follow a common layout. This is mostly correct.
-              Maven 2 has a default layout for its repositories; however,
-              Maven 1.x had a different layout. Use this element to specify
-              which if it is default or legacy.</para>
+              <para>在上面的仓库描述中，我们提到了它们都遵循一个共同的布局。这基本上是正确的。Maven
+              2为其仓库提供了一个默认的布局；然而，Maven
+              1.x有一种不同的布局。我们可以使用该元素指定布局是default（默认）还是legacy（遗留）。</para>
             </listitem>
           </varlistentry>
         </variablelist></para>
     </section>
 
     <section>
-      <title>Plugin Repositories</title>
+      <title>插件仓库</title>
 
-      <para>Repositories are home to two major types of artifacts. The first
-      are artifacts that are used as dependencies of other artifacts. These
-      are the majority of plugins that reside within central. The other type
-      of artifact is plugins. Maven plugins are themselves a special type of
-      artifact. Because of this, plugin repositories are separated from other
-      repositories. The structure of the <sgmltag>pluginRepositories</sgmltag>
-      element block is similar to the <sgmltag>repositories</sgmltag> element.
-      The <sgmltag>pluginRepository</sgmltag> elements each specify a remote
-      location of where Maven can find new plugins.</para>
+      <para>仓库是两种主要构件的家。第一种构件被用作其它构件的依赖。这是中央仓库中存储大部分构件类型。另外一种构件类型是插件。Maven插件是一种特殊类型的构件。由于这个原因，插件仓库独立于其它仓库。<sgmltag>pluginRepositories</sgmltag>元素的结构和<sgmltag>repositories</sgmltag>元素的结构类似。每个<sgmltag>pluginRepository</sgmltag>元素指定一个Maven可以用来寻找新插件的远程地址。</para>
     </section>
 
     <section>
-      <title>Active Profiles</title>
+      <title>激活的Profile</title>
 
       <para><example>
-          <title>Setting active profiles in settings.xml</title>
+          <title>在settings.xml中设置激活profile</title>
 
           <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -705,17 +580,9 @@
 </programlisting>
         </example></para>
 
-      <para>The final piece of the <filename>settings.xml</filename> puzzle is
-      the <sgmltag>activeProfiles</sgmltag> element. This contains a set of
-      <sgmltag>activeProfile</sgmltag> elements, which each have a value of a
-      profile id. Any profile id defined as an
-      <sgmltag>activeProfile</sgmltag> will be active, regardless of any
-      environment settings. If no matching profile is found nothing will
-      happen. For example, if <varname>env-test</varname> is an
-      <sgmltag>activeProfile</sgmltag>, a <sgmltag>profile</sgmltag> in a
-      <filename>pom.xml</filename> (or <filename>profile.xml</filename> with a
-      corresponding id it will be active. If no such profile is found then
-      execution will continue as normal.</para>
+      <para><filename>settings.xml</filename>中最后一处令人费解的配置是<sgmltag>activeProfiles</sgmltag>元素。该元素包含了一组<sgmltag>activeProfile</sgmltag>元素，每个<sgmltag>activeProfile</sgmltag>都含有一个profile
+      id。任何在<sgmltag>activeProfile</sgmltag>中定义的profile
+      id，不论环境设置如何，其对应的profile都会被激活。如果没有匹配的profile，则什么都不会发生。例如，<varname>env-test</varname>是一个<sgmltag>activeProfile</sgmltag>，则在<filename>pom.xml</filename>（或者<filename>profile.xml</filename>）中对应id的profile会被激活。如果运行过程中找不到这样一个profile，Maven则会像往常一样运行。</para>
     </section>
   </section>
 </appendix>
