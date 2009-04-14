@@ -7,7 +7,7 @@
   <section id="appendix-settings-details">
     <title>简介</title>
 
-    <para><filename>settings.xml</filename>文件中的settings元素包含了很多子元素，它们定义的一些值被用来配置Maven的执行情况。该settings文件的设置会应用到很多个项目上，因此这里的设置不应该和任何一个特定的项目绑定，并且该设置的内容也不应该分发给它人。该文件定义的值包括本地仓库地址，替代的远程仓库仓库服务器，以及一些认证信息。<filename>settings.xml</filename>文件可位于两个地址：</para>
+    <para><filename>settings.xml</filename>文件中的settings元素包含了很多子元素，它们定义的值被用来配置Maven的执行情况。该settings文件的设置会被应用到很多个项目上，因此这里的设置不应该和任何一个特定的项目绑定，并且该设置的内容也不应该分发给它人。该文件定义的值包括本地仓库地址，候选的远程仓库仓库服务器，以及一些认证信息。<filename>settings.xml</filename>文件可位于两个地方：</para>
 
     <itemizedlist>
       <listitem>
@@ -20,10 +20,10 @@
       </listitem>
     </itemizedlist>
 
-    <para>这里是settings元素下最高一层元素的概览：</para>
+    <para>这里是settings元素下最顶层元素的概览：</para>
 
     <para><example>
-        <title>settings.xml中最高层元素的概览</title>
+        <title>settings.xml中顶层元素的概览</title>
 
         <programlisting language="xml">&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -102,7 +102,7 @@
           <term>offline</term>
 
           <listitem>
-            <para>如果构建系统需要在离线模式下运行，则为<varname>true</varname>，默认为<varname>false</varname>。当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该元素就十分有用。</para>
+            <para>如果构建系统需要在离线模式下运行，则为<varname>true</varname>，默认为<varname>false</varname>。当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该配置就十分有用。</para>
           </listitem>
         </varlistentry>
 
@@ -110,7 +110,7 @@
           <term>pluginGroups</term>
 
           <listitem>
-            <para>该元素包含一个<sgmltag>pluginGroup</sgmltag>子元素列表，每个子元素包含了一个<sgmltag>groupId</sgmltag>。当我们使用某个插件，并且没有在命令行为其提供<sgmltag>groupId</sgmltag>的时候，Maven就会使用该列表。默认情况下该列表包含了<varname>org.apache.maven.plugins</varname>。</para>
+            <para>该元素包含一个<sgmltag>pluginGroup</sgmltag>元素列表，每个子元素包含了一个<sgmltag>groupId</sgmltag>。当我们使用某个插件，并且没有在命令行为其提供<sgmltag>groupId</sgmltag>的时候，Maven就会使用该列表。默认情况下该列表包含了<varname>org.apache.maven.plugins</varname>。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -119,7 +119,7 @@
     <section>
       <title>服务器（Servers）</title>
 
-      <para><acronym>POM</acronym>中的<sgmltag>distributionManagement</sgmltag>元素定义了部署的仓库。然后，一些设置如安全证书不应该和<filename>pom.xml</filename>一起分发。这种类型的信息应该存在于构建服务器上的<filename>settings.xml</filename>文件中。</para>
+      <para><acronym>POM</acronym>中的<sgmltag>distributionManagement</sgmltag>元素定义了部署的仓库。然而，一些设置如安全证书不应该和<filename>pom.xml</filename>一起分发。这种类型的信息应该存在于构建服务器上的<filename>settings.xml</filename>文件中。</para>
 
       <para><example>
           <title>settings.xml中的Server配置</title>
@@ -163,7 +163,7 @@
           <term>username, password</term>
 
           <listitem>
-            <para>这一对元素表示服务器认证所需要的登录名和密码。</para>
+            <para>这对元素表示服务器认证所需要的登录名和密码。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -183,7 +183,7 @@
           <term>filePermissions, directoryPermissions</term>
 
           <listitem>
-            <para>如果在部署的时候一个仓库文件或者目录被创建了，这时候就可以使用权限（permission）。这两个元素合法的值是一个三位数字，其对应了*nix文件系统的权限，如664，或者775。</para>
+            <para>如果在部署的时候会创建一个仓库文件或者目录，这时候就可以使用权限（permission）。这两个元素合法的值是一个三位数字，其对应了*nix文件系统的权限，如664，或者775。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -318,7 +318,7 @@
 
       <para><filename>settings.xml</filename>中的<sgmltag>profile</sgmltag>元素是<filename>pom.xml</filename>中<sgmltag>profile</sgmltag>元素的裁剪版本。它包含了<sgmltag>activation</sgmltag>,
       <sgmltag>repositories</sgmltag>, <sgmltag>pluginRepositories</sgmltag> 和
-      <sgmltag>properties</sgmltag>元素。这里的profile元素只包含这四个子元素是因为这里只关心构建系统这个整体（这正是<filename>settings.xml</filename>文件的角色定位），而不是单独的项目对象模型设置。</para>
+      <sgmltag>properties</sgmltag>元素。这里的profile元素只包含这四个子元素是因为这里只关心构建系统这个整体（这正是<filename>settings.xml</filename>文件的角色定位），而非单独的项目对象模型设置。</para>
 
       <para>如果一个settings中的profile被激活，它的值会覆盖任何其它定义在POM中或者profile.xml中的带有相同id的profile。</para>
     </section>
@@ -372,7 +372,7 @@
           <term>jdk</term>
 
           <listitem>
-            <para>activation通过其jdk元素，提供了一个内置的，Java-核心的检查器。如果我们运行的一个jdk版本号，其匹配了所提供值的前缀，激活就会发生。在上述的例子中，1.5.0_06就能够匹配。</para>
+            <para>activation通过其jdk元素，提供了一个内置的，Java-核心的检查器。如果我们运行的一个jdk版本号，这里所配置的值能作为前缀与之匹配，激活就会发生。在上述的例子中，1.5.0_06就能够匹配。</para>
           </listitem>
         </varlistentry>
 
@@ -396,7 +396,7 @@
           <term>file</term>
 
           <listitem>
-            <para>最后，通过提供一个文件名，如果该文件的存在或不存在来激活profile。</para>
+            <para>最后，通过提供一个文件名，通过检测该文件的存在或不存在来激活profile。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -413,7 +413,7 @@
     <section>
       <title>属性（Properties）</title>
 
-      <para>Maven属性和Ant中的属性一样，是存放一些值的地方。这些值可以再POM中的任何地方使用标记${X}来使用，这里X是指属性的名称。属性有五种不同的形式，并且都能在settings.xml文件中访问。</para>
+      <para>Maven属性和Ant中的属性一样，可以用来存放一些值。这些值可以在POM中的任何地方使用标记${X}来使用，这里X是指属性的名称。属性有五种不同的形式，并且都能在settings.xml文件中访问。</para>
 
       <orderedlist>
         <listitem>
@@ -463,7 +463,7 @@
 </programlisting>
         </example></para>
 
-      <para>如果该profile激活，属性<varname>${user.install}</varname>就可以再POM中被访问。</para>
+      <para>如果该profile激活，属性<varname>${user.install}</varname>就可以在POM中被访问。</para>
     </section>
 
     <section>
@@ -548,7 +548,7 @@
             <term>layout</term>
 
             <listitem>
-              <para>在上面的仓库描述中，我们提到了它们都遵循一个共同的布局。这基本上是正确的。Maven
+              <para>在上面的仓库描述中，它们都遵循一个共同的布局。大部分情况都是这样。Maven
               2为其仓库提供了一个默认的布局；然而，Maven
               1.x有一种不同的布局。我们可以使用该元素指定布局是default（默认）还是legacy（遗留）。</para>
             </listitem>
@@ -580,7 +580,7 @@
 </programlisting>
         </example></para>
 
-      <para><filename>settings.xml</filename>中最后一处令人费解的配置是<sgmltag>activeProfiles</sgmltag>元素。该元素包含了一组<sgmltag>activeProfile</sgmltag>元素，每个<sgmltag>activeProfile</sgmltag>都含有一个profile
+      <para><filename>settings.xml</filename>中最后一需要理解的配置是<sgmltag>activeProfiles</sgmltag>元素。该元素包含了一组<sgmltag>activeProfile</sgmltag>元素，每个<sgmltag>activeProfile</sgmltag>都含有一个profile
       id。任何在<sgmltag>activeProfile</sgmltag>中定义的profile
       id，不论环境设置如何，其对应的profile都会被激活。如果没有匹配的profile，则什么都不会发生。例如，<varname>env-test</varname>是一个<sgmltag>activeProfile</sgmltag>，则在<filename>pom.xml</filename>（或者<filename>profile.xml</filename>）中对应id的profile会被激活。如果运行过程中找不到这样一个profile，Maven则会像往常一样运行。</para>
     </section>
