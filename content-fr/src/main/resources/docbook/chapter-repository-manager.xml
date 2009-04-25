@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="repository-manager">
+  <title>Repository Management with Nexus</title>
+
+  <para>This chapter is deprecated. While the original version of Maven: The
+  Definitive Guide had an entire chapter dedicated to the Nexus Repository
+  Manager, Sonatype found that the content was growing fast enough to deserve
+  its own dedicate title. We've decided to spin off the content in the
+  Repository Management chapter into a new book called <ulink
+  url="${nexus.book.baseurl}">${nexus.book.title}</ulink>. This
+  new book covers both <ulink url="http://nexus.sonatype.org">Nexus Open
+  Source</ulink> and <ulink url="http://www.sonatype.com/products/nexus">Nexus
+  Professional</ulink>, it guides you through the process of downloading and
+  installing a repository manager, and it provides a detailed survey of all of
+  the configuration options.</para>
+
+  <para><ulink url="http://books.sonatype.com/nexus-book">Click here to read
+  ${nexus.book.title}.</ulink></para>
+
+  <note>
+    <para>In the past, a book was a very static object, it was written,
+    edited, proofread, and printed. After printing there was little time to
+    reconsider the structure or content of a book. While the Internet has
+    offered an opportunity for the real-time, constantly evolving on-demand
+    book, the publishing industry has yet to come to terms with the idea of a
+    book that is "alive" - a book that can change the day after it was sent to
+    the print, and a book that can split into two and continue to grow. We
+    decided to make this break because it makes sense, if one of our chapters
+    starts to grow into a hundred-page beast, we're not just going to throw
+    more pages at an already "thick" reference book. (But then again, this
+    book isn't "thick" if you are reading it in a web browser, it is all about
+    perspective.)</para>
+
+    <para>What's true about software development is also true about writing.
+    If you start out a project with a single, monolithic project, there is
+    going to come a time when it makes good sense to refactor a package or
+    collection of classes into a separate module. That is exactly what we are
+    doing by spinning the Repository Management chapter into Repository
+    Management with Nexus. We're "refactoring" the book into two.</para>
+
+    <para>Consider this editor's note to be a deprecation warning. Eventually,
+    we're going to remove this marker chapter from the book entirely. On the
+    web it will be a <acronym>HTTP</acronym> redirect to the new book, and in
+    the <acronym>PDF</acronym> it might be a place-holder page that references
+    the Nexus book.</para>
+  </note>
+</chapter>

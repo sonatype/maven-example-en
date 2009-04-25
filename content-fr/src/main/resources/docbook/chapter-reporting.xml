@@ -1,0 +1,2733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="reporting">
+  <title>Reporting</title>
+
+  <para>EARLY DRAFT</para>
+
+  <para>This chapter follows an example project. You may wish to download the
+  <ulink
+  url="http://www.sonatype.com/book/examples/book-reporting.zip">reporting
+  examples</ulink> and follow along.</para>
+
+  <section id="reporting-sect-refresher">
+    <title>A Quick Refresher: Building and Viewing a Project Website</title>
+
+    <para>Before we get into the meat of this chapter, it's important to
+    review the steps necessary to create a simple example project, then build
+    and view its generated website. If you already know this part (we covered
+    this in the Site Generation chapter), feel free to skip ahead.</para>
+
+    <section id="reporting-sect-bootstrap">
+      <title>Bootstrap Revisited: Hello-World</title>
+
+      <para>Before we can configure project reports, we'll need a project. For
+      this, we'll turn back to the handy hello-world example used in the Site
+      Generation chapter. If you haven't read this chapter, or didn't follow
+      along by creating your own hello-world project, you can get started with
+      a quick Maven command:</para>
+
+      <screen>workdir$ mvn archetype:create -DgroupId=book.reporting -DartifactId=hello-world
+</screen>
+
+      <note>
+        <para>We're not creating the hello-world project from the
+        maven-archetype-site or maven-archetype-site-simple archetypes.
+        Although this would give us a good start at a project website, we
+        really need some source code from which to generate things like
+        unit-test reports. Maven will generate a basic website for any
+        project, so we'll use the default archetype instead.</para>
+      </note>
+    </section>
+
+    <section id="reporting-sect-build-it-view-it">
+      <title>Build it, View it</title>
+
+      <para>To generate the project website for our hello-world project,
+      simply issue the following Maven command:</para>
+
+      <screen>workdir$ cd hello-world
+hello-world$ mvn clean site:run
+</screen>
+
+      <para>Initially, the clean step won't do anything. However, cleaning a
+      project before you issue a build (or site) command is a good habit to
+      get into, to avoid unpredictable results. Once you run the command
+      above, you should be able to load the project website into your browser
+      by going to http://localhost:8080. To stop the server, you'll need to
+      press CTL-C in the console window. In the text below, when I say
+      "regenerate and refresh" this site:run command -- coupled with a refresh
+      of the browser window -- is what I'm referring to.</para>
+
+      <para>Also, note that in some cases it may not be possible to preview
+      the project website using the site:run mojo, due to a bug in its
+      implementation. This is a known problem, described in the JIRA issue
+      <ulink
+      url="http://jira.codehaus.org/browse/MSITE-220">MSITE-220</ulink>, and
+      it leaves us with little alternative but to generate the site and load
+      the HTML page straight off the filesystem. In these cases, you will need
+      to direct your browser to open the corresponding path within the
+      target/site/ sub-directory, under your hello-world project directory. I
+      will give a clear indication when this is necessary.</para>
+
+      <note>
+        <para>This bug only affects the site:run mojo, not website generation
+        in general. Rest assured that when you deploy your project's website,
+        all configured reports will be included.</para>
+      </note>
+    </section>
+  </section>
+
+  <section id="reporting-sect-intro">
+    <title>Introduction</title>
+
+    <para>As we saw in the Site Generation chapter, Maven can do much more
+    than simply build and manage your project binaries; it can also help you
+    manage your project's web presence. While it's critical to provide
+    documentation to your community in the form of how-to's, feature lists,
+    and other user-friendly formats, it's no less important to provide the
+    community with some mechanism for assessing the health of the project
+    itself. These mechanisms may include static code-analysis results,
+    statistics on tests run against the project source code (unit,
+    integration, and other types), along with any number of other reports.
+    While it is possible to provide these reports to your community manually,
+    this is an extremely time-consuming and tedious process that involves
+    manually compiling statistics from the various output created by the build
+    process, such as unit-test reports. These reports are critical for the
+    user community, but they represent an unreasonable burden on developers;
+    at least, as long as they are maintained manually.</para>
+
+    <para>Much like the build process itself, the process of creating project
+    reports cries out for automation. It is precisely this sort of automation
+    that Maven can provide.</para>
+
+    <para>A key over-arching goal of Maven is to make it easy for developers
+    to do the right thing for their project and community. To that end, Maven
+    provides a wealth of options for rendering these project-status reports
+    into XHTML during the website-generation process, thereby automating an
+    otherwise arduous and difficult process.</para>
+
+    <para>To make the best use of Maven for project reporting, you'll need to
+    understand two key configurations:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>configuration for Maven's project-info reports ( in the
+        maven-project-info-reports-plugin plugin)</para>
+      </listitem>
+
+      <listitem>
+        <para>configuration of other, additional project reports</para>
+      </listitem>
+    </orderedlist>
+
+    <para>We'll begin by exploring the configuration necessary to flesh out
+    the project-info reports that are run by default when Maven generates a
+    project website. Then, we'll discuss the basics of configuring additional
+    project reports. Finally, we'll take a look at some of the most common and
+    useful reports available at the Apache Maven and Codehaus Mojo projects,
+    among other places.</para>
+
+    <section id="reporting-sect-project-info">
+      <title>Configuring Project-Info Reports</title>
+
+      <para>By default, Maven generats a project website that contains several
+      links, all under the heading of Project Information. However, if we
+      don't add the right information to your project's POM, these pages will
+      remain basically empty. These reports are the defaults because the Maven
+      development team believes they are critical for giving relevant feedback
+      about a project, and thus sustaining a healthy community around that
+      project. So, to avoid offering false hope to users by way of these
+      links, we should make sure they're up and running. For simplicity, we'll
+      explore the project-info reports in the order that they appear in the
+      default project website.</para>
+
+      <para>Now, it's time to start customizing our example a little bit. The
+      first thing any self-respecting project website needs is a declaration
+      of the project's name and what it does, in simple terms (we'll leave the
+      details for later). When the project website doesn't supply its own,
+      custom index page, this role is filled by the About report. We'll start
+      by configuring this report, then move on to provide some other standard
+      information that every project should supply for its community.</para>
+    </section>
+
+    <section id="reporting-sect-about-hello-world">
+      <title>About (Hello-World)</title>
+
+      <para>We can configure the About report to provide the user with some
+      basic information about our hello-world project by setting the name and
+      description elements in the POM, as follows:</para>
+
+      <para><example>
+          <title></title>
+
+          <programlisting language="xml">
+&lt;project&gt;
+  ...
+  &lt;name&gt;Hello, World&lt;/name&gt;
+  ...
+  &lt;description&gt;
+    This project is a sample to help explain how project-website generation can be handled by Maven.
+  &lt;/description&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <warning>
+        <para>It seems that Maven's project-info-reports plugin currently
+        doesn't handle HTML embedded in the POM description element very
+        elegantly. In fact, putting HTML into the description haphazardly will
+        cause the build to fail, with Maven complaining that it cannot parse
+        the POM. If you take a more wily approach, and wrap the description
+        content in a CDATA section, it will simply escape the HTML, and pass
+        it on through...resulting in HTML markup that's visible on your
+        project's front page. If you find yourself in this predicament,
+        consider writing your own front page for the project, as described in
+        the Site Generation chapter.</para>
+      </warning>
+
+      <para>[figs/reporting-about.png] Regenerate and refresh the project
+      website and you will see this</para>
+
+      <para>Now that we have a simple project description composed, we can
+      direct attention to the other project reports (the project description
+      is actually part of the About report). As you scan through the other
+      project reports listed in the site navigation, it should become apparent
+      just how little project information is presented here. We'll fix that
+      next by adding some more information to the POM.</para>
+    </section>
+
+    <section id="reporting-sect-continuous-integration">
+      <title>Continuous Integration</title>
+
+      <para>Your projects are all built in a continuous integration (CI)
+      environment, so you can know immediately when someone breaks the
+      codebase...right?</para>
+
+      <para>By supplying the information for the project's CI environment, we
+      give our developers (and users) an easy way to view up-to-date CI
+      results. The key part of the POM for this is the ciManagement section.
+      At a minimum, we should supply the type of our CI system and its URL, so
+      users can find it:</para>
+
+      <para><example>
+          <title></title>
+
+          <programlisting language="xml">
+&lt;project&gt;
+  ...  
+  &lt;ciManagement&gt;
+    &lt;system&gt;hudson&lt;/system&gt;
+    &lt;url&gt;http://dev.example.com/hudson&lt;/url&gt;
+  &lt;/ciManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>This time, when you regenerate the project website and click on
+      the Continuous Integration link, you should see two key items:</para>
+
+      <para>[[1]] The project uses Hudson as its CI system.</para>
+
+      <para>[[2]] The CI system for this project can be found at
+      http://dev.example.com/hudson (and there's a link to this address on
+      the page).</para>
+
+      <para>So now, users and developers will be able to go to our project
+      website and follow a link from there to the continuous integration
+      system that has up-to-date build results for our project. But...is there
+      more we could do? For example, how does our CI server let developers
+      know of build failures? If the project gets a new developer, how would
+      this developer subscribe for CI notifications? Clearly, we need to
+      provide a little more information in the ciManagement section:</para>
+
+      <para><example>
+          <title></title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;ciManagement&gt;
+    ...
+    &lt;notifiers&gt;
+      &lt;notifier&gt;
+        &lt;type&gt;mail&lt;/type&gt;
+        &lt;configuration&gt;
+          &lt;address&gt;hello-world-notifications@dev.example.com&lt;/address&gt;
+        &lt;/configuration&gt;
+      &lt;/notifier&gt;
+    &lt;/notifiers&gt;
+  &lt;/ciManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When you regenerate and refresh, you should see the notifications
+      email address show up under the Notifiers section, giving users the
+      final piece of information necessary to track CI builds for our
+      project.</para>
+    </section>
+
+    <section id="reporting-sect-dependencies">
+      <title>Dependencies</title>
+
+      <para>Most projects have dependencies on other libraries or applications
+      that are developed externally. The Dependencies report simply gives our
+      community a view into what libraries the project depends on, and for
+      what. As you know, Maven has five dependency scopes - compile, test,
+      runtime, provided, and the strange (and hopefully, soon-to-be
+      deprecated) system. This report will calculate the complete dependency
+      set (including dependencies of our dependencies, and so on) for each of
+      these scopes, and maps out where in the dependency hierarchy each one
+      was found.</para>
+
+      <para>For our hello-world project, this report is quite simplistic,
+      containing only the single junit dependency. The JUnit jar has no
+      dependencies of its own, and JUnit itself is only a test-scope
+      dependency for our project - which means it won't be needed by users
+      declaring a dependency on our project. This means our dependency report
+      is pretty short and uninteresting. To illustrate the power of the
+      Dependencies report, let's add another dependency to the POM:</para>
+
+      <para><example>
+          <title>Configuing a Project's Dependencies</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-project&lt;/artifactId&gt;
+      &lt;version&gt;2.0.4&lt;/version&gt;
+    &lt;/dependency&gt;    
+    ...
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Regenerate the site, refresh your browser, and take another look.
+      This time, you should see a fair bit more information on the page,
+      including a new direct compile-scope dependency on maven-project at the
+      top of the page, about ten dependencies which were included transitively
+      by this new dependency under "Project Transitive Dependencies", and a
+      much larger dependency graph just below that, indicating how the
+      transitive dependencies are related to our direct dependency set. At the
+      bottom, you'll find specific information about each dependency,
+      including the project's name, description, and website URL (if one was
+      provided).</para>
+
+      <para>This information can help users track down potential conflicts
+      with their own project dependencies, not to mention giving valuable
+      information about which libraries are needed for this project to
+      function.</para>
+    </section>
+
+    <section id="reporting-sect-issue-tracking">
+      <title>Issue Tracking</title>
+
+      <para>All software has issues, ranging from functional bugs to tasks and
+      ideas for new features. Likewise, all projects should have an issue
+      tracker, so community members can file and track those work items they
+      feel need to be addressed.</para>
+
+      <para>However, it's not enough to simply have an issue-tracking system;
+      your project also needs to publicize its existence, so new community
+      members can find it more easily. Obviously, the project website is an
+      ideal place for this sort of information - which brings us to the Issue
+      Tracking report. Like the name suggests, this report simply publishes
+      the information needed to access your project's issue-tracking
+      system.</para>
+
+      <para>Returning once again to our hello-world example, we can see that
+      this project doesn't publish any information about its issue tracker. We
+      can remedy this by adding a small section to the POM, which simply lists
+      the issue-tracking system type and its web URL:</para>
+
+      <para><example>
+          <title>Listing a Project's Issue Tracking Settings</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;issueManagement&gt;
+    &lt;system&gt;bugzilla&lt;/system&gt;
+    &lt;url&gt;http://dev.example.com/issues/hello-world&lt;/url&gt;
+  &lt;/issueManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>After adding this and regenerating the site, you should see a page
+      with two links when you click on the Issue Tracking link under Project
+      Information: The first one will link to the Bugzilla project website,
+      and the other should point to our own project's issue tracker at
+      http://dev.example.com/issues/hello-world. This should give users enough
+      information to find the issue-tracking system used by our project, along
+      with more information about the system itself (courtesy of that
+      application's project website).</para>
+    </section>
+
+    <section id="reporting-sect-mailing-lists">
+      <title>Mailing Lists</title>
+
+      <para>Mailing lists are one of the most ubiquitous modes of
+      collaboration in the open source world. They provide a persistent, open
+      communication channel that fosters a high level of participation. They
+      also run on infrastructure that is well-understood and well-supported by
+      a diverse array of applications, on all platforms. As such, they form
+      the backbone of most collaborative development efforts.</para>
+
+      <para>There are five basic elements of information that a user needs to
+      know about each of your project's mailing lists (projects often have an
+      array of mailing lists, to host separate types of discussion):</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>the name of the mailing list, to help when referring to
+          it</para>
+        </listitem>
+
+        <listitem>
+          <para>the email address to use when subscribing to the list</para>
+        </listitem>
+
+        <listitem>
+          <para>the email address to use when unsubscribing from the
+          list</para>
+        </listitem>
+
+        <listitem>
+          <para>the email address to use when posting messages to the
+          list</para>
+        </listitem>
+
+        <listitem>
+          <para>at least one list-archive URL, for historical reference</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The first is obvious; having a name for each mailing list makes
+      referring to those lists in an unambiguous way simpler. The second and
+      third elements (subscribe/unsubscribe addresses) are necessary to
+      account for the variability between mailing-list management
+      applications, which all handle such requests differently. Next, users
+      will obviously need to know the address to which they should send new
+      messages bound for the list. And finally, users need the ability to
+      search a permanent, historical record of each mailing list. This will
+      help them research different aspects of the project's behavior, and
+      understand the historical context of discussions that are taking place
+      on the list at the present moment.</para>
+
+      <para>So, in order to publish a reference to this critical collaboration
+      infrastructure on our hello-world project's website, we need to
+      configure the Mailing Lists report. Assuming our project has a somewhat
+      minimal set of mailing lists that handle user, development, and
+      system-notification traffic, we can add the following section to the POM
+      to configure this report:</para>
+
+      <para><example>
+          <title>Listing a Project's Mailing Lists</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;mailingLists&gt;
+    &lt;mailingList&gt;
+      &lt;name&gt;Hello-World Users&lt;/name&gt;
+      &lt;post&gt;hello-world-users@dev.example.com&lt;/post&gt;
+      &lt;subscribe&gt;hello-world-users-subscribe@dev.example.com&lt;/subscribe&gt;
+      &lt;unsubscribe&gt;hello-world-users-unsubscribe@dev.example.com&lt;/unsubscribe&gt;
+      &lt;archive&gt;http://dev.example.com/mail-archives/hello-world/users&lt;/archive&gt;
+      &lt;otherArchives&gt;
+        &lt;otherArchive&gt;http://www.nabble.com/Hello---World---Users-f000.html&lt;/otherArchive&gt;
+      &lt;/otherArchives&gt;
+    &lt;/mailingList&gt;
+    &lt;mailingList&gt;
+      &lt;name&gt;Hello-World Developers&lt;/name&gt;
+      &lt;post&gt;hello-world-dev@dev.example.com&lt;/post&gt;
+      &lt;subscribe&gt;hello-world-dev-subscribe@dev.example.com&lt;/subscribe&gt;
+      &lt;unsubscribe&gt;hello-world-dev-unsubscribe@dev.example.com&lt;/unsubscribe&gt;
+      &lt;archive&gt;http://dev.example.com/mail-archives/hello-world/developers&lt;/archive&gt;
+      &lt;otherArchives&gt;
+        &lt;otherArchive&gt;http://www.nabble.com/Hello---World---Dev-f000.html&lt;/otherArchive&gt;
+      &lt;/otherArchives&gt;
+    &lt;/mailingList&gt;
+    &lt;mailingList&gt;
+      &lt;name&gt;Hello-World Notifications&lt;/name&gt;
+      &lt;post&gt;hello-world-notifications@dev.example.com&lt;/post&gt;
+      &lt;subscribe&gt;hello-world-notifications-subscribe@dev.example.com&lt;/subscribe&gt;
+      &lt;unsubscribe&gt;hello-world-notifications-unsubscribe@dev.example.com&lt;/unsubscribe&gt;
+    &lt;/mailingList&gt;
+  &lt;/mailingLists&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When you regenerate the site and refresh the Mailing Lists report,
+      you'll notice that all three of our mailing lists are present and
+      accounted for. You may also notice that the notifications list doesn't
+      have archives of any sort; this is by design, since notifications are
+      trantient by nature. Users hitting this page will now have all the
+      information they need to join the community in a very real and vocal
+      way.</para>
+    </section>
+
+    <section id="reporting-sect-project-licenses">
+      <title>Project License</title>
+
+      <para>Perhaps one of the most important pieces of information to be
+      published about your project is its license. This document specifies
+      whether and how others are authorized to make use of your project. In
+      the open-source world, the project license can determine whether two
+      libraries are able to be used together or not, since some open-source
+      licenses are incompatible with one another. In the commercial world, the
+      license document has legal ramifications, not only because it specifies
+      what users are allowed to do with the project, but also since it defines
+      what sort of warranty or guarantees your company is placing on this
+      project and its resulting binary.</para>
+
+      <para>Needless to say, no project website can be complete without a
+      clear indication of the project's licensing. To that end, we should
+      configure the Project License report in our own hello-world project. For
+      simplicity, let's assume this is an open-source project. Because we're
+      also sympathetic to the business users of the project, let's make use of
+      the Apache Public License (version 2.0) to define our terms:</para>
+
+      <para><example>
+          <title>Listing a Project's Software License</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;licenses&gt;
+    &lt;license&gt;
+      &lt;name&gt;The Apache Software License, Version 2.0&lt;/name&gt;
+      &lt;url&gt;http://www.apache.org/licenses/LICENSE-2.0.txt&lt;/url&gt;
+      &lt;distribution&gt;repo&lt;/distribution&gt;
+    &lt;/license&gt;
+  &lt;/licenses&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Most of the elements in the above section have obvious meaning;
+      however, the distribution element bears some explanation. This element
+      specifies what sort of distribution the stated license allows. The two
+      supported types are currently:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>repo - meaning the project binary can be distributed via a
+          Maven repository</para>
+        </listitem>
+
+        <listitem>
+          <para>manual - meaning the project binary must be downloaded
+          manually and installed before it can be used.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The manual mode is usually indicated for projects that have a
+      click-through license agreement on their website, or else simply want to
+      maintain strict control over the integrity of the binaries they publish
+      (much the way the Eclipse Foundation, with its Eclipse Public License -
+      or EPL - does).</para>
+
+      <para>Returning once more to our own project, if you regenerate the site
+      and refresh the Project Licenses report, you'll see on prominent display
+      the title of the license and its full text. This information will
+      provide the user with very clear licensing information for our
+      project.</para>
+    </section>
+
+    <section id="reporting-sect-project-summary">
+      <title>Project Summary</title>
+
+      <para>It may seem obvious, but every project should have a very clear
+      identity. This not only means having an unambiguous identity, but also
+      stating that identity clearly on the project website. An identity may
+      take the form of a simple project name, used to locate the project on a
+      site like SourceForge or Freshmeat; or, it may explain the exact
+      coordinates of that project's binary and other artifacts in a Maven
+      repository. Whatever the project's internal culture, it's important to
+      provide the simplest route to consumption for users. This means being
+      proactive and telling them where to find the project under various
+      organizational systems.</para>
+
+      <para>The Project Summary report provides this identity - along with
+      other basic information about the project and its organization - to the
+      user. Of particular interest here is the Maven repository coordinates
+      for the project, which allow users to refer to the project as a
+      dependency within their own POMs.</para>
+
+      <para>Our hello-world project already provides some of the information
+      necessary to complete this report: we have the artifact identity in the
+      Maven repository, along with the project's name and description. By
+      adding two small sections to the POM, we can give our users a complete
+      picture of who develops this project, and where to find it in the Maven
+      repository:</para>
+
+      <para><example>
+          <title>Configuring a Project's Organization</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;url&gt;http://dev.example.com/sites/hello-world&lt;/url&gt;
+  
+  &lt;organization&gt;
+    &lt;name&gt;Example Software Foundation&lt;/name&gt;
+    &lt;url&gt;http://www.example.com&lt;/url&gt;
+  &lt;/organization&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Regenerate and refresh once again, and you should now see a
+      section containing our organization's name and main website URL, along
+      with the URL pointing to the hello-world project's main page.</para>
+
+      <note>
+        <para>Usually teams developing standalone applications will want to
+        separate the main project website from the one containing these
+        project reports, which tend to be most useful to developers and
+        integrators. In these cases, the project url above (not to be confused
+        with the organization url) should probably point at the main website,
+        with this developer-specific site content hosted as a
+        subsection.</para>
+      </note>
+    </section>
+
+    <section id="reporting-sect-project-team">
+      <title>Project Team</title>
+
+      <para>The people who work so hard to make your project successful
+      deserve recognition; particularly when they take the time to contribute
+      improvements from the outside, without commit access to the code. These
+      contributors are critical to the health of a project, and they're also
+      some of the easiest people to overlook. The project's website should
+      make a special effort to recognize those who keep the lights on, and
+      keep things humming along.</para>
+
+      <para>Aside from giving credit, providing a list of developers on the
+      project website has its practical benefits. With a developer list, users
+      can identify the people in the community who are most likely to have the
+      answers to tough questions, and organizations know who to ask for tips
+      on finding commercial support the project. Perhaps more importantly,
+      these are the people you should turn to if you want to get involved in
+      the project, and need some guidance.</para>
+
+      <para>Fortunately, Maven's Project Team report can fill this need. Let's
+      flesh out this report for the hello-world project, using some imaginary
+      developers/contributors. Configuring this report is a simple process of
+      adding two new sections to the POM, like this:</para>
+
+      <para><example>
+          <title>List Contributors and Developers</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;developers&gt;
+    &lt;developer&gt;
+      &lt;id&gt;jsmith&lt;/id&gt;
+      &lt;name&gt;Joan Smith&lt;/name&gt;
+      &lt;email&gt;jsmith@example.com&lt;/email&gt;
+      &lt;url&gt;http://blogs.example.com/jsmith&lt;/url&gt;
+      &lt;organization&gt;ESF&lt;/organization&gt;
+      &lt;organizationUrl&gt;http://www.example.com&lt;/organizationUrl&gt;
+      &lt;roles&gt;
+        &lt;role&gt;Architect&lt;/role&gt;
+        &lt;role&gt;Developer&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;-5&lt;/timezone&gt;
+      &lt;properties&gt;
+        &lt;gpg-key&gt;jsmith@personal.com&lt;/gpg-key&gt;
+      &lt;/properties&gt;
+    &lt;/developer&gt;
+    &lt;developer&gt;
+      &lt;id&gt;pbunyan&lt;/id&gt;
+      &lt;name&gt;Paul Bunyan&lt;/name&gt;
+      &lt;email&gt;pbunyan@elsewhere.com&lt;/email&gt;
+      &lt;url&gt;http://www.blogs.com/paul&lt;/url&gt;
+      &lt;organization&gt;Elsewhere, Inc.&lt;/organization&gt;
+      &lt;organizationUrl&gt;http://www.elsewhere.com&lt;/organizationUrl&gt;
+      &lt;roles&gt;
+        &lt;role&gt;Developer&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;-8&lt;/timezone&gt;
+      &lt;properties&gt;
+        &lt;gpg-key&gt;pbunyan@elsewhere.com&lt;/gpg-key&gt;
+      &lt;/properties&gt;
+    &lt;/developer&gt;
+  &lt;/developers&gt;
+  
+  &lt;contributors&gt;
+    &lt;contributor&gt;
+      &lt;name&gt;George W. Newman&lt;/name&gt;
+      &lt;email&gt;gwnewman@example.com&lt;/email&gt;
+      &lt;roles&gt;
+        &lt;role&gt;Mascot&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;-5&lt;/timezone&gt;
+    &lt;/contributor&gt;
+    &lt;contributor&gt;
+      &lt;name&gt;Andrea Penn&lt;/name&gt;
+      &lt;email&gt;apenn@writers.org&lt;/email&gt;
+      &lt;url&gt;http://www.blogs.com/apenn&lt;/url&gt;
+      &lt;organization&gt;Writers Foundation&lt;/organization&gt;
+      &lt;organizationUrl&gt;http://www.writers.org&lt;/organizationUrl&gt;
+      &lt;roles&gt;
+        &lt;role&gt;Documentation&lt;/role&gt;
+      &lt;/roles&gt;
+      &lt;timezone&gt;0&lt;/timezone&gt;
+    &lt;/contributor&gt;
+  &lt;/contributors&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When you refresh, you should see that the community members who
+      are active in our project are listed in one of two sections in the
+      Project Team report, along with any identity or contact information they
+      have supplied. From looking at this page, it should be fairly clear who
+      you might want to ask about the design of our project (Ms. Smith), or
+      about a typo you found in the documentation (Ms. Penn, though she can't
+      actually commit the corrections).</para>
+    </section>
+
+    <section id="reporting-sect-source-repository">
+      <title>Source Repository</title>
+
+      <para>The final step in laying a good foundation for a project website
+      is particularly critical for open-source projects. If your project is
+      developed under an open-source license, you absolutely have to give
+      people access to your source code. This enables outsiders to review your
+      code, and suggest improvement. It also gives them an opportunity to use
+      the project's source code to aid in debugging. If your project is
+      commercial or operates under some other brand of closed-source
+      licensing, it's still a good idea to provide information for accessing
+      the project sources; in the closed-source case, it just becomes a
+      question of where you publish this project website (which is, almost by
+      definition, a developer-oriented site). Maven's Source Repository report
+      gives you the ability to provide this sort of documentation.</para>
+
+      <para>Since we've chosen an open-source license for our example
+      hello-world project, it is imperative that we document the location of
+      our project's source repository. Like all the other reports we've
+      covered here, this just involves a small addition to the POM:</para>
+
+      <para><example>
+          <title>Adding a Project's Source Repository</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;scm&gt;
+    &lt;developerConnection&gt;scm:svn:https://dev.example.com/svn/repo/hello-world/trunk&lt;/developerConnection&gt;
+    &lt;connection&gt;scm:svn:http://dev.example.com/scm/hello-world/trunk&lt;/connection&gt;
+    &lt;url&gt;http://dev.example.com/svn/viewvc/hello-world/trunk&lt;/url&gt;
+  &lt;/scm&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When you refresh this report, you should see three important
+      pieces of information:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>The type of source-control system in use, including a link to
+          instructions for using that system, if available.</para>
+        </listitem>
+
+        <listitem>
+          <para>A link to the web-enabled view on our project's SCM system
+          (linked to the URL given in the url element above).</para>
+        </listitem>
+
+        <listitem>
+          <para>Instructions for retrieving a local copy of our project's
+          source code, using the appropriate source-control client (such as
+          svn for Subversion). These instructions will include details on
+          accessing the source as both a developer with commit rights, and as
+          a user with read-only access. Additionally, they may provide
+          techniques you should use if you're behind a firewall, or using a
+          web proxy.</para>
+        </listitem>
+      </orderedlist>
+
+      <note>
+        <para>The formatting of URLs within the scm section of the POM is not
+        the same throughout. The developerConnection and connection elements
+        actually have URLs with multiple nested protocols, such as
+        scm:svn:https, while the url element is meant to be a simple http or
+        https URL. The extra protocol information is used by Maven's Source
+        Control APIs to determine what type of system our project uses. In the
+        case of this report, it also tells Maven what type of instructions to
+        generate in order to guide the user to the project source code
+        effectively. For more information on the URL format for source
+        repositories, see the URL Format page on the Maven website, at <ulink
+        url="http://maven.apache.org/scm/scm-url-format.html">http://maven.apache.org/scm/scm-url-format.html</ulink>
+        page. For more information on which SCM systems are supported by
+        Maven, see the Supported SCMs page, at <ulink
+        url="http://maven.apache.org/scm/scms-overview.html">http://maven.apache.org/scm/scms-overview.html</ulink>.</para>
+      </note>
+
+      <para>With this report configured, we've given our community a great
+      touchstone for reference information on the hello-world project. These
+      reports will enable easy participation in the hello-world community, and
+      should give users the tools they need to get involved in the project
+      more deeply. The next step is to publish the documentation specific to
+      our project, which may include installation and usage instructions,
+      design and architectural documentation, or even screenshots and other
+      introductory material.</para>
+    </section>
+
+    <section id="reporting-sect-additional-reports">
+      <title>Configuring Additional Reports</title>
+
+      <para>Looking back at the website we've created so far, it's still
+      lacking some important features. Modern project websites - particularly
+      those provided by open-source projects - absolutely must provide some
+      statistics about the project's source code. For example, an open-source
+      project won't get much attention without a decent test suite; to
+      reassure prospective users, wouldn't it be a good idea to publish the
+      test-result and coverage statistics? Also, when we're talking about Java
+      projects, how many successful open-source projects don't publish their
+      JavaDoc API documentation to their website?</para>
+
+      <para>We now know from experience that the project-info reports don't
+      provide any of this information. How, then, do we supply this
+      information to the user? As I mentioned above, Maven provides a rich set
+      of project reports that can help you publish everything from basic
+      project information -- which we've pretty well covered in the preceding
+      section -- to API documentation, test statistics, static code analysis,
+      and much more. Since the project-info reports only provide a small
+      fraction of this capability, we must configure some additional reports.
+      But before we do, it would be best to cover the basics of configuring
+      these reports.</para>
+
+      <para>Generally speaking, report configuration in Maven is done in a
+      very similar way to plugin configuration. Instead of the build/plugins
+      section of the POM, report configuration happens in the
+      reporting/plugins section. This section uses nearly the same plugin
+      syntax as the build/plugins section, except for two important
+      differences:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>Report plugins specified here do not need to be explicitly
+          bound to a report-set; if no report-set is specified, Maven will
+          iterate through all of the mojos defined in each plugin, and add
+          bindings for those that implement
+          org.apache.maven.reporting.MavenReport.</para>
+        </listitem>
+
+        <listitem>
+          <para>Instead of execution entries in an executions subsection, the
+          reporting section uses report-sets and report-set to separate
+          invocations and associated configuration from one another.</para>
+        </listitem>
+      </orderedlist>
+
+      <para>One other thing to take note of is that additional project reports
+      (i.e. non-project-info reports) will appear under a new menu called
+      Project Reports in the generated website by default.</para>
+
+      <para>Now that we have a basic idea of how to configure project reports
+      in the POM, let's explore some of the reports that are available.</para>
+
+      <note>
+        <para>A Quick Note on Additional Reports in the Project Website. When
+        configuring the reports of the maven-project-info-reports-plugin, we
+        noticed that each new report showed up in the Project Information menu
+        of our generated website. In this way, the project-info reports are
+        unique; all other reports appear under the Project Reports menu by
+        default. So, as we talk about the additional reports you can configure
+        for your projects, be sure to note the change and look for updates in
+        the right spot. And don't worry; I'll remind you!</para>
+      </note>
+    </section>
+
+    <section id="reporting-sect-other-reports">
+      <title>Other Reports Available from the Maven Project (at ASF)</title>
+
+      <para>Aside from the maven-project-info-reports-plugin, the Apache Maven
+      project maintains several additional reports that can provide
+      considerable value to a project's website. Each of these reports shares
+      some common naming elements with the project-info-reports plugin, namely
+      the following:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>GroupId: org.apache.maven.plugins</para>
+        </listitem>
+
+        <listitem>
+          <para>ArtifactId: maven-something-plugin</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Let's take a look at some of the things that these reports can
+      provide for your website.</para>
+
+      <section id="reporting-sect-surefire-report">
+        <title>maven-surefire-report-plugin</title>
+
+        <para>Your project has unit tests, right? Nevermind, I don't want to
+        know...</para>
+
+        <para>If you are running unit tests as part of your build, wouldn't it
+        be nice to publish those results to the project website, to keep all
+        of your fellow developers (and users) in the loop? Using the Surefire
+        report, visitors to your website can see how many tests are
+        succeeding, and how fast they're running.</para>
+
+        <note>
+          <para>For those of you who missed it, Surefire is the name of
+          Maven's unit-testing framework, used to execute tests written with
+          JUnit, TestNG, and other testing APIs. Correspondingly, the
+          surefire-report plugin contains the report that formats unit test
+          results for the project website.</para>
+        </note>
+
+        <para>To illustrate the usage of the Surefire report, let's put our
+        hello-world project's test results on its website. To add the Surefire
+        report, we add the plugin's identity to the reporting section of the
+        POM, like this:</para>
+
+        <para><example>
+            <title>Configuring the Surefire Report</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-surefire-report-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>When you regenerate the website, you should see the Maven
+        Surefire Report link appear under the Project Reports menu. If you
+        click on this link, you will see a page that with unit-test statistics
+        that allow you to see results by summary, package, and individual
+        class.</para>
+      </section>
+
+      <section id="reporting-sect-javadoc-plugin">
+        <title>maven-javadoc-plugin</title>
+
+        <para>Besides unit tests, all projects should have some form of
+        documentation within the code itself. In Java, this usually takes the
+        form of JavaDocs, which has the nice side effect of allowing that
+        documentation to be extracted and published to a website. But, I'm not
+        telling you anything new; you've been publishing your JavaDocs for
+        years, right?</para>
+
+        <para>To publish the JavaDocs for our hello-world project, we can
+        start by adding a reference to the javadoc plugin to our POM's
+        reporting section, as follows:</para>
+
+        <para><example>
+            <title>Confguring the Javadoc Report</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <note>
+          <para>Currently, this report does not work with the site:run mojo.
+          To view the output of this report, use the file-based previewing
+          strategy discussed at the beginning of this chapter. The file you're
+          looking for is target/site/apidocs/index.html in your hello-world
+          project directory.</para>
+        </note>
+
+        <para>Since our source code uses classes from external libraries
+        (admittedly, only java.lang.String so far in this example), we should
+        provide links to any external JavaDocs that we need. Configuring these
+        links is simple:</para>
+
+        <para><example>
+            <title>Customizing the Javadoc Report</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;links&gt;
+            &lt;link&gt;http://java.sun.com/j2se/1.5.0/docs/api&lt;/link&gt;
+          &lt;/links&gt;
+        &lt;/configuration&gt;
+        
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>This time, when we regenerate the site, we should see that the
+        java.lang.String reference in App.java is hyperlinked to the Sun JDK
+        JavaDocs.</para>
+      </section>
+
+      <section id="reporting-sect-changelog-plugin">
+        <title>maven-changelog-plugin</title>
+
+        <para>The changelog plugin reads your project's SCM, and produces
+        three different types of reports from the information it finds
+        there:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>The changelog report renders a page called Change Log which
+            lists the SCM commits that have taken place in the recent past,
+            providing the developer, a list of files changed, and the commit
+            message for each.</para>
+          </listitem>
+
+          <listitem>
+            <para>The dev-activity report renders a page called Developer
+            Activity which provides summary statistics, organized by
+            developer, which include the number of commits and number of files
+            changed on your project in the recent past. Results are listed in
+            alphabetical order.</para>
+          </listitem>
+
+          <listitem>
+            <para>The file-activity report is similar to the dev-activity
+            report, except it organizes its statistics by file name. It
+            produces a page called File Activity with statistics that show how
+            many times each file was changed in the recent past. Results are
+            listed in descending order, according to the number of
+            changes.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>To enable these reports, you have to have a few basic pieces of
+        information in your project's POM. The most important -- for obvious
+        reasons -- is the scm section. This gives the changelog reports the
+        connection information it needs to retrieve the SCM logs. If you want
+        to use the dev-activity report, you'll also need to provide a
+        developers section, since the report pulls the list of available
+        developer names from that section. If a developer is not in the
+        developers list, her recent contributions will not show up on the
+        dev-activity report. For more information on configuring these
+        sections of the POM, see the Project Team and Source Repository
+        configuration summaries, in the project-info section above.</para>
+
+        <para>Once you've configured those two sections, you'll also have to
+        add the maven-changelog-plugin to your reporting section, like
+        this:</para>
+
+        <para><example>
+            <title>Configuring the Maven Changelog Report</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-changelog-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>Regenerate and refresh, and you'll see these new reports pop up
+        under the Project Reports menu. If you've configured your scm and
+        developers sections correctly, you should notice that the dev-activity
+        report links to the Project Team report from the project-info plugin.
+        Likewise, each file mentioned in these three reports is linked back to
+        the SCM system, so you can browse its contents.</para>
+      </section>
+
+      <section id="reporting-sect-sample-configuration">
+        <title>Sample Configuration</title>
+
+        <para>If you don't have a project in SCM to play with yet, you can try
+        modifying your hello-world project with the following information, to
+        see a sample report:</para>
+
+        <para><example>
+            <title>Configuring the SCM Information for Changelog</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;developers&gt;
+    &lt;developer&gt;
+      &lt;id&gt;jdcasey&lt;/id&gt;
+      &lt;name&gt;John&lt;/name&gt;
+    &lt;/developer&gt;
+    &lt;developer&gt;
+      &lt;id&gt;jvanzyl&lt;/id&gt;
+      &lt;name&gt;Jason&lt;/name&gt;
+    &lt;/developer&gt;
+  &lt;/developers&gt;
+
+  ...
+
+  &lt;scm&gt;
+    &lt;developerConnection&gt;scm:svn:https://svn.apache.org/repos/asf/maven/components/trunk&lt;/developerConnection&gt;
+    &lt;connection&gt;scm:svn:http://svn.apache.org/repos/asf/maven/components/trunk&lt;/connection&gt;
+    &lt;url&gt;http://svn.apache.org/viewvc/maven/components/trunk&lt;/url&gt;
+  &lt;/scm&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+      </section>
+    </section>
+
+    <section id="reporting-sect-customizing-file-links">
+      <title>Customizing Your File Links</title>
+
+      <para>Sometimes, you may wish to have the file links in these reports
+      point to a web-based SCM tool, like ViewVC or Fisheye. To enable this,
+      the changelog plugin provides the following configuration point (the
+      example uses the ViewVC system at svn.apache.org, for use with the tip
+      above):</para>
+
+      <para><example>
+          <title>Customizing File Links in the Changelog Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-changelog-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;displayFileDetailUrl&gt;http://svn.apache.org/viewvc%FILE%?view=markup&lt;/displayFileDetailUrl&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Unfortunately, when you make this customization, the changelog
+      report no longer provides links to the specific revisions in each entry,
+      only the latest revision.</para>
+    </section>
+  </section>
+
+  <section id="reporting-sect-core-reporting-plugins"> 
+    <title>Core Reporting Plugins</title>
+
+    <section id="reporting-sect-changes-plugin">
+      <title>maven-changes-plugin</title>
+
+      <para>In contrast to the maven-changelog-plugin, the changes plugin
+      extracts a list of changes in the project from either its issue-tracking
+      system or an XML-formatted changelog file maintained in the project's
+      directory structure. They may seem redundant at first blush, but these
+      two reports are actually complementary, each filling in a little more
+      information about the project's current release or snapshot (depending
+      on what the published website is based on).</para>
+
+      <para>This plugin offers two different reports, depending on what method
+      you employ to track the issues you've resolved. If your project uses
+      JIRA from Atlassian, the changes plugin will include the jira-report,
+      which links to the Jira Report page. If you use a changes.xml file
+      (which could be maintained manually or generated from some other
+      issue-tracking system), then it will include the changes-report, which
+      links to the Changes Report page.</para>
+
+      <para>If your project uses JIRA, the changes-report is probably not of
+      interest to you. Instead, you can simply verify that the information in
+      your POM's issueManagement section resembles this:</para>
+
+      <para><example>
+          <title>Configuring the Maven Changes Plugin</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;issueManagement&gt;
+    &lt;system&gt;jira&lt;/system&gt;
+    &lt;url&gt;http://jira.codehaus.org/browse/MNG&lt;/url&gt;
+  &lt;/issueManagement&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Regenerate and refresh, and you'll see the Jira Report link appear
+      under the Project Reports menu. By default, this report will contain the
+      top 100 issues, sorted in order of creation date and priority -
+      regardless of whether they're open or closed.</para>
+
+      <para>If your project doesn't use JIRA, you will have to get by with
+      some level of manual maintenance of the changes report. In some cases,
+      this may mean maintaining the file (found under src/changes/changes.xml
+      by default) and keeping in SCM along with other project files. Below is
+      a sample changes.xml:</para>
+
+      <para><example>
+          <title>Maintaining Changes Manually in changes.xml</title>
+
+          <programlisting language="xml">&lt;document&gt;
+  &lt;properties&gt;
+    &lt;title&gt;Hello-World Issues&lt;/title&gt;
+    &lt;author email="pbunyan@elsewhere.com"&gt;Paul Bunyan&lt;/author&gt;
+  &lt;/properties&gt;
+  &lt;body&gt;
+    &lt;release version="1.1" date="2007-03-01" description="Version 1.1 Release Notes"&gt;
+      &lt;action dev="pbunyan" type="add"&gt;
+        Added changes.xml
+      &lt;/action&gt;
+      &lt;action dev="jsmith" type="fix" issue="01011"&gt;
+        Fix the Widget Control Panel.
+      &lt;/action&gt;
+      &lt;action dev="jsmith" type="remove" due-to="Aaron Penn" due-to-email="apenn@writers.org"&gt;
+        Fixed typos in How-To document.
+      &lt;/action&gt;
+    &lt;/release&gt;
+
+    &lt;release version="1.0" date="2007-01-01" description="Version 1.0 Release"&gt;
+      &lt;action dev="pbunyan" type="update"&gt;
+        Uploaded documentation.
+      &lt;/action&gt;
+    &lt;/release&gt;
+  &lt;/body&gt;
+&lt;/document&gt;
+</programlisting>
+        </example></para>
+
+      <para>If you include this sample report under src/changes/changes.xml,
+      then regenerate and refresh, you should see the Changes Report link
+      appear under the Project Reports menu. The resulting report will list
+      each issue in the changes document, in the order it appears. action
+      sections with the issue attribute will have that issue number linked to
+      the issue-tracking system (if you've configured the issueManagement
+      section). The due-to and due-to-email attributes of the action element
+      will be rendered as "Thanks to $due-to", with the due-to name rendered
+      as a link to the email given by $due-to-email. Finally, the dev
+      attribute of the action element is linked back to the appropriate team
+      member entry in the Project Team report, if it has been configured
+      correctly.</para>
+
+      <section id="reporting-sect-limit-jira-closed"> 
+        <title>Limit the Jira Report to Closed Items</title>
+
+        <para>If you'd like to limit the Jira Report to only display closed
+        issues (which will approximate a release notes-style of report),
+        simply include the following configuration for the changes
+        plugin:</para>
+
+        <para><example>
+            <title>Configuring JIRA Report to List Closed Items</title>
+
+            <programlisting language="xml">
+&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-changes-report&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;statusIds&gt;Closed&lt;/statusIds&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>When you regenerate and refresh, you should notice that none of
+        the items in the Jira Report have a status other than Closed.</para>
+
+        <note>
+          <para>The statusIds configuration accepts a comma-separated list of
+          statuses, so you can tailor the exact set of issue-status types to
+          include in the report.</para>
+        </note>
+      </section>
+    </section>
+
+    <section id="reporting-sect-checkstyle-plugin"> 
+      <title>maven-checkstyle-plugin</title>
+
+      <para>The Checkstyle plugin performs static code analysis, and generates
+      a report of how well it adheres with predetermined code-style policies
+      -- using <ulink
+      url="http://checkstyle.sourceforge.net">Checkstyle</ulink>, of course.
+      The single report that this plugin provides -- checkstyle -- links to
+      Checkstyle in the Project Reports menu, and provides summary statistics
+      about which rules were violated, how many times, and by which file(s).
+      At the bottom of the report, it gives the line number for each rule
+      violation. By default, it uses the Sun code-style guidelines.</para>
+
+      <para>Many teams use some form of modified code style, other than that
+      suggested by Sun. Therefore, it's important to that we can specify our
+      own policy file used to evaluate the project's source code. To
+      accommodate common cases, the plugin has four built-in policy
+      files:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>config/sun_checks.xml applies the Sun code-style
+          guidelines.</para>
+        </listitem>
+
+        <listitem>
+          <para>config/turbine_checks.xml applies those from the Turbine
+          project.</para>
+        </listitem>
+
+        <listitem>
+          <para>config/avalon_checks.xml applies the Avalon code style.</para>
+        </listitem>
+
+        <listitem>
+          <para>config/maven_checks.xml applies the style used by Maven
+          projects.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Beyond these built-ins, it's also possible to specify your own
+      custom rules, using the configLocation parameter. All policy files
+      should conform to the Checkstyle Checker module XML format
+      ({{http://checkstyle.sourceforge.net/config.html#Modules}}). To specify
+      your own file, add a configuration similar to the following:</para>
+
+      <para><example>
+          <title>Configuring the Maven Checkstyle Plugin</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;configLocation&gt;src/checkstyle/checkstyle-configuration.xml&lt;/configLocation&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>The checkstyle plugin uses three strategies to resolve the value
+        of the configLocation. They are, in order: classpath-resource, URL,
+        and file. That is, Checkstyle will look for a resource in your
+        classpath with a patch matching the configLocation. If it cannot find
+        one, it will attempt to construct a new java.net.URL instance from the
+        configLocation, open a stream, and download the configuration. Failing
+        that, it will try to find a file that matches the given path, and load
+        it from there.</para>
+      </note>
+
+      <para>The checkstyle plugin offers all the same options that would be
+      available if you were to run Checkstyle directly, with the addition of
+      some nice features for referencing configurations outside of your local
+      project directory. Here are some examples of useful features provided by
+      the checkstyle plugin:</para>
+
+      <section id="reporting-sect-review-checkstyle">
+        <title>Reviewing Your Checkstyle Configuration File</title>
+
+        <para>When the configLocation is successfully resolved, it's contents
+        will be copied to the
+        $\{project.build.directory\}/checkstyle-checker.xml file (usually,
+        $\{project.build.directory\} == $\{basedir\}/target). This gives you
+        the opportunity to review the actual policies against which the source
+        code has been evaluated, which can be handy when the configuration
+        comes from a URL or a resource embedded in a dependency jar.</para>
+      </section>
+
+      <section id="reporting-sect-view-license-header"> 
+        <title>Verify Your Source Code License Header</title>
+
+        <para>One very useful feature of Checkstyle is that it allows you to
+        verify that each source file has the correct license header. License
+        headers are usually block comments (or blocks of single-line comments)
+        that appear at the top of each source file, to give a clear indication
+        of the license terms applied to that file. They are very common among
+        open-source projects (usually, they're mandatory) but they could also
+        be quite useful in proprietary code.</para>
+
+        <para>To verify that all of your project's source files have the
+        appropriate license header, paste that header into its own file. For
+        the purposes of this example, we'll copy the following into
+        src/checkstyle/checkstyle-header.txt:</para>
+
+        <screen>^package 
+^\s*$
+^/\*\s*$
+^ \*\s* Copyright 2007, Example Software Foundation$
+^\s*$
+^ \*\s+ This is the project license. See http://dev.example.com/LICENSE.txt for more information.$
+^ \*/\s*$
+^\s*$
+</screen>
+
+        <para>You'll notice that the header used by Maven consists of a series
+        of regular expressions. This is the format used by the RegexpHeader
+        module; it gives us the flexibility to adapt to minor whitespace
+        deviations introduced by code formatters and other tools, without
+        sacrificing the content of the license header.</para>
+
+        <para>Next, we must configure the configLocation parameter to refer to
+        the Maven code rules. To accommodate for a hard-coded license header
+        that made it out in the latest release of the checkstyle plugin, we
+        can't use the config/maven_checks.xml built-in rules. Instead, we can
+        reference the updated configuration in SVN as follows. For
+        convenience, we're also going to tell the checkstyle plugin which
+        header file to use for the license check:</para>
+
+        <para><example>
+            <title>Configuring Checkstyle License Header Check</title>
+
+            <programlisting language="xml">&lt;configuration&gt;
+  &lt;configLocation&gt;http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven_checks.xml&lt;/configLocation&gt;
+  &lt;headerLocation&gt;src/checkstyle/checkstyle-header.txt&lt;/headerLocation&gt;
+&lt;/configuration&gt;
+</programlisting>
+          </example></para>
+
+        <para>If we regenerate and refresh, then click on the Checkstyle link
+        under Project Reports, we should see that the App.java file has a
+        non-compliant license header. We can fix that by adding the following
+        comment to src/main/java/book/reporting/App.java:</para>
+
+        <screen>package book.reporting;
+
+/*
+ * This is the project license. See LICENSE.txt for more information.
+ */
+...
+</screen>
+
+        <para>This time when we regenerate, we'll see that the previous
+        Checkstyle error has gone away.</para>
+      </section>
+    </section>
+
+    <section id="reporting-sect-jxr-plugin"> 
+      <title>maven-jxr-plugin</title>
+
+      <para>JXR is a source-code cross-referencing API maintained by the Maven
+      project. The JXR plugin renders your project's source code to XHTML,
+      with links for each line number to allow direct referencing of your
+      source code, and links from source file to source file, wherever a
+      cross-reference exists. In addition, if you've configured your POM to
+      include JavaDoc API documentation, each browsable source file rendered
+      by JXR will contain a link the corresponding JavaDoc page.</para>
+
+      <para>When you add the JXR plugin to your POM, it will create up to two
+      new links under the Project Reports menu. One, called Source Xref,
+      contains the cross-referenced pages for your main project sources. This
+      link will always be included by JXR. The other link is called Test
+      Source Xref, and contains a similar set of cross-reference pages for the
+      unit-test source code for your project. Whether the Test Source Xref
+      pages are produced or not is up to you; they are provided by default,
+      but you can exclude them by disabling a single boolean parameter in the
+      plugin's configuration.</para>
+
+      <para>As you might guess, the JXR plugin is extremely simple to use; to
+      illustrate just how easy, let's try an example with the hello-world
+      project. Begin by adding the JXR plugin to the reporting section, like
+      this:</para>
+
+      <para><example>
+          <title>Configuring the JXR Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jxr-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>Like the javadoc plugin, the jxr plugin is not compatible with
+        the current version of the site:run mojo. Therefore, to preview these
+        reports, you'll have to use the alternate command discussed at the
+        beginning of the chapter:</para>
+      </note>
+
+      <screen>hello-world$ mvn clean site
+</screen>
+
+      <para>Then, load the rendered website from the target/site directory
+      structure within your hello-world project directory.</para>
+
+      <para>When you regenerate and preview this time, you should see both the
+      Source Xref and Test Source Xref links under the Project Reports menu.
+      If you look at these new reports, you'll quickly notice that the sample
+      code -- one class and one test case -- are far too simplistic to show
+      any sort of cross-referencing. You should notice that each line in the
+      reference page has a unique anchor, allowing you to reference any line
+      directly from an external page. Also, the link to the corresponding
+      JavaDoc page at the top of the the App reference page (JavaDocs are not
+      normally produced for unit tests, so you may not see a corresponding
+      link in the AppTest page).</para>
+
+      <para>But let's turn our attention back to the cross-referencing
+      feature. We can make two relatively easy changes to make cross-reference
+      links show up. To create a cross-reference in the main project source,
+      let's create a second class called Configuration for our application,
+      and allow each App instance to accept a Configuration instance via a
+      setConfiguration method. First, the new class:</para>
+
+      <screen>package book.reporting;
+
+public class Configuration
+{
+    ...
+}
+</screen>
+
+      <para>Now, the change to the App class:</para>
+
+      <screen>...
+
+public class App
+{
+    ...
+    private Configuration configuration;
+    
+    public void setConfiguration( Configuration configuration )
+    {
+        this.configuration = configuration;
+    }
+}
+</screen>
+
+      <para>This time, when we regenerate (remember, you cannot use the
+      site:run mojo!) and preview, you'll notice that the cross-reference
+      pages are a little more interesting. Specifically, the source listing
+      for the App class now contains a link to the Configuration class.
+      Alright, it's not a lot more interesting, but this is just a simple
+      example!</para>
+
+      <warning>
+        <para>One thing the JXR plugin will not currently handle is
+        cross-references that exist between unit-test code and main-project
+        code. While this is clearly an oversight in this plugin's
+        implementation, browsing from test code to main code is not generally
+        considered the strongest use case for this plugin. Far more useful is
+        the ability to browse and link to a project's source code, without
+        getting into the arcane paths and strange interfaces of many SCM web
+        front-ends.</para>
+      </warning>
+    </section>
+
+    <section id="reporting-sect-clover-plugin">
+      <title>maven-clover-plugin</title>
+
+      <para><ulink url="http://www.cenqua.com/clover">Clover</ulink> is a tool
+      from <ulink url="http://www.cenqua.com">Cenqua</ulink> which analyzes
+      code coverage. For those who somehow don't know, code coverage is a form
+      of analysis that measures how much of your project's source code is
+      actually tested by a suite of tests. In most cases, code coverage refers
+      to a measurement of how well your unit tests exercise the main-project
+      source code. For each line in each of your main-project source files,
+      Clover will give you a number that corresponds to how many separate unit
+      tests traversed that line of code. While traversal of a particular line
+      doesn't necessarily mean that code is adequately tested, it's quite
+      obvious what a count of zero means.</para>
+
+      <para>Maven's Clover plugin binds the Clover tool into your build
+      process, and allows it to do one of several things. First, it can fail a
+      conventional build (that is, one aimed at producing a project binary by
+      compiling, archiving, etc.) if the average code-coverage percentage is
+      too low. This has obvious quality-control attraction. However, this
+      chapter is really more concerned with the second possible action:
+      reporting those code-coverage statistics to the world, through the
+      Clover report (under the Project Reports menu...I'm sure you see a
+      pattern here) that this plugin can generate.</para>
+
+      <para>Before you can get started with the Clover plugin, you should know
+      that Clover is not free software; you must obtain a valid license file
+      if you want to generate this report. The good news is that Cenqua offers
+      free, 30-day trial licenses on their website (again, that's
+      {{http://www.cenqua.com}}). Once you've downloaded your evaluation
+      license, we can proceed with an example.</para>
+
+      <para>First of all, the clover report requires a Clover database for the
+      project, which can be generated with the instrument mojo. The instrument
+      mojo is not a report, so it has to be configured in the build section of
+      the POM:</para>
+
+      <para><example>
+          <title>Configuring Clover to Instrument Byte Code</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-clover-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;licenseLocation&gt;clover.license&lt;/licenseLocation&gt;
+        &lt;/configuration&gt;
+        
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;mk-clover-db&lt;/id&gt;
+            &lt;phase&gt;pre-site&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;instrument&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>We bind the instrument mojo to the pre-site lifecycle phase,
+        which is present in the site lifecycle (the one that gets executed
+        whenever you issue the command mvn site). This allows Clover to run
+        automatically as part of the site build. Also, remember that you had
+        to download that evaluation license; its location is configured above
+        for Clover to use. This single configuration will make the license
+        file available to both the instrument and clover mojos (reports are
+        mojos, too, in the strictest sense).</para>
+      </note>
+
+      <para>Next, since we want to include the Clover report in our project's
+      website, we must also include an entry in the reporting section for
+      Clover:</para>
+
+      <para><example>
+          <title>Confguring the Clover Plugin</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-clover-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>Again, just like the JavaDoc plugin, the clover report is not
+        compatible with the site:run mojo. To preview this report, use the
+        alternate method discussed at the beginning of the chapter. This
+        involves issuing the following command:</para>
+      </note>
+
+      <screen>hello-world$ mvn clean site
+</screen>
+
+      <para>Then, load the generated website from the target/site directory
+      structure within your hello-world project directory.</para>
+
+      <para>When you regenerate and preview, you should see the Clover report
+      link present under Project Reports. When you click on the Clover report,
+      you'll notice that the App class has 50% code coverage (owing to the
+      methods we added in this and the AppTest test case in the
+      maven-jxr-plugin section above). Again, the important thing to take away
+      from this report is not the idea that the setApplicationName method is
+      adequately tested; rather, the value of this coverage report is to show
+      that the setConfiguration method is not tested.</para>
+
+      <section id="reporting-sect-generate-pdf-clover">
+        <title>Generate PDF and XML Output from Your Clover Results</title>
+
+        <para>A nice, XHTML code-coverage report that's embedded directly in
+        the project website is really convenient for many users. However,
+        there are times when you may want to include PDF or even XML versions
+        of the same report. PDFs are nice because they can be downloaded for
+        offline perusal, and XML is great as a source for further machine
+        processing of the data produced by Clover.</para>
+
+        <para>To render our Clover report in PDF, XML, and XHTML
+        simulatneously, all we have to do is add a small configuration snippet
+        to the clover plugin:</para>
+
+        <para><example>
+            <title>Configuing the Clover Report to Generate PDF and
+            XML</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-clover-plugin&lt;/artifactId&gt;
+        
+        &lt;configuation&gt;
+          &lt;generateXml&gt;true&lt;/generateXml&gt;
+          &lt;generatePdf&gt;true&lt;/generatePdf&gt;
+          &lt;!-- generateHtml is an option, but it's already true by default. --&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <para>Now, regenerate and refresh. Since we're working off the
+        filesystem for previewing purposes, it's possible to go to the
+        target/site/clover directory without having a webserver redirect you
+        to target/site/clover/index.html. You can take advantage of this fact
+        to view the regenerated clover output directory. Since we've enabled
+        PDF and XML output, in addition to XHTML, we can now see two new files
+        in the target/site/clover directory: clover.pdf and clover.xml. To
+        expose these alternative report formats to users, simply provide links
+        in your website content or navigation menu.</para>
+      </section>
+    </section>
+
+    <section id="reporting-sect-pmd-plugin">
+      <title>maven-pmd-plugin</title>
+
+      <para>Similar to Checkstyle (discussed above), <ulink
+      url="http://pmd.sourceforge.net">PMD</ulink> is another tool that
+      performs static analysis on your source code. However, where Checkstyle
+      looks for violations in the accepted code-style guidelines, PMD is more
+      concerned with finding potential problems in the code that could
+      eventually express themselves as bugs in the running product. In
+      addition, the PMD plugin also provides a cut-and-paste detector (CPD) to
+      detect duplicate code that could cause inconsistencies in your project
+      (as one copy is modified but the other is not).</para>
+
+      <para>By default, the PMD plugin generates two reports, called PMD
+      Report and CPD Report, under the Project Reports menu. To include these
+      reports, simply add the following to your reporting section:</para>
+
+      <para><example>
+          <title>Configuring the PMD Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>After inserting the above lines into the hello-world project POM,
+      regenerate and refresh the project website (note that site:run works
+      fine here). If you click on the PMD Report link, you'll see that we
+      already have one violation (from the code we wrote for the JXR plugin,
+      above). Basically, PMD is saying that it's bad practice to assign and
+      store an instance variable that is never used. If you didn't follow the
+      example given in the JXR plugin section above, then you probably won't
+      see any errors at all.</para>
+
+      <para>To force the issue, and make sure we have some content for this
+      report, let's modify the App code to contain a couple of violations of
+      basic PMD rules:</para>
+
+      <screen>...
+
+public class App
+{
+    private String applicationName;
+    
+    public String getApplicationName()
+    {
+        if ( applicationName == null )
+        {
+            // empty if statement, to trigger a PMD reporting flag!
+        }
+        
+        return applicationName;
+    }
+    
+    public void setApplicationName( String applicationName )
+        throws Exception
+    {
+        this.applicationName = applicationName;
+    }
+    ...
+}
+</screen>
+
+      <para>The Basic PMD rule-set doesn't allow empty if statements. Sure
+      enough, when we regenerate the website and refresh the PMD Report, we
+      can see a new error message, indicating that the code we just added
+      contains an empty if statement. It's also important to notice that if
+      you still have the JXR report in the POM from the examples earlier, the
+      PMD plugin will notice this and link each problem listing directly to
+      the corresponding line in the source reference. Remember, though, that
+      the JXR report doesn't work with the site:run goal, so you'll have to
+      use the filesystem-style preview to actually follow these links.</para>
+
+      <para>Before we dig into the PMD Report any further, let's turn our
+      attention to the CPD Report. As I mentioned earlier, this page lists
+      cases of possible cut-and-paste programming; areas where the code is the
+      same, but where modification of one (and not the other) could create
+      inconsistent behavior in the running binary. Cut-and-paste practices
+      cause a enough of a maintenance headache that it pays to take steps
+      early to try to minimize the endless (and, in some cases, mindless)
+      duplication they embody.</para>
+
+      <para>If you click on the CPD Report generated against the hello-world
+      code, you'll see that there are no detected cut-and-paste problems. To
+      make things interesting, let's re-create the App class
+      (src/main/java/book/reporting/App.java) under a different package --
+      say, book/reporting/services. As the report implies, you can trigger an
+      error by simply copying the App.java file to the
+      src/main/java/book/reporting/services directory (though for correctness,
+      I also change the package in the new file):</para>
+
+      <screen>package book.reporting.services;
+...
+public class App 
+{
+    ...
+}
+</screen>
+
+      <para>Now, we have to make one more important modification to the POM.
+      Since the CPD report's default configuration is to let any duplications
+      under 100 lines in length slip through, we need to dial this down so our
+      little example shows up:</para>
+
+      <para><example>
+          <title>Customizing Behavior of the PMD Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;!-- CPD configuration, for small examples. --&gt;
+          &lt;minimumTokens&gt;10&lt;/minimumTokens&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Regenerate the website and refresh again, and this time you should
+      see the full text of the duplicated code for the two App classes, along
+      with JXR links for each (remember, though: JXR doesn't work with
+      site:run).</para>
+
+      <section id="reporting-sect-pmd-rule-sets">
+        <title>Customizing Your PMD Rule-Sets</title>
+
+        <para>By default, the PMD Report checks your source code the Basic,
+        Imports, and Unused Code rule-sets. However, at times you may want to
+        change this; you may want to use a different mix of built-in
+        rule-sets, or maybe you want to include a custom rule-set that you
+        created. The PMD plugin supports this, of course, through the rulesets
+        configuration parameter. To illustrate, let's take advantage of a new
+        problem we introduced earlier in our discussion of this plugin:</para>
+
+        <screen>public void setApplicationName( String applicationName )
+    throws Exception
+</screen>
+
+        <para>Remember that one? If you winced at the sight of that throws
+        Exception clause, you were right to do so. Any lower-level exceptions
+        -- even derivatives of RuntimeException, which are normally unchecked
+        -- will be channeled through this clause. Even worse, anyone calling
+        this method will have to catch java.lang.Exception, then try to make
+        sense of the myriad errors it could indicate. PMD has a rule to guard
+        against this sort of coding mistake, so let's enable it:</para>
+
+        <para><example>
+            <title>Configuring Custom Rule-sets for the PMD Report</title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          ...
+          &lt;!-- we've already customized this plugin a little for CPD --&gt;
+          
+          &lt;rulesets&gt;
+            &lt;!-- include all of the default rule-sets: --&gt;
+            &lt;ruleset&gt;/rulesets/basic.xml&lt;/ruleset&gt;
+            &lt;ruleset&gt;/rulesets/imports.xml&lt;/ruleset&gt;
+            &lt;ruleset&gt;/rulesets/unusedcode.xml&lt;/ruleset&gt;
+            
+            &lt;!-- add the rule-set for exception-handling practices --&gt;
+            &lt;ruleset&gt;/rulesets/strictexception.xml&lt;/ruleset&gt;
+          &lt;/rulesets&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <note>
+          <para>We must respecify the default rule-sets here, since PMD cannot
+          assume that we still want those when we specify our own
+          rule-sets.</para>
+        </note>
+
+        <para>When you regenerate and refresh the PMD Report, you should see a
+        new error listed, referring to the throws Exception clause above. It's
+        important to know that the PMD plugin can accept classpath resources
+        (like those in the configuration above), URLs, or filesystem paths for
+        ruleset configurations.</para>
+      </section>
+    </section>
+  </section>
+
+  <section id="reporting-sect-additional-codehaus">
+    <title>Additional Reports Available from the Codehaus Mojo Project</title>
+
+    <para>While the reports provided by the Apache Maven project contains many
+    valuable additions to the project website, they don't constitute the full
+    complement of what's available. Most notably, since Apache projects cannot
+    host code that depends on libraries with licenses that are incompatible
+    with the Apache Public License (APL), the reports hosted under the Apache
+    Maven umbrella cannot contain reporting or metric-gathering tools that
+    have certain licenses (GPL and EPL, to name just a couple). For this
+    reason, Maven has a sister project called Mojo, hosted at Codehaus, that
+    provides a home for these reports.</para>
+
+    <para>Just like those hosted in the Apache Maven project, each of the
+    reports hosted at the Codehaus Mojo project shares some certain naming
+    elements, namely the following:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>GroupId: org.codehaus.mojo</para>
+      </listitem>
+
+      <listitem>
+        <para>ArtifactId: something-maven-plugin</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Let's take a look at some of the things that the Mojo reports can
+    provide for your website.</para>
+
+    <section id="reporting-sect-clirr-plugin">
+      <title>clirr-maven-plugin</title>
+
+      <para><ulink url="http://clirr.sourceforge.net">Clirr</ulink> is a nice
+      little utility to check for binary and source compatibility between two
+      releases of the same project. This sort of check is critical to help
+      ensure backward compatibility between minor-version releases of a
+      project. To bind this into the build process, Maven provides two mojos
+      in the clirr-maven-plugin: the check mojo is used to cause the build to
+      fail when a compatibility violation occurs, and the clirr mojo is a
+      report that displays the project's compatibility with previous
+      releases.</para>
+
+      <para>Since we're primarily concerned with the project website, the
+      clirr report is of particular interest here. It generates a link called
+      Clirr under the Project Reports menu (where else?). However, before we
+      can investigate how to include this report for our hello-world sample
+      project, we need a previous release to check against.</para>
+
+      <para>Creating the example environment for this report turns out to be a
+      slightly more involved process. First, we must deploy a version of the
+      hello-world project to a dummy remote Maven repository, so we'll have
+      something to check against. We can do this by adding a
+      distributionManagement section to the POM, pointing at our dummy
+      repository, and adjusting the POM version so it does't look like a
+      SNAPSHOT:</para>
+
+      <para><example>
+          <title>Project Object Model Before Version Upgrade</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;version&gt;1.0&lt;/version&gt;
+  ...
+  &lt;distributionManagement&gt;
+    &lt;repository&gt;
+      &lt;id&gt;dummy&lt;/id&gt;
+      &lt;url&gt;file://\${java.io.tmpdir}/book-repository&lt;/url&gt;
+    &lt;/repository&gt;
+  &lt;/distributionManagement&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Having created our new "release" POM, we can deploy it to the new
+      dummy repository:</para>
+
+      <screen>mvn clean deploy
+</screen>
+
+      <para>Next, we have to add a new repository entry to the hello-world POM
+      that points to this dummy repository, so the Clirr plugin can locate the
+      previous "release", and update the version to the next SNAPSHOT (as if
+      we were ready to develop on that new version):</para>
+
+      <para><example>
+          <title>Updating the Project's Version number for Clirr</title>
+
+          <programlisting langauge="xml">&lt;project&gt;
+  ...
+  &lt;version&gt;1.1-SNAPSHOT&lt;/version&gt;
+  ...
+  &lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;id&gt;dummy&lt;/id&gt;
+      &lt;url&gt;file://\${java.io.tmpdir}/book-repository&lt;/url&gt;
+    &lt;/repository&gt;
+  &lt;/repositories&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Finally, once all of this is setup, we can generate the clirr
+      report by adding a simple entry to the reporting section:</para>
+
+      <para><example>
+          <title>Configuring the Clirr Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;clirr-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>The Clirr plugin does not seem to be compatible with the
+        site:run mojo, so you'll need to use the filesystem-based approach to
+        previewing this report. For more information, see the instructions
+        near the beginning of this chapter.</para>
+      </note>
+
+      <para>Now, regenerate and refresh the project website, and you should
+      see the Clirr report link appear. If you click on it, you'll notice that
+      there are no differences between the two versions! (I know, I was
+      surprised too.)</para>
+
+      <para>So, we have a working Clirr report; now, let's make it
+      interesting. Modify the src/main/java/book/reporting/App.java file as
+      follows.</para>
+
+      <para>Change this:</para>
+
+      <screen>
+    public String getApplicationName()
+    {
+        if ( configuration == null )
+        {
+              // empty if statement, to trigger a PMD reporting flag!
+        }
+
+        return applicationName;
+    }
+    
+    public void setApplicationName( String applicationName )
+        throws Exception
+    {
+        this.applicationName = applicationName;
+    }
+</screen>
+
+      <para>To this:</para>
+
+      <screen>
+    public String getName()
+    {
+        if ( configuration == null )
+        {
+            // empty if statement, to trigger a PMD reporting flag!
+        }
+        
+        return applicationName;
+    }
+    
+    public void setName( String applicationName )
+        throws Exception
+    {
+        this.applicationName = applicationName;
+    }
+</screen>
+
+      <para>This time, when you refresh, you should see two errors pop up on
+      the report. Just like many of the other reports we've discussed, if you
+      use the JXR plugin in concert with this one, each error will be linked
+      back to the line of source code that caused it.</para>
+
+      <section id="reporting-sect-show-only-errors">
+        <title>Show Only Errors, Not Warnings</title>
+
+        <para>So, you don't care about those pesky compatibility warnings? You
+        just want them gone from your beautiful report?? Well, say no more. A
+        small tweak to the Clirr report configuration, and you're good to
+        go:</para>
+
+        <para><example>
+            <title></title>
+
+            <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;clirr-maven-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;minSeverity&gt;error&lt;/minSeverity&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+          </example></para>
+
+        <note>
+          <para>The minSeverity parameter accepts the values: info, warning,
+          and error. The default value is warning.</para>
+        </note>
+      </section>
+    </section>
+
+    <section id="reporting-sect-maven-plugin">
+      <title>cobertura-maven-plugin</title>
+
+      <para>Similar to Clover (discussed above), <ulink
+      url="http://cobertura.sourceforge.net">Cobertura</ulink> is a
+      code-coverage tool. Unlike Clover, Cobertura is released under an
+      open-source license (GPL), so you don't have to worry about evaluation
+      licenses or an eventual software purchase in order to use Cobertura.
+      Both tools generate statistics on the number of unit (or other) tests
+      that trigger any particular line of code in your project's sources;
+      however, Cobertura also throws in some metrics analyzing your code's
+      complexity.</para>
+
+      <para>Like the Clover plugin, the Maven cobertura-maven-plugin provides
+      several mojos. Many of these are concerned with managing the statistics
+      database used by Cobertura, and with instrumenting the project's classes
+      for statistics-gathering. In addition, the check mojo gives you the
+      ability to fail the build if your project's code coverage isn't up to
+      snuff. However, the mojo we're really after for this chapter is the lone
+      report, called simply cobertura. This report generates a page linked
+      under Cobertura Test Coverage in the now-familiar Project Reports menu.
+      To add this report to our sample project, simply add the following to
+      the hello-world POM:</para>
+
+      <para><example>
+          <title>Configuring the Cobetura Plugin</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugins&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;cobertura-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>The Cobertura plugin is incompatible with the site:run mojo, so
+        be sure to use the filesystem-based approach to previewing your
+        project website (discussed near the beginning of the chapter) when
+        working with these examples.</para>
+      </note>
+
+      <para>When you regenerate the site, and click on the Cobertura Test
+      Coverage link, you'll see a report very similar to the Clover report.
+      However, notice the extra column on the right, called Complexity. This
+      refers to the McCabe cyclomatic code complexity metric for the package
+      or class in question, which measures the number of distinct "paths" that
+      can traverse that piece of code (to find more information on cyclomatic
+      complexity, see the Resources section at the end of this
+      chapter).</para>
+
+      <para>While the check mojo offers many options for fine-tuning the
+      criteria that a project must pass before the build can succeed, the
+      cobertura report offers relatively few. Simple options for generating
+      XML in addition to XHTML, for suppressing informational-level messages,
+      and for adjusting the maximum memory for testing runs are among the most
+      notable. It is worth mentioning that the instrument mojo (which is used
+      by the cobertura report) also supports several options for including or
+      excluding certain packages and file-sets. However, for most common use
+      cases this report just works -- cleanly and simply -- without much
+      intervention or configuration.</para>
+    </section>
+
+    <section id="reporting-sect-findbugs-plugin">
+      <title>findbugs-maven-plugin</title>
+
+      <para>Much like the PMD plugin (described above), the <ulink
+      url="http://findbugs.sourceforge.net">FindBugs</ulink> report produces a
+      list of potential problem errors in your project's source code using
+      static analysis techniques. The FindBugs plugin will create a page
+      linked to FindBugs Report under Project Reports. To enable this report
+      for out hello-world project, add the plugin to the POM as
+      follows:</para>
+
+      <para><example>
+          <title>Configuring the FindBugs Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;findbugs-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Regenerate and refresh your project website (site:run is fine
+      here), and you'll see the report link appear. When you click on the
+      link, you'll see a short list of potential problems that FindBugs
+      noticed in our source code. Specifically, you'll notice the empty if
+      statement listed as a Bug.</para>
+
+      <para>The FindBugs plugin supports a few configuration options that look
+      interesting, specifically effort and threshold. The effort parameter
+      allows you to tell FindBugs how much memory and time to spend in pinning
+      down more subtle bugs. Valid values for this parameter are Min, Default,
+      and Max -- can you guess which one it uses by default? The threshold
+      parameter tells FindBugs what priority of messages you want to see in
+      the output, and supports the values Low, Medium, High, and Exp
+      (experimental). Unfortunately, even the configuration for highest output
+      did not reveal our ugly little throws Exception clause.</para>
+    </section>
+
+    <section id="reporting-sect-javancss-plugin">
+      <title>javancss-maven-plugin</title>
+
+      <para>The <ulink
+      url="http://www.kclee.de/clemens/java/javancss">JavaNCSS</ulink> plugin
+      compiles some simple statistics about your project's source code,
+      including non-comment source statements (NCSS), number of methods,
+      number of classes, and number of javadocs. At the per-method level, it
+      also computes cyclomatic complexity statistics. The idea of this report
+      is to give you some insight into the distribution of code throughout the
+      project, along with the proportion of code that contains formal
+      documentation (JavaDocs), so that you can tell identify any hot-spots
+      (those in dire need of documentation of refactoring).</para>
+
+      <para>The report it linked to the Project Reports menu (where else?) as
+      JavaNCSS Report, and you can enable it by adding the following to the
+      hello-world POM:</para>
+
+      <para><example>
+          <title>Including the JavaNCSS Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;javancss-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>When you regenerate and refresh (site:run is fine here), you'll
+      find that this report gives a nice code summary of our (very small)
+      hello-world project. If any of the table-column headings are confusing,
+      just click on the explanation link at the top of each section.</para>
+    </section>
+
+    <section id="reporting-sect-jdepend-plugin">
+      <title>jdepend-maven-plugin</title>
+
+      <para><ulink
+      url="http://clarkware.com/software/JDepend.html">JDepend</ulink> is a
+      tool that produces design-quality metrics for your project. These
+      metrics can help isolate potential architectural "smells" in your code,
+      such as classes with cyclic dependencies, and give an indication of how
+      well the project rates in terms of reusability, extensibility,
+      maintainability, and other -abilities. Like the JavaNCSS plugin, the
+      JDepend plugin for Maven produces a report that can isolate any
+      hot-spots in your code which may need refactoring. This report links to
+      the Project Reports menu as simply JDepend, and can be included in your
+      project's website with the following snippet:</para>
+
+      <para><example>
+          <title>Including the JDepend Report</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;jdepend-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>If you regenerate and refresh (using site:run works fine here),
+      then click on JDepend, you'll see the various metrics for the project,
+      collected in an overall summary and by package. Toward the bottom, the
+      report will list any package cycles (package 'a' has a class 'A' that
+      uses class 'B' in package 'b', which uses another class from package
+      'a') that it detects.</para>
+
+      <para>JDepend is a very simple report; in fact, the only configuration
+      options have to do with controlling which directories to use for output,
+      classes, and your project (it's not entirely clear what this one does,
+      but it's probably used for relative-path calculations when the classes
+      directory is not specified).</para>
+
+      <para>Some of the metrics and explanations provided on this report can
+      be pretty dense, and a little abstract. For a more in-depth explanation
+      of how best to use this data, I encourage you to visit the JDepend
+      website.</para>
+    </section>
+
+    <section id="reporting-sect-taglist-plugin">
+      <title>taglist-maven-plugin</title>
+
+      <para>Have you ever stopped to think about all those TODO or FIXME tags
+      that are lost in your source code? Those tags are created for a purpose,
+      as reminders to fix something later, after the current task at hand is
+      completed. Many IDEs provide a view that collects these tasks from the
+      source code, to make them easier to track down and fix. The point is,
+      these tags represent known shortcomings of the existing source code. As
+      such, they should be monitored closely, and available to anyone who
+      wants to know the health of the project. If the reports section of a
+      project website is all about assessing health, then knowing the
+      locations of these known warts is a critical element in that
+      section.</para>
+
+      <para>Fortunately, the taglist-maven-plugin provides exactly this sort
+      of report for your project website. The taglist plugin is one of the
+      gems in the Codehaus Mojo project, fitting well with other reports that
+      produce critical quality metrics, such as the Surefire (unit test)
+      report and the Cobertura report. The taglist report lists all
+      occurrences of a set of tags (think @todo or //TODO) in your project
+      source code, and lists them on a single page, with links back to the
+      browsable source code rendered by JXR (if you've included JXR, that is).
+      When generated, it normally appears as Tag List in the Project Reports
+      menu.</para>
+
+      <para>When configuring the taglist report, it's important to remember
+      that by default, the report will only track @todo and TODO tags. This
+      means it will miss FIXME -- a commonly used marker for critical
+      shortcomings in the code -- completely. So, when we add the taglist
+      report to the hello-world project, we'll go ahead and configure the tags
+      at the same time:</para>
+
+      <para><example>
+          <title>Configuring the Taglist Plugin</title>
+
+          <programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;taglist-maven-plugin&lt;/artifactId&gt;
+        
+        &lt;configuration&gt;
+          &lt;tags&gt;
+            &lt;!-- Add the definitions for FIXME javadoc and code comments... --&gt;
+            &lt;tag&gt;@fixme&lt;/tag&gt;
+            &lt;tag&gt;FIXME&lt;/tag&gt;
+            &lt;tag&gt;@todo&lt;/tag&gt;
+            &lt;tag&gt;TODO&lt;/tag&gt;
+          &lt;/tags&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+  ...
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <para>Now, regenerate and refresh the project (again, site:run is
+      perfectly fine here). When you click on the Tag List report, you should
+      see sections for each of the tags, and notice that no tags were
+      found.</para>
+
+      <para>Let's see if we can make this report a little more interesting.
+      We'll start by adding some comments for future improvement to our App
+      class:</para>
+
+      <screen>/**
+ * Hello world!
+ *
+ * @todo Provide JavaDocs for the methods in this class!
+ */
+public class App 
+{
+    ...
+    // TODO: How can we initialize this when the application starts??
+    private String applicationName;
+    
+    // FIXME: Re-add getApplicationName() for backward compatibility
+    public String getName()
+    {
+        // FIXME: This is a NullPointerException waiting to happen...
+        if ( configuration.toString() == null )
+        ...
+    
+    // FIXME: Re-add setApplicationName() for backward compatibility
+    public void setName( String applicationName )
+        throws Exception
+        ...
+    }
+}
+</screen>
+
+      <para>Now, if you simply refresh the report in your browser, you'll see
+      that there are several tag occurrences listed, each with a link back to
+      the JXR source page. This provides the user with an easy way to browse
+      the locations where there are known issues that have yet to be
+      resolved.</para>
+
+      <para>The taglist report is deceptively simple, yet powerful. There are
+      very few configuration options for this report; it simply scans through
+      your source code, picking up on the lines that contain one of the tags
+      listed. However, aggregating this sort of information into a single-page
+      report on the project website can make it very easy to track down the
+      areas of the project where the source code is less mature, and could
+      fail.</para>
+    </section>
+  </section>
+
+  <section id="reporting-sect-killer-report">
+    <title>Assembling a Killer Report Suite for Your Project</title>
+
+    <para>As we've mentioned several times in this chapter, certain reports
+    provide critical metrics for assessing the health of your project.
+    Therefore, by publishing the right kinds of reports, your project's
+    website can become an indispensible tool for guiding the priorities and
+    tasks of the development team. Likewise, it can help users make a decision
+    about whether the project is a good fit for their environments, rather
+    than risking a wrong guess.</para>
+
+    <para>However, you'll also notice that many of the reports we discussed
+    overlap in functionality, or else provide total functional duplication.
+    Obviously, providing all of these reports can actually muddy the waters,
+    making it harder to make good decisions about the project. So, what
+    reports should we use to assemble a killer report suite?</para>
+
+    <para>The key is to get the right mix of metrics and other project
+    information. In doing this, there is no absolute right answer as to which
+    particular reports you should use; otherwise, it really wouldn't make
+    sense to cover alternative reports that provide such similar
+    functionality. Your project's environment may determine some of the
+    answers (for instance, does your company have a Cenqua site license that
+    would make Clover a natural choice?), and your preferences for data
+    presentation may also provide some guidance. Whatever choices you make,
+    you should try to include a complete snapshot of the metrics and other
+    information that can help people make informed decisions. Some important
+    metrics include:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>test coverage and status (successes vs. failures)</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>NCSS and other basic measurements of class size</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>metrics of class/package design quality</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>browsable source</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>API documentation</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>changelog for the project</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>backward compatibility information</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>potential problem areas in the source code</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Also, to give your users and developers convenient access to
+    critical project infrastructure, you should also consider publishing the
+    following project information:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>mailing list addresses</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>issue tracker URL</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>continuous integration URL</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>development team listing</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>contributor listing</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>project dependencies</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>source repository (especially if it's an open-source
+        project)</para>
+      </listitem>
+
+      <listitem>
+        <para>project license (again, especially if it's an open-source
+        project)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>While there's not much point in having reports that overlap one
+    another, it is important to include as much of these report types as you
+    can. Publishing a comprehensive project website that includes the right
+    mix of reports will give your user and developer communities a common
+    rallying point, which helps to focus and enrich these communities.</para>
+  </section>
+
+  <section id="reporting-sect-tips-tricks">
+    <title>Tips and Tricks</title>
+
+    <section id="reporting-sect-control-loc">
+      <title>Control the Locations of Report Links in the Site Menu</title>
+
+      <para>If you want to change the location of the Project Reports menu in
+      your website navigation, you can refer to the entire menu with the
+      following:</para>
+
+      <screen>&lt;menu ref="reports"/&gt;
+</screen>
+
+      <para>Simply add this line to your site descriptor, in the desired
+      position. When you regenerate the website, you should see the Project
+      Reports menu move accordingly.</para>
+
+      <para>If, on the other hand, you want to remove the Project Reports menu
+      altogether, and move the reports it contains into other menus, you'll
+      have to reference each report separately, according to their page
+      location on the site. For example, if you wanted to move your project's
+      JavaDocs into the Developers menu, you might have a menu entry like
+      this:</para>
+
+      <para><example>
+          <title>Moving Reports Links in Site Menu</title>
+
+          <programlisting language="xml">&lt;project name="Hello World"&gt;
+  ...
+  &lt;body&gt;
+    ...
+    &lt;menu name="Developers"&gt;
+      ...
+      &lt;item name="JavaDocs" href="/apidocs/index.html"/&gt;
+    &lt;/menu&gt;
+    ...
+  &lt;/body&gt;
+&lt;/project&gt;
+</programlisting>
+        </example></para>
+
+      <note>
+        <para>If you're not sure what href to use, generate the website with
+        the Project Reports menu in place, and take notice of the link href
+        generated for the report in question.</para>
+      </note>
+    </section>
+  </section>
+
+  <section id="reporting-sect-summary">
+    <title>Summary</title>
+
+    <para>Project websites serve as a focal point for all activity surrounding
+    a project. They house documentation, providing links to other project
+    infrastructure, attract new community members, and help the project team
+    to organize their plans. In open-source projects -- and increasingly, in
+    the field of commercial software development as well -- this focal point
+    is particularly important, since the development team can be widely
+    dispersed in terms of both geography and time (time-zone differences can
+    be much more difficult to overcome than geographical ones).</para>
+
+    <para>In this chapter, we've talked about many different reports that
+    Maven offers for the project website, in addition to discussing the ways
+    that Maven reports are configured. We've discussed how reporting can offer
+    a valuable counter-balance to the documentation commonly found on project
+    websites, and deliver the information your users need to make decisions
+    about integrating your project into their own environments. In addition,
+    we've talked about how the right reports can help developers identify
+    targets for improving existing project code, and plan for future
+    development.</para>
+
+    <para>This chapter is meant to provide the second half of the
+    project-website story; for the first part, which shows you how to publish
+    project documentation and configure the website using Maven, see the Site
+    Generation chapter.</para>
+  </section>
+</chapter>

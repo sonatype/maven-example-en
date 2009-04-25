@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<appendix id="appendix-plugin-api">
+  <title>Appendix: Plugin APIs</title>
+  <para></para>
+
+<section id="appendix-plugin-api-sect-plugin">
+  <title>Plugin APIs</title>
+
+<screen>
+ Log
+    public abstract boolean isDebugEnabled();
+    public abstract boolean isInfoEnabled();
+    public abstract boolean isWarnEnabled();
+    public abstract boolean isErrorEnabled();
+    public abstract void debug(CharSequence charsequence);
+    public abstract void debug(CharSequence charsequence, Throwable throwable);
+    public abstract void debug(Throwable throwable);
+    public abstract void info(CharSequence charsequence);
+    public abstract void info(CharSequence charsequence, Throwable throwable);
+    public abstract void info(Throwable throwable);
+    public abstract void warn(CharSequence charsequence);
+    public abstract void warn(CharSequence charsequence, Throwable throwable);
+    public abstract void warn(Throwable throwable);
+    public abstract void error(CharSequence charsequence);
+    public abstract void error(CharSequence charsequence, Throwable throwable);
+    public abstract void error(Throwable throwable);
+</screen>
+
+<screen>
+  Mojo
+    public abstract void execute() throws MojoExecutionException, MojoFailureException;
+	public abstract Log getLog();
+</screen>
+
+<screen>
+  AbstractMojo
+    public Log getLog();
+    public Map getPluginContext();
+</screen>
+
+<screen>
+ MojoExecutionException
+</screen>
+
+<screen>
+ MojoFailureException
+</screen>
+
+</section>
+
+</appendix>

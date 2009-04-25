@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+${feedTool.sortByPublishedDate( $feed.entries )}
+${feedTool.reverse( $feed.entries )}
+${feedTool.limit( $feed.entries, 6 )}
+<include><![CDATA[
+<div id="blogs">
+  <h1>Recent Maven Blogs</h1>
+#foreach( $entry in $feed.entries )
+  <div class="blogpost"> 
+    <h2><a href="${entry.link}">${entry.title}</a></h2>
+    <h3>$!{date.format('M/d/y', $entry.publishedDate)} - $!{entry.getAuthors().get(0).name}</h3>
+    <p>$!{feedTool.abbreviate( $entry.description.value, 250 )}</p>
+  </div>  
+#end
+</div>]]></include>

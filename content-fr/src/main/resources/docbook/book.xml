@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book id="book-hibernate3devNotebook">
+  <title>Maven: The Definitive Guide</title>
+
+  <bookinfo>
+    <isbn>9780596517335</isbn>
+
+    <edition>First</edition>
+
+<!--    <authorgroup>
+      <author>
+        <firstname>Jason</firstname>
+
+        <surname>Van Zyl</surname>
+
+        <authorblurb role="web">
+          <para><ulink
+          url="http://www.oreillynet.com/cs/catalog/view/au/993?x-t=book.view"></ulink></para>
+        </authorblurb>
+      </author>
+    </authorgroup> -->
+
+    <publisher>
+      <publishername>O’Reilly</publishername>
+    </publisher>
+
+    <abstract role="description-short">
+      <para>Maven: The Definitive Guide is a book about Apache Maven.</para>
+    </abstract>
+
+    <bibliomisc role="errata"><ulink
+    url="http://www.oreilly.com/catalog/9780596517335/errata/"></ulink></bibliomisc>
+
+    <bibliomisc role="reviews-published"><ulink
+    url="http://www.oreilly.com/catalog/9780596517335/reviews.html"></ulink></bibliomisc>
+
+    <bibliomisc role="reviews-reader"><ulink
+    url="http://www.oreilly.com/cgi-bin/reviews?bookident=9780596517335"></ulink></bibliomisc>
+
+    <bibliomisc role="catalog-page"><ulink
+    url="http://www.oreilly.com/catalog/9780596517335/"></ulink></bibliomisc>
+
+    <bibliomisc role="buyprint"><ulink
+    url="https://epoch.oreilly.com/shop/cart.asp?prod=0-596-00696-9"></ulink></bibliomisc>
+
+    <bibliomisc role="academic"><ulink
+    url="http://academic.oreilly.com"></ulink></bibliomisc>
+
+    <!--  offlinecontentlist to be filled in by sfmetafetch  -->
+  </bookinfo>
+
+  <xi:include href="chapter-copyright.xml" 
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <xi:include href="chapter-preface1.xml" 
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <xi:include href="chapter-introduction.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <xi:include href="chapter-installation.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <part id="part-example">
+    <title>Maven by Example</title>
+
+    <partintro>
+      <para>Technologies are best introduced using a narrative form—by
+      example. This is the idea behind O'Reilly popular Developer's Notebook
+      series. The chapters in this section are designed to guide you through
+      the development of a series of sample applications from ideation to
+      deployment.</para>
+
+      <!--TODO: I'm convinced we need a few paragraphs, but I'm not focusing on this at the moment.-->
+    </partintro>
+
+    <xi:include href="chapter-simple-project.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-customization.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-web.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-multimodule.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-multimodule-spring-web.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-optimizing.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </part>
+
+  <part id="part-reference">
+    <title>Maven Reference</title>
+
+    <partintro>
+      <para>Maven needs more than a series of helpful guided introductions.
+      This section provides comprehensive reference material.</para>
+
+      <!--TODO: Again, I'm convinced this whole part approach probably needs more explanation, but I'm not focusing on it right now.
+
+-->
+    </partintro>
+
+    <xi:include href="chapter-pom-relationships.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-lifecycle.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-profiles.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-site-generation.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-site-generation-advanced.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-reporting.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-repository-manager.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-writing-plugins.xml" 
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-writing-plugins-alternative.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="chapter-flex-dev.xml"
+		xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  </part>
+
+<!--    <xi:include href="appendix-pom-details.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <xi:include href="appendix-settings-details.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <xi:include href="appendix-plugin-api.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />  -->
+
+  <xi:include href="appendix-enterprise.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+
+</book>
