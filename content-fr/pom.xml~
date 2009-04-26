@@ -6,9 +6,9 @@
 	<artifactId>book</artifactId>
 	<version>0.3-SNAPSHOT</version>
   </parent>
-  <artifactId>content-en</artifactId>
+  <artifactId>content-fr</artifactId>
   <packaging>jar</packaging>
-  <name>Maven: The Definitive Guide</name>
+  <name>Maven: The Definitive Guide (French Translation)</name>
   <description>A book about Apache Maven 2.x</description>
   <organization>
     <name>Sonatype, Inc.</name>
@@ -18,7 +18,7 @@
   
   <properties>
     <book.title>Maven: The Definitive Guide</book.title>
-    <book.subtitle>A Comprehensive Guide to Apache Maven</book.subtitle>
+    <book.subtitle>A Comprehensive Guide to Apache Maven (French Translation)</book.subtitle>
     <organization.address>800 W. El Camino Real, Suite 400, Mountain View, CA, 94040</organization.address>
     <organization.slogan>Sonatype: The Maven Company</organization.slogan>
     <organization.logo>http://cms.sonatype.com/sites/all/themes/sonatype/images/sonatype_logo.gif</organization.logo>
@@ -71,8 +71,8 @@
         <version>2.0.7</version>
 	    <dependencies>
 	      <dependency>
-	        <groupId>org.docbook</groupId>
-	        <artifactId>docbook-xml</artifactId>
+	        <groupId>docbook</groupId>
+	        <artifactId>docbook</artifactId>
 	        <version>4.5</version>
 	        <scope>system</scope>
 	        <systemPath>${basedir}/lib/docbook-4.5.jar</systemPath>
@@ -90,7 +90,7 @@
               <imgSrcPath>${basedir}/target/classes/docbook/</imgSrcPath>
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
               <postProcess>
-                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_fr.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
                 </copy>
               </postProcess>
@@ -109,25 +109,10 @@
               <useIdAsFilename>1</useIdAsFilename>
               <htmlCustomization>${basedir}/target/classes/xsl/html_chunk.xsl</htmlCustomization>
               <postProcess>
-                <copy todir="${project.build.directory}/site/reference">
+                <copy todir="${project.build.directory}/site/reference_fr">
                   <fileset dir="${project.build.directory}/docbkx/html"/>
                 </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="${basedir}/src/site/resources"/>
-                </copy>
-                <copy todir="${project.build.directory}/site/images">
-                  <fileset dir="${basedir}/target/classes/images"/>
-                </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="../examples/target">
-                    <include name="*.tar.gz"/>
-                    <include name="*.zip"/>
-                  </fileset>
-                </copy>
-                <copy todir="${project.build.directory}/site">
-                  <fileset dir="src/site/resources"/>
-                </copy>
-                <copy todir="${project.build.directory}/site/reference/figs/web">
+                <copy todir="${project.build.directory}/site/reference_fr/figs/web">
                   <fileset dir="target/classes/docbook/figs/web"/>
                 </copy>
               </postProcess>
