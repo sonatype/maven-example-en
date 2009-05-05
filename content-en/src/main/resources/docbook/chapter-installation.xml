@@ -28,9 +28,10 @@
     Java 5 or Java 6 will work with all of the examples in this book.</para>
 
     <para><screen><prompt moreinfo="none">% </prompt><command moreinfo="none">java -version</command>
-java version "1.6.0_02"
-Java(TM) SE Runtime Environment (build 1.6.0_02-b06)
-Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></para>
+java version "1.5.0_16"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_16-b06-284)
+Java HotSpot(TM) Client VM (build 1.5.0_16-133, mixed mode, sharing)
+</screen></para>
 
     <para>Maven works with all certified Java<superscript>TM</superscript>
     compatible development kits, and a few non-certified implementations of
@@ -55,10 +56,10 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
 
     <para>When downloading Maven, make sure you choose the latest version of
     Apache Maven from the Maven website. The latest version of Maven when this
-    book was written was Maven ${maven.version}. If you are not familiar with the Apache
-    Software License, you should familiarize yourself with the terms of the
-    license before you start using the product. More information on the Apache
-    Software License can be found in <xref
+    book was written was Maven ${maven.version}. If you are not familiar with
+    the Apache Software License, you should familiarize yourself with the
+    terms of the license before you start using the product. More information
+    on the Apache Software License can be found in <xref
     linkend="installation-sect-license" />.</para>
   </section>
 
@@ -91,10 +92,10 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
       current release of Maven in a format that is convenient for you to work
       with. Pick an appropriate place for it to live, and expand the archive
       there. If you expanded the archive into the directory
-      <filename>/usr/local/apache-maven-${maven.version}</filename>, you may want to
-      create a symbolic link to make it easier to work with and to avoid the
-      need to change any environment configuration when you upgrade to a newer
-      version:</para>
+      <filename>/usr/local/apache-maven-${maven.version}</filename>, you may
+      want to create a symbolic link to make it easier to work with and to
+      avoid the need to change any environment configuration when you upgrade
+      to a newer version:</para>
 
       <screen>/usr/local % <command moreinfo="none">cd /usr/local
 </command>/usr/local % <command moreinfo="none">ln -s apache-maven-${maven.version} maven
@@ -123,8 +124,8 @@ Java HotSpot(TM) Client VM (build 1.6.0_02-b06, mixed mode, sharing)</screen></p
         of XCode. If you have installed XCode, run <command>mvn</command> from
         the command-line to check availability. XCode installs Maven in
         <filename>/usr/share/maven</filename>. We recommend installing the
-        most recent version of Maven ${maven.version} as there have been a number of
-        critical bug fixes and improvements since Maven 2.0.6 was
+        most recent version of Maven ${maven.version} as there have been a
+        number of critical bug fixes and improvements since Maven 2.0.6 was
         released.</para>
       </note>
 
@@ -180,10 +181,10 @@ Password: ******
       Mac <acronym>OSX</acronym>, the main differences being the installation
       location and the setting of an environment variable. This book assumes a
       Maven installation directory of <filename>c:\Program
-      Files\apache-maven-${maven.version}</filename>, but it won't make a difference if
-      you install Maven in another directory as long as you configure the
-      proper environment variables. Once you've unpacked Maven to the
-      installation directory, you will need to set two environment
+      Files\apache-maven-${maven.version}</filename>, but it won't make a
+      difference if you install Maven in another directory as long as you
+      configure the proper environment variables. Once you've unpacked Maven
+      to the installation directory, you will need to set two environment
       variables—<envar>PATH</envar> and <envar>M2_HOME</envar>. To set these
       environment variables from the command-line, type in the following
       commands:</para>
@@ -224,7 +225,11 @@ C:\Users\tobrien &gt; <command>set PATH=%PATH%;%M2_HOME%\bin</command></screen>
     output.</para>
 
     <screen>$ <command>mvn -v</command>
-Maven ${maven.version}</screen>
+Apache Maven 2.1.0 (r755702; 2009-03-18 14:10:27-0500)
+Java version: 1.5.0_16
+Java home: /System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: "mac os x" version: "10.5.6" arch: "i386" Family: "unix"</screen>
 
     <para>If you see this output, you know that Maven is available and ready
     to be used. If you do not see this output, and your operating system
@@ -293,8 +298,8 @@ lib/</screen>
         <primary>m2 directory, contents of</primary>
       </indexterm> <filename>~/.m2</filename>. <filename>lib/</filename>
     contains a single JAR file
-    (<filename>maven-core-${maven.version}-uber.jar</filename>) that contains the core of
-    Maven.</para>
+    (<filename>maven-core-${maven.version}-uber.jar</filename>) that contains
+    the core of Maven.</para>
 
     <note>
       <para>Unless you are working in a shared Unix environment, you should
@@ -362,8 +367,9 @@ lib/</screen>
       to upgrade to newer versions of Maven when they become available. Simply
       install the newer version of Maven
       (<filename>/usr/local/maven-2.future</filename>) next to the existing
-      version of Maven (<filename>/usr/local/maven-${maven.version}</filename>). Then
-      switch the symbolic link <filename>/usr/local/maven</filename> from
+      version of Maven
+      (<filename>/usr/local/maven-${maven.version}</filename>). Then switch
+      the symbolic link <filename>/usr/local/maven</filename> from
       <filename>/usr/local/maven-${maven.version}</filename> to
       <filename>/usr/local/maven-2.future</filename>. Since, you've already
       set your <varname>M2_HOME</varname> variable to point to
