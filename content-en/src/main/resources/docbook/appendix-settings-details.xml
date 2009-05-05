@@ -602,8 +602,8 @@
 </programlisting>
         </example></para>
 
-      <para>The property <varname>\${user.install}</varname> is accessible from
-      a <acronym>POM</acronym> if this profile is active.</para>
+      <para>The property <varname>\${user.install}</varname> is accessible
+      from a <acronym>POM</acronym> if this profile is active.</para>
     </section>
 
     <section id="appendix-settings-sect-settings-repository">
@@ -800,6 +800,151 @@
       <filename>pom.xml</filename> (or <filename>profile.xml</filename> with a
       corresponding id it will be active. If no such profile is found then
       execution will continue as normal.</para>
+    </section>
+
+    <section id="appendix-settings-sect-encrypting-passwords">
+      <title>Encrypting Passwords in Maven Settings</title>
+
+      <para>Once you start to use Maven to deploy software to remote
+      repositories and to interact with source control systems directly, you
+      will start to collect a number of passwords in your Maven Settings and
+      without a mechanism for encrypting these passwords, a developer's
+      <filename>~/.m2/settings.xml</filename> will quickly become a security
+      risk as it will contain plain-text passwords to source control and
+      repository managers. Maven 2.1 introduced a facility to encrypt
+      passwords in a user's Maven Settings
+      (<filename>~/.m2/settings.xml</filename>). To do this, you must first
+      create a master password and store this master password in a
+      <filename>security-settings.xml</filename> file in
+      <filename>~/.m2/settings-security.xml</filename>. You can then use this
+      master password to encrypt passwords stored in Maven Settings
+      (<filename>~/.m2/settings.xml</filename>).</para>
+
+      <para>To illustrate this feature, consider the process Maven uses to
+      retrieve an unencrypted server password for a user's Maven Settings as
+      shown in <xref linkend="fig-settings-unencrypted" />. A user will
+      reference a named server using an identifier in a project's POM, Maven
+      looks for a matching server in Maven Settings. When it finds a matching
+      server element in Maven Settings, Maven will then use the password
+      associated with that server element and send this password along to the
+      server. The password is stored as plain-text in
+      <filename>~/.m2/settings.xml</filename> and it is readily available to
+      anyone who has read access to this file.</para>
+
+      <figure id="fig-settings-unencrypted">
+        <title>Storing Unencrypted Passwords in Maven Settings</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/settings_password-no-encryption.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Next, consider the process Maven 2.1.0 uses to support encrypted
+      passwords as shown in <xref linkend="fig-settings-encrypted" />. </para>
+
+      <figure id="fig-settings-encrypted">
+        <title>Storing Encrypted Passwords in Maven Settings</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/settings_password-encryption.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>To configure encrypted passwords, create a master password by
+      running <command>mvn -emp</command> or <command>mvn
+      --encrypt-master-password</command> followed by your master
+      password.</para>
+
+      <screen>$ <command>mvn -emp mypassword</command>
+{rsB56BJcqoEHZqEZ0R1VR4TIspmODx1Ln8/PVvsgaGw=}</screen>
+
+      <para>Maven prints out an encrypted copy of the password to standard
+      out. Copy this encrypted password and paste it into a
+      <filename>~/.m2/settings-security.xml</filename> file as shown in</para>
+
+      <example id="ex-settings-master-password">
+        <title>settings-security.xml with Master Password</title>
+
+        <programlisting>&lt;settingsSecurity&gt;
+  &lt;master&gt;{rsB56BJcqoEHZqEZ0R1VR4TIspmODx1Ln8/PVvsgaGw=}&lt;/master&gt;
+&lt;/settingsSecurity&gt;
+</programlisting>
+      </example>
+
+      <para>After you have created a master password, you can then encrypt
+      passwords for use in your Maven Settings. To encrypt a password with the
+      master password, run <command>mvn -ep</command> or <command>mvn
+      --encrypt-password</command>. Assume that you have a repository manager
+      and you need to send a username of "deployment" and a password of
+      "qualityFIRST". To encrypt this particular password, you would run the
+      following command:</para>
+
+      <screen>$ <command>mvn -ep qualityFIRST</command>
+{uMrbEOEf/VQHnc0W2X49Qab75j9LSTwiM3mg2LCrOzI=}</screen>
+
+      <para>At this point, copy the encrypted password printed from the output
+      of <command>mvn -ep</command> and paste it into your Maven
+      Settings.</para>
+
+      <example>
+        <title>Storing an Encrypted Password in Maven Settings
+        (~/.m2/settings.xml)</title>
+
+        <programlisting>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;username&gt;deployment&lt;/username&gt;
+      &lt;password&gt;{uMrbEOEf/VQHnc0W2X49Qab75j9LSTwiM3mg2LCrOzI=}&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+  ...
+&lt;/settings&gt;</programlisting>
+      </example>
+
+      <para>When you run a Maven build that needs to interact with the
+      repository manager, Maven will retrieve the Master password from the
+      <filename>~/.m2/settings-security.xml</filename> file and use this
+      master password to decrypt the password stored in your
+      <filename>~/.m2/settings.xml</filename> file. Maven will then send the
+      decrypted password to the server. </para>
+
+      <para>What does this buy you? It allows you to avoid storing your
+      passwords in <filename>~/.m2/settings.xml</filename> as plain-text
+      passwords providing you with the peace of mind that your critical
+      passwords are not being stored, unprotected in a Maven Settings file.
+      Note that this feature does not provide for encryption of the password
+      while it is being sent to the remote server. An enterprising attacker
+      could still capture the password using a network analysis tool.</para>
+
+      <para>For an extra level of security, you can encourage your developers
+      to store the encrypted master password on a removable storage device
+      like a USB hard drive. Using this method, a developer would plug a
+      removable drive into a workstation when she wanted to perform a
+      deployment or interact with a remote server. To support this, your
+      <filename>~/.m2/settings-security.xml</filename> file would contain a
+      reference to the location of the
+      <filename>settings-security.xml</filename> file using the relocation
+      element.</para>
+
+      <example>
+        <title>Configuring Relocation of the Master Password</title>
+
+        <programlisting>&lt;settingsSecurity&gt;
+  &lt;relocation&gt;/Volumes/usb-key/settings-security.xml&lt;/relocation&gt;
+&lt;/settingsSecurity&gt;
+</programlisting>
+      </example>
+
+      <para>The developer would then store the
+      <filename>settings-security.xml</filename> file at
+      <filename>/Volumes/usb-key/settings-security.xml</filename> which would
+      only be available if the developer were sitting at the
+      workstation.</para>
     </section>
   </section>
 </appendix>

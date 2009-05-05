@@ -31,14 +31,6 @@
   need it for yourself, you should go to Amazon, purchase a copy and give it
   to a friend who hasn't discovered Maven.</para>
 
-  <para>Q. What's new in this version?</para>
-
-  <para>Well, in this version, we separated the Nexus chapter into a
-  stand-alone book. If you go to the Repository Management chapter, you'll see
-  that it is a place-holder page and a link to a new, full book on Sonatype
-  Nexus entitled <ulink url="${nexus.book.baseurl}">Repository Management with
-  Nexus</ulink>.</para>
-
   <para>We've had some great feedback so far, please keep it coming. Your
   feedback is greatly appreciated, send it to <ulink
   url="mailto:book@sonatype.com">book@sonatype.com</ulink>. To keep yourself
@@ -51,9 +43,33 @@
 
   <para>Evanston, IL</para>
 
-  <para>January 16, 2008</para>
+  <para>May 5, 2009</para>
 
   <para>PS: Did I mention that you really should <ulink
   url="http://www.amazon.com/Maven-Definitive-Guide-Sonatype-Company/dp/0596517335/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223866448&amp;sr=8-1">purchase
   a copy of this book</ulink>?</para>
+
+  <section id="foreword-sect-revisions">
+    <title>Revision History</title>
+
+    <para>Many readers have been asking us to keep track of specific changes
+    to the book content, the following sections list changes made to the book
+    in reverse chronological order starting with ${project.version}.</para>
+
+    <section id="foreword-sect-rev-0_8">
+      <title>Changes in Edition 0.4</title>
+
+      <para>The following changes were introduced in Edition 0.4:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-51">MVNDEF-51</ulink>
+          - Added a section about encrypting passwords in Maven Settings to
+          the Settings Appendix - <xref
+          linkend="appendix-settings-sect-encrypting-passwords" /></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
 </preface>
