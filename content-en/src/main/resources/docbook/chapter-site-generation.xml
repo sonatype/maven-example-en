@@ -160,8 +160,8 @@ $ <command>mvn site:run</command>
     <filename>\${basedir}/src/site/resources/images</filename>. In addition to
     the change to the site descriptor, you'll want to create a simple
     <filename>index.apt</filename> page in
-    <filename>\${basedir}/src/site/apt</filename>. Put the following content in
-    <filename>index.apt</filename>, it will be transformed to the
+    <filename>\${basedir}/src/site/apt</filename>. Put the following content
+    in <filename>index.apt</filename>, it will be transformed to the
     <filename>index.html</filename> and serve as the first page a user sees
     when they come to your project's Maven-generated web site.</para>
 
@@ -713,8 +713,7 @@ Welcome to Sample Project
       introduction is beyond the scope of this book, for more information
       about Velocity and a full introduction please go to the Velocity project
       site at <ulink
-      url="http://velocity.apache.org">http://velocity.apache.org</ulink>.
-      </para>
+      url="http://velocity.apache.org">http://velocity.apache.org</ulink>.</para>
 
       <para>The <filename>default-site.xml</filename> template is fairly
       involved, but the change required to customize the left-hand menu is
@@ -975,14 +974,14 @@ $ <command>cp -rf \
     <section id="site-generation-sect-reusable-skin">
       <title>Reusable Website Skins</title>
 
-      <para>If your organization is created many Maven project sites, you will
-      likely want to reuse site template and <acronym>CSS</acronym>
+      <para>If your organization is creating many Maven project sites, you
+      will likely want to reuse site template and <acronym>CSS</acronym>
       customizations throughout an organization. If you want thirty projects
       to share the same <acronym>CSS</acronym> and site template, you can use
       Maven's support for skinning. Maven Site skins allow you to package up
       resources and templates which can be reused by other projects in lieu of
       duplicating your site template for each project which needs to be
-      customized. </para>
+      customized.</para>
 
       <para>While you can define your own skin, you may want to consider using
       one of Maven's alternate skins. You can choose from several skins. These
@@ -1008,8 +1007,7 @@ $ <command>cp -rf \
 
       <para>You can find an up-to-date and comprehensive listing in the Maven
       repository: <ulink
-      url="http://repo1.maven.org/maven2/org/apache/maven/skins/">http://repo1.maven.org/maven2/org/apache/maven/skins/</ulink>.
-      </para>
+      url="http://repo1.maven.org/maven2/org/apache/maven/skins/">http://repo1.maven.org/maven2/org/apache/maven/skins/</ulink>.</para>
 
       <para>Creating a custom skin is a simple matter of wrapping your
       customized <filename>maven-theme.css</filename> in a Maven project, so
