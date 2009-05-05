@@ -189,8 +189,8 @@
       project <acronym>POM</acronym>s extend the Super <acronym>POM</acronym>
       which defines a set of defaults shared by all projects. This Super
       <acronym>POM</acronym> is a part of the Maven installation, and can be
-      found in the <filename>maven-${maven.version}-uber.jar</filename> file in
-      <filename>\${M2_HOME}/lib</filename>. If you look in this
+      found in the <filename>maven-${maven.version}-uber.jar</filename> file
+      in <filename>\${M2_HOME}/lib</filename>. If you look in this
       <acronym>JAR</acronym> file, you will find a file named
       <filename>pom-4.0.0.xml</filename> under the
       <package>org.apache.maven.project</package> package. The Super
@@ -709,9 +709,9 @@
       <acronym>XML</acronym>. Maven properties occur frequently in advanced
       Maven usage, and are similar to properties in other systems such as Ant
       or Velocity. They are simply variables delimited by
-      <varname>\${...}</varname>. Maven provides three implicit variables which
-      can be used to access environment variables, <acronym>POM</acronym>
-      information, and Maven Settings:</para>
+      <varname>\${...}</varname>. Maven provides three implicit variables
+      which can be used to access environment variables,
+      <acronym>POM</acronym> information, and Maven Settings:</para>
 
       <variablelist>
         <varlistentry>
@@ -2078,7 +2078,7 @@ top-group/project-c/pom.xml</programlisting>
         conflicts using a nearest-wins approach. Using the dependency grouping
         technique above pushes those dependencies one level down in the tree.
         Keep this in mind when choosing between grouping in a pom or using
-        <sgmltag>dependenctManagement</sgmltag> in a parent
+        <sgmltag>dependencyManagement</sgmltag> in a parent
         <acronym>POM</acronym></para>
       </note>
     </section>
