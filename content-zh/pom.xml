@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.mavenbook</groupId>
 		<artifactId>book</artifactId>
-		<version>0.4-SNAPSHOT</version>
+		<version>0.4</version>
 	</parent>
   <artifactId>content-zh</artifactId>
   <packaging>jar</packaging>
@@ -86,7 +85,7 @@
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
               <postProcess>
                 <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide_zh.pdf">
-                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf"/>
+                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf" />
                 </copy>
               </postProcess>
             </configuration>
@@ -105,10 +104,10 @@
               <htmlCustomization>${basedir}/target/classes/xsl/html_chunk.xsl</htmlCustomization>
               <postProcess>
                 <copy todir="${project.build.directory}/site/reference_zh">
-                  <fileset dir="${project.build.directory}/docbkx/html"/>
+                  <fileset dir="${project.build.directory}/docbkx/html" />
                 </copy>
                 <copy todir="${project.build.directory}/site/reference_zh/figs/web">
-                  <fileset dir="target/classes/docbook/figs/web"/>
+                  <fileset dir="target/classes/docbook/figs/web" />
                 </copy>
               </postProcess>
             </configuration>
