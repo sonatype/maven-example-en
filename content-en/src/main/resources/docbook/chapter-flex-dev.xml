@@ -21,7 +21,7 @@
     <filename>~/.m2/setting.xml</filename> file which references the Sonatype
     public repository directly, or you can install Nexus and add the Sonatype
     public repository as a proxy repository in your own repository manager.
-    While the most straightfoward option is to just drop the XML shown in
+    While the most straightforward option is to just drop the XML shown in
     section <xref linkend="flex-dev-sect-direct-repo" /> into a
     <filename>~/.m2/settings.xml</filename> file, downloading and installing
     Nexus will give you the control and flexibility you need to cache and
@@ -100,7 +100,7 @@
         <filename>~/.m2/settings.xml</filename> you can also put the the
         contents of this file in another settings file such as
         <filename>~/.m2/sonatype-settings.xml</filename>. If you do this, you
-        just have to rememebr to specify the location of the settings file on
+        just have to remember to specify the location of the settings file on
         every Maven command line. For example, <command>mvn install</command>
         would become <command>mvn -s ~/.m2/sonatype-settings.xml
         install</command>.</para>
@@ -114,7 +114,7 @@
       of different repositories into a single repository group. Instead of
       configuring your clients to retrieve artifacts from several different
       repositories, the Sonatype Nexus repository manager allows you
-      centralizing clients to one point-of-contact: a single Nexus repository
+      centralizing clients to one point of contact: a single Nexus repository
       group. Builds with use the Flexmojos plugin rely on Flex artifacts which
       are not yet available from standard repositories like the Central Maven
       Repository. Pointing your build at the Sonatype repository allows you to
@@ -127,7 +127,7 @@
 
       <para>Instead of pointing directly at the Sonatype public repository,
       Sonatype recommends that you install a repository manager and proxy the
-      Sonatye public repository. When you proxy a remote repository with a
+      Sonatype public repository. When you proxy a remote repository with a
       repository manager such as Nexus, you gain a level of control and
       stability not possible when your build relies directly on external
       resources. In addition to this control and stability, a repository
@@ -175,7 +175,7 @@
         </listitem>
 
         <listitem>
-          <para>The Remore Storage Location is <ulink
+          <para>The Remote Storage Location is <ulink
           url="http://repository.sonatype.org/content/groups/public">http://repository.sonatype.org/content/groups/public</ulink></para>
         </listitem>
       </itemizedlist>
@@ -194,7 +194,7 @@
       linkend="fig-flex-dev-sonatype-public-proxy" /> click the Save button to
       save the proxy repository and start proxying the Sonatype public
       repository. Nexus ships with a public repository group, which combines
-      several repositories into a single point-of-contact for Maven clients.
+      several repositories into a single point of contact for Maven clients.
       To complete our setup of the new proxy repository, you should add this
       new proxy repository to the Nexus public group. To do this, return to
       the list of repositories which should now be visible in the upper half
@@ -297,10 +297,98 @@
         directly which the second example references a public group on a Nexus
         instance you maintain. You use Nexus because it allows you to control
         the repositories and artifacts that are used in your build system. You
-        can think of Nexus as something of a firewall or a centralized
-        point-of-contact between your builds and the external
-        environment.</para>
+        can think of Nexus as something of a firewall or a centralized point
+        of contact between your builds and the external environment.</para>
       </note>
+    </section>
+
+    <section id="flex-dev-sect-configuring-unit-tests">
+      <title>Configuring Environment to Support Flex Unit Tests</title>
+
+      <para>Flexmojos expects to be able to launch the stand-alone Flash Play
+      to execute unit tests. In order for this to work, you will need to add
+      the stand-alone Flash Player to your PATH, or you will need to pass the
+      location of the Flash Player executable to your build using the
+      <varname>-DflashPlayer.command</varname> options. When executing a unit
+      test, Flex Mojos expects to launch the following platform-specific
+      executables for the stand-alone Flash Player:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Microsoft Windows</term>
+
+          <listitem>
+            <para>FlexMojos will attempt to launch the
+            <filename>FlashPlayer.exe</filename> binary. To support execution
+            of unit tests, add the directory containing
+            <filename>FlashPlayer.exe</filename> to your PATH or pass in the
+            location of the <filename>FlashPlayer.exe</filename> binary to
+            Maven using the
+            <varname>-DflashPlayer.command=${filepath}</varname> command-line
+            option.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Macintosh OSX</term>
+
+          <listitem>
+            <para>FlexMojos will attempt to launch the "Flash Player"
+            application. If you've installed Flash CS4 or Adobe's Flex Builder
+            you may find this file in a directory like
+            "<filename>/Applications/Adobe Flash CS3/Players/Debug/Flash
+            Player.app/Contents/MacOS</filename>" or
+            "<filename>/Applications/Adobe Flex Builder
+            3/Player/mac/10/mac/Flash Player.app/Contents/</filename>". To
+            support the execution of unit tests, add the directory containing
+            "Flash Player" to your PATH or pass the path to the executable to
+            Maven using the
+            <varname>-DflashPlayer.command=${filepath}</varname> command-line
+            option.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>Unix (Linux, Solaris, etc.)</term>
+
+          <listitem>
+            <para>FlexMojos will attempt to launch the
+            <filename>flashplayer</filename> executable. To support the
+            execution of unit tests, add the directory containing
+            <filename>flashplayer</filename> to your PATH or pass the path to
+            the executable to Maven using the
+            <varname>-DflashPlayer.command=${filepath}</varname> command-line
+            option.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <note>
+        <para>On a Linux machine, you will need to have X virtual framebuffer
+        (Xvfb) installed to run unit tests in a headless build. For more
+        information about Xvfb, <ulink
+        url="http://en.wikipedia.org/wiki/Xvfb">click here</ulink>.</para>
+      </note>
+
+      <para>To download the standalone Flash Player for you
+      environment:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Windows: <ulink
+          url="http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.exe">http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.exe</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para>Mac OSX: <ulink
+          url="http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip">http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para>Linux: <ulink
+          url="http://download.macromedia.com/pub/flashplayer/updaters/10/flash_player_10_linux_dev.tar.gz">http://download.macromedia.com/pub/flashplayer/updaters/10/flash_player_10_linux_dev.tar.gz</ulink></para>
+        </listitem>
+      </itemizedlist>
     </section>
   </section>
 
@@ -405,61 +493,79 @@ package: org.sonatype.test
       <example id="fig-flex-dev-simple-lib-pom">
         <title>Project Object Model for Flex Library Archetype</title>
 
-        <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd"&gt;
-  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-  &lt;parent&gt;
-    &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
-    &lt;artifactId&gt;flexmojos-flex-super-pom&lt;/artifactId&gt;
-    &lt;version&gt;3.1.0&lt;/version&gt;
-  &lt;/parent&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
   &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
   &lt;artifactId&gt;sample-library&lt;/artifactId&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
   &lt;packaging&gt;swc&lt;/packaging&gt;
 
-  &lt;name&gt;sample-library Flex&lt;/name&gt;
+  &lt;name&gt;test Flex&lt;/name&gt;
 
   &lt;build&gt;
-    &lt;!-- this is a workaround due to archetype plugin problems.  Can be removed! --&gt;
     &lt;sourceDirectory&gt;src/main/flex&lt;/sourceDirectory&gt;
     &lt;testSourceDirectory&gt;src/test/flex&lt;/testSourceDirectory&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
   &lt;/build&gt;
 
-&lt;/project&gt;
-</programlisting>
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.adobe.flex.framework&lt;/groupId&gt;
+      &lt;artifactId&gt;flex-framework&lt;/artifactId&gt;
+      &lt;version&gt;3.2.0.3958&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- flexmojos Unit testing support --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+      &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
+      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;type&gt;swc&lt;/type&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+
+&lt;/project&gt;</programlisting>
       </example>
 
-      <para><xref linkend="fig-flex-dev-simple-lib-pom" /> is very simple, but
-      this simplicity masks the complexity that Maven manages by allowing this
-      POM to inherit dependencies and plugin definitions from the parent POM.
-      If you look at the parent element in <xref
-      linkend="fig-flex-dev-simple-lib-pom" />, you will notice that it
-      references flexmojos-flex-super-pom, this parent POm adds the
-      dependencies on the flex framework and the flexmojos unit testing
-      support components. If you are interested in seeing some of these
-      dependencies, run mvn help:effective-pom. Running this command will ask
-      Maven to merge this POM with every parent POM it inherits to show you
-      the effective end-product of that merge between parent and child.</para>
+      <para><xref linkend="fig-flex-dev-simple-lib-pom" /> is very simple, the
+      key to this POM is the <varname>flexmojos-maven-plugin</varname>
+      configuration which sets <varname>extensions</varname> to
+      <varname>true</varname>. This configuration customizes the lifecycle for
+      the <varname>swc</varname> packaging which is defined in the
+      <varname>flexmojos-maven-plugin</varname>. The archetype then includes
+      the <varname>flex-framework</varname> dependency and the
+      <varname>flexmojos-unittest-support</varname> test-scoped dependency.
+      The <varname>flex-framework</varname> dependency is a POM which contains
+      references to the SWC libraries and resources required to compile Flex
+      applications.</para>
 
-      <para>In <xref linkend="fig-flex-dev-simple-lib-pom" />, the parent
-      element is critical and the packaging is very critical. A POMs packaging
-      type controls the lifecycle it uses to produce build output. The value
-      swc in the packaging element is Maven's cue to look for the
-      Flex-specific lifecycle customizations which are provided by the
-      flexmojos-maven-plugin. The other important part of this POM is the
-      build element which specifies the location of the Flex source code and
-      the Flex unit tests. Next, let's take a quick look at <xref
-      linkend="ex-flex-dev-lib-as" /> which contains the sample Actionscript
-      which was created by this archetype.</para>
+      <para>In <xref linkend="fig-flex-dev-simple-lib-pom" />, the packaging
+      is very critical. A POMs packaging type controls the lifecycle it uses
+      to produce build output. The value <varname>swc</varname> in the
+      packaging element is Maven's cue to look for the Flex-specific lifecycle
+      customizations which are provided by the
+      <varname>flexmojos-maven-plugin</varname>. The other important part of
+      this POM is the build element which specifies the location of the Flex
+      source code and the Flex unit tests. Next, let's take a quick look at
+      <xref linkend="ex-flex-dev-lib-as" /> which contains the sample
+      Actionscript which was created by this archetype.</para>
 
       <example id="ex-flex-dev-lib-as">
-        <title>Flex Library Archetype's Sample App Cliass</title>
+        <title>Flex Library Archetype's Sample App Class</title>
 
         <programlisting>package org.sonatype.test {
   public class App {
@@ -548,14 +654,22 @@ package: org.sonatype.test
 [INFO] [install:install]
 </screen>
 
-      <para>When you ran mvn install on this project, you should notice in the
-      output that Maven and Flexmojos plugin is take care of managing all of
-      the libraries and the dependencies for the Flex compiler. Much like
-      Maven excels at helping Java developers manage the contents of a Java
-      classpath, Maven can help Flex developers manage the complex of compile
-      paths. You also might have been shocked when the Flexmojos project
-      started a web browser or the Flash Player and used it to execute the
-      TestApp.as class against the project's source code.</para>
+      <note>
+        <para>To execute Flex unit tests you will need to configure your PATH
+        environment variable to include the Flash Player. For more information
+        about configuring FlexMojos for unit tests, see <xref
+        linkend="flex-dev-sect-configuring-unit-tests" />.</para>
+      </note>
+
+      <para>When you ran <command>mvn install</command> on this project, you
+      should notice in the output that Maven and Flexmojos plugin is take care
+      of managing all of the libraries and the dependencies for the Flex
+      compiler. Much like Maven excels at helping Java developers manage the
+      contents of a Java classpath, Maven can help Flex developers manage the
+      complex of compile paths. You also might have been shocked when the
+      Flexmojos project started a web browser or the Flash Player and used it
+      to execute the TestApp.as class against the project's source
+      code.</para>
     </section>
 
     <section>
@@ -623,13 +737,8 @@ package: org.sonatype.test
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd"&gt;
-  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-  &lt;parent&gt;
-    &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
-    &lt;artifactId&gt;flexmojos-flex-super-pom&lt;/artifactId&gt;
-    &lt;version&gt;3.1.0&lt;/version&gt;
-  &lt;/parent&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
   &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
   &lt;artifactId&gt;sample-application&lt;/artifactId&gt;
@@ -639,17 +748,49 @@ package: org.sonatype.test
   &lt;name&gt;sample-application Flex&lt;/name&gt;
 
   &lt;build&gt;
-    &lt;!-- this is a workaround due to archetype plugin problems.  Can be removed! --&gt;
     &lt;sourceDirectory&gt;src/main/flex&lt;/sourceDirectory&gt;
     &lt;testSourceDirectory&gt;src/test/flex&lt;/testSourceDirectory&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
   &lt;/build&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.adobe.flex.framework&lt;/groupId&gt;
+      &lt;artifactId&gt;flex-framework&lt;/artifactId&gt;
+      &lt;version&gt;3.2.0.3958&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- flexmojos Unit testing support --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+      &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
+      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;type&gt;swc&lt;/type&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
 
 &lt;/project&gt;
 </programlisting>
       </example>
 
-      <para>The sample <filename>Main.mxml</filename> application is in
-      <filename>src/main/flex</filename>. </para>
+      <para>The difference between <xref linkend="ex-flex-dev-app-pom" /> and
+      <xref linkend="fig-flex-dev-simple-lib-pom" /> is that the
+      <varname>packaging</varname> element is <varname>swf</varname> instead
+      of <varname>swc</varname>. By setting the packaging to
+      <varname>swf</varname>, the project will produce a Flex application in
+      <filename>target/sample-application-1.0-SNAPSHOT.swf</filename>. The
+      sample application created by this archetype displays the Text "Hello
+      World". <filename>Main.mxml</filename> can be found in
+      <filename>src/main/flex</filename>.</para>
 
       <example>
         <title>Sample Application Main.mxml</title>
@@ -660,7 +801,8 @@ package: org.sonatype.test
 </programlisting>
       </example>
 
-      <para>And, the sample unit test is in
+      <para>This application also creates a simple FlexUnit test that does
+      nothing more than print out a trace message. The sample unit test is in
       <filename>src/test/flex/org/sonatype/test</filename>.</para>
 
       <example>
@@ -730,9 +872,9 @@ package: org.sonatype.test
 [INFO] BUILD SUCCESSFUL
 </screen>
 
-      <para>If you look in the sample-multimodule/ directory, you will see a
-      directory structure which contains three projects swc, swf, and
-      war.</para>
+      <para>If you look in the <filename>sample-multimodule/</filename>
+      directory, you will see a directory structure which contains three
+      projects swc, swf, and war.</para>
 
       <figure>
         <title>Directory Structure for Flex Multimodule Archetype</title>
@@ -743,6 +885,263 @@ package: org.sonatype.test
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>The simple top-level POM in this multimodule project is shown in .
+      It consists of module references to the swc, swf, and war
+      modules.</para>
+
+      <example>
+        <title>Top-level POM Created by Modular Web Application
+        Archetype</title>
+
+        <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+  &lt;artifactId&gt;sample-multimodule&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  
+  &lt;modules&gt;
+    &lt;module&gt;swc&lt;/module&gt;
+    &lt;module&gt;swf&lt;/module&gt;
+    &lt;module&gt;war&lt;/module&gt;
+  &lt;/modules&gt;
+&lt;/project&gt;
+</programlisting>
+      </example>
+
+      <para>The swc project has a simple POM that resembles the POM shown in
+      <xref linkend="fig-flex-dev-simple-lib-pom" />. Note that the
+      <varname>artifactId</varname> in this POM differs from the name of the
+      module directory and is <varname>swc-swc</varname>.</para>
+
+      <example>
+        <title>swc Module POM</title>
+
+        <programlisting>&lt;project&gt;
+
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;parent&gt;
+    &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+    &lt;artifactId&gt;sample-multimodule&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;/parent&gt;
+
+  &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+  &lt;artifactId&gt;swc-swc&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;swc&lt;/packaging&gt;
+  &lt;name&gt;swc Library&lt;/name&gt;
+  &lt;build&gt;
+    &lt;sourceDirectory&gt;src/main/flex&lt;/sourceDirectory&gt;
+    &lt;testSourceDirectory&gt;src/test/flex&lt;/testSourceDirectory&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;locales&gt;
+            &lt;locale&gt;en_US&lt;/locale&gt;
+          &lt;/locales&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.adobe.flex.framework&lt;/groupId&gt;
+      &lt;artifactId&gt;flex-framework&lt;/artifactId&gt;
+      &lt;version&gt;3.2.0.3958&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- flexmojos Unit testing support --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+      &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
+      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;type&gt;swc&lt;/type&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+
+&lt;/project&gt;
+</programlisting>
+      </example>
+
+      <para>The swf module's POM resembles the POM in <xref
+      linkend="ex-flex-dev-app-pom" /> adding a dependency on the
+      <varname>swc-swc</varname> artifact. Note that the following POM defines
+      an <varname>artifactId</varname> that differs from the directory that
+      stores the module; the artifactId in the following POM is
+      <varname>swf-swf</varname>.</para>
+
+      <example>
+        <title>swf module POM</title>
+
+        <programlisting id="ex-flex-swf-module-pom">&lt;project&gt;
+
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;parent&gt;
+    &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+    &lt;artifactId&gt;sample-multimodule&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;/parent&gt;
+
+  &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+
+  &lt;artifactId&gt;swf-swf&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;swf&lt;/packaging&gt;
+  &lt;name&gt;swf Application&lt;/name&gt;
+
+  &lt;build&gt;
+    &lt;sourceDirectory&gt;src/main/flex&lt;/sourceDirectory&gt;
+    &lt;testSourceDirectory&gt;src/test/flex&lt;/testSourceDirectory&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;locales&gt;
+            &lt;locale&gt;en_US&lt;/locale&gt;
+          &lt;/locales&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.adobe.flex.framework&lt;/groupId&gt;
+      &lt;artifactId&gt;flex-framework&lt;/artifactId&gt;
+      &lt;version&gt;3.2.0.3958&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- flexmojos Unit testing support --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+      &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
+      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;type&gt;swc&lt;/type&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+      &lt;artifactId&gt;swf-swc&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;type&gt;swc&lt;/type&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</programlisting>
+      </example>
+
+      <warning>
+        <para>In <xref linkend="ex-flex-swf-module-pom" />, the dependency on
+        "swf-swc" needs to be changed to "swc-swc". This is a bug in the
+        modular webapp archetype that is present in the FlexMojos 3.1.0
+        release. It will be fixed in the FlexMojos 3.2.0 release.</para>
+      </warning>
+
+      <para>When you declare a dependency on a SWC, you'll need to specify the
+      type of the dependency so that Maven can locate the appropriate artifact
+      in the remote or local repository. In this case, the
+      <varname>swf-swf</varname> project depends upon the SWC that is
+      generated by the <varname>swc-swc</varname> project. When you add the
+      dependency to the <varname>swf-swf</varname> project, the FlexMojos
+      plugin will add the appropriate SWC file to the Flex Compiler's library
+      path.</para>
+
+      <para>Next, take a look at the simple POM in the war module.</para>
+
+      <example id="ex-flex-war-module-pom">
+        <title>war module POM</title>
+
+        <programlisting>&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;parent&gt;
+    &lt;artifactId&gt;sample-multimodule&lt;/artifactId&gt;
+    &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+  &lt;artifactId&gt;war-war&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;copy-flex-resources&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
+      &lt;artifactId&gt;war-swf&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;type&gt;swf&lt;/type&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</programlisting>
+      </example>
+
+      <warning>
+        <para>In <xref linkend="ex-flex-war-module-pom" />, the dependency on
+        "war-swf" needs to be changed to "swf-swf". This is a bug in the
+        modular webapp archetype that is present in the FlexMojos 3.1.0
+        release. It will be fixed in the FlexMojos 3.2.0 release.</para>
+      </warning>
+
+      <para>The POM shown in <xref linkend="ex-flex-war-module-pom" />
+      configures the FlexMojos plugin to execute the
+      <varname>copy-flex-resources</varname> goal for this project. The
+      <varname>copy-flex-resources</varname> goal will copy SWF application
+      into the web application's document root. In this project, running a
+      build and creating a WAR will copy the
+      <filename>swf-swf-1.0-SNAPSHOT.swf</filename> file to the web
+      application's root directory in
+      <filename>target/war-war-1.0-SNAPSHOT</filename>.</para>
+
+      <para>To build the multimodule web application project, run mvn install
+      from the top-level directory. This should build the
+      <varname>swc-swc</varname>, <varname>swf-swf</varname>, and
+      <varname>war-war</varname> artifacts and product a WAR file in
+      war<filename>/target/war-war-1.0-SNAPSHOT.war</filename> which contains
+      the <filename>swf-swf-1.0-SNAPSHOT.swf</filename> in the document root
+      of the web application.</para>
+
+      <note>
+        <para>To execute Flex unit tests you will need to configure your PATH
+        environment variable to include the Flash Player. For more information
+        about configuring FlexMojos for unit tests, see <xref
+        linkend="flex-dev-sect-configuring-unit-tests" />.</para>
+      </note>
     </section>
   </section>
 
