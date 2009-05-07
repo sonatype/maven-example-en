@@ -352,15 +352,9 @@
 
           <listitem>
             <para>FlexMojos will attempt to launch the "Flash Player"
-            application. If you've installed Flash CS4 or Adobe's Flex Builder
-            you may find this file in a directory like
-            "<filename>/Applications/Adobe Flash CS3/Players/Debug/Flash
-            Player.app/Contents/MacOS</filename>" or
-            "<filename>/Applications/Adobe Flex Builder
-            3/Player/mac/10/mac/Flash Player.app/Contents/</filename>". To
-            support the execution of unit tests, add the directory containing
-            "Flash Player" to your PATH or pass the path to the executable to
-            Maven using the
+            application. To support the execution of unit tests, add the
+            directory containing "Flash Player" to your PATH or pass the path
+            to the executable to Maven using the
             <varname>-DflashPlayer.command=${filepath}</varname> command-line
             option.</para>
           </listitem>
@@ -388,8 +382,15 @@
         url="http://en.wikipedia.org/wiki/Xvfb">click here</ulink>.</para>
       </note>
 
-      <para>To download the standalone Flash Player for you
-      environment:</para>
+      <para>If you have been developing Flash Applications with Adobe Flash
+      CS4 or Adobe Flex Builder or if you have been viewing flash content in a
+      browser, you probably have the Flash Player installed somewhere on your
+      workstation. While it is possible to configure Maven to use one of these
+      players for Flex unit tests, you'll want to make sure that you are
+      running the debug version of the Flash Player. To minimize the potential
+      for incompatibility, you should download one of the Flash Player's
+      listed below and install it on your local workstation. To download the
+      standalone Flash Player for you environment:</para>
 
       <itemizedlist>
         <listitem>
@@ -407,11 +408,24 @@
           url="http://download.macromedia.com/pub/flashplayer/updaters/10/flash_player_10_linux_dev.tar.gz">http://download.macromedia.com/pub/flashplayer/updaters/10/flash_player_10_linux_dev.tar.gz</ulink></para>
         </listitem>
       </itemizedlist>
+
+      <para>To install this player and add it to your PATH on an OSX machine,
+      run the following commands:</para>
+
+      <screen>$ <command>wget http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip</command>
+$ <command>unzip flashplayer_10_sa_debug.app.zip</command>
+$ <command>sudo cp -r Flash\ Player.app /Applications/</command>
+$ <command>export PATH=/Applications/Flash\ Player.app/Contents/MacOS:${PATH}</command></screen>
+
+      <para>Instead of adding the path for the Flash Player to your PATH on
+      the command-line, you should configure your environment's profile. On
+      OSX, tyou would add the last export command to you
+      <filename>~/.bash_profile</filename>.</para>
     </section>
   </section>
 
-  <section>
-    <title>Creating a Flex Mojos Project</title>
+  <section id="flex-dev-sect-creating-with-archetype">
+    <title>Creating a Flex Mojos Project from an Archetype</title>
 
     <para>Flexmojos has a set of archetypes which can be used to quickly
     create a new Flex project. The following archetypes are all in the
@@ -1160,6 +1174,149 @@ package: org.sonatype.test
         about configuring FlexMojos for unit tests, see <xref
         linkend="flex-dev-sect-configuring-unit-tests" />.</para>
       </note>
+    </section>
+  </section>
+
+  <section id="flex-dev-sect-custom-lifecycle">
+    <title>The FlexMojos Lifecycle</title>
+
+    <para>The FlexMojos Maven plugin customizes the lifecycle based on the
+    packaging. If your project has a <varname>packaging</varname> of type
+    <varname>swc</varname> or <varname>swf,</varname> the FlexMojos plugin
+    with execute a customized lifecycle if your plugin configuration sets the
+    extensions to true. <xref linkend="ex-flex-dev-extensions-true" /> shows
+    the plugin configuration for the flexmojos-maven-plugin with the
+    <varname>extensions</varname> set to <varname>true</varname>.</para>
+
+    <example id="ex-flex-dev-extensions-true">
+      <title>Setting Plugin Extensions to True for Custom Flex
+      Lifecycle</title>
+
+      <programlisting>  &lt;build&gt;
+    &lt;sourceDirectory&gt;src/main/flex&lt;/sourceDirectory&gt;
+    &lt;testSourceDirectory&gt;src/test/flex&lt;/testSourceDirectory&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
+        &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        <emphasis>&lt;extensions&gt;true&lt;/extensions&gt;</emphasis>
+        &lt;configuration&gt;
+          &lt;locales&gt;
+            &lt;locale&gt;en_US&lt;/locale&gt;
+          &lt;/locales&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;</programlisting>
+    </example>
+
+    <section>
+      <title>The SWC Lifecycle</title>
+
+      <para>When the packaging is swc, FlexMojos will execute the lifecycle
+      shown in <xref linkend="fig-flex-dev-swc-lifecycle" />. The highlighted
+      goals are goals from the FlexMojos plugin, the goals which are not
+      highlights are standard goals from the Core Maven plugins.</para>
+
+      <figure id="fig-flex-dev-swc-lifecycle">
+        <title>The FlexMojos SWC Lifecycle</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/flex-dev_swc-lifecycle.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>The FlexMojos contributed goals are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>flexmojos:compile-swc</term>
+
+          <listitem>
+            <para>This goal compiles all of the Actionscript and MXML files in
+            the <varname>sourceDirectory</varname> into a SWC. A SWC is an
+            Adobe library or class file which contains components and
+            resources used in Flex applications.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>flexmojos:test-compile</term>
+
+          <listitem>
+            <para>This goal compiles all of the Actionscript and MXML files in
+            the <varname>testSourceDirectory</varname>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>flexmojos:test-run</term>
+
+          <listitem>
+            <para>This goal executes unit tests using the Flash Player. This
+            goal can only run if the Flash Player has been configured as
+            described in <xref
+            linkend="flex-dev-sect-configuring-unit-tests" />.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section>
+      <title>The SWF Lifecycle</title>
+
+      <para>When the packaging is swf, FlexMojos will execute the lifecycle
+      shown in <xref linkend="fig-flex-dev-swf-lifecycle" />. The highlighted
+      goals are goals from the FlexMojos plugin, the goals which are not
+      highlights are standard goals from the Core Maven plugins.</para>
+
+      <figure id="fig-flex-dev-swf-lifecycle">
+        <title>The FlexMojos SWF Lifecycle</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figs/web/flex-dev_swf-lifecycle.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>The FlexMojos contributed goals are:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>flexmojos:compile-swf</term>
+
+          <listitem>
+            <para>This goal compiles all of the Actionscript and MXML files in
+            the <varname>sourceDirectory</varname> into a SWF. A SWF is a file
+            which contains an application that can be render by the Adobe
+            Flash Player or Adobe AIR software.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>flexmojos:test-compile</term>
+
+          <listitem>
+            <para>This goal compiles all of the Actionscript and MXML files in
+            the <varname>testSourceDirectory</varname>.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>flexmojos:test-run</term>
+
+          <listitem>
+            <para>This goal executes unit tests using the Flash Player. This
+            goal can only run if the Flash Player has been configured as
+            described in <xref
+            linkend="flex-dev-sect-configuring-unit-tests" />.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </section>
   </section>
 

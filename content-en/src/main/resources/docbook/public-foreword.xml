@@ -43,7 +43,7 @@
 
   <para>Evanston, IL</para>
 
-  <para>May 5, 2009</para>
+  <para>May 7, 2009</para>
 
   <para>PS: Did I mention that you really should <ulink
   url="http://www.amazon.com/Maven-Definitive-Guide-Sonatype-Company/dp/0596517335/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223866448&amp;sr=8-1">purchase
@@ -56,7 +56,40 @@
     to the book content, the following sections list changes made to the book
     in reverse chronological order starting with ${project.version}.</para>
 
-    <section id="foreword-sect-rev-0_8">
+    <section id="foreword-sect-rev-0_5">
+      <title>Changes in Edition 0.5</title>
+
+      <para>The following changes were introduced in Edition 0.5:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-51">MVNDEF-85</ulink>
+          - Added documentation for the custom SWC and SWF lifecycles in the
+          FlexMojos Chapter - <xref
+          linkend="flex-dev-sect-custom-lifecycle" /></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-83">MVNDEF-83</ulink>
+          - Added instructions for configuring the Flash Player to support
+          FlexMojos unit tests - <xref
+          linkend="flex-dev-sect-configuring-unit-tests" /></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="flex-dev-sect-configuring-unit-tests">MVNDEF-82</ulink> -
+          Updated the FlexMojos Archetypes to match the 3.1.0 release. The
+          FlexMojos 3.1.0 archetypes no rely on a parent POM to customize the
+          build for Flex - <xref
+          linkend="flex-dev-sect-creating-with-archetype" /></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section id="foreword-sect-rev-0_4">
       <title>Changes in Edition 0.4</title>
 
       <para>The following changes were introduced in Edition 0.4:</para>
