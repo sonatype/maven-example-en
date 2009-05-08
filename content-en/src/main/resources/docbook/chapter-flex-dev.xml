@@ -1496,6 +1496,1036 @@ package: org.sonatype.test
         </mediaobject>
       </figure>
     </section>
+
+    <section>
+      <title>Compiling Flex Source</title>
+
+      <para></para>
+
+      <table>
+        <title>Options for the compile-swc goal</title>
+
+        <tgroup cols="4">
+          <colspec colnum="1" colwidth="10%" />
+
+          <colspec colnum="2" colwidth="13%" />
+
+          <colspec colnum="3" colwidth="13%" />
+
+          <colspec colnum="4" colwidth="60%" />
+
+          <thead>
+            <row>
+              <entry>Name</entry>
+
+              <entry>Type</entry>
+
+              <entry>Default</entry>
+
+              <entry>Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry>accessible</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Turn on the generation of accessible SWFs. When you set
+              this setting to true, the Flex compiler will include support for
+              the Flex accessibility components. For more information about
+              Flex accessibility, go to the <ulink
+              url="http://www.adobe.com/accessibility/products/flex/components.html">Adobe
+              Flex Accessibility Page</ulink>.</entry>
+            </row>
+
+            <row>
+              <entry>addMavenDescriptor</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>By default, Maven generated archives include the
+              META-INF/maven directory, which contains the pom.xml file used
+              to build the archive. To disable the generation of these files,
+              include the following configuration for your plugin</entry>
+            </row>
+
+            <row>
+              <entry>allowSourcePathOverlap</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Allow the source-path to have path-elements which contain
+              other path-elements</entry>
+            </row>
+
+            <row>
+              <entry>as3</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Use the ActionScript 3 class based object model for
+              greater performance and better error reporting. In the class
+              based object model most built-in functions are implemented as
+              fixed methods of classes (-strict is recommended, but not
+              required, for earlier errors)</entry>
+            </row>
+
+            <row>
+              <entry>compatibilityVersion</entry>
+
+              <entry>String</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>compiledLocales</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets the locales that the compiler uses to replace
+              {locale} tokens that appear in some configuration values. This
+              is equivalent to using the compiler.locale option of the mxmlc
+              or compc compilers. Usage: &lt;compiledLocales&gt;
+              &lt;locale&gt;en_US&lt;/locale&gt;
+              &lt;locale&gt;pt_BR&lt;/locale&gt;
+              &lt;locale&gt;es_ES&lt;/locale&gt; &lt;/compiledLocales&gt;
+              </entry>
+            </row>
+
+            <row>
+              <entry>computeDigest</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Enable or disable the computation of a digest for the
+              created swf library. This is equivalent to using the
+              compiler.computDigest in the compc compiler.</entry>
+            </row>
+
+            <row>
+              <entry>configFile</entry>
+
+              <entry>File</entry>
+
+              <entry></entry>
+
+              <entry>Load a file containing configuration options If not
+              defined, by default will search for one on resources
+              folder.</entry>
+            </row>
+
+            <row>
+              <entry>configurationReport</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Writes the configuration report to a file after the
+              build.</entry>
+            </row>
+
+            <row>
+              <entry>contextRoot</entry>
+
+              <entry>String</entry>
+
+              <entry></entry>
+
+              <entry>Sets the context root path so that the compiler can
+              replace {context.root} tokens for service channel
+              endpoints.</entry>
+            </row>
+
+            <row>
+              <entry>debug</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Turn on generation of debuggable SWFs. False by default
+              for mxmlc, but true by default for compc.</entry>
+            </row>
+
+            <row>
+              <entry>debugPassword</entry>
+
+              <entry>String</entry>
+
+              <entry></entry>
+
+              <entry>A password that is embedded in the application</entry>
+            </row>
+
+            <row>
+              <entry>defaultBackgroundColor</entry>
+
+              <entry>String</entry>
+
+              <entry>869CA7</entry>
+
+              <entry>Sets the default background color. You can override this
+              by using the application code. This is the equivalent of the
+              default-background-color option of the mxmlc or compc
+              compilers.</entry>
+            </row>
+
+            <row>
+              <entry>defaultFrameRate</entry>
+
+              <entry>int</entry>
+
+              <entry>24</entry>
+
+              <entry>Sets the default frame rate to be used in the
+              application. This is the equivalent of the default-frame-rate
+              option of the mxmlc or compc compilers.</entry>
+            </row>
+
+            <row>
+              <entry>defaultSizeHeight</entry>
+
+              <entry>int</entry>
+
+              <entry>375</entry>
+
+              <entry>Sets the default application height in pixels. This is
+              equivalent to using the default-size option of the mxmlc or
+              compc compilers.</entry>
+            </row>
+
+            <row>
+              <entry>defaultSizeWidth</entry>
+
+              <entry>int</entry>
+
+              <entry>500</entry>
+
+              <entry>Sets the default application width in pixels. This is
+              equivalent to using the default-size option of the mxmlc or
+              compc compilers.</entry>
+            </row>
+
+            <row>
+              <entry>defaultsCss</entry>
+
+              <entry>File</entry>
+
+              <entry></entry>
+
+              <entry>Sets the location of the default CSS file. This is
+              equivalent to using the compiler.defaults-css-url option of the
+              mxmlc or compc compilers.</entry>
+            </row>
+
+            <row>
+              <entry>definesDeclaration</entry>
+
+              <entry>Properties</entry>
+
+              <entry></entry>
+
+              <entry>defines: specifies a list of define directive key and
+              value pairs. For example, CONFIG::debugging Usage:
+              &lt;definesDeclaration&gt; &lt;property&gt;
+              &lt;name&gt;SOMETHING::aNumber&lt;/name&gt;
+              &lt;value&gt;2.2&lt;/value&gt; &lt;/property&gt;
+              &lt;property&gt; &lt;name&gt;SOMETHING::aString&lt;/name&gt;
+              &lt;value&gt;"text"&lt;/value&gt; &lt;/property&gt;
+              &lt;/definesDeclaration&gt;</entry>
+            </row>
+
+            <row>
+              <entry>directory</entry>
+
+              <entry>File</entry>
+
+              <entry></entry>
+
+              <entry>Sets the RSL output directory.</entry>
+            </row>
+
+            <row>
+              <entry>enableMavenResourcesResolver</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>When enabled flexmojos will add a custom path resolver to
+              flex compiler. This allow flexmojos to resolve Embed assets
+              located at src/main/resources. This is a workaround and it is
+              described at http://bugs.adobe.com/jira/browse/SDK-15466</entry>
+            </row>
+
+            <row>
+              <entry>encoding</entry>
+
+              <entry>String</entry>
+
+              <entry>UTF-8</entry>
+
+              <entry>Sets the ActionScript file encoding. The compiler uses
+              this encoding to read the ActionScript source files. This is
+              equivalent to using the actionscript-file-encoding option of the
+              mxmlc or compc compilers. The character encoding; for example
+              UTF-8 or Big5.</entry>
+            </row>
+
+            <row>
+              <entry>es</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Use the ECMAScript edition 3 prototype based object model
+              to allow dynamic overriding of prototype properties. In the
+              prototype based object model built-in functions are implemented
+              as dynamic properties of prototype objects (-strict is allowed,
+              but may result in compiler errors for references to dynamic
+              properties)</entry>
+            </row>
+
+            <row>
+              <entry>externs</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets a list of definitions to omit from linking when
+              building an application. This is equivalent to using the externs
+              option of the mxmlc and compc compilers. An array of definitions
+              (for example, classes, functions, variables, or namespaces).
+              Usage: &lt;externs&gt;
+              &lt;extern&gt;com.acme.AClass&lt;/extern&gt; &lt;/externs&gt;
+              </entry>
+            </row>
+
+            <row>
+              <entry>fonts</entry>
+
+              <entry>Font</entry>
+
+              <entry></entry>
+
+              <entry>Local Fonts Snapshot File containing cached system font
+              licensing information produced via java -cp mxmlc.jar
+              flex2.tools.FontSnapshot (fontpath). Will default to
+              winFonts.ser on Windows XP and macFonts.ser on Mac OS X. Usage:
+              &lt;fonts&gt;
+              &lt;advancedAntiAliasing&gt;true&lt;/advancedAntiAliasing&gt;
+              &lt;flashType&gt;true&lt;/flashType&gt; &lt;languages&gt;
+              &lt;englishRange&gt;U+0020-U+007E&lt;/englishRange&gt;
+              &lt;/languages&gt;
+              &lt;localFontsSnapshot&gt;${baseDir}/src/main/resources/fonts.ser&lt;/localFontsSnapshot&gt;
+              &lt;managers&gt;
+              &lt;manager&gt;flash.fonts.BatikFontManager&lt;/manager&gt;
+              &lt;/managers&gt;
+              &lt;maxCachedFonts&gt;20&lt;/maxCachedFonts&gt;
+              &lt;maxGlyphsPerFace&gt;1000&lt;/maxGlyphsPerFace&gt;
+              &lt;/fonts&gt; </entry>
+            </row>
+
+            <row>
+              <entry>frames</entry>
+
+              <entry>FrameLabel[]</entry>
+
+              <entry></entry>
+
+              <entry> Sets a SWF frame label with a sequence of class names
+              that are linked onto the frame. This is equivalent to using the
+              frames.frame option of the mxmlc or compc compilers. Usage:
+              &lt;frames&gt; &lt;frame&gt; &lt;label&gt;frame1&lt;/label&gt;
+              &lt;classNames&gt;
+              &lt;className&gt;com.acme.AClass&lt;/className&gt;
+              &lt;/classNames&gt; &lt;/frame&gt; &lt;/frames&gt; </entry>
+            </row>
+
+            <row>
+              <entry>headlessServer</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Sets the compiler when it runs on a server without a
+              display. This is equivalent to using the
+              compiler.headless-server option of the mxmlc or compc compilers.
+              that value determines if the compiler is running on a server
+              without a display.</entry>
+            </row>
+
+            <row>
+              <entry>includeClasses</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry> This is the equilvalent of the include-classes option of
+              the compc compiler. Usage: &lt;includeClasses&gt;
+              &lt;class&gt;AClass&lt;/class&gt;
+              &lt;class&gt;BClass&lt;/class&gt; &lt;/includeClasses&gt;
+              </entry>
+            </row>
+
+            <row>
+              <entry>includeFiles</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>This is equilvalent to the include-file option of the
+              compc compiler. Usage: &lt;includeFiles&gt;
+              &lt;file&gt;${baseDir}/anyFile.txt&lt;/file&gt;
+              &lt;/includeFiles&gt; </entry>
+            </row>
+
+            <row>
+              <entry>includeLookupOnly</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>if true, manifest entries with lookupOnly=true are
+              included in SWC catalog. default is false. This exists only so
+              that manifests can mention classes that come in from filespec
+              rather than classpath, e.g. in playerglobal.swc.</entry>
+            </row>
+
+            <row>
+              <entry>includeNamespaces</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>This is equilvalent to the include-namespaces option of
+              the compc compiler. Usage: &lt;includeNamespaces&gt;
+              &lt;namespace&gt;http://www.adobe.com/2006/mxml&lt;/namespace&gt;
+              &lt;/includeNamespaces&gt; </entry>
+            </row>
+
+            <row>
+              <entry>includeResourceBundles</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>This is equilvalent to the include-resource-bundles
+              option of the compc compiler. Usage:
+              &lt;includeResourceBundles&gt;
+              &lt;bundle&gt;SharedResources&lt;/bundle&gt;
+              &lt;bundle&gt;collections&lt;/bundle&gt;
+              &lt;bundle&gt;containers&lt;/bundle&gt;
+              &lt;/includeResourceBundles&gt; </entry>
+            </row>
+
+            <row>
+              <entry>includeResourceBundlesArtifact</entry>
+
+              <entry>MavenArtifact[]</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>includeSources</entry>
+
+              <entry>File[]</entry>
+
+              <entry></entry>
+
+              <entry>This is the equilvalent of the include-sources option of
+              the compc compiler. Usage: &lt;includeSources&gt;
+              &lt;sources&gt;${baseDir}/src/main/flex&lt;/sources&gt;
+              &lt;/includeSources&gt; </entry>
+            </row>
+
+            <row>
+              <entry>includeStylesheet</entry>
+
+              <entry>Stylesheet[]</entry>
+
+              <entry></entry>
+
+              <entry> Adds a CSS stylesheet to this Library object. This is
+              equilvalent to the include-stylesheet option of the compc
+              compiler. Usage: &lt;includeStylesheet&gt; &lt;stylesheet&gt;
+              &lt;name&gt;style1&lt;/name&gt;
+              &lt;path&gt;${baseDir}/src/main/flex/style1.css&lt;/path&gt;
+              &lt;/stylesheet&gt; &lt;/includeStylesheet&gt; </entry>
+            </row>
+
+            <row>
+              <entry>includes</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets a list of definitions to always link in when
+              building an application. This is equivalent to using the
+              includes option of the mxmlc or compc compilers. An array of
+              definitions (for example, classes, functions, variables, or
+              namespaces). Usage: &lt;includes&gt;
+              &lt;include&gt;com.acme.AClass&lt;/include&gt; &lt;/includes&gt;
+              </entry>
+            </row>
+
+            <row>
+              <entry>incremental</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>If the incremental input argument is false, this method
+              recompiles all parts of the object. If the incremental input
+              argument is true, this method compiles only the parts of the
+              object that have changed since the last compilation.</entry>
+            </row>
+
+            <row>
+              <entry>keepAllTypeSelectors</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Instructs the compiler to keep a style sheet's type
+              selector in a SWF file, even if that type (the class) is not
+              used in the application. This is equivalent to using the
+              compiler.keep-all-type-selectors option of the mxmlc or compc
+              compilers.</entry>
+            </row>
+
+            <row>
+              <entry>keepAs3Metadatas</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Keep the following AS3 metadata in the bytecodes. Usage:
+              &lt;keepAs3Metadatas&gt;
+              &lt;keepAs3Metadata&gt;Bindable&lt;/keepAs3Metadata&gt;
+              &lt;keepAs3Metadata&gt;Events&lt;/keepAs3Metadata&gt;
+              &lt;/keepAs3Metadatas&gt; </entry>
+            </row>
+
+            <row>
+              <entry>keepGeneratedActionscript</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Turn on writing of generated/*.as files to disk. These
+              files are generated by the compiler during mxml translation and
+              are helpful with understanding and debugging Flex
+              applications.</entry>
+            </row>
+
+            <row>
+              <entry>licenses</entry>
+
+              <entry>Map</entry>
+
+              <entry></entry>
+
+              <entry>licenses: specifies a list of product and serial number
+              pairs. Usage: &lt;licenses&gt;
+              &lt;flexbuilder3&gt;xxxx-xxxx-xxxx-xxxx&lt;/flexbuilder3&gt;
+              &lt;/licenses&gt;</entry>
+            </row>
+
+            <row>
+              <entry>linkReport</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Uses the default compiler options as base</entry>
+            </row>
+
+            <row>
+              <entry>loadExterns</entry>
+
+              <entry>MavenArtifact[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets a list of artifacts to omit from linking when
+              building an application. This is equivalent to using the
+              load-externs option of the mxmlc or compc compilers. Usage:
+              &lt;loadExterns&gt; &lt;loadExtern&gt;
+              &lt;groupId&gt;com.acme&lt;/groupId&gt;
+              &lt;artifactId&gt;flexmodule&lt;/artifactId&gt;
+              &lt;version&gt;1.0.0&lt;/version&gt; &lt;/loadExtern&gt;
+              &lt;loadExtern&gt; &lt;groupId&gt;org.tabajara&lt;/groupId&gt;
+              &lt;artifactId&gt;flexmodule&lt;/artifactId&gt;
+              &lt;version&gt;1.0.0&lt;/version&gt; &lt;/loadExtern&gt;
+              &lt;/loadExterns&gt;</entry>
+            </row>
+
+            <row>
+              <entry>localRepository</entry>
+
+              <entry>ArtifactRepository</entry>
+
+              <entry></entry>
+
+              <entry>Local repository to be used by the plugin to resolve
+              dependencies.</entry>
+            </row>
+
+            <row>
+              <entry>locales</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets the locales that the compiler uses to replace
+              {locale} tokens that appear in some configuration values. This
+              is equivalent to using the compiler.locale option of the mxmlc
+              or compc compilers. Usage: &lt;locales&gt;
+              &lt;locale&gt;en_US&lt;/locale&gt;
+              &lt;locale&gt;pt_BR&lt;/locale&gt;
+              &lt;locale&gt;es_ES&lt;/locale&gt; &lt;/locales&gt; </entry>
+            </row>
+
+            <row>
+              <entry>mergeResourceBundle</entry>
+
+              <entry>boolean</entry>
+
+              <entry></entry>
+
+              <entry> When true resources are compiled into Application or
+              Library. When false resources are compiled into separated
+              Application or Library files. If not defined no resourceBundle
+              generation is done</entry>
+            </row>
+
+            <row>
+              <entry>metadata</entry>
+
+              <entry>Metadata</entry>
+
+              <entry></entry>
+
+              <entry>SWF metadata useless there is no API to read it. Usage:
+              &lt;metadata&gt; &lt;contributor&gt;buddy&lt;/contributor&gt;
+              &lt;creator&gt;me&lt;/creator&gt;
+              &lt;date&gt;01/01/01&lt;/date&gt; &lt;descriptions&gt;
+              &lt;en_US&gt;Simple description&lt;/en_US&gt;
+              &lt;/descriptions&gt; &lt;language&gt;en_US&lt;/language&gt;
+              &lt;publishers&gt; &lt;publisher&gt;publisher1&lt;/publisher&gt;
+              &lt;publisher&gt;publisher2&lt;/publisher&gt;
+              &lt;/publishers&gt; &lt;titles&gt; &lt;en_US&gt;Project
+              title&lt;/en_US&gt; &lt;/titles&gt; &lt;/metadata&gt; </entry>
+            </row>
+
+            <row>
+              <entry>namespaces</entry>
+
+              <entry>Namespace[]</entry>
+
+              <entry></entry>
+
+              <entry>Specify a URI to associate with a manifest of components
+              for use as MXML elements. Usage: &lt;namespaces&gt;
+              &lt;namespace&gt;
+              &lt;uri&gt;http://www.adobe.com/2006/mxml&lt;/uri&gt;
+              &lt;manifest&gt;${basedir}/manifest.xml&lt;/manifest&gt;
+              &lt;/namespace&gt; &lt;/namespaces&gt; </entry>
+            </row>
+
+            <row>
+              <entry>output</entry>
+
+              <entry>File</entry>
+
+              <entry>see description</entry>
+
+              <entry>The filename of the SWF movie to create Default value is:
+              ${project.build.directory}/${project.build.finalName}.swc.</entry>
+            </row>
+
+            <row>
+              <entry>pluginArtifacts</entry>
+
+              <entry>List</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>policyFileUrls</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>policyFileUrls array of policy file URLs. Each entry in
+              the rslUrls array must have a corresponding entry in this array.
+              A policy file may be needed in order to allow the player to read
+              an RSL from another domain. If a policy file is not required,
+              then set it to an empty string. Accept some special tokens:
+              {contextRoot} - replace by defined context root {groupId} -
+              replace by library groupId {artifactId} - replace by library
+              artifactId {version} - replace by library version {extension} -
+              replace by library extension swf or swz Usage:
+              &lt;policyFileUrls&gt;
+              &lt;url&gt;/{contextRoot}/rsl/policy-{artifactId}-{version}.xml&lt;/url&gt;
+              &lt;/policyFileUrls&gt; </entry>
+            </row>
+
+            <row>
+              <entry>quick</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Quick compile mode. When true, flexmojos will check if
+              the last artifact available at maven repository is newer then
+              sources. If so, will not recompile.</entry>
+            </row>
+
+            <row>
+              <entry>rawMetadata</entry>
+
+              <entry>String</entry>
+
+              <entry></entry>
+
+              <entry>Sets the metadata section of the application SWF. This is
+              equivalent to the raw-metadata option of the mxmlc or compc
+              compilers. Need a well-formed XML fragment</entry>
+            </row>
+
+            <row>
+              <entry>remoteRepositories</entry>
+
+              <entry>List</entry>
+
+              <entry></entry>
+
+              <entry>List of remote repositories to be used by the plugin to
+              resolve dependencies.</entry>
+            </row>
+
+            <row>
+              <entry>resourceBundlePath</entry>
+
+              <entry>String</entry>
+
+              <entry>see description</entry>
+
+              <entry>Define the base path to locate resouce bundle files
+              Accept some special tokens: {locale} - replace by locale name
+              Default value is: ${basedir}/src/main/locales/{locale}.</entry>
+            </row>
+
+            <row>
+              <entry>rslUrls</entry>
+
+              <entry>String[]</entry>
+
+              <entry>see description</entry>
+
+              <entry>rslUrls array of URLs. The first RSL URL in the list is
+              the primary RSL. The remaining RSL URLs will only be loaded if
+              the primary RSL fails to load. Accept some special tokens:
+              {contextRoot} - replace by defined context root {groupId} -
+              replace by library groupId {artifactId} - replace by library
+              artifactId {version} - replace by library version {extension} -
+              replace by library extension swf or swz
+              default-value="/{contextRoot}/rsl/{artifactId}-{version}.{extension}"
+              Usage: &lt;rslUrls&gt;
+              &lt;url&gt;/{contextRoot}/rsl/{artifactId}-{version}.{extension}&lt;/url&gt;
+              &lt;/rslUrls&gt;</entry>
+            </row>
+
+            <row>
+              <entry>runtimeLocaleOutputPath</entry>
+
+              <entry>String</entry>
+
+              <entry>see description</entry>
+
+              <entry>Resource module or resource library output path Default
+              value is:
+              ${project.build.directory}/locales/${project.artifactId}-${project.version}-{locale}.{extension}</entry>
+            </row>
+
+            <row>
+              <entry>runtimeLocales</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>Sets the locales that should be used to generate resource
+              bundles. Usage: &lt;runtimeLocales&gt;
+              &lt;locale&gt;en_US&lt;/locale&gt;
+              &lt;locale&gt;pt_BR&lt;/locale&gt;
+              &lt;locale&gt;es_ES&lt;/locale&gt; &lt;/runtimeLocales&gt;
+              </entry>
+            </row>
+
+            <row>
+              <entry>scriptMaxExecutionTime</entry>
+
+              <entry>int</entry>
+
+              <entry>60</entry>
+
+              <entry>Sets the default script execution limits (which can be
+              overridden by root attributes). This is equivalent to using the
+              default-script-limits option of the mxmlc or compc compilers.
+              Execution time, in seconds</entry>
+            </row>
+
+            <row>
+              <entry>scriptMaxRecursionDepth</entry>
+
+              <entry>int</entry>
+
+              <entry>1000</entry>
+
+              <entry>Sets the default script execution limits (which can be
+              overridden by root attributes). This is equivalent to using the
+              default-script-limits option of the mxmlc or compc compilers.
+              Recursion depth</entry>
+            </row>
+
+            <row>
+              <entry>services</entry>
+
+              <entry>File</entry>
+
+              <entry></entry>
+
+              <entry>Sets the location of the Flex Data Services service
+              configuration file. This is equivalent to using the
+              compiler.services option of the mxmlc and compc compilers. If
+              not define will look inside resources directory for
+              services-config.xml</entry>
+            </row>
+
+            <row>
+              <entry>showWarnings</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Run the AS3 compiler in a mode that detects legal but
+              potentially incorrect code. Equivalent compiler option:
+              warnings</entry>
+            </row>
+
+            <row>
+              <entry>sourcePaths</entry>
+
+              <entry>File[]</entry>
+
+              <entry>see description</entry>
+
+              <entry>List of path elements that form the roots of ActionScript
+              class hierarchies. Usage: &lt;sourcePaths&gt;
+              &lt;path&gt;${baseDir}/src/main/flex&lt;/path&gt;
+              &lt;/sourcePaths&gt; By default use Maven source and resources
+              folders.</entry>
+            </row>
+
+            <row>
+              <entry>staticLinkRuntimeSharedLibraries</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Determines whether to compile against libraries
+              statically or use RSLs. Set this option to true to ignore the
+              RSLs specified by the rslUrls. Set this option to false to use
+              the RSLs.</entry>
+            </row>
+
+            <row>
+              <entry>strict</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Run the AS3 compiler in strict error checking
+              mode.</entry>
+            </row>
+
+            <row>
+              <entry>targetPlayer</entry>
+
+              <entry>String</entry>
+
+              <entry>9.0.0</entry>
+
+              <entry>specifies the version of the player the application is
+              targeting. Features requiring a later version will not be
+              compiled into the application. The minimum value supported is
+              "9.0.0".</entry>
+            </row>
+
+            <row>
+              <entry>themes</entry>
+
+              <entry>String[]</entry>
+
+              <entry></entry>
+
+              <entry>List of CSS or SWC files to apply as a theme. &lt;&gt;BR
+              Usage: &lt;themes&gt; &lt;theme&gt;css/main.css&lt;/theme&gt;
+              &lt;/themes&gt; If you are using SWC theme should be better keep
+              it's version controlled, so is advised to use a dependency with
+              theme scope. Like this: &lt;dependency&gt;
+              &lt;groupId&gt;com.acme&lt;/groupId&gt;
+              &lt;artifactId&gt;acme-theme&lt;/artifactId&gt;
+              &lt;type&gt;swc&lt;/type&gt; &lt;scope&gt;theme&lt;/scope&gt;
+              &lt;version&gt;1.0&lt;/version&gt; &lt;/dependency&gt;</entry>
+            </row>
+
+            <row>
+              <entry>useNetwork</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Enables SWFs to access the network.</entry>
+            </row>
+
+            <row>
+              <entry>useResourceBundleMetadata</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Determines whether resources bundles are included in the
+              application. This is equivalent to using the
+              compiler.use-resource-bundle-metadata option of the mxmlc or
+              compc compilers.</entry>
+            </row>
+
+            <row>
+              <entry>verboseStacktraces</entry>
+
+              <entry>boolean</entry>
+
+              <entry>false</entry>
+
+              <entry>Turns on the display of stack traces for uncaught runtime
+              errors.</entry>
+            </row>
+
+            <row>
+              <entry>verifyDigests</entry>
+
+              <entry>boolean</entry>
+
+              <entry>true</entry>
+
+              <entry>Verifies the RSL loaded has the same digest as the RSL
+              specified when the application was compiled. This is equivalent
+              to using the verify-digests option in the mxmlc
+              compiler.</entry>
+            </row>
+
+            <row>
+              <entry>warnings</entry>
+
+              <entry>Warning</entry>
+
+              <entry></entry>
+
+              <entry>Enables checking of the following ActionScript warnings:
+              --compiler.warn-array-tostring-changes
+              --compiler.warn-assignment-within-conditional
+              --compiler.warn-bad-array-cast
+              --compiler.warn-bad-bool-assignment
+              --compiler.warn-bad-date-cast
+              --compiler.warn-bad-es3-type-method
+              --compiler.warn-bad-es3-type-prop
+              --compiler.warn-bad-nan-comparison
+              --compiler.warn-bad-null-assignment
+              --compiler.warn-bad-null-comparison
+              --compiler.warn-bad-undefined-comparison
+              --compiler.warn-boolean-constructor-with-no-args
+              --compiler.warn-changes-in-resolve
+              --compiler.warn-class-is-sealed
+              --compiler.warn-const-not-initialized
+              --compiler.warn-constructor-returns-value
+              --compiler.warn-deprecated-event-handler-error
+              --compiler.warn-deprecated-function-error
+              --compiler.warn-deprecated-property-error
+              --compiler.warn-duplicate-argument-names
+              --compiler.warn-duplicate-variable-def
+              --compiler.warn-for-var-in-changes
+              --compiler.warn-import-hides-class
+              --compiler.warn-instance-of-changes
+              --compiler.warn-internal-error
+              --compiler.warn-level-not-supported
+              --compiler.warn-missing-namespace-decl
+              --compiler.warn-negative-uint-literal
+              --compiler.warn-no-constructor
+              --compiler.warn-no-explicit-super-call-in-constructor
+              --compiler.warn-no-type-decl
+              --compiler.warn-number-from-string-changes
+              --compiler.warn-scoping-change-in-this
+              --compiler.warn-slow-text-field-addition
+              --compiler.warn-unlikely-function-value
+              --compiler.warn-xml-class-has-changed Usage: &lt;warnigs&gt;
+              &lt;arrayTostringChanges&gt;true&lt;/arrayTostringChanges&gt;
+              &lt;assignmentWithinConditional&gt;false&lt;/assignmentWithinConditional&gt;
+              &lt;/warnigs&gt; </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
   </section>
 
   <section>
