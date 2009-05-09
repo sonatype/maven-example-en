@@ -10,7 +10,7 @@
 
     <!-- These extensions are required for table printing and other stuff -->
     <xsl:param name="use.extensions">1</xsl:param>
-    <xsl:param name="tablecolumns.extension">0</xsl:param>
+    <xsl:param name="tablecolumns.extension">1</xsl:param>
     <xsl:param name="callout.extensions">1</xsl:param>
 
     <!-- FOP provide only PDF Bookmarks at the moment -->
@@ -50,10 +50,10 @@
     <xsl:param name="body.margin.bottom">0.4in</xsl:param>
     <xsl:param name="region.after.extent">0.3in</xsl:param>
 
-	<xsl:param name="page.margin.bottom" select="'1in'" />
-	<xsl:param name="page.margin.top" select="'0.5in'" />
-	<xsl:param name="page.margin.inner" select="'1in'" />
-	<xsl:param name="page.margin.outer" select="'1in'" />
+	<xsl:param name="page.margin.bottom" select="'0.2in'" />
+	<xsl:param name="page.margin.top" select="'0.2in'" />
+	<xsl:param name="page.margin.inner" select="'0.5in'" />
+	<xsl:param name="page.margin.outer" select="'0.5in'" />
 
     <!-- No intendation of Titles -->
     <xsl:param name="title.margin.left">0pc</xsl:param>
@@ -71,8 +71,8 @@
     <xsl:param name="line-height">1.4</xsl:param>
 
 	<xsl:param name="body.font.family" select="'serif'" />
-	<xsl:param name="body.font.master" select="'14'" />
-	<xsl:param name="body.font.small" select="'11'" />
+	<xsl:param name="body.font.master" select="'11'" />
+	<xsl:param name="body.font.small" select="'8'" />
 	<xsl:param name="dingbat.font.family" select="''" />
 	<xsl:param name="symbol.font.family" select="''" />
 	<xsl:param name="title.font.family" select="'sans-serif'" />
@@ -257,7 +257,7 @@
    ################################################### -->
 
     <!-- The table width should be adapted to the paper size -->
-    <xsl:param name="default.table.width">17.4cm</xsl:param>
+       <xsl:param name="default.table.width">7.5in</xsl:param>
 
     <!-- Some padding inside tables -->
     <xsl:attribute-set name="table.cell.padding">
