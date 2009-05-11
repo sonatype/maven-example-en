@@ -2,122 +2,51 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="assemblies">
-  <title>Maven Assemblies</title>
+  <title>Maven套件</title>
 
   <section>
-    <title>Introduction</title>
+    <title>简介</title>
 
-    <para>Maven provides plugins that are used to create the most common
-    archive types, most of which are consumable as dependencies of other
-    projects. Some examples include the <acronym>JAR</acronym>,
-    <acronym>WAR</acronym>, <acronym>EJB</acronym>, and <acronym>EAR</acronym>
-    plugins. As discussed in <xref linkend="lifecycle" /> these plugins
-    correspond to different project packaging types each with a slightly
-    different build processes. While Maven has plugins and customized
-    lifecycles to support standard packaging types, there are times when
-    you'll need to create an archive or directory with a custom layout. Such
-    custom archives are called Maven Assemblies.</para>
+    <para>Maven提供了可以用来创建大多数常见归档类型的插件，这些归档类型中的大部分可以由其它项目作为依赖使用。这样的插件有<acronym>JAR</acronym>,
+    <acronym>WAR</acronym>, <acronym>EJB</acronym>, 以及
+    <acronym>EAR</acronym>插件。如在<xref
+    linkend="lifecycle" />中讨论的那样，这些插件对应于不同的项目打包类型，每种类型的构建过程都有微小的差别。虽然Maven有插件及自定义生命周期来支持标准的打包类型，但还是有些时候你需要创建一个自定义格式的归档文件或目录。这样的归档叫做Maven套件(Assembly)。</para>
 
-    <para>There are any number of reasons why you may want to build custom
-    archives for your project. Perhaps the most common is the project
-    distribution. The word ‘distribution’ means many different things to
-    different people (and projects), depending on how the project is meant to
-    be used. Essentially, these are archives that provide a convenient way for
-    users to install or otherwise make use of the project’s releases. In some
-    cases, this may mean bundling a web application with an application server
-    like Jetty. In others, it could mean bundling API documentation alongside
-    source and compiled binaries like jar files. Assemblies usually come in
-    handy when you are building the final distribution of a product. For
-    example, products like Nexus introduced in <xref
-    linkend="repository-manager" />, are the product of large multi-module
-    Maven products, and the final archive you download from Sonatype was
-    created using a Maven Assembly.</para>
+    <para>在很多情况下你需要为你的项目构建自定义的归档。最常见的可能就是项目分发。单词“分发(distribution)”意思是，根据项目将会如何被使用，为不同的人（或项目）提供不同的东西。本质上来说，这些归档是为用户提供一种方便的方式来安装，否则用户就必须使用项目的发布版本。一些情况下，这可能是构建一个带有应用服务器（如Jetty）的web应用。还有一些情况，可能是包裹了项目API文档，源码，和已编译字节码的JAR文件。当你构建项目的最终分发包的时候，Maven套件就十分有用了。以<xref
+    linkend="repository-manager" />中介绍的Nexus为例，它包含了很多大型多模块Maven产品，而你从Sonatype下载的最终归档就是一个Maven套件。</para>
 
-    <para>In most cases, the Assembly plugin is ideally suited to the process
-    of building project distributions. However, assemblies don’t have to be
-    distribution archives; assemblies are intended to provide Maven users with
-    the flexibility they need to produce customized archives of all kinds.
-    Essentially, assemblies are intended to fill the gaps between the standard
-    archive formats provided by project package types. Of course, you could
-    write an entire Maven plugin simply to generate your own custom archive
-    format, along with a new lifecycle mapping and artifact-handling
-    configuration to tell Maven how to deploy it. But the Assembly plugin
-    makes this unnecessary in most cases, by providing generalized support for
-    creating your own archive recipe without spending so much time writing
-    Maven code.</para>
+    <para>大多数情况下，Assembly插件十分适用于构建项目的分发包。然而，套件不一定就要是分发包；套件的目的是给用户提供构建任意类型自定义归档文件的灵活性。本质上说，套件是为了弥补由项目打包类型提供的标准归档格式的不足。当然，你可以完全写一个Maven插件来帮助生成你的自定义归档格式，同时创建生命周期映射和构件处理配置来告诉Maven如何部署。但大部分情况下，有了Assembly插件，这就完全没有必要了。该插件为创建自定义归档格式提供了普遍的支持，你不需要花很多时间来编写Maven插件代码。</para>
   </section>
 
   <section id="sect-assembly-basics">
-    <title>Assembly Basics</title>
+    <title>Assembly基础</title>
 
-    <para>Before we go any further, it’s best to take a minute and talk about
-    the two main goals in the Assembly plugin:
-    <varname>assembly:assembly</varname>, and the <varname>single</varname>
-    mojo. I list these two goals in different ways, because it reflects the
-    difference in how they’re used. The <varname>assembly:assembly</varname>
-    goal is designed to be invoked directly from the command line, and should
-    never be bound to a build lifecycle phase. In contrast, the
-    <varname>single</varname> mojo is designed to be a part of your everyday
-    build, and should be bound to a phase in your project’s build
-    lifecycle.</para>
+    <para>在我们进一步讨论之前，最好先花几分钟来讲一下Assembly插件的两个主要目标：<varname>assembly:assembly</varname>，和<varname>single</varname>
+    mojo。我用不同的方式列出这两个目标，是因为这样可以很好的体现它们不同的使用方式。<varname>assembly:assembly</varname>目标被设计成直接从命令行调用，它永远不应该被绑定到生命周期阶段。反之，<varname>single</varname>
+    mojo被设计成作为你每日构建的一部分，应该被绑定到项目生命周期的某个阶段。</para>
 
-    <para>The main reason for this difference is that the
-    <varname>assembly:assembly</varname> goal is what Maven terms an
-    aggregator mojo; that is, a mojo which is designed to run at most once in
-    a build, regardless of how many projects are being built. It draws its
-    configuration from the root project - usually the top-level
-    <acronym>POM</acronym> or the command line. When bound to a lifecycle, an
-    aggregator mojo can have some nasty side-effects. It can force the
-    execution of the <varname>package</varname> lifecycle phase to execute
-    ahead of time, and can result in builds which end up executing the
-    <varname>package</varname> phase twice.</para>
+    <para>有这种区别的主要理由是，<varname>assembly:assembly</varname>目标在Maven术语中是一个聚合mojo；意思是，无论有多少个模块正被构建，该mojo在一个构建中最多被运行一次。它从根项目的中提取配置——通常是顶层<acronym>POM</acronym>或者命令行目录的<acronym>POM</acronym>。而在绑定到生命周期后，一个聚合mojo就会有很多讨厌的副作用。它会强迫<varname>package</varname>生命周期阶段提前运行，从而造成在一次构建中<varname>package</varname>阶段被执行了两次。</para>
 
-    <para>Because the <varname>assembly:assembly</varname> goal is an
-    aggregator mojo, it raises some issues in multi-module Maven builds, and
-    it should only be called as a stand-alone mojo from the command-line.
-    Never bind an <varname>assembly:assembly</varname> execution to a
-    lifecycle phase. <varname>assembly:assembly</varname> was the original
-    goal in the Assembly plugin, and was never designed to be part of the
-    standard build process for a project. As it became clear that assembly
-    archives were a legitimate requirement for projects to produce, the
-    <varname>single</varname> mojo was developed. This mojo assumes that it
-    has been bound to the correct part of the build process, so that it will
-    have access to the project files and artifacts it needs to execute within
-    the lifecycle of a large multi-module Maven project. In a multi-module
-    environment, it will execute as many times as it is bound to the different
-    module <acronym>POM</acronym>s. Unlike
-    <varname>assembly:assembly</varname>, <varname>single</varname> will never
-    force the execution of another lifecycle phase ahead of itself.</para>
+    <para>由于<varname>assembly:assembly</varname>目标是一个聚合mojo，在多模块构建中它造成了一些问题，它应当在命令行中作为单独的mojo被调用。永远不要将<varname>assembly:assembly</varname>目标绑定到生命周期阶段中。<varname>assembly:assembly</varname>是Assembly插件最原始的目标，不是被设计成用作项目标准构建过程的一部分的。由于很显然为一个项目生成套件归档合情合理，因此开发了<varname>single</varname>
+    mojo。该mojo假设它被绑定到了构建过程的正确部分，因此它能访问它在大型模块Maven项目生命周期中执行需要的项目文件级构件。在一个多模块环境中，它会执行很多次，因为它被绑定到了不同模块的<acronym>POM</acronym>上。不像<varname>assembly:assembly</varname>，<varname>single</varname>从来不会强制在它之前执行另外一个生命周期阶段。</para>
 
-    <para>Aside from these two goals, the Assembly plugin provides several
-    others; however, discussion of these mojos is beyond the scope of this
-    chapter, largely because they serve exotic or obsolete use cases, and
-    because they are almost never needed. Whenever possible, you should
-    definitely stick to using <varname>assembly:assembly</varname> for
-    assemblies generated from the command-line, and <varname>single</varname>
-    for assemblies bound to lifecycle phases.</para>
+    <para>除了上述的两项，Assembly插件还提供了很多其它目标；然后，讨论这些mojo超出了本章范围，主要是由于它们是为一切奇怪或者过时的用例服务的，基本上不会被用到。只要可能，你都应该坚持在命令行生成套件时使用<varname>assembly:assembly</varname>，在绑定到生命周期阶段生成套件时使用<varname>single</varname>。</para>
 
     <section>
-      <title>Predefined Assembly Descriptors</title>
+      <title>预定义的套件描述符</title>
 
-      <para>While many people opt to create their own archive recipes - called
-      assembly descriptors - this isn’t strictly necessary. The Assembly
-      plugin provides built-in descriptors for several common archive types
-      that you can use immediately without writing a line of configuration.
-      The following assembly descriptors are predefined in the Maven Assembly
-      plugin:</para>
+      <para>虽然很多人选择创建他们自己的归档解决方案——称之为套件描述符——但这不是必须的。Assembly插件为一些常用的归档类型提供了内置的描述符，你可以不写
+      一行配置就马上使用。以下的套件描述符是由Maven Assembly插件预定义的：</para>
 
       <variablelist>
         <varlistentry>
           <term><varname>bin</varname></term>
 
           <listitem>
-            <para>The <varname>bin</varname> descriptor is used to bundle
-            project <filename>LICENSE</filename>, <filename>README</filename>,
-            and <filename>NOTICE</filename> files with the project’s main
-            artifact, assuming this project builds a jar as its main artifact.
-            Think of this as the smallest possible binary distribution for
-            completely self-contained projects.</para>
+            <para>假设一个项目构建了一个jar作为它的主构件，<varname>bin</varname>
+            描述符用来包裹该主构件和项目的<filename>LICENSE</filename>,
+            <filename>README</filename>,
+            和<filename>NOTICE</filename>文件。我们可以认为这是一个完全自包含项目的最可能小的二进制分发包。</para>
           </listitem>
         </varlistentry>
 
@@ -125,14 +54,8 @@
           <term><varname>jar-with-dependencies</varname></term>
 
           <listitem>
-            <para>The <varname>jar-with-dependencies</varname> descriptor
-            builds a <acronym>JAR</acronym> archive with the contents of the
-            main project jar along with the unpacked contents of all the
-            project’s runtime dependencies. Coupled with an appropriate
-            <varname>Main-Class</varname> Manifest entry (discussed in “Plugin
-            Configuration” below), this descriptor can produce a
-            self-contained, executable jar for your project, even if the
-            project has dependencies.</para>
+            <para><varname>jar-with-dependencies</varname>描述符构建一个带有主项目jar文件和所有项目运行时依赖未解开内容的<acronym>JAR</acronym>归档文件。外加上适当的<varname>Main-Class</varname>
+            Manifest条目（在下面的“插件配置”讨论），该描述符可以为你的项目生成一个自包含的，可运行的jar，即使该项目含有依赖。</para>
           </listitem>
         </varlistentry>
 
@@ -140,14 +63,7 @@
           <term><varname>project</varname></term>
 
           <listitem>
-            <para>The <varname>project</varname> descriptor simply archives
-            the project directory structure as it exists in your file-system
-            and, most likely, in your version control system. Of course, the
-            target directory is omitted, as are any version-control metadata
-            files like the <filename>CVS</filename> and
-            <filename>.svn</filename> directories we’re all used to seeing.
-            Basically, the point of this descriptor is to create a project
-            archive that, when unpacked, can be built using Maven.</para>
+            <para><varname>project</varname>描述符会简单的将你文件系统或者版本控制中的项目目录结构整个的归档。当然，target目录会被忽略，目录中的版本控制元数据文件如<filename>.svn</filename>和<filename>CVS</filename>目录也会被忽略。基本上，该描述符的目的是创建一个解开后就立刻能由Maven构建的归档。</para>
           </listitem>
         </varlistentry>
 
@@ -155,43 +71,18 @@
           <term><varname>src</varname></term>
 
           <listitem>
-            <para>The <varname>src</varname> descriptor produces an archive of
-            your project source and <filename>pom.xml</filename> files, along
-            with any <filename>LICENSE</filename>,
-            <filename>README</filename>, and <filename>NOTICE</filename> files
-            that are in the project’s root directory. This precursor to the
-            project descriptor produces an archive that can be built by Maven
-            in most cases. However, because of its assumption that all source
-            files and resources reside in the standard
-            <filename>src</filename> directory, it has the potential to leave
-            out non-standard directories and files that are nonetheless
-            critical to some builds.</para>
+            <para><varname>src</varname>描述符生成一个包含你项目源码，<filename>pom.xml</filename>文件，以及项目根目录中所有<filename>LICENSE</filename>，<filename>README</filename>，和<filename>NOTICE</filename>文件的归档。它类似于<varname>project</varname>描述符，大部分情况下能生成一个可以被Maven构建的归档。然而，由于它假设所有的源文件和资源文件都位于标准的<filename>src</filename>目录下，它就可能遗漏那些非标准的目录和文件，而这些文件往往对构建起着关键作用。</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </section>
 
     <section>
-      <title>Building an Assembly</title>
+      <title>构建一个套件Building an Assembly</title>
 
-      <para>The Assembly plugin can be executed in two ways: you can invoke it
-      directly from the command line, or you can configure it as part of your
-      standard build process by binding it to a phase of your project’s build
-      lifecycle. Direct invocation has its uses, particularly for one-off
-      assemblies that are not considered part of your project’s core
-      deliverables. In most cases, you’ll probably want to generate the
-      assemblies for your project as part of its standard build process. Doing
-      this has the effect of including your custom assemblies whenever the
-      project is installed or deployed into Maven’s repositories, so they are
-      always available to your users.</para>
+      <para>Assembly插件可以以两种方式运行：你可以直接在命令行调用，或者你可以通过绑定到生命周期阶段将其配置成标准构建过程的一部分。直接调用自有它的用处，主要是为了那些一次性，不属于你项目核心分发包的套件。大部分情况下，你可能以标准项目构建过程一部分的形式生成套件。这么做，不管你的项目被安装还是部署，都能包含你自定义的套件，从而它们也一直是对用户可用的。</para>
 
-      <para>As an example of the direct invocation of the Assembly plugin,
-      imagine that you wanted to ship off a copy of your project which people
-      could build from source. Instead of just deploying the end-product of
-      the build, you wanted to include the source as well. You won’t need to
-      do this often, so it doesn’t make sense to add the configuration to your
-      <sgmltag>POM</sgmltag>. Instead, you can use the following
-      command:</para>
+      <para>作为一个直接调用Assembly插件的例子，考虑你想要将你的项目复制一份给别人让他们也能从源码构建。你需要同时包含源码，而不仅仅是一个最终的产品。而且你只是偶尔需要这么做，因此往你的<abbrev>POM</abbrev>中添加配置显得没有必要。你可以使用如下的命令：</para>
 
       <screen>$ <command>mvn -DdescriptorId=project assembly:single</command> 
 ...
@@ -204,23 +95,12 @@
                       target/direct-invocation-1.0-SNAPSHOT-project.zip
 ...</screen>
 
-      <para>Imagine you want to produce an executable <acronym>JAR</acronym>
-      from your project. If your project is totally self-contained with no
-      dependencies, this can be achieved with the main project artifact using
-      the archive configuration of the <acronym>JAR</acronym> plugin. However,
-      most projects have dependencies, and those dependencies must be
-      incorporated in any executable <acronym>JAR</acronym>. In this case, you
-      want to make sure that every time the main project
-      <acronym>JAR</acronym> is installed or deployed, your executable
-      <acronym>JAR</acronym> goes along with it.</para>
+      <para>加入你想要从你的项目生成一个可运行的<acronym>JAR</acronym>。如果你的项目完全是自包含的，没有任何依赖，那么使用<acronym>JAR</acronym>插件的archive配置就能做到。但是，大部分项目都有依赖，而且这些依赖需要被引入到可运行<acronym>JAR</acronym>文件中。这种情况下，每次<acronym>JAR</acronym>被安装或部署的时候你都要确认可运行<acronym>JAR</acronym>包含了这些依赖。</para>
 
-      <para>Assuming the main class for the project is
-      <classname>org.sonatype.mavenbook.App</classname>, the following
-      <acronym>POM</acronym> configuration will create an executable
-      <acronym>JAR</acronym>:</para>
+      <para>假设该项目的main类是<classname>org.sonatype.mavenbook.App</classname>，如下的<acronym>POM</acronym>配置将创建一个可运行的<acronym>JAR</acronym>：</para>
 
       <example>
-        <title>Assembly Descriptor for Executable JAR</title>
+        <title>可运行JAR的套件描述符</title>
 
         <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -272,25 +152,11 @@
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>There are two things to notice about the configuration above.
-      First, we’re using the <sgmltag>descriptorRefs</sgmltag> configuration
-      section instead of the <sgmltag>descriptorId</sgmltag> parameter we used
-      last time. This allows multiple assembly types to be built from the same
-      Assembly plugin execution, while still supporting our use case with
-      relatively little extra configuration. Second, the archive
-      <sgmltag>element</sgmltag> under <sgmltag>configuration</sgmltag> sets
-      the <varname>Main-Class</varname> manifest attribute in the generated
-      <acronym>JAR</acronym>. This section is commonly available in plugins
-      that create <acronym>JAR</acronym> files, such as the
-      <acronym>JAR</acronym> plugin used for the default project package
-      type.</para>
+      <para>以上配置中有两点我们要注意。首先，我们不再像上次那样使用<sgmltag>descriptorId</sgmltag>参数，这里我们使用<sgmltag>descriptorRefs</sgmltag>配置。这样可以允许在同一次Assembly插件执行过程中使用多个套件类型，同时还能保持不要引入太多额外的配置。第二，<sgmltag>configuration</sgmltag>下的<sgmltag>archive</sgmltag>元素设置最终JAR的<varname>Main-Class</varname>
+      manifest属性。该配置在所有创建<acronym>JAR</acronym>文件的插件中都很常见，如由默认打包类型使用的<acronym>JAR</acronym>插件。</para>
 
-      <para>Now, you can produce the executable <acronym>JAR</acronym> simply
-      by executing <command>mvn package</command>. Afterward, we’ll also get a
-      directory listing for the target directory, just to verify that the
-      executable <acronym>JAR</acronym> was generated. Finally, just to prove
-      that we actually do have an executable <acronym>JAR</acronym>, we’ll try
-      executing it:</para>
+      <para>现在，你可以通过执行<command>mvn
+      package</command>生成可运行的<acronym>JAR</acronym>文件。之后，我们看一下target目录的内容，验证一下可运行<acronym>JAR</acronym>已经被生成了。最后，为了证明我们真的有可运行<acronym>JAR</acronym>了，那就运行一下吧。</para>
 
       <screen>$ <command>mvn package</command>
 ... (output omitted) ...
@@ -311,87 +177,37 @@ $ <command>java -jar \
         target/executable-jar-1.0-SNAPSHOT-jar-with-dependencies.jar </command>
 Hello, World!</screen>
 
-      <para>From the output shown above, you can see that the normal project
-      build now produces a new artifact in addition to the main
-      <acronym>JAR</acronym> file. The new one has a classifier of
-      <varname>jar-with-dependencies</varname>. Finally, we verified that the
-      new <acronym>JAR</acronym> actually is executable, and that executing
-      the <acronym>JAR</acronym> produced the desired output of “Hello,
-      World!”</para>
+      <para>从以上的输出你可以看到，标准的项目构建现在生成了一个新的额外的构件。这个新的构件有一个名为<varname>jar-with-dependencies</varname>的分类器。最后，我们验证了这个新的<acronym>JAR</acronym>是可运行的，运行这个<acronym>JAR</acronym>会产生我们期望的输出“Hello,
+      World!”。</para>
     </section>
 
     <section>
-      <title>Assemblies as Dependencies</title>
+      <title>套件作为依赖</title>
 
-      <para>When you generate assemblies as part of your normal build process,
-      those assembly archives will be attached to your main project’s
-      artifact. This means they will be installed and deployed alongside the
-      main artifact, and are then resolvable in much the same way. Each
-      assembly artifact is given the same basic coordinate
-      (<varname>groupId</varname>, <varname>artifactId</varname>, and
-      <varname>version</varname>) as the main project. However, these
-      artifacts are attachments, which in Maven means they are derivative
-      works based on some aspect of the main project build. To provide a
-      couple of examples, <varname>source</varname> assemblies contain the raw
-      inputs for the project build, and
-      <varname>jar-with-dependencies</varname> assemblies contain the
-      project’s classes plus its dependencies. Attached artifacts are allowed
-      to circumvent the Maven requirement of one project, one artifact
-      precisely because of this derivative quality.</para>
+      <para>当你将生成套件作为你标准构建过程的一部分的时候，这些套件归档会被附着到你项目的主构件上。意思是，当它们会随着主构件的安装和部署一起被安装或部署，而且它们会以差不多相同的方式被解析。每个套件构件会被给予同样的基本坐标（<varname>groupId</varname>,
+      <varname>artifactId</varname>, 和
+      <varname>version</varname>）。但是，由于这些构件是附件，在Maven中意思是，它们是基于主项目构建的某些方面派生出来的。这里是一些例子，<varname>source</varname>套件包含了项目构建的未被加工的输入，<varname>jar-with-dependencies</varname>套件包含了项目的类加上依赖。由于这种派生的性质，附着构建被允许精确的规避一个项目，或一个构件的Maven需求。</para>
 
-      <para>Since assemblies are (normally) attached artifacts, each must have
-      a classifier to distinguish it from the main artifact, in addition to
-      the normal artifact coordinate. By default, the classifier is the same
-      as the assembly descriptor’s identifier. When using the built-in
-      assembly descriptors, as above, the assembly descriptor’s identifier is
-      generally also the same as the identifier used in the
-      <sgmltag>descriptorRef</sgmltag> for that type of assembly.</para>
+      <para>由于套件（通常）是附属构件，除了标准的构件坐标，它们还必须拥有一个分类器来和主构件加以区分。默认情况下，该分离器就是套件描述符的定义符。当如上例使用内置的套件描述符的时候，套件描述符的定义符和<sgmltag>descriptorRef</sgmltag>中对应使用的定义符是一样的。</para>
 
-      <para>Once you’ve deployed an assembly alongside your main project
-      artifact, how can you use that assembly as a dependency in another
-      project? The answer is fairly straightforward. Recall the discussions in
-      <xref linkend="sect-maven-coordinates" /> and <xref
-      linkend="sect-more-coordinates" /> about project dependencies in Maven,
-      projects depend on other projects using a combination of four basic
-      elements, referred to as a project’s coordinates:
-      <varname>groupId</varname>, <varname>artifactId</varname>,
-      <varname>version</varname>, and <varname>packaging</varname>. In <xref
-      linkend="sect-platform-classifier" />, multiple platform-specific
-      variants of a project’s artifact and available, and the project
-      specifies a <varname>classifier</varname> element with a value of either
-      <varname>win</varname> or <varname>linux</varname> to select the
-      appropriate dependency artifact for the target platform. Assembly
-      artifacts can be used as dependencies using the required coordinates of
-      a project plus the classifier under which the assembly was installed or
-      deployed. If the assembly is not a <acronym>JAR</acronym> archive, we
-      also need to declare its type.</para>
+      <para>在你伴随着项目的主构件部署了一个套件后，如何才能在其它项目中使用这个套件呢？答案很简单。会议一下<xref
+      linkend="sect-maven-coordinates" />和<xref
+      linkend="sect-more-coordinates" />中讨论的项目依赖，一个项目依赖于另外一个项目的时候，它使用项目坐标四个元素的组合：<varname>groupId</varname>,
+      <varname>artifactId</varname>, <varname>version</varname>, 和
+      <varname>packaging</varname>。在<xref
+      linkend="sect-platform-classifier" />中，同一个项目的构件有针对多个平台的变种，该项目设置了值为<varname>win</varname>或<varname>linux</varname>的<varname>classifier</varname>元素，以为目标平台选择合适的依赖构件。使用项目的坐标加上套件被安装或部署时的分类器，我们就可以将套件设为依赖。如果套件不是一个<acronym>JAR</acronym>归档，我们也需要声明类型。</para>
     </section>
 
     <section>
-      <title>Assembling Assemblies via Assembly Dependencies</title>
+      <title>通过套件依赖组装套件</title>
 
-      <para>How's that for a confusing section title? Let's try to set up a
-      scenario which would explain the idea of assembling assemblies. Imagine
-      you want to create an archive which itself contains some project
-      assemblies. Assume that you have a multi-module build and you want to
-      deploy an assembly which contains a set of related project assemblies.
-      In this section's example, we create a bundle of "buildable" project
-      directories for a set of projects that are commonly used together. For
-      simplicity, we’ll reuse the two built-in assembly descriptors discussed
-      above - <varname>project</varname> and
-      <varname>jar-with-dependencies</varname>. This this particular example,
-      it is assumed that each project creates the <varname>project</varname>
-      assembly in addition to its main <acronym>JAR</acronym> artifact. Assume
-      that every project in a multi-module build binds the
-      <varname>single</varname> goal to the <varname>package</varname> phase
-      and uses the <varname>project</varname>
-      <sgmltag>descriptorRef</sgmltag>. Every project in a multi-module will
-      inherit the configuration from a top-level <filename>pom.xml</filename>
-      whose <sgmltag>pluginManagement</sgmltag> element is shown in <xref
-      linkend="ex-top-pom-assembly" />.</para>
+      <para>起这么一个使人困惑的名字是怎么回事？让我们建立这样一个能解释组装套件(assembling
+      assemblies)概念的场景。假设你想要创建一个归档，它包含了一些项目套件。再假设你有一个多模块构建，并且想要部署一个包含很多相关项目套件的套件。在本节的例子中，我们要为一组通常一起被使用的项目创建一个“可构建”的项目目录。为了简便，我们要重用前面讨论的两个<varname>project</varname>和<varname>jar-with-dependencies</varname>内置套件描述符。在这个特定的例子中，假设每个项目在主要的<acronym>JAR</acronym>构件之外还创建<varname>project</varname>套件。假设这个多模块构建中每个项目都使用<varname>project</varname>
+      <sgmltag>descriptorRef</sgmltag>绑定到<varname>package</varname>阶段的<varname>single</varname>目标。每个模块都会从顶层的<filename>pom.xml</filename>中继承该配置，其<sgmltag>pluginManagement</sgmltag>元素如<xref
+      linkend="ex-top-pom-assembly" />所示：</para>
 
       <example id="ex-top-pom-assembly">
-        <title>Configuring the project assembly in top-level POM</title>
+        <title>在顶层POM中配置项目套件</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -423,14 +239,12 @@ Hello, World!</screen>
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>Each project <acronym>POM</acronym> references the managed plugin
-      configuration from <xref linkend="ex-top-pom-assembly" /> using a
-      minimal plugin declaration in its build section shown in <xref
-      linkend="ex-activating-assembly" />.</para>
+      <para>每个项目的<acronym>POM</acronym>都使用很小的一部分插件声明引用了<xref
+      linkend="ex-top-pom-assembly" />中的插件配置，如<xref
+      linkend="ex-activating-assembly" />所示：</para>
 
       <example id="ex-activating-assembly">
-        <title>Activating the Assembly Plugin Configuration in Child
-        Projects</title>
+        <title>在子项目中激活Assembly插件配置</title>
 
         <programlisting language="xml">&lt;build&gt;
   &lt;plugins&gt;
@@ -442,9 +256,8 @@ Hello, World!</screen>
 </programlisting>
       </example>
 
-      <para>To produce the set of project assemblies, run <command>mvn
-      install</command> from the top-level directory. You should see Maven
-      installing artifacts with classifiers in your local repository.</para>
+      <para>要生成一组项目套件，从顶层目录运行<command>mvn
+      install</command>。你会看到Maven使用分类器将套件安装到你的本地仓库。</para>
 
       <screen>$ <command>mvn install</command>
 ...
@@ -464,19 +277,11 @@ Hello, World!</screen>
                   second-project-1.0-SNAPSHOT-project.zip
 ...</screen>
 
-      <para>When you run install, Maven will copy the each project's main
-      artifact and each assembly to your local Maven repository. All of these
-      artifacts are now available for reference as dependencies in other
-      projects locally. If your ultimate goal is to create a bundle which
-      includes assemblies from multiple project, you can do so by creating
-      another project which will include other project's assemblies as
-      dependencies. This bundling project (aptly named project-bundle) is
-      responsible for creating the bundled assembly. The
-      <acronym>POM</acronym> for the bundling project would resemble the XML
-      document listed in <xref linkend="ex-bundling-pom" />.</para>
+      <para>当你运行install的时候，Maven会将每个项目的主构件和每个套件复制到你的本地Maven仓库中。现在本地的所有其它项目都可以使用依赖引用这些构件。如果你最终的目的是创建一个包含多个多模块项目构件的软件包，你可以创建一个项目，它以依赖的形式引入其它项目的套件。这个包裹项目（贴切的命名为project-bundle）负责创建一个最终的包裹套件。这个包裹项目的<acronym>POM</acronym>如<xref
+      linkend="ex-bundling-pom" />所示：</para>
 
       <example id="ex-bundling-pom">
-        <title>POM for the Assembly Bundling Project</title>
+        <title>套件包裹项目的POM</title>
 
         <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -532,35 +337,10 @@ Hello, World!</screen>
 </programlisting>
       </example>
 
-      <para>This bundling project's <acronym>POM</acronym> references the two
-      assemblies from <varname>first-project</varname> and
-      <varname>second-project</varname>. Instead of referencing the main
-      artifact of each project, the bundling project's <acronym>POM</acronym>
-      specifies a classifier of <varname>project</varname> and a type of
-      <varname>zip</varname>. This tells Maven to resolve the
-      <acronym>ZIP</acronym> archive which was created by the
-      <varname>project</varname> assembly. Note that the bundling project
-      generates a <varname>jar-with-dependencies</varname> assembly.
-      <varname>jar-with-dependencies</varname> does not create a particularly
-      elegant bundle, it simply creates a <acronym>JAR</acronym> file with the
-      unpacked contents of all of the dependencies.
-      <varname>jar-with-dependencies</varname> is really just telling Maven to
-      take all of the dependencies, unpack them, and then create a single
-      archive which includes the output of the current project. In this
-      project, it has the effect of creating a single <acronym>JAR</acronym>
-      file that puts the two project assemblies from
-      <varname>first-project</varname> and <varname>second-project</varname>
-      side-by-side.</para>
+      <para>该包裹项目的<acronym>POM</acronym>引用了来自于<varname>first-project</varname>和<varname>second-project</varname>的两个套件。这个POM指定了一个值为<varname>project</varname>的分类器和一个值为<varname>zip</varname>的类型，而不是直接引用过了项目的主构件。这告诉Maven去解析<varname>project</varname>套件创建的<acronym>ZIP</acronym>归档。注意包裹项目生成了一个<varname>jar-with-dependencies</varname>套件。<varname>jar-with-dependencies</varname>并不创建一个非常简洁的套件，而是简单的创建一个包含所有依赖拆解内容的<acronym>JAR</acronym>文件。<varname>jar-with-dependencies</varname>实际上做的事情是：告诉Maven拿来所有依赖，将其拆解，然后创建一个包含当前项目所有输出的归档。在这个项目中，它的效果就是创建一个带有<varname>first-project</varname>和<varname>second-project</varname>套件拆解内容的<acronym>JAR</acronym>文件，</para>
 
-      <para>This example illustrates how the basic capabilities of the Maven
-      Assembly plugin can be combined without the need for a custom assembly
-      descriptor. It achieves the purpose of creating a single archive that
-      contains the project directories for multiple projects side-by-side.
-      This time, the <varname>jar-with-dependencies</varname> is just a
-      storage format, so we don’t need to specify a
-      <varname>Main-Class</varname> manifest attribute. To build the bundle,
-      we just build the <varname>project-bundle</varname> project
-      normally:</para>
+      <para>该样例展示了如何不用自定一个套件描述符就能联合Maven
+      Assembly插件的基本能力。它实现了创建一个包含多模块项目内容的单独归档这样一个目的。这个时候，<varname>jar-with-dependencies</varname>仅仅是一个存储格式，因此我们没必要指定<varname>Main-Class</varname>的manifest属性。我们只要正常的构建<varname>project-bundle</varname>项目就能得到套件。</para>
 
       <screen>$ <command>mvn package</command>
 ...
@@ -570,9 +350,8 @@ Hello, World!</screen>
         project-bundle/target/project-bundle-1.0-SNAPSHOT-jar-with-dependencies.jar
 </screen>
 
-      <para>To verify that the project-bundle assembly contains the unpacked
-      contents of the assembly dependencies, run <command>jar
-      tf</command>:</para>
+      <para>要验证project-bundle套件是否包含了所有依赖套件的拆解内容，运行<command>jar
+      tf</command>：</para>
 
       <screen>$ <command>java tf \
   target/project-bundle-1.0-SNAPSHOT-jar-with-dependencies.jar</command>
@@ -585,23 +364,18 @@ second-project-1.0-SNAPSHOT/pom.xml
 second-project-1.0-SNAPSHOT/src/main/java/org/sonatype/mavenbook/App.java
 second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</screen>
 
-      <para>After reading this section, the title should make more sense.
-      You've assembled assemblies from two projects into an assembly using a
-      bundling project which has a dependency on each of the
-      assemblies.</para>
+      <para>阅读本节内容之后，标题应该容易理解了。我们使用了一个包裹项目，它依赖于两个项目的套件，然后我们再根据这两个项目的套件装配出最终的一个套件。</para>
     </section>
   </section>
 
   <section>
-    <title>Overview of the Assembly Descriptor</title>
+    <title>套件描述符概述</title>
 
-    <para>When the standard assembly descriptors introduced in <xref
-    linkend="sect-assembly-basics" /> are not adequate, you will need to
-    define you own assembly descriptor. The assembly descriptor is an XML
-    document which defines the structure and contents of an assembly.</para>
+    <para>当<xref
+    linkend="sect-assembly-basics" />中介绍的标准套件描述符不够的时候，你就需要自定义你自己的套件描述符。套件描述符是一个定义了套件结构和内容的XML文档。</para>
 
     <figure>
-      <title>Assembly Descriptor Picture</title>
+      <title>套件描述符图解</title>
 
       <mediaobject>
         <imageobject>
@@ -610,58 +384,35 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       </mediaobject>
     </figure>
 
-    <para>The assembly descriptor contains five main configuration sections,
-    plus two additional sections: one for specifying standard
-    assembly-descriptor fragments, called component descriptors, and another
-    for specifying custom file processor classes to help manage the
-    assembly-production process.</para>
+    <para>套件描述符包含五个主要的小节，以及两个额外的小节：一个叫做组件描述符，用来指定标准的套件描述符片段，另一个用来指定自定义的文件处理类，以帮助管理套件生产过程。</para>
 
     <variablelist>
       <varlistentry>
-        <term>Base Configuration</term>
+        <term>基本配置</term>
 
         <listitem>
-          <para>This section contains the information required by all
-          assemblies, plus some additional configuration options related to
-          the format of the entire archive, such as the base path to use for
-          all archive entries. For the assembly descriptor to be valid, you
-          must at least specify the assembly id, at least one format, and at
-          least one of the other sections shown above.</para>
+          <para>该小节包含了所有套件需要的信息，还有一些关于整个归档格式的额外配置选项，如所有归档项使用的基础路径。为了使套件描述符有效，你必须至少指定套件id，至少一种格式，以及至少一个如上所示的其它小节。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>File Information</term>
+        <term>文件信息</term>
 
         <listitem>
-          <para>The configurations in this segment of the assembly descriptor
-          apply to specific files on the file system within the project’s
-          directory structure. This segment contains two main sections:
-          <sgmltag>files</sgmltag> and <sgmltag>fileSets</sgmltag>. You use
-          <sgmltag>files</sgmltag> and <sgmltag>fileSets</sgmltag> to control
-          the permissions of files in an assembly and to include or exclude
-          files from an assembly.</para>
+          <para>套件描述符这个片段中的配置应用于文件系统中该项目目录结构中特定的文件。这个片段包含了两个主要部分：<sgmltag>files</sgmltag>和<sgmltag>fileSets</sgmltag>。你可以使用<sgmltag>files</sgmltag>和<sgmltag>fileSets</sgmltag>来控制套件中文件的权限，从套件中包含或者排除文件。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Dependency Information</term>
+        <term>依赖信息</term>
 
         <listitem>
-          <para>Almost all projects of any size depend on other projects. When
-          creating distribution archives, project dependencies are usually
-          included in the end-product of an assembly. This section manages the
-          way dependencies are included in the resulting archive. This section
-          allows you to specify whether dependencies are unpacked, added
-          directly to the <filename>lib/</filename> directory, or mapped to
-          new file names. This section also allows you to control the
-          permissions of dependencies in the assembly, and which dependencies
-          are included in an assembly.</para>
+          <para>几乎任意大小的所有的项目都依赖于其它项目。在创建分发归档的时候，项目依赖通常被包含在最终产品套件中。该小节管理依赖被包含在最终归档中的方式。该小节允许你依赖是否被拆解，是直接添加到<filename>lib/</filename>目录中，还是映射至新的文件名。该小节也允许你控制套件中依赖的权限，以及哪些依赖被包含在套件中。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Repository Information</term>
+        <term>仓库信息</term>
 
         <listitem>
           <para>At times, it’s useful to isolate the sum total of all
@@ -673,37 +424,28 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
           with various configuration options. The Assembly plugin does not
           have the ability to include plugin artifacts in these repositories
           yet.</para>
+
+          <para>有时，将构建一个项目必要的所有构件分隔开来很有用，它们是否是依赖构件，依赖构件的<acronym>POM</acronym>，或者甚至是一个项目本身POM的祖先（你的父<acronym>POM</acronym>，父<acronym>POM</acronym>的父<acronym>POM</acronym>，等等）。该小节允许你通过各种配置选项，在套件中包含一个或者多个构件仓库目录，然而Assembly插件没有能力包含在这些仓库中的插件构件。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>Module Information</term>
+        <term>模块信息</term>
 
         <listitem>
-          <para>This section of the assembly descriptor allows you to take
-          advantage of these parent-child relationships when assembling your
-          custom archive, to include source files, artifacts, and dependencies
-          from your project’s modules. This is the most complex section of the
-          assembly descriptor, because it allows you to work with modules and
-          sub-modules in two ways: as a series of <sgmltag>fileSets</sgmltag>
-          (via the <sgmltag>sources</sgmltag> section) or as a series of
-          <sgmltag>dependencySets</sgmltag> (via the
-          <sgmltag>binaries</sgmltag> section).</para>
+          <para>套件描述符的这一小节允许你在装备自定义归档的时候利用父子关系，以包含你项目模块的源文件，构件，和依赖。这是套件描述符中最复杂的小节，因为它允许你以两种方式操作模块和子模块：以一系列<sgmltag>fileSets</sgmltag>（通过<sgmltag>sources</sgmltag>小节）或者以一系列<sgmltag>dependencySets</sgmltag>（通过<sgmltag>binaries</sgmltag>小节）。</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </section>
 
   <section>
-    <title>The Assembly Descriptor</title>
+    <title>套件描述符</title>
 
-    <para>This section is a tour of the assembly descriptor which contains
-    some guidelines for developing a custom assembly descriptor. The Assembly
-    plugin is one of the largest plugins in the Maven ensemble, and one of the
-    most flexible.</para>
+    <para>本节作为一个套件描述符的教程，包含了一些开发自定义套件描述符的指南。Assembly插件是Maven整体中最大的插件之一，也是最灵活的插件之一。</para>
 
     <section>
-      <title>Property References in Assembly Descriptors</title>
+      <title>套件描述符中的属性引用</title>
 
       <para>Any property discussed in <xref linkend="sect-properties" /> can
       be referenced in an assembly descriptor. Before any assembly descriptor
@@ -712,8 +454,8 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       supported for interpolation within the <acronym>POM</acronym> itself are
       valid for use in assembly descriptors, including <acronym>POM</acronym>
       properties, <acronym>POM</acronym> element values, system properties,
-      user-defined properties, and operating-system environment variables.
-      </para>
+      user-defined properties, and operating-system environment
+      variables.</para>
 
       <para>The only exceptions to this interpolation step are elements in
       various sections of the descriptor named
@@ -728,7 +470,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     </section>
 
     <section>
-      <title>Required Assembly Information</title>
+      <title>必须的套件信息</title>
 
       <para>There are two essential pieces of information that are required
       for every assembly: the <sgmltag>id</sgmltag>, and the list of archive
@@ -829,7 +571,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
   </section>
 
   <section>
-    <title>Controlling the Contents of an Assembly</title>
+    <title>控制一个套件的内容</title>
 
     <para>In theory, <varname>id</varname> and <varname>format</varname> are
     the only absolute requirements for a valid assembly descriptor; however,
@@ -848,7 +590,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     <sgmltag>moduleSets</sgmltag>.</para>
 
     <section>
-      <title><sgmltag>Files</sgmltag> Section</title>
+      <title><sgmltag>Files</sgmltag> 部分</title>
 
       <para>The <sgmltag>files</sgmltag> section is the simplest part of the
       assembly descriptor, it is designed for files that have a definite
@@ -904,7 +646,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     </section>
 
     <section>
-      <title><sgmltag>FileSets</sgmltag> Section</title>
+      <title><sgmltag>FileSets</sgmltag> 部分</title>
 
       <para>Similar to the <sgmltag>files</sgmltag> section,
       <sgmltag>fileSets</sgmltag> are intended for files that have a definite
@@ -950,7 +692,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
       <para>If we want more control over this file set, we can specify it more
       explicitly. <xref linkend="ex-explicit-fileSet" /> shows a
       <sgmltag>fileSet</sgmltag> element with all of the default elements
-      specified. </para>
+      specified.</para>
 
       <example id="ex-explicit-fileSet">
         <title>Including Files with <sgmltag>fileSet</sgmltag></title>
@@ -1065,8 +807,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     </section>
 
     <section id="sect-default-excludes">
-      <title>Default Exclusion Patterns for
-      <sgmltag>fileSets</sgmltag></title>
+      <title><sgmltag>fileSets的默认排除模式</sgmltag></title>
 
       <para>When you use the default exclusion patterns, the Maven Assembly
       plugin is going to be ignoring more than just <acronym>SVN</acronym> and
@@ -1132,11 +873,11 @@ I can add this back in later.  I didn't want to talk about it without an example
       curse than a source control system). If you need to override these
       default exclusion patterns you set <sgmltag>useDefaultExcludes</sgmltag>
       to false and then define a set of exclusion patterns in your own
-      assembly descriptor. </para>
+      assembly descriptor.</para>
     </section>
 
     <section id="sect-output-algorithm">
-      <title><sgmltag>dependencySets</sgmltag> Section</title>
+      <title><sgmltag>dependencySets</sgmltag> 部分</title>
 
       <para>One of the most common requirements for assemblies is the
       inclusion of a project’s dependencies in an assembly archive. Where
@@ -1826,7 +1567,7 @@ I can add this back in later.  I didn't want to talk about it without an example
     </section>
 
     <section>
-      <title><sgmltag>moduleSets</sgmltag> Sections</title>
+      <title><sgmltag>moduleSets</sgmltag> 部分</title>
 
       <para>Multi-module builds are generally stitched together using the
       parent and modules sections of interrelated <acronym>POM</acronym>s.
@@ -1993,8 +1734,8 @@ I can add this back in later.  I didn't want to talk about it without an example
         subdirectories of the project that declares them. If your project has
         a particularly strange directory structure, you may need to resort to
         special <sgmltag>moduleSet</sgmltag> declarations that include
-        specific project and account for your own project's idiosyncracies.
-        </para>
+        specific project and account for your own project's
+        idiosyncracies.</para>
 
         <warning>
           <para>Try to minimize your own project's idiosyncracies, while Maven
@@ -2244,7 +1985,7 @@ doesn't make sense to new users.-->
       versions, and by default it’s set to <varname>false</varname>. At
       present, the only metadata included when this flag is
       <varname>true</varname> is the information downloaded from Maven’s
-      central repository. </para>
+      central repository.</para>
 
       <para>The second feature is called
       <sgmltag>groupVersionAlignments</sgmltag>. Again, this section is a list
@@ -2609,7 +2350,7 @@ doesn't make sense to new users.-->
       <sgmltag>moduleSets</sgmltag> section of the assembly descriptor -
       namely, that the parent-child relationships between
       <acronym>POM</acronym>s in a build can prevent the availability of
-      module artifacts in some cases. </para>
+      module artifacts in some cases.</para>
 
       <para>Specifically, if module <acronym>POM</acronym>s reference as their
       parent the <acronym>POM</acronym> that contains the Assembly-plugin
