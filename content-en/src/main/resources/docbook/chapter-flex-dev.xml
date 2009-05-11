@@ -382,6 +382,15 @@
         url="http://en.wikipedia.org/wiki/Xvfb">click here</ulink>.</para>
       </note>
 
+      <warning>
+        <para>In FlexMojos 3.1.0 there is a bug in OSX. FlexMojos will
+        (incorrectly) attempt to launch "Flash Player.app". If you are running
+        FlexMojos 3.1.0 on a Mac, you will need to configure the appropriate
+        PATH to "Flash Player", and set the flashPlayer.command variable to
+        "Flash Player". This bug has been fixed in the upcoming 3.2.0
+        release.</para>
+      </warning>
+
       <para>If you have been developing Flash Applications with Adobe Flash
       CS4 or Adobe Flex Builder or if you have been viewing flash content in a
       browser, you probably have the Flash Player installed somewhere on your
@@ -3979,12 +3988,390 @@ package: org.sonatype.test
           </table></para>
       </section>
     </section>
+
+    <section>
+      <title>Analyzing Unit Test Coverage</title>
+
+      <para>To analyze unit test coverage results for Flex, you will need to
+      modify your project's POM to use the flexcover compiler, and you will
+      need to download and install the flexcover tool from <ulink
+      url="http://code.google.com/p/flexcover/">http://code.google.com/p/flexcover/</ulink>.
+      Flexcover is an open source tool that provides code coverage metrics for
+      both Flex and AIR. It is an AIR application, so to use it you will first
+      need to make sure that you are installed Adobe AIR.</para>
+
+      <section>
+        <title>Configuring the flexcover Goal</title>
+
+        <para>In addition to the common compilation parameters listed in <xref
+        linkend="flex-dev-sect-common-configuration" />, the following
+        configuration parameters are unique to the
+        <varname>test-compile</varname> goal.</para>
+
+        <para><table>
+            <title>Configuration Parameters for the test-compile goal.</title>
+
+            <tgroup cols="4">
+              <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
+                       rowsep="0" />
+
+              <colspec colname="type" colnum="2" colsep="0" colwidth="1.25in"
+                       rowsep="0" />
+
+              <colspec colname="required" colnum="3" colsep="0"
+                       colwidth="1.25in" rowsep="0" />
+
+              <colspec colname="default" colnum="4" colsep="0"
+                       colwidth="1.25in" rowsep="0" />
+
+              <spanspec charoff="1in" nameend="default" namest="name"
+                        rowsep="1" spanname="description" />
+
+              <thead>
+                <colspec colname="name" colnum="1" colsep="1"
+                         colwidth="3.75in" rowsep="1" />
+
+                <colspec colname="type" colnum="2" colwidth="1.25in"
+                         rowsep="1" />
+
+                <colspec colname="required" colnum="3" colsep="1"
+                         colwidth="1.25in" rowsep="1" />
+
+                <colspec colname="default" colnum="4" colsep="1"
+                         colwidth="1.25in" rowsep="1" />
+
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Type</entry>
+
+                  <entry>Required</entry>
+
+                  <entry>Default</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><emphasis><varname>defaultLocale</varname></emphasis></entry>
+
+                  <entry><varname>String</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>en_US</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Default locale for
+                  libraries. This is useful to non localized applications,
+                  just to define swc.rb locale</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>excludeTestFiles</varname></entry>
+
+                  <entry><varname>String[]</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Files to exclude from
+                  testing. If not defined, assumes no
+                  exclusions</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>includeTestFiles</varname></entry>
+
+                  <entry><varname>String[]</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>File to be tested. If
+                  not defined assumes Test*.as and *Test.as</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>skipTests</varname></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>false</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Set this to 'true' to
+                  bypass unit tests entirely. Its use is NOT RECOMMENDED, but
+                  quite convenient on occasion.</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>sourceFile</varname></entry>
+
+                  <entry><varname>String</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry><varname></varname></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>The file to be compiled.
+                  The path must be relative with source folder</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>testControlPort</varname></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>13540</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description">Socket connect port for
+                  flex/java communication to control if flashplayer is
+                  alive</entry>
+                </row>
+
+                <row>
+                  <entry><varname>testPort</varname></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>13539</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description">Socket connect port for
+                  flex/java communication to transfer tests results</entry>
+                </row>
+
+                <row>
+                  <entry><varname>testRunnerTemplate</varname></entry>
+
+                  <entry><varname>File</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"></entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></para>
+      </section>
+
+      <section>
+        <title>Configuring the test-run Goal</title>
+
+        <para>The following configuration parameters provide control over the
+        execution of Unit Tests.</para>
+
+        <para><table>
+            <title>Configuration Parameters for the test-run goal.</title>
+
+            <tgroup cols="4">
+              <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
+                       rowsep="0" />
+
+              <colspec colname="type" colnum="2" colsep="0" colwidth="1.25in"
+                       rowsep="0" />
+
+              <colspec colname="required" colnum="3" colsep="0"
+                       colwidth="1.25in" rowsep="0" />
+
+              <colspec colname="default" colnum="4" colsep="0"
+                       colwidth="1.25in" rowsep="0" />
+
+              <spanspec charoff="1in" nameend="default" namest="name"
+                        rowsep="1" spanname="description" />
+
+              <thead>
+                <colspec colname="name" colnum="1" colsep="1"
+                         colwidth="3.75in" rowsep="1" />
+
+                <colspec colname="type" colnum="2" colwidth="1.25in"
+                         rowsep="1" />
+
+                <colspec colname="required" colnum="3" colsep="1"
+                         colwidth="1.25in" rowsep="1" />
+
+                <colspec colname="default" colnum="4" colsep="1"
+                         colwidth="1.25in" rowsep="1" />
+
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Type</entry>
+
+                  <entry>Required</entry>
+
+                  <entry>Default</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><emphasis><varname>flashPlayerCommand</varname></emphasis></entry>
+
+                  <entry><varname>String</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Can be of type
+                  &lt;argument&gt;</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>localRepository</varname></entry>
+
+                  <entry><varname>ArtifactRepository</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Local repository to be
+                  used by the plugin to resolve dependencies.</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>pluginArtifacts</varname></entry>
+
+                  <entry><varname>List</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"></entry>
+                </row>
+
+                <row>
+                  <entry><varname>remoteRepostories</varname></entry>
+
+                  <entry><varname>List</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>List of remote
+                  repositories to be used by the plugin to resolve
+                  dependencies.</para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>skip</varname></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry><varname>false</varname></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para></para></entry>
+                </row>
+
+                <row>
+                  <entry><varname>skipTest</varname></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>false</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"></entry>
+                </row>
+
+                <row>
+                  <entry><varname>testControlPort</varname></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>13540</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description">Socket connect port for
+                  flex/java communication to control if flashplayer is
+                  alive.</entry>
+                </row>
+
+                <row>
+                  <entry><varname>testFailureIgnore</varname></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>false</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"></entry>
+                </row>
+
+                <row>
+                  <entry><varname>testPort</varname></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>13539</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description">Socket connect port for
+                  flex/java communication to transfer tests results.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table></para>
+      </section>
+    </section>
   </section>
 
   <section id="flex-dev-sect-reports">
     <title>FlexMojos Plugin Reports</title>
 
-    <para>The FlexMojos Maven Plugin contains the following reports:</para>
+    <para>The FlexMojos Maven Plugin contains the following report:</para>
 
     <variablelist>
       <varlistentry>
