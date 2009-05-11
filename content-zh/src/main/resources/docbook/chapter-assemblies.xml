@@ -12,10 +12,10 @@
     <acronym>EAR</acronym>插件。如在<xref
     linkend="lifecycle" />中讨论的那样，这些插件对应于不同的项目打包类型，每种类型的构建过程都有微小的差别。虽然Maven有插件及自定义生命周期来支持标准的打包类型，但还是有些时候你需要创建一个自定义格式的归档文件或目录。这样的归档叫做Maven套件(Assembly)。</para>
 
-    <para>在很多情况下你需要为你的项目构建自定义的归档。最常见的可能就是项目分发。单词“分发(distribution)”意思是，根据项目将会如何被使用，为不同的人（或项目）提供不同的东西。本质上来说，这些归档是为用户提供一种方便的方式来安装，否则用户就必须使用项目的发布版本。一些情况下，这可能是构建一个带有应用服务器（如Jetty）的web应用。还有一些情况，可能是包裹了项目API文档，源码，和已编译字节码的JAR文件。当你构建项目的最终分发包的时候，Maven套件就十分有用了。以<xref
-    linkend="repository-manager" />中介绍的Nexus为例，它包含了很多大型多模块Maven产品，而你从Sonatype下载的最终归档就是一个Maven套件。</para>
+    <para>在很多情况下你需要为你的项目构建自定义的归档。最常见的可能就是项目分发。单词“分发(distribution)”意思是，根据项目将会如何被使用，为不同的人（或项目）提供不同的东西。本质上来说，这些归档是为用户提供一种便捷的方式来安装，否则用户就必须使用项目的发布版本。一些情况下，这可能是构建一个带有应用服务器（如Jetty）的web应用。还有一些情况，可能是包裹了项目API文档，源码，和已编译字节码的JAR文件。当你构建项目的最终分发包的时候，Maven套件就十分有用了。以<xref
+    linkend="repository-manager" />中介绍的Nexus为例，它是一个大型的包含了很多模块Maven项目的产品，而你从Sonatype下载的最终归档就是一个Maven套件。</para>
 
-    <para>大多数情况下，Assembly插件十分适用于构建项目的分发包。然而，套件不一定就要是分发包；套件的目的是给用户提供构建任意类型自定义归档文件的灵活性。本质上说，套件是为了弥补由项目打包类型提供的标准归档格式的不足。当然，你可以完全写一个Maven插件来帮助生成你的自定义归档格式，同时创建生命周期映射和构件处理配置来告诉Maven如何部署。但大部分情况下，有了Assembly插件，这就完全没有必要了。该插件为创建自定义归档格式提供了普遍的支持，你不需要花很多时间来编写Maven插件代码。</para>
+    <para>大多数情况下，Assembly插件十分适用于构建项目的分发包。然而，套件不一定就要是分发包；套件的目的是能让用户灵活的构建任意类型的自定义归档文件。本质上说，套件是为了弥补由项目打包类型所提供的标准归档格式的不足。当然，你可以完全写一个Maven插件来帮助生成你的自定义归档格式，同时创建生命周期映射和构件处理配置来告诉Maven如何部署。但大部分情况下，有了Assembly插件，这就完全没有必要了。该插件为创建自定义归档格式提供了普遍的支持，你不需要花很多时间来编写Maven插件代码。</para>
   </section>
 
   <section id="sect-assembly-basics">
@@ -27,8 +27,8 @@
 
     <para>有这种区别的主要理由是，<varname>assembly:assembly</varname>目标在Maven术语中是一个聚合mojo；意思是，无论有多少个模块正被构建，该mojo在一个构建中最多被运行一次。它从根项目的中提取配置——通常是顶层<acronym>POM</acronym>或者命令行目录的<acronym>POM</acronym>。而在绑定到生命周期后，一个聚合mojo就会有很多讨厌的副作用。它会强迫<varname>package</varname>生命周期阶段提前运行，从而造成在一次构建中<varname>package</varname>阶段被执行了两次。</para>
 
-    <para>由于<varname>assembly:assembly</varname>目标是一个聚合mojo，在多模块构建中它造成了一些问题，它应当在命令行中作为单独的mojo被调用。永远不要将<varname>assembly:assembly</varname>目标绑定到生命周期阶段中。<varname>assembly:assembly</varname>是Assembly插件最原始的目标，不是被设计成用作项目标准构建过程的一部分的。由于很显然为一个项目生成套件归档合情合理，因此开发了<varname>single</varname>
-    mojo。该mojo假设它被绑定到了构建过程的正确部分，因此它能访问它在大型模块Maven项目生命周期中执行需要的项目文件级构件。在一个多模块环境中，它会执行很多次，因为它被绑定到了不同模块的<acronym>POM</acronym>上。不像<varname>assembly:assembly</varname>，<varname>single</varname>从来不会强制在它之前执行另外一个生命周期阶段。</para>
+    <para>由于<varname>assembly:assembly</varname>目标是一个聚合mojo，在多模块构建中它造成了一些问题，它应当在命令行中作为单独的mojo被调用。永远不要将<varname>assembly:assembly</varname>目标绑定到生命周期阶段中。<varname>assembly:assembly</varname>是Assembly插件最原始的目标，不是被设计成用作项目标准构建过程的一部分的。但很显然，为一个项目生成套件归档合情合理，因此开发了<varname>single</varname>
+    mojo。该mojo假设它被绑定到了构建过程的正确部分，因此它能访问它在大型模块Maven项目生命周期中执行需要的项目文件及构件。在一个多模块环境中，它会执行很多次，因为它被绑定到了不同模块的<acronym>POM</acronym>上。不像<varname>assembly:assembly</varname>，<varname>single</varname>从来不会强制在它之前执行另外一个生命周期阶段。</para>
 
     <para>除了上述的两项，Assembly插件还提供了很多其它目标；然后，讨论这些mojo超出了本章范围，主要是由于它们是为一切奇怪或者过时的用例服务的，基本上不会被用到。只要可能，你都应该坚持在命令行生成套件时使用<varname>assembly:assembly</varname>，在绑定到生命周期阶段生成套件时使用<varname>single</varname>。</para>
 
@@ -95,7 +95,7 @@
                       target/direct-invocation-1.0-SNAPSHOT-project.zip
 ...</screen>
 
-      <para>加入你想要从你的项目生成一个可运行的<acronym>JAR</acronym>。如果你的项目完全是自包含的，没有任何依赖，那么使用<acronym>JAR</acronym>插件的archive配置就能做到。但是，大部分项目都有依赖，而且这些依赖需要被引入到可运行<acronym>JAR</acronym>文件中。这种情况下，每次<acronym>JAR</acronym>被安装或部署的时候你都要确认可运行<acronym>JAR</acronym>包含了这些依赖。</para>
+      <para>假如你想要从你的项目生成一个可运行的<acronym>JAR</acronym>。如果你的项目完全是自包含的，没有任何依赖，那么使用<acronym>JAR</acronym>插件的archive配置就能做到。但是，大部分项目都有依赖，而且这些依赖需要被引入到可运行<acronym>JAR</acronym>文件中。这种情况下，每次<acronym>JAR</acronym>被安装或部署的时候你都要确认可运行<acronym>JAR</acronym>包含了这些依赖。</para>
 
       <para>假设该项目的main类是<classname>org.sonatype.mavenbook.App</classname>，如下的<acronym>POM</acronym>配置将创建一个可运行的<acronym>JAR</acronym>：</para>
 
@@ -186,16 +186,16 @@ Hello, World!</screen>
 
       <para>当你将生成套件作为你标准构建过程的一部分的时候，这些套件归档会被附着到你项目的主构件上。意思是，当它们会随着主构件的安装和部署一起被安装或部署，而且它们会以差不多相同的方式被解析。每个套件构件会被给予同样的基本坐标（<varname>groupId</varname>,
       <varname>artifactId</varname>, 和
-      <varname>version</varname>）。但是，由于这些构件是附件，在Maven中意思是，它们是基于主项目构建的某些方面派生出来的。这里是一些例子，<varname>source</varname>套件包含了项目构建的未被加工的输入，<varname>jar-with-dependencies</varname>套件包含了项目的类加上依赖。由于这种派生的性质，附着构建被允许精确的规避一个项目，或一个构件的Maven需求。</para>
+      <varname>version</varname>）。但是，由于这些构件是附件，在Maven中意思是，它们是基于主项目构建的某些方面派生出来的。这里是一些例子，<varname>source</varname>套件包含了项目的原始输入，<varname>jar-with-dependencies</varname>套件包含了项目的类及依赖。由于这种派生的性质，附属构件就能精确的规避一个项目，或一个构件的Maven需求。</para>
 
-      <para>由于套件（通常）是附属构件，除了标准的构件坐标，它们还必须拥有一个分类器来和主构件加以区分。默认情况下，该分离器就是套件描述符的定义符。当如上例使用内置的套件描述符的时候，套件描述符的定义符和<sgmltag>descriptorRef</sgmltag>中对应使用的定义符是一样的。</para>
+      <para>由于套件（通常）是附属构件，除了标准的构件坐标，它们还必须拥有一个分类器来和主构件加以区分。默认情况下，该分类器就是套件描述符的定义符。当如上例使用内置的套件描述符的时候，套件描述符的定义符和<sgmltag>descriptorRef</sgmltag>中对应使用的定义符是一样的。</para>
 
-      <para>在你伴随着项目的主构件部署了一个套件后，如何才能在其它项目中使用这个套件呢？答案很简单。会议一下<xref
+      <para>在你伴随着项目的主构件部署了一个套件后，如何才能在其它项目中使用这个套件呢？答案很简单。回忆一下<xref
       linkend="sect-maven-coordinates" />和<xref
       linkend="sect-more-coordinates" />中讨论的项目依赖，一个项目依赖于另外一个项目的时候，它使用项目坐标四个元素的组合：<varname>groupId</varname>,
       <varname>artifactId</varname>, <varname>version</varname>, 和
       <varname>packaging</varname>。在<xref
-      linkend="sect-platform-classifier" />中，同一个项目的构件有针对多个平台的变种，该项目设置了值为<varname>win</varname>或<varname>linux</varname>的<varname>classifier</varname>元素，以为目标平台选择合适的依赖构件。使用项目的坐标加上套件被安装或部署时的分类器，我们就可以将套件设为依赖。如果套件不是一个<acronym>JAR</acronym>归档，我们也需要声明类型。</para>
+      linkend="sect-platform-classifier" />中，同一个项目的构件有针对多个平台的变种，该项目设置了值为<varname>win</varname>或<varname>linux</varname>的<varname>classifier</varname>元素，以为目标平台选择合适的依赖构件。使用项目的坐标加上套件被安装或部署时的分类器，我们就可以将套件设为依赖。如果套件不是一个<acronym>JAR</acronym>归档，我们还需要声明其类型。</para>
     </section>
 
     <section>
@@ -339,7 +339,7 @@ Hello, World!</screen>
 
       <para>该包裹项目的<acronym>POM</acronym>引用了来自于<varname>first-project</varname>和<varname>second-project</varname>的两个套件。这个POM指定了一个值为<varname>project</varname>的分类器和一个值为<varname>zip</varname>的类型，而不是直接引用过了项目的主构件。这告诉Maven去解析<varname>project</varname>套件创建的<acronym>ZIP</acronym>归档。注意包裹项目生成了一个<varname>jar-with-dependencies</varname>套件。<varname>jar-with-dependencies</varname>并不创建一个非常简洁的套件，而是简单的创建一个包含所有依赖拆解内容的<acronym>JAR</acronym>文件。<varname>jar-with-dependencies</varname>实际上做的事情是：告诉Maven拿来所有依赖，将其拆解，然后创建一个包含当前项目所有输出的归档。在这个项目中，它的效果就是创建一个带有<varname>first-project</varname>和<varname>second-project</varname>套件拆解内容的<acronym>JAR</acronym>文件，</para>
 
-      <para>该样例展示了如何不用自定一个套件描述符就能联合Maven
+      <para>该样例展示了如何不用自定义套件描述符就能联合Maven
       Assembly插件的基本能力。它实现了创建一个包含多模块项目内容的单独归档这样一个目的。这个时候，<varname>jar-with-dependencies</varname>仅仅是一个存储格式，因此我们没必要指定<varname>Main-Class</varname>的manifest属性。我们只要正常的构建<varname>project-bundle</varname>项目就能得到套件。</para>
 
       <screen>$ <command>mvn package</command>
@@ -364,7 +364,7 @@ second-project-1.0-SNAPSHOT/pom.xml
 second-project-1.0-SNAPSHOT/src/main/java/org/sonatype/mavenbook/App.java
 second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</screen>
 
-      <para>阅读本节内容之后，标题应该容易理解了。我们使用了一个包裹项目，它依赖于两个项目的套件，然后我们再根据这两个项目的套件装配出最终的一个套件。</para>
+      <para>阅读本节内容之后，标题应该容易理解了。我们使用了一个包裹项目，它依赖于两个项目的套件，然后我们再根据这两个项目的套件装配出一个最终的套件。</para>
     </section>
   </section>
 
@@ -415,17 +415,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
         <term>仓库信息</term>
 
         <listitem>
-          <para>At times, it’s useful to isolate the sum total of all
-          artifacts necessary to build a project, whether they’re dependency
-          artifacts, <acronym>POM</acronym>s of dependency artifacts, or even
-          a project’s own POM ancestry (your parent <acronym>POM</acronym>,
-          its parent, and so on). This section allows you to include one or
-          more artifact-repository directory structures inside your assembly,
-          with various configuration options. The Assembly plugin does not
-          have the ability to include plugin artifacts in these repositories
-          yet.</para>
-
-          <para>有时，将构建一个项目必要的所有构件分隔开来很有用，它们是否是依赖构件，依赖构件的<acronym>POM</acronym>，或者甚至是一个项目本身POM的祖先（你的父<acronym>POM</acronym>，父<acronym>POM</acronym>的父<acronym>POM</acronym>，等等）。该小节允许你通过各种配置选项，在套件中包含一个或者多个构件仓库目录，然而Assembly插件没有能力包含在这些仓库中的插件构件。</para>
+          <para>有时，将构建一个项目必要的所有构件分隔开来很有用，它们是否是依赖构件，依赖构件的<acronym>POM</acronym>，或者甚至是一个项目本身POM的祖先（你的父<acronym>POM</acronym>，父<acronym>POM</acronym>的父<acronym>POM</acronym>，等等）。该小节允许你通过各种配置选项，在套件中包含一个或者多个构件仓库目录，然而Assembly插件没有能力引入在这些仓库中的插件构件。</para>
         </listitem>
       </varlistentry>
 
@@ -442,51 +432,28 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
   <section>
     <title>套件描述符</title>
 
-    <para>本节作为一个套件描述符的教程，包含了一些开发自定义套件描述符的指南。Assembly插件是Maven整体中最大的插件之一，也是最灵活的插件之一。</para>
+    <para>本节作为一个套件描述符的教程，包含了一些开发自定义套件描述符的指南。Assembly插件是Maven世界中最大的插件之一，也是最灵活的插件之一。</para>
 
     <section>
       <title>套件描述符中的属性引用</title>
 
-      <para>Any property discussed in <xref linkend="sect-properties" /> can
-      be referenced in an assembly descriptor. Before any assembly descriptor
-      is used by Maven, it is interpolated using information from the
-      <acronym>POM</acronym> and the current build environment. All properties
-      supported for interpolation within the <acronym>POM</acronym> itself are
-      valid for use in assembly descriptors, including <acronym>POM</acronym>
-      properties, <acronym>POM</acronym> element values, system properties,
-      user-defined properties, and operating-system environment
-      variables.</para>
+      <para>任何在<xref
+      linkend="sect-properties" />中讨论的属性都可以在一个套件描述符中引用。在套件描述符被Maven使用之前，它首先会根据<acronym>POM</acronym>及构建环境的信息修改一些对应的值。所有运行时<acronym>POM</acronym>中可修改的值，同样适用于套件描述符，包括<acronym>POM</acronym>属性，<acronym>POM</acronym>元素的值，系统属性，用户定义的属性，以及操作系统环境变量。</para>
 
-      <para>The only exceptions to this interpolation step are elements in
-      various sections of the descriptor named
-      <sgmltag>outputDirectory</sgmltag>,
-      <sgmltag>outputDirectoryMapping</sgmltag>, or
-      <sgmltag>outputFileNameMapping</sgmltag>. The reason these are held back
-      in their raw form is to allow artifact- or module-specific information
-      to be applied when resolving expressions in these values, on a per-item
-      basis.</para>
+      <para>这一插值阶段的例外是<sgmltag>outputDirectory</sgmltag>，<sgmltag>outputDirectoryMapping</sgmltag>，和<sgmltag>outputFileNameMapping</sgmltag>元素。保持它们原始的值是为了能在解析构件特定的——或者组件特定的信息的时候，得到正确的值。</para>
 
-      <!--This last paragraph is not clear.-->
+      <!--This last paragraph is not clear.
+The reason these are held back in their raw form is to allow artifact- or module-specific information
+ to be applied when resolving expressions in these values, on a per-item basis.-->
     </section>
 
     <section>
       <title>必须的套件信息</title>
 
-      <para>There are two essential pieces of information that are required
-      for every assembly: the <sgmltag>id</sgmltag>, and the list of archive
-      formats to produce. In practice, at least one other section of the
-      descriptor is required - since most archive format components will choke
-      if they don’t have at least one file to include - but without at least
-      one <sgmltag>format</sgmltag> and an <sgmltag>id</sgmltag>, there is no
-      archive to create. The <sgmltag>id</sgmltag> is used both in the
-      archive’s file name, and as part of the archive’s artifact classifier in
-      the Maven repository. The format string also controls the
-      archiver-component instance that will create the final assembly archive.
-      All assembly descriptors must contain an <sgmltag>id</sgmltag> and at
-      least one <sgmltag>format</sgmltag>:</para>
+      <para>对于每个套件来说，有两个重要的信息是必须的：id，和一个要生成的归档格式的列表。实际情况中，至少还需要其它一小节描述符的内容——因为大部分归档格式如果没有可引入的文件，将一文不值，同时，如果没有一个id和至少一种格式，就不会产生任何归档。id首先被用到归档的文件名中，同时它还是归档构件分类器名称一部分。格式（format）字符串同时也控制archiver-component实例去创建最终的套件归档。所有套件描述符必须包含一个id和至少一个format：</para>
 
       <example id="ex-required-assembly">
-        <title>Required Assembly Descriptor Elements</title>
+        <title>必须的套件描述符元素</title>
 
         <programlisting language="xml">&lt;assembly&gt;
   &lt;id&gt;bundle&lt;/id&gt; 
@@ -497,19 +464,11 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
 &lt;/assembly&gt;</programlisting>
       </example>
 
-      <para>The assembly <sgmltag>id</sgmltag> can be any string that does not
-      contain spaces. The standard practice is to use dashes when you must
-      separate words within the assembly <sgmltag>id</sgmltag>. If you were
-      creating an assembly to create an interesting unique package structure,
-      you would give your an <varname>id</varname> of something like
-      <varname>interesting-unique-package</varname>. It also supports multiple
-      formats within a single assembly descriptor, allowing you to create the
-      familiar <filename>.zip</filename>, <filename>.tar.gz</filename>, and
-      <filename>.tar.bz2</filename> distribution archive set with ease. If you
-      don't find the archive format you need, you can also create a custom
-      format. Custom formats are discussed in <xref
-      linkend="sect-componentDescriptors" />. The Assembly plugin supports
-      several archive formats natively, including:</para>
+      <para>套件id可以是任意不包含空格的字符串。标准的实践是使用破折号（-）来分隔单词。如果你要创建一个拥有有趣的唯一打包结构（interesting
+      unique package
+      structure）的套件，那么其id就会是interesting-unique-package。同时，套件描述符还支持多种格式，允许你轻松创建.zip,
+      .tar.gz,和.tar.bz2等熟悉分发归档。如果你没有找到你需要的归档格式，你也可以创建自定义的格式。自定义格式在<xref
+      linkend="sect-componentDescriptors" />中讨论。Assembly插件原生支持多种归档格式，包括：</para>
 
       <itemizedlist>
         <listitem>
@@ -561,47 +520,25 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
         </listitem>
       </itemizedlist>
 
-      <para>The <varname>id</varname> and <varname>format</varname> are
-      essential because they will become a part of the coordinates for the
-      assembled archive. The example from <xref
-      linkend="ex-required-assembly" /> will create an assembly artifact of
-      type <varname>zip</varname> with a classifier of
-      <varname>bundle</varname>.</para>
+      <para>id和format至关重要，因为它们将成为套件归档的坐标的一部分。<xref
+      linkend="ex-required-assembly" />中的例子会创建一个打包类型为zip，分类器为bundle的套件构件。</para>
     </section>
   </section>
 
   <section>
     <title>控制一个套件的内容</title>
 
-    <para>In theory, <varname>id</varname> and <varname>format</varname> are
-    the only absolute requirements for a valid assembly descriptor; however,
-    many assembly archivers will fail if they do not have at least one file to
-    include in the output archive. The task of defining the files to be
-    included in the assembly is handled by the five main sections of the
-    assembly descriptor: <sgmltag>files</sgmltag>,
-    <sgmltag>fileSets</sgmltag>, <sgmltag>dependencySets</sgmltag>,
-    <sgmltag>repositories</sgmltag>, and <sgmltag>moduleSets</sgmltag>. To
-    explore these sections most effectively, we’ll start by discussing the
-    most elemental section: <sgmltag>files</sgmltag>. Then, we’ll move on to
-    the two most commonly used sections, <sgmltag>fileSets</sgmltag> and
-    <sgmltag>dependencySets</sgmltag>. Once you understand the workings of
-    <sgmltag>fileSets</sgmltag> and <sgmltag>dependencySets</sgmltag>, it’s
-    easier to understand <sgmltag>repositories</sgmltag> and
-    <sgmltag>moduleSets</sgmltag>.</para>
+    <para>理论上，只有id和format才是一个合法套件描述符必要的元素；然而，对于大多数归档来说，如果输出归档中没有包含一个文件，该归档就会失效。套件描述符中，有五个主要的部分来定义哪些文件被包含到套件中，他们是：files,
+    fileSets, dependencySets, repositories,
+    和moduleSets。为了最有效的探究这些部分，我们首先讨论最基本的部分：files。然后，我们接着讨论两个最常用的部分：fileSets和dependencySets。在你理解了它们如何工作之后，就能更轻松的理解repositories和moduleSets。</para>
 
     <section>
-      <title><sgmltag>Files</sgmltag> 部分</title>
+      <title><sgmltag>Files</sgmltag> 元素</title>
 
-      <para>The <sgmltag>files</sgmltag> section is the simplest part of the
-      assembly descriptor, it is designed for files that have a definite
-      location relative to your project’s directory. Using this section, you
-      have absolute control over the exact set of files that are included in
-      your assembly, exactly what they are named, and where they will reside
-      in the archive.</para>
+      <para>files元素是套件描述符中最简单的部分，它被设计成定义那些相对与你项目目录的路径。使用该元素，你就可以完全控制哪些文件被包含到你的套件中，它们如何被命名，以及它们在归档中的位置。</para>
 
       <example id="ex-assembly-files">
-        <title>Including a <acronym>JAR</acronym> file in an Assembly using
-        <sgmltag>files</sgmltag></title>
+        <title>使用files在一个套件中包含一个JAR文件</title>
 
         <programlisting language="xml">&lt;assembly&gt;
   ...
@@ -617,45 +554,18 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
 &lt;/assembly&gt;</programlisting>
       </example>
 
-      <para>Assuming you were building a project called
-      <varname>my-app</varname> with a version of <varname>1.0</varname>,
-      <xref linkend="ex-assembly-files" /> would include your project's
-      <acronym>JAR</acronym> in the assembly’s <filename>lib/</filename>
-      directory, trimming the version from the file name in the process so the
-      final file name is simply <filename>my-app.jar</filename>. It would then
-      make the <acronym>JAR</acronym> readable by everyone and writable by the
-      user that owns it (this is what the mode 0644 means for files, using
-      Unix four-digit Octal permission notation). For more information about
-      the format of the value in <sgmltag>fileMode</sgmltag>, please see the
-      Wikipedia's explanation of <ulink
+      <para>假设你要构建一个名为my-app的版本为1.0的项目，<xref
+      linkend="ex-assembly-files" />会将你项目的JAR文件包含到套件的lib/目录下，同时除去了文件名的版本部分，使最终的文件名为my-app.jar。该描述符会让这个JAR文件对于所有人可读，对于拥有者可写（这就是0664模式的意思，这里使用了Unix四位十进制数的权限标记）。要了解更多关于fileMode的值的格式的信息，请看维基百科的解释<ulink
       url="http://en.wikipedia.org/wiki/File_system_permissions#Octal_notation_and_additional_permissions">four-digit
-      Octal notation</ulink>.</para>
+      Octal notation</ulink>。</para>
 
-      <para>You could build a very complex assembly using file entries, if you
-      knew the full list of files to be included. Even if you didn’t know the
-      full list before the build started, you could probably use a custom
-      Maven plugin to discover that list and generate the assembly descriptor
-      using references like the one above. While the files section gives you
-      fine-grained control over the permission, location, and name of each
-      file in the assembly archive, listing a <sgmltag>file</sgmltag> element
-      for every file in a large archive would be a tedious exercise. For the
-      most part, you will be operating on groups of files and dependencies
-      using <sgmltag>fileSets</sgmltag>. The remaining four file-inclusion
-      sections are designed to help you include entire sets of files that
-      match a particular criteria.</para>
+      <para>如果你知道所有需包含的文件的完整列表，你就可以使用file条目构建了一个十分复杂的套件。即使在构建开始之前你不知道这个完整的列表，你也可以使用一个自定义的Maven插件来发现这个列表，然后生成如上例中的套件描述符。files元素能给你提供细粒度的文件控制，包括每个文件的权限，位置及名称，但是在一个大型的归档中，为所有文件罗列file元素就比较繁琐了。因此大部分情况下，你需要使用fileSets针对一组文件进行操作。余下的四个文件包含配置元素，被设计用来帮助你包含整个一组匹配某个特定标准的文件。</para>
     </section>
 
     <section>
-      <title><sgmltag>FileSets</sgmltag> 部分</title>
+      <title><sgmltag>FileSets</sgmltag> 元素</title>
 
-      <para>Similar to the <sgmltag>files</sgmltag> section,
-      <sgmltag>fileSets</sgmltag> are intended for files that have a definite
-      location relative to your project’s directory structure. However, unlike
-      the <sgmltag>files</sgmltag> section, <sgmltag>fileSets</sgmltag>
-      describe sets of files, defined by file and path patterns they match (or
-      don’t match), and the general directory structure in which they are
-      located. The simplest <sgmltag>fileSet</sgmltag> just specifies the
-      directory where the files are located:</para>
+      <para>与files元素类似，fileSets应用于那些相对于你的项目结构有一个明确位置的文件。然而，和files元素不同的是，fileSets描述一组文件，这组文件由文件模式或者路径模式定义，判断文件在总体目录结构中的位置是否匹配该模式。最简单的fileSet仅仅指定文件所处的位置：</para>
 
       <programlisting language="xml">&lt;assembly&gt;
   ...
@@ -667,32 +577,13 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
   ...
 &lt;/assembly&gt;</programlisting>
 
-      <para>This file set simply includes the contents of the
-      <filename>src/main/java</filename> directory from our project. It takes
-      advantage of many default settings in the section, so let’s discuss
-      those briefly.</para>
+      <para>这个文件集合仅仅包含src/main/java目录下的内容。它利用了很多该元素的默认设置，这里我简要的介绍一下。</para>
 
-      <para>First, you’ll notice that we haven’t told the file set where
-      within the assembly matching files should be located. By default, the
-      destination directory (specified with
-      <sgmltag>outputDirectory</sgmltag>) is the same as the source directory
-      (in our case, <filename>src/main/java</filename>). Additionally, we
-      haven’t specified any inclusion or exclusion file patterns. When these
-      are empty, the file set assumes that all files within the source
-      directory are included, with some important exceptions. The exceptions
-      to this rule pertain mainly to source-control metadata files and
-      directories, and are controlled by the
-      <sgmltag>useDefaultExcludes</sgmltag> flag, which is defaulted to
-      <sgmltag>true</sgmltag>. When active,
-      <sgmltag>useDefaultExcludes</sgmltag> will keep directories like
-      <filename>.svn/</filename> and <filename>CVS/</filename> from being
-      added to the assembly archive. <xref linkend="sect-default-excludes" />
-      provides a detailed list of the default exclusion patterns.</para>
+      <para>首先，你会注意到我们没有指定匹配的文件集合应该位于套件中的什么位置。默认情况，目标输出目录（由outputDirectory指定）和源文件目录（在这里，是src/main/java）是一样的。此外，我们没有指定任何包含和排除模式。当它们为空的时候，fileSet假设会包含整个源文件目录，并伴随着一些重要的例外。这一规则的例外主要是为了排除源码控制元数据文件和目录，这一例外由userDefaultExclludes标记控制，其值默认为true。当userDefaultExcludes被开启的时候，所有如.svn/和CVS/的目录都会被排除在套件归档之外。<xref
+      linkend="sect-default-excludes" />显示了一个详细的默认排除模式的列表。</para>
 
-      <para>If we want more control over this file set, we can specify it more
-      explicitly. <xref linkend="ex-explicit-fileSet" /> shows a
-      <sgmltag>fileSet</sgmltag> element with all of the default elements
-      specified.</para>
+      <para>如果想要更多的对于文件集的控制，我们可以进一步显式的指定。<xref
+      linkend="ex-explicit-fileSet" />展示了一个指定所有默认值的fileSet元素。</para>
 
       <example id="ex-explicit-fileSet">
         <title>Including Files with <sgmltag>fileSet</sgmltag></title>
@@ -715,44 +606,17 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
 &lt;/assembly&gt;</programlisting>
       </example>
 
-      <para>The <sgmltag>includes</sgmltag> section uses a list of
-      <sgmltag>include</sgmltag> elements, which contain path patterns. These
-      patterns may contain wildcards such as ‘**’ which matches one or more
-      directories or ‘*’ which matches part of a file name, and ‘?’ which
-      matches a single character in a file name. <xref
-      linkend="ex-explicit-fileSet" /> uses a <sgmltag>fileMode</sgmltag>
-      entry to specify that files in this set should be readable by all, but
-      only writable by the owner. Since the <sgmltag>fileSet</sgmltag>
-      includes directories, we also have the option of specifying a
-      <sgmltag>directoryMode</sgmltag> that works in much the same way as the
-      <sgmltag>fileMode</sgmltag>. Since a directories’ execute permission is
-      what allows users to list their contents, we want to make sure
-      directories are executable in addition to being readable. Like files,
-      only the owner can write to directories in this set.</para>
+      <para>includes元素使用了一系列include元素，后者包含了路径模式。这些模式可能包含一些通配符，“**”表示匹配一个或者多个目录，“*”表示匹配文件名的任一部分，“？”表示匹配文件名中的任意单个字符。<xref
+      linkend="ex-explicit-fileSet" />使用了一个fileMode元素来指定该文件集对于所有人可读，但是只有文件所有者可写。由于fileSet包含了目录，我们还可以指定directoryMode，它的使用方式和fileMode完全一样。一个目录的执行权限控制用户列出目录内容，我们这里想要确保目录对于所有人是可读且可执行的。和文件一样，只有目录所有者才拥有写的权限。</para>
 
-      <para>The <sgmltag>fileSet</sgmltag> entry offers some other options as
-      well. First, it allows for an <sgmltag>excludes</sgmltag> section with a
-      form identical to the <sgmltag>includes</sgmltag> section. These
-      exclusion patterns allow you to exclude specific file patterns from a
-      <sgmltag>fileSet</sgmltag>. Include patterns take precedence over
-      exclude patterns. Additionally, you can set the
-      <sgmltag>filtering</sgmltag> flag to true if you want to substitute
-      property values for expressions within the included files. Expressions
-      can be delimited either by <varname>${</varname> and
-      <varname>}</varname> (standard Maven expressions like
-      <varname>${project.groupId}</varname>) or by <varname>@</varname> and
-      <varname>@</varname> (standard Ant expressions like
-      <varname>@project.groupId@</varname>). You can adjust the line ending of
-      your files using the <sgmltag>lineEnding</sgmltag> element; valid values
-      for <sgmltag>lineEnding</sgmltag> are:</para>
+      <para>fileSet元素还提供了一些其它的配置选项。首先，它允许一个excludes子元素，其形式和includes完全一样。这些排除模式能让你从fileSet中排除特定的文件。包含模式优先于排除模式。此外，如果你想要将所包含文件中的表达式替换成属性值，你可以将filtering标记设置成true。表达式可以用${}标记（如${project.groupId}）或者@@标记（这是标准的Ant表达式，如@project.groupId）来表示。你可以使用lineEnding元素来调整文件的换行字元；可用lineEnding值有：</para>
 
       <variablelist>
         <varlistentry>
           <term>keep</term>
 
           <listitem>
-            <para>Preserve line endings from original files. (This is the
-            default value.)</para>
+            <para>保持原始文件的换行字元。（这是默认值。）</para>
           </listitem>
         </varlistentry>
 
@@ -760,7 +624,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
           <term>unix</term>
 
           <listitem>
-            <para>Unix-style line endings</para>
+            <para>Unix风格的字元</para>
           </listitem>
         </varlistentry>
 
@@ -768,7 +632,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
           <term>lf</term>
 
           <listitem>
-            <para>Only a Line Feed Character</para>
+            <para>仅仅一个换行符</para>
           </listitem>
         </varlistentry>
 
@@ -776,7 +640,7 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
           <term>dos</term>
 
           <listitem>
-            <para>MS-DOS-style line endings</para>
+            <para>MS-DOS风格的字元</para>
           </listitem>
         </varlistentry>
 
@@ -784,23 +648,12 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
           <term>crlf</term>
 
           <listitem>
-            <para>Carriage-return followed by a Line Feed</para>
+            <para>回车后加一个换行符</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>Finally, if you want to ensure that all file-matching patterns are
-      used, you can use the <sgmltag>useStrictFiltering</sgmltag> element with
-      a value of <sgmltag>true</sgmltag> (the default is
-      <sgmltag>false</sgmltag>). This can be especially useful if unused
-      patterns may signal missing files in an intermediary output directory.
-      When <sgmltag>useStrictFiltering</sgmltag> is set to
-      <sgmltag>true</sgmltag>, the Assembly plugin will fail if an include
-      pattern is not satisfied. In other words, if you have an include pattern
-      which includes a file from a build, and that file is not present,
-      setting <sgmltag>useStrictFiltering</sgmltag> to <sgmltag>true</sgmltag>
-      will cause a failure if Maven cannot find the file to be
-      included.</para>
+      <para>最后，如果你想要确保所有文件匹配模式都被使用到，你可以使用userStrictFiltering元素，并将其值指定为true（默认值为false）。有些时候未使用的模式可能预示着某个中间输出目录缺失文件。使用值为true的useStrictFiltering后，当某个包含模式未满足，Assembly插件就会失败。换句话说，如果你使用一个包含模式来包含构建中的某个文件，但是这个文件不存在，将userStrictFiltering设置成true会使得Maven构建失败。</para>
 
       <!--TODO: JCasey, I had to take the statement about Ant Expressions out because I couldn't verify it.
 I can add this back in later.  I didn't want to talk about it without an example.  - TIM-->
@@ -809,22 +662,15 @@ I can add this back in later.  I didn't want to talk about it without an example
     <section id="sect-default-excludes">
       <title><sgmltag>fileSets的默认排除模式</sgmltag></title>
 
-      <para>When you use the default exclusion patterns, the Maven Assembly
-      plugin is going to be ignoring more than just <acronym>SVN</acronym> and
-      <acronym>CVS</acronym> information. By default the exclusion patterns
-      are defined by the <ulink
-      url="http://svn.codehaus.org/plexus/plexus-utils/trunk/src/main/java/org/codehaus/plexus/util/DirectoryScanner.java">DirectoryScanner</ulink>
-      class in the <ulink
-      url="http://plexus.codehaus.org/plexus-utils/">plexus-utils</ulink>
-      project hosted at Codehaus. The array of exclude patterns is defined as
-      a static, final <classname>String</classname> array named
-      <varname>DEFAULTEXCLUDES</varname> in
-      <classname>DirectoryScanner</classname>. The contents of this variable
-      are shown in <xref linkend="ex-default-excludes" />.</para>
+      <para>当你使用默认排除模式的时候，Maven
+      Assembly插件不仅仅会忽略SVN和CVS信息。默认情况排除拥由Codehaus中<ulink
+      url="http://plexus.codehaus.org/plexus-utils/">plexus-utils</ulink>项目的<ulink
+      url="http://svn.codehaus.org/plexus/plexus-utils/trunk/src/main/java/org/codehaus/plexus/util/DirectoryScanner.java">DirectoryScanner</ulink>类定义。这个排除模式的数组被定义为一个static,
+      final的String数组，其名称为DEFAULTEXCLUDES。该变量的内容如<xref
+      linkend="ex-default-excludes" />所示。</para>
 
       <example id="ex-default-excludes">
-        <title>Definition of Default Exclusion Patterns from Plexus
-        Utils</title>
+        <title>Plexus Utils中模式排除模式的定义</title>
 
         <programlisting language="java">   public static final String[] DEFAULTEXCLUDES = {
         // Miscellaneous typical temporary files
@@ -866,33 +712,18 @@ I can add this back in later.  I didn't want to talk about it without an example
     };</programlisting>
       </example>
 
-      <para>This default array of patterns excludes temporary files from
-      editors like <ulink url="http://www.gnu.org/software/emacs/">GNU
-      Emacs</ulink>, and other common temporary files from Macs and a few
-      common source control systems (although Visual SourceSafe is more of a
-      curse than a source control system). If you need to override these
-      default exclusion patterns you set <sgmltag>useDefaultExcludes</sgmltag>
-      to false and then define a set of exclusion patterns in your own
-      assembly descriptor.</para>
+      <para>这个默认的模式数组会排除来自于如<ulink
+      url="http://www.gnu.org/software/emacs/">GNU
+      Emacs</ulink>的编辑器的临时文件，Mac中常见的临时文件，以及一些常见源码控制系统的元数据文件（虽然Visual
+      SourceSafe得到的更多的是恶名而非源码控制系统）。如果你需要覆盖这个默认的排除模式，你可以将setDefaultExcludes设置成false，然后在你自己的套件描述符中定义一组排除模式。</para>
     </section>
 
     <section id="sect-output-algorithm">
-      <title><sgmltag>dependencySets</sgmltag> 部分</title>
+      <title><sgmltag>dependencySets</sgmltag> 元素</title>
 
-      <para>One of the most common requirements for assemblies is the
-      inclusion of a project’s dependencies in an assembly archive. Where
-      <sgmltag>files</sgmltag> and <sgmltag>fileSets</sgmltag> deal with files
-      in your project, dependency files don't have a location in your project.
-      The artifacts your project depends on have to be resolved by Maven
-      during the build. Dependency artifacts are abstract, they lack a
-      definite location, and are resolved using a symbolic set of Maven
-      coordinates. While Since <sgmltag>file</sgmltag> and
-      <sgmltag>fileSet</sgmltag> specifications require a concrete source
-      path, dependencies are included or excluded from an assembly using a
-      combination of Maven coordinates and dependency scopes.</para>
+      <para>套件中最常见的需求之一是包含项目的依赖。files和fileSets只是处理你项目中的文件，而依赖文件不存在于你的项目中。项目依赖的构件需要在构建过程中由Maven解析。依赖构件是抽象的，它们缺少明确的位置，它们使用一组Maven坐标来进行解析。相比较使用file和fileSets需要一个具体的资源路径，我们使用一组Maven坐标和依赖范围来包含或者排除依赖。</para>
 
-      <para>The simplest <sgmltag>dependencySet</sgmltag> is an empty
-      element:</para>
+      <para>最简单的dependencySet是一个简单空元素：</para>
 
       <programlisting language="xml">&lt;assembly&gt;
   ...
@@ -902,60 +733,20 @@ I can add this back in later.  I didn't want to talk about it without an example
   ...
 &lt;/assembly&gt;</programlisting>
 
-      <para>The <sgmltag>dependencySet</sgmltag> above will match all runtime
-      dependencies of your project (runtime scope includes the compile scope
-      implicitly), and it will add these dependencies to the root directory of
-      your assembly archive. It will also copy the current project’s main
-      artifact into the root of the assembly archive, if it exists.</para>
+      <para>上述的dependencySet会匹配你项目的所有运行时依赖（运行时范围隐式的包含编译范围依赖），并且它会将这些依赖添加到套件归档的根目录中。如果当前项目的主构件存在，它同时会复制该主构件至套件归档的根目录。</para>
 
       <note>
-        <para>Wait? I thought <sgmltag>dependencySet</sgmltag> was about
-        including my project's dependencies, not my project's main archive?
-        This counterintuitive side-effect was a widely-used bug in the 2.1
-        version of the Assembly plugin, and, because Maven puts an emphasis on
-        backward compatibility, this counterintuitive and incorrect behavior
-        needed to be preserved between a 2.1 and 2.2 release. You can control
-        this behavior by changing the <sgmltag>useProjectArtifact</sgmltag>
-        flag to <varname>false</varname>.</para>
+        <para>等等？我之前认为dependencySet是用来包含我项目的依赖的，而不是项目的主构件。这一反直觉的副作用是Assembly插件版本2.1的一个bug，但是这个bug被广泛使用了，由于Maven强调向后兼容性，这一反直觉的，错误的行为就必须在2.1和2.2版中保持下来。但是，你可以控制这一行为，只要设置useProjectArtifact为false即可。</para>
       </note>
 
-      <para>While the default dependency set can be quite useful with no
-      configuration whatsoever, this section of the assembly descriptor also
-      supports a wide array of configuration options, allowing your to tailor
-      its behavior to your specific requirements. For example, the first thing
-      you might do to the dependency set above is exclude the current project
-      artifact, by setting the <sgmltag>useProjectArtifact</sgmltag> flag to
-      <varname>false</varname> (again, its default value is
-      <varname>true</varname> for legacy reasons). This will allow you to
-      manage the current project’s build output separately from its dependency
-      files. Alternatively, you might choose to unpack the dependency
-      artifacts using by setting the <sgmltag>unpack</sgmltag> flag to
-      <varname>true</varname> (this is <varname>false</varname> by default).
-      When unpack is set to true, the Assembly plugin will combine the
-      unpacked contents of all matching dependencies inside the archive’s root
-      directory.</para>
+      <para>虽然没有任何配置的默认依赖集合十分有用，但该元素同时也支持很多配置选项，能让你定制其行为以适应你的环境。例如，第一件你想对依赖集合做的事情可能就是排除当前项目的构件，你会想设置userProjectArtifact为false（再次强调，由于历史原因，该配置的默认值为true）。这让你能够把项目输出和项目依赖分开管理。还有，你可能会将unpack标记为true（默认为false）来拆解依赖构件。当unpack被设置成true时，Assembly插件会组合所有匹配依赖的拆解内容至归档的根目录。</para>
 
-      <para>From this point, there are several things you might choose to do
-      with this dependency set. The next sections discuss how to define the
-      output location for dependency sets and how include and exclude
-      dependencies by scope. Finally, we’ll expand on the unpacking
-      functionality of the dependency set by exploring some advanced options
-      for unpacking dependencies.</para>
+      <para>从这里你就可以看到，你有很多选择来控制依赖集合。下一节我们讨论如何定义依赖集合的输出位置，如何通过范围来包含和排除依赖。最后，我们会扩展依赖集的拆解功能，研究一些拆解依赖的高级选项。</para>
 
       <section id="sect-output-location">
-        <title>Customizing Dependency Output Location</title>
+        <title>自定义依赖输出目录</title>
 
-        <para>There are two configuration options that are used in concert to
-        define the location for a dependency file within the assembly archive:
-        <sgmltag>outputDirectory</sgmltag> and
-        <sgmltag>outputFileNameMapping</sgmltag>. You may want to customize
-        the location of dependencies in your assembly using properties of the
-        dependency artifacts themselves. Let's say you want to put all the
-        dependencies in directories that match the dependency artifact's
-        <sgmltag>groupId</sgmltag>. In this case, you would use the
-        <sgmltag>outputDirectory</sgmltag> element of the
-        <sgmltag>dependencySet</sgmltag>, and you would supply something
-        like:</para>
+        <para>有两个配置选项可以用来协调定义依赖文件在套件归档中的位置：outputDirectory和outputFileNameMapping。你可能想要使用依赖构件自身的属性来定义其在套件中的位置。比如说你想要将依赖放到与其groupId对应的目录中。这时候，你可以使用dependencySet的outputDirectory元素，并提供如下的配置：</para>
 
         <programlisting language="xml">&lt;assembly&gt;
   ...
@@ -967,14 +758,9 @@ I can add this back in later.  I didn't want to talk about it without an example
   ...
 &lt;/assembly&gt;</programlisting>
 
-        <para>This would have the effect of placing every single dependency in
-        a subdirectory that matched the name of each dependency artifact's
-        <sgmltag>groupId</sgmltag>.</para>
+        <para>这会使得所有单独的依赖被放到与其groupId对应的子目录中。</para>
 
-        <para>If you wanted to perform a further customization and remove the
-        version numbers from all dependencies. You could customize the the
-        output file name for each dependency using the
-        <sgmltag>outputFileNameMapping</sgmltag> element as follows:</para>
+        <para>如果你想要更进一步的自定义，并移除所有依赖的版本号。你可以使用outputFileNameMapping来自定义每个输出文件的文件名，如：</para>
 
         <programlisting language="xml">&lt;assembly&gt;
   ...
@@ -982,127 +768,84 @@ I can add this back in later.  I didn't want to talk about it without an example
     &lt;dependencySet&gt;
       &lt;outputDirectory&gt;${artifact.groupId}&lt;/outputDirectory&gt;
       &lt;outputFileNameMapping&gt;
-        ${module.groupId}-${module.artifactId}.${module.extension}
+        ${module.artifactId}.${module.extension}
       &lt;/outputFileNameMapping&gt;
     &lt;/dependencySet&gt;
   &lt;/dependencySets&gt;
   ...
 &lt;/assembly&gt;</programlisting>
 
-        <para>In the previous example, a dependency on
-        <varname>commons:commons-codec</varname> version 1.3, would end up in
-        the file <filename>commons/commons-codec.jar</filename>.</para>
+        <para>这个例子中，依赖commons:commons-codec版本1.3最后会成为文件commons/commons-codec.jar。</para>
       </section>
 
       <section>
-        <title>Interpolation of Properties in Dependency Output
-        Location</title>
+        <title>依赖输出位置的属性插值</title>
 
-        <para>As mentioned in the Assembly Interpolation section above,
-        neither of these elements are interpolated with the rest of the
-        assembly descriptor, because their raw values have to be interpreted
-        using additional, artifact-specific expression resolvers.</para>
+        <para>正如在套件插值一小节所介绍的那样，outputDirectory和outputFileNameMapping不会和套件描述符的其它内容一样接受插值，这是因为它们的原始值必须使用额外的，构件特定的表达式解析器进行解释。</para>
 
-        <para>The artifact expressions available for these two elements vary
-        only slightly. In both cases, all of the
-        <varname>${project.*}</varname>, <varname>${pom.*}</varname>, and
-        <varname>${*}</varname> expressions that are available in the
-        <acronym>POM</acronym> and the rest of the assembly descriptor are
-        also available here. For the <sgmltag>outputFileNameMapping</sgmltag>
-        element, the following process is applied to resolve
-        expressions:</para>
+        <para>对于这两个元素可用的构件表达式只有微小的差别。对两者来说，所有POM中及套件描述符其它部分中可用的${project.*},
+        ${pom.*},
+        和${*}表达式，这里也能用。对于outputFileNameMapping元素来说，解析表达式的过程如下：</para>
 
         <orderedlist>
           <listitem>
-            <para>If the expression matches the pattern
-            <varname>${artifact.*}</varname>:</para>
+            <para>如果表达式匹配模式${artifact.*}：</para>
 
             <orderedlist numeration="loweralpha">
               <listitem>
-                <para>Match against the dependency’s
-                <classname>Artifact</classname> instance (resolves:
-                <varname>groupId</varname>, <varname>artifactId</varname>,
-                <varname>version</varname>, <varname>baseVersion</varname>,
-                <varname>scope</varname>, <varname>classifier</varname>, and
-                <varname>file.*</varname>)</para>
+                <para>基于依赖的Artifact实例进行匹配（解析：groupId, artifactId, version,
+                baseVersion, scope, classifier, 和file.*）</para>
               </listitem>
 
               <listitem>
-                <para>Match against the dependency’s
-                <classname>ArtifactHandler</classname> instance (resolves:
-                <varname>expression</varname>)</para>
+                <para>基于依赖的ArtifactHander实例进行匹配（解析：expression）</para>
               </listitem>
 
               <listitem>
-                <para>Match against the project instance associated with the
-                dependency’s Artifact (resolves: mainly POM properties)</para>
+                <para>基于和依赖Artifact相关的Project实例进行匹配（解析：主要是POM属性）</para>
               </listitem>
             </orderedlist>
           </listitem>
 
           <listitem>
-            <para>If the expression matches the patterns
-            <varname>${pom.*}</varname> or
-            <varname>${project.*}</varname>:</para>
+            <para>如果表达式匹配模式${pom.*}或者${project.*}：</para>
 
             <orderedlist numeration="loweralpha">
               <listitem>
-                <para>Match against the project instance
-                (<classname>MavenProject</classname>) of the current
-                build.</para>
+                <para>基于当前构建的项目实例（MavenProject)进行解析。</para>
               </listitem>
             </orderedlist>
           </listitem>
 
           <listitem>
-            <para>If the expression matches the pattern
-            <varname>${dashClassifier?}</varname> and the Artifact instance
-            contains a non-null classifier, resolve to the classifier preceded
-            by a dash (-classifier). Otherwise, resolve to an empty
-            string.</para>
+            <para>如果表达式匹配模式${dashClassifier?}，而且Artifact实例包含一个非空的classfier，则解析成classifier前置一个破折号（-classfier）。否则，解析成一个空字符串。</para>
           </listitem>
 
           <listitem>
-            <para>Attempt to resolve the expression against the project
-            instance of the current build.</para>
+            <para>尝试基于当前构建的项目实例解析表达式。</para>
           </listitem>
 
           <listitem>
-            <para>Attempt to resolve the expression against the POM properties
-            of the current build.</para>
+            <para>尝试基于当前项目的POM属性解析表达式。</para>
           </listitem>
 
           <listitem>
-            <para>Attempt to resolve the expression against the available
-            system properties.</para>
+            <para>尝试基于系统属性解析表达式。</para>
           </listitem>
 
           <listitem>
-            <para>Attempt to resolve the expression against the available
-            operating-system environment variables.</para>
+            <para>尝试基于操作系统环境变量解析表达式。</para>
           </listitem>
         </orderedlist>
 
-        <para>The <sgmltag>outputDirectory</sgmltag> value is interpolated in
-        much the same way, with the difference being that there is no
-        available <varname>${artifact.*}</varname> information, only the
-        <varname>${project.*}</varname> instance for the particular artifact.
-        Therefore, the expressions listed above associated with those classes
-        (1a, 1b, and 3 in the process listing above) are unavailable.</para>
+        <para>outputDirectory也以差不多的方式进行插值，区别在于，对于outputDirectory没有可用的${artifact.*}信息，而只有特定构件的${project.*}实例信息。因此，上述罗列的的相关条目（上述处理过程列表中的1a,
+        1b和3）就无效了。</para>
 
-        <para>How do you know when to use <sgmltag>outputDirectory</sgmltag>
-        and <sgmltag>outputFileNameMapping</sgmltag>? When dependencies are
-        unpacked only the <sgmltag>outputDirectory</sgmltag> is used to
-        calculate the output location. When dependencies are managed as whole
-        files (not unpacked), both <sgmltag>outputDirectory</sgmltag> and
-        <sgmltag>outputFileNameMapping</sgmltag> can be used together. When
-        used together, the result is the equivalent of:</para>
+        <para>我们怎么知道何时使用outputDirectory，何时使用outputFileNameMapping呢？当依赖被拆解的时候，只有outputDirectory会被用来计算输出路径。当依赖以完整的文件被管理时（不拆解），outputDirectory和outputFileNameMapping两者可以同时使用。在同时的时候，其结果等价于：</para>
 
         <programlisting language="xml">&lt;archive-root-dir&gt;/&lt;outputDirectory&gt;/&lt;outputFileNameMapping&gt;</programlisting>
 
-        <para>When <sgmltag>outputDirectory</sgmltag> is missing, it is not
-        used. When <sgmltag>outputFileNameMapping</sgmltag> is missing, its
-        default value is:</para>
+        <para>在没有outputDirectory的时候，它便不被使用。当没有outputFileNameMapping的时候，其默认值为：</para>
 
         <programlisting language="java">${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</programlisting>
       </section>
