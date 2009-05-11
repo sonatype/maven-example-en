@@ -471,7 +471,7 @@ $ <command>export PATH=/Applications/Flash\ Player.app/Contents/MacOS:${PATH}</c
       </varlistentry>
     </variablelist>
 
-    <section>
+    <section id="flex-dev-sect-library-archetype">
       <title>Creating a Flex Library</title>
 
       <para>To create a Flex Library Project, execute the following command at
@@ -713,7 +713,7 @@ package: org.sonatype.test
       code.</para>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-application-archetype">
       <title>Creating a Flex Application</title>
 
       <para>To create a Flex application from a Maven archetype, execute the
@@ -869,7 +869,7 @@ package: org.sonatype.test
       </example>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-multimodule-archetype">
       <title>Creating a Multi-module Project: Web Application with a Flex
       Dependency</title>
 
@@ -1220,7 +1220,7 @@ package: org.sonatype.test
   &lt;/build&gt;</programlisting>
     </example>
 
-    <section>
+    <section id="flex-dev-sect-lifecycle-swc">
       <title>The SWC Lifecycle</title>
 
       <para>When the packaging is swc, FlexMojos will execute the lifecycle
@@ -1274,7 +1274,7 @@ package: org.sonatype.test
       </variablelist>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-lifecycle-swf">
       <title>The SWF Lifecycle</title>
 
       <para>When the packaging is swf, FlexMojos will execute the lifecycle
@@ -1387,46 +1387,11 @@ package: org.sonatype.test
       </varlistentry>
 
       <varlistentry>
-        <term>flexmojos:flexcover</term>
-
-        <listitem>
-          <para>Instruments Actionscript and Flex source, runs unit tests, and
-          generates a FlexCover report which analyzes test coverage</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>flexmojos:flexcover-run</term>
-
-        <listitem>
-          <para>Runs coverage report using the FlexCover CoverageViewer</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term>flexmojos:generate</term>
 
         <listitem>
           <para>Generates Actionscript 3 based on Java classes using Granite
           GAS3</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>flexmojos:instrument</term>
-
-        <listitem>
-          <para>Instruments a Flex project for use with the FlexCover coverage
-          analysis tool</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>flexmojos:instrument-swc</term>
-
-        <listitem>
-          <para>Instruments a Flex library for use with the FlexCover coverage
-          analysis tool</para>
         </listitem>
       </varlistentry>
 
@@ -1482,7 +1447,7 @@ package: org.sonatype.test
       </varlistentry>
     </variablelist>
 
-    <section>
+    <section id="flex-dev-sect-gen-asdoc">
       <title>Generating Actionscript Documentation</title>
 
       <para>You can run the asdoc or asdoc-report goals to generate
@@ -1654,10 +1619,11 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">Whether all dependencies found
-                  by the compiler are documented. If true, the dependencies of
-                  the input classes are not documented. The default value is
-                  false.</entry>
+                  <entry spanname="description"><para>Whether all dependencies
+                  found by the compiler are documented. If
+                  <varname>true</varname>, the dependencies of the input
+                  classes are not documented. The default value is
+                  false.</para></entry>
                 </row>
 
                 <row>
@@ -1671,9 +1637,9 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The text that appears at the
-                  bottom of the HTML pages in the output
-                  documentation.</entry>
+                  <entry spanname="description"><para>The text that appears at
+                  the bottom of the HTML pages in the output
+                  documentation.</para></entry>
                 </row>
 
                 <row>
@@ -1687,11 +1653,11 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">Sets the compiler when it runs
-                  on a server without a display. This is equivalent to using
-                  the compiler.headless-server option of the mxmlc or compc
-                  compilers. that value determines if the compiler is running
-                  on a server without a display.</entry>
+                  <entry spanname="description"><para>Sets the compiler when
+                  it runs on a server without a display. This is equivalent to
+                  using the compiler.headless-server option of the mxmlc or
+                  compc compilers. that value determines if the compiler is
+                  running on a server without a display.</para></entry>
                 </row>
 
                 <row>
@@ -1705,10 +1671,10 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">An integer that changes the
-                  width of the left frameset of the documentation. You can
+                  <entry spanname="description"><para>An integer that changes
+                  the width of the left frameset of the documentation. You can
                   change this size to accommodate the length of your package
-                  names. The default value is 210 pixels.</entry>
+                  names. The default value is 210 pixels.</para></entry>
                 </row>
 
                 <row>
@@ -1722,7 +1688,7 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description"></entry>
+                  <entry spanname="description"><para></para></entry>
                 </row>
 
                 <row>
@@ -1736,9 +1702,9 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The text that appears at the
-                  top of the HTML pages in the output documentation. The
-                  default value is "API Documentation".</entry>
+                  <entry spanname="description"><para>The text that appears at
+                  the top of the HTML pages in the output documentation. The
+                  default value is "API Documentation".</para></entry>
                 </row>
 
                 <row>
@@ -1752,12 +1718,14 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">Specify a URI to associate
-                  with a manifest of components for use as MXML elements.
-                  Usage: &lt;namespaces&gt; &lt;namespace&gt;
-                  &lt;uri&gt;http://www.adobe.com/2006/mxml&lt;/uri&gt;
-                  &lt;manifest&gt;${basedir}/manifest.xml&lt;/manifest&gt;
-                  &lt;/namespace&gt; &lt;/namespaces&gt; </entry>
+                  <entry spanname="description"><para>Specify a URI to
+                  associate with a manifest of components for use as MXML
+                  elements. </para><para>Usage: </para><programlisting>&lt;namespaces&gt;
+  &lt;namespace&gt;
+    &lt;uri&gt;http://www.adobe.com/2006/mxml&lt;/uri&gt;
+    &lt;manifest&gt;${basedir}/manifest.xml&lt;/manifest&gt;
+  &lt;/namespace&gt;
+&lt;/namespaces&gt;</programlisting></entry>
                 </row>
 
                 <row>
@@ -1771,8 +1739,8 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The output directory for the
-                  generated documentation.</entry>
+                  <entry spanname="description"><para>The output directory for
+                  the generated documentation.</para></entry>
                 </row>
 
                 <row>
@@ -1786,9 +1754,9 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The descriptions to use when
-                  describing a package in the documentation. You can specify
-                  more than one package option.</entry>
+                  <entry spanname="description"><para>The descriptions to use
+                  when describing a package in the documentation. You can
+                  specify more than one package option.</para></entry>
                 </row>
 
                 <row>
@@ -1802,7 +1770,7 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description"></entry>
+                  <entry spanname="description"><para></para></entry>
                 </row>
 
                 <row>
@@ -1816,7 +1784,7 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description"></entry>
+                  <entry spanname="description"><para></para></entry>
                 </row>
 
                 <row>
@@ -1830,8 +1798,9 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">List of path elements that
-                  form the roots of ActionScript class hierarchies.</entry>
+                  <entry spanname="description"><para>List of path elements
+                  that form the roots of ActionScript class
+                  hierarchies.</para></entry>
                 </row>
 
                 <row>
@@ -1845,11 +1814,12 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The path to the ASDoc template
-                  directory. The default is the asdoc/templates directory in
-                  the ASDoc installation directory. This directory contains
-                  all the HTML, CSS, XSL, and image files used for generating
-                  the output.</entry>
+                  <entry spanname="description"><para>The path to the ASDoc
+                  template directory. The default is the
+                  <varname>asdoc/templates</varname> directory in the ASDoc
+                  installation directory. This directory contains all the
+                  HTML, CSS, XSL, and image files used for generating the
+                  output.</para></entry>
                 </row>
 
                 <row>
@@ -1863,9 +1833,9 @@ package: org.sonatype.test
                 </row>
 
                 <row>
-                  <entry spanname="description">The text that appears in the
-                  browser window in the output documentation. The default
-                  value is "API Documentation".</entry>
+                  <entry spanname="description"><para>The text that appears in
+                  the browser window in the output documentation. The default
+                  value is "API Documentation".</para></entry>
                 </row>
               </tbody>
             </tgroup>
@@ -1873,14 +1843,13 @@ package: org.sonatype.test
       </section>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-compiling">
       <title>Compiling Flex Source</title>
 
       <para>FlexMojos contains a number of goals which compile Actionscript
       and MXML into SWCs and SWFs. The compile-swc and compile-swf goals are
-      used to generate output from a project's source, test-compile is used to
-      compile unit tests, and a compilation is completed as part of the
-      instrument instrument-swc goals. In the simple projects created by the
+      used to generate output from a project's source, and test-compile is
+      used to compile unit tests. In the simple projects created by the
       FlexMojos archetypes, the compile-swc and compile-swf goals are called
       because the project customizes the lifecycle and binds either
       compile-swc or compile-swf to the compile phase and test-compile to the
@@ -1933,7 +1902,7 @@ package: org.sonatype.test
 
       <para>Because are so many tasks within the FlexMojos plugin that share
       similar Flex compiler configuration options, this section outlines the
-      commons options first in <xref
+      common options first in <xref
       linkend="flex-dev-sect-common-configuration" />.</para>
 
       <section id="flex-dev-sect-common-configuration">
@@ -1949,14 +1918,6 @@ package: org.sonatype.test
 
           <listitem>
             <para>compile-swc</para>
-          </listitem>
-
-          <listitem>
-            <para>instrument</para>
-          </listitem>
-
-          <listitem>
-            <para>instrument-swc</para>
           </listitem>
 
           <listitem>
@@ -3211,7 +3172,7 @@ package: org.sonatype.test
           </table></para>
       </section>
 
-      <section>
+      <section id="flex-dev-sect-goal-compile-swc">
         <title>Configuring the compile-swc Goal</title>
 
         <para>In addition to the common compilation parameters listed in <xref
@@ -3444,11 +3405,11 @@ package: org.sonatype.test
           </table></para>
       </section>
 
-      <section>
+      <section id="flex-dev-sect-goal-compile-swf">
         <title>Configuring the compile-swf Goal</title>
 
         <para>In addition to the common compilation parameters listed in <xref
-        linkend="flex-dev-sect-common-configuration" />, the follow
+        linkend="flex-dev-sect-common-configuration" />, the following
         configuration parameters are unique to the
         <varname>compile-swf</varname> goal.</para>
 
@@ -3619,10 +3580,10 @@ package: org.sonatype.test
       </section>
     </section>
 
-    <section>
+    <section id="flex-dev-sect-unit-testing">
       <title>Unit Testing Flex</title>
 
-      <section>
+      <section id="flex-dev-sect-goal-test-compile">
         <title>Configuring the test-compile Goal</title>
 
         <para>In addition to the common compilation parameters listed in <xref
@@ -3801,385 +3762,7 @@ package: org.sonatype.test
           </table></para>
       </section>
 
-      <section>
-        <title>Configuring the test-run Goal</title>
-
-        <para>The following configuration parameters provide control over the
-        execution of Unit Tests.</para>
-
-        <para><table>
-            <title>Configuration Parameters for the test-run goal.</title>
-
-            <tgroup cols="4">
-              <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
-                       rowsep="0" />
-
-              <colspec colname="type" colnum="2" colsep="0" colwidth="1.25in"
-                       rowsep="0" />
-
-              <colspec colname="required" colnum="3" colsep="0"
-                       colwidth="1.25in" rowsep="0" />
-
-              <colspec colname="default" colnum="4" colsep="0"
-                       colwidth="1.25in" rowsep="0" />
-
-              <spanspec charoff="1in" nameend="default" namest="name"
-                        rowsep="1" spanname="description" />
-
-              <thead>
-                <colspec colname="name" colnum="1" colsep="1"
-                         colwidth="3.75in" rowsep="1" />
-
-                <colspec colname="type" colnum="2" colwidth="1.25in"
-                         rowsep="1" />
-
-                <colspec colname="required" colnum="3" colsep="1"
-                         colwidth="1.25in" rowsep="1" />
-
-                <colspec colname="default" colnum="4" colsep="1"
-                         colwidth="1.25in" rowsep="1" />
-
-                <row>
-                  <entry>Name</entry>
-
-                  <entry>Type</entry>
-
-                  <entry>Required</entry>
-
-                  <entry>Default</entry>
-                </row>
-              </thead>
-
-              <tbody>
-                <row>
-                  <entry><emphasis><varname>flashPlayerCommand</varname></emphasis></entry>
-
-                  <entry><varname>String</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>Can be of type
-                  &lt;argument&gt;</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>localRepository</varname></entry>
-
-                  <entry><varname>ArtifactRepository</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>Local repository to be
-                  used by the plugin to resolve dependencies.</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>pluginArtifacts</varname></entry>
-
-                  <entry><varname>List</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"></entry>
-                </row>
-
-                <row>
-                  <entry><varname>remoteRepostories</varname></entry>
-
-                  <entry><varname>List</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>List of remote
-                  repositories to be used by the plugin to resolve
-                  dependencies.</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>skip</varname></entry>
-
-                  <entry><varname>boolean</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry><varname>false</varname></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para></para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>skipTest</varname></entry>
-
-                  <entry><varname>boolean</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>false</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"></entry>
-                </row>
-
-                <row>
-                  <entry><varname>testControlPort</varname></entry>
-
-                  <entry><varname>int</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>13540</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description">Socket connect port for
-                  flex/java communication to control if flashplayer is
-                  alive.</entry>
-                </row>
-
-                <row>
-                  <entry><varname>testFailureIgnore</varname></entry>
-
-                  <entry><varname>boolean</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>false</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"></entry>
-                </row>
-
-                <row>
-                  <entry><varname>testPort</varname></entry>
-
-                  <entry><varname>int</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>13539</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description">Socket connect port for
-                  flex/java communication to transfer tests results.</entry>
-                </row>
-              </tbody>
-            </tgroup>
-          </table></para>
-      </section>
-    </section>
-
-    <section>
-      <title>Analyzing Unit Test Coverage</title>
-
-      <para>To analyze unit test coverage results for Flex, you will need to
-      modify your project's POM to use the flexcover compiler, and you will
-      need to download and install the flexcover tool from <ulink
-      url="http://code.google.com/p/flexcover/">http://code.google.com/p/flexcover/</ulink>.
-      Flexcover is an open source tool that provides code coverage metrics for
-      both Flex and AIR. It is an AIR application, so to use it you will first
-      need to make sure that you are installed Adobe AIR.</para>
-
-      <section>
-        <title>Configuring the flexcover Goal</title>
-
-        <para>In addition to the common compilation parameters listed in <xref
-        linkend="flex-dev-sect-common-configuration" />, the following
-        configuration parameters are unique to the
-        <varname>test-compile</varname> goal.</para>
-
-        <para><table>
-            <title>Configuration Parameters for the test-compile goal.</title>
-
-            <tgroup cols="4">
-              <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
-                       rowsep="0" />
-
-              <colspec colname="type" colnum="2" colsep="0" colwidth="1.25in"
-                       rowsep="0" />
-
-              <colspec colname="required" colnum="3" colsep="0"
-                       colwidth="1.25in" rowsep="0" />
-
-              <colspec colname="default" colnum="4" colsep="0"
-                       colwidth="1.25in" rowsep="0" />
-
-              <spanspec charoff="1in" nameend="default" namest="name"
-                        rowsep="1" spanname="description" />
-
-              <thead>
-                <colspec colname="name" colnum="1" colsep="1"
-                         colwidth="3.75in" rowsep="1" />
-
-                <colspec colname="type" colnum="2" colwidth="1.25in"
-                         rowsep="1" />
-
-                <colspec colname="required" colnum="3" colsep="1"
-                         colwidth="1.25in" rowsep="1" />
-
-                <colspec colname="default" colnum="4" colsep="1"
-                         colwidth="1.25in" rowsep="1" />
-
-                <row>
-                  <entry>Name</entry>
-
-                  <entry>Type</entry>
-
-                  <entry>Required</entry>
-
-                  <entry>Default</entry>
-                </row>
-              </thead>
-
-              <tbody>
-                <row>
-                  <entry><emphasis><varname>defaultLocale</varname></emphasis></entry>
-
-                  <entry><varname>String</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>en_US</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>Default locale for
-                  libraries. This is useful to non localized applications,
-                  just to define swc.rb locale</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>excludeTestFiles</varname></entry>
-
-                  <entry><varname>String[]</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>Files to exclude from
-                  testing. If not defined, assumes no
-                  exclusions</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>includeTestFiles</varname></entry>
-
-                  <entry><varname>String[]</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>File to be tested. If
-                  not defined assumes Test*.as and *Test.as</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>skipTests</varname></entry>
-
-                  <entry><varname>boolean</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>false</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>Set this to 'true' to
-                  bypass unit tests entirely. Its use is NOT RECOMMENDED, but
-                  quite convenient on occasion.</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>sourceFile</varname></entry>
-
-                  <entry><varname>String</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry><varname></varname></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"><para>The file to be compiled.
-                  The path must be relative with source folder</para></entry>
-                </row>
-
-                <row>
-                  <entry><varname>testControlPort</varname></entry>
-
-                  <entry><varname>int</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>13540</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description">Socket connect port for
-                  flex/java communication to control if flashplayer is
-                  alive</entry>
-                </row>
-
-                <row>
-                  <entry><varname>testPort</varname></entry>
-
-                  <entry><varname>int</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry>13539</entry>
-                </row>
-
-                <row>
-                  <entry spanname="description">Socket connect port for
-                  flex/java communication to transfer tests results</entry>
-                </row>
-
-                <row>
-                  <entry><varname>testRunnerTemplate</varname></entry>
-
-                  <entry><varname>File</varname></entry>
-
-                  <entry>N</entry>
-
-                  <entry></entry>
-                </row>
-
-                <row>
-                  <entry spanname="description"></entry>
-                </row>
-              </tbody>
-            </tgroup>
-          </table></para>
-      </section>
-
-      <section>
+      <section id="flex-dev-sect-goal-test-run">
         <title>Configuring the test-run Goal</title>
 
         <para>The following configuration parameters provide control over the
@@ -4384,11 +3967,11 @@ package: org.sonatype.test
       </varlistentry>
     </variablelist>
 
-    <section>
+    <section id="flex-dev-sect-report-asdoc">
       <title>Generating Actionscript Documentation Report</title>
 
-      <para>To generate the asdoc-report as part of your Maven site build, add
-      the following XML to your POM:</para>
+      <para>To generate the <varname>asdoc-report</varname> as part of your
+      Maven site build, add the following XML to your POM:</para>
 
       <example>
         <title>Configuring the Actionscript Documentation Report</title>
@@ -4413,9 +3996,9 @@ package: org.sonatype.test
 </programlisting>
       </example>
 
-      <para>When you run mvn site, Maven will generate this report and place
-      the results under the "Project Reports" menu as shown in <xref
-      linkend="fig-flex-dev-actionscript-report" />.</para>
+      <para>When you run <command>mvn site</command>, Maven will generate this
+      report and place the results under the "Project Reports" menu as shown
+      in <xref linkend="fig-flex-dev-actionscript-report" />.</para>
 
       <figure id="fig-flex-dev-actionscript-report">
         <title>Actionscript Documentation Report on Maven Site</title>
@@ -4427,12 +4010,13 @@ package: org.sonatype.test
         </mediaobject>
       </figure>
 
-      <para>If you neede to pass in any configuration options to the
+      <para>If you need to pass in any configuration options to the
       asdoc-report, you will need add a configuration element to the
-      reportSets element as shown in <xref
+      <varname>reportSets</varname> element as shown in <xref
       linkend="ex-flex-dev-config-asdoc-report" />. For more information about
-      the available configuration parameters for the asdoc-report, see the
-      configuration parameters for the asdoc goal in <xref
+      the available configuration parameters for the
+      <varname>asdoc-report,</varname> see the configuration parameters for
+      the <varname>asdoc</varname> goal in <xref
       linkend="flex-dev-sect-config-asdoc" />.</para>
 
       <example id="ex-flex-dev-config-asdoc-report">
@@ -4464,7 +4048,7 @@ package: org.sonatype.test
     </section>
   </section>
 
-  <section>
+  <section id="flex-dev-sect-dev">
     <title>Developing and Customizing Flexmojos</title>
 
     <para>The following sections guide you through some of first steps toward
@@ -4474,7 +4058,7 @@ package: org.sonatype.test
     isn't for everyone, but, if you have an itch to scratch and you wish to
     participate, come on in.</para>
 
-    <section>
+    <section id="flex-dev-sect-get-source">
       <title>Get the Flexmojos Source Code</title>
 
       <para>Flexmojos is an open source project hosted on the Sonatype Forge,
