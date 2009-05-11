@@ -28,6 +28,11 @@
         <para>Add the Flash Player to your PATH to support Flex unit
         testing</para>
       </listitem>
+
+      <listitem>
+        <para>(Optional) Configure your Maven Settings to include the Sonatype
+        plugin group</para>
+      </listitem>
     </itemizedlist>
 
     <section id="flex-dev-sect-referencing-repo-with-flex">
@@ -382,15 +387,6 @@
         url="http://en.wikipedia.org/wiki/Xvfb">click here</ulink>.</para>
       </note>
 
-      <warning>
-        <para>In FlexMojos 3.1.0 there is a bug in OSX. FlexMojos will
-        (incorrectly) attempt to launch "Flash Player.app". If you are running
-        FlexMojos 3.1.0 on a Mac, you will need to configure the appropriate
-        PATH to "Flash Player", and set the flashPlayer.command variable to
-        "Flash Player". This bug has been fixed in the upcoming 3.2.0
-        release.</para>
-      </warning>
-
       <para>If you have been developing Flash Applications with Adobe Flash
       CS4 or Adobe Flex Builder or if you have been viewing flash content in a
       browser, you probably have the Flash Player installed somewhere on your
@@ -431,6 +427,38 @@ $ <command>export PATH=/Applications/Flash\ Player.app/Contents/MacOS:${PATH}</c
       OSX, tyou would add the last export command to you
       <filename>~/.bash_profile</filename>.</para>
     </section>
+
+    <section id="flex-dev-sect-plugin-group">
+      <title>Adding FlexMojos to Your Maven Settings' Plugin Groups</title>
+
+      <para>If you need to run FlexMojos goals from the command-line, it will
+      be more convenient if you add the Sonatype Plugin groups to your Maven
+      Settings. To do this, open up <filename>~/.m2/settings.xml</filename>
+      and add the following plugin groups:</para>
+
+      <example>
+        <title>Adding Sonatype Plugins to Maven Settings</title>
+
+        <programlisting>&lt;pluginGroups&gt;
+  &lt;pluginGroup&gt;com.sonatype.maven.plugins&lt;/pluginGroup&gt;
+  &lt;pluginGroup&gt;org.sonatype.plugins&lt;/pluginGroup&gt;
+&lt;/pluginGroups&gt;
+</programlisting>
+      </example>
+
+      <para>Once you've added these plugin groups to your Maven Settings you
+      can invoke a FlexMojos goal using the plugin prefix
+      <varname>flexmojos</varname>. Without this configuration, calling the
+      <varname>flexbuilder</varname> goal would involve the following
+      command-line:</para>
+
+      <screen>$ <command>mvn org.sonatype.flexmojos:flexmojos-maven-plugin:3.2.0:flexbuilder</command></screen>
+
+      <para>With the org.sonatype.plugins group in your Maven settings, the
+      same goal can be invoked with:</para>
+
+      <screen>$ <command>mvn flexmojos:flexbuilder</command></screen>
+    </section>
   </section>
 
   <section id="flex-dev-sect-creating-with-archetype">
@@ -439,7 +467,7 @@ $ <command>export PATH=/Applications/Flash\ Player.app/Contents/MacOS:${PATH}</c
     <para>Flexmojos has a set of archetypes which can be used to quickly
     create a new Flex project. The following archetypes are all in the
     <package>org.sonatype.flexmojos</package> group with a version of
-    <varname>3.1.0</varname>:</para>
+    <varname>${flexmojos.version}</varname>:</para>
 
     <variablelist>
       <varlistentry>
@@ -481,7 +509,7 @@ $ <command>export PATH=/Applications/Flash\ Player.app/Contents/MacOS:${PATH}</c
       -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-library \
-      -DarchetypeVersion=3.1.0</command>
+      -DarchetypeVersion=${flexmojos.version}</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -501,7 +529,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library:3.1.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library:${flexmojos.version}
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -555,7 +583,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -573,7 +601,7 @@ package: org.sonatype.test
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
       &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
-      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;version&gt;${flexmojos.version}&lt;/version&gt;
       &lt;type&gt;swc&lt;/type&gt;
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -660,7 +688,7 @@ package: org.sonatype.test
 [INFO] ------------------------------------------------------------------------
 [INFO] [resources:resources]
 [INFO] [flexmojos:compile-swc]
-[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos ${flexmojos.version} - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [WARNING] Nothing expecified to include.  Assuming source and resources folders.
 [INFO] Flex compiler configurations:
 -compiler.headless-server=false 
@@ -675,7 +703,7 @@ package: org.sonatype.test
 [WARNING] Using platform encoding (MacRoman actually) to copy filtered resources, i.e. build is platform dependent!
 [INFO] skip non existing resourceDirectory src/test/resources
 [INFO] [flexmojos:test-compile]
-[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos ${flexmojos.version} - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [INFO] Flex compiler configurations:
 -compiler.include-libraries ~/.m2/repository/org/sonatype/flexmojos/flexmojos-unittest-support...
 -compiler.keep-generated-actionscript=false 
@@ -688,7 +716,7 @@ package: org.sonatype.test
 -verify-digests=true -load-config= 
 [INFO] Already trust on target/test-classes/TestRunner.swf
 [INFO] [flexmojos:test-run]
-[INFO] flexmojos 3.1.0 - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
+[INFO] flexmojos ${flexmojos.version} - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [INFO] flexunit setup args: null
 [INFO] ------------------------------------------------------------------------
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Time Elpased: 0 sec
@@ -723,7 +751,7 @@ package: org.sonatype.test
       -DarchetypeRepository=http://repository.sonatype.com/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-application \
-      -DarchetypeVersion=3.1.0</command>
+      -DarchetypeVersion=${flexmojos.version}</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -743,7 +771,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:3.1.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:${flexmojos.version}
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -795,7 +823,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -813,7 +841,7 @@ package: org.sonatype.test
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
       &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
-      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;version&gt;${flexmojos.version}&lt;/version&gt;
       &lt;type&gt;swc&lt;/type&gt;
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -881,7 +909,7 @@ package: org.sonatype.test
       -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-modular-webapp \
-      -DarchetypeVersion=3.1.0</command>
+      -DarchetypeVersion=${flexmojos.version}</command>
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] com.sonatype.maven.plugins: checking for updates from central
@@ -901,7 +929,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-modular-webapp:3.1.0
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-modular-webapp:${flexmojos.version}
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -982,7 +1010,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;locales&gt;
@@ -1005,7 +1033,7 @@ package: org.sonatype.test
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
       &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
-      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;version&gt;${flexmojos.version}&lt;/version&gt;
       &lt;type&gt;swc&lt;/type&gt;
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -1049,7 +1077,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;locales&gt;
@@ -1072,7 +1100,7 @@ package: org.sonatype.test
     &lt;dependency&gt;
       &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
       &lt;artifactId&gt;flexmojos-unittest-support&lt;/artifactId&gt;
-      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;version&gt;${flexmojos.version}&lt;/version&gt;
       &lt;type&gt;swc&lt;/type&gt;
       &lt;scope&gt;test&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -1091,8 +1119,9 @@ package: org.sonatype.test
       <warning>
         <para>In <xref linkend="ex-flex-swf-module-pom" />, the dependency on
         "swf-swc" needs to be changed to "swc-swc". This is a bug in the
-        modular webapp archetype that is present in the FlexMojos 3.1.0
-        release. It will be fixed in the FlexMojos 3.2.0 release.</para>
+        modular webapp archetype that is present in the FlexMojos
+        ${flexmojos.version} release. It will be fixed in the FlexMojos 3.2.0
+        release.</para>
       </warning>
 
       <para>When you declare a dependency on a SWC, you'll need to specify the
@@ -1125,7 +1154,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;executions&gt;
           &lt;execution&gt;
             &lt;goals&gt;
@@ -1155,8 +1184,9 @@ package: org.sonatype.test
       <warning>
         <para>In <xref linkend="ex-flex-war-module-pom" />, the dependency on
         "war-swf" needs to be changed to "swf-swf". This is a bug in the
-        modular webapp archetype that is present in the FlexMojos 3.1.0
-        release. It will be fixed in the FlexMojos 3.2.0 release.</para>
+        modular webapp archetype that is present in the FlexMojos
+        ${flexmojos.version} release. It will be fixed in the FlexMojos 3.2.0
+        release.</para>
       </warning>
 
       <para>The POM shown in <xref linkend="ex-flex-war-module-pom" />
@@ -1208,7 +1238,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         <emphasis>&lt;extensions&gt;true&lt;/extensions&gt;</emphasis>
         &lt;configuration&gt;
           &lt;locales&gt;
@@ -1552,6 +1582,25 @@ package: org.sonatype.test
                 </row>
 
                 <row>
+                  <entry><varname>docClasses</varname></entry>
+
+                  <entry><varname>String[]</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>A list of classes to
+                  document. These classes must be in the source path. This is
+                  the default option. This option works the same way as does
+                  the -include-classes option for the compc component
+                  compiler. For more information, see Using compc, the
+                  component compiler.</para></entry>
+                </row>
+
+                <row>
                   <entry><varname>docNamespaces</varname></entry>
 
                   <entry><varname>Namespace[]</varname></entry>
@@ -1871,7 +1920,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;configurationReport&gt;true&lt;/configurationReport&gt;
@@ -3668,6 +3717,22 @@ package: org.sonatype.test
                 </row>
 
                 <row>
+                  <entry><varname>forkMode</varname></entry>
+
+                  <entry><varname>String</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>once</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Option to specify the
+                  forking mode. Can be "once" or "always". Always fork
+                  flashplayer per test class.</para></entry>
+                </row>
+
+                <row>
                   <entry><varname>includeTestFiles</varname></entry>
 
                   <entry><varname>String[]</varname></entry>
@@ -3813,6 +3878,39 @@ package: org.sonatype.test
 
               <tbody>
                 <row>
+                  <entry><emphasis><varname>allowHeadlessMode</varname></emphasis></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>true</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>When true, allow
+                  flexmojos to launch xvfb-run to run test if it detects
+                  headless linux env</para></entry>
+                </row>
+
+                <row>
+                  <entry><emphasis><varname>firstConnectionTimeout</varname></emphasis></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>20000</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Timeout for the first
+                  connection on ping Thread. That means how much time
+                  flexmojos will wait for Flashplayer be loaded at first
+                  time.</para></entry>
+                </row>
+
+                <row>
                   <entry><emphasis><varname>flashPlayerCommand</varname></emphasis></entry>
 
                   <entry><varname>String</varname></entry>
@@ -3944,9 +4042,386 @@ package: org.sonatype.test
                   <entry spanname="description">Socket connect port for
                   flex/java communication to transfer tests results.</entry>
                 </row>
+
+                <row>
+                  <entry><varname>testTimeout</varname></entry>
+
+                  <entry><varname>int</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry>2000</entry>
+                </row>
+
+                <row>
+                  <entry spanname="description">Test timeout to wait for
+                  socket responding</entry>
+                </row>
+
+                <row>
+                  <entry><varname>verifyDigests</varname></entry>
+
+                  <entry><varname>boolean</varname></entry>
+
+                  <entry>N</entry>
+
+                  <entry><varname>true</varname></entry>
+                </row>
+
+                <row>
+                  <entry spanname="description"><para>Verifies the RSL loaded
+                  has the same digest as the RSL specified when the
+                  application was compiled. This is equivalent to using the
+                  verify-digests option in the mxmlc compiler.</para></entry>
+                </row>
               </tbody>
             </tgroup>
           </table></para>
+      </section>
+    </section>
+
+    <section id="flex-dev-sect-flexbuilder">
+      <title>Generating Flex Builder Project Files</title>
+
+      <para>To generate Flex Builder project files for a FlexMojos project,
+      configure the plugin groups as described in <xref
+      linkend="flex-dev-sect-plugin-group" />, and run the
+      <varname>flexbuilder</varname> goal:</para>
+
+      <screen>$ <command>mvn flexmojos:flexbuilder</command></screen>
+
+      <para>Running this goal will create a <filename>.project</filename>,
+      <filename>.settings/org.eclipse.core.resources.prefs</filename>,
+      <filename>.actionScriptProperties</filename>, and
+      <filename>.flexLibProperties</filename>. These configuration values in
+      these files can be customizing by configuring the flexbuilder goal
+      configuration parameters detailed in <xref
+      linkend="flex-dev-sect-goal-flexbuilder" />.</para>
+
+      <section id="flex-dev-sect-goal-flexbuilder">
+        <title>Configuring the flexbuilder Goal</title>
+
+        <para>The following configuration parameters allow you to customize
+        the FlexBuider projfect files created by the
+        <varname>flexbuilder</varname> goal.</para>
+
+        <table>
+          <title>Configuration Parameters for the flexbuilder goal.</title>
+
+          <tgroup cols="4">
+            <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
+                     rowsep="0" />
+
+            <colspec colname="type" colnum="2" colsep="0" colwidth="1.25in"
+                     rowsep="0" />
+
+            <colspec colname="required" colnum="3" colsep="0"
+                     colwidth="1.25in" rowsep="0" />
+
+            <colspec colname="default" colnum="4" colsep="0" colwidth="1.25in"
+                     rowsep="0" />
+
+            <spanspec charoff="1in" nameend="default" namest="name" rowsep="1"
+                      spanname="description" />
+
+            <thead>
+              <colspec colname="name" colnum="1" colsep="1" colwidth="3.75in"
+                       rowsep="1" />
+
+              <colspec colname="type" colnum="2" colwidth="1.25in" rowsep="1" />
+
+              <colspec colname="required" colnum="3" colsep="1"
+                       colwidth="1.25in" rowsep="1" />
+
+              <colspec colname="default" colnum="4" colsep="1"
+                       colwidth="1.25in" rowsep="1" />
+
+              <row>
+                <entry>Name</entry>
+
+                <entry>Type</entry>
+
+                <entry>Required</entry>
+
+                <entry>Default</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry><emphasis><varname>accessible</varname></emphasis></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>false</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Turn on generation of
+                accessible SWFs.</para></entry>
+              </row>
+
+              <row>
+                <entry><emphasis><varname>compiledLocales</varname></emphasis></entry>
+
+                <entry><varname>String[]</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Sets the locales that the
+                compiler uses to replace {locale} tokens that appear in some
+                configuration values. This is equivalent to using the
+                compiler.locale option of the mxmlc or compc
+                compilers.</para><para>Usage:<programlisting>&lt;compiledLocales&gt; 
+  &lt;locale&gt;en_US&lt;/locale&gt;
+  &lt;locale&gt;pt_BR&lt;/locale&gt; 
+  &lt;locale&gt;es_ES&lt;/locale&gt; 
+&lt;/compiledLocales&gt;</programlisting></para></entry>
+              </row>
+
+              <row>
+                <entry><emphasis><varname>defaultLocale</varname></emphasis></entry>
+
+                <entry><varname>String</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>en_US</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Default locale for
+                libraries. This is useful to non localized applications, just
+                to define swc.rb locale</para></entry>
+              </row>
+
+              <row>
+                <entry><emphasis><varname>enableM2e</varname></emphasis></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>true</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para></para></entry>
+              </row>
+
+              <row>
+                <entry><emphasis><varname>generateHtmlWrapper</varname></emphasis></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>false</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para></para></entry>
+              </row>
+
+              <row>
+                <entry><varname>includeClasses</varname></entry>
+
+                <entry><varname>String[]</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>This is the equilvalent of
+                the include-classes option of the compc
+                compiler.</para><para>Usage:</para><programlisting>&lt;includeClassses&gt;
+  &lt;class&gt;foo.Bar&lt;/class&gt;
+&lt;/includeClasses&gt;
+</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><varname>includeSources</varname></entry>
+
+                <entry><varname>File[]</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>This is the equilvalent of
+                the include-sources option of the compc compiler.
+                </para><para>Usage:</para><programlisting>&lt;includeSources&gt;
+  &lt;sources&gt;${baseDir}/src/main/flex&lt;/sources&gt;
+&lt;/includeSources&gt;</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><varname>locales</varname></entry>
+
+                <entry><varname>String[]</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Sets the locales that the
+                compiler uses to replace {locale} tokens that appear in some
+                configuration values. This is equivalent to using the
+                compiler.locale option of the mxmlc or compc compilers.
+                </para><para>Usage:</para><programlisting>&lt;locales&gt;
+  &lt;locale&gt;en_US&lt;/locale&gt;
+  &lt;locale&gt;pt_BR&lt;/locale&gt;
+  &lt;locale&gt;es_ES&lt;/locale&gt;
+&lt;/locales&gt;</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><varname>mergeResourceBundle</varname></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>When true resources are
+                compiled into Application or Library. When false resources are
+                compiled into separated Application or Library files. If not
+                defined no resourceBundle generation is done</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>remoteRepostories</varname></entry>
+
+                <entry><varname>List</varname></entry>
+
+                <entry>N</entry>
+
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>List of remote
+                repositories to be used by the plugin to resolve
+                dependencies.</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>resourceBundlePath</varname></entry>
+
+                <entry><varname>String</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>see description</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Define the base path to
+                locate resouce bundle files Accept some special tokens:
+                {locale} - replace by locale name Default value is:
+                ${basedir}/src/main/locales/{locale}.</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>showWarnings</varname></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry><varname>true</varname></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Run the AS3 compiler in a
+                mode that detects legal but potentially incorrect code.
+                Equivalent compiler option: warnings</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>sourceFile</varname></entry>
+
+                <entry><varname>String</varname></entry>
+
+                <entry>N</entry>
+
+                <entry><varname></varname></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>The file to be compiled.
+                The path must be relative with source folder</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>sourcePaths</varname></entry>
+
+                <entry><varname>File[]</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>see description</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>List of path elements that
+                form the roots of ActionScript class hierarchies. By default
+                use Maven source and resources folders.</para><para>Usage:
+                </para><programlisting>&lt;sourcePaths&gt;
+  &lt;path&gt;${baseDir}/src/main/flex&lt;/path&gt;
+&lt;/sourcePaths&gt;</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><varname>strict</varname></entry>
+
+                <entry><varname>boolean</varname></entry>
+
+                <entry>N</entry>
+
+                <entry><varname>true</varname></entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>Run the AS3 compiler in
+                strict error checking mode.</para></entry>
+              </row>
+
+              <row>
+                <entry><varname>targetPlayer</varname></entry>
+
+                <entry><varname>String</varname></entry>
+
+                <entry>N</entry>
+
+                <entry>9.0.0</entry>
+              </row>
+
+              <row>
+                <entry spanname="description"><para>specifies the version of
+                the player the application is targeting. Features requiring a
+                later version will not be compiled into the application. The
+                minimum value supported is "9.0.0".</para></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
       </section>
     </section>
   </section>
@@ -3981,7 +4456,7 @@ package: org.sonatype.test
     &lt;plugin&gt;
       &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
       &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-      &lt;version&gt;3.1.0&lt;/version&gt;
+      &lt;version&gt;${flexmojos.version}&lt;/version&gt;
       &lt;reportSets&gt;
         &lt;reportSet&gt;
           &lt;id&gt;flex-reports&lt;/id&gt;
@@ -4027,7 +4502,7 @@ package: org.sonatype.test
       &lt;plugin&gt;
         &lt;groupId&gt;org.sonatype.flexmojos&lt;/groupId&gt;
         &lt;artifactId&gt;flexmojos-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;version&gt;${flexmojos.version}&lt;/version&gt;
         &lt;reportSets&gt;
           &lt;reportSet&gt;
             &lt;id&gt;flex-reports&lt;/id&gt;
