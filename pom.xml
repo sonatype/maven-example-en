@@ -35,6 +35,19 @@
         </distributionManagement>
     </profile>
     <profile>
+        <id>publish-external</id>
+<!--        <properties>
+           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        </properties> -->
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
+        </site>
+        </distributionManagement>
+    </profile>
+    <profile>
         <id>stage</id>
 <!--        <properties>
            <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
@@ -44,6 +57,19 @@
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
+        </site>
+        </distributionManagement>
+    </profile>
+    <profile>
+        <id>stage-external</id>
+<!--        <properties>
+           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        </properties> -->
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
         </site>
         </distributionManagement>
     </profile>

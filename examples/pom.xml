@@ -72,6 +72,29 @@
         </site>
         </distributionManagement>
       </profile>
+      <profile>
+        <id>publish-external</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book/book-examples/</url>
+        </site>
+        </distributionManagement>
+        <properties>
+           <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        </properties>
+      </profile>
+      <profile>
+        <id>stage-external</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/book-examples/</url>
+        </site>
+        </distributionManagement>
+      </profile>
   </profiles>
 
   <reporting>
