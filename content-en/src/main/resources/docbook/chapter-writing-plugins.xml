@@ -2002,7 +2002,7 @@ public class ZipForkMojo extends AbstractMojo
         </example></para>
 
       <para>If you create a plugin which defines a new packaging type and a
-      customized lifecycle, Maven won't know anything it until you add the
+      customized lifecycle, Maven won't know anything about it until you add the
       plugin to your project's <acronym>POM</acronym> and set the extensions
       element to true. Once you do this, Maven will scan your plugin for more
       than just Mojos to execute, it will look for the
