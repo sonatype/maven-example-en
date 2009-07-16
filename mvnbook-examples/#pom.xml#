@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>mvnbook-examples</artifactId>
+  <groupId>org.sonatype.mavenbook</groupId>
+  <version>0.6-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Maven: The Definitive Guide Example Code</name>
+  <description>Example Code for Maven: The Definitive Guide</description>
+  
+  <url>http://sonatype.com/book</url>
+
+<!--  <modules>
+    <module>ch03-simple</module>
+    <module>ch04-custom</module>
+    <module>ch05-simple-web</module>
+    <module>ch06-multi</module>
+    <module>ch07-multi-spring</module>
+    <module>ch08-optimize</module>
+    <module>ch09-pom</module>
+    <module>ch10-lifecycle</module>
+    <module>ch11-profile</module>
+    <module>ch12-assembly</module>
+    <module>ch13-properties</module>
+    <module>ch15-sitegen</module>
+    <module>ch17-writing-plugins</module>
+    <module>ch18-alternate-plugins</module>
+  </modules> -->
+  
+  <build>
+    <finalName>mavenbook-examples-${project.version}</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>project</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>examples</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+      <profile>
+        <id>publish</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book/book-examples/</url>
+        </site>
+        </distributionManagement>
+        <properties>
+           <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        </properties>
+      </profile>
+      <profile>
+        <id>stage</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/book-examples/</url>
+        </site>
+        </distributionManagement>
+      </profile>
+      <profile>
+        <id>publish-external</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book/book-examples/</url>
+        </site>
+        </distributionManagement>
+        <properties>
+           <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        </properties>
+      </profile>
+      <profile>
+        <id>stage-external</id>
+        <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/book-examples/</url>
+        </site>
+        </distributionManagement>
+      </profile>
+  </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.0.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>

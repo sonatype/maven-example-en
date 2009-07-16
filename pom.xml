@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.sonatype.forge</groupId>
-		<artifactId>forge-parent</artifactId>
-		<version>2</version>
-	</parent>
+  <parent>
+    <groupId>org.sonatype.forge</groupId>
+    <artifactId>forge-parent</artifactId>
+    <version>2</version>
+  </parent>
   <groupId>org.sonatype.mavenbook</groupId>
-  <artifactId>book</artifactId>
+  <artifactId>mvnbook-parent</artifactId>
   <version>0.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven: The Definitive Guide</name>
@@ -16,62 +16,62 @@
   <url>http://sonatype.com/book</url>
   
   <modules>
-    <module>examples</module>
-    <module>content-en</module>
+    <module>mvnbook-examples</module>
+    <module>mvnbook-content</module>
   </modules>
   
   <profiles>
     <profile>
-        <id>publish</id>
-<!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      <id>publish</id>
+      <!--        <properties>
+		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
-        <distributionManagement>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
         </site>
-        </distributionManagement>
+      </distributionManagement>
     </profile>
     <profile>
-        <id>publish-external</id>
-<!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      <id>publish-external</id>
+      <!--        <properties>
+		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
-        <distributionManagement>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
         </site>
-        </distributionManagement>
+      </distributionManagement>
     </profile>
     <profile>
-        <id>stage</id>
-<!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      <id>stage</id>
+      <!--        <properties>
+		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
-        <distributionManagement>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
         </site>
-        </distributionManagement>
+      </distributionManagement>
     </profile>
     <profile>
-        <id>stage-external</id>
-<!--        <properties>
-           <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      <id>stage-external</id>
+      <!--        <properties>
+		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         </properties> -->
-        <distributionManagement>
+      <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
           <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
         </site>
-        </distributionManagement>
+      </distributionManagement>
     </profile>
   </profiles>
 
@@ -92,26 +92,26 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-	<repository>
-	  <id>Codehaus Snapshots</id>
-	  <url>http://snapshots.repository.codehaus.org</url>
-	  <snapshots>
-		<enabled>true</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>false</enabled>
-	  </releases>
-	</repository>
-	<repository>
-	  <id>Central</id>
-	  <url>http://repo1.maven.org/maven2</url>
-	  <snapshots>
-		<enabled>false</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>true</enabled>
-	  </releases>
-	</repository>
+    <repository>
+      <id>Codehaus Snapshots</id>
+      <url>http://snapshots.repository.codehaus.org</url>
+      <snapshots>
+	<enabled>true</enabled>
+      </snapshots>
+      <releases>
+	<enabled>false</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>Central</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+	<enabled>false</enabled>
+      </snapshots>
+      <releases>
+	<enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -131,26 +131,26 @@
         <enabled>true</enabled>
       </snapshots>
     </pluginRepository>
-	<pluginRepository>
-	  <id>Codehaus Snapshots</id>
-	  <url>http://snapshots.repository.codehaus.org</url>
-	  <snapshots>
-		<enabled>true</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>false</enabled>
-	  </releases>
-	</pluginRepository>
-	<pluginRepository>
-	  <id>Central</id>
-	  <url>http://repo1.maven.org/maven2</url>
-	  <snapshots>
-		<enabled>false</enabled>
-	  </snapshots>
-	  <releases>
-		<enabled>true</enabled>
-	  </releases>
-	</pluginRepository>
+    <pluginRepository>
+      <id>Codehaus Snapshots</id>
+      <url>http://snapshots.repository.codehaus.org</url>
+      <snapshots>
+	<enabled>true</enabled>
+      </snapshots>
+      <releases>
+	<enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+    <pluginRepository>
+      <id>Central</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+	<enabled>false</enabled>
+      </snapshots>
+      <releases>
+	<enabled>true</enabled>
+      </releases>
+    </pluginRepository>
   </pluginRepositories>
   <build>
     <plugins>

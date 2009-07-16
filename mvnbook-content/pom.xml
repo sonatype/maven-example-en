@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
 	<groupId>org.sonatype.mavenbook</groupId>
-	<artifactId>book</artifactId>
+	<artifactId>mvnbook-parent</artifactId>
 	<version>0.6-SNAPSHOT</version>
   </parent>
-  <artifactId>content-en</artifactId>
+  <artifactId>mvnbook-content</artifactId>
   <packaging>jar</packaging>
   <name>Maven: The Definitive Guide</name>
   <description>A book about Apache Maven 2.x</description>
@@ -117,7 +117,7 @@
                   <fileset dir="${basedir}/target/classes/images" />
                 </copy>
                 <copy todir="${project.build.directory}/site">
-                  <fileset dir="../examples/target">
+                  <fileset dir="../mvnbook-examples/target">
                     <include name="*.tar.gz" />
                     <include name="*.zip" />
                   </fileset>
