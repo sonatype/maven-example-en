@@ -841,8 +841,8 @@
         </mediaobject>
       </figure>
 
-      <para>Next, consider the process Maven 2.1.0 uses to support encrypted
-      passwords as shown in <xref linkend="fig-settings-encrypted" />. </para>
+      <para>Next, consider the process Maven uses to support encrypted
+      passwords as shown in <xref linkend="fig-settings-encrypted" />.</para>
 
       <figure id="fig-settings-encrypted">
         <title>Storing Encrypted Passwords in Maven Settings</title>
@@ -911,7 +911,7 @@
       <filename>~/.m2/settings-security.xml</filename> file and use this
       master password to decrypt the password stored in your
       <filename>~/.m2/settings.xml</filename> file. Maven will then send the
-      decrypted password to the server. </para>
+      decrypted password to the server.</para>
 
       <para>What does this buy you? It allows you to avoid storing your
       passwords in <filename>~/.m2/settings.xml</filename> as plain-text

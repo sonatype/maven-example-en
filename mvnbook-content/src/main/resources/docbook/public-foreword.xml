@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<preface id="public-forward">
+<preface id="public-foreward">
   <title>Foreword: ${project.version}</title>
 
   <para>We've had some great feedback so far, please keep it coming. Your
@@ -24,6 +24,27 @@
     <para>Many readers have been asking us to keep track of specific changes
     to the book content, the following sections list changes made to the book
     in reverse chronological order starting with ${project.version}.</para>
+
+    <section>
+      <title>Changes in Edition 0.7</title>
+
+      <para>The following changes were made:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The Maven build for Maven: The Definitive Guide was configured
+          to use the <ulink
+          url="http://github.com/tobrien/scribd-plugin/tree/master">Maven
+          Scribd plugin</ulink>. To see the build configuration for this book
+          see the <ulink
+          url="http://github.com/sonatype/maven-guide-en/tree/master">maven-guide-en
+          project</ulink> at GitHub. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-128">MVNDEF-128</ulink>
+          and <ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-127">MVNDEF-127</ulink>)</para>
+        </listitem>
+      </itemizedlist>
+    </section>
 
     <section id="foreword-sect-rev-0_6">
       <title>Changes in Edition 0.6</title>
