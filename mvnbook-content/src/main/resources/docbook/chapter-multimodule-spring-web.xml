@@ -1716,7 +1716,7 @@ public class WeatherController implements Controller {
     how we can retrieve a history of weather forecasts that were saved by the
     <classname>WeatherController</classname>.</para>
 
-    <example>
+    <example id="ex-weather-vm">
       <title>weather.vm template rendered by WeatherController</title>
 
       <programlisting id="ex-weather-vm" language="xml">&lt;b&gt;Current Weather Conditions for:
@@ -1734,8 +1734,8 @@ public class WeatherController implements Controller {
     </example>
 
     <para>The syntax for this Velocity template is straightforward, variables
-    are referenced using <code>\${}</code> notation. The expression between the
-    curly braces references a property, or a property of a property on the
+    are referenced using <code>\${}</code> notation. The expression between
+    the curly braces references a property, or a property of a property on the
     <varname>weather</varname> variable which was passed to this template by
     the <classname>WeatherController</classname>.</para>
 
@@ -1827,7 +1827,7 @@ public class HistoryController implements Controller {
     <filename>history.vm</filename> Velocity template shown in <xref
     linkend="ex-spring-history-velocity" />.</para>
 
-    <example>
+    <example id="ex-spring-history-velocity">
       <title>history.vm rendered by the HistoryController</title>
 
       <programlisting id="ex-spring-history-velocity" language="java">&lt;b&gt;
@@ -1873,10 +1873,10 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     Let's take a closer look at the <filename>weather-servlet.xml</filename>
     shown in <xref linkend="ex-spring-weather-servlet" />.</para>
 
-    <example>
+    <example id="ex-spring-weather-servlet">
       <title>Spring Controller configuration weather-servlet.xml</title>
 
-      <programlisting id="ex-spring-weather-servlet" language="xml">&lt;beans&gt;  
+      <programlisting language="xml">&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
           linkends="coRef-weather-servlet-1" />
            class="org.sonatype.mavenbook.web.WeatherController"&gt;
