@@ -87,6 +87,7 @@
             <configuration>
               <imgSrcPath>${basedir}/target/classes/docbook/</imgSrcPath>
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
+	      <useExtensions>1</useExtensions>
               <postProcess>
                 <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
                   <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf" />
