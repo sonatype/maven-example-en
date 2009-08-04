@@ -7,7 +7,7 @@
   </parent>
   <artifactId>mvnbook-content</artifactId>
   <packaging>jar</packaging>
-  <name>Maven: The Definitive Guide</name>
+  <name>Maven: The Definitive Guide (XML, HTML, PDF, and Site)</name>
   <description>A book about Apache Maven 2.x</description>
   <organization>
     <name>Sonatype, Inc.</name>
@@ -180,34 +180,6 @@
   </reporting>
   <profiles>
     <profile>
-      <id>publish</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book/</url>
-        </site>
-      </distributionManagement>
-      <properties>
-        <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
-        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
-      </properties>
-    </profile>
-    <profile>
-      <id>stage</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/</url>
-        </site>
-      </distributionManagement>
-      <properties>
-        <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-      </properties>
-    </profile>
-    <profile>
       <id>publish-external</id>
       <distributionManagement>
         <site>
@@ -220,7 +192,33 @@
         <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
         <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
         <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
+	<scribd.doc.id>17574056</scribd.doc.id>
       </properties>
+      <build>
+	<plugins>
+	  <plugin>
+	    <groupId>org.codehaus.cjcook</groupId>
+	    <artifactId>scribd-plugin</artifactId>
+	    <version>1.0</version>
+	    <executions>
+	      <execution>
+		<id>publish-to-scribd</id>
+		<phase>install</phase>
+		<goals>
+		  <goal>publish</goal>
+		</goals>
+		<configuration>
+		  <apiKey>${scribd.api.key}</apiKey>
+		  <docId>${scribd.doc.id}</docId>
+		  <pdf>${basedir}/target/docbkx/pdf/public-book.pdf</pdf>
+		  <access>public</access>
+		  <downloadAndDrm>view-only</downloadAndDrm>
+		</configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
+	</plugins>
+      </build>
     </profile>
     <profile>
       <id>stage-external</id>
@@ -233,7 +231,33 @@
       </distributionManagement>
       <properties>
         <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+	<scribd.doc.id>18083560</scribd.doc.id>
       </properties>
+      <build>
+	<plugins>
+	  <plugin>
+	    <groupId>org.codehaus.cjcook</groupId>
+	    <artifactId>scribd-plugin</artifactId>
+	    <version>1.0</version>
+	    <executions>
+	      <execution>
+		<id>publish-to-scribd</id>
+		<phase>install</phase>
+		<goals>
+		  <goal>publish</goal>
+		</goals>
+		<configuration>
+		  <apiKey>${scribd.api.key}</apiKey>
+		  <docId>${scribd.doc.id}</docId>
+		  <pdf>${basedir}/target/docbkx/pdf/public-book.pdf</pdf>
+		  <access>private</access>
+		  <downloadAndDrm>download-pdf</downloadAndDrm>
+		</configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
+	</plugins>
+      </build>
     </profile>
   </profiles>
 </project>
