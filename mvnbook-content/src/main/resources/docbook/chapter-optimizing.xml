@@ -336,7 +336,7 @@
     <varname>hibernate-annotations</varname> and
     <varname>hibernate-commons-annotations</varname> version since these
     should match. We’ll do this by creating a property called
-    <varname>hibernate-annotations-version</varname>. The resulting
+    <varname>hibernate.annotations.version</varname>. The resulting
     <varname>simple-parent</varname> section looks like this:</para>
 
     <programlisting language="xml">&lt;project&gt;
@@ -388,9 +388,9 @@
     <varname>\${project.version}</varname>. Since they are sibling
     dependencies, there is not much value to be gained by enumerating them in
     the parent, so we’ll rely on the built-in
-    <varname>\${project.version}</varname> property. Because they all share the
-    same group, we can further future-proof these declarations by referring to
-    the current <acronym>POM</acronym>’s group using the built-in
+    <varname>\${project.version}</varname> property. Because they all share
+    the same group, we can further future-proof these declarations by
+    referring to the current <acronym>POM</acronym>’s group using the built-in
     <varname>\${project.groupId}</varname> property. The
     <varname>simple-command</varname> <phrase
     role="keep-together">dependency</phrase> section now looks like

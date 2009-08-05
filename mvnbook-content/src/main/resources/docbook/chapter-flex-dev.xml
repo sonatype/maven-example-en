@@ -529,7 +529,7 @@ version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
 [INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library:${flexmojos.version}
+[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-library
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
@@ -695,19 +695,23 @@ package: org.sonatype.test
 -compiler.keep-all-type-selectors=false 
 -compiler.keep-generated-actionscript=false 
 -compiler.library-path ~/.m2/repository/com/adobe/flex/framework/flex/3.2.0.3958...
--compiler.namespaces.namespace http://www.adobe.com/2006/mxml target/classes/configs/mxml-manifest.xml 
+-compiler.namespaces.namespace http://www.adobe.com/2006/mxml 
+        target/classes/configs/mxml-manifest.xml 
 -compiler.optimize=true 
 -compiler.source-path src/main/flex 
 ...
 [INFO] [resources:testResources]
-[WARNING] Using platform encoding (MacRoman actually) to copy filtered resources, i.e. build is platform dependent!
+[WARNING] Using platform encoding (MacRoman actually) to copy filtered resources, i.e. 
+        build is platform dependent!
 [INFO] skip non existing resourceDirectory src/test/resources
 [INFO] [flexmojos:test-compile]
 [INFO] flexmojos ${flexmojos.version} - GNU GPL License (NO WARRANTY) - See COPYRIGHT file
 [INFO] Flex compiler configurations:
--compiler.include-libraries ~/.m2/repository/org/sonatype/flexmojos/flexmojos-unittest-support...
+-compiler.include-libraries ~/.m2/repository/org/sonatype/flexmojos/\
+        flexmojos-unittest-support...
 -compiler.keep-generated-actionscript=false 
--compiler.library-path ~/.m2/repository/com/adobe/flex/framework/flex/3.2.0.3958/flex-3.2.0.... 
+-compiler.library-path ~/.m2/repository/com/adobe/flex/framework/flex
+        3.2.0.3958/flex-3.2.0.... 
 -compiler.optimize=true 
 -compiler.source-path src/main/flex target/test-classes src/test/flex 
 -compiler.strict=true 
@@ -770,9 +774,6 @@ artifactId: sample-library
 version: 1.0-SNAPSHOT
 package: org.sonatype.test
  Y: : <command>Y</command>
-[INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: flexmojos-archetypes-application:${flexmojos.version}
-[INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.test
 [INFO] Parameter: packageName, Value: org.sonatype.test
 [INFO] Parameter: basedir, Value: /Users/Tim/flex-sample
@@ -963,8 +964,10 @@ package: org.sonatype.test
         <title>Top-level POM Created by Modular Web Application
         Archetype</title>
 
-        <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+        <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                     http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;groupId&gt;org.sonatype.test&lt;/groupId&gt;
   &lt;artifactId&gt;sample-multimodule&lt;/artifactId&gt;
@@ -1483,7 +1486,7 @@ package: org.sonatype.test
       <para>You can run the asdoc or asdoc-report goals to generate
       documentation for Actionscript. Once the goals has completed, the
       documentation will be saved to
-      <filename>${basedir}/target/asdoc</filename> as HTML. <xref
+      <filename>\${basedir}/target/asdoc</filename> as HTML. <xref
       linkend="fig-flex-dev-actionscript" /> shows the result of running the
       <varname>asdoc</varname> goal against the Flexmojos application
       archetype project.</para>
@@ -1772,7 +1775,7 @@ package: org.sonatype.test
                   elements. </para><para>Usage: </para><programlisting>&lt;namespaces&gt;
   &lt;namespace&gt;
     &lt;uri&gt;http://www.adobe.com/2006/mxml&lt;/uri&gt;
-    &lt;manifest&gt;${basedir}/manifest.xml&lt;/manifest&gt;
+    &lt;manifest&gt;\${basedir}/manifest.xml&lt;/manifest&gt;
   &lt;/namespace&gt;
 &lt;/namespaces&gt;</programlisting></entry>
                 </row>
@@ -1908,7 +1911,7 @@ package: org.sonatype.test
       shown in <xref linkend="ex-flex-dev-app-pom" /> to ignore certain
       code-level warnings on compile and use some customized font settings,
       you might use the plugin configuration shown in <xref
-      linkend="ex-flex-dev-customizing-compiler" />. </para>
+      linkend="ex-flex-dev-customizing-compiler" />.</para>
 
       <example id="ex-flex-dev-customizing-compiler">
         <title>Customizing the Compiler Plugin</title>
@@ -1935,7 +1938,7 @@ package: org.sonatype.test
               &lt;englishRange&gt;U+0020-U+007E&lt;/englishRange&gt;
             &lt;/languages&gt;
             &lt;localFontsSnapshot&gt;
-              ${basedir}/src/main/resources/fonts.ser
+              \${basedir}/src/main/resources/fonts.ser
             &lt;/localFontsSnapshot&gt;
             &lt;managers&gt;
               &lt;manager&gt;flash.fonts.BatikFontManager&lt;/manager&gt;
@@ -2400,7 +2403,7 @@ package: org.sonatype.test
   &lt;languages&gt;
     &lt;englishRange&gt;U+0020-U+007E&lt;/englishRange&gt;
   &lt;/languages&gt;
-  &lt;localFontsSnapshot&gt;${baseDir}/src/main/resources/fonts.ser&lt;/localFontsSnapshot&gt;
+  &lt;localFontsSnapshot&gt;\${baseDir}/src/main/resources/fonts.ser&lt;/localFontsSnapshot&gt;
   &lt;managers&gt;
     &lt;manager&gt;flash.fonts.BatikFontManager&lt;/manager&gt;
   &lt;/managers&gt;
@@ -2761,7 +2764,7 @@ package: org.sonatype.test
                   elements. </para><para>Usage: </para><programlisting>&lt;namespaces&gt;
   &lt;namespace&gt;
     &lt;uri&gt;http://www.adobe.com/2006/mxml&lt;/uri&gt;
-    &lt;manifest&gt;${basedir}/manifest.xml&lt;/manifest&gt;
+    &lt;manifest&gt;\${basedir}/manifest.xml&lt;/manifest&gt;
   &lt;/namespace&gt;
 &lt;/namespaces&gt;</programlisting></entry>
                 </row>
@@ -2870,7 +2873,7 @@ package: org.sonatype.test
                   <entry spanname="description"><para>Define the base path to
                   locate resouce bundle files Accept some special tokens:
                   {locale} - replace by locale name Default value is:
-                  ${basedir}/src/main/locales/{locale}.</para></entry>
+                  \${basedir}/src/main/locales/{locale}.</para></entry>
                 </row>
 
                 <row>
@@ -3019,7 +3022,7 @@ package: org.sonatype.test
                   that form the roots of ActionScript class hierarchies. By
                   default use Maven source and resources
                   folders.</para><para>Usage: </para><programlisting>&lt;sourcePaths&gt;
-  &lt;path&gt;${baseDir}/src/main/flex&lt;/path&gt;
+  &lt;path&gt;\${baseDir}/src/main/flex&lt;/path&gt;
 &lt;/sourcePaths&gt;</programlisting></entry>
                 </row>
 
@@ -3372,7 +3375,7 @@ package: org.sonatype.test
                   <entry spanname="description"><para>This is equilvalent to
                   the include-file option of the compc
                   compiler.</para><para>Usage:<programlisting>&lt;includeFiles&gt;
-  &lt;file&gt;${baseDir}/anyFile.txt&lt;/file&gt;
+  &lt;file&gt;\${baseDir}/anyFile.txt&lt;/file&gt;
 &lt;/includeFiles&gt;</programlisting></para></entry>
                 </row>
 
@@ -3408,7 +3411,7 @@ package: org.sonatype.test
                   <entry spanname="description"><para>This is the equilvalent
                   of the include-sources option of the compc compiler.
                   </para><para>Usage:</para><programlisting>&lt;includeSources&gt;
-  &lt;sources&gt;${baseDir}/src/main/flex&lt;/sources&gt;
+  &lt;sources&gt;\${baseDir}/src/main/flex&lt;/sources&gt;
 &lt;/includeSources&gt;</programlisting></entry>
                 </row>
 
@@ -3429,7 +3432,7 @@ package: org.sonatype.test
                   </para><para>Usage:</para><programlisting>&lt;includeStylesheet&gt; 
   &lt;stylesheet&gt; 
     &lt;name&gt;style1&lt;/name&gt; 
-    &lt;path&gt;${baseDir}/src/main/flex/style1.css&lt;/path&gt; 
+    &lt;path&gt;\${baseDir}/src/main/flex/style1.css&lt;/path&gt; 
   &lt;/stylesheet&gt; 
 &lt;/includeStylesheet&gt;</programlisting></entry>
                 </row>
@@ -4262,7 +4265,7 @@ package: org.sonatype.test
                 <entry spanname="description"><para>This is the equilvalent of
                 the include-sources option of the compc compiler.
                 </para><para>Usage:</para><programlisting>&lt;includeSources&gt;
-  &lt;sources&gt;${baseDir}/src/main/flex&lt;/sources&gt;
+  &lt;sources&gt;\${baseDir}/src/main/flex&lt;/sources&gt;
 &lt;/includeSources&gt;</programlisting></entry>
               </row>
 
@@ -4335,7 +4338,7 @@ package: org.sonatype.test
                 <entry spanname="description"><para>Define the base path to
                 locate resouce bundle files Accept some special tokens:
                 {locale} - replace by locale name Default value is:
-                ${basedir}/src/main/locales/{locale}.</para></entry>
+                \${basedir}/src/main/locales/{locale}.</para></entry>
               </row>
 
               <row>
@@ -4384,7 +4387,7 @@ package: org.sonatype.test
                 form the roots of ActionScript class hierarchies. By default
                 use Maven source and resources folders.</para><para>Usage:
                 </para><programlisting>&lt;sourcePaths&gt;
-  &lt;path&gt;${baseDir}/src/main/flex&lt;/path&gt;
+  &lt;path&gt;\${baseDir}/src/main/flex&lt;/path&gt;
 &lt;/sourcePaths&gt;</programlisting></entry>
               </row>
 

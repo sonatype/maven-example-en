@@ -261,10 +261,7 @@ Choose a number: <command>15 </command></screen>
         </listitem>
       </itemizedlist>
 
-      <screen>[INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: checking for updates from central
-Downloading: http://repo1.maven.org/maven2/org/apache/maven/archetypes/maven-archetype-quickstart/1.0/maven-archetype-quickstart-1.0.jar
-4K downloaded
-Define value for groupId: : <command>org.sonatype.mavenbook</command>   
+      <screen>Define value for groupId: : <command>org.sonatype.mavenbook</command>   
 Define value for artifactId: : <command>quickstart</command>
 Define value for version:  1.0-SNAPSHOT: : <command>1.0-SNAPSHOT</command> 
 Define value for package:  org.sonatype.mavenbook: : <command>org.sonatype.mavenbook</command> 
@@ -282,7 +279,7 @@ package: org.sonatype.mavenbook
       after the <varname>artifactId</varname> you supplied.</para>
 
       <screen>[INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: maven-archetype-quickstart:RELEASE
+[INFO] Using following parameters for creating OldArchetype: maven-archetype-quicks
 [INFO] ----------------------------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.mavenbook
 [INFO] Parameter: packageName, Value: org.sonatype.mavenbook
@@ -290,7 +287,7 @@ package: org.sonatype.mavenbook
 [INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
 [INFO] Parameter: artifactId, Value: quickstart
-[INFO] ********************* End of debug info from resources from generated POM ***********************
+[INFO] ********************* End of debug info from resources from generated POM **
 [INFO] OldArchetype created in dir: /Users/tobrien/tmp/quickstart
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
@@ -490,7 +487,7 @@ package: org.sonatype.mavenbook
 ...
 [INFO] [archetype:generate]
 [INFO] Generating project in Batch mode
-[INFO] Archetype [org.appfuse.archetypes:appfuse-modular-spring:RELEASE] found in catalog internal
+[INFO] Archetype [org.appfuse.archetypes:appfuse-modular-spring:RELEASE] found in catalog 
 [INFO] ----------------------------------------------------------------------------
 [INFO] Using following parameters for creating OldArchetype: appfuse-modular-spring:RELEASE
 [INFO] ----------------------------------------------------------------------------
@@ -624,7 +621,8 @@ $ <command>mvn jetty:run</command>
       &lt;groupId&gt;org.apache.cocoon&lt;/groupId&gt;
       &lt;artifactId&gt;cocoon-22-archetype-block-plain&lt;/artifactId&gt;
       &lt;version&gt;1.0.0&lt;/version&gt;
-      &lt;description&gt;Creates an empty Cocoon block; useful if you want to add another block to a Cocoon application&lt;/description&gt;
+      &lt;description&gt;Creates an empty Cocoon block; useful if you want to add 
+                   another block to a Cocoon application&lt;/description&gt;
 
     &lt;/archetype&gt;
     &lt;archetype&gt;
@@ -638,7 +636,8 @@ $ <command>mvn jetty:run</command>
       &lt;groupId&gt;org.apache.cocoon&lt;/groupId&gt;
       &lt;artifactId&gt;cocoon-22-archetype-webapp&lt;/artifactId&gt;
       &lt;version&gt;1.0.0&lt;/version&gt;
-      &lt;description&gt;Creates a web application configured to host Cocoon blocks. Just add the block dependencies&lt;/description&gt;
+      &lt;description&gt;Creates a web application configured to host Cocoon blocks. 
+                   Just add the block dependencies&lt;/description&gt;
     &lt;/archetype&gt;
   &lt;/archetypes&gt;
 
@@ -669,7 +668,6 @@ catalogFile null
 [INFO] Scanning /Users/tobrien/.m2/repository/xmlrpc/xmlrpc/1.2-b1/xmlrpc-1.2-b1.jar
 [INFO] Scanning /Users/tobrien/.m2/repository/xom/xom/1.0/xom-1.0.jar
 [INFO] Scanning /Users/tobrien/.m2/repository/xom/xom/1.0b3/xom-1.0b3.jar
-[INFO] Scanning /Users/tobrien/.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
 [INFO] ------------------------------------------------------------------------
@@ -703,8 +701,6 @@ catalogFile null
 [INFO] [archetype:crawl]
 repository /Users/tobrien/tmp/maven2
 catalogFile /Users/tobrien/tmp/blah.xml
-[INFO] Scanning /Users/tobrien/tmp/maven2/com/discursive/cas/extend/cas-extend-client-java/2.1.1/cas-extend-client-java-2.1.1.jar
-[INFO] Scanning /Users/tobrien/tmp/maven2/com/discursive/cas/extend/cas-extend-client-java/2.2/cas-extend-client-java-2.2.jar
 -Drepository=/var/www/html/maven2
 ...</screen>
     </example>

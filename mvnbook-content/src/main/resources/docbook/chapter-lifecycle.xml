@@ -60,8 +60,8 @@
       lifecycle. The <varname>clean:clean</varname> goal deletes the output of
       a build by deleting the build directory. If you haven't customized the
       location of the build directory it will be the
-      <filename>\${basedir}/target</filename> directory as defined by the Super
-      <acronym>POM</acronym>. When you execute the
+      <filename>\${basedir}/target</filename> directory as defined by the
+      Super <acronym>POM</acronym>. When you execute the
       <varname>clean:clean</varname> goal you do not do so by executing the
       goal directly with <command>mvn clean:clean</command>, you do so by
       executing the <varname>clean</varname> phase of the clean lifecycle.
@@ -106,8 +106,8 @@
             &lt;!-- adds the ant-contrib tasks (if/then/else used below) --&gt;
             &lt;taskdef resource="net/sf/antcontrib/antcontrib.properties" /&gt;
             &lt;available 
-              file="\${project.build.directory}/\${project.build.finalName}.\${project.packaging}"
-              property="file.exists" value="true" /&gt;
+      file="\${project.build.directory}/\${project.build.finalName}.\${project.packaging}"
+      property="file.exists" value="true" /&gt;
 
             &lt;if&gt;
               &lt;not&gt;
@@ -987,17 +987,17 @@
       this means that Maven will copy the files from
       <filename>\${basedir}/src/main/resources</filename> to
       <filename>\${basedir}/target/classes</filename> or the directory defined
-      in <filename>\${project.build.outputDirectory}</filename>. In addition to
-      copying the resources to the output directory, Maven can also apply a
+      in <filename>\${project.build.outputDirectory}</filename>. In addition
+      to copying the resources to the output directory, Maven can also apply a
       filter to the resources that allows you to replace tokens within
       resource file. Just like variables are referenced in a
-      <acronym>POM</acronym> using <varname>\${...}</varname> notation, you can
-      reference variables in your project's resources using the same syntax.
-      Coupled with build profiles, such a facility can be used to produce
-      build artifacts which target different deployment platforms. This is
-      something that is common in environments which need to produce output
-      for development, testing, staging, and production platforms from the
-      same project. For more information about build profiles, see <xref
+      <acronym>POM</acronym> using <varname>\${...}</varname> notation, you
+      can reference variables in your project's resources using the same
+      syntax. Coupled with build profiles, such a facility can be used to
+      produce build artifacts which target different deployment platforms.
+      This is something that is common in environments which need to produce
+      output for development, testing, staging, and production platforms from
+      the same project. For more information about build profiles, see <xref
       linkend="profiles" />.</para>
 
       <para>To illustrate resource filtering, assume that you have a project
