@@ -286,6 +286,10 @@
     </xsl:attribute-set>
 
     <!-- Titles of formal objects (tables, examples, ...) -->
+<xsl:attribute-set name="formal.object.properties">
+   <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
+</xsl:attribute-set>
+
     <xsl:attribute-set name="formal.title.properties" use-attribute-sets="normal.para.spacing">
         <xsl:attribute name="font-weight">bold</xsl:attribute>
         <xsl:attribute name="font-size">
