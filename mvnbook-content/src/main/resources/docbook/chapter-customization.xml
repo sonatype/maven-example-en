@@ -968,7 +968,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       outside of running tests during development. For a more robust solution,
       use the Maven <phrase role="keep-together">Assembly</phrase> plugin that
       is demonstrated in the section <xref
-      linkend="customizing-sect-custom-packaged" />,” later in this
+      linkend="customizing-sect-custom-packaged" />, later in this
       chapter.</para>
     </section>
 
@@ -1199,9 +1199,9 @@ public class YahooParserTest extends TestCase {
     document with known values. The test <acronym>XML</acronym> document is
     named <filename>ny-weather.xml</filename> and is loaded from the
     classpath. We’ll add test resources in <xref
-    linkend="customizing-sect-custom-test-resource" />.” In our Maven
-    project’s directory layout, the <filename>ny-weather.xml</filename> file
-    is found in the directory that contains test
+    linkend="customizing-sect-custom-test-resource" />. In our Maven project’s
+    directory layout, the <filename>ny-weather.xml</filename> file is found in
+    the directory that contains test
     resources—<filename>\${basedir}/src/test/resources</filename>
     under<filename>
     org/sonatype/mavenbook/weather/yahoo/ny-weather.xml</filename>. The file
@@ -1255,10 +1255,11 @@ public class WeatherFormatterTest extends TestCase {
     <classname>YahooParserTest</classname>, the
     <classname>WeatherFormatterTest</classname> also extends JUnit's
     <classname>TestCase</classname> class. The single test function reads the
-    same test resource from <filename>\${basedir}/src/test/resources</filename>
-    under the <filename>org/sonatype/mavenbook/weather/yahoo</filename>
-    directory via this unit test's classpath. We'll add test resources in
-    <xref linkend="customizing-sect-custom-test-resource" />.
+    same test resource from
+    <filename>\${basedir}/src/test/resources</filename> under the
+    <filename>org/sonatype/mavenbook/weather/yahoo</filename> directory via
+    this unit test's classpath. We'll add test resources in <xref
+    linkend="customizing-sect-custom-test-resource" />.
     <classname>WeatherFormatterTest</classname> runs this sample input file
     through the <classname>YahooParser</classname> which spits out a
     <classname>Weather</classname> object, and this object is then formatted
@@ -1669,7 +1670,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
   <section id="customizing-sect-custom-packaged">
     <title>Building a Packaged Command Line Application</title>
 
-    <para>In the <xref linkend="customizing-sect-custom-exec" />” section
+    <para>In the <xref linkend="customizing-sect-custom-exec" /> section
     earlier in <indexterm class="startofrange" id="weather03m">
         <primary>weather project (example)</primary>
 
