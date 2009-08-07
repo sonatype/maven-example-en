@@ -1741,7 +1741,7 @@
           <title>Multi-module Project Relationships</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/pom_multimodule.png" />
             </imageobject>
           </mediaobject>
@@ -1858,8 +1858,12 @@ top-group/project-c/pom.xml</programlisting>
           <title>Project Inheritance for a-parent and project-a</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/pom_inheritance.png" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/pom_inheritance.pdf" format="PDF" />
             </imageobject>
           </mediaobject>
         </figure>When a project specifies a parent project, Maven uses that
@@ -2132,8 +2136,13 @@ top-group/project-c/pom.xml</programlisting>
           <title>maven-book Multi-module vs. Inheritance</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/pom_book-example.png" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/pom_book-example.pdf"
+                         format="PDF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -2196,8 +2205,12 @@ top-group/project-c/pom.xml</programlisting>
           <title>Enterprise Multi-module vs. Inheritance</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/pom_real_multi.png" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/pom_real_multi.pdf" format="PDF" />
             </imageobject>
           </mediaobject>
         </figure>
