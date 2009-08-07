@@ -17,6 +17,8 @@
 
     <xsl:param name="fop1.extensions">1</xsl:param>
 
+    <xsl:param name="use.role.for.mediaobject">1</xsl:param>
+    <xsl:param name="preferred.mediaobject.role" select="'print'"/>
     <!--###################################################
                      Table Of Contents
    ################################################### -->

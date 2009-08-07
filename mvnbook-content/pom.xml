@@ -72,6 +72,23 @@
 	        <artifactId>docbook-xml</artifactId>
 	        <version>4.5</version>
 	      </dependency>
+	  <dependency>
+	    <groupId>org.apache.fop</groupId>
+	    <artifactId>fop-pdf-images</artifactId>
+	    <version>1.3</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.apache.fop</groupId>
+	    <artifactId>fop-pdf-images-res</artifactId>
+	    <version>1.3</version>
+	    <classifier>res</classifier>
+	  </dependency>
+	  <dependency>
+	    <groupId>pdfbox</groupId>
+	    <artifactId>pdfbox</artifactId>
+	    <version>0.7.4-dev</version>
+	    <classifier>dev</classifier>
+	  </dependency>
 	    </dependencies>
         <executions>
 
