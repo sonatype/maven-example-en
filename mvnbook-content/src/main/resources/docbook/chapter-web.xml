@@ -140,7 +140,42 @@
   &lt;/dependencies&gt;
   &lt;build&gt;
     &lt;finalName&gt;simple-webapp&lt;/finalName&gt;
-    &lt;plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</programlisting>
+    </example>
+
+    <para>Next, you will need to configure the Maven Compiler plugin to target
+    Java 5. To do this, add the <sgmltag>plugins</sgmltag> element to the
+    initial POM as shown in <xref
+    linkend="ex-web-initial-pom-with-compiler" />.</para>
+
+    <example id="ex-web-initial-pom-with-compiler">
+      <title><acronym>POM</acronym> for the simple-web project with compiler
+      configuration</title>
+
+      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.ch05&lt;/groupId&gt;
+  &lt;artifactId&gt;simple-webapp&lt;/artifactId&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;simple-webapp Maven Webapp&lt;/name&gt;
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;finalName&gt;simple-webapp&lt;/finalName&gt;
+<emphasis>    &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
         &lt;configuration&gt;
@@ -148,7 +183,7 @@
           &lt;target&gt;1.5&lt;/target&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
-    &lt;/plugins&gt;
+    &lt;/plugins&gt;</emphasis>
   &lt;/build&gt;
 &lt;/project&gt;
 </programlisting>

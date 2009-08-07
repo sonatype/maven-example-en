@@ -28,10 +28,11 @@
     like Jetty. In others, it could mean bundling API documentation alongside
     source and compiled binaries like jar files. Assemblies usually come in
     handy when you are building the final distribution of a product. For
-    example, products like Nexus introduced in <xref
-    linkend="repository-manager" />, are the product of large multi-module
-    Maven products, and the final archive you download from Sonatype was
-    created using a Maven Assembly.</para>
+    example, products like Nexus introduced in <ulink
+    url="http://www.sonatype.com/books/nexus-book/reference/">Repository
+    Management with Nexus</ulink>, are the product of large multi-module Maven
+    products, and the final archive you download from Sonatype was created
+    using a Maven Assembly.</para>
 
     <para>In most cases, the Assembly plugin is ideally suited to the process
     of building project distributions. However, assemblies don’t have to be
@@ -1990,9 +1991,10 @@ I can add this back in later.  I didn't want to talk about it without an example
         subdirectory named after the module’s <varname>artifactId</varname>.
         However, since Maven allows modules that are not in directories named
         after the module project’s <varname>artifactId</varname>, it’s often
-        better to use the expression <varname>\${module.basedir.name}</varname>
-        to preserve the module directory’s actual name
-        (<varname>\${module.basedir.name}</varname> is the same as calling
+        better to use the expression
+        <varname>\${module.basedir.name}</varname> to preserve the module
+        directory’s actual name (<varname>\${module.basedir.name}</varname> is
+        the same as calling
         <methodname>MavenProject.getBasedir().getName()</methodname>). It is
         critical to remember that modules are not required to be
         subdirectories of the project that declares them. If your project has
@@ -2043,10 +2045,10 @@ I can add this back in later.  I didn't want to talk about it without an example
         <xref linkend="assemblies-sect-output-algorithm" />).</para>
 
         <para>In <xref linkend="ex-include-exclude-moduleSet" />, we used the
-        expression <varname>\${module.basedir.name}</varname>. You might notice
-        that the root of that expression, <varname>module</varname>, is not
-        listed in the mapping-resolution algorithm from the dependency sets
-        section; this object root is specific to configurations within
+        expression <varname>\${module.basedir.name}</varname>. You might
+        notice that the root of that expression, <varname>module</varname>, is
+        not listed in the mapping-resolution algorithm from the dependency
+        sets section; this object root is specific to configurations within
         <sgmltag>moduleSets</sgmltag>. It works in exactly the same way as the
         <varname>\${artifact.*}</varname> references available in the
         <sgmltag>outputFileNameMapping</sgmltag> element, except it is applied
@@ -2132,9 +2134,9 @@ I can add this back in later.  I didn't want to talk about it without an example
         <varname>\${artifact.*}</varname> inside a
         <sgmltag>dependencySet</sgmltag>’s
         <sgmltag>outputFileNameMapping</sgmltag> configuration is also
-        available here as <varname>\${module.*}</varname>. The same applies for
-        <sgmltag>outputFileNameMapping</sgmltag> when used directly within a
-        <sgmltag>binaries</sgmltag> section.</para>
+        available here as <varname>\${module.*}</varname>. The same applies
+        for <sgmltag>outputFileNameMapping</sgmltag> when used directly within
+        a <sgmltag>binaries</sgmltag> section.</para>
 
         <para>Finally, let’s examine an example where we simply want to
         process the module’s artifact and its runtime dependencies. In this
@@ -2300,12 +2302,12 @@ doesn't make sense to new users.-->
       root directory regardless of the <acronym>POM</acronym>’s version or
       other information. By default, the <sgmltag>baseDirectory</sgmltag>
       element has a value equal to
-      <varname>\${project.artifactId}-\${project.version}</varname>. However, we
-      can easily set this element to any value that consists of literal
+      <varname>\${project.artifactId}-\${project.version}</varname>. However,
+      we can easily set this element to any value that consists of literal
       strings and expressions which can be interpolated from the current
       <acronym>POM</acronym>, such as
-      <varname>\${project.groupId}-\${project.artifactId}</varname>. This could
-      be very good news for your documentation team! (We all have those,
+      <varname>\${project.groupId}-\${project.artifactId}</varname>. This
+      could be very good news for your documentation team! (We all have those,
       right?)</para>
 
       <para>Another configuration available is the
