@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter id="flex-dev">
   <title>Developing with Flexmojos</title>
 
   <section id="flex-dev-sect-intro">
@@ -57,11 +57,11 @@
       <filename>~/.m2/settings.xml</filename> file which points to a single
       Nexus group. If this is your situation, you should add a Proxy
       repository for the Sonatype public repository group at <ulink
-      url="http://repository.sonatype.com/content/groups/public">http://repository.sonatype.com/content/groups/public</ulink>.
+      url="http://repository.sonatype.org/content/groups/public">http://repository.sonatype.org/content/groups/public</ulink>.
       Adding a proxy repository for this remote group and then adding this
       group to your Nexus installation's public repository group will give
       clients of your Nexus instance access to the artifacts from the Sonatype
-      repository.sonatype.com Nexus instance.</para>
+      repository.sonatype.org Nexus instance.</para>
 
       <section id="flex-dev-sect-direct-repo">
         <title>Using Sonatype's Repository Directly</title>
@@ -752,7 +752,7 @@ package: org.sonatype.test
       following command:</para>
 
       <screen>$ <command>mvn archetype:generate \
-      -DarchetypeRepository=http://repository.sonatype.com/content/groups/public \
+      -DarchetypeRepository=http://repository.sonatype.org/content/groups/public \
       -DarchetypeGroupId=org.sonatype.flexmojos \
       -DarchetypeArtifactId=flexmojos-archetypes-application \
       -DarchetypeVersion=${flexmojos.version}</command>
@@ -1507,9 +1507,9 @@ package: org.sonatype.test
         goal.</para>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
-            <title>Configuration Parameters for the asdoc goal.</title>
+            <?dbfo keep-together="auto" ?>
 
+            <title>Configuration Parameters for the asdoc goal.</title>
 
             <tgroup cols="4">
               <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
@@ -1977,11 +1977,11 @@ package: org.sonatype.test
         </itemizedlist>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
+            <?dbfo keep-together="auto" ?>
+
             <title>Configuration Parameters common to the compile-swc,
             compile-swf, instrument, instrument-swc, and test-compile
             goal</title>
-
 
             <tgroup cols="4">
               <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
@@ -3234,9 +3234,9 @@ package: org.sonatype.test
         <varname>compile-swc</varname> goal.</para>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
-            <title>Configuration Parameters for the compile-swc goal</title>
+            <?dbfo keep-together="auto" ?>
 
+            <title>Configuration Parameters for the compile-swc goal</title>
 
             <tgroup cols="4">
               <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
@@ -3469,9 +3469,9 @@ package: org.sonatype.test
         <varname>compile-swf</varname> goal.</para>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
-            <title>Configuration Parameters for the compile-swf goal</title>
+            <?dbfo keep-together="auto" ?>
 
+            <title>Configuration Parameters for the compile-swf goal</title>
 
             <tgroup cols="4">
               <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"
@@ -3649,7 +3649,8 @@ package: org.sonatype.test
         <varname>test-compile</varname> goal.</para>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
+            <?dbfo keep-together="auto" ?>
+
             <title>Configuration Parameters for the test-compile goal.</title>
 
             <tgroup cols="4">
@@ -3843,7 +3844,8 @@ package: org.sonatype.test
         execution of Unit Tests.</para>
 
         <para><table>
-<?dbfo keep-together="auto" ?>
+            <?dbfo keep-together="auto" ?>
+
             <title>Configuration Parameters for the test-run goal.</title>
 
             <tgroup cols="4">
@@ -4116,9 +4118,9 @@ package: org.sonatype.test
         <varname>flexbuilder</varname> goal.</para>
 
         <table>
-<?dbfo keep-together="auto" ?>
-          <title>Configuration Parameters for the flexbuilder goal.</title>
+          <?dbfo keep-together="auto" ?>
 
+          <title>Configuration Parameters for the flexbuilder goal.</title>
 
           <tgroup cols="4">
             <colspec colname="name" colnum="1" colsep="0" colwidth="3.75in"

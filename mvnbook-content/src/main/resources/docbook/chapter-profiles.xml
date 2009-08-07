@@ -617,13 +617,13 @@
     <para>Maven profiles can be defined in either
     <filename>pom.xml</filename>, <filename>profiles.xml</filename>,
     <filename>~/.m2/settings.xml</filename>, or
-    <filename>\${M2_HOME}/conf/settings.xml</filename>. With these four levels,
-    there's no good way of keeping track of profiles available to a particular
-    project without remembering which profiles are defined in these four
-    files. To make it easier to keep track of which profiles are available,
-    and where they have been defined, the Maven Help plugin defines a goal,
-    <literal>active-profiles</literal>, which lists all the active profiles
-    and where they have been defined. You can run the
+    <filename>\${M2_HOME}/conf/settings.xml</filename>. With these four
+    levels, there's no good way of keeping track of profiles available to a
+    particular project without remembering which profiles are defined in these
+    four files. To make it easier to keep track of which profiles are
+    available, and where they have been defined, the Maven Help plugin defines
+    a goal, <literal>active-profiles</literal>, which lists all the active
+    profiles and where they have been defined. You can run the
     <literal>active-profiles</literal> goal, as follows:</para>
 
     <screen>$ <command>mvn help:active-profiles</command>
@@ -707,7 +707,7 @@ The following profiles are active:
       the value <literal>dev</literal>.</para>
 
       <para><example id="ex-profile-envtype-pom">
-          <title>Project Profile Activated by environment.type equalling
+          <title>Project Profile Activated by setting environment.type to
           'dev'</title>
 
           <programlisting language="xml">&lt;project&gt;
@@ -849,7 +849,7 @@ The following profiles are active:
       want to produce a qualified artifact depending on the build platform.
       You can set a classifier with the Maven Assembly plugin or with the
       Maven Jar plugin. The following <filename>pom.xml</filename> produces a
-      qualified artifact using profiles which are activated by Operation
+      qualified artifact using profiles which are activated by Operating
       System parameters. For more information about the Maven Assembly plugin,
       see <xref linkend="assemblies" />.</para>
 
