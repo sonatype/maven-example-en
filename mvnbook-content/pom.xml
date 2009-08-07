@@ -85,11 +85,6 @@
               <imgSrcPath>${basedir}/target/classes/docbook/</imgSrcPath>
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
 	      <useExtensions>1</useExtensions>
-              <postProcess>
-                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
-                  <fileset file="${project.build.directory}/docbkx/pdf/public-book.pdf" />
-                </copy>
-              </postProcess>
             </configuration>
           </execution>
           <execution>
@@ -153,6 +148,47 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+	<groupId>org.codehaus.cjcook</groupId>
+	<artifactId>pdf-plugin</artifactId>
+	<version>1.0</version>
+	<executions>
+	  <execution>
+	    <id>concat-pdfs</id>
+	    <phase>process-classes</phase>
+	    <goals>
+	      <goal>concatenate</goal>
+	    </goals>
+	    <configuration>
+	      <outputDir>${basedir}/target</outputDir>
+	      <outputFilename>maven-guide-complete.pdf</outputFilename>
+	      <pdfs>
+		<pdf>${basedir}/src/main/resources/pdf/maven-cover.pdf</pdf>
+		<pdf>${project.build.directory}/docbkx/pdf/public-book.pdf</pdf>
+	      </pdfs>	
+	    </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-pdf</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <copy tofile="${project.build.directory}/site/pdf/maven-definitive-guide.pdf">
+                  <fileset file="${project.build.directory}/maven-guide-complete.pdf" />
+                </copy>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   
@@ -208,7 +244,7 @@
 		<configuration>
 		  <apiKey>${scribd.api.key}</apiKey>
 		  <docId>${scribd.doc.id}</docId>
-		  <pdf>${basedir}/target/docbkx/pdf/public-book.pdf</pdf>
+		  <pdf>${basedir}/target/maven-guide-complete.pdf</pdf>
 		  <access>public</access>
 		  <downloadAndDrm>view-only</downloadAndDrm>
 		</configuration>
@@ -247,7 +283,7 @@
 		<configuration>
 		  <apiKey>${scribd.api.key}</apiKey>
 		  <docId>${scribd.doc.id}</docId>
-		  <pdf>${basedir}/target/docbkx/pdf/public-book.pdf</pdf>
+		  <pdf>${basedir}/target/maven-guide-complete.pdf</pdf>
 		  <access>private</access>
 		  <downloadAndDrm>download-pdf</downloadAndDrm>
 		</configuration>
