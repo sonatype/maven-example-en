@@ -411,9 +411,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         <title>A Plugin Contains Goals</title>
 
         <mediaobject>
-          <imageobject>
+          <imageobject role="web">
             <imagedata fileref="figs/web/simple-project_plugin.png"
                        width="5in" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata fileref="figs/print/simple-project_plugin.pdf"
+                       format="PDF" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -559,8 +564,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <title>A Goal Binds to a Phase</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/simple-project_phasebinding.png" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/simple-project_phasebinding.pdf"
+                         format="PDF" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -692,8 +702,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <title>Bound Goals are Run when Their Phases Execute</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/simple-project_lifecyclebinding.png" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/simple-project_lifecyclebinding.pdf"
+                         format="PDF" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -1033,9 +1048,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         <title>Maven Resolves Transitive Dependencies</title>
 
         <mediaobject>
-          <imageobject>
-            <imagedata fileref="figs/web/simple-project_depgraph.png"
-                       width="6in" />
+          <imageobject role="web">
+            <imagedata fileref="figs/web/simple-project_depgraph.png" width="" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata fileref="figs/print/simple-project_depgraph.pdf"
+                       format="PDF" />
           </imageobject>
         </mediaobject>
       </figure>

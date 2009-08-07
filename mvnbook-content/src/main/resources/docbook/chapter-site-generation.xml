@@ -98,8 +98,13 @@ $ <command>mvn site:run</command>
 
       <screenshot>
         <mediaobject>
-          <imageobject>
-            <imagedata fileref="figs/web/site_index.png" />
+          <imageobject role="web">
+            <imagedata fileref="figs/web/site_index.png" format="PNG" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata depth="2.387in" fileref="figs/print/site_index.pdf"
+                       format="PDF" width="4.1in" />
           </imageobject>
         </mediaobject>
       </screenshot>
@@ -195,8 +200,15 @@ $ mvn site:run</screen>
 
       <screenshot>
         <mediaobject>
-          <imageobject>
-            <imagedata fileref="figs/web/site_custom-descriptor.png" />
+          <imageobject role="web">
+            <imagedata fileref="figs/web/site_custom-descriptor.png"
+                       format="PNG" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata depth="2.26in"
+                       fileref="figs/print/site_custom-descriptor.pdf"
+                       format="PDF" width="3.41in" />
           </imageobject>
         </mediaobject>
       </screenshot>
