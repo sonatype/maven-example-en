@@ -1452,9 +1452,14 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       and simple-persist.</title>
 
       <mediaobject>
-        <imageobject>
+        <imageobject role="web">
           <imagedata fileref="figs/web/multimodule-web-web-spring.png"
                      scalefit="1" width="6in" />
+        </imageobject>
+
+        <imageobject role="print">
+          <imagedata fileref="figs/print/multimodule-web-web-spring.pdf"
+                     format="PDF" />
         </imageobject>
       </mediaobject>
     </figure>
@@ -2216,14 +2221,19 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     <classname>simple-command</classname> utility from the
     command-line.</para>
 
-    <figure>
+    <figure id="fig-multi-spring-command">
       <title>Command line application referencing simple-weather and
       simple-persist</title>
 
       <mediaobject>
-        <imageobject>
+        <imageobject role="web">
           <imagedata fileref="figs/web/multimodule-web-command-spring.png"
                      scalefit="1" width="6in" />
+        </imageobject>
+
+        <imageobject role="print">
+          <imagedata fileref="figs/print/multimodule-web-command-spring.pdf"
+                     format="PDF" />
         </imageobject>
       </mediaobject>
     </figure>
