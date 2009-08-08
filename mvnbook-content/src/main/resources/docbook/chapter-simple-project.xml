@@ -407,7 +407,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       of languages including Ant, Groovy, beanshell, and, as previously
       mentioned, Ruby.</para>
 
-      <figure>
+      <figure id="fig-plugin-goals">
         <title>A Plugin Contains Goals</title>
 
         <mediaobject>
@@ -560,7 +560,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <varname>jar:jar</varname> goal is bound to the
       <varname>package</varname> phase.</para>
 
-      <para><figure>
+      <para><figure id="fig-goals-bind-to-phases">
           <title>A Goal Binds to a Phase</title>
 
           <mediaobject>
@@ -698,7 +698,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </varlistentry>
       </variablelist>
 
-      <para><figure>
+      <para><figure id="fig-goals-bind-to-default-lifecycle">
           <title>Bound Goals are Run when Their Phases Execute</title>
 
           <mediaobject>
@@ -1044,7 +1044,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       that the Maven repository stores more than just bytecode; it stores
       metadata about artifacts.</para>
 
-      <figure>
+      <figure id="fig-resolve-transitive">
         <title>Maven Resolves Transitive Dependencies</title>
 
         <mediaobject>

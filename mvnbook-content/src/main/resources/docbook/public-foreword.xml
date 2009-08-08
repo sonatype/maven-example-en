@@ -82,6 +82,82 @@
           into the book. (<ulink
           url="https://issues.sonatype.org/browse/MVNDEF-212">MVNDEF-212</ulink>)</para>
         </listitem>
+
+        <listitem>
+          <para>Image scaling for printing, and inclusion of PDF images to
+          improve print quality. Figures affected:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><xref linkend="fig-plugin-goals" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-151">MVNDEF-151</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-goals-bind-to-phases" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-153">MVNDEF-153</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-goals-bind-to-default-lifecycle" />
+              (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-156">MVNDEF-156</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-resolve-transitive" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-161">MVNDEF-161</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-pom" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-174">MVNDEF-174</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-super-always-base" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-177">MVNDEF-177</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-multiproject" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-179">MVNDEF-179</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-inheritance" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-180">MVNDEF-180</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-maven-book" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-181">MVNDEF-181</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-multi-module" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-182">MVNDEF-182</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-simple-site" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-187">MVNDEF-187</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="fig-custom-simple" /> (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-188">MVNDEF-188</ulink>)</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Removed section about prototype parent projects from <xref
+          linkend="pom-relationships" />. Using parent projects to "type" a
+          project as a certain kind of project is not a recommended practice.
+          (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-214">MVNDEF-214</ulink>)</para>
+        </listitem>
       </itemizedlist>
 
       <para>The following bugs were fixed in this release:</para>
@@ -195,27 +271,9 @@
         </listitem>
 
         <listitem>
-          <para>Image scaling Figures 3.1, 3.2, 3.3, 3.6, 9.3, 9.4, 9.5, 9.6,
-          15.1, 15.2. (<ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-151">MVNDEF-151</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-153">MVNDEF-153</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-156">MVNDEF-156</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-161">MVNDEF-161</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-179">MVNDEF-179</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-180">MVNDEF-180</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-181">MVNDEF-181</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-182">MVNDEF-182</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-187">MVNDEF-187</ulink>,
-          <ulink
-          url="https://issues.sonatype.org/browse/MVNDEF-188">MVNDEF-188</ulink>)</para>
+          <para>Change the names of the contain projects in <xref
+          linkend="fig-multiproject" /> and the surrounding sections. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-213">MVNDEF-213</ulink>)</para>
         </listitem>
       </itemizedlist>
     </section>

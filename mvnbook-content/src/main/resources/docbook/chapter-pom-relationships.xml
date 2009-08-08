@@ -93,8 +93,13 @@
         <title>The Project Object Model</title>
 
         <mediaobject>
-          <imageobject>
+          <imageobject role="web">
             <imagedata fileref="figs/web/pom-relationships_pom-small.png" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata fileref="figs/print/pom-relationships_pom-small.pdf"
+                       format="PDF" />
           </imageobject>
         </mediaobject>
       </figure></para>
@@ -381,12 +386,17 @@
         </callout>
       </calloutlist>
 
-      <figure>
+      <figure id="fig-super-always-base">
         <title>The Super POM is always the base Parent</title>
 
         <mediaobject>
-          <imageobject>
+          <imageobject role="web">
             <imagedata fileref="figs/web/pom-relationships_pom-inherit-simple-super.png" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata fileref="figs/print/pom-relationships_pom-inherit-simple-super.pdf"
+                       format="PDF" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -1744,6 +1754,10 @@
             <imageobject role="web">
               <imagedata fileref="figs/web/pom_multimodule.png" />
             </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/pom_multimodule.pdf" format="PDF" />
+            </imageobject>
           </mediaobject>
         </figure></para>
 
@@ -1752,48 +1766,49 @@
       linkend="fig-multiproject" /> would have the following directory
       structure:</para>
 
-      <programlisting>top-group/pom.xml
-top-group/sub-group/pom.xml
-top-group/sub-group/project-a/pom.xml
-top-group/sub-group/project-b/pom.xml
-top-group/project-c/pom.xml</programlisting>
+      <programlisting>top-parent-project/pom.xml
+top-parent-project/subparent-parent-project/pom.xml
+top-parent-project/subparent-parent-project/project-a/pom.xml
+top-parent-project/subparent-parent-project/project-b/pom.xml
+top-parent-project/project-c/pom.xml</programlisting>
 
       <para>The projects are related to one another because
-      <varname>top-group</varname> and <varname>sub-group</varname> are
-      referencing <varname>sub-modules</varname> in a <acronym>POM</acronym>.
-      For example, the <varname>org.sonatype.mavenbook:top-group</varname>
-      project is a multi-module project with packaging of type
-      <varname>pom</varname>. <varname>top-group</varname>'s
-      <filename>pom.xml</filename> would include the following modules
-      element:</para>
+      <varname>top-parent-project</varname> and
+      <varname>subparent-parent-project</varname> are referencing
+      <varname>sub-modules</varname> in a <acronym>POM</acronym>. For example,
+      the <varname>org.sonatype.mavenbook:top-parent-project</varname> project
+      is a multi-module project with packaging of type <varname>pom</varname>.
+      <varname>top-parent-project</varname>'s <filename>pom.xml</filename>
+      would include the following modules element:</para>
 
       <example>
-        <title>top-group modules element</title>
+        <title>top-parent-project modules element</title>
 
         <programlisting language="xml">&lt;project&gt;
   &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
-  &lt;artifactId&gt;top-group&lt;/artifactId&gt;
+  &lt;artifactId&gt;top-parent-project&lt;/artifactId&gt;
   ...
   &lt;modules&gt;
-    &lt;module&gt;sub-group&lt;/module&gt;
+    &lt;module&gt;subparent-parent-project&lt;/module&gt;
     &lt;module&gt;project-c&lt;/module&gt;
   &lt;/modules&gt;
   ...
 &lt;/project&gt;</programlisting>
       </example>
 
-      <para>When Maven is reading <varname>top-group</varname>
+      <para>When Maven is reading <varname>top-parent-project</varname>
       <acronym>POM</acronym> it will look at the modules element and see that
-      <varname>top-group</varname> references the projects
-      <varname>sub-group</varname> and <varname>project-c</varname>. Maven
-      will then look for a <filename>pom.xml</filename> in each of these
-      subdirectories. Maven repeats this process for each of the submodules:
-      it will read the <filename>sub-group/pom.xml</filename> and see that the
-      <varname>sub-group</varname> project references two projects with the
-      following modules element:</para>
+      <varname>top-parent-project</varname> references the projects
+      <varname>subparent-parent-project</varname> and
+      <varname>project-c</varname>. Maven will then look for a
+      <filename>pom.xml</filename> in each of these subdirectories. Maven
+      repeats this process for each of the submodules: it will read the
+      <filename>subparent-parent-project/pom.xml</filename> and see that the
+      <varname>subparent-parent-project</varname> project references two
+      projects with the following modules element:</para>
 
       <example>
-        <title>sub-group modules element</title>
+        <title>subparent-parent-project modules element</title>
 
         <programlisting language="xml">&lt;project&gt;
   ...
@@ -2311,57 +2326,6 @@ top-group/project-c/pom.xml</programlisting>
         For the most part, you won't go wrong if all of your submodules turn
         out to define back-references to the same project as a parent, but
         your use of Maven may evolve over time.</para>
-      </section>
-
-      <section id="pom-relationships-prototype-parent">
-        <title>Prototype Parent Projects</title>
-
-        <para>Take the following example shown in <xref
-        linkend="fig-multi-proto" /> as another hypothetical and creative way
-        to use inheritance and multi-modules builds to reuse
-        dependencies.<figure id="fig-multi-proto">
-            <title>Using parent projects as "prototypes" for specialized
-            projects</title>
-
-            <mediaobject>
-              <imageobject>
-                <imagedata fileref="figs/web/pom_protos.png" />
-              </imageobject>
-            </mediaobject>
-          </figure><xref linkend="fig-multi-proto" /> is yet another way to
-        think about inheritance and multi-module projects. In this example,
-        you have two distinct systems. <varname>system-a</varname> and
-        <varname>system-b</varname> each define independent applications.
-        <varname>system-a</varname> defines two modules
-        <varname>a-lib</varname> and <varname>a-swing</varname>.
-        <varname>system-a</varname> and <varname>a-lib</varname> both define
-        the top-level <varname>sonatype</varname> <acronym>POM</acronym> as a
-        parent project, but the <varname>a-swing</varname> project defines
-        <varname>swing-proto</varname> as a parent project. In this system,
-        <varname>swing-proto</varname> supplies a foundational
-        <acronym>POM</acronym> for Swing applications and the
-        <varname>struts-proto</varname> project provides a foundational
-        <acronym>POM</acronym> for Struts 2 web applications. While the
-        <varname>sonatype</varname> POM provides high level information such
-        as the <varname>groupId</varname>, organization information, and build
-        profiles, <varname>struts-proto</varname> defines all of the
-        dependencies that you need to create a struts application. This
-        approach would work well if your development is characterized by many
-        independent applications which each have to follow the same set of
-        rules. If you are creating a lot of struts applications but they are
-        not really related to one another, you might just define everything
-        you need in <varname>struts-proto</varname>. The downside to this
-        approach is that you won't be able to use parent/child relationships
-        within the <varname>system-a</varname> and <varname>system-b</varname>
-        project hierarchies to share information like developers and other
-        build configuration. A project can only have one parent.</para>
-
-        <para>The other downside of this approach is that as soon as you have
-        one project that "breaks the mold" you'll either have to override the
-        prototype parent <acronym>POM</acronym> or find a way to factor
-        customizations into the shared parent without those customizations
-        affecting all the children. In general, using POMs as prototypes for
-        specialized project "types" isn't a recommended practice.</para>
       </section>
     </section>
   </section>
