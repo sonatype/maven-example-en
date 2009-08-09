@@ -770,13 +770,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <acronym>POM</acronym>. Take a look at the following
       <acronym>POM</acronym>.</para>
 
-      <para><figure>
+      <para><figure id="fig-project-coords">
           <title>A Maven Project's Coordinates</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/simple-project_annopom.png"
                          width="6in" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/simple-project_annopom.pdf" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -885,13 +889,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       startref="coord2"></indexterm>using the unique Maven coordinates for a
       specific artifact.</para>
 
-      <para><figure>
+      <para><figure id="fig-simple-mavenspace">
           <title>Maven Space is a coordinate system of projects</title>
 
           <mediaobject>
-            <imageobject>
+            <imageobject role="web">
               <imagedata fileref="figs/web/simple-project_mavenspace.png"
-                         width="6in" />
+                         width="" />
+            </imageobject>
+
+            <imageobject role="print">
+              <imagedata fileref="figs/print/simple-project_mavenspace.pdf" />
             </imageobject>
           </mediaobject>
         </figure></para>

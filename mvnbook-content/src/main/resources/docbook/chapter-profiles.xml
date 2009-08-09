@@ -186,11 +186,11 @@
     <literal>production</literal> profile to override the default settings of
     the Compiler plugin.</para>
 
-    <example>
+    <example id="ex-profiles-override-prod">
       <title>Using a Maven Profile to Override Production Compiler
       Settings</title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -331,7 +331,7 @@
       <para><example>
           <title>Elements Allowed in a Profile</title>
 
-          <programlisting language="xml">&lt;project&gt;
+          <programlisting>&lt;project&gt;
   &lt;profiles&gt;
     &lt;profile&gt;
       &lt;build&gt;
@@ -400,10 +400,10 @@
     have the <classname>ScriptEngine</classname> on the classpath. Let's take
     a look at the library project's <filename>pom.xml</filename>:</para>
 
-    <example>
+    <example id="ex-profiles-dyn-inclusion">
       <title>Dynamic Inclusion of Submodules Using Profile Activation</title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -482,11 +482,11 @@
       activated by a very specific combination of operating system parameters,
       properties, and a JDK version.</para>
 
-      <para><example>
+      <para><example id="ex-profiles-active-params">
           <title>Profile Activation Parameters: JDK Version, OS Parameters,
           and Properties</title>
 
-          <programlisting language="xml">&lt;project&gt;
+          <programlisting>&lt;project&gt;
   ...
   &lt;profiles&gt;
     &lt;profile&gt;

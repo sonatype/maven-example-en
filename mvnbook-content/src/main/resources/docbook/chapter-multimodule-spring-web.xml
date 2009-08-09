@@ -1090,7 +1090,7 @@ public class WeatherService {
     <example id="ex-persist-weatherdao-class">
       <title>simple-persist's WeatherDAO Class</title>
 
-      <programlisting language="java">package org.sonatype.mavenbook.weather.persist;
+      <programlisting>package org.sonatype.mavenbook.weather.persist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1103,8 +1103,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.sonatype.mavenbook.weather.model.Location;
 import org.sonatype.mavenbook.weather.model.Weather;
 
-public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
-          linkends="coRef-hibDao-2" /> {
+public class WeatherDAO extends HibernateDaoSupport <co
+          id="coDef-hibDao-extends" linkends="coRef-hibDao-extends" /> {
 
     public WeatherDAO() {}
 
@@ -1141,7 +1141,7 @@ public class WeatherDAO extends HibernateDaoSupport<co id="coDef-hibDao-1"
     explanation:</para>
 
     <calloutlist>
-      <callout arearefs="coDef-hibDao-1" id="coRef-hibDao-1">
+      <callout arearefs="coDef-hibDao-extends" id="coRef-hibDao-extends">
         <para>This class extends <classname>HibernateDaoSupport</classname>.
         What this means is that the class is going to be associated with a
         Hibernate <classname>SessionFactory</classname> which it is going to
@@ -1470,7 +1470,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     <example id="example_pom-for-simple-webapp">
       <title>POM for simple-webapp</title>
 
-      <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+      <programlisting>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
@@ -1485,7 +1485,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
   &lt;packaging&gt;war&lt;/packaging&gt;
   &lt;name&gt;Simple Web Application&lt;/name&gt;
   &lt;dependencies&gt;
-    &lt;dependency&gt; <co id="coDef-spring-web-1" os="coRef-spring-web-1" />
+    &lt;dependency&gt; <co id="co-springweb-1" linkends="coref-springweb-1" />
       &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
       &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
       &lt;version&gt;2.4&lt;/version&gt;
@@ -1562,7 +1562,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
     important configuration points:</para>
 
     <calloutlist>
-      <callout arearefs="coDef-spring-web-1" id="coRef-spring-web-1">
+      <callout arearefs="co-springweb-1" id="coref-springweb-1">
         <para>This <varname>simple-webapp</varname> project defines four
         dependencies: the Servlet 2.4 specification, the simple-weather
         service library, the simple-persist persistence library, and the
@@ -1886,7 +1886,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     <example id="ex-spring-weather-servlet">
       <title>Spring Controller configuration weather-servlet.xml</title>
 
-      <programlisting language="xml">&lt;beans&gt;  
+      <programlisting>&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
           linkends="coRef-weather-servlet-1" />
            class="org.sonatype.mavenbook.web.WeatherController"&gt;
@@ -1991,10 +1991,10 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     the web application. The <filename>web.xml</filename> file is shown in
     <xref linkend="ex-spring-webxml" />.</para>
 
-    <example>
+    <example id="ex-spring-web-xml">
       <title>web.xml for simple-webapp</title>
 
-      <programlisting id="ex-spring-webxml" language="xml">&lt;web-app id="simple-webapp" version="2.4" 
+      <programlisting id="ex-spring-webxml">&lt;web-app id="simple-webapp" version="2.4" 
      xmlns="http://java.sun.com/xml/ns/j2ee" 
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
      xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 

@@ -124,7 +124,7 @@
                   <fileset dir="${basedir}/src/site/resources" />
                 </copy>
                 <copy todir="${project.build.directory}/site/images">
-                  <fileset dir="${basedir}/target/classes/images" />
+                  <fileset dir="${basedir}/target/classes/docbook/images" />
                 </copy>
                 <copy todir="${project.build.directory}/site">
                   <fileset dir="../mvnbook-examples/target">
