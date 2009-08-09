@@ -601,23 +601,12 @@ second-project-1.0-SNAPSHOT/src/test/java/org/sonatype/mavenbook/AppTest.java</s
     <para>When the standard assembly descriptors introduced in <xref
     linkend="assemblies-sect-basics" /> are not adequate, you will need to
     define your own assembly descriptor. The assembly descriptor is an XML
-    document which defines the structure and contents of an assembly.</para>
-
-    <figure>
-      <title>Assembly Descriptor Picture</title>
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="figs/web/assemblies_descriptor.png" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <para>The assembly descriptor contains five main configuration sections,
-    plus two additional sections: one for specifying standard
-    assembly-descriptor fragments, called component descriptors, and another
-    for specifying custom file processor classes to help manage the
-    assembly-production process.</para>
+    document which defines the structure and contents of an assembly. The
+    assembly descriptor contains five main configuration sections, plus two
+    additional sections: one for specifying standard assembly-descriptor
+    fragments, called component descriptors, and another for specifying custom
+    file processor classes to help manage the assembly-production
+    process.</para>
 
     <variablelist>
       <varlistentry>
