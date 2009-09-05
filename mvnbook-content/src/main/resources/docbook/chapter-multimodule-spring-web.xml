@@ -2126,8 +2126,9 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
   <section id="multimodule-web-spring-sect-spring-running-web">
     <title>Running the Web Application</title>
 
-    <para>To run the web application, you’ll first need to build the database
-    <indexterm class="startofrange" id="enterprise7a">
+    <para>To run the web application, you’ll first need to build the entire
+    multi-module project and then build the database <indexterm
+        class="startofrange" id="enterprise7a">
         <primary>multimodule project (example)</primary>
 
         <secondary>multimodule enterprise project</secondary>
@@ -2151,8 +2152,18 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
         <primary>Hibernate3 plugin</primary>
 
         <secondary>building database using</secondary>
-      </indexterm>using the Hibernate3 plugin. To do this, run the following
-    from the <varname>simple-webapp</varname> project directory:</para>
+      </indexterm>using the Hibernate3 plugin. First, from the top-level
+    <filename>simple-parent</filename> project directory, run <command>mvn
+    clean install</command>:</para>
+
+    <screen>$ <command>mvn clean install</command></screen>
+
+    <para>Running <command>mvn clean install</command> at the top-level of
+    your multi-module project will install all of modules into your local
+    Maven repository. You need to do this before building the database from
+    the <varname>simple-webapp</varname> project. To build the database from
+    the <varname>simple-webapp</varname> project, run the following from the
+    <varname>simple-webapp</varname> project's directory:</para>
 
     <screen>$ <command>mvn hibernate3:hbm2ddl</command>
 [INFO] Scanning for projects...

@@ -140,27 +140,39 @@
 
         <secondary>creating simple weather application with</secondary>
       </indexterm> skeleton for the simple weather project. Execute the
-    following command to create a new project:</para>
+    following command to create a new project, select archetype 15, and then
+    enter "Y" to confirm and generate the new project:</para>
 
-    <screen><command>$ mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch04 \
+    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch04 \
                                          -DartifactId=simple-weather \
                                          -DpackageName=org.sonatype.mavenbook \
                                          -Dversion=1.0
-</command>[INFO] [archetype:create]
-[INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
-       checking for updates from central
-[INFO] ------------------------------------------------------------------
-[INFO] Using following parameters for creating Archetype: \
-       maven-archetype-quickstart:RELEASE
-[INFO] ------------------------------------------------------------------
+</command>
+[INFO] Preparing archetype:generate
+...
+[INFO] [archetype:generate {execution: default-cli}]
+[INFO] Generating project in Interactive mode
+[INFO] No archetype defined. Using maven-archetype-quickstart \
+   (org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
+Choose archetype:
+...
+15: internal -&gt; maven-archetype-quickstart ()
+...
+Choose a number:  (...) 15: : <emphasis>15</emphasis>
+Confirm properties configuration:
+groupId: org.sonatype.mavenbook.ch04
+artifactId: simple-weather
+version: 1.0
+package: org.sonatype.mavenbook.ch04
+ Y: : Y
 [INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch04
-[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
-[INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: org.sonatype.mavenbook
-[INFO] Parameter: version, Value: 1.0
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.ch04
+[INFO] Parameter: package, Value: org.sonatype.mavenbook.ch04
 [INFO] Parameter: artifactId, Value: simple-weather
-[INFO] *** End of debug info from resources from generated POM ***
-[INFO] Archetype created in dir: ~/examples/simple-weather</screen>
+[INFO] Parameter: basedir, Value: /private/tmp
+[INFO] Parameter: version, Value: 1.0
+[INFO] BUILD SUCCESSFUL
+</screen>
 
     <para>Once the Maven Archetype plugin creates the project, go into the
     <filename>simple-weather</filename> directory and take a look at the
@@ -239,7 +251,7 @@
     </example>
 
     <para>Notice that we passed in the <varname>version</varname> parameter to
-    the <varname>archetype:create</varname> goal. This overrides the default
+    the <varname>archetype:generate</varname> goal. This overrides the default
     value of <literal>1.0-SNAPSHOT</literal>. In this project, we're
     developing the <literal>1.0</literal> version of the
     <varname>simple-weather</varname> project as you can see in the
@@ -507,7 +519,7 @@
 
     <para>Let's remove the <classname>App</classname> and the
     <classname>AppTest</classname> classes created by
-    <varname>archetype:create</varname> and add our new package. In a Maven
+    <varname>archetype:generate</varname> and add our new package. In a Maven
     project, all of a project's source code is stored in
     <filename>src/main/java</filename>. From the base directory of the new
     project, execute the following commands:</para>
@@ -841,7 +853,7 @@ public class WeatherFormatter {
         <primary>resources directory, creating</primary>
       </indexterm> the base directory of the project:
     <filename>src/main/resources</filename>. Since this directory was not
-    created by the <varname role="keep-together">archetype:create</varname>
+    created by the <varname role="keep-together">archetype:generate</varname>
     task, we need to create it by executing the following commands from the
     project’s base directory:</para>
 
@@ -1868,7 +1880,7 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
       <sgmltag>executions</sgmltag> element under <sgmltag>plugin</sgmltag> in
       the <sgmltag>build</sgmltag> section of the project's POM.</para>
 
-      <example>
+      <example floatstyle="" id="ex-customization-attach-assembly">
         <title>Configuring attached Goal Execution during the package
         Lifecycle Phase</title>
 
@@ -1883,16 +1895,16 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
             &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;
           &lt;/descriptorRefs&gt;
         &lt;/configuration&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;simple-command&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;attached&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
       &lt;/plugin&gt;
-      &lt;executions&gt;
-        &lt;execution&gt;
-          &lt;id&gt;simple-command&lt;/id&gt;
-          &lt;phase&gt;package&lt;/phase&gt;
-          &lt;goals&gt;
-            &lt;goal&gt;attached&lt;/goal&gt;
-          &lt;/goals&gt;
-        &lt;/execution&gt;
-      &lt;/executions&gt;
     &lt;/plugins&gt;
   &lt;/build&gt;
   [...]

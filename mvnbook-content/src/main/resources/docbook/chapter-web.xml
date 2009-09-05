@@ -83,28 +83,41 @@
         <secondary>simple Web project (example)</secondary>
 
         <tertiary>creating</tertiary>
-      </indexterm>project, run <command>mvn archetype:create</command> with an
-    <varname>artifactId</varname> and a <varname>groupId</varname>. Specify
-    the <varname>archetypeArtifactId</varname> as
-    <varname>maven-archetype-webapp</varname>. Running this will create the
-    appropriate directory structure and Maven <acronym>POM</acronym>:</para>
+      </indexterm>project, run <command>mvn archetype:generate</command> with
+    an <varname>artifactId</varname> and a <varname>groupId</varname>. Run
+    <varname>archetype:generate</varname> as shown below, choose archetype #18
+    "maven-archetype-webapp", and then press Y to confirm and create the new
+    web application project:</para>
 
-    <screen>~/examples$ <command>mvn archetype:create -DgroupId=org.sonatype.mavenbook.ch05 \
-                            -DartifactId=simple-webapp \
-                            -DpackageName=org.sonatype.mavenbook \
-                            -DarchetypeArtifactId=maven-archetype-webapp</command>
-[INFO] [archetype:create]
-[INFO] ----------------------------------------------------------------------
-[INFO] Using parameters for creating Archetype: maven-archetype-webapp:RELEASE
-[INFO] ----------------------------------------------------------------------
+    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch05 \
+                         -DartifactId=simple-webapp \
+                         -DpackageName=org.sonatype.mavenbook \
+                          -Dversion=1.0-SNAPSHOT</command>
+...
+[INFO] [archetype:generate {execution: default-cli}]
+Choose archetype:
+...
+15: internal -&gt; maven-archetype-quickstart ()
+16: internal -&gt; maven-archetype-site-simple (A simple site generation project)
+17: internal -&gt; maven-archetype-site (A more complex site project)
+18: internal -&gt; maven-archetype-webapp (A simple Java web application)
+...
+Choose a number:  (...) 15: : <emphasis>18</emphasis>
+Confirm properties configuration:
+groupId: org.sonatype.mavenbook.ch05
+artifactId: simple-webapp
+version: 1.0-SNAPSHOT
+package: org.sonatype.mavenbook.ch05
+ Y: : <emphasis>Y</emphasis>
 [INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch05
-[INFO] Parameter: packageName, Value: org.sonatype.mavenbook
-[INFO] Parameter: basedir, Value: ~/examples
-[INFO] Parameter: package, Value: org.sonatype.mavenbook
-[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.ch05
+[INFO] Parameter: package, Value: org.sonatype.mavenbook.ch05
 [INFO] Parameter: artifactId, Value: simple-webapp
-[INFO] *************** End of debug info from resources from generated POM **
-[INFO] Archetype created in dir: ~/examples/simple-webapp </screen>
+[INFO] Parameter: basedir, Value: /private/tmp
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+...
+[INFO] BUILD SUCCESSFUL
+</screen>
 
     <para>Once the Maven Archetype plugin creates the project, change
     directories into the <filename role="keep-together">simple-web</filename>

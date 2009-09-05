@@ -60,6 +60,61 @@
             </listitem>
           </itemizedlist>
         </listitem>
+
+        <listitem>
+          <para>Updated Maven Version to 2.2.1. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-268">MVNDEF-268</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Moving most introduction examples to the archetype:generate
+          goal (instead of archetype:create) (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-41">MVNDEF-41</ulink>)</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><xref linkend="simple-project" /> now introduces the
+              <varname>archetype:generate</varname> goal first.
+              <varname>archetype:create</varname> is still useful, but
+              <varname>archetype:generate</varname> is much friendlier and a
+              more appropriate way to introduce new Maven users to the power
+              of Maven Archetypes.</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="customizing" /> now uses the
+              <varname>archetype:generate</varname> goal instead of
+              <varname>archetype:create</varname> goal.</para>
+            </listitem>
+
+            <listitem>
+              <para><xref linkend="web" /> new uses the archetype:generate
+              goal instead of the archetype:create goal.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Added <varname>${project.baseUri}</varname> to <xref
+          linkend="resource-filtering-sect-project-properties" />. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-141">MVNDEF-141</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Fixed XML element ordering error in <xref
+          linkend="ex-customization-attach-assembly" />. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-32">MVNDEF-32</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>A few readers were confused about an example in Chapter 7. A
+          clarification was added to <xref
+          linkend="multimodule-web-spring-sect-spring-running-web" /> to
+          instruct the reader to run <command>mvn clean install</command> from
+          the top-level directory before attempting to build the database with
+          hbm2ddl. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-43">MVNDEF-43</ulink>)</para>
+        </listitem>
       </itemizedlist>
     </section>
 
@@ -281,7 +336,7 @@
 
             <listitem>
               <para><xref linkend="fig-settings-unencrypted" /> (<ulink
-              url="???">MVNDEF-238</ulink>)</para>
+              url="https://issues.sonatype.org/browse/MVNDEF-238">MVNDEF-238</ulink>)</para>
             </listitem>
 
             <listitem>

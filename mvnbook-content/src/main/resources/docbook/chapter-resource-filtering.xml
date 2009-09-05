@@ -218,6 +218,19 @@
         </varlistentry>
 
         <varlistentry>
+          <term><varname>project.baseUri</varname></term>
+
+          <listitem>
+            <para>If you need a valid URI for your project's base directory,
+            you can use the <varname>${project.baseUri}</varname> property. If
+            your project is stored in the directory
+            <filename>/tmp/simple</filename>,
+            <varname>${project.baseUri}</varname> will resolve to
+            <uri>file:/private/tmp/simple/</uri>. </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>Other Project Property references</term>
 
           <listitem>
