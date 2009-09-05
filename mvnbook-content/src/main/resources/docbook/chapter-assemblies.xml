@@ -279,13 +279,13 @@
       section instead of the <sgmltag>descriptorId</sgmltag> parameter we used
       last time. This allows multiple assembly types to be built from the same
       Assembly plugin execution, while still supporting our use case with
-      relatively little extra configuration. Second, the archive
-      <sgmltag>element</sgmltag> under <sgmltag>configuration</sgmltag> sets
-      the <varname>Main-Class</varname> manifest attribute in the generated
-      <acronym>JAR</acronym>. This section is commonly available in plugins
-      that create <acronym>JAR</acronym> files, such as the
-      <acronym>JAR</acronym> plugin used for the default project package
-      type.</para>
+      relatively little extra configuration. Second, the
+      <sgmltag>archive</sgmltag> element under
+      <sgmltag>configuration</sgmltag> sets the <varname>Main-Class</varname>
+      manifest attribute in the generated <acronym>JAR</acronym>. This section
+      is commonly available in plugins that create <acronym>JAR</acronym>
+      files, such as the <acronym>JAR</acronym> plugin used for the default
+      project package type.</para>
 
       <para>Now, you can produce the executable <acronym>JAR</acronym> simply
       by executing <command>mvn package</command>. Afterward, we’ll also get a
