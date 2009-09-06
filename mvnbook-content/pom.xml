@@ -104,17 +104,9 @@
               <foCustomization>${basedir}/target/classes/xsl/fopdf.xsl</foCustomization>
 	          <useExtensions>1</useExtensions>
 	  <bodyFontFamily>TimesNewRoman</bodyFontFamily>
-	  <monospaceFontFamily>Courier</monospaceFontFamily>
+	  <monospaceFontFamily>CourierNew</monospaceFontFamily>
 	  <titleFontFamily>ArialBold</titleFontFamily>
 	  <fonts>
-	    <font>
-	      <name>Arial</name>
-	      <style>normal</style>
-	      <weight>normal</weight>
-	      <embedFile>${basedir}/src/fonts/Arial.ttf</embedFile>
-              <metricsFile>${basedir}/target/fonts/Arial-metrics.xml</metricsFile>
-
-	    </font>
 	    <font>
 	      <name>ArialBold</name>
 	      <style>normal</style>
@@ -124,7 +116,7 @@
 
 	    </font>
 	    <font>
-	      <name>Courier</name>
+	      <name>CourierNew</name>
 	      <style>normal</style>
 	      <weight>normal</weight>
 	      <embedFile>${basedir}/src/fonts/Courier.ttf</embedFile>
@@ -132,19 +124,19 @@
 
 	    </font>
 	    <font>
-	      <name>Courier-Bold</name>
+	      <name>CourierNew</name>
 	      <style>normal</style>
-	      <weight>normal</weight>
-	      <embedFile>${basedir}/src/fonts/Courier.ttf</embedFile>
-              <metricsFile>${basedir}/target/fonts/Courier-metrics.xml</metricsFile>
+	      <weight>bold</weight>
+	      <embedFile>${basedir}/src/fonts/Courier-Bold.ttf</embedFile>
+              <metricsFile>${basedir}/target/fonts/Courier-Bold-metrics.xml</metricsFile>
 
 	    </font>
 	    <font>
-	      <name>Courier-Oblique</name>
-	      <style>normal</style>
+	      <name>CourierNew</name>
+	      <style>italic</style>
 	      <weight>normal</weight>
-	      <embedFile>${basedir}/src/fonts/Courier.ttf</embedFile>
-              <metricsFile>${basedir}/target/fonts/Courier-metrics.xml</metricsFile>
+	      <embedFile>${basedir}/src/fonts/Courier-Oblique.ttf</embedFile>
+              <metricsFile>${basedir}/target/fonts/Courier-Oblique-metrics.xml</metricsFile>
 
 	    </font>
 	    <font>

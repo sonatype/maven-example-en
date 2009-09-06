@@ -36,7 +36,7 @@
     <!-- Dot and Whitespace as separator in TOC between Label and Title-->
     <xsl:param name="autotoc.label.separator" select="'.  '"/>
 
-    <xsl:param name="highlight.source">0</xsl:param>
+    <xsl:param name="highlight.source">1</xsl:param>
 
 
     <!--###################################################
@@ -353,8 +353,8 @@
    ################################################### -->
 
     <!-- Use images for callouts instead of (1) (2) (3) -->
-    <xsl:param name="callout.graphics">0</xsl:param>
-    <xsl:param name="callout.unicode">1</xsl:param>
+    <xsl:param name="callout.graphics">1</xsl:param>
+    <xsl:param name="callout.unicode">0</xsl:param>
 
     <!-- Place callout marks at this column in annotated areas -->
     <xsl:param name="callout.defaultcolumn">90</xsl:param>
