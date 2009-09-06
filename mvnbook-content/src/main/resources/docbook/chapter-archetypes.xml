@@ -280,16 +280,14 @@ package: org.sonatype.mavenbook
       Maven Archetype plugin will generate the project in a directory named
       after the <varname>artifactId</varname> you supplied.</para>
 
-      <screen>[INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: maven-archetype-quicks
-[INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: org.sonatype.mavenbook
+      <screen>[INFO] Parameter: groupId, Value: org.sonatype.mavenbook
 [INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: /Users/tobrien/tmp
 [INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
 [INFO] Parameter: artifactId, Value: quickstart
-[INFO] ********************* End of debug info from resources from generated POM **
+[INFO] ********************* End of debug info from resources from \
+       generated POM **
 [INFO] OldArchetype created in dir: /Users/tobrien/tmp/quickstart
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
@@ -489,10 +487,8 @@ package: org.sonatype.mavenbook
 ...
 [INFO] [archetype:generate]
 [INFO] Generating project in Batch mode
-[INFO] Archetype [org.appfuse.archetypes:appfuse-modular-spring:RELEASE] found in catalog 
-[INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating OldArchetype: appfuse-modular-spring:RELEASE
-[INFO] ----------------------------------------------------------------------------
+[INFO] Archetype [org.appfuse.archetypes:appfuse-modular-spring:RELEASE]
+       found in catalog 
 [INFO] Parameter: groupId, Value: org.sonatype.mavenbook
 [INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: basedir, Value: /Users/tobrien/tmp
@@ -567,7 +563,8 @@ $ mvn jetty:run-war
         generate a Wicket project with the Maven Archetype plugin:</para>
 
         <screen>$ <command>mvn archetype:generate</command>
-... (select the "wicket-archetype-quickstart" artifact from the interactive menu) ...
+... (select the "wicket-archetype-quickstart" artifact from the interactive \
+    menu) ...
 ... (supply a groupId, artifactId, version, package) ...
 ... (assuming the artifactId is "ex-wicket") ...
 $ <command>cd ex-wicket</command>
@@ -631,7 +628,8 @@ $ <command>mvn jetty:run</command>
       &lt;groupId&gt;org.apache.cocoon&lt;/groupId&gt;
       &lt;artifactId&gt;cocoon-22-archetype-block&lt;/artifactId&gt;
       &lt;version&gt;1.0.0&lt;/version&gt;
-      &lt;description&gt;Creates a Cocoon block containing some small samples&lt;/description&gt;
+      &lt;description&gt;Creates a Cocoon block containing some small 
+          samples&lt;/description&gt;
     &lt;/archetype&gt;
 
     &lt;archetype&gt;
@@ -667,7 +665,6 @@ catalogFile null
 [INFO] Scanning /Users/tobrien/.m2/repository/ant/ant/1.6/ant-1.6.jar
 [INFO] Scanning /Users/tobrien/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar
 ...
-[INFO] Scanning /Users/tobrien/.m2/repository/xmlrpc/xmlrpc/1.2-b1/xmlrpc-1.2-b1.jar
 [INFO] Scanning /Users/tobrien/.m2/repository/xom/xom/1.0/xom-1.0.jar
 [INFO] Scanning /Users/tobrien/.m2/repository/xom/xom/1.0b3/xom-1.0b3.jar
 [INFO] ------------------------------------------------------------------------

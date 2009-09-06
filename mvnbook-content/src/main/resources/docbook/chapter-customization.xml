@@ -962,7 +962,8 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
     code, 60202. To supply a zip code, we would use the
     <varname>-Dexec.args</varname> argument and pass in a zip code:</para>
 
-    <screen>$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main -Dexec.args="70112"</command>
+    <screen>$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main \
+  -Dexec.args="70112"</command>
 ...
 [INFO] [exec:java]
 0    INFO  YahooRetriever  - Retrieving Weather Data
@@ -1123,7 +1124,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
 [DEBUG]       xml-apis:xml-apis:1.0.b2.
 [DEBUG]       com.ibm.icu:icu4j:jar:2.6.1:compile (selected for compile)
 [DEBUG]   velocity:velocity:jar:1.5:compile (selected for compile)
-[DEBUG]     commons-collections:commons-collections:jar:3.1:compile (selected for compile)
+[DEBUG]     commons-collections:commons-collections:jar:3.1:compile 
 [DEBUG]     commons-lang:commons-lang:jar:2.1:compile (selected for compile)
 [DEBUG]     oro:oro:jar:2.0.8:compile (selected for compile)
 [DEBUG]   junit:junit:jar:3.8.1:test (selected for test)
