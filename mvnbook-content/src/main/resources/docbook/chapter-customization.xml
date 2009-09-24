@@ -429,12 +429,13 @@ package: org.sonatype.mavenbook.ch04
     values? Some of the dependencies are so widely used (like Log4J) that
     you'll just remember what the <varname>groupId</varname> and
     <varname>artifactId</varname> are every time you need to use them.
-    Velocity, Dom4J, and Jaxen were all located using the helpful web site
-    <ulink
-    url="http://www.mvnrepository.com">http://www.mvnrepository.com</ulink>.
-    This site provides a search interface to the Maven repository, you can use
-    it to search for dependencies. To test this for yourself, load <ulink
-    url="http://www.mvnrepository.com">http://www.mvnrepository.com</ulink>
+    Velocity, Dom4J, and Jaxen were all located using the searching capability
+    on <ulink
+    url="http://repository.sonatype.org">http://repository.sonatype.org</ulink>
+    . This is a public Sonatype Nexus instance which provides a search
+    interface to various public Maven repositories, you can use it to search
+    for dependencies. To test this for yourself, load <ulink
+    url="http://repository.sonatype.org">http://repository.sonatype.org</ulink>
     and search for some commonly used libraries such as Hibernate or the
     Spring Framework. When you search for an artifact on this site, it will
     show you an <varname>artifactId</varname> and all of the versions known to
@@ -442,8 +443,8 @@ package: org.sonatype.mavenbook.ch04
     version will load a page that contains the dependency element you'll need
     to copy and paste into your own project's <filename>pom.xml</filename>. If
     you need to find a dependency, you'll want to check out <ulink
-    url="http://www.mvnrepository.com">mvnrepository.com</ulink>, as you'll
-    often find that certain libraries have more than one
+    url="http://repository.sonatype.org">repository.sonatype.org</ulink>, as
+    you'll often find that certain libraries have more than one
     <varname>groupId</varname>. With this tool, you can make sense of the
     Maven repository.</para>
   </section>
