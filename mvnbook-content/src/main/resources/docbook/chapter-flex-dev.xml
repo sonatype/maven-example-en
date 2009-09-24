@@ -214,9 +214,8 @@
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/flex-dev-nexus-sonatype-to-group.pdf"
-align="center"
-                         
+              <imagedata align="center"
+                         fileref="figs/print/flex-dev-nexus-sonatype-to-group.pdf"
                          format="PDF" scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
@@ -1522,7 +1521,7 @@ package: org.sonatype.test
       compile-swc or compile-swf to the compile phase and test-compile to the
       test-compile phase. If you need to configure the options for the
       FlexMojos compiler, you would configure the FlexMojos plugin
-      configuration. For example, if you wanted the application whose's POM is
+      configuration. For example, if you wanted the application with the POM
       shown in <xref linkend="ex-flex-dev-app-pom" /> to ignore certain
       code-level warnings on compile and use some customized font settings,
       you might use the plugin configuration shown in <xref
@@ -1653,7 +1652,7 @@ package: org.sonatype.test
       <para>If you need to pass in any configuration options to the
       asdoc-report, you will need add a configuration element to the
       <varname>reportSets</varname> element as shown in <xref
-      linkend="ex-flex-dev-config-asdoc-report" />. </para>
+      linkend="ex-flex-dev-config-asdoc-report" />.</para>
 
       <example id="ex-flex-dev-config-asdoc-report">
         <title>Configuring the asdoc-report</title>
@@ -1723,7 +1722,7 @@ package: org.sonatype.test
       <para>If you are interested in participating in the Flexmojos project,
       you will likely want to checkout the current Flexmojos source code to
       your local machine. To checkout the Flexmojos source using Subversion,
-      execute the followings command at the command line:</para>
+      execute the following command at the command line:</para>
 
       <screen>$ <command>svn co http://svn.sonatype.org/flexmojos/trunk flexmojos</command>
 A flexmojos

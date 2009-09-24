@@ -291,7 +291,7 @@
 
     <para>This is the central point that makes all of the Maven vs. Ant, Maven
     vs. Buildr, Maven vs. Gradle arguments irrelevant. Maven isn't totally
-    defined by the mechanics of your build system, it isn't about scripting
+    defined by the mechanics of your build system. It isn't about scripting
     the various tasks in your build as much as it is about encouraging a set
     of standards, a common interface, a life-cycle, a standard repository
     format, a standard directory layout, etc. It certainly isn't about what
@@ -440,7 +440,7 @@
     code is in <filename>src/main/java</filename>". Ant build files contain
     explicit instructions: "This is project", "The source is in
     <filename>src/main/java</filename>", "Run javac against this directory",
-    "Put the results in <filename>target/classses</filename>", "Create a
+    "Put the results in <filename>target/classes</filename>", "Create a
     <acronym>JAR</acronym> from the ....", etc. Where Ant had to be explicit
     about the process, there was something "built-in" to Maven that just knew
     where the source code was and how it should be processed.</para>

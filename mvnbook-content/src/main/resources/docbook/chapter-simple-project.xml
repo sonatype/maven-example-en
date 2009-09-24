@@ -374,7 +374,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     introduce a few of the core concepts of Maven. In the previous example,
     you generated a project which consisted of a <acronym>POM</acronym> and
     some code assembled in the Maven standard directory layout. You then
-    execute Maven with a lifecycle phase as an argument which prompted Maven
+    executed Maven with a lifecycle phase as an argument, which prompted Maven
     to execute a series of Maven plugin goals. Lastly, you installed a Maven
     artifact into your local repository. Wait? What is a "lifecycle"? What is
     a "local repository"? The following section defines some of Maven's
@@ -420,11 +420,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 </screen>
 
       <para>A Maven Plugin is a collection of one or more goals. Examples of
-      Maven plugins can be simple core plugins like the Jar plugin which
+      Maven plugins can be simple core plugins like the Jar plugin, which
       contains goals for creating <acronym>JAR</acronym> files, Compiler
-      plugin which contains goals for compiling source code and unit tests, or
-      the Surefire plugin which contains goals for executing unit tests and
-      generating reports. Other, more specialized Maven plugins include
+      plugin, which contains goals for compiling source code and unit tests,
+      or the Surefire plugin, which contains goals for executing unit tests
+      and generating reports. Other, more specialized Maven plugins include
       plugins like the Hibernate3 plugin for integration with the popular
       persistence library Hibernate, the JRuby plugin which allows you to
       execute ruby as part of a Maven build or to write Maven plugins in Ruby.
@@ -438,13 +438,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
         <mediaobject>
           <imageobject role="web">
-            <imagedata fileref="figs/web/simple-project_plugin.png"
-                       />
+            <imagedata fileref="figs/web/simple-project_plugin.png" />
           </imageobject>
 
           <imageobject role="print">
-            <imagedata fileref="figs/print/simple-project_plugin.pdf"
-                       format="PDF"  align="center" scalefit="0" width="100%"/>
+            <imagedata align="center"
+                       fileref="figs/print/simple-project_plugin.pdf"
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -602,8 +602,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/simple-project_phasebinding.pdf"
-                         format="PDF"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/simple-project_phasebinding.pdf"
+                         format="PDF" scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -740,8 +741,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/simple-project_lifecyclebinding.pdf"
-                         format="PDF"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/simple-project_lifecyclebinding.pdf"
+                         format="PDF" scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -808,12 +810,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
           <mediaobject>
             <imageobject role="web">
-              <imagedata fileref="figs/web/simple-project_annopom.png"
-                         />
+              <imagedata fileref="figs/web/simple-project_annopom.png" />
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/simple-project_annopom.pdf"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/simple-project_annopom.pdf"
+                         scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -927,12 +930,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
           <mediaobject>
             <imageobject role="web">
-              <imagedata fileref="figs/web/simple-project_mavenspace.png"
-                         />
+              <imagedata fileref="figs/web/simple-project_mavenspace.png" />
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/simple-project_mavenspace.pdf"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/simple-project_mavenspace.pdf"
+                         scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -1074,7 +1078,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Project A, it also depends on Project A’s dependencies. When Maven
       resolves a dependency artifact from a set of Maven coordinates, it also
       retrieves the <acronym>POM</acronym> and consults the dependencies
-      <acronym>POM</acronym> to find any transitive dependences. These
+      <acronym>POM</acronym> to find any transitive dependencies. These
       transitive dependencies are then added as dependencies of the current
       project.</para>
 
@@ -1094,8 +1098,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           </imageobject>
 
           <imageobject role="print">
-            <imagedata fileref="figs/print/simple-project_depgraph.pdf"
-                       format="PDF"  align="center" scalefit="0" width="100%"/>
+            <imagedata align="center"
+                       fileref="figs/print/simple-project_depgraph.pdf"
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </figure>

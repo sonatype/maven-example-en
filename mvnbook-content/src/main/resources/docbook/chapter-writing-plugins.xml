@@ -371,9 +371,10 @@
           <term>groupId, artifactId, version</term>
 
           <listitem>
-            <para>Just like everything else in Maven, plugins need to have a
-            unique coordinate. The groupId, artifactId, and version are used
-            to locate the plugin artifact in a Maven repository.</para>
+            <para>As with everything else in Maven, plugins need to have a
+            unique set of coordinates. The groupId, artifactId, and version
+            are used to locate the plugin artifact in a Maven
+            repository.</para>
           </listitem>
         </varlistentry>
 
@@ -384,7 +385,7 @@
             <para>This element controls the prefix used to reference goals in
             a particular plugin. If you were to look at the Compiler plugin's
             descriptor you would see that <varname>goalPrefix</varname> has a
-            value of <varname>compiler</varname>, and if you look at the
+            value of <varname>compiler</varname>. If you look at the
             descriptor for the Jar plugin, it would have a
             <varname>goalPrefix</varname> of <varname>jar</varname>. It is
             important that you choose a distinct goal prefix for your custom
@@ -397,7 +398,7 @@
 
           <listitem>
             <para>This is a legacy property which is no longer used by Maven.
-            It is still present in the system to provide for backwards
+            It is still present in the system to provide backwards
             compatibility with older plugins. Earlier versions of Maven used
             to provide a mechanism to load a plugin's dependencies in an
             isolated <classname>ClassLoader</classname>. Maven makes extensive
@@ -573,11 +574,10 @@
           <term>language</term>
 
           <listitem>
-            <para>The default language for a Maven Mojo is
-            <varname>java</varname>. This controls the Plexus
-            <classname>ComponentFactory</classname> used to create instances
-            of this Mojo component. This chapter focuses on writing Maven
-            plugins in Java, but you can also write Maven in a number of
+            <para>The default language for a Maven Mojo is Java. This controls
+            the Plexus <classname>ComponentFactory</classname> used to create
+            instances of this Mojo component. This chapter focuses on writing
+            Maven plugins in Java, but you can also write Maven in a number of
             alternative languages such as Groovy, Beanshell, and Ruby. If you
             were writing a plugin in one of these languages you would use a
             language element value other than <varname>java</varname>.</para>
@@ -603,10 +603,10 @@
           <listitem>
             <para>The execution strategy tells Maven when and how to execute a
             Mojo. The valid values are <varname>once-per-session</varname> and
-            <varname>always</varname>. Honestly, the valid values are
-            anything, this particular property doesn't do a thing, it is a
-            hold over from an early design of Maven. This property is slated
-            for deprecation in a future release of Maven.</para>
+            <varname>always</varname>. Note: This particular property doesn't
+            do a thing, it is a hold over from an early design of Maven. This
+            property is slated for deprecation in a future release of
+            Maven.</para>
           </listitem>
         </varlistentry>
 
@@ -615,8 +615,8 @@
 
           <listitem>
             <para>This element describes all of the parameters for this Mojo.
-            What's the name of the parameter What is the type of parameter? Is
-            it required? Each parameter has the following elements:</para>
+            What's the name of the parameter? What is the type of parameter?
+            Is it required? Each parameter has the following elements:</para>
 
             <variablelist>
               <varlistentry>
@@ -782,7 +782,7 @@
       <acronym>POM</acronym> is the packaging element which has a value of
       <varname>maven-plugin</varname>. This packaging element customizes the
       Maven lifecycle to include the necessary goals to create a plugin
-      descriptor. The plugin lifecycle was introduce in <xref
+      descriptor. The plugin lifecycle was introduced in <xref
       linkend="lifecycle-sect-plugin-lifecycle" />, it is similar to the Jar
       lifecycle with three exceptions: <varname>plugin:descriptor</varname> is
       bound to the <varname>generate-resources</varname> phase,
@@ -1717,10 +1717,10 @@ private ZipArchiver zipArchiver;</programlisting>
 
           <listitem>
             <para>If this annotation is present, the user cannot directly
-            configuration this parameter in the <acronym>POM</acronym>. You
-            would use this annotation with the expression attribute of the
-            parameter annotation. For example, if you wanted to make sure that
-            a particular parameter always had the value of the
+            configure this parameter in the <acronym>POM</acronym>. You would
+            use this annotation with the expression attribute of the parameter
+            annotation. For example, if you wanted to make sure that a
+            particular parameter always had the value of the
             <varname>finalName</varname> <acronym>POM</acronym> property, you
             would list an expression of <varname>\${build.finalName}</varname>
             and then add the <classname>@readOnly</classname> annotation. If
@@ -1807,13 +1807,13 @@ private ZipArchiver zipArchiver;</programlisting>
       <acronym>WAV</acronym> file into an <acronym>MP3</acronym> using
       something like <acronym>LAME</acronym>, but before you do that, you want
       to step through a lifecycle that turns a <acronym>MIDI</acronym> file to
-      a <acronym>WAV</acronym>. (You can use Maven for anything, this isn't
+      a <acronym>WAV</acronym>. (You can use Maven for anything; this isn't
       that "far out".) You've created a "midi-sound" lifecycle, and you want
       to include the output of the <varname>midi-sound</varname> lifecycle's
       <varname>install</varname> phase in your web application project which
       has a <varname>war</varname> packaging type. Since your project is
       running in the <varname>war</varname> packaging lifecycle, you'll need
-      to have goal that effectively forks off an isolated build and runs
+      to have a goal that effectively forks off an isolated build and runs
       through the <varname>midi-source</varname> lifecycle. You would do this
       by annotating your mojo with <varname>@execute lifecycle="midi-source"
       phase="install"</varname>.</para>
@@ -2002,10 +2002,10 @@ public class ZipForkMojo extends AbstractMojo
         </example></para>
 
       <para>If you create a plugin which defines a new packaging type and a
-      customized lifecycle, Maven won't know anything about it until you add the
-      plugin to your project's <acronym>POM</acronym> and set the extensions
-      element to true. Once you do this, Maven will scan your plugin for more
-      than just Mojos to execute, it will look for the
+      customized lifecycle, Maven won't know anything about it until you add
+      the plugin to your project's <acronym>POM</acronym> and set the
+      extensions element to true. Once you do this, Maven will scan your
+      plugin for more than just Mojos to execute, it will look for the
       <filename>components.xml</filename> under
       <filename>META-INF/plexus</filename>, and it will make the packaging
       type available to your project.</para>
