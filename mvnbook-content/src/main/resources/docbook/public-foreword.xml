@@ -32,6 +32,39 @@
 
       <itemizedlist>
         <listitem>
+          <para>Added documentation for Default Mojo Execution settings in a
+          new chapter focused on Maven Configuration <xref
+          linkend="configuring" />. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-140">MVNDEF-140</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Added some clarification to <xref
+          linkend="web-sect-configuring-jetty" /> instructing users to run
+          jetty:run from the simple-webapp/ directory. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-115">MVNDEF-115</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Added a warning note to <xref
+          linkend="web-sect-configuring-jetty" /> warning Windows users of
+          potential problems starting Jetty with a local Maven repository
+          stored under "C:\Documents and Settings". (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-114">MVNDEF-114</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Update <xref linkend="pom-relationships-sect-super-pom" /> to
+          include the Super POM from Maven 2.2.1. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-176">MVNDEF-176</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Removed summary section from the Introduction, it was useless
+          and served no purpose.</para>
+        </listitem>
+
+        <listitem>
           <para>Addressing feedback from a proofread of the 0.7.1 PDF (<ulink
           url="https://issues.sonatype.org/browse/MVNDEF-271">MVNDEF-271</ulink>)</para>
 
@@ -137,6 +170,224 @@
               <para>Fixed some sentence structure issues on Page 294 in <xref
               linkend="writing-plugins-top-level-elements" />. (<ulink
               url="https://issues.sonatype.org/browse/MVNDEF-326">MVNDEF-326</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed some sentence structure issues on Page 290 in <xref
+              linkend="writing-plugins-ioc" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-327">MVNDEF-327</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed some wording issues on Page 282 in <xref
+              linkend="site-generation-sect-custom-template-skin" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-328"
+              userlevel="">MVNDEF-328</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Added a missing word on Page 281 in <xref
+              linkend="site-generation-sect-custom-theme-css" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-329">MVNDEF-329</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed a wording issue on Page 273 in <xref
+              linkend="site-generation-sect-deploy-site" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-330">MVNDEF-330</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed a spelling issue on Page 244 in <xref
+              linkend="assemblies-sect-repositories" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-331">MVNDEF-331</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed wording issues on Page 229 in <xref
+              linkend="assemblies-sect-output-algorithm" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-332">MVNDEF-332</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Modified sentence structure in <xref
+              linkend="profiles-sect-maven-profiles" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-337">MVNDEF-337</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Removed unnecessary comma from Page 168 in <xref
+              linkend="pom-relationships-sect-multi-module" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-339">MVNDEF-339</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed sentence structure on Page 166 in <xref
+              linkend="pom-relationships-sect-more-coordinates" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-340">MVNDEF-340</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed various spelling and grammar typos on Page 155 in
+              <xref linkend="pom-relationships-sect-pom-syntax" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-341">MVNDEF-341</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed punctuation issues on Page 149 in <xref
+              linkend="pom-relationships-sect-super-pom" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-342">MVNDEF-342</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed some spelling and wording issues on Page 119 in
+              <xref linkend="multimodule-web-spring-sect-simple-command" />.
+              (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-344">MVNDEF-344</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed some punctuation issues on Page 110 in <xref
+              linkend="multimodule-web-spring-sect-simple-web" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-345">MVNDEF-345</ulink>)</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Responding to Grant Birchmeier's proofread of the Preface
+          material from GetSatisfaction. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-346">MVNDEF-346</ulink>,
+          <ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-347">MVNDEF-347</ulink>)</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Split sentence in second paragraph of <xref
+              linkend="preface-1-sect-how-to-use" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-349">MVNDEF-349</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed mismatch between contact address and footnote in
+              first paragraph of <xref lang=""
+              linkend="preface-1-sect-feedback" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-350">MVNDEF-350</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Making sure that the Italic is really italic in the font
+              conventions section. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-351">MVNDEF-351</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Adopted the proposed language for the "plugin" bullet
+              point. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-352">MVNDEF-352</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Added a missing article to the first sentence of the first
+              paragraph of <xref
+              linkend="installation-sect-common-interface" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-353">MVNDEF-353</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Rearranged a long, ungrammatical sentence at the start of
+              the last paragraph in <xref
+              linkend="installation-sect-universal-reuse" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-354">MVNDEF-354</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Added a missing preposition to first bullet in <xref
+              linkend="installation-sect-conceptual" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-355">MVNDEF-355</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Reworded the universal reuse bullet item in <xref
+              linkend="installation-sect-conceptual" />. (<ulink type=""
+              url="https://issues.sonatype.org/browse/MVNDEF-356">MVNDEF-356</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Removed final sentence in <xref
+              linkend="installation-sect-conceptual" />. (<ulink type=""
+              url="https://issues.sonatype.org/browse/MVNDEF-357">MVNDEF-357</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Removed the last sentence of <xref
+              linkend="installation-sect-mavenAlternativeAnt" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-358">MVNDEF-358</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Removed a superfluous "the" from the first paragraph of
+              <xref linkend="installation-sect-compare-ant-maven" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-359"
+              userlevel="">MVNDEF-359</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Rewrote the first paragraph of <xref
+              linkend="installation-sect-compare-ant-maven" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-360">MVNDEF-360</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Rewrote second and third sentence fragments in the sixth
+              paragraph of <xref
+              linkend="installation-sect-compare-ant-maven" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-362">MVNDEF-362</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Made sure that the comparison bullet points used
+              consistent tense. Fixed a number of sentence fragment issues in
+              the comparison bullet points. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-363">MVNDEF-363</ulink>,
+              <ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-364">MVNEF-364</ulink>,
+              <ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-365">MVNDEF-365</ulink>,
+              and <ulink type=""
+              url="https://issues.sonatype.org/browse/MVNDEF-366">MVNDEF-366</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Addressed a few grammar errors in the third to last
+              paragraph of <xref
+              linkend="installation-sect-compare-ant-maven" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-367">MVNDEF-367</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Combined the first two sentences of <xref
+              linkend="installation-sect-upgrade" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-369">MVNDEF-369</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Italicized a book title in <xref
+              linkend="installation-sect-upgrade-detail" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-371"
+              userlevel="">MVNDEF-371</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Separating URLs with a colon twice in <xref
+              linkend="installation-sect-license" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-372">MVNDEF-372</ulink>)</para>
+            </listitem>
+
+            <listitem>
+              <para>Fixed an incorrect reference to Part II in the third
+              paragraph of <xref linkend="part-example" />. (<ulink
+              url="https://issues.sonatype.org/browse/MVNDEF-373">MVNDEF-373</ulink>)</para>
             </listitem>
           </itemizedlist>
         </listitem>

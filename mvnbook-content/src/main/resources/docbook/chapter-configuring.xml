@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="configuring">
+  <title>Maven Configuration</title>
+
+  <section>
+    <title>Configuring Maven Plugins</title>
+
+    <para>To customize the behavior of a Maven Plugin, you will need to
+    configure the plugin in a project's POM. The following sections outline
+    the various methods available for customizing a Maven plugin's
+    configuration. </para>
+
+    <section>
+      <title>Plugin Configuration Parameters</title>
+
+      <para>Maven plugins are configured using properties that are defined by
+      goals within a plugin. If you look at a goal like the
+      <varname>compile</varname> goal in the Maven Compiler Plugin you will
+      see a list of configuration parameters like <varname>source</varname>,
+      <varname>target</varname>, <varname>compilerArgument</varname>,
+      <varname>fork</varname>, <varname>optimize</varname>, and many others.
+      If you look at the <varname>testCompile</varname> goal you will see a
+      different list of configuration parameters for the
+      <varname>testCompile</varname> goal. If you are looking for details on
+      the available plugin goal configuration parameters, you can use the
+      Maven Help Plugin to describe a particular plugin or a particular plugin
+      goal.</para>
+
+      <para>To describe a particular plugin, use the
+      <varname>help:describe</varname> goal from the command line as
+      follows:</para>
+
+      <screen>$ <command>mvn help:describe -Dcmd=compiler:compile</command>
+[INFO] [help:describe {execution: default-cli}]
+[INFO] 'compiler:compile' is a plugin goal (aka mojo).
+Mojo: 'compiler:compile'
+compiler:compile
+  Description: Compiles application sources
+  Deprecated. No reason given</screen>
+
+      <para>For more information about the available configuration parameters,
+      run the same command with the <varname>-Ddetail</varname>
+      argument:</para>
+
+      <screen>$ <command>mvn help:describe -Dcmd=compiler:compile -Ddetail</command>
+[INFO] [help:describe {execution: default-cli}]
+[INFO] 'compiler:compile' is a plugin goal (aka mojo).
+Mojo: 'compiler:compile'
+compiler:compile
+  Description: Compiles application sources
+  Deprecated. No reason given
+  Implementation: org.apache.maven.plugin.CompilerMojo
+  Language: java
+  Bound to phase: compile
+
+  Available parameters:
+
+    compilerArgument
+      Sets the unformatted argument string to be passed to the compiler if fork
+      is set to true.
+      
+      This is because the list of valid arguments passed to a Java compiler
+      varies based on the compiler version.
+      Deprecated. No reason given
+
+    compilerArguments
+      Sets the arguments to be passed to the compiler (prepending a dash) if
+      fork is set to true.
+      
+      This is because the list of valid arguments passed to a Java compiler
+      varies based on the compiler version.
+      Deprecated. No reason given
+
+    compilerId (Default: javac)
+      The compiler id of the compiler to use. See this guide for more
+      information.
+      Deprecated. No reason given
+
+    compilerVersion
+      Version of the compiler to use, ex. '1.3', '1.5', if fork is set to true.
+      Deprecated. No reason given
+
+    debug (Default: true)
+      Set to true to include debugging information in the compiled class files.
+      Deprecated. No reason given
+
+    encoding
+      The -encoding argument for the Java compiler.
+      Deprecated. No reason given
+
+    excludes
+      A list of exclusion filters for the compiler.
+      Deprecated. No reason given
+
+    executable
+      Sets the executable of the compiler to use when fork is true.
+      Deprecated. No reason given
+
+    failOnError (Default: true)
+      Indicates whether the build will continue even if there are compilation
+      errors; defaults to true.
+      Deprecated. No reason given
+
+    fork (Default: false)
+      Allows running the compiler in a separate process. If 'false' it uses the
+      built in compiler, while if 'true' it will use an executable.
+      Deprecated. No reason given
+
+    includes
+      A list of inclusion filters for the compiler.
+      Deprecated. No reason given
+
+    maxmem
+      Sets the maximum size, in megabytes, of the memory allocation pool, ex.
+      '128', '128m' if fork is set to true.
+      Deprecated. No reason given
+
+    meminitial
+      Initial size, in megabytes, of the memory allocation pool, ex. '64',
+      '64m' if fork is set to true.
+      Deprecated. No reason given
+
+    optimize (Default: false)
+      Set to true to optimize the compiled code using the compiler's
+      optimization methods.
+      Deprecated. No reason given
+
+    outputFileName
+      Sets the name of the output file when compiling a set of sources to a
+      single file.
+      Deprecated. No reason given
+
+    showDeprecation (Default: false)
+      Sets whether to show source locations where deprecated APIs are used.
+      Deprecated. No reason given
+
+    showWarnings (Default: false)
+      Set to true to show compilation warnings.
+      Deprecated. No reason given
+
+    source
+      The -source argument for the Java compiler.
+      Deprecated. No reason given
+
+    staleMillis (Default: 0)
+      Sets the granularity in milliseconds of the last modification date for
+      testing whether a source needs recompilation.
+      Deprecated. No reason given
+
+    target
+      The -target argument for the Java compiler.
+      Deprecated. No reason given
+
+    verbose (Default: false)
+      Set to true to show messages about what the compiler is doing.
+      Deprecated. No reason given
+</screen>
+
+      <para>If you need to get a list of plugin goals which are contained in a
+      plugin, you can run the help:describe goal and pass in the plugin
+      parameter. The plugin parameter accepts a plugin prefix or a
+      <varname>groupId</varname> and an <varname>artifactId</varname> for a
+      plugin as shown in the following examples:</para>
+
+      <screen>$ <command>mvn help:describe -Dplugin=compiler</command>
+[INFO] [help:describe {execution: default-cli}]
+[INFO] org.apache.maven.plugins:maven-compiler-plugin:2.0.2
+
+Name: Maven Compiler Plugin
+Description: Maven Plugins
+Group Id: org.apache.maven.plugins
+Artifact Id: maven-compiler-plugin
+Version: 2.0.2
+Goal Prefix: compiler
+
+This plugin has 2 goals:
+
+compiler:compile
+  Description: Compiles application sources
+  Deprecated. No reason given
+
+compiler:testCompile
+  Description: Compiles application test sources
+  Deprecated. No reason given
+</screen>
+
+      <para>You can use the <varname>groupId</varname> and the
+      <varname>artifactId</varname> of the plugin and get the same list of
+      plugin goals.</para>
+
+      <screen>$ <command>mvn help:describe -Dplugin=org.apache.maven.plugins:maven-compiler-plugin</command>
+</screen>
+
+      <para>Passing the <varname>-Ddetail</varname> argument to the
+      <varname>help:describe</varname> goal with the plugin parameter will
+      cause Maven to print out all of the goals and all of the goal parameters
+      for the entire plugin.</para>
+    </section>
+
+    <section>
+      <title>Adding Plugin Dependencies</title>
+
+      <para>If you need to configure a plugin to use specific versions of
+      dependencies, you can define these dependencies under a dependencies
+      element under plugin. When the plugin executes, it will execute with a
+      classpath that contains these dependencies. <xref
+      linkend="ex-plugin-dependencies" /> is an example of a plugin
+      configuration that overrides default dependency versions and adds new
+      dependencies to facilitate goal execution.</para>
+
+      <example id="ex-plugin-dependencies">
+        <title>Adding Dependencies to a Plugin</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;groupId&gt;com.agilejava.docbkx&lt;/groupId&gt;
+  &lt;artifactId&gt;docbkx-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;2.0.9&lt;/version&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;docbook&lt;/groupId&gt;
+      &lt;artifactId&gt;docbook-xml&lt;/artifactId&gt;
+      &lt;version&gt;4.5&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.fop&lt;/groupId&gt;
+      &lt;artifactId&gt;fop-pdf-images&lt;/artifactId&gt;
+      &lt;version&gt;1.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.fop&lt;/groupId&gt;
+      &lt;artifactId&gt;fop-pdf-images-res&lt;/artifactId&gt;
+      &lt;version&gt;1.3&lt;/version&gt;
+      &lt;classifier&gt;res&lt;/classifier&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;pdfbox&lt;/groupId&gt;
+      &lt;artifactId&gt;pdfbox&lt;/artifactId&gt;
+      &lt;version&gt;0.7.4-dev&lt;/version&gt;
+      &lt;classifier&gt;dev&lt;/classifier&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/plugin&gt;</programlisting>
+      </example>
+    </section>
+
+    <section>
+      <title>Setting Global Plugin Parameters</title>
+
+      <para>To set a value for a plugin configuration parameter in a
+      particular project, use the XML shown in <xref
+      linkend="ex-config-global-plugin-param" />. Unless this configuration is
+      overridden by a more specific plugin parameter configuration, Maven will
+      use the values defined directly under the <sgmltag>plugin</sgmltag>
+      element for all goals which are executed in this plugin.</para>
+
+      <example id="ex-config-global-plugin-param" label="">
+        <title>Configuring a Maven Plugin</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;source&gt;1.5&lt;/source&gt;
+    &lt;target&gt;1.5&lt;/target&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</programlisting>
+      </example>
+    </section>
+
+    <section>
+      <title>Setting Execution Specific Parameters</title>
+
+      <para>You can configure plugin parameters for specific executions of a
+      plugin goal. <xref linkend="ex-config-plugin-exec-params" /> shows an
+      example of configuration parameters being passed to the execution of the
+      run goal of the AntRun plugin during the validate phase. This specific
+      execution will inherit the configuration parameters from the plugin's
+      configuration element and merge them with the values defined for this
+      particular execution.</para>
+
+      <example id="ex-config-plugin-exec-params">
+        <title>Setting Configuration Parameters in an Execution</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;phase&gt;validate&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;run&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;tasks&gt;
+          &lt;echo&gt;${PATH}=${env.PATH}&lt;/echo&gt;
+          &lt;echo&gt;User's Home Directory: ${user.home}&lt;/echo&gt;
+          &lt;echo&gt;Project's Base Director: ${basedir}&lt;/echo&gt;
+        &lt;/tasks&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</programlisting>
+      </example>
+    </section>
+
+    <section>
+      <title>Setting Default Command Line Execution Parameters</title>
+
+      <para>Starting with Maven 2.2.0, you can now supply configuration
+      parameters for goals which are executed from the command-line. To do
+      this, use the special execution id value of "default-cli". <xref
+      linkend="ex-configure-plugin-default-cli" /> shows an example that binds
+      the single goal to the package phase of the lifecycle which produces a
+      binary distribution. This example also configures the
+      <varname>default-cli</varname> execution for the assembly plugin to use
+      the <varname>jar-with-dependencies</varname> assembly descriptor. The
+      <filename>bin.xml</filename> descriptor will be used during the
+      lifecycle, and <varname>jar-with-dependencies</varname> will be used
+      when you execute <command>mvn assembly:assembly</command> from the
+      command line.</para>
+
+      <example id="ex-configure-plugin-default-cli" label="" lang="">
+        <title>Configuring Plugin Parameters for Command Line
+        Execution</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;appendAssemblyId&gt;false&lt;/appendAssemblyId&gt;
+  &lt;/configuration&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;assemble-binary&lt;/id&gt;
+      &lt;phase&gt;package&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;single&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;descriptors&gt;
+          &lt;descriptor&gt;src/main/assembly/bin.xml&lt;/descriptor&gt;
+        &lt;/descriptors&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+    &lt;execution&gt;
+      &lt;id&gt;default-cli&lt;/id&gt;
+      &lt;configuration&gt;
+        &lt;descriptorRefs&gt;
+          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;
+        &lt;/descriptorRefs&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</programlisting>
+      </example>
+    </section>
+
+    <section>
+      <title>Setting Parameters for Goals Bound to Default Lifecycle</title>
+
+      <para>Starting with Maven 2.2.0, if you need to customize the behavior
+      of a goal which is already bound to the default lifecycle, you can use
+      the execution id "default-&lt;goal&gt;". You can customize the behavior
+      of the Jar plugin's jar goal which is bound to the package phase in the
+      default lifecycle, and you can customize the configuration parameters of
+      a separate goal execution if you follow the example shown in <xref
+      linkend="ex-configure-default-param" />.</para>
+
+      <example id="ex-configure-default-param" label="">
+        <title>Setting a Parameter for a Default Goal Execution</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;default-jar&lt;/id&gt;
+      &lt;configuration&gt;
+        &lt;excludes&gt;
+          &lt;exclude&gt;**/somepackage/*&lt;/exclude&gt;
+        &lt;/excludes&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+    &lt;execution&gt;
+      &lt;id&gt;special-jar&lt;/id&gt;
+      &lt;phase&gt;package&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;jar&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;includes&gt;
+          &lt;include&gt;**/sompackage/*&lt;/include&gt;
+        &lt;/includes&gt;
+        &lt;classifier&gt;somepackage&lt;/classifier&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;</programlisting>
+      </example>
+
+      <para>In this example, the default jar goal is customized to exclude
+      contents in a specific package. Another jar goal is bound to the package
+      phase to create a JAR file which contains only the contents of a
+      particular package in a classified JAR file.</para>
+
+      <para>Configuring the default goal execution parameters can also come in
+      handy if you need to configure two goals bound to the default lifecycle
+      with separate settings for the same configuration parameter. <xref
+      linkend="ex-configure-two-default-param" /> shows an example that
+      configures the default resources:resources goal to exclude empty
+      directories while configuring the default resources:testResources goal
+      to include empty directories.</para>
+
+      <example id="ex-configure-two-default-param">
+        <title>Setting Two Default Goal Plugin Configuration
+        Parameters</title>
+
+        <programlisting>&lt;plugin&gt;
+  &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;default-resources&lt;/id&gt;
+      &lt;configuration&gt;
+        &lt;includeEmptyDirs&gt;false&lt;/includeEmptyDirs&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+    &lt;execution&gt;
+      &lt;id&gt;default-testResources&lt;/id&gt;
+      &lt;configuration&gt;
+        &lt;includeEmptyDirs&gt;true&lt;/includeEmptyDirs&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;</programlisting>
+      </example>
+    </section>
+  </section>
+</chapter>

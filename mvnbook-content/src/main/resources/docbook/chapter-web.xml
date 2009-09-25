@@ -275,9 +275,10 @@ package: org.sonatype.mavenbook.ch05
     <para>Once you've configured the Maven Jetty Plugin in your project's
     <filename>pom.xml</filename>, you can then invoke the Run goal of the
     Jetty plugin to start your web application in the Jetty Servlet container.
-    Run <command>mvn jetty:run</command> as follows:</para>
+    Run <command>mvn jetty:run</command> from the
+    <filename>simple-webapp/</filename> project directory as follows:</para>
 
-    <screen>~/examples$ <command>mvn jetty:run</command>
+    <screen>~/examples/simple-webapp $ <command>mvn jetty:run</command>
 ...
 [INFO] [jetty:run]
 [INFO] Configuring Jetty for project: simple-webapp Maven Webapp
@@ -299,6 +300,18 @@ package: org.sonatype.mavenbook.ch05
 2007-11-17 22:11:51.057::INFO:  Started SelectChannelConnector@0.0.0.0:8080
 [INFO] Started Jetty Server
 </screen>
+
+    <warning>
+      <para>If you are running the Maven Jetty Plugin on a Windows platform
+      you may need to move your local Maven repository to a directory that
+      does not contain spaces. Some readers have reported issues on Jetty
+      startup caused by a repository that was being stored under
+      <filename>"C:\Documents and Settings\&lt;user&gt;"</filename>. The
+      solution to this problem is to move your local Maven repository to a
+      directory that does not contain spaces and redefine the location of your
+      local repository in <filename>~/.m2/settings.xml</filename> as discussed
+      in <xref linkend="appendix-settings-sect-simpleval" />.</para>
+    </warning>
 
     <para>After Maven starts the Jetty Servlet container, load the URL <ulink
     url="http://localhost:8080/simple-webapp/">http://localhost:8080/simple-webapp/</ulink>

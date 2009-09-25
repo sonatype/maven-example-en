@@ -1749,10 +1749,10 @@ public class WeatherController implements Controller {
 </programlisting>
     </example>
 
-    <para>The syntax for this Velocity template is straightforward, variables
+    <para>The syntax for this Velocity template is straightforward: variables
     are referenced using <code>\${}</code> notation. The expression between
     the curly braces references a property, or a property of a property on the
-    <varname>weather</varname> variable which was passed to this template by
+    <varname>weather</varname> variable, which was passed to this template by
     the <classname>WeatherController</classname>.</para>
 
     <para>The <classname>HistoryController</classname> is used to retrieve
@@ -2348,7 +2348,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
 </programlisting>
     </example>
 
-    <para>This <acronym>POM</acronym> creates an <acronym>JAR</acronym> file
+    <para>This <acronym>POM</acronym> creates a <acronym>JAR</acronym> file
     which will contain the
     <classname>org.sonatype.mavenbook.weather.Main</classname> class shown in
     <xref linkend="ex-spring-command-main-class" />. In this
@@ -2357,7 +2357,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     <varname>jar-with-dependencies</varname> which creates a single
     <acronym>JAR</acronym> file containing all the bytecode a project needs to
     execute including the bytecode from the project you are building and all
-    the dependency bytecode.</para>
+    the bytecode from libraries your project depends upons.</para>
 
     <example id="ex-spring-command-main-class">
       <title>The Main class for simple-command</title>

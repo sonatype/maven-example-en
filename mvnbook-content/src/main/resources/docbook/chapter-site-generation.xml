@@ -103,8 +103,8 @@ $ <command>mvn site:run</command>
           </imageobject>
 
           <imageobject role="print">
-            <imagedata fileref="figs/print/site_index.pdf"
-                       format="PDF" align="center" scalefit="0" width="100%"/>
+            <imagedata align="center" fileref="figs/print/site_index.pdf"
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </screenshot>
@@ -206,9 +206,9 @@ $ mvn site:run</screen>
           </imageobject>
 
           <imageobject role="print">
-            <imagedata 
+            <imagedata align="center"
                        fileref="figs/print/site_custom-descriptor.pdf"
-                       format="PDF"  align="center" scalefit="0" width="100%" />
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </screenshot>
@@ -522,7 +522,7 @@ Welcome to Sample Project
     <title>Deploying Your Project Website</title>
 
     <para>Once your project's documentation has been written and you've
-    creates a site to be proud of, you will want to deploy it a server. To
+    creates a site to be proud of, you will want to deploy it to a server. To
     deploy your site you'll use the Maven Site plugin which can take care of
     deploying your project's site to a remote server using a number of methods
     including <acronym>FTP</acronym>, <acronym>SCP</acronym>, and
@@ -1060,7 +1060,7 @@ $ <command>mkdir src/main/resources</command>
       <title>Creating a Custom Theme CSS</title>
 
       <para>Next, write a custom <acronym>CSS</acronym> for the custom skin. A
-      Å file in a Maven site skin should be placed in
+      custom CSS stylesheet in a Maven site skin should be placed in
       <filename>src/main/resources/css/maven-theme.css</filename>. Unlike the
       <filename>site.css</filename> file, which goes in the site-specific
       source directory for a project, the <filename>maven-theme.css</filename>
@@ -1140,91 +1140,6 @@ $ <command>mkdir src/main/resources</command>
       single project, and makes reusing custom <acronym>CSS</acronym> and site
       templates as easy as reusing build logic through a custom Maven
       plugin.</para>
-    </section>
-
-    <section id="site-generation-sect-custom-template-skin">
-      <title>Customizing Site Templates in a Skin</title>
-
-      <para>Just as you can customize a the site <acronym>CSS</acronym> in a
-      Maven Site skin, you can also customize the site template. Doxia's
-      site-rendering tools will expect to find a file called
-      <filename>META-INF/maven/site.vm</filename> inside the skin
-      <acronym>JAR</acronym>. To incorporate a custom page template, copy the
-      template file into the correct location within the
-      <varname>sample-site-skin</varname>. Copy the custom site template
-      developed earlier in the chapter to
-      <filename>src/main/resources/META-INF/maven</filename> in
-      <varname>sample-site-skin</varname>:</para>
-
-      <screen>$ mv sample-project/src/site/site.vm \
-    sample-site-skin/src/main/resources/META-INF/maven
-</screen>
-
-      <para>If you already customized the site template in
-      <varname>sample-project</varname>, remove the Site plugin configuration
-      which pointed to this site template. The Site plugin will render the
-      site using the site template referenced in the site skin.</para>
-
-      <programlisting language="xml">&lt;plugin&gt;
-  &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-  &lt;configuration&gt;
-    &lt;templateDirectory&gt;src/site&lt;/templateDirectory&gt;
-    &lt;template&gt;site.vm&lt;/template&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
-</programlisting>
-
-      <para>A Maven Site skin is expected to include all of the resources it
-      depends on. This includes <acronym>CSS</acronym>, images, and logos. If
-      you already customized the site template earlier in the chapter, you've
-      already copied the default <varname>doxia-site-renderer</varname>
-      resources to the <varname>sample-project</varname>'s
-      <filename>src/site/resources</filename> directory. You'll need to move
-      those files out of the <varname>sample-project</varname> project and
-      into the new <varname>sample-site-skin</varname> project by executing
-      the following commands:</para>
-
-      <screen>$ cd ..
-$ mkdir -p sample-site-skin/src/main/resources/css
-$ mv sample-project/src/site/resources/css/maven-base.css \
-    sample-site-skin/src/main/resources/css
-$ mkdir -p sample-site-skin/src/main/resources/images
-$ mv sample-project/src/site/resources/images/logos \
-    sample-site-skin/src/main/resources/images
-$ mv sample-project/src/site/resources/images/expanded.gif \
-    sample-site-skin/src/main/resources/images
-$ mv sample/src/site/resources/images/collapsed.gif \
-    sample-site-skin/src/main/resources/images
-</screen>
-
-      <para>You've changed the <varname>sample-site-skin</varname>, so you'll
-      need to install this skin into your local Maven repository. Once you
-      install the skin locally and rebuild the
-      <varname>sample-project</varname> web site. You'll see that the skin's
-      custom site template was applied to the
-      <varname>sample-project</varname>'s web site. You'll notice that the
-      color of the menu items may be a little off because you haven't added
-      the necessary <acronym>CSS</acronym> to the collapsed and expanded menu
-      items. To do this, modify
-      <filename>src/main/resources/css/maven-theme.css</filename>.
-      Change:</para>
-
-      <screen>a:link {
-  ...
-}
-</screen>
-
-      <para>to this:</para>
-
-      <screen>li.collapsed, li.expanded, a:link {
-  ...
-}
-</screen>
-
-      <para>Rebuild the skin, then regenerate the website, and you'll see that
-      the menu items have returned to normal. You've successfully created a
-      Maven theme which can be used to apply <acronym>CSS</acronym> and
-      templates to a set of projects.</para>
     </section>
   </section>
 

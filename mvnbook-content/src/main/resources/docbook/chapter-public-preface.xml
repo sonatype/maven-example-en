@@ -27,7 +27,7 @@
   innovation and development surrounding Maven and the software ecosystem that
   surrounds it.</para>
 
-  <section id="preface-1-sect-how-to-use"> 
+  <section id="preface-1-sect-how-to-use">
     <title>How to Use this Book</title>
 
     <para>Pick it up, read some of the text on the pages. Once you reach the
@@ -45,7 +45,7 @@
     examples and walking you through the structure of those examples providing
     motivation and explanation along the way. If you are new to Maven, start
     with <xref linkend="part-example" />. <xref linkend="part-reference" /> is
-    less introduction than reference, each chapter in <xref
+    less introduction than reference. Each chapter in <xref
     linkend="part-reference" /> deals with a focused topic and dives into as
     much detail as possible about each topic. For example, the <xref
     linkend="writing-plugins" /> chapter in <xref linkend="part-reference" />
@@ -98,7 +98,8 @@
 
     <variablelist>
       <varlistentry>
-        <term><emphasis role="italic">Italic</emphasis></term>
+        <term><emphasis
+        role="italic"><literal>Italic</literal></emphasis></term>
 
         <listitem>
           <para>Used for filenames, file extensions, URLs, application names,
@@ -172,10 +173,10 @@
         <term>"plugin"</term>
 
         <listitem>
-          <para>Maven revolves around the heavy use of plug-ins but you won't
-          find plugin defined in the dictionary. This book writes the term as
-          "plugin" both because it is easier to read and write and because it
-          is a standard throughout the Maven community.</para>
+          <para>While "plug-in" (with hyphen) would be the grammatically
+          correct form, this book writes the term as "plugin" both because it
+          is easier to read and write and because it is a standard throughout
+          the Maven community.</para>
         </listitem>
       </varlistentry>
 
@@ -232,5 +233,9 @@
     you see your Get Satisfaction username in this list, and you would like it
     replaced with your real name, send an email to <ulink
     url="mailto:book@sonatype.com">book@sonatype.com</ulink>.</para>
+
+    <para>Special thanks to Grant Birchmeier for taking the time to proofread
+    portions of the book and file extremely detailed feedback via
+    GetSatisfaction.</para>
   </section>
 </preface>

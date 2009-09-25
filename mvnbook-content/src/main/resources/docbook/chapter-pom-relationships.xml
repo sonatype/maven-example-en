@@ -98,8 +98,9 @@
           </imageobject>
 
           <imageobject role="print">
-            <imagedata fileref="figs/print/pom-relationships_pom-small.pdf"
-                       format="PDF"  align="center" scalefit="0" width="100%"/>
+            <imagedata align="center"
+                       fileref="figs/print/pom-relationships_pom-small.pdf"
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </figure></para>
@@ -186,14 +187,14 @@
       </varlistentry>
     </variablelist>
 
-    <section id="pom-relationships-sect-super-pom">
+    <section id="pom-relationships-sect-super-pom" label="">
       <title>The Super POM</title>
 
       <para>Before we dive into some examples of <acronym>POM</acronym>s,
       let's take a quick look at the Super <acronym>POM</acronym>. All Maven
-      project <acronym>POM</acronym>s extend the Super <acronym>POM</acronym>
+      project <acronym>POM</acronym>s extend the Super <acronym>POM</acronym>,
       which defines a set of defaults shared by all projects. This Super
-      <acronym>POM</acronym> is a part of the Maven installation, and can be
+      <acronym>POM</acronym> is a part of the Maven installation and can be
       found in the <filename>maven-${maven.version}-uber.jar</filename> file
       in <filename>\${M2_HOME}/lib</filename>. If you look in this
       <acronym>JAR</acronym> file, you will find a file named
@@ -239,34 +240,42 @@
   &lt;/pluginRepositories&gt;
 
   &lt;build&gt; <co id="coDef-super-3" linkends="coRef-super-3" />
-    &lt;directory&gt;target&lt;/directory&gt;
-    &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
-    &lt;finalName&gt;\${pom.artifactId}-\${pom.version}&lt;/finalName&gt;
-    &lt;testOutputDirectory&gt;target/test-classes&lt;/testOutputDirectory&gt;
-    &lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
+    &lt;directory&gt;${project.basedir}/target&lt;/directory&gt;
+    &lt;outputDirectory&gt;
+      ${project.build.directory}/classes
+    &lt;/outputDirectory&gt;
+    &lt;finalName&gt;${project.artifactId}-${project.version}&lt;/finalName&gt;
+    &lt;testOutputDirectory&gt;
+      ${project.build.directory}/test-classes
+    &lt;/testOutputDirectory&gt;
+    &lt;sourceDirectory&gt;
+      ${project.basedir}/src/main/java
+    &lt;/sourceDirectory&gt;
     &lt;scriptSourceDirectory&gt;src/main/scripts&lt;/scriptSourceDirectory&gt;
-    &lt;testSourceDirectory&gt;src/test/java&lt;/testSourceDirectory&gt;
+    &lt;testSourceDirectory&gt;
+      ${project.basedir}/src/test/java
+    &lt;/testSourceDirectory&gt;
     &lt;resources&gt;
       &lt;resource&gt;
-        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+        &lt;directory&gt;${project.basedir}/src/main/resources&lt;/directory&gt;
       &lt;/resource&gt;
     &lt;/resources&gt;
     &lt;testResources&gt;
       &lt;testResource&gt;
-        &lt;directory&gt;src/test/resources&lt;/directory&gt;
+        &lt;directory&gt;${project.basedir}/src/test/resources&lt;/directory&gt;
       &lt;/testResource&gt;
     &lt;/testResources&gt;
-  &lt;/build&gt;
+
 
       &lt;pluginManagement&gt;<co id="coDef-super-4" linkends="coRef-super-4" />
        &lt;plugins&gt;
-         &lt;plugin&gt;
+                  &lt;plugin&gt;
            &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;
-           &lt;version&gt;1.1&lt;/version&gt;
-         &lt;/plugin&gt;       
+           &lt;version&gt;1.3&lt;/version&gt;
+         &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.2-beta-1&lt;/version&gt;
+           &lt;version&gt;2.2-beta-2&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
@@ -282,7 +291,7 @@
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.3&lt;/version&gt;
+           &lt;version&gt;2.4&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-ear-plugin&lt;/artifactId&gt;
@@ -302,39 +311,39 @@
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.4&lt;/version&gt;
+           &lt;version&gt;2.5&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-plugin-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.3&lt;/version&gt;
+           &lt;version&gt;2.4.3&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-rar-plugin&lt;/artifactId&gt;
            &lt;version&gt;2.2&lt;/version&gt;
          &lt;/plugin&gt;
-         &lt;plugin&gt;                
+         &lt;plugin&gt;
            &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.0-beta-7&lt;/version&gt;
+           &lt;version&gt;2.0-beta-8&lt;/version&gt;
          &lt;/plugin&gt;
-         &lt;plugin&gt;                
+         &lt;plugin&gt;
            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.2&lt;/version&gt;
+           &lt;version&gt;2.3&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.0-beta-6&lt;/version&gt;
+           &lt;version&gt;2.0-beta-7&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
            &lt;version&gt;2.0.4&lt;/version&gt;
-         &lt;/plugin&gt;         
+         &lt;/plugin&gt;
          &lt;plugin&gt;
             &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.4.2&lt;/version&gt;
+            &lt;version&gt;2.4.3&lt;/version&gt;
          &lt;/plugin&gt;
          &lt;plugin&gt;
            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-           &lt;version&gt;2.1-alpha-1&lt;/version&gt;
+           &lt;version&gt;2.1-alpha-2&lt;/version&gt;
          &lt;/plugin&gt;
        &lt;/plugins&gt;
      &lt;/pluginManagement&gt;
@@ -395,8 +404,9 @@
           </imageobject>
 
           <imageobject role="print">
-            <imagedata fileref="figs/print/pom-relationships_pom-inherit-simple-super.pdf"
-                       format="PDF"  align="center" scalefit="0" width="100%"/>
+            <imagedata align="center"
+                       fileref="figs/print/pom-relationships_pom-inherit-simple-super.pdf"
+                       format="PDF" scalefit="0" width="100%" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -621,16 +631,16 @@
         SNAPSHOT release, and Maven will periodically attempt to download the
         latest snapshot from a repository when you run a build. Similarly, if
         the next release of your system is going to have a version "1.4", your
-        project would have a version "1.4-SNAPSHOT" version until it was
-        formally released.</para>
+        project would have a version "1.4-SNAPSHOT" until it was formally
+        released.</para>
 
         <para>As a default setting, Maven will not check for SNAPSHOT releases
-        on remote repositories, to depend on SNAPSHOT releases, users must
+        on remote repositories. To depend on SNAPSHOT releases, users must
         explicitly enable the ability to download snapshots using a
         <sgmltag>repository</sgmltag> or <sgmltag>pluginRepository</sgmltag>
         element in the <acronym>POM</acronym>.</para>
 
-        <para>When releasing a project you should resolve all dependencies on
+        <para>When releasing a project, you should resolve all dependencies on
         SNAPSHOT versions to dependencies on released versions. If a project
         depends on a SNAPSHOT, it is not stable as the dependencies may change
         over time. Artifacts published to non-snapshot Maven repositories such
@@ -644,7 +654,7 @@
       <section id="pom-relationships-sect-latest-release">
         <title>LATEST and RELEASE Versions</title>
 
-        <para>When you depend on a plugin or a dependency, you can use the a
+        <para>When you depend on a plugin or a dependency, you can use the
         version value of LATEST or RELEASE. LATEST refers to the latest
         released or snapshot version of a particular artifact, the most
         recently deployed artifact in a particular repository. RELEASE refers
@@ -665,7 +675,7 @@
         change was introduced to Maven 2.0.9 to bring stability and
         reproducibility to Maven builds. Before Maven 2.0.9, Maven would
         automatically update core Maven plugins using the LATEST version. This
-        behavior led to a number of surprises when bugs was introduced into
+        behavior led to a number of surprises when bugs were introduced into
         core plugins or functionality changed in a core plugin which
         subsequently broke a build. When Maven automatically updated core
         plugins, it was noted that there was little guarantee that a build
@@ -1623,7 +1633,7 @@
     project, this can be as simple as a project depending on an external
     dependency like Log4J or JUnit. While dependencies can model external
     dependencies, they can also manage the dependencies between a set of
-    related projects, if <varname>project-a</varname> depends on
+    related projects. If <varname>project-a</varname> depends on
     <varname>project-b</varname>, Maven is smart enough to know that
     <varname>project-b</varname> must be built before
     <varname>project-a</varname>.</para>
@@ -1637,12 +1647,16 @@
     <section id="pom-relationships-sect-more-coordinates">
       <title>More on Coordinates</title>
 
-      <para>Coordinates define a unique location for a project, they were
+      <para>Coordinates define a unique location for a project. They were
       first introduced in <xref linkend="simple-project" />. Projects are
-      related to one another using Maven Coordinates. project-a doesn't just
-      depend on project-b; a project with a groupId, artifactId, and version
-      depends on another project with a groupId, artifactId, and version. To
-      review, a Maven Coordinate is made up of three components:</para>
+      related to one another using Maven Coordinates.
+      <varname>project-a</varname> doesn't just depend on
+      <varname>project-b</varname>; a project with a
+      <varname>groupId</varname>, <varname>artifactId</varname>, and
+      <varname>version</varname> depends on another project with a
+      <varname>groupId</varname>, <varname>artifactId</varname>, and
+      <varname>version</varname>. To review, a Maven Coordinate is made up of
+      three components:</para>
 
       <variablelist>
         <varlistentry>
@@ -1736,97 +1750,6 @@
       with this shorthand dependency notation.</para>
     </section>
 
-    <section id="pom-relationships-sect-multi-module">
-      <title>Multi-module Projects</title>
-
-      <para>Multi-module projects are projects which contain a list of modules
-      to build. A multi-module project always has a packaging of pom, and
-      rarely produces an artifact. A multi-module project exists only to group
-      projects together in a build. <xref linkend="fig-multiproject" /> shows
-      a project hierarchy which includes two parent projects with packaging of
-      <varname>pom</varname>, and three projects with packaging of
-      <varname>jar</varname>.</para>
-
-      <para><figure id="fig-multiproject">
-          <title>Multi-module Project Relationships</title>
-
-          <mediaobject>
-            <imageobject role="web">
-              <imagedata fileref="figs/web/pom_multimodule.png" />
-            </imageobject>
-
-            <imageobject role="print">
-              <imagedata fileref="figs/print/pom_multimodule.pdf" format="PDF"  align="center" scalefit="0" width="100%"/>
-            </imageobject>
-          </mediaobject>
-        </figure></para>
-
-      <para>The directory structure on the file system would also mirror the
-      module relationships. A set of projects illustrated by <xref
-      linkend="fig-multiproject" /> would have the following directory
-      structure:</para>
-
-      <programlisting>top-parent-project/pom.xml
-top-parent-project/subparent-parent-project/pom.xml
-top-parent-project/subparent-parent-project/project-a/pom.xml
-top-parent-project/subparent-parent-project/project-b/pom.xml
-top-parent-project/project-c/pom.xml</programlisting>
-
-      <para>The projects are related to one another because
-      <varname>top-parent-project</varname> and
-      <varname>subparent-parent-project</varname> are referencing
-      <varname>sub-modules</varname> in a <acronym>POM</acronym>. For example,
-      the <varname>org.sonatype.mavenbook:top-parent-project</varname> project
-      is a multi-module project with packaging of type <varname>pom</varname>.
-      <varname>top-parent-project</varname>'s <filename>pom.xml</filename>
-      would include the following modules element:</para>
-
-      <example>
-        <title>top-parent-project modules element</title>
-
-        <programlisting language="xml">&lt;project&gt;
-  &lt;groupId&gt;org.sonatype.mavenbook&lt;/groupId&gt;
-  &lt;artifactId&gt;top-parent-project&lt;/artifactId&gt;
-  ...
-  &lt;modules&gt;
-    &lt;module&gt;subparent-parent-project&lt;/module&gt;
-    &lt;module&gt;project-c&lt;/module&gt;
-  &lt;/modules&gt;
-  ...
-&lt;/project&gt;</programlisting>
-      </example>
-
-      <para>When Maven is reading <varname>top-parent-project</varname>
-      <acronym>POM</acronym> it will look at the modules element and see that
-      <varname>top-parent-project</varname> references the projects
-      <varname>subparent-parent-project</varname> and
-      <varname>project-c</varname>. Maven will then look for a
-      <filename>pom.xml</filename> in each of these subdirectories. Maven
-      repeats this process for each of the submodules: it will read the
-      <filename>subparent-parent-project/pom.xml</filename> and see that the
-      <varname>subparent-parent-project</varname> project references two
-      projects with the following modules element:</para>
-
-      <example>
-        <title>subparent-parent-project modules element</title>
-
-        <programlisting language="xml">&lt;project&gt;
-  ...
-  &lt;modules&gt;
-    &lt;module&gt;project-a&lt;/module&gt;
-    &lt;module&gt;project-b&lt;/module&gt;
-  &lt;/modules&gt;
-  ...
-&lt;/project&gt;</programlisting>
-      </example>
-
-      <para>Note that we call the projects under the multi-module projects
-      "modules" and not "children" or "child projects". This is purposeful, so
-      as not to confuse projects grouped by multi-module projects with
-      projects that inherit <acronym>POM</acronym> information from each
-      other.</para>
-    </section>
-
     <section id="pom-relationships-sect-project-inheritance">
       <title>Project Inheritance</title>
 
@@ -1878,7 +1801,9 @@ top-parent-project/project-c/pom.xml</programlisting>
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/pom_inheritance.pdf" format="PDF"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/pom_inheritance.pdf" format="PDF"
+                         scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure>When a project specifies a parent project, Maven uses that
@@ -2156,8 +2081,9 @@ top-parent-project/project-c/pom.xml</programlisting>
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/pom_book-example.pdf"
-                         format="PDF"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/pom_book-example.pdf"
+                         format="PDF" scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -2225,7 +2151,9 @@ top-parent-project/project-c/pom.xml</programlisting>
             </imageobject>
 
             <imageobject role="print">
-              <imagedata fileref="figs/print/pom_real_multi.pdf" format="PDF"  align="center" scalefit="0" width="100%"/>
+              <imagedata align="center"
+                         fileref="figs/print/pom_real_multi.pdf" format="PDF"
+                         scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure>

@@ -365,7 +365,7 @@ lib/</screen>
 
       <para>If you've installed Maven on a Mac OSX or Unix machine according
       to the details in <xref lang="" linkend="installation-sect-maven-osx" />
-      and <xref linkend="installation-sect-maven-linux" />. It should be easy
+      and <xref linkend="installation-sect-maven-linux" />, it should be easy
       to upgrade to newer versions of Maven when they become available. Simply
       install the newer version of Maven
       (<filename>/usr/local/maven-2.future</filename>) next to the existing
@@ -399,10 +399,10 @@ lib/</screen>
       created a custom Maven 1 repository to hold custom artifacts, you can
       use the Nexus Repository Manager to expose a Maven 1 repository in a
       format that can be understood by Maven 2 clients. For more information
-      about the Nexus Repository Manager, see <ulink
+      about the Nexus Repository Manager, see <emphasis><literal><ulink
       url="http://www.sonatype.com/books/nexus-book/reference/">Repository
-      Management with Nexus</ulink>. In addition to tools like Nexus, you can
-      also configure references to repositories to use the
+      Management with Nexus</ulink></literal></emphasis>. In addition to tools
+      like Nexus, you can also configure references to repositories to use the
       <varname>legacy</varname> layout format. For more information about
       configuring a reference to a legacy repository, see <xref
       linkend="appendix-settings-sect-settings-repository" />.</para>
@@ -706,13 +706,13 @@ This mojo doesn't have any component requirements.
     <para>Apache Maven is released under the Apache Software License, Version
     2.0. If you want to read this license, you can read
     <filename>\${M2_HOME}/LICENSE.txt</filename> or read this license on the
-    Open Source Initiative's web site here <ulink
+    Open Source Initiative's web site here: <ulink
     url="http://www.opensource.org/licenses/apache2.0.php">http://www.opensource.org/licenses/apache2.0.php</ulink>.</para>
 
     <para>There's a good chance that, if you are reading this book, you are
     not a lawyer. If you are wondering what the Apache License, Version 2.0
     means, the Apache Software Foundation has assembled a very helpful
-    Frequently Asked Questions (FAQ) page about the license available here
+    Frequently Asked Questions (FAQ) page about the license available here:
     <ulink
     url="http://www.apache.org/foundation/licence-FAQ.html">http://www.apache.org/foundation/licence-FAQ.html</ulink>.
     Here's is the answer to the question "I am not a lawyer. What does it all
