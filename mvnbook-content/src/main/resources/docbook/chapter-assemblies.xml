@@ -329,7 +329,7 @@ Hello, World!</screen>
       those assembly archives will be attached to your main project’s
       artifact. This means they will be installed and deployed alongside the
       main artifact, and are then resolvable in much the same way. Each
-      assembly artifact is given the same basic coordinate
+      assembly artifact is given the same basic coordinates
       (<varname>groupId</varname>, <varname>artifactId</varname>, and
       <varname>version</varname>) as the main project. However, these
       artifacts are attachments, which in Maven means they are derivative
@@ -343,7 +343,7 @@ Hello, World!</screen>
 
       <para>Since assemblies are (normally) attached artifacts, each must have
       a classifier to distinguish it from the main artifact, in addition to
-      the normal artifact coordinate. By default, the classifier is the same
+      the normal artifact coordinates. By default, the classifier is the same
       as the assembly descriptor’s identifier. When using the built-in
       assembly descriptors, as above, the assembly descriptor’s identifier is
       generally also the same as the identifier used in the

@@ -164,8 +164,9 @@ simple/pom.xml<co id="coDef-simple-fs-pom" linkends="coRef-simple-fs-pom" />
 
     <calloutlist>
       <callout arearefs="coDef-simple-fs-root" id="coRef-simple-fs-root">
-        <para>The Maven Archetype plugin creates a directory that matches the
-        <varname>artifactId</varname>. Simple. This is known as the project’s
+        <para>The Maven Archetype plugin creates a directory
+        <filename>simple/</filename> that matches the
+        <varname>artifactId</varname>. This is known as the project’s
         <indexterm>
             <primary>base directory</primary>
           </indexterm> base directory.</para>
@@ -566,11 +567,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       the basic integrity of the project and ends with a phase that involves
       deploying a project to production. Lifecycle phases are intentionally
       vague, defined solely as validation, testing, or deployment, and they
-      may mean different things to different projects. For example, the
-      <varname>package</varname> phase in a project that produces a
-      <acronym>JAR</acronym>, means “package this project into a JAR”; in a
-      project that produces a web application, the <varname>package</varname>
-      phase may produce a <acronym>WAR</acronym> file.</para>
+      may mean different things to different projects. For example, in a
+      project that produces a Java archive, the <varname>package</varname>
+      phase produces a JAR; in a project that produces a web application, the
+      <varname>package</varname> phase produces a WAR.</para>
 
       <para>Plugin goals can be attached<indexterm>
           <primary>plugin goals</primary>
@@ -764,7 +764,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     install:install</command> 
 </screen>
 
-      <para>It is much easier to execute lifecycle phases that it is to
+      <para>It is much easier to execute lifecycle phases than it is to
       specify explicit goals on the command line, and the common lifecycle
       allows every project that uses Maven to adhere to a well-defined set of
       standards. The lifecycle is what allows a developer to jump from one
@@ -800,7 +800,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       information about the community and developers involved in a
       project.</para>
 
-      <para>Maven Coordinates define a set of identifiers which can be used to
+      <para>Maven coordinates define a set of identifiers which can be used to
       uniquely identify a project, a dependency, or a plugin in a Maven
       <acronym>POM</acronym>. Take a look at the following
       <acronym>POM</acronym>.</para>
@@ -829,19 +829,16 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <para>There is a fifth, seldom-used coordinate named
           <varname>classifier</varname> which we will introduce later in the
           book. You can feel free to ignore classifiers for now.</para>
-        </footnote>Just like in any other coordinate system, a Maven
-      coordinate is an address for a specific point in "space": from general
-      to specific. Maven pinpoints a project via its coordinates when one
-      project relates to another, either as a dependency, a plugin, or a
-      parent project reference. Maven coordinates are often written using a
-      colon as a delimiter in the following format:
+        </footnote>Just like in any other coordinate system, a set of Maven
+      coordinates is an address for a specific point in "space". Maven
+      pinpoints a project via its coordinates when one project relates to
+      another, either as a dependency, a plugin, or a parent project
+      reference. Maven coordinates are often written using a colon as a
+      delimiter in the following format:
       <code>groupId:artifactId:packaging:version</code>. In the above
       <filename>pom.xml</filename> file for our current project, its
-      coordinate is represented as
-      <code>mavenbook:my-app:jar:1.0-SNAPSHOT</code>. This notation also
-      applies to project dependencies, our project relies on JUnit version
-      3.8.1, it contains a dependency on
-      <varname>junit:junit:jar:3.8.1</varname>.</para>
+      coordinates are represented as
+      <code>mavenbook:my-app:jar:1.0-SNAPSHOT</code>.</para>
 
       <variablelist>
         <varlistentry>
@@ -969,13 +966,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       multiple products available to allow organizations to manage and
       maintain mirrors of the public Maven repositories.</para>
 
-      <para>What makes a Maven repository a Maven repository? The Maven
-      repository is defined by structure, a repository is a collection of
-      project artifacts stored in a structure and format which can be easily
-      understood by Maven. In a Maven repository everything is stored in a
-      directory structure that closely matches a project's Maven coordinates.
-      You can see this structure by opening up a web browser and browsing the
-      central Maven repository at <ulink
+      <para>What makes a Maven repository a Maven repository? A repository is
+      a collection of project artifacts stored in a directory structure that
+      closely matches a project's Maven coordinates. You can see this
+      structure by opening up a web browser and browsing the central Maven
+      repository at <ulink
       url="http://repo1.maven.org/maven2/">http://repo1.maven.org/maven2/</ulink>.
       You will see that an artifact with the coordinates
       <varname>org.apache.commons:commons-email:1.1</varname> is available
@@ -983,7 +978,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <filename>/org/apache/commons/commons-email/1.1/</filename> in a file
       named <filename>commons-email-1.1.jar</filename>. The standard for a
       Maven repository is to store an artifact in the following directory
-      relative to the root of the repository: <screen>/&lt;<varname>groupId</varname>&gt;/&lt;<varname>artifactId</varname>&gt;/&lt;<varname>version</varname>&gt;/&lt;<varname>artifactId</varname>&gt;-&lt;version&gt;.&lt;<varname>packaging</varname>&gt;</screen></para>
+      relative to the root of the repository: <screen>/&lt;<varname>groupId</varname>&gt;/&lt;<varname>artifactId</varname>&gt;/&lt;<varname>version</varname>&gt;/&lt;<varname>artifactId</varname>&gt;-&lt;<varname>version</varname>&gt;.&lt;<varname>packaging</varname>&gt;</screen></para>
 
       <para>Maven downloads artifacts and plugins from a remote repository to
       your local machine and stores these artifacts in your local Maven
@@ -1017,7 +1012,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       our project's <acronym>JAR</acronym> file into our local Maven
       repository. Maven uses the local repository to share dependencies across
       local projects. If you develop two projects—project A and project B—with
-      project B depending on the artifact produced by project A. Maven will
+      project B depending on the artifact produced by project A, Maven will
       retrieve project A's artifact from your local repository when it is
       building project B. Maven repositories are both a local cache of
       artifacts downloaded from a remote repository and a mechanism for
@@ -1173,7 +1168,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       information about the project, the dependencies, and developers
       associated with it under “Project Information.” The simple project’s web
       site is mostly empty, since the <acronym>POM</acronym> contains very
-      little information about itself beyond a coordinate, a name, a
+      little information about itself beyond its Maven coordinates, a name, a
       <acronym>URL</acronym>, and a single test dependency.</para>
 
       <para>On this site, you’ll notice that some default reports are
