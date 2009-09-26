@@ -4,325 +4,526 @@
 <chapter id="running">
   <title>Running Maven</title>
 
-  <para></para>
-
-  <section>
-    <title>Defining Properties</title>
-
-    <para>To define a property use the following option:</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-D, --define &lt;arg&gt;</term>
-
-        <listitem>
-          <para>Defines a system property</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Getting Help</title>
-
-    <para>To list the available command line parameters, use the following
-    command:</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-h, --help</term>
-
-        <listitem>
-          <para>Display help information</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Use Build Profiles</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-P, --activate-profiles &lt;arg&gt;</term>
-
-        <listitem>
-          <para>Comma-delimited list of profiles to activate</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Display Version Information</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-V, --show-version</term>
-
-        <listitem>
-          <para>Display version information WITHOUT stopping build</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-v, --version</term>
-
-        <listitem>
-          <para>Display version information</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Control Network Activity</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-o, --offline</term>
-
-        <listitem>
-          <para>Work offline</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Using a Custom POM or Custom Settings File</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-f, --file &lt;file&gt;</term>
-
-        <listitem>
-          <para>Forces the use of an alternate POM file</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-s,--settings &lt;arg&gt;</term>
-
-        <listitem>
-          <para>Alternate path for the user settings file</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-gs, --global-settings &lt;file&gt;</term>
-
-        <listitem>
-          <para>Alternate path for the global settings file</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Encrypting Passwords</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-emp, --encrypt-master-password &lt;password&gt;</term>
-
-        <listitem>
-          <para>Encrypt master security password</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-ep, --encrypt-password &lt;password&gt;</term>
-
-        <listitem>
-          <para>Encrypt server password</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Dealing with Failure</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-fae, --fail-at-end</term>
-
-        <listitem>
-          <para>Only fail the build afterwards; allow all non-impacted builds
-          to continue</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-ff, --fail-fast</term>
-
-        <listitem>
-          <para>Stop at first failure in reactorized builds</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-fn, --fail-never</term>
-
-        <listitem>
-          <para>NEVER fail the build, regardless of project result</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Control Maven's Verbosity</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-e, --errors</term>
-
-        <listitem>
-          <para>Produce execution error messages</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-X, --debug</term>
-
-        <listitem>
-          <para>Produce execution debug output</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-q, --quiet</term>
-
-        <listitem>
-          <para>Quiet output - only show errors</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Running Maven in Batch Mode</title>
-
-    <para>To run Maven in batch mode use the following option:</para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-B, --batch-mode</term>
-
-        <listitem>
-          <para>Run in non-interactive (batch) mode</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Downloading and Verifying Dependencies</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-C, --strict-checksums</term>
-
-        <listitem>
-          <para>Fail the build if checksums don't match</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-c, --lax-checksums</term>
-
-        <listitem>
-          <para>Warn if checksums don't match</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-U,--update-snapshots</term>
-
-        <listitem>
-          <para>Forces a check for updated releases and snapshots on remote
-          repositories</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Manipulating Plugins</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-npr, --no-plugin-registry</term>
-
-        <listitem>
-          <para>Don't use ~/.m2/plugin-registry.xml for plugin
-          versions.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-npu, --no-plugin-updates</term>
-
-        <listitem>
-          <para>Suppress upToDate check for any relevant registered
-          plugins</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-cpu, --check-plugin-updates</term>
-
-        <listitem>
-          <para>Force upToDate check for any relevant registered
-          plugins</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>-up, --update-plugins</term>
-
-        <listitem>
-          <para>Synonym for cpu</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </section>
-
-  <section>
-    <title>Controlling the Scope of a Build</title>
-
-    <para></para>
-
-    <variablelist>
-      <varlistentry>
-        <term>-N, --non-recursive</term>
-
-        <listitem>
-          <para>Prevents Maven from building submodules. Only builds the
-          project contained in the current directory.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+  <para>This chapter focuses on the various ways in which Maven can be
+  customized at runtime, and also provides some documentation of special
+  features such as the ability to customize the behavior of the Maven
+  Reactor</para>
+
+  <section id="running-sect-options">
+    <title>Maven Command Line Options</title>
+
+    <para>The following sections detail Maven's command line options.</para>
+
+    <section id="running-sect-define-prop" label="">
+      <title>Defining Properties</title>
+
+      <para>To define a property use the following option on the command
+      line:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-D, --define &lt;arg&gt;</term>
+
+          <listitem>
+            <para>Defines a system propertyjpara</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>This is the option most frequently used to customized the behavior
+      of Maven plugins. Some examples of using the <command>-D</command>
+      command line argument:</para>
+
+      <screen>$ <command>mvn help:describe -Dcmd=compiler:compile</command>
+$ <command>mvn install -Dmaven.test.skip=true</command></screen>
+
+      <para>Properties defined on the command line are also available as
+      properties to be used in a Maven POM or Maven Plugin. Form more
+      information about referencing Maven properties, see <xref
+      linkend="resource-filtering" />. </para>
+
+      <para>Properties can also be used to activate build profiles. For more
+      information about Maven build profiles, see <xref
+      linkend="profiles" />.</para>
+    </section>
+
+    <section id="running-sect-help-option" label="">
+      <title>Getting Help</title>
+
+      <para>To list the available command line parameters, use the following
+      command line option:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-h, --help</term>
+
+          <listitem>
+            <para>Display help information</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Executing Maven this this option produces the following
+      output:</para>
+
+      <screen>$ <command>mvn --help</command>
+
+usage: mvn [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]
+
+Options:
+ -am,--also-make                        If project list is specified, also
+                                        build projects required by the
+                                        list
+ -amd,--also-make-dependents            If project list is specified, also
+                                        build projects that depend on
+                                        projects on the list
+ -B,--batch-mode                        Run in non-interactive (batch)
+                                        mode
+ -C,--strict-checksums                  Fail the build if checksums don't
+                                        match
+ -c,--lax-checksums                     Warn if checksums don't match
+ -cpu,--check-plugin-updates            Force upToDate check for any
+                                        relevant registered plugins
+ -D,--define &lt;arg&gt;                      Define a system property
+ -e,--errors                            Produce execution error messages
+ -emp,--encrypt-master-password &lt;arg&gt;   Encrypt master security password
+ -ep,--encrypt-password &lt;arg&gt;           Encrypt server password
+ -f,--file                              Force the use of an alternate POM
+                                        file.
+ -fae,--fail-at-end                     Only fail the build afterwards;
+                                        allow all non-impacted builds to
+                                        continue
+ -ff,--fail-fast                        Stop at first failure in
+                                        reactorized builds
+ -fn,--fail-never                       NEVER fail the build, regardless
+                                        of project result
+ -gs,--global-settings &lt;arg&gt;            Alternate path for the global
+                                        settings file
+ -h,--help                              Display help information
+ -N,--non-recursive                     Do not recurse into sub-projects
+ -npr,--no-plugin-registry              Don't use
+                                        ~/.m2/plugin-registry.xml for
+                                        plugin versions
+ -npu,--no-plugin-updates               Suppress upToDate check for any
+                                        relevant registered plugins
+ -o,--offline                           Work offline
+ -P,--activate-profiles &lt;arg&gt;           Comma-delimited list of profiles
+                                        to activate
+ -pl,--projects &lt;arg&gt;                   Build specified reactor projects
+                                        instead of all projects
+ -q,--quiet                             Quiet output - only show errors
+ -r,--reactor                           Dynamically build reactor from
+                                        subdirectories
+ -rf,--resume-from &lt;arg&gt;                Resume reactor from specified
+                                        project
+ -s,--settings &lt;arg&gt;                    Alternate path for the user
+                                        settings file
+ -U,--update-snapshots                  Forces a check for updated
+                                        releases and snapshots on remote
+                                        repositories
+ -up,--update-plugins                   Synonym for cpu
+ -V,--show-version                      Display version information
+                                        WITHOUT stopping build
+ -v,--version                           Display version information
+ -X,--debug                             Produce execution debug output</screen>
+
+      <para>If you are looking for information about the goals and parameters
+      available from a specific Maven plugin, see <xref
+      linkend="installation-sect-help-plugin-install" />.</para>
+    </section>
+
+    <section id="running-sect-profile-option">
+      <title>Using Build Profiles</title>
+
+      <para>To activate one or more build profiles from the command line, use
+      the following option:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-P, --activate-profiles &lt;arg&gt;</term>
+
+          <listitem>
+            <para>Comma-delimited list of profiles to activate</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>For more information about build profiles, see <xref
+      linkend="profiles" />.</para>
+    </section>
+
+    <section id="running-sect-version-option">
+      <title>Displaying Version Information</title>
+
+      <para>To display Maven version information, use one of the following
+      options on the command line:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-V, --show-version</term>
+
+          <listitem>
+            <para>Display version information WITHOUT stopping build</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-v, --version</term>
+
+          <listitem>
+            <para>Display version information</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Both of these options produce the same version information output,
+      but the -v option will terminate the Maven process after printing out
+      the version. You would use the -V option if you wanted to have the Maven
+      version information present at the beginning of your build's output.
+      This can come in handy, if you are running Maven in a continuous build
+      environment and you need to know what version of Maven was used for a
+      particular build.</para>
+
+      <example>
+        <title>Maven Version Information</title>
+
+        <screen>$ <command>mvn -v</command>
+Apache Maven 2.2.1 (r801777; 2009-08-06 14:16:01-0500)
+Java version: 1.6.0_15
+Java home: /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
+</screen>
+      </example>
+    </section>
+
+    <section id="running-sect-offline-option" label="">
+      <title>Running in Offline Mode</title>
+
+      <para>If you ever need to use Maven without having access to a network,
+      you should use the following option to prevent any attempt to check for
+      updates to plugins or dependencies over a network: </para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-o, --offline</term>
+
+          <listitem>
+            <para>Work offline</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>When running with the offline option enabled, Maven will not
+      attempt to connect to a remote repository to retrieve artifacts.</para>
+    </section>
+
+    <section>
+      <title>Using a Custom POM or Custom Settings File</title>
+
+      <para>If you don't like the pom.xml file name, the location of your
+      user-specific Maven settings, or the default location of your global
+      settings file, you can customize any of these things with the following
+      options:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-f, --file &lt;file&gt;</term>
+
+          <listitem>
+            <para>Forces the use of an alternate POM file</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-s,--settings &lt;arg&gt;</term>
+
+          <listitem>
+            <para>Alternate path for the user settings file</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-gs, --global-settings &lt;file&gt;</term>
+
+          <listitem>
+            <para>Alternate path for the global settings file</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+
+    <section id="running-sect-encrypt-option" label="">
+      <title>Encrypting Passwords</title>
+
+      <para>The following commands allow you to use Maven to encrypt passwords
+      for storage in a Maven settings file:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-emp, --encrypt-master-password &lt;password&gt;</term>
+
+          <listitem>
+            <para>Encrypt master security password</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-ep, --encrypt-password &lt;password&gt;</term>
+
+          <listitem>
+            <para>Encrypt server password</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Encrypting passwords is documented in <xref
+      linkend="appendix-settings-sect-encrypting-passwords" />.</para>
+    </section>
+
+    <section id="running-sect-failure-option">
+      <title>Dealing with Failure</title>
+
+      <para>The following options control how Maven reacts to a build failure
+      in the middle of a multi-module project build:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-fae, --fail-at-end</term>
+
+          <listitem>
+            <para>Only fail the build afterwards; allow all non-impacted
+            builds to continue</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-ff, --fail-fast</term>
+
+          <listitem>
+            <para>Stop at first failure in reactorized builds</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-fn, --fail-never</term>
+
+          <listitem>
+            <para>NEVER fail the build, regardless of project result</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>The <command>-fn</command> and <command>-fae</command> options are
+      useful options for multi-module builds that are running within a
+      continuous integration tool like Hudson. The <command>-ff</command>
+      option is very useful for developers running interactive builds who want
+      to have rapid feedback during the development cycle.</para>
+    </section>
+
+    <section id="running-sect-verbose-option">
+      <title>Controlling Maven's Verbosity</title>
+
+      <para>If you want to control Maven's logging level, you can use one of
+      the following three command line options:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-e, --errors</term>
+
+          <listitem>
+            <para>Produce execution error messages</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-X, --debug</term>
+
+          <listitem>
+            <para>Produce execution debug output</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-q, --quiet</term>
+
+          <listitem>
+            <para>Quiet output - only show errors</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>The -q option only prints a message to the output if there is an
+      error or a problem.</para>
+
+      <para>The <command>-X</command> option will print an overwhelming amount
+      of debugging log messages to the output. This option is primarily used
+      by Maven developers and by Maven plugin developers to diagnose problems
+      with Maven code during development. This <command>-X</command> option is
+      also very useful if you are attempting to diagnose a difficult problem
+      with a dependency or a classpath.</para>
+
+      <para>The <command>-e</command> option will come in handy if you are a
+      Maven developer, or if you need to diagnose an error in a Maven plugin.
+      If you are reporting an unexpected problem with Maven or a Maven plugin,
+      you will want to pass both the <command>-X</command> and
+      <command>-e</command> options to your Maven process.</para>
+    </section>
+
+    <section id="running-sect-batch-option" label="">
+      <title>Running Maven in Batch Mode</title>
+
+      <para>To run Maven in batch mode use the following option:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-B, --batch-mode</term>
+
+          <listitem>
+            <para>Run in non-interactive (batch) mode</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Batch mode is essential if you need to run Maven in a
+      non-interactive, continuous integration environment. When running in
+      non-interactive mode, Maven will never stop to accept input from the
+      user. Instead, it will use sensible default values when it requires
+      input.</para>
+    </section>
+
+    <section id="running-sect-deps-option">
+      <title>Downloading and Verifying Dependencies</title>
+
+      <para>The following command line options affect the way that Maven will
+      interact with remote reopsitories and how it verifies downloaded
+      artifacts:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-C, --strict-checksums</term>
+
+          <listitem>
+            <para>Fail the build if checksums don't match</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-c, --lax-checksums</term>
+
+          <listitem>
+            <para>Warn if checksums don't match</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-U, --update-snapshots</term>
+
+          <listitem>
+            <para>Forces a check for updated releases and snapshots on remote
+            repositories</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>If you are concerned about security, you will want to run Maven
+      with the -C option. Maven repositories maintain an MD5 and SHA1 checksum
+      for every artifact stored in a repository. Maven is configured to warn
+      the end-user if an artifact's checksum doesn't match the download
+      artifact. Passing in the <command>-C</command> option will cause Maven
+      to fail the build if it encounters an artifact with a bad
+      checksum.</para>
+
+      <para>The <command>-U</command> option is useful if you want to make
+      sure that Maven is checking for the latest versions of all SNAPSHOT
+      dependencies.</para>
+    </section>
+
+    <section>
+      <title id="running-sect-plugup-option">Controlling Plugin
+      Updates</title>
+
+      <para>The following command line options tell Maven how it should update
+      (or not update) Maven plugins from remote repositories:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-npu, --no-plugin-updates</term>
+
+          <listitem>
+            <para>Suppress upToDate check for any relevant registered plugins.
+            Providing this option will have the affect of stabilizing Maven on
+            all of the plugins versions that are currently available in a
+            local Maven repository. With <varname>-npu</varname> active, Maven
+            will not consult the remote repository for newer Maven
+            versions.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-cpu, --check-plugin-updates</term>
+
+          <listitem>
+            <para>Force upToDate check for any relevant registered plugins.
+            Forces Maven to check for the latest released version of a Maven
+            plugin. Not that this will not affect your build if you are
+            explicitly specifying versions for Maven plugins in your project's
+            POM/</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>-up, --update-plugins</term>
+
+          <listitem>
+            <para>Synonym for cpu.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>There following command line option that affects the way Maven
+      downloads plugins from a remote repository:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-npr, --no-plugin-registry</term>
+
+          <listitem>
+            <para>Don't use ~/.m2/plugin-registry.xml for plugin
+            versions.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>When preset, the -npr command line option will tell Maven not to
+      consult the Plugin Registry. For more information about the Plugin
+      Registry, go here: <ulink
+      url="http://maven.apache.org/guides/introduction/introduction-to-plugin-registry.html">http://maven.apache.org/guides/introduction/introduction-to-plugin-registry.html</ulink>.</para>
+    </section>
+
+    <section id="running-sect-norecurse-option" label="">
+      <title>Non-recursive Builds</title>
+
+      <para>There will be times when you simply want to run a Maven build
+      without having Maven descend into all of a project's submodules. You can
+      do this by using the following command line option:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>-N, --non-recursive</term>
+
+          <listitem>
+            <para>Prevents Maven from building submodules. Only builds the
+            project contained in the current directory.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>Running this will only cause Maven to execute a goal or step
+      through the lifecycle for the project in the current directory. Maven
+      will not attempt to build all of the projects in a multi-module project
+      when you use the <command>-N</command> command line option.</para>
+    </section>
   </section>
 
   <section>
