@@ -218,7 +218,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       attempt to connect to a remote repository to retrieve artifacts.</para>
     </section>
 
-    <section>
+    <section id="running-sect-custom-locations-option">
       <title>Using a Custom POM or Custom Settings File</title>
 
       <para>If you don't like the pom.xml file name, the location of your
@@ -662,14 +662,13 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
   <section id="installation-sect-help-plugin-install">
     <title>Using the Maven Help Plugin</title>
 
-    <para>Throughout the book, we will be introducing Maven plugins, talking
-    about Maven Project Object Model (<acronym>POM</acronym>) files, settings
-    files, and profiles. There are going to be times when you need a tool to
-    help you make sense of some of the models that Maven is using and what
-    goals are available on a specific plugin. The Maven Help plugin allows you
-    to list active Maven profiles, display an effective
-    <acronym>POM</acronym>, print the effective settings, or list the
-    attributes of a Maven plugin.</para>
+    <para>Throughout this book, we introduce Maven plugins, talking about
+    Maven Project Object Model (<acronym>POM</acronym>) files, settings files,
+    and profiles. There are going to be times when you need a tool to help you
+    make sense of some of the models that Maven is using and what goals are
+    available on a specific plugin. The Maven Help plugin allows you to list
+    active Maven profiles, display an effective <acronym>POM</acronym>, print
+    the effective settings, or list the attributes of a Maven plugin.</para>
 
     <note>
       <para>For a conceptual overview of the POM and plugins see <xref

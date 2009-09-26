@@ -93,7 +93,7 @@
     defaults in order to adapt to your specific requirements.</para>
   </section>
 
-  <section id="installation-sect-common-interface">
+  <section id="installation-sect-common-interface" label="">
     <title>A Common Interface</title>
 
     <para>Before Maven provided a common interface for building software,
@@ -138,11 +138,11 @@
     management and reuse of common build logic through plugins, the core
     reason why it has succeeded is that it has defined a common interface for
     building software. When you see that a project like <ulink
-    url="http://wicket.apache.org">Apache Wicket</ulink> uses Maven, you can
+    url="http://wicket.apache.org">Apache ActiveMQ</ulink> uses Maven, you can
     assume that you'll be able to check it out from source and build it with
-    mvn install without much hassle. You know where the ignition keys goes,
-    you know that the gas pedal is on the right-side, and the brake is on the
-    left.</para>
+    <command>mvn install</command> without much hassle. You know where the
+    ignition keys goes, you know that the gas pedal is on the right-side, and
+    the brake is on the left.</para>
   </section>
 
   <section id="installation-sect-universal-reuse">
