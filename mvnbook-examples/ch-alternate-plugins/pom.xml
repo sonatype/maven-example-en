@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sonatype.mavenbook.alternateplugins</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.8-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Alternate Plugins Chapter Parent Project</name>
+  <url>http://sonatype.com/book</url>
+  <modules>
+    <module>firstant-maven-plugin</module>
+    <module>firstgroovy-maven-plugin</module>
+<!--    <module>firstruby-maven-plugin</module> -->
+  </modules>
+        <pluginRepositories>
+          <pluginRepository>
+            <id>sonatype-forge</id>
+            <name>Sonatype Forge</name>
+            <url>http://pluginRepository.sonatype.org/content/groups/public</url>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </pluginRepository>
+		<pluginRepository>
+		  <id>Codehaus Snapshots</id>
+		  <url>http://snapshots.pluginRepository.codehaus.org</url>
+		  <snapshots>
+			<enabled>true</enabled>
+		  </snapshots>
+		  <releases>
+			<enabled>false</enabled>
+		  </releases>
+		</pluginRepository>
+	<pluginRepository>
+	  <id>Central</id>
+	  <url>http://repo1.maven.org/maven2</url>
+	  <snapshots>
+		<enabled>true</enabled>
+	  </snapshots>
+	  <releases>
+		<enabled>true</enabled>
+	  </releases>
+	</pluginRepository>
+        </pluginRepositories>
+</project>

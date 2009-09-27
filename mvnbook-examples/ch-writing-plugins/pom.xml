@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sonatype.mavenbook.writingplugins</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.8-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Writing Plugins Chapter Parent Project</name>
+  <modules>
+    <module>first-maven-plugin</module>
+  </modules>
+  <build>
+    <plugins>
+<!--      <plugin>
+        <groupId>org.sonatype.mavenbook.plugins</groupId>
+        <artifactId>first-maven-plugin</artifactId>
+        <version>1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>first-execution</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <configuration>
+              <message>The Eagle has Landed!</message>
+            </configuration>
+          </execution>
+          <execution>
+            <id>second-execution</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <configuration>
+              <message>I am printing a message!</message>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin> -->
+    </plugins>
+  </build>
+</project>

@@ -5,9 +5,10 @@
   <title>Running Maven</title>
 
   <para>This chapter focuses on the various ways in which Maven can be
-  customized at runtime, and also provides some documentation of special
-  features such as the ability to customize the behavior of the Maven
-  Reactor</para>
+  customized at runtime. It also provides some documentation of special
+  features such as the ability to customize the behavior of the Maven Reactor
+  and how to use the Maven Help plugin to obtain information about plugins and
+  plugin goals.</para>
 
   <section id="running-sect-options">
     <title>Maven Command Line Options</title>
@@ -25,7 +26,7 @@
           <term>-D, --define &lt;arg&gt;</term>
 
           <listitem>
-            <para>Defines a system propertyjpara</para>
+            <para>Defines a system property</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -40,7 +41,7 @@ $ <command>mvn install -Dmaven.test.skip=true</command></screen>
       <para>Properties defined on the command line are also available as
       properties to be used in a Maven POM or Maven Plugin. Form more
       information about referencing Maven properties, see <xref
-      linkend="resource-filtering" />. </para>
+      linkend="resource-filtering" />.</para>
 
       <para>Properties can also be used to activate build profiles. For more
       information about Maven build profiles, see <xref
@@ -202,7 +203,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
 
       <para>If you ever need to use Maven without having access to a network,
       you should use the following option to prevent any attempt to check for
-      updates to plugins or dependencies over a network: </para>
+      updates to plugins or dependencies over a network:</para>
 
       <variablelist>
         <varlistentry>
@@ -640,7 +641,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       our reactor to find projects that depend on simple-weather, and
       automatically build those and nothing else. In this case, it will
       automatically build simple-weather and then simple-command and
-      simple-webapp. </para>
+      simple-webapp.</para>
     </section>
 
     <section>
@@ -649,13 +650,13 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       <para>When we use --also-make, we run a subset of projects, but that
       doesn't mean stuff won't fail halfway through the build. We can resume
       our --also-make build from the project that stopped the build by using
-      --resume-from together with --also-make, like this: </para>
+      --resume-from together with --also-make, like this:</para>
 
       <screen>$ <command>mvn --projects simple-command --also-make \
       --resume-from simple-weather install</command></screen>
 
-      <para>The --resume-from argument also works with --also-make-dependents.
-      </para>
+      <para>The --resume-from argument also works with
+      --also-make-dependents.</para>
     </section>
   </section>
 
