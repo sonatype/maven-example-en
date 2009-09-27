@@ -37,22 +37,17 @@
       strongly recommend downloading a copy of the example code to use as a
       supplemental reference while reading the content in this chapter. This
       chapter’s example project may be downloaded with the book’s example code
-      at <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.zip"></ulink> or
-      <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz"></ulink>.
-      Unzip this archive in any <phrase
-      role="keep-together">directory</phrase>, and then go to the
-      <filename>ch06/</filename> directory. There you will see a directory
+      at:</para>
+
+      <screen>${examples.download.url}</screen>
+
+      <para>Unzip this archive in any directory, and then go to the
+      <filename>ch-multi/</filename> directory. There you will see a directory
       named <filename>simple-parent/</filename>, which contains the
       multimodule Maven project developed in this chapter. In this directory,
       you will see a <filename>pom.xml</filename> and the two submodule
       directories, <filename>simple-weather/</filename> and
-      <filename>simple-webapp/</filename>. If you wish to follow along with
-      the example code in a web browser, go to <ulink
-      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch06/</filename> <phrase
-      role="keep-together">directory</phrase>.</para>
+      <filename>simple-webapp/</filename>.</para>
     </section>
   </section>
 
@@ -89,7 +84,7 @@
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-  &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.multi&lt;/groupId&gt;
   &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
   &lt;packaging&gt;pom&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -130,7 +125,7 @@
 
     <para>Notice that the parent defines a set of Maven coordinates: the
     <varname>groupId</varname> is
-    <varname>org.</varname><varname>sonatype.</varname><varname>mavenbook.ch06</varname>,
+    <varname>org.</varname><varname>sonatype.</varname><varname>mavenbook.multi</varname>,
     the <varname>artifactId</varname> is <varname>simple-parent</varname>, and
     the <varname>version</varname> is <varname>1.0</varname>. The parent
     project doesn’t create a <acronym>JAR</acronym> or a
@@ -200,7 +195,7 @@
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.multi&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -272,7 +267,7 @@
       </indexterm> coordinates. The parent POM for
     <varname>simple-weather</varname> is identified by a
     <varname>groupId</varname> of
-    <varname>org.sonatype.mavenbook.ch06</varname>, an
+    <varname>org.sonatype.mavenbook.multi</varname>, an
     <varname>artifactId</varname> of <varname>simple-parent</varname>, and a
     <varname>version</varname> of <varname>1.0</varname>. See <xref
     linkend="multimodule-weather-service" />.</para>
@@ -362,7 +357,7 @@ public class WeatherService {
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
   &lt;parent&gt;
-    &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;
+    &lt;groupId&gt;org.sonatype.mavenbook.multi&lt;/groupId&gt;
     &lt;artifactId&gt;simple-parent&lt;/artifactId&gt;
     &lt;version&gt;1.0&lt;/version&gt;
   &lt;/parent&gt;
@@ -378,7 +373,7 @@ public class WeatherService {
       &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
-      &lt;groupId&gt;org.sonatype.mavenbook.ch06&lt;/groupId&gt;
+      &lt;groupId&gt;org.sonatype.mavenbook.multi&lt;/groupId&gt;
       &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
       &lt;version&gt;1.0&lt;/version&gt;
     &lt;/dependency&gt;
@@ -513,7 +508,7 @@ public class WeatherServlet extends HttpServlet {
     run <command>mvn clean install</command> command from the
     <varname>simple-parent</varname> project:</para>
 
-    <screen>~/examples/ch06/simple-parent$ <command>mvn clean install</command>
+    <screen>~/examples/ch-multi/simple-parent$ <command>mvn clean install</command>
 [INFO] Scanning for projects...
 [INFO] Reactor build order: 
 [INFO]   Simple Parent Project
@@ -598,7 +593,7 @@ public class WeatherServlet extends HttpServlet {
     the <varname>simple-webapp</varname> project and run the Run goal of the
     Jetty plugin:</para>
 
-    <screen>~/examples/ch06/simple-parent/simple-webapp $ <command>mvn jetty:run</command>
+    <screen>~/examples/ch-multi/simple-parent/simple-webapp $ <command>mvn jetty:run</command>
 [INFO] ----------------------------------------------------------------------
 [INFO] Building simple-webapp Maven Webapp
 [INFO]    task-segment: [jetty:run]
@@ -607,7 +602,7 @@ public class WeatherServlet extends HttpServlet {
 [INFO] [jetty:run]
 [INFO] Configuring Jetty for project: simple-webapp Maven Webapp
 [...]
-[INFO] Webapp directory = ~/examples/ch06/simple-parent/\
+[INFO] Webapp directory = ~/examples/ch-multi/simple-parent/\
                           simple-webapp/src/main/webapp
 [INFO] Starting jetty 6.1.6rc1 ...
 2007-11-18 1:58:26.980::INFO:  jetty-6.1.6rc1

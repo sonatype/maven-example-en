@@ -27,17 +27,15 @@
       Weather web service. Although you should be able to follow along with
       this chapter without the example source code, we recommend that you
       download a copy of the code to use as a reference. This chapter’s
-      example project may be downloaded with the book’s example code at <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.zip"></ulink> or
-      <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz"></ulink>.
-      Unzip this archive in any directory, and then go to the
-      <filename>ch04/</filename> directory. There you will see a directory
-      named <filename>simple-weather/</filename>, which contains the Maven
-      project developed in this chapter. If you wish to follow along with the
-      example code in a web browser, go to <ulink
-      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch04/</filename> directory.</para>
+      example project may be downloaded with the book’s example code
+      at:</para>
+
+      <screen>${examples.download.url}</screen>
+
+      <para>Unzip this archive in any directory, and then go to the
+      <filename>ch-custom/</filename> directory. There you will see a
+      directory named <filename>simple-weather/</filename>, which contains the
+      Maven project developed in this chapter.</para>
     </section>
   </section>
 
@@ -143,7 +141,7 @@
     following command to create a new project, select archetype 15, and then
     enter "Y" to confirm and generate the new project:</para>
 
-    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch04 \
+    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.custom \
                                          -DartifactId=simple-weather \
                                          -DpackageName=org.sonatype.mavenbook \
                                          -Dversion=1.0
@@ -160,14 +158,14 @@ Choose archetype:
 ...
 Choose a number:  (...) 15: : <emphasis>15</emphasis>
 Confirm properties configuration:
-groupId: org.sonatype.mavenbook.ch04
+groupId: org.sonatype.mavenbook.custom
 artifactId: simple-weather
 version: 1.0
-package: org.sonatype.mavenbook.ch04
+package: org.sonatype.mavenbook.custom
  Y: : Y
-[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch04
-[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.ch04
-[INFO] Parameter: package, Value: org.sonatype.mavenbook.ch04
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.custom
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.custom
+[INFO] Parameter: package, Value: org.sonatype.mavenbook.custom
 [INFO] Parameter: artifactId, Value: simple-weather
 [INFO] Parameter: basedir, Value: /private/tmp
 [INFO] Parameter: version, Value: 1.0
@@ -189,7 +187,7 @@ package: org.sonatype.mavenbook.ch04
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;org.sonatype.mavenbook.ch04&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.custom&lt;/groupId&gt;
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -221,7 +219,7 @@ package: org.sonatype.mavenbook.ch04
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;org.sonatype.mavenbook.ch04&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.custom&lt;/groupId&gt;
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
@@ -1084,7 +1082,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       <screen>$ <command>mvn dependency:tree</command>
 ...
 [INFO] [dependency:tree]
-[INFO] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0
+[INFO] org.sonatype.mavenbook.custom:simple-weather:jar:1.0
 [INFO] +- log4j:log4j:jar:1.2.14:compile
 [INFO] +- dom4j:dom4j:jar:1.6.1:compile
 [INFO] |  \- xml-apis:xml-apis:jar:1.0.b2:compile
@@ -1109,7 +1107,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
 
       <screen>$ <command>mvn install -X</command>
 ...
-[DEBUG] org.sonatype.mavenbook.ch04:simple-weather:jar:1.0 (selected for null)
+[DEBUG] org.sonatype.mavenbook.custom:simple-weather:jar:1.0 (selected for null)
 [DEBUG]   log4j:log4j:jar:1.2.14:compile (selected for compile)
 [DEBUG]   dom4j:dom4j:jar:1.6.1:compile (selected for compile)
 [DEBUG]     xml-apis:xml-apis:jar:1.0.b2:compile (selected for compile)
@@ -1549,7 +1547,7 @@ $ <command>cd resources</command></screen>
     <screen>$ <command>mvn test</command>
 ...
 [INFO] [surefire:test]
-[INFO] Surefire report directory: ~/examples/simple-weather/target/\
+[INFO] Surefire report directory: ~/examples/ch-custom/simple-weather/target/\
                                   surefire-reports
 
 -------------------------------------------------------
@@ -1797,7 +1795,8 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     <screen>$ <command>mvn install assembly:assembly</command>
 ...
 [INFO] [jar:jar]
-[INFO] Building jar: ~/examples/simple-weather/target/simple-weather-1.0.jar
+[INFO] Building jar: 
+~/examples/ch-custom/simple-weather/target/simple-weather-1.0.jar
 [INFO] [assembly:assembly]
 [INFO] Processing DependencySet (output=)
 [INFO] Expanding: \
@@ -1808,7 +1807,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
        into /tmp/archived-file-set.305257225.tmp
 ... (Maven Expands all dependencies into a temporary directory) ...
 [INFO] Building jar: \
-       ~/examples/simple-weather/target/\
+       ~/examples/ch-custom/simple-weather/target/\
          simple-weather-1.0-jar-with-dependencies.jar
 </screen>
 

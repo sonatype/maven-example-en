@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="simple-project">
+<chapter id="simple-project" label="">
   <title>A Simple Maven Project</title>
 
   <section id="simple-project-sect-intro">
@@ -34,18 +34,15 @@
       the code produced by the Maven. We will be using the Maven Archetype
       plugin to create this simple project and this chapter doesn't modify the
       project in any way. If you would prefer to read this chapter with the
-      final example source code, this chapter's example project may be
-      downloaded with the book's example code at <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.zip">http://www.sonatype.com/book/mvn-examples-1.0.zip</ulink>
-      or <ulink
-      url="http://www.sonatype.com/book/mvn-examples-1.0.tar.gz">http://www.sonatype.com/book/mvn-examples-1.0.tar.gz</ulink>.
-      Unzip this archive in any directory, and then go to the
-      <filename>ch03/</filename> directory. In the <filename>ch03/</filename>
-      directory you will see a directory named <filename>simple/</filename>
-      which contains the source code for this chapter. If you wish to follow
-      along with the example code in a web browser, go to <ulink
-      url="http://www.sonatype.com/book/examples-1.0">http://www.sonatype.com/book/examples-1.0</ulink>
-      and click on the <filename>ch03/</filename> directory.</para>
+      final example source code, this chapter’s example project may be
+      downloaded with the book’s example code at:</para>
+
+      <screen>${examples.download.url}</screen>
+
+      <para>Unzip this archive in any directory, and then go to the
+      <filename>ch-simple/</filename> directory. There you will see a
+      directory named <filename>simple/</filename> that contains the source
+      code for this chapter.</para>
     </section>
   </section>
 
@@ -57,7 +54,7 @@
     select archetype #15, and then enter "Y" to confirm and generate the new
     project:</para>
 
-    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch03 \
+    <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
                                          -DartifactId=simple \
                                          -DpackageName=org.sonatype.mavenbook \
                                          -Dversion=1.0-SNAPSHOT
@@ -88,15 +85,15 @@ Choose archetype:
 19: internal -&gt; jini-service-archetype (Archetype for Jini service project creation)
 Choose a number:  (...) 15: : <emphasis>15</emphasis>
 Confirm properties configuration:
-groupId: org.sonatype.mavenbook.ch03
+groupId: org.sonatype.mavenbook.simple
 artifactId: simple
 version: 1.0-SNAPSHOT
-package: org.sonatype.mavenbook.ch03
+package: org.sonatype.mavenbook.simple
  Y: : <emphasis>Y</emphasis>
 ...
-[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.ch03
-[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.ch03
-[INFO] Parameter: package, Value: org.sonatype.mavenbook.ch03
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.simple
+[INFO] Parameter: packageName, Value: org.sonatype.mavenbook.simple
+[INFO] Parameter: package, Value: org.sonatype.mavenbook.simple
 [INFO] Parameter: artifactId, Value: simple
 [INFO] Parameter: basedir, Value: /private/tmp
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
@@ -272,7 +269,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Building jar: /simple/target/simple-1.0-SNAPSHOT.jar
 [INFO] [install:install]
 [INFO] Installing /simple/target/simple-1.0-SNAPSHOT.jar to \
-  ~/.m2/repository/com/sonatype/maven/ch03/simple/1.0-SNAPSHOT/ \
+  ~/.m2/repository/com/sonatype/maven/simple/simple/1.0-SNAPSHOT/ \
   simple-1.0-SNAPSHOT.jar
 </screen>
 
@@ -312,7 +309,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                       http://maven.apache.org/maven-v4_0_0.xsd"&gt;
   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;groupId&gt;org.sonatype.mavenbook.ch03&lt;/groupId&gt;
+  &lt;groupId&gt;org.sonatype.mavenbook.simple&lt;/groupId&gt;
   &lt;artifactId&gt;simple&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
@@ -410,7 +407,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       executes a plugin goal, it prints out the plugin identifier and goal
       identifier to standard output:</para>
 
-      <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch03 \
+      <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
                                         -DartifactId=simple \
                                         -DpackageName=org.sonatype.mavenbook
 </command>...
@@ -469,14 +466,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <varname>groupId</varname> and <varname>artifactId</varname> to the
       <varname>generate</varname> goal of the Archetype plugin via the
       command-line parameters
-      <command>-DgroupId=org.sonatype.mavenbook.ch03</command> and
+      <command>-DgroupId=org.sonatype.mavenbook.simple</command> and
       <command>-DartifactId=simple</command>. We <phrase
       role="keep-together">also</phrase> passed the
       <varname>packageName</varname> parameter to the
       <literal>generate</literal> goal as
       <package>org.sonatype.mavenbook</package>. If we had omitted the
       <varname>packageName</varname> parameter, the package name would have
-      defaulted to <package>org.sonatype.mavenbook.ch03</package>.</para>
+      defaulted to <package>org.sonatype.mavenbook.simple</package>.</para>
 
       <para><note>
           <para>When referring to a plugin goal, we frequently use the
