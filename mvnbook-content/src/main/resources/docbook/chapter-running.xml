@@ -64,7 +64,7 @@ $ <command>mvn install -Dmaven.test.skip=true</command></screen>
         </varlistentry>
       </variablelist>
 
-      <para>Executing Maven this this option produces the following
+      <para>Executing Maven with this option produces the following
       output:</para>
 
       <screen>$ <command>mvn --help</command>
@@ -181,7 +181,7 @@ Options:
       but the -v option will terminate the Maven process after printing out
       the version. You would use the -V option if you wanted to have the Maven
       version information present at the beginning of your build's output.
-      This can come in handy, if you are running Maven in a continuous build
+      This can come in handy if you are running Maven in a continuous build
       environment and you need to know what version of Maven was used for a
       particular build.</para>
 
@@ -222,10 +222,10 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
     <section id="running-sect-custom-locations-option">
       <title>Using a Custom POM or Custom Settings File</title>
 
-      <para>If you don't like the pom.xml file name, the location of your
-      user-specific Maven settings, or the default location of your global
-      settings file, you can customize any of these things with the following
-      options:</para>
+      <para>If you don't like the <filename>pom.xml</filename> file name, the
+      location of your user-specific Maven settings, or the default location
+      of your global settings file, you can customize any of these things with
+      the following options:</para>
 
       <variablelist>
         <varlistentry>
@@ -354,8 +354,8 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
         </varlistentry>
       </variablelist>
 
-      <para>The -q option only prints a message to the output if there is an
-      error or a problem.</para>
+      <para>The <command>-q</command> option only prints a message to the
+      output if there is an error or a problem.</para>
 
       <para>The <command>-X</command> option will print an overwhelming amount
       of debugging log messages to the output. This option is primarily used
@@ -428,12 +428,12 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       </variablelist>
 
       <para>If you are concerned about security, you will want to run Maven
-      with the -C option. Maven repositories maintain an MD5 and SHA1 checksum
-      for every artifact stored in a repository. Maven is configured to warn
-      the end-user if an artifact's checksum doesn't match the download
-      artifact. Passing in the <command>-C</command> option will cause Maven
-      to fail the build if it encounters an artifact with a bad
-      checksum.</para>
+      with the <command>-C</command> option. Maven repositories maintain an
+      MD5 and SHA1 checksum for every artifact stored in a repository. Maven
+      is configured to warn the end-user if an artifact's checksum doesn't
+      match the downloaded artifact. Passing in the <command>-C</command>
+      option will cause Maven to fail the build if it encounters an artifact
+      with a bad checksum.</para>
 
       <para>The <command>-U</command> option is useful if you want to make
       sure that Maven is checking for the latest versions of all SNAPSHOT
@@ -469,7 +469,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
             Forces Maven to check for the latest released version of a Maven
             plugin. Not that this will not affect your build if you are
             explicitly specifying versions for Maven plugins in your project's
-            POM/</para>
+            POM.</para>
           </listitem>
         </varlistentry>
 
@@ -496,9 +496,9 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
         </varlistentry>
       </variablelist>
 
-      <para>When preset, the -npr command line option will tell Maven not to
-      consult the Plugin Registry. For more information about the Plugin
-      Registry, go here: <ulink
+      <para>When preset, the <command>-npr</command> command line option will
+      tell Maven not to consult the Plugin Registry. For more information
+      about the Plugin Registry, go here: <ulink
       url="http://maven.apache.org/guides/introduction/introduction-to-plugin-registry.html">http://maven.apache.org/guides/introduction/introduction-to-plugin-registry.html</ulink>.</para>
     </section>
 
@@ -530,10 +530,9 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
   <section>
     <title>Using Advanced Reactor Options</title>
 
-    <para>Stating with the Maven 2.1, there are new Maven command line options
-    which allow you to manipulate the way that Maven will build multimodule
-    projects. If you are using Maven 2.0, these new arguments aren't
-    available. These new options are:</para>
+    <para>Starting with the Maven 2.1 release, there are new Maven command
+    line options which allow you to manipulate the way that Maven will build
+    multimodule projects. These new options are:</para>
 
     <variablelist>
       <varlistentry>
@@ -580,16 +579,15 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       it is possible to read this section without the example code, you might
       want to download the example code and follow along, experimenting with
       the various options as you learn how to use the advanced reactor
-      options. This sections’s example project may be downloaded with the
+      options. This section’s example project may be downloaded with the
       book’s example code at:</para>
 
       <screen>${examples.download.url}</screen>
 
       <para>Unzip this archive in any directory, and then go to the
       <filename>ch-running/</filename> directory. There you will see a
-      directory named <filename>sample-parent/</filename>. This direct
-      contains a multi-module project that is used in the next few sections.
-      All of the examples in this section will be executed from the
+      directory named <filename>sample-parent/</filename>. All of the examples
+      in this section will be executed from the
       <filename>examples/ch-running/sample-parent/</filename> directory in the
       examples distribution. The sample-parent/ directory contains the
       multimodule project structure shown in <xref
@@ -612,13 +610,12 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       </figure>
 
       <para>This project approximates the structure of a real-world enterprise
-      project. The project is modularized into specialized projects that
-      contain similar code. If this were a real set of projects, the
-      sample-model project contain a set of foundational model objects used
-      throughout the system, the sample-util project would contain utility
-      code, the sample-persist project would contain logic that deals with
-      persisting objects to a database, and the other projects would all be
-      combined to produce the various GUI and Web-based interfaces that
+      project: the <varname>sample-model</varname> project contains a set of
+      foundational model objects used throughout the system, the
+      <varname>sample-util</varname> project would contain utility code, the
+      <varname>sample-persist</varname> project would contain logic that deals
+      with persisting objects to a database, and the other projects would all
+      be combined to produce the various GUI and Web-based interfaces that
       comprise a very complex system. <xref
       linkend="fig-running-aro-depends" /> captures the dependencies between
       each of these sample modules.</para>
@@ -677,7 +674,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       your build ran successfully up until Maven encountered a failing unit
       test in <varname>sample-client-connector</varname>. With the
       <command>-rf</command> option, you can fix the unit test in
-      simple-client-connect and then run <command>mvn -rf
+      <varname>simple-client-connector</varname> and then run <command>mvn -rf
       sample-client-connect</command> from the
       <filename>sample-parent/</filename> directory to resume the build with
       the final three projects. </para>
@@ -694,17 +691,18 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
     <section>
       <title>Specifying a Subset of Projects</title>
 
-      <para>The -pl or --projects option allows you to select a list of
-      projects from a multimodule project. This option can be useful if you
-      are working on a specific set of projects, and you'd rather not wait
-      through a full build of a multi-module project during a development
-      cycle.</para>
+      <para>The <command>-pl</command> or <command>--projects</command> option
+      allows you to select a list of projects from a multimodule project. This
+      option can be useful if you are working on a specific set of projects,
+      and you'd rather not wait through a full build of a multi-module project
+      during a development cycle.</para>
 
       <para>Assume that you are working on the multi-module project with the
       build order shown in <xref linkend="ex-running-aro-order" /> and that
-      you are a developer focused on the sample-rest and
-      sample-client-connector projects. If you only wanted Maven to build the
-      sample-rest and sample-client-connector project, you would use the
+      you are a developer focused on the <varname>sample-rest</varname> and
+      <varname>sample-client-connector</varname> projects. If you only wanted
+      Maven to build the <varname>sample-rest</varname> and
+      <varname>sample-client-connector</varname> project, you would use the
       following syntax from the <filename>sample-parent/</filename>
       directory:</para>
 
@@ -723,15 +721,16 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       the <command>-pl</command> or <command>--projects</command> option with
       the <command>-am</command> or <command>--also-make option</command>.
       When you specify a project with the <command>-am</command> option, Maven
-      will build all of the projects up to the project specified. Maven will
-      examine the list of projects and walk down the dependency tree, finding
-      all of the projects that it needs to build.</para>
+      will build all of the projects that the specified project depends upon
+      (either directly or indirectly). Maven will examine the list of projects
+      and walk down the dependency tree, finding all of the projects that it
+      needs to build.</para>
 
       <para>If you are working on the multi-module project with the build
       order shown in <xref linkend="ex-running-aro-order" /> and you were only
       interested in working on the <varname>sample-services</varname> project,
-      you would run <command>mvn -pl simple-services -am</command> to only
-      build the projects </para>
+      you would run <command>mvn -pl simple-services -am</command> to build
+      only those projects </para>
 
       <screen>$ <command>mvn --projects sample-services --also-make install</command>
 [INFO] Scanning for projects...
@@ -745,19 +744,20 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
     <section>
       <title>Making Project Dependents</title>
 
-      <para>While the <command>-am</command> command makes all of a projects
-      required by a particular project, the <command>-amd</command> or
-      <command>--also-make-dependents</command> option configures Maven to
-      build a project and any project that depends on that project. When using
-      <command>--also-make-dependents</command>, Maven will examine all of the
-      projects in our reactor to find projects that depend on a particular
-      project. It will automatically build those projects and nothing
-      else</para>
+      <para>While the <command>-am</command> command makes all of the projects
+      required by a particular project in a multi-module build, the
+      <command>-amd</command> or <command>--also-make-dependents</command>
+      option configures Maven to build a project and any project that depends
+      on that project. When using <command>--also-make-dependents</command>,
+      Maven will examine all of the projects in our reactor to find projects
+      that depend on a particular project. It will automatically build those
+      projects and nothing else.</para>
 
       <para>If you are working on the multi-module project with the build
-      order shown in and you wanted to make sure that your changes to
-      sample-services did not introduce any errors into the projects that
-      directly or indirectly depend on sample-services, you would run the
+      order shown in <xref linkend="ex-running-aro-order" /> and you wanted to
+      make sure that your changes to <varname>sample-services</varname> did
+      not introduce any errors into the projects that directly or indirectly
+      depend on <varname>sample-services</varname>, you would run the
       following command:</para>
 
       <para><screen>$ <command>mvn --projects sample-services --also-make-dependents install</command>
@@ -789,12 +789,14 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
 [INFO]   sample-security
 [INFO]   sample-webapp</screen>
 
-      <para>In this example, the build is resumed from sample-services which
-      omits the sample-persist and sample-model projects from the build. If
-      you are focused on individual components and you need to accelerate your
-      build times, using these advanced reactor options together is a great
-      way to skip portions of your large multi-module project build. The
-      <command>--resume-from</command> argument also works with
+      <para>In this example, the build is resumed from
+      <varname>sample-services</varname> which omits the
+      <varname>sample-persist</varname> and <varname>sample-model</varname>
+      projects from the build. If you are focused on individual components and
+      you need to accelerate your build times, using these advanced reactor
+      options together is a great way to skip portions of your large
+      multi-module project build. The <command>--resume-from</command>
+      argument also works with
       <command>--also-make-dependents</command>.</para>
     </section>
   </section>
@@ -970,11 +972,6 @@ This mojo doesn't have any component requirements.
       goal.</para>
 
       <screen>$ <command>mvn help:describe -Dplugin=compiler -Dmojo=compile -Dfull</command></screen>
-
-      <note>
-        <para>What? A Mojo? In Maven, a Plugin goal is known as a
-        "Mojo".</para>
-      </note>
     </section>
   </section>
 </chapter>
