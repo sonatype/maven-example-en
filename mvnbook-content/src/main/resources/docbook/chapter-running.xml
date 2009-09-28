@@ -571,7 +571,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       </varlistentry>
     </variablelist>
 
-    <section id="web-sect-downloading">
+    <section id="running-sect-downloading-aro">
       <title>Advanced Reaction Options Example Project</title>
 
       <para>The example in this section is a skeleton of a complex multimodule
@@ -677,7 +677,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       <varname>simple-client-connector</varname> and then run <command>mvn -rf
       sample-client-connect</command> from the
       <filename>sample-parent/</filename> directory to resume the build with
-      the final three projects. </para>
+      the final three projects.</para>
 
       <screen>$ <command>mvn --resume-from sample-client-connector install</command>
 [INFO] Scanning for projects...
@@ -730,7 +730,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       order shown in <xref linkend="ex-running-aro-order" /> and you were only
       interested in working on the <varname>sample-services</varname> project,
       you would run <command>mvn -pl simple-services -am</command> to build
-      only those projects </para>
+      only those projects</para>
 
       <screen>$ <command>mvn --projects sample-services --also-make install</command>
 [INFO] Scanning for projects...
