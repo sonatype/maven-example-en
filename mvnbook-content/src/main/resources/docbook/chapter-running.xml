@@ -537,14 +537,6 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
 
     <variablelist>
       <varlistentry>
-        <term>-r, --reactor</term>
-
-        <listitem>
-          <para>Dynamically build reactor from subdirectories</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term>-rf, --resume-from</term>
 
         <listitem>
@@ -581,7 +573,7 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
     </variablelist>
 
     <section id="web-sect-downloading">
-      <title>Downloading this Section's Example</title>
+      <title>Advanced Reaction Options Example Project</title>
 
       <para>The example in this section is a skeleton of a complex multimodule
       project that is used to illustrate the advanced reactor options. While
@@ -596,87 +588,214 @@ OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
       <para>Unzip this archive in any directory, and then go to the
       <filename>ch-running/</filename> directory. There you will see a
       directory named <filename>sample-parent/</filename>. This direct
-      contains a multi-module project that is used in the next few
-      sections.</para>
+      contains a multi-module project that is used in the next few sections.
+      All of the examples in this section will be executed from the
+      <filename>examples/ch-running/sample-parent/</filename> directory in the
+      examples distribution. The sample-parent/ directory contains the
+      multimodule project structure shown in <xref
+      linkend="fig-running-aro-dir-struct" />.</para>
+
+      <figure id="fig-running-aro-dir-struct">
+        <title>Directory Structure of Sample Multi-module Project</title>
+
+        <mediaobject>
+          <imageobject role="web" userlevel="">
+            <imagedata fileref="figs/web/running_aro-project-dir.png" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata align="center"
+                       fileref="figs/print/running_aro-project-dir.pdf"
+                       scalefit="0" width="100%" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>This project approximates the structure of a real-world enterprise
+      project. The project is modularized into specialized projects that
+      contain similar code. If this were a real set of projects, the
+      sample-model project contain a set of foundational model objects used
+      throughout the system, the sample-util project would contain utility
+      code, the sample-persist project would contain logic that deals with
+      persisting objects to a database, and the other projects would all be
+      combined to produce the various GUI and Web-based interfaces that
+      comprise a very complex system. <xref
+      linkend="fig-running-aro-depends" /> captures the dependencies between
+      each of these sample modules.</para>
+
+      <figure id="fig-running-aro-depends" label="">
+        <title>Dependencies withing Sample Multi-module Project</title>
+
+        <mediaobject>
+          <imageobject role="web">
+            <imagedata fileref="figs/web/running_aro-dependencies.png" />
+          </imageobject>
+
+          <imageobject role="print">
+            <imagedata fileref="figs/print/running_aro-dependencies.pdf" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>If you go into the <filename>sample-parent/</filename> project
+      directory and run <command>mvn clean</command>, you will see that the
+      Maven Reactor reads all of the project dependencies and comes up with
+      the following build order for these projects as shown in <xref
+      linkend="ex-running-aro-order" />.</para>
+
+      <example id="ex-running-aro-order" label="">
+        <title>Order of Project Builds in Maven Reactor</title>
+
+        <screen>[INFO] Reactor build order: 
+[INFO]   sample-parent
+[INFO]   sample-model
+[INFO]   sample-persist
+[INFO]   sample-services
+[INFO]   sample-util
+[INFO]   sample-security
+[INFO]   sample-admin-webapp
+[INFO]   sample-webapp
+[INFO]   sample-rest
+[INFO]   sample-client-connector
+[INFO]   sample-gui
+[INFO]   sample-admin-gui</screen>
+      </example>
     </section>
 
     <section>
       <title>Resuming Builds</title>
 
-      <para>Suppose we're working on our code and we attempt to run mvn
-      install from simple-parent, but we encounter a test failure in
-      simple-weather. We make additional changes to simple-weather without
-      changing simple-model; we know that simple-model is fine, so there's no
-      need to rebuild/test it. We can then use the --resume-from argument,
-      like this:</para>
+      <para>The <command>-rf</command> or <command>--resume-from</command>
+      option can come in handy if you want to tell the Maven Reactor to resume
+      a build from a particular project. This can be useful if you are working
+      with a large multimodule project and you want to restart a build at a
+      particular project in the Reactor without running through all of the
+      projects that precede it in the build order.</para>
 
-      <screen>$ <command>mvn --resume-from simple-weather install</command></screen>
+      <para>Assume that you are working on the multi-module project with the
+      build order shown in <xref linkend="ex-running-aro-order" /> and that
+      your build ran successfully up until Maven encountered a failing unit
+      test in <varname>sample-client-connector</varname>. With the
+      <command>-rf</command> option, you can fix the unit test in
+      simple-client-connect and then run <command>mvn -rf
+      sample-client-connect</command> from the
+      <filename>sample-parent/</filename> directory to resume the build with
+      the final three projects. </para>
 
-      <para>That will skip over simple-model and pick up the build where we
-      left off in simple-weather. If simple-weather succeeds, Maven will go on
-      to build the rest of the projects.</para>
+      <screen>$ <command>mvn --resume-from sample-client-connector install</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   sample-client-connector
+[INFO]   sample-gui
+[INFO]   sample-admin-gui
+...</screen>
     </section>
 
     <section>
       <title>Specifying a Subset of Projects</title>
 
-      <para>Suppose we've made some changes to simple-command and
-      simple-webapp and would like to rebuild just those two projects. We can
-      use the --projects argument, like this:</para>
+      <para>The -pl or --projects option allows you to select a list of
+      projects from a multimodule project. This option can be useful if you
+      are working on a specific set of projects, and you'd rather not wait
+      through a full build of a multi-module project during a development
+      cycle.</para>
 
-      <screen>$ <command>mvn --projects simple-command,simple-webapp install</command></screen>
+      <para>Assume that you are working on the multi-module project with the
+      build order shown in <xref linkend="ex-running-aro-order" /> and that
+      you are a developer focused on the sample-rest and
+      sample-client-connector projects. If you only wanted Maven to build the
+      sample-rest and sample-client-connector project, you would use the
+      following syntax from the <filename>sample-parent/</filename>
+      directory:</para>
 
-      <para>That will automatically build just those two projects, saving us
-      the trouble of running Maven in each directory separately.</para>
+      <screen>$ <command>mvn --projects sample-client-connector,sample-rest install</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   sample-rest
+[INFO]   sample-client-connector
+<command></command></screen>
+    </section>
+
+    <section id="running-sect-make-subset">
+      <title>Making a Subset of Projects</title>
+
+      <para>If you wanted to run a portion of the larger build, you would use
+      the <command>-pl</command> or <command>--projects</command> option with
+      the <command>-am</command> or <command>--also-make option</command>.
+      When you specify a project with the <command>-am</command> option, Maven
+      will build all of the projects up to the project specified. Maven will
+      examine the list of projects and walk down the dependency tree, finding
+      all of the projects that it needs to build.</para>
+
+      <para>If you are working on the multi-module project with the build
+      order shown in <xref linkend="ex-running-aro-order" /> and you were only
+      interested in working on the <varname>sample-services</varname> project,
+      you would run <command>mvn -pl simple-services -am</command> to only
+      build the projects </para>
+
+      <screen>$ <command>mvn --projects sample-services --also-make install</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   sample-parent
+[INFO]   sample-model
+[INFO]   sample-persist
+[INFO]   sample-services</screen>
     </section>
 
     <section>
-      <title>Making Subsets</title>
+      <title>Making Project Dependents</title>
 
-      <para>Suppose we're developers working on simple-command; we don't want
-      to work on simple-webapp right now, but just want to get a working build
-      of simple-command. We can use --also-make, like this:</para>
+      <para>While the <command>-am</command> command makes all of a projects
+      required by a particular project, the <command>-amd</command> or
+      <command>--also-make-dependents</command> option configures Maven to
+      build a project and any project that depends on that project. When using
+      <command>--also-make-dependents</command>, Maven will examine all of the
+      projects in our reactor to find projects that depend on a particular
+      project. It will automatically build those projects and nothing
+      else</para>
 
-      <screen>$ <command>mvn --projects simple-command --also-make install</command></screen>
+      <para>If you are working on the multi-module project with the build
+      order shown in and you wanted to make sure that your changes to
+      sample-services did not introduce any errors into the projects that
+      directly or indirectly depend on sample-services, you would run the
+      following command:</para>
 
-      <para>When we use --also-make, Maven will examine the list of projects
-      (currently just simple-command) and walk down the dependency tree,
-      finding all of the projects that it needs to build. In this case, it
-      will automatically build simple-model, simple-weather and
-      simple-persist, without building simple-webapp.</para>
-    </section>
-
-    <section>
-      <title>Changing simple-weather and verifying we didn't break anything
-      using --also-make-dependents</title>
-
-      <para>Suppose we've made a change to simple-weather; we want to make
-      sure we didn't break any of the projects that depend on we. (In this
-      case, we want to make sure that we didn't break simple-command and
-      simple-webapp, but in a more complex reactor that might not be so
-      obvious.) We also want to avoid rebuilding/testing projects that we know
-      we haven't changed. In this case, we want to avoid building
-      simple-persist. We can use --also-make-dependents, like this: <screen>$ <command>mvn --projects simple-weather --also-make-dependents install</command></screen>When
-      we use --also-make-dependents, Maven will examine all of the projects in
-      our reactor to find projects that depend on simple-weather, and
-      automatically build those and nothing else. In this case, it will
-      automatically build simple-weather and then simple-command and
-      simple-webapp.</para>
+      <para><screen>$ <command>mvn --projects sample-services --also-make-dependents install</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   sample-services
+[INFO]   sample-admin-webapp
+[INFO]   sample-webapp
+[INFO]   sample-rest
+</screen></para>
     </section>
 
     <section>
       <title>Resuming a "make" build</title>
 
-      <para>When we use --also-make, we run a subset of projects, but that
-      doesn't mean stuff won't fail halfway through the build. We can resume
-      our --also-make build from the project that stopped the build by using
-      --resume-from together with --also-make, like this:</para>
+      <para>When using <command>--also-make</command>, Maven will execute a
+      subset of the larger build as shown in <xref
+      linkend="running-sect-make-subset" />. Combining
+      <command>--project</command>, <command>--also-make</command>, and
+      <command>--resume-from</command> provides you with the ability to refine
+      your build even further.</para>
 
-      <screen>$ <command>mvn --projects simple-command --also-make \
-      --resume-from simple-weather install</command></screen>
+      <screen>$ <command>mvn --projects sample-webapp --also-make \
+      --resume-from sample-services install</command>
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   sample-services
+[INFO]   sample-util
+[INFO]   sample-security
+[INFO]   sample-webapp</screen>
 
-      <para>The --resume-from argument also works with
-      --also-make-dependents.</para>
+      <para>In this example, the build is resumed from sample-services which
+      omits the sample-persist and sample-model projects from the build. If
+      you are focused on individual components and you need to accelerate your
+      build times, using these advanced reactor options together is a great
+      way to skip portions of your large multi-module project build. The
+      <command>--resume-from</command> argument also works with
+      <command>--also-make-dependents</command>.</para>
     </section>
   </section>
 
