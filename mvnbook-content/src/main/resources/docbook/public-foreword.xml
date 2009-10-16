@@ -16,7 +16,7 @@
 
   <para>Evanston, IL</para>
 
-  <para>September 28, 2009</para>
+  <para>October 16, 2009</para>
 
   <section id="foreword-sect-revisions">
     <title>Revision History</title>
@@ -24,6 +24,21 @@
     <para>Many readers have been asking us to keep track of specific changes
     to the book content, the following sections list changes made to the book
     in reverse chronological order starting with ${project.version}.</para>
+
+    <section>
+      <title>Changes in Edition 0.8.1</title>
+
+      <para>The following change was made:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Removed any reference to LATEST and RELEASE versions for
+          plugins. These are legacy version identifiers, and using them is an
+          anti-pattern. (<ulink
+          url="https://issues.sonatype.org/browse/MVNDEF-447">MVNDEF-447</ulink>)</para>
+        </listitem>
+      </itemizedlist>
+    </section>
 
     <section>
       <title>Changes in Edition 0.8</title>
