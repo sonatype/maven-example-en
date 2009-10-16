@@ -650,44 +650,6 @@
         <acronym>POM</acronym> has snapshot's disabled from the Central
         repository. SNAPSHOT versions are for development only.</para>
       </section>
-
-      <section id="pom-relationships-sect-latest-release">
-        <title>LATEST and RELEASE Versions</title>
-
-        <para>When you depend on a plugin or a dependency, you can use the
-        version value of LATEST or RELEASE. LATEST refers to the latest
-        released or snapshot version of a particular artifact, the most
-        recently deployed artifact in a particular repository. RELEASE refers
-        to the last non-snapshot release in the repository. In general, it is
-        not a best practice to design software which depends on a non-specific
-        version of an artifact. If you are developing software, you might want
-        to use RELEASE or LATEST as a convenience so that you don't have to
-        update version numbers when a new release of a third-party library is
-        released. When you release software, you should always make sure that
-        your project depends on specific versions to reduce the chances of
-        your build or your project being affected by a software release not
-        under your control. Use LATEST and RELEASE with caution, if at
-        all.</para>
-
-        <para>Starting with Maven 2.0.9, Maven locks down the version numbers
-        of common and core Maven plugins in the super POM to standardize a
-        core set of Maven plugins for a particular version of Maven. This
-        change was introduced to Maven 2.0.9 to bring stability and
-        reproducibility to Maven builds. Before Maven 2.0.9, Maven would
-        automatically update core Maven plugins using the LATEST version. This
-        behavior led to a number of surprises when bugs were introduced into
-        core plugins or functionality changed in a core plugin which
-        subsequently broke a build. When Maven automatically updated core
-        plugins, it was noted that there was little guarantee that a build
-        would be reproducible as plugins could be updated whenever a new
-        version was pushed to the central repository. Starting with Maven
-        2.0.9, Maven, essentially, ships with a core set of locked down plugin
-        versions. Non-core plugins, or plugins without versions assigned in
-        the Super POM will still use the LATEST version to retrieve a plugin
-        artifact from the repository. It is for this reason that you should
-        assign explicit version numbers to any custom or non-core plugins used
-        in your build.</para>
-      </section>
     </section>
 
     <section id="pom-relationships-sect-property-refs">
