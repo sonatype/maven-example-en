@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>examples</artifactId>
-  <groupId>org.sonatype.mavenbook</groupId>
-  <version>0.9-SNAPSHOT</version>
+  <groupId>org.sonatype.mvnexbook</groupId>
+  <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Maven: The Definitive Guide Example Code</name>
-  <description>Example Code for Maven: The Definitive Guide</description>
+  <name>Maven: By Example, Example Code</name>
+  <description>Example Code for Maven: By Example</description>
   
   <url>http://sonatype.com/book</url>
 
@@ -28,7 +28,7 @@
   </modules> -->
   
   <build>
-    <finalName>mavenbook-examples-${project.version}</finalName>
+    <finalName>mvnexbook-examples-${project.version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -56,7 +56,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book/book-examples/</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book/book-examples/</url>
         </site>
         </distributionManagement>
         <properties>
@@ -69,7 +69,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/book-examples/</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/book-examples/</url>
         </site>
         </distributionManagement>
       </profile>
@@ -79,7 +79,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book/book-examples/</url>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book/book-examples/</url>
         </site>
         </distributionManagement>
         <properties>
@@ -92,7 +92,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/maven-book-stage/book-examples/</url>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/book-examples/</url>
         </site>
         </distributionManagement>
       </profile>

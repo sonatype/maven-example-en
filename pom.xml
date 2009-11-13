@@ -1,70 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.sonatype.mavenbook</groupId>
-  <artifactId>mvnbook-parent</artifactId>
-  <version>0.9-SNAPSHOT</version>
+  <groupId>org.sonatype.mvnexbook</groupId>
+  <artifactId>mvnex-book-parent</artifactId>
+  <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Maven: The Definitive Guide (Parent Project)</name>
-  <description>A book about Apache Maven 2.x</description>
+  <name>Maven: By Example (Parent Project)</name>
+  <description>An introduction to Apache Maven</description>
   
   <url>http://sonatype.com/book</url>
   
   <modules>
-    <module>mvnbook-examples</module>
-    <module>mvnbook-content</module>
+    <module>mvnex-book-examples</module>
+    <module>mvnex-book-content</module>
   </modules>
   
   <profiles>
     <profile>
       <id>publish</id>
-      <!--        <properties>
-		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties> -->
       <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book/parent</url>
         </site>
       </distributionManagement>
     </profile>
     <profile>
       <id>publish-external</id>
-      <!--        <properties>
-		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties> -->
       <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book/parent</url>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book/parent</url>
         </site>
       </distributionManagement>
     </profile>
     <profile>
       <id>stage</id>
-      <!--        <properties>
-		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties> -->
       <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
+          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/parent</url>
         </site>
       </distributionManagement>
     </profile>
     <profile>
       <id>stage-external</id>
-      <!--        <properties>
-		  <sonatype.site>scp://www.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
-        </properties> -->
       <distributionManagement>
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/book-stage/parent</url>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/parent</url>
         </site>
       </distributionManagement>
     </profile>
@@ -193,9 +181,9 @@
     </plugins>
   </build>
   <scm>
-    <connection>scm:git:git://github.com/sonatype/maven-guide-en.git</connection>
-    <url>scm:git:git://github.com/sonatype/maven-guide-en.git</url>
-    <developerConnection>scm:git:git://github.com/sonatype/maven-guide-en.git</developerConnection>	
+    <connection>scm:git:git://github.com/sonatype/maven-example-en.git</connection>
+    <url>scm:git:git://github.com/sonatype/maven-example-en.git</url>
+    <developerConnection>scm:git:git://github.com/sonatype/maven-example-en.git</developerConnection>	
   </scm>
   <distributionManagement>
     <repository>
