@@ -347,8 +347,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     all parent <acronym>POM</acronym>s, a super-<acronym>POM</acronym> defined
     within Maven, user-defined settings, and active profiles. All projects
     ultimately extend the super-<acronym>POM</acronym>, which defines a set of
-    sensible default configuration settings and which is fully explained in
-    <xref linkend="pom-relationships" />. While your project might have a
+    sensible default configuration settings. While your project might have a
     relatively minimal <filename>pom.xml</filename>, the contents of your
     project's <acronym>POM</acronym> are interpolated with the contents of all
     parent <acronym>POM</acronym>s, user settings, and any active profiles. To
@@ -361,8 +360,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <acronym>POM</acronym> which exposes the default settings of Maven. This
     goal can come in handy if you are trying to debug a build and want to see
     how all of the current project's ancestor POMs are contributing to the
-    effective POM. For more information about the Maven Help plugin, see <xref
-    linkend="installation-sect-help-plugin-install" />.</para>
+    effective POM.</para>
   </section>
 
   <section id="simple-project-sect-simple-core">
