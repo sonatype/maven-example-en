@@ -37,11 +37,13 @@
     <section id="web-sect-downloading">
       <title>Downloading this Chapter's Example</title>
 
-      <para>The example in this chapter is generated with the Maven Archetype
-      plugin. While you should be able to follow the development of this
-      chapter without the example source code, we recommend downloading a copy
-      of the example code to use as a reference. This chapter’s example
-      project may be downloaded with the book’s example code at:</para>
+      <para>The example in this chapter is generated with the <indexterm>
+          <primary>Archetype plugin</primary>
+        </indexterm>Maven Archetype plugin. While you should be able to follow
+      the development of this chapter without the example source code, we
+      recommend downloading a copy of the example code to use as a reference.
+      This chapter’s example project may be downloaded with the book’s example
+      code at:</para>
 
       <screen>${examples.download.url}</screen>
 
@@ -56,17 +58,30 @@
     <title>Defining the Simple Web Application</title>
 
     <para>We’ve purposefully kept this chapter focused on Plain-Old Web
-    Applications (<acronym>POWA</acronym>)—a servlet and a JavaServer Pages
-    (<acronym>JSP</acronym>) page. We’re not going to tell you how to develop
-    your Struts 2, Tapestry, Wicket, Java Server Faces
-    (<acronym>JSF</acronym>), or Waffle application in the next 20-odd pages,
-    and we’re not going to get into integrating an Inversion of Control
-    (<acronym>IoC</acronym>) container such as Plexus, Guice, or the Spring
-    Framework. The goal of this chapter is to show you the basic facilities
-    that Maven provides for developing web applications—no more, no less.
-    Later in this book, we’re going to take a look at developing two web
-    applications: one which that Hibernate, Velocity, and the Spring
-    Framework; and the other that uses Plexus.</para>
+    Applications (<acronym>POWA</acronym>)—a <indexterm>
+        <primary>servlet</primary>
+      </indexterm>servlet and a <indexterm>
+        <primary>Java Server Page (JSP)</primary>
+      </indexterm>JavaServer Pages (<acronym>JSP</acronym>) page. We’re not
+    going to tell you how to develop your Struts 2, Tapestry, Wicket, Java
+    Server Faces (<acronym>JSF</acronym>), or Waffle application in the next
+    20-odd pages, and we’re not going to get into integrating an Inversion of
+    Control (<acronym>IoC</acronym>) container such as <indexterm>
+        <primary>Plexus</primary>
+      </indexterm>Plexus, <indexterm>
+        <primary>Guice</primary>
+      </indexterm>Guice, or the <indexterm>
+        <primary>Spring Framework</primary>
+      </indexterm>Spring Framework. The goal of this chapter is to show you
+    the basic facilities that Maven provides for developing web
+    applications—no more, no less. Later in this book, we’re going to take a
+    look at developing two web applications: one which that <indexterm>
+        <primary>Hibernate</primary>
+      </indexterm>Hibernate, <indexterm>
+        <primary>Velocity</primary>
+      </indexterm>Velocity, and the <indexterm>
+        <primary>Spring Framework</primary>
+      </indexterm>Spring Framework; and the other that uses Plexus.</para>
   </section>
 
   <section id="web-sect-creating-project">
@@ -83,7 +98,11 @@
     an <varname>artifactId</varname> and a <varname>groupId</varname>. Run
     <varname>archetype:generate</varname> as shown below, choose archetype #18
     "maven-archetype-webapp", and then press Y to confirm and create the new
-    web application project:</para>
+    web application project:<indexterm>
+        <primary>Archetype plugin</primary>
+
+        <secondary>generate goal</secondary>
+      </indexterm></para>
 
     <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simpleweb \
                          -DartifactId=simple-webapp \
@@ -123,7 +142,9 @@ package: org.sonatype.mavenbook.simpleweb
 
         <secondary>for simple Web project (example)</secondary>
       </indexterm> <acronym>XML</acronym> document shown in the following
-    example:</para>
+    example:<indexterm>
+        <primary>pom.xml</primary>
+      </indexterm></para>
 
     <example>
       <title>Initial <acronym>POM</acronym> for the simple-web project</title>
@@ -157,7 +178,11 @@ package: org.sonatype.mavenbook.simpleweb
     <para>Next, you will need to configure the Maven Compiler plugin to target
     Java 5. To do this, add the <sgmltag>plugins</sgmltag> element to the
     initial POM as shown in <xref
-    linkend="ex-web-initial-pom-with-compiler" />.</para>
+    linkend="ex-web-initial-pom-with-compiler" />.<indexterm>
+        <primary>Compler plugin</primary>
+
+        <secondary>configuration</secondary>
+      </indexterm></para>
 
     <example id="ex-web-initial-pom-with-compiler">
       <title><acronym>POM</acronym> for the simple-web project with compiler
@@ -222,7 +247,9 @@ package: org.sonatype.mavenbook.simpleweb
   <section id="web-sect-configuring-jetty">
     <title>Configuring the Jetty Plugin</title>
 
-    <para>Once you’ve compiled, tested, and packaged your web
+    <para><indexterm>
+        <primary>Jetty</primary>
+      </indexterm>Once you’ve compiled, tested, and packaged your web
     application,<indexterm class="startofrange" id="webapp3a">
         <primary>Web applications</primary>
 
@@ -248,7 +275,11 @@ package: org.sonatype.mavenbook.simpleweb
     this, we’ll need to configure the Maven Jetty plugin in our project’s
     <filename>pom.xml</filename>. Add the <literal>plugin</literal> element
     shown in the following example to your project’s build
-    configuration.</para>
+    configuration.<indexterm>
+        <primary>Jetty plugin</primary>
+
+        <secondary>configuration</secondary>
+      </indexterm></para>
 
     <example>
       <title>Configuring the Jetty Plugin</title>
@@ -273,6 +304,12 @@ package: org.sonatype.mavenbook.simpleweb
     Jetty plugin to start your web application in the Jetty Servlet container.
     Run <command>mvn jetty:run</command> from the
     <filename>simple-webapp/</filename> project directory as follows:</para>
+
+    <indexterm>
+      <primary>Jetty plugin</primary>
+
+      <secondary>run goal</secondary>
+    </indexterm>
 
     <screen>~/examples/ch-simple-web/simple-webapp $ <command>mvn jetty:run</command>
 ...
@@ -304,10 +341,13 @@ simple-webapp/target/classes
       you may need to move your local Maven repository to a directory that
       does not contain spaces. Some readers have reported issues on Jetty
       startup caused by a repository that was being stored under
-      <filename>"C:\Documents and Settings\&lt;user&gt;"</filename>. The
-      solution to this problem is to move your local Maven repository to a
-      directory that does not contain spaces and redefine the location of your
-      local repository in <filename>~/.m2/settings.xml</filename>.</para>
+      <filename>"C:\Documents and Settings\&lt;user&gt;"</filename>.
+      <indexterm>
+          <primary>settings.xml</primary>
+        </indexterm>The solution to this problem is to move your local Maven
+      repository to a directory that does not contain spaces and redefine the
+      location of your local repository in
+      <filename>~/.m2/settings.xml</filename>.</para>
     </warning>
 
     <para>After Maven starts the Jetty Servlet container, load the URL <ulink
@@ -507,7 +547,9 @@ public class SimpleServlet extends HttpServlet {
       </indexterm> <acronym>API</acronym> as a project dependency. To add the
     Servlet specification <acronym>API</acronym> as a dependency to your
     project’s <acronym>POM</acronym>, add the dependency element as shown in
-    this next example:</para>
+    this next example:<indexterm>
+        <primary>dependency scope</primary>
+      </indexterm></para>
 
     <example>
       <title>Add the Servlet 2.4 Specification as a Dependency</title>
