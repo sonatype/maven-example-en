@@ -38,13 +38,12 @@
     often maintained by large, diverse groups of developers, each with a
     different focus. In a real-world project, you are often evaluating
     decisions and designs made and created by others. In this chapter, we take
-    a step back from the examples you’ve seen in <xref
-    linkend="part-example" />, and we ask ourselves if there are any
-    optimizations that might make more sense given what we now know about
-    Maven. Maven is a very capable tool that can be as simple or as complex as
-    you need it to be. Because of this, there are often a million ways to
-    accomplish the same task, and there is often no one “right” way to
-    configure your Maven project.</para>
+    a step back from the examples you’ve seen in the previous chapters, and we
+    ask ourselves if there are any optimizations that might make more sense
+    given what we now know about Maven. Maven is a very capable tool that can
+    be as simple or as complex as you need it to be. Because of this, there
+    are often a million ways to accomplish the same task, and there is often
+    no one “right” way to configure your Maven project.</para>
 
     <para>Don't misinterpret that last sentence as a license to go off and ask
     Maven to do something it wasn't designed for. While Maven allows for a
@@ -59,16 +58,15 @@
     <filename>~/.m2/settings.xml</filename> than to declare a profile in a
     <filename>pom.xml</filename>, writing a book, and reading a book is mostly
     about pacing and making sure we're not introducing concepts before you are
-    ready. In <xref linkend="part-example" />, we've made an effort not to
-    overwhelm the reader with too much information, and, in doing so, we've
-    skipped some core concepts like the
-    <sgmltag>dependencyManagement</sgmltag> element introduced in this
-    chapter.</para>
+    ready. In the previous chapters, we've made an effort not to overwhelm the
+    reader with too much information, and, in doing so, we've skipped some
+    core concepts like the <sgmltag>dependencyManagement</sgmltag> element
+    introduced in this chapter.</para>
 
-    <para>There are many instances in <xref linkend="part-example" /> when the
-    authors of this book took a shortcut or glossed over an important detail
-    to shuffle you along to the main point of a specific chapter. You learned
-    how to create a Maven project, and you compiled and installed it without
+    <para>There are many instances in the previous chapters when the authors
+    of this book took a shortcut or glossed over an important detail to
+    shuffle you along to the main point of a specific chapter. You learned how
+    to create a Maven project, and you compiled and installed it without
     having to wade through hundreds of pages introducing every last switch and
     dial available to you. We’ve done this because we believe it is important
     to deliver the new Maven user to a result faster rather than meandering

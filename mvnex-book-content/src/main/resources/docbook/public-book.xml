@@ -5,7 +5,7 @@
   <title>${book.title}</title>
 
   <bookinfo>
-    <isbn>9780596517335</isbn>
+    <isbn>9780984243334</isbn>
 
     <edition>${project.version}</edition>
 
@@ -88,8 +88,6 @@
     <abstract role="description-short">
       <para>Maven: By Example is an introduction to Apache Maven.</para>
     </abstract>
-
-
   </bookinfo>
 
   <xi:include href="chapter-copyright.xml"
@@ -107,75 +105,21 @@
   <xi:include href="chapter-installation.xml"
               xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-  <part id="part-example">
-    <title>Maven by Example</title>
+  <xi:include href="chapter-simple-project.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-    <partintro>
-      <para>The first Maven book was <emphasis>Maven: A Developer’s
-      Notebook</emphasis> (O’Reilly). That book introduced Maven in a series
-      of steps via a conversation between you and a colleague who already knew
-      how to use Maven. The idea behind the (now-retired) Developer’s Notebook
-      series was that developers learn best when they are sitting next to
-      other developers and going through the same thought processes, learning
-      to code by doing and experimenting. Although the series was successful,
-      the Notebook format had limitations. Notebooks are, by design,
-      “goal-focused” books that take you through a series of steps to achieve
-      very specific goals. By contrast, larger reference books (such as
-      O’Reilly’s animal books) provide comprehensive reference material that
-      cover the entirety of the topic.</para>
+  <xi:include href="chapter-customization.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-      <para>If you read <emphasis>Maven: A Developer’s Notebook</emphasis>,
-      you’ll learn how to create a simple project or a project that creates a
-      WAR from a set of source files. But if you want to find out the
-      specifics for something like the Assembly plugin, you’ll hit an impasse.
-      Because there is no well-written reference material for Maven, you have
-      to hunt through plugin documentation on the Maven web site or cull from
-      a series of mailing lists. Once you really dig into Maven, you end up
-      reading through thousands of HTML pages on the Maven site written by
-      hundreds of different developers, each with a different idea of what it
-      means to document a plugin. Despite the best efforts of well-meaning
-      volunteers, reading through plugin documentation on the Maven site is,
-      at best, frustrating, and at worst, a reason to abandon Maven. Quite
-      often, Maven users get stuck because they just can’t find an
-      answer.</para>
+  <xi:include href="chapter-web.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-      <para>This lack of an authoritative (or definitive) reference manual has
-      held Maven back for a few years, and it has been something of a
-      dampening force on Maven adoption. With <emphasis>Maven: The Definitive
-      Guide,</emphasis> we intend to change that situation by providing a
-      comprehensive reference in <xref linkend="part-reference" />. In Part I,
-      we’re preserving the narrative progression of a Developer’s Notebook; it
-      is valuable material that helps people learn Maven by example. In this
-      part, we “introduce by doing,” and in <xref linkend="part-reference" />,
-      we fill in the blanks and dig into the details. Where <xref
-      linkend="part-reference" /> might use a reference table and a program
-      listing detached from an example project, Part I is motivated by real
-      examples.</para>
+  <xi:include href="chapter-multimodule.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-      <para>After reading this part, you should have everything you need to
-      start using Maven. You might need to refer to <xref
-      linkend="part-reference" /> only when you start customizing Maven by
-      writing custom plugins or when you want more detail about specific
-      plugins.</para>
-    </partintro>
+  <xi:include href="chapter-multimodule-spring-web.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-    <xi:include href="chapter-simple-project.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-
-    <xi:include href="chapter-customization.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-
-    <xi:include href="chapter-web.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-
-    <xi:include href="chapter-multimodule.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-
-    <xi:include href="chapter-multimodule-spring-web.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-
-    <xi:include href="chapter-optimizing.xml"
-                xmlns:xi="http://www.w3.org/2001/XInclude" />
-  </part>
-
+  <xi:include href="chapter-optimizing.xml"
+              xmlns:xi="http://www.w3.org/2001/XInclude" />
 </book>
