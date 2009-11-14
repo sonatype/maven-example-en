@@ -618,7 +618,7 @@ public class Main {
     // Read the Zip Code from the Command-line (if none supplied, use 60202)
     String zipcode = "60202";
     try {
-      zipcode = args[0]);
+      zipcode = args[0];
     } catch( Exception e ) {}
 
     // Start the program
@@ -1703,7 +1703,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
           <secondary>skipping tests</secondary>
         </indexterm></para>
 
-      <screen>$ mvn install -Dmaven.test.skip=true
+      <screen>$ <command>mvn install -Dmaven.test.skip=true</command>
 ...
 [INFO] [compiler:testCompile]
 [INFO] Not compiling test sources
