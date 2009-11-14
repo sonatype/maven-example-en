@@ -102,11 +102,8 @@
       into your commercial web site, think again—this feed is for personal,
       noncommercial use. The use we’re encouraging in this chapter is personal
       educational use. For more information about these terms of service,
-      <indexterm class="endofrange"
-      startref="weather03a"></indexterm><indexterm class="endofrange"
-      startref="weather03a1"></indexterm><indexterm class="endofrange"
-      startref="weather03a2"></indexterm>see the Yahoo Weather! API
-      documentation here: <ulink
+      <indexterm class="endofrange" startref="weather03a2"></indexterm>see the
+      Yahoo Weather! API documentation here: <ulink
       url="http://developer.yahoo.com/weather/"></ulink>.</para>
     </section>
   </section>
@@ -176,7 +173,9 @@ package: org.sonatype.mavenbook.custom
     <filename>simple-weather</filename> directory and take a look at the
     <filename>pom.xml</filename> file. You should see the
     <acronym>XML</acronym> document that’s shown in <xref
-    linkend="ex-initial-pom-for-simple-weather" />.</para>
+    linkend="ex-initial-pom-for-simple-weather" />.<indexterm>
+        <primary>pom.xml</primary>
+      </indexterm></para>
 
     <example id="ex-initial-pom-for-simple-weather">
       <title>Initial <acronym>POM</acronym> for the simple-weather
@@ -205,9 +204,10 @@ package: org.sonatype.mavenbook.custom
 </programlisting>
     </example>
 
-    <para>Next, you will need to configure the Maven Compiler plugin to target
-    Java 5. To do this, add the <sgmltag>build</sgmltag> element to the
-    initial POM as shown in <xref
+    <para>Next, you will need to configure the <indexterm>
+        <primary>Compiler plugin</primary>
+      </indexterm>Maven Compiler plugin to target Java 5. To do this, add the
+    <sgmltag>build</sgmltag> element to the initial POM as shown in <xref
     linkend="ex-customization-initial-pom-with-compiler" />.</para>
 
     <example id="ex-customization-initial-pom-with-compiler">
@@ -375,7 +375,9 @@ package: org.sonatype.mavenbook.custom
     will also need to add a dependency for Log4J which we will be using for
     logging. After we add these dependencies, our
     <varname>dependencies</varname> element will look like the following
-    example.</para>
+    example.<indexterm>
+        <primary>dependency management</primary>
+      </indexterm></para>
 
     <example>
       <title>Adding Dom4J, Jaxen, Velocity, and Log4J as Dependencies</title>
@@ -422,7 +424,9 @@ package: org.sonatype.mavenbook.custom
     these dependencies and other transitive dependencies to your local Maven
     repository.</para>
 
-    <para>How did we find these dependencies? Did we just "know" the
+    <para><indexterm>
+        <primary>searching for artifacts</primary>
+      </indexterm>How did we find these dependencies? Did we just "know" the
     appropriate <varname>groupId</varname> and <varname>artifactId</varname>
     values? Some of the dependencies are so widely used (like Log4J) that
     you'll just remember what the <varname>groupId</varname> and
@@ -935,7 +939,13 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
         <tertiary>running (executing)</tertiary>
       </indexterm> execute this program. To execute the
     <classname>Main</classname> class, run the following command from the
-    project’s base directory:</para>
+    project’s base directory:<indexterm>
+        <primary>Exec plugin</primary>
+
+        <secondary>java goal</secondary>
+      </indexterm><indexterm>
+        <primary>executing code via Maven</primary>
+      </indexterm></para>
 
     <screen>$ <command>mvn install</command>
 /$ <command>mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main</command>
@@ -999,7 +1009,11 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       scripts. It is not a core Maven plugin, but it is available from the
       <ulink url="http://mojo.codehaus.org">Mojo</ulink> project hosted by
       <ulink url="http://www.codehaus.org">Codehaus</ulink>. For a full
-      description of the Exec plugin, run:</para>
+      description of the Exec plugin, run:<indexterm>
+          <primary>Help plugin</primary>
+
+          <secondary>describe goal</secondary>
+        </indexterm></para>
 
       <screen>$ <command>mvn help:describe -Dplugin=exec -Dfull</command></screen>
 
@@ -1045,7 +1059,11 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
           <secondary>exploring with Dependency plugin</secondary>
         </indexterm> list of resolved dependencies. To print out this list for
       the simple weather project, execute the
-      <varname>dependency:resolve</varname> goal:</para>
+      <varname>dependency:resolve</varname> goal:<indexterm>
+          <primary>Dependency plugin</primary>
+
+          <secondary>resolve goal</secondary>
+        </indexterm></para>
 
       <screen>$ <command>mvn dependency:resolve</command>
 ...
@@ -1077,7 +1095,13 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
       the final combination of dependencies under which your project is being
       compiled. If you would like to know about the entire dependency tree of
       your project, you can run the <varname>dependency:tree</varname>
-      goal</para>
+      goal.<indexterm>
+          <primary>Dependency plugin</primary>
+
+          <secondary>tree goal</secondary>
+        </indexterm><indexterm>
+          <primary>generating a dependency tree</primary>
+        </indexterm></para>
 
       <screen>$ <command>mvn dependency:tree</command>
 ...
@@ -1103,7 +1127,9 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n</progr
 
       <para>If you're truly adventurous or want to see the full dependency
       trail, including artifacts that were rejected due to conflicts and other
-      reasons, run Maven with the debug flag.</para>
+      reasons, run Maven with the debug flag.<indexterm>
+          <primary>debuging Maven</primary>
+        </indexterm></para>
 
       <screen>$ <command>mvn install -X</command>
 ...
@@ -1669,7 +1695,13 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
       the ability to skip unit tests using the <varname>skip</varname>
       parameter of the Surefire plugin. To skip tests from the command-line,
       simply add the <varname>maven.test.skip</varname> property to any
-      goal:</para>
+      goal:<indexterm>
+          <primary>skipping unit tests</primary>
+        </indexterm><indexterm>
+          <primary>Surefire plugin</primary>
+
+          <secondary>skipping tests</secondary>
+        </indexterm></para>
 
       <screen>$ mvn install -Dmaven.test.skip=true
 ...
@@ -1788,7 +1820,11 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
     running the <varname>assembly:assembly</varname> goal. In the following
     screen listing, the <varname>assembly:assembly</varname> goal is executed
     after the Maven build reaches the <varname>install</varname> lifecycle
-    phase:</para>
+    phase:<indexterm>
+        <primary>Assembly plugin</primary>
+
+        <secondary>assembly goal</secondary>
+      </indexterm></para>
 
     <screen>$ <command>mvn install assembly:assembly</command>
 ...
@@ -1854,8 +1890,12 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
     <section id="customizing-sect-attaching-assembly">
       <title>Attaching the Assembly Goal to the Package Phase</title>
 
-      <para>In Maven 1, a build was customized by stringing together a series
-      of plugin goals. Each plugin goal had prerequisites and defined a
+      <para><indexterm>
+          <primary>attaching a goal to a phase</primary>
+        </indexterm><indexterm>
+          <primary>plugin configuration</primary>
+        </indexterm>In Maven 1, a build was customized by stringing together a
+      series of plugin goals. Each plugin goal had prerequisites and defined a
       relationship to other plugin goals. With the release of Maven 2, a
       lifecycle was introduced and plugin goals are now associated with a
       series of phases in a default Maven build lifecycle. The lifecycle
@@ -1877,7 +1917,11 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
       <varname>assembly:attached</varname> goal to the
       <varname>package</varname> phase we use the
       <sgmltag>executions</sgmltag> element under <sgmltag>plugin</sgmltag> in
-      the <sgmltag>build</sgmltag> section of the project's POM.</para>
+      the <sgmltag>build</sgmltag> section of the project's POM.<indexterm>
+          <primary>Assembly plugin</primary>
+
+          <secondary>attaching to phase</secondary>
+        </indexterm></para>
 
       <example floatstyle="" id="ex-customization-attach-assembly">
         <title>Configuring attached Goal Execution during the package
