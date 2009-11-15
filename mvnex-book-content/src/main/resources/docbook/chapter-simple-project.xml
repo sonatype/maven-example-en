@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="simple-project" label="">
+<chapter id="simple-project">
   <title>A Simple Maven Project</title>
 
   <section id="simple-project-sect-intro">
     <title>Introduction</title>
 
     <para>In this chapter, we introduce a simple project created from scratch
-    using the Maven Archetype plugin. This elementary application provides us
-    with the opportunity to discuss some core Maven concepts while you follow
-    along with the development of the project.</para>
+    using the <indexterm>
+        <primary>Archetype plugin</primary>
+      </indexterm>Maven Archetype plugin. This elementary application provides
+    us with the opportunity to discuss some core Maven concepts while you
+    follow along with the development of the project.</para>
 
     <para>Before you can start using Maven for complex, multimodule builds, we
     have to start with the basics. If you’ve used Maven before, you’ll notice
@@ -22,20 +24,23 @@
     introduce you to the simplest possible Maven project and then presents
     some of the core concepts that make Maven a solid build platform. After
     reading it, you’ll have a fundamental understanding of the build
-    lifecycle, Maven repositories, dependency management, and the Project
-    Object Model (<acronym>POM</acronym>).</para>
+    lifecycle, Maven repositories, dependency management, and the <indexterm>
+        <primary>Project Object Model (POM)</primary>
+      </indexterm>Project Object Model (<acronym>POM</acronym>).</para>
 
     <section id="simple-project-sect-downloading-example">
       <title>Downloading this Chapter's Example</title>
 
-      <para>This chapter develops a very simple example which will be used to
-      explore core concepts of Maven. If you follow the steps described in
-      this chapter, you shouldn't need to download the examples to recreate
-      the code produced by the Maven. We will be using the Maven Archetype
-      plugin to create this simple project and this chapter doesn't modify the
-      project in any way. If you would prefer to read this chapter with the
-      final example source code, this chapter’s example project may be
-      downloaded with the book’s example code at:</para>
+      <para><indexterm>
+          <primary>book examples</primary>
+        </indexterm>This chapter develops a very simple example which will be
+      used to explore core concepts of Maven. If you follow the steps
+      described in this chapter, you shouldn't need to download the examples
+      to recreate the code produced by the Maven. We will be using the Maven
+      Archetype plugin to create this simple project and this chapter doesn't
+      modify the project in any way. If you would prefer to read this chapter
+      with the final example source code, this chapter’s example project may
+      be downloaded with the book’s example code at:</para>
 
       <screen>${examples.download.url}</screen>
 
@@ -49,8 +54,16 @@
   <section id="simple-project-sect-create-simple">
     <title>Creating a Simple Project</title>
 
-    <para>To start a new Maven project, use the Maven Archetype plugin from
-    the command line. Run the <varname>archetype:generate</varname> goal,
+    <para><indexterm>
+        <primary>creating a project</primary>
+      </indexterm><indexterm>
+        <primary>archetypes</primary>
+      </indexterm><indexterm>
+        <primary>Archetype plugin</primary>
+
+        <secondary>creating a project</secondary>
+      </indexterm>To start a new Maven project, use the Maven Archetype plugin
+    from the command line. Run the <varname>archetype:generate</varname> goal,
     select archetype #15, and then enter "Y" to confirm and generate the new
     project:</para>
 
@@ -222,8 +235,14 @@ public class App
   <section id="simple-project-sect-building-simple">
     <title>Building a Simple Project</title>
 
-    <para>Once you have created the project with the Maven Archetype plugin by
-    following the directions from the previous section (<xref
+    <para><indexterm>
+        <primary>building a Maven project</primary>
+      </indexterm><indexterm>
+        <primary>Apache Maven</primary>
+
+        <secondary>running</secondary>
+      </indexterm>Once you have created the project with the Maven Archetype
+    plugin by following the directions from the previous section (<xref
     linkend="simple-project-sect-create-simple" />) you will want to build and
     package the application. To do so, run <command>mvn install</command> from
     the<indexterm>
@@ -285,7 +304,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
   <section id="simple-project-sect-pom">
     <title>Simple Project Object Model</title>
 
-    <para>When Maven executes, it looks to the Project Object Model
+    <para><indexterm>
+        <primary>Project Object Model (POM)</primary>
+      </indexterm>When Maven executes, it looks to the Project Object Model
     for<indexterm>
         <primary>POM (Project Object Model)</primary>
       </indexterm><indexterm>
@@ -299,7 +320,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     project’s name? Are there any build customizations for this project? <xref
     linkend="example_simple-project-pom" /> shows the default
     <filename>pom.xml</filename> file created by the Maven Archetype plugin’s
-    generate goal.</para>
+    generate goal.<indexterm>
+        <primary>pom.xml</primary>
+      </indexterm></para>
 
     <example id="example_simple-project-pom">
       <title>Simple project's <filename>pom.xml</filename> file</title>
@@ -352,7 +375,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     project's <acronym>POM</acronym> are interpolated with the contents of all
     parent <acronym>POM</acronym>s, user settings, and any active profiles. To
     see this "effective" <acronym>POM</acronym>, run the following command in
-    the simple project's base directory.</para>
+    the simple project's base directory.<indexterm>
+        <primary>Help plugin</primary>
+
+        <secondary>effective POM</secondary>
+      </indexterm></para>
 
     <screen>$ <command>mvn help:effective-pom</command></screen>
 
@@ -379,8 +406,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <section id="simple-project-sect-plugins-goals">
       <title>Maven Plugins and Goals</title>
 
-      <para>In the previous section, we ran Maven with two different types
-      of<indexterm>
+      <para><indexterm>
+          <primary>plugins</primary>
+        </indexterm><indexterm>
+          <primary>goals</primary>
+        </indexterm>In the previous section, we ran Maven with two different
+      types of<indexterm>
           <primary>Maven plugins</primary>
 
           <see>plugins</see>
@@ -618,14 +649,20 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       haven’t performed any plugin configuration or customization, this
       example binds a set of standard plugin goals to the default lifecycle.
       The following goals are executed in order when Maven walks through the
-      default lifecycle ending with <varname>package</varname>:</para>
+      default lifecycle ending with <varname>package</varname>:<indexterm>
+          <primary>default Maven lifecycle</primary>
+        </indexterm></para>
 
       <variablelist>
         <varlistentry>
           <term><varname>resources:resources</varname></term>
 
           <listitem>
-            <para>The <varname>resources</varname> goal of the
+            <para><indexterm>
+                <primary>Resources plugin</primary>
+
+                <secondary>resources goal</secondary>
+              </indexterm>The <varname>resources</varname> goal of the
             Resources<indexterm>
                 <primary>Resources plugin</primary>
 
@@ -642,7 +679,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>compiler:compile</varname></term>
 
           <listitem>
-            <para>The <varname>compile</varname> goal of the Compiler
+            <para><indexterm>
+                <primary>Compler plugin</primary>
+
+                <secondary>compile goal</secondary>
+              </indexterm>The <varname>compile</varname> goal of the Compiler
             plugin<indexterm>
                 <primary>compile:compile goal</primary>
               </indexterm><indexterm>
@@ -660,7 +701,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>resources:testResources</varname></term>
 
           <listitem>
-            <para>The <varname>testResources</varname> goal of the
+            <para><indexterm>
+                <primary>Resources plugin</primary>
+
+                <secondary>testResources goal</secondary>
+              </indexterm>The <varname>testResources</varname> goal of the
             Resources<indexterm>
                 <primary>Resources plugin</primary>
 
@@ -677,7 +722,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>compiler:testCompile</varname></term>
 
           <listitem>
-            <para>The <varname>testCompile</varname> goal of the
+            <para><indexterm>
+                <primary>Compiler plugin</primary>
+
+                <secondary>testCompile goal</secondary>
+              </indexterm>The <varname>testCompile</varname> goal of the
             Compiler<indexterm>
                 <primary>Compiler plugin</primary>
 
@@ -694,8 +743,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>surefire:test</varname></term>
 
           <listitem>
-            <para>The <varname>test</varname> goal of the Surefire plugin
-            is<indexterm>
+            <para><indexterm>
+                <primary>Surefire plugin</primary>
+
+                <secondary>test goal</secondary>
+              </indexterm>The <varname>test</varname> goal of the Surefire
+            plugin is<indexterm>
                 <primary>Surefire plugin</primary>
 
                 <secondary>test goal</secondary>
@@ -718,7 +771,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
           <term><varname>jar:jar</varname></term>
 
           <listitem>
-            <para>The <varname>jar</varname> goal of the Jar plugin is
+            <para><indexterm>
+                <primary>Jar plugin</primary>
+
+                <secondary>jar goal</secondary>
+              </indexterm>The <varname>jar</varname> goal of the Jar plugin is
             bound<indexterm>
                 <primary>jar:jar goal</primary>
               </indexterm> to the <varname>package</varname> phase. This goal
@@ -811,7 +868,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
             <imageobject role="print">
               <imagedata align="center"
                          fileref="figs/print/simple-project_annopom.pdf"
-                         scalefit="0" width="100%" />
+                         format="PDF" scalefit="0" width="100%" />
             </imageobject>
           </mediaobject>
         </figure></para>
@@ -937,11 +994,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <section id="simple-project-section-simple-repo">
       <title>Maven Repositories</title>
 
-      <para>When you run Maven for the first time, you will notice that Maven
-      downloads a number of files from a remote Maven repository. If the
-      simple project was the first time you ran Maven, the first thing it will
-      do is download the latest release of the Resources plugin when it
-      triggers the <varname>resources:resource</varname> goal. In Maven,
+      <para><indexterm>
+          <primary>repositories</primary>
+        </indexterm><indexterm>
+          <primary>Apache Maven</primary>
+
+          <secondary>repositories</secondary>
+        </indexterm>When you run Maven for the first time, you will notice
+      that Maven downloads a number of files from a remote Maven repository.
+      If the simple project was the first time you ran Maven, the first thing
+      it will do is download the latest release of the Resources plugin when
+      it triggers the <varname>resources:resource</varname> goal. In Maven,
       artifacts and plugins are retrieved from a remote repository when they
       are needed. One of the reasons the initial Maven download is so small
       (1.5 MiB) is due to the fact that Maven doesn't ship with much in the
@@ -961,11 +1024,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       multiple products available to allow organizations to manage and
       maintain mirrors of the public Maven repositories.</para>
 
-      <para>What makes a Maven repository a Maven repository? A repository is
-      a collection of project artifacts stored in a directory structure that
-      closely matches a project's Maven coordinates. You can see this
-      structure by opening up a web browser and browsing the central Maven
-      repository at <ulink
+      <para><indexterm>
+          <primary>maven repository</primary>
+
+          <secondary>structure</secondary>
+        </indexterm><indexterm>
+          <primary>remote repository</primary>
+        </indexterm>What makes a Maven repository a Maven repository? A
+      repository is a collection of project artifacts stored in a directory
+      structure that closely matches a project's Maven coordinates. You can
+      see this structure by opening up a web browser and browsing the central
+      Maven repository at <ulink
       url="http://repo1.maven.org/maven2/">http://repo1.maven.org/maven2/</ulink>.
       You will see that an artifact with the coordinates
       <varname>org.apache.commons:commons-email:1.1</varname> is available
@@ -975,14 +1044,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       Maven repository is to store an artifact in the following directory
       relative to the root of the repository: <screen>/&lt;<varname>groupId</varname>&gt;/&lt;<varname>artifactId</varname>&gt;/&lt;<varname>version</varname>&gt;/&lt;<varname>artifactId</varname>&gt;-&lt;<varname>version</varname>&gt;.&lt;<varname>packaging</varname>&gt;</screen></para>
 
-      <para>Maven downloads artifacts and plugins from a remote repository to
-      your local machine and stores these artifacts in your local Maven
-      repository. Once Maven has downloaded an artifact from the remote Maven
-      repository it never needs to download that artifact again as Maven will
-      always look for the artifact in the local repository before looking
-      elsewhere. On Windows XP, your local repository is likely in
-      <filename>C:\Documents and Settings\USERNAME\.m2\repository</filename>,
-      and on Windows Vista, your local repository is in
+      <para><indexterm>
+          <primary>local repository</primary>
+        </indexterm>Maven downloads artifacts and plugins from a remote
+      repository to your local machine and stores these artifacts in your
+      local Maven repository. Once Maven has downloaded an artifact from the
+      remote Maven repository it never needs to download that artifact again
+      as Maven will always look for the artifact in the local repository
+      before looking elsewhere. On Windows XP, your local repository is likely
+      in <filename>C:\Documents and
+      Settings\USERNAME\.m2\repository</filename>, and on Windows Vista, your
+      local repository is in
       <filename>C:\Users\USERNAME\.m2\repository</filename>. On Unix systems,
       your local Maven repository is available in
       <filename>~/.m2/repository</filename>. When you build a project like the
@@ -990,8 +1062,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       <varname>install</varname> phase executes a goal which installs your
       project's artifacts in your local Maven repository.</para>
 
-      <para>In your local repository, you should be able to see the artifact
-      created by our simple project. If you run the <command>mvn
+      <para><indexterm>
+          <primary>local repository</primary>
+
+          <secondary>installing artifacts in</secondary>
+        </indexterm>In your local repository, you should be able to see the
+      artifact created by our simple project. If you run the <command>mvn
       install</command> command, Maven will install our project's artifact in
       your local repository. Try it.</para>
 
@@ -1003,8 +1079,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
        simple-1.0-SNAPSHOT.jar
 ...</screen>
 
-      <para>As you can see from the output of this command, Maven installed
-      our project's <acronym>JAR</acronym> file into our local Maven
+      <para><indexterm>
+          <primary>project relationships</primary>
+        </indexterm>As you can see from the output of this command, Maven
+      installed our project's <acronym>JAR</acronym> file into our local Maven
       repository. Maven uses the local repository to share dependencies across
       local projects. If you develop two projects—project A and project B—with
       project B depending on the artifact produced by project A, Maven will
@@ -1017,12 +1095,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     <section id="simple-project-sect-dep-management">
       <title>Maven's Dependency Management</title>
 
-      <para>In this chapter's simple example, Maven resolved the coordinates
-      of the JUnit dependency—<varname>junit:junit:3.8.1</varname>—to a path
-      in a Maven repository
-      <filename>/junit/junit/3.8.1/junit-3.8.1.jar</filename>. The ability to
-      locate an artifact in a repository based on Maven coordinates gives us
-      the ability to define dependencies in a project's
+      <para><indexterm>
+          <primary>dependency management</primary>
+        </indexterm>In this chapter's simple example, Maven resolved the
+      coordinates of the JUnit
+      dependency—<varname>junit:junit:3.8.1</varname>—to a path in a Maven
+      repository <filename>/junit/junit/3.8.1/junit-3.8.1.jar</filename>. The
+      ability to locate an artifact in a repository based on Maven coordinates
+      gives us the ability to define dependencies in a project's
       <acronym>POM</acronym>. If you examine the simple project's
       <filename>pom.xml</filename> file, you will see that there is a section
       which deals with <sgmltag>dependencies</sgmltag>, and that this section
@@ -1095,11 +1175,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </mediaobject>
       </figure>
 
-      <para>In the previous figure, project A depends on projects B and C.
-      Project B depends on project D, and project C depends on project E. The
-      full set of direct and transitive dependencies for project A would be
-      projects B, C, D, and E, but all project A had to do was define a
-      dependency on B and C. Transitive dependencies can come in handy when
+      <para><indexterm>
+          <primary>transitive dependency</primary>
+        </indexterm>In the previous figure, project A depends on projects B
+      and C. Project B depends on project D, and project C depends on project
+      E. The full set of direct and transitive dependencies for project A
+      would be projects B, C, D, and E, but all project A had to do was define
+      a dependency on B and C. Transitive dependencies can come in handy when
       your project relies on other projects with several small dependencies
       (like Hibernate, Apache Struts, or the Spring Framework). Maven also
       provides you with the ability to exclude transitive dependencies from

@@ -29,7 +29,7 @@
 
     <!-- Generate the TOCs for named components only -->
     <xsl:param name="generate.toc">
-        book toc
+        book toc,figure,example
     </xsl:param>
 
     <!-- Show only Sections up to level 3 in the TOCs -->

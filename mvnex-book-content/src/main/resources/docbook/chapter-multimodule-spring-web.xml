@@ -81,7 +81,11 @@
       chapter's example builds upon the Yahoo! Weather parsing code introduced
       in <xref linkend="customizing" />. This project is divided into five
       submodules shown in <xref
-      linkend="fig-multimodule-web-spring-projects" />.</para>
+      linkend="fig-multimodule-web-spring-projects" />.<indexterm>
+          <primary>multi-module project</primary>
+
+          <secondary>organization</secondary>
+        </indexterm></para>
 
       <figure id="fig-multimodule-web-spring-projects">
         <title>Multi-module Enterprise Application Module
@@ -244,14 +248,15 @@
       technologies throughout this chapter, we will not go out of our way to
       fully explain these technologies. For more information about the Spring
       Framework, please see the project’s web site at <ulink
-      url="http://www.springframework.org/"></ulink>. For more information
-      about Hibernate and Hibernate <phrase
+      url="http://www.springframework.org/">http://www.springsource.org/documentation</ulink>.
+      For more information about Hibernate and Hibernate <phrase
       role="keep-together">Annotations</phrase>, please see the project’s web
-      site at <ulink url="http://www.hibernate.org"></ulink>. This chapter
-      uses Hyper-threaded Structured Query Language Database
+      site at <ulink
+      url="http://www.hibernate.org">http://www.hibernate.org</ulink>. This
+      chapter uses Hyper-threaded Structured Query Language Database
       (<acronym>HSQLDB</acronym>) as an embedded database; for more
       information about this database, see the project’s web site at <ulink
-      url="http://hsqldb.org/"></ulink>.</para>
+      url="http://hsqldb.org/">http://hsqldb.org</ulink>.</para>
     </section>
   </section>
 
@@ -2749,7 +2754,9 @@ Evanston, IL, US
       linkend="multimodule" />, yet it was still a simplification of a
       real-world project. In a larger project, you might find yourself
       building a system resembling <xref
-      linkend="fig-multimodule-web-spring-projects-complex" />.</para>
+      linkend="fig-multimodule-web-spring-projects-complex" />.i<indexterm>
+          <primary>interface projects</primary>
+        </indexterm></para>
 
       <figure id="fig-multimodule-web-spring-projects-complex">
         <title>Programming to Interface Projects</title>

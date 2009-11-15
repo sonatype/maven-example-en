@@ -184,7 +184,9 @@
 
         <tertiary>simple weather submodule</tertiary>
       </indexterm> of the classes that take care of interacting with and
-    parsing the Yahoo! Weather feeds.</para>
+    parsing the Yahoo! Weather feeds.<indexterm>
+        <primary>pom.xml</primary>
+      </indexterm></para>
 
     <example>
       <title>simple-weather Module POM</title>
@@ -591,7 +593,11 @@ public class WeatherServlet extends HttpServlet {
       </indexterm>clean install</command> from the parent project,
     <varname>simple-project</varname>, you can then change directories into
     the <varname>simple-webapp</varname> project and run the Run goal of the
-    Jetty plugin:</para>
+    Jetty plugin:<indexterm>
+        <primary>Jetty plugin</primary>
+
+        <secondary>run goal</secondary>
+      </indexterm></para>
 
     <screen>~/examples/ch-multi/simple-parent/simple-webapp $ <command>mvn jetty:run</command>
 [INFO] ----------------------------------------------------------------------
