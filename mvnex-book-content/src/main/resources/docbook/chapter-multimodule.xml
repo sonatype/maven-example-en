@@ -7,33 +7,33 @@
   <section id="multimodule-sect-intro">
     <title>Introduction</title>
 
-    <para>In this chapter, we create a multimodule project that combines
+    <para>In this chapter, we create a multi-module project that combines
     the<indexterm class="startofrange" id="multimod1a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
       </indexterm><indexterm class="startofrange" id="multimod1b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
       </indexterm><indexterm>
         <primary>weather project (example)</primary>
 
-        <seealso>multimodule project</seealso>
+        <seealso>multi-module project</seealso>
       </indexterm> examples from the two previous chapters. The
     <literal>simple-weather</literal> code developed in <xref
     linkend="customizing" /> will be combined with the
     <literal>simple-webapp</literal> project defined in <xref linkend="web" />
     to create a web application that retrieves and displays weather forecast
     information on a web page. At the end of this chapter, you will be able to
-    use Maven to develop complex, multimodule projects.</para>
+    use Maven to develop complex, multi-module projects.</para>
 
     <section id="multimodule-sect-downloading">
       <title>Downloading this Chapter's Example</title>
 
-      <para>The multimodule project developed in this example consists of
+      <para>The multi-module project developed in this example consists of
       modified versions of the projects developed in Chapters <xref
       linkend="customizing" xrefstyle="select: labelnumber" /> and <xref
       linkend="web" xrefstyle="select: labelnumber" />, and we are not using
-      the Maven Archetype plugin to generate this multimodule project. We
+      the Maven Archetype plugin to generate this multi-module project. We
       strongly recommend downloading a copy of the example code to use as a
       supplemental reference while reading the content in this chapter. This
       chapter’s example project may be downloaded with the book’s example code
@@ -44,7 +44,7 @@
       <para>Unzip this archive in any directory, and then go to the
       <filename>ch-multi/</filename> directory. There you will see a directory
       named <filename>simple-parent/</filename>, which contains the
-      multimodule Maven project developed in this chapter. In this directory,
+      multi-module Maven project developed in this chapter. In this directory,
       you will see a <filename>pom.xml</filename> and the two submodule
       directories, <filename>simple-weather/</filename> and
       <filename>simple-webapp/</filename>.</para>
@@ -54,19 +54,19 @@
   <section id="multimodule-sect-simple-parent">
     <title>The Simple Parent Project</title>
 
-    <para>A multimodule project is defined by a parent
+    <para>A multi-module project is defined by a parent
     <acronym>POM</acronym><indexterm class="startofrange" id="parent1a">
         <primary>simple parent project (example)</primary>
 
-        <secondary>multimodule</secondary>
+        <secondary>multi-module</secondary>
       </indexterm><indexterm class="startofrange" id="parent1b">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
         <secondary>simple parent project</secondary>
       </indexterm><indexterm class="startofrange" id="parent1c">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
 
         <tertiary>simple parent project</tertiary>
       </indexterm> referencing one or more submodules. In the
@@ -174,13 +174,13 @@
     <para>The first submodule we’re going to look at is the
     <varname>simple-weather</varname> submodule. This submodule contains
     all<indexterm class="startofrange" id="multimod2a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
         <secondary>simple weather submodule</secondary>
       </indexterm><indexterm class="startofrange" id="multimod2b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
 
         <tertiary>simple weather submodule</tertiary>
       </indexterm> of the classes that take care of interacting with and
@@ -335,13 +335,13 @@ public class WeatherService {
 
     <para>The <varname>simple-webapp</varname> module is the second
     submodule<indexterm class="startofrange" id="multimod3a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
         <secondary>simple web application submodule</secondary>
       </indexterm><indexterm class="startofrange" id="multimod3b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
 
         <tertiary>simple web application submodule</tertiary>
       </indexterm> referenced in the <varname>simple-parent</varname> project.
@@ -481,13 +481,13 @@ public class WeatherServlet extends HttpServlet {
 
     <para>With the <varname>simple-weather</varname> project containing
     all<indexterm class="startofrange" id="multimod4a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
         <secondary>building</secondary>
       </indexterm><indexterm class="startofrange" id="multimod4b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
 
         <tertiary>building</tertiary>
       </indexterm> the general code for interacting with the Yahoo! Weather
@@ -496,7 +496,7 @@ public class WeatherServlet extends HttpServlet {
     a<indexterm>
         <primary>WAR files</primary>
 
-        <secondary>compiling multimodule projects into</secondary>
+        <secondary>compiling multi-module projects into</secondary>
       </indexterm><indexterm>
         <primary>compiling projects</primary>
 
@@ -579,15 +579,15 @@ public class WeatherServlet extends HttpServlet {
   <section id="multimodule-sect-running-web">
     <title>Running the Web Application</title>
 
-    <para>Once the multimodule project has been installed with <command>mvn
+    <para>Once the multi-module project has been installed with <command>mvn
     <indexterm class="startofrange" id="multimod5a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
         <secondary>running</secondary>
       </indexterm><indexterm class="startofrange" id="multimod5b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule project example</secondary>
+        <secondary>multi-module project example</secondary>
 
         <tertiary>running</tertiary>
       </indexterm>clean install</command> from the parent project,

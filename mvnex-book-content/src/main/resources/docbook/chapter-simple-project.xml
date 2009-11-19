@@ -14,12 +14,12 @@
     us with the opportunity to discuss some core Maven concepts while you
     follow along with the development of the project.</para>
 
-    <para>Before you can start using Maven for complex, multimodule builds, we
-    have to start with the basics. If you’ve used Maven before, you’ll notice
-    that it does a good job of taking care of the details. Your builds tend to
-    “just work,” and you only really need to dive into the details of Maven
-    when you want to customize the default behavior or write a custom plugin.
-    However, when you do need to dive into the details, a thorough
+    <para>Before you can start using Maven for complex, multi-module builds,
+    we have to start with the basics. If you’ve used Maven before, you’ll
+    notice that it does a good job of taking care of the details. Your builds
+    tend to “just work,” and you only really need to dive into the details of
+    Maven when you want to customize the default behavior or write a custom
+    plugin. However, when you do need to dive into the details, a thorough
     understanding of the core concepts is essential. This chapter aims to
     introduce you to the simplest possible Maven project and then presents
     some of the core concepts that make Maven a solid build platform. After
@@ -165,9 +165,9 @@ simple/pom.xml<co id="coDef-simple-fs-pom" linkends="coRef-simple-fs-pom" />
 
     <para>This generated directory adheres to the Maven Standard
     Directory<indexterm>
-        <primary>Standard Dirctory Layout</primary>
+        <primary>Standard Directory Layout</primary>
       </indexterm><indexterm>
-        <primary>Maven Standard Dirctory Layout</primary>
+        <primary>Maven Standard Directory Layout</primary>
       </indexterm> Layout. We’ll get into more details later in this chapter,
     but for now, let’s just try to understand these few basic <phrase
     role="keep-together">directories</phrase>:</para>
@@ -680,7 +680,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
           <listitem>
             <para><indexterm>
-                <primary>Compler plugin</primary>
+                <primary>Compiler plugin</primary>
 
                 <secondary>compile goal</secondary>
               </indexterm>The <varname>compile</varname> goal of the Compiler

@@ -3,7 +3,7 @@
   <parent>
 	<groupId>org.sonatype.mvnexbook</groupId>
 	<artifactId>mvnex-book-parent</artifactId>
-	<version>0.2</version>
+	<version>0.2.1</version>
   </parent>
   <artifactId>mvnex-book-content</artifactId>
   <packaging>jar</packaging>
@@ -246,8 +246,10 @@
 		<pdf>${basedir}/src/main/resources/pdf/maven-example-cover.pdf</pdf>
 		<pdf>${basedir}/src/main/resources/pdf/title-page.pdf</pdf>
 		<pdf>${basedir}/src/main/resources/pdf/copyright-page.pdf</pdf>
+		<pdf>${basedir}/src/main/resources/pdf/promo-page.pdf</pdf>
 		<pdf>${basedir}/src/main/resources/pdf/blank-page.pdf</pdf>
 		<pdf>${project.build.directory}/docbkx/pdf/public-book.pdf</pdf>
+		<pdf>${basedir}/src/main/resources/pdf/promo-page.pdf</pdf>
 	      </pdfs>	
 	    </configuration>
 	  </execution>
