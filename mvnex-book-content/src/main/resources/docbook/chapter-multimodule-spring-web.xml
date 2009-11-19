@@ -7,17 +7,17 @@
   <section id="multimodule-web-spring-sect-intro">
     <title>Introduction</title>
 
-    <para>In this chapter, we create a multimodule project that evolves
+    <para>In this chapter, we create a multi-module project that evolves
     the<indexterm class="startofrange" id="enterprise1a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
-        <secondary>multimodule enterprise project</secondary>
+        <secondary>multi-module enterprise project</secondary>
       </indexterm><indexterm class="startofrange" id="enterprise1b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule enterprise project example</secondary>
+        <secondary>multi-module enterprise project example</secondary>
       </indexterm><indexterm class="startofrange" id="enterprise1c">
-        <primary>enterprise project, multimodule (example)</primary>
+        <primary>enterprise project, multi-module (example)</primary>
       </indexterm> examples from <xref linkend="multimodule" /> and <xref
     linkend="web" /> into a project that uses the Spring Framework and
     Hibernate to create both a simple web application and a command-line
@@ -25,7 +25,7 @@
     <varname>simple-weather</varname> code developed in <xref
     linkend="customizing" /> will be combined with the
     <varname>simple-webapp</varname> project defined in <xref
-    linkend="web" />. In the process of creating this multimodule project,
+    linkend="web" />. In the process of creating this multi-module project,
     we’ll explore Maven and discuss the different ways it can be used to
     create modular projects that encourage reuse.</para>
 
@@ -214,7 +214,7 @@
       much complexity given that our model project has only five classes.
       Although using Maven does suggest a certain level of modularity, do
       realize that we’ve gone out of our way to complicate our simple example
-      projects for the purpose of demonstrating Maven’s multimodule
+      projects for the purpose of demonstrating Maven’s multi-module
       features.</para>
     </section>
 
@@ -267,21 +267,21 @@
         class="startofrange" id="enterprise2a">
         <primary>simple parent project (example)</primary>
 
-        <secondary>multimodule enterprise</secondary>
+        <secondary>multi-module enterprise</secondary>
       </indexterm><indexterm class="startofrange" id="enterprise2b">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
-        <secondary>multimodule enterprise project</secondary>
+        <secondary>multi-module enterprise project</secondary>
 
         <tertiary>simple parent project</tertiary>
       </indexterm><indexterm class="startofrange" id="enterprise2c">
         <primary>Web applications</primary>
 
-        <secondary>multimodule enterprise project example</secondary>
+        <secondary>multi-module enterprise project example</secondary>
 
         <tertiary>simple parent project</tertiary>
       </indexterm><indexterm class="startofrange" id="enterprise2d">
-        <primary>enterprise project, multimodule (example)</primary>
+        <primary>enterprise project, multi-module (example)</primary>
 
         <secondary>simple parent project</secondary>
       </indexterm> <filename>pom.xml</filename> that references five
@@ -665,19 +665,19 @@ public class Condition {
 
     <para>The next module we’re going to examine could be considered
     something<indexterm class="startofrange" id="enterprise4a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
-        <secondary>multimodule enterprise project</secondary>
+        <secondary>multi-module enterprise project</secondary>
 
         <tertiary>Simple Weather module of</tertiary>
       </indexterm><indexterm class="startofrange" id="enterprise4b">
         <primary>Web applications</primary>
 
-        <secondary>multimodule enterprise project example</secondary>
+        <secondary>multi-module enterprise project example</secondary>
 
         <tertiary>Simple Weather module of</tertiary>
       </indexterm><indexterm class="startofrange" id="enterprise4c">
-        <primary>enterprise project, multimodule (example)</primary>
+        <primary>enterprise project, multi-module (example)</primary>
 
         <secondary>Simple Weather module of</secondary>
       </indexterm> of a “service.” The Simple Weather module is the module
@@ -928,9 +928,9 @@ public class WeatherService {
     DAO<indexterm>
         <primary>DAO (Data Access Objects)</primary>
       </indexterm><indexterm class="startofrange" id="enterprise5a">
-        <primary>multimodule project (example)</primary>
+        <primary>multi-module project (example)</primary>
 
-        <secondary>multimodule enterprise project</secondary>
+        <secondary>multi-module enterprise project</secondary>
 
         <tertiary>Simple Persist module of</tertiary>
       </indexterm><indexterm class="startofrange" id="enterprise5b">
@@ -1644,7 +1644,7 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       discouraged as the extensions can cause classpath pollution across your
       project, among other nasty side-effects. Additionally, the extensions
       behavior is being reworked in 2.1 and you'll eventually need to change
-      it anway. The only normal use for <sgmltag>extensions</sgmltag> is to
+      it anyway. The only normal use for <sgmltag>extensions</sgmltag> is to
       define new wagon implementations</para>
     </note>
 
