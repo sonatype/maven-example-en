@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<appendix id="appendix-changes">
+  <title>Book Revision History</title>
+
+    <para>Many readers have been asking us to keep track of specific changes
+    to the book content, the following sections list changes made to the book
+    in reverse chronological order starting with ${project.version}.</para>
+
+    <section>
+      <title>Changes in Edition 0.2.1</title>
+
+      <para>The following changes were made in 0.2.1:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Minor typos were fixed throughout the book.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Changes in Edition 0.2</title>
+
+      <para>The following changes were made in 0.2:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The book index was expanded and improved. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-56">MVNEX-56</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Added a Table of Figures. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-58">MVNEX-58</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Added a Table of Examples. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-59">MVNEX-59</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Fixed a small formatting error in <xref
+          linkend="customizing-sect-skipping-tests" />. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-22">MVNEX-22</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Fixed a program listing typo in <xref
+          linkend="customizing-sect-simple-weather-source" />. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-31">MVNEX-31</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Modified examples download information for the new book.
+          (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-68">MVNEX-68</ulink>)</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Changes in Edition 0.1</title>
+
+      <para>This is the initial version of Maven: The Complete
+      Reference.</para>
+
+      <para>The following changes were made:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Removed all cross-references that referenced content in the
+          former Part I of Maven: The Definitive Guide. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-1">MVNEX-1</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Uploaded new book to Scribd as both a private staging version
+          and a public production version. Updated the book project's pom.xml
+          accordingly. (<ulink type=""
+          url="https://issues.sonatype.org/browse/MVNEX-2">MVNEX-2</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Cloned Maven: The Definitive Guide's Github repository and
+          created a new Github repository for Maven by Example. (<ulink
+          type="" url="https://issues.sonatype.org/browse/MVNEX-3"
+          userlevel="">MVNEX-3</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Modified the book project build to publish book to new URL and
+          to use new identifiers for all generated artifacts. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-4">MVNEX-4</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Created a new book cover for the downloadable PDF version of
+          Maven by Example. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-5">MVNEX-5</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Modified the title page for Maven by Example. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-6">MVNEX-6</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Assigned new ISBN to Maven by Example (978-0-9842433-3-4
+          0-9842433-3-X). (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-8">MVNEX-8</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Created a GetSatisfaction page for Maven: The Complete
+          Reference, here: <ulink
+          url="http://www.getsatisfaction.com/sonatype/products/sonatype_maven_the_complete_reference">http://www.getsatisfaction.com/sonatype/products/sonatype_maven_by_example</ulink>
+          . (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-9">MVNEX-9</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Created automated Hudson jobs for publishing to staging and
+          production. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-20">MVNEX-20</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Updated front matter and copyright to match other Sonatype
+          books. (<ulink type=""
+          url="https://issues.sonatype.org/browse/MVNEX-19"
+          userlevel="">MVNEX-19</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Modified the web site template for the book pages. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-7">MVNEX-7</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Add Maven by Example to the Sonatype Books page. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-14">MVNEX-14</ulink>)</para>
+        </listitem>
+
+        <listitem>
+          <para>Created a download form for Maven by Example PDF. (<ulink
+          url="https://issues.sonatype.org/browse/MVNEX-16">MVNEX-16</ulink>)</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+</appendix>
