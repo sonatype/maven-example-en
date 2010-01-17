@@ -3,7 +3,7 @@
   <parent>
 	<groupId>org.sonatype.mvnexbook</groupId>
 	<artifactId>mvnex-book-parent</artifactId>
-	<version>0.2.1</version>
+	<version>0.3.1</version>
   </parent>
   <artifactId>mvnex-book-content</artifactId>
   <packaging>jar</packaging>
@@ -277,26 +277,6 @@
     </plugins>
   </build>
   
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.0.1</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>project-team</report>
-              <report>license</report>
-              <report>mailing-list</report>
-              <report>summary</report>
-              <report>cim</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
   <profiles>
     <profile>
       <id>publish-external</id>
