@@ -2,6 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head profile="http://gmpg.org/xfn/11">
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
@@ -203,6 +204,26 @@ pageTracker._trackPageview();
 _lf_remora();
 </script>
 <script id="aptureScript" type="text/javascript" src="http://www.apture.com/js/apture.js?siteToken=Khl1Be7" charset="utf-8"></script>
+
+<script type="text/javascript">
+var _sf_async_config={uid:3539,domain:"sonatype.com"};
+(function(){
+  function loadChartbeat() {
+    window._sf_endpt=(new Date()).getTime();
+    var e = document.createElement('script');
+    e.setAttribute('language', 'javascript');
+    e.setAttribute('type', 'text/javascript');
+    e.setAttribute('src',
+       (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://") +
+       "static.chartbeat.com/js/chartbeat.js");
+    document.body.appendChild(e);
+  }
+  var oldonload = window.onload;
+  window.onload = (typeof window.onload != 'function') ?
+     loadChartbeat : function() { oldonload(); loadChartbeat(); };
+})();
+
+</script>
 
 </body>
 </html>
