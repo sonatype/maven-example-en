@@ -96,7 +96,7 @@
         <tertiary>creating</tertiary>
       </indexterm>project, run <command>mvn archetype:generate</command> with
     an <varname>artifactId</varname> and a <varname>groupId</varname>. Run
-    <varname>archetype:generate</varname> as shown below, choose archetype #18
+    <varname>archetype:generate</varname> as shown below, choose archetype #19
     "maven-archetype-webapp", and then press Y to confirm and create the new
     web application project:<indexterm>
         <primary>Archetype plugin</primary>
@@ -106,18 +106,15 @@
 
     <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simpleweb \
                          -DartifactId=simple-webapp \
-                         -DpackageName=org.sonatype.mavenbook \
+                         -Dpackage=org.sonatype.mavenbook \
                           -Dversion=1.0-SNAPSHOT</command>
 ...
 [INFO] [archetype:generate {execution: default-cli}]
 Choose archetype:
 ...
-15: internal -&gt; maven-archetype-quickstart ()
-16: internal -&gt; maven-archetype-site-simple (A simple site generation project)
-17: internal -&gt; maven-archetype-site (A more complex site project)
-18: internal -&gt; maven-archetype-webapp (A simple Java web application)
+19: internal -&gt; maven-archetype-webapp (A simple Java web application)
 ...
-Choose a number:  (...) 15: : <emphasis>18</emphasis>
+Choose a number:  (...) 15: : <emphasis>19</emphasis>
 Confirm properties configuration:
 groupId: org.sonatype.mavenbook.simpleweb
 artifactId: simple-webapp
@@ -607,6 +604,13 @@ public class SimpleServlet extends HttpServlet {
     <para>Once you've added the Servlet specification as a dependency, run
     <command>mvn clean install</command> followed by <command>mvn
     jetty:run</command>.</para>
+
+    <note>
+      <para>mvn jetty:run will continue to run the Jetty servlet container
+      until you stop the process with CTRL-C. If you started Jetty in <xref
+      linkend="web-sect-configuring-jetty" />, you will need to stop that
+      process before starting Jetty a second time.</para>
+    </note>
 
     <screen>[tobrien@t1 simple-webapp]$ <command>mvn clean install</command>
 ...
