@@ -253,7 +253,7 @@
       role="keep-together">Annotations</phrase>, please see the project’s web
       site at <ulink
       url="http://www.hibernate.org">http://www.hibernate.org</ulink>. This
-      chapter uses Hyper-threaded Structured Query Language Database
+      chapter uses Hyper Structured Query Language Database
       (<acronym>HSQLDB</acronym>) as an embedded database; for more
       information about this database, see the project’s web site at <ulink
       url="http://hsqldb.org/">http://hsqldb.org</ulink>.</para>
@@ -811,51 +811,6 @@ public class Condition {
     and <classname>YahooParser</classname> are both bean properties of the
     <classname>WeatherService</classname> bean.</para>
 
-    <example id="example_weatherservice_class">
-      <title>The WeatherService class</title>
-
-      <programlisting language="java">package org.sonatype.mavenbook.weather;
-
-import java.io.InputStream;
-
-import org.sonatype.mavenbook.weather.model.Weather;
-
-public class WeatherService {
-
-  private YahooRetriever yahooRetriever;
-  private YahooParser yahooParser;
-
-  public WeatherService() {}
-
-  public Weather retrieveForecast(String zip) throws Exception {
-    // Retrieve Data
-    InputStream dataIn = yahooRetriever.retrieve(zip);
-
-    // Parse DataS
-    Weather weather = yahooParser.parse(zip, dataIn);
-
-    return weather;
-  }
-
-  public YahooRetriever getYahooRetriever() {
-    return yahooRetriever;
-  }
-
-  public void setYahooRetriever(YahooRetriever yahooRetriever) {
-    this.yahooRetriever = yahooRetriever;
-  }
-
-  public YahooParser getYahooParser() {
-    return yahooParser;
-  }
-
-  public void setYahooParser(YahooParser yahooParser) {
-    this.yahooParser = yahooParser;
-  }
-}
-</programlisting>
-    </example>
-
     <para>Finally, in this project we have an <acronym>XML</acronym> file that
     is used by the Spring Framework to create something called an<indexterm>
         <primary>ApplicationContext (Spring Framework)</primary>
@@ -880,7 +835,7 @@ public class WeatherService {
     <classname>WeatherService</classname> named
     <varname>weatherService</varname>.</para>
 
-    <example>
+    <example id="ex-spring-app-ctx-simple-weather">
       <title>Spring Application Context for the simple-weather Module</title>
 
       <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -888,7 +843,7 @@ public class WeatherService {
 &lt;beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
-             http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+             http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
     default-lazy-init="true"&gt;
 
     &lt;bean id="weatherService" 
@@ -1042,20 +997,20 @@ public class WeatherService {
           <para>We define a dependency on Hibernate version 3.2.5.ga, but
           notice that we’re excluding a dependency of Hibernate. We’re doing
           this because the
-          <varname>javax.</varname><varname>transaction:</varname><varname>javax</varname>
+          <varname>javax.</varname><varname>transaction:</varname><varname>jta</varname>
           <indexterm>
               <primary>dependencies</primary>
 
-              <secondary>javax.transaction:javax (unavailable)</secondary>
+              <secondary>javax.transaction:jta (unavailable)</secondary>
             </indexterm><indexterm>
-              <primary>javax.transaction:javax dependency
+              <primary>javax.transaction:jta dependency
               (unavailable)</primary>
             </indexterm>dependency is not available in the public Maven
           repository. This dependency happens to be one of those Sun
           dependencies that has not yet made it into the free central Maven
           repository. To avoid an annoying message telling us to go download
-          these nonfree dependencies, we simple exclude this dependency from
-          Hibernate and add a dependency on...</para>
+          these nonfree dependencies, we simply exclude this dependency from
+          Hibernate.</para>
         </listitem>
       </varlistentry>
 
@@ -1638,16 +1593,6 @@ class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
       </callout>
     </calloutlist>
 
-    <note>
-      <para>A common mistake is to use the <sgmltag>extensions</sgmltag>
-      configuration to add dependencies required by a plugin. This is strongly
-      discouraged as the extensions can cause classpath pollution across your
-      project, among other nasty side-effects. Additionally, the extensions
-      behavior is being reworked in 2.1 and you'll eventually need to change
-      it anyway. The only normal use for <sgmltag>extensions</sgmltag> is to
-      define new wagon implementations</para>
-    </note>
-
     <para>Next, we turn our attention to the two Spring MVC controllers that
     will handle all of the requests. Both of these controllers reference the
     beans defined in <varname>simple-weather</varname> and
@@ -1956,8 +1901,8 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
         <classname>ApplicationContext</classname>s defined in both
         <varname>simple-persist</varname> and
         <varname>simple-weather</varname>. In <xref
-        linkend="ex-spring-webxml" /> you will see how Spring is configured to
-        merge components from multiple Spring configuration files.</para>
+        linkend="ex-spring-web-xml" /> you will see how Spring is configured
+        to merge components from multiple Spring configuration files.</para>
       </callout>
 
       <callout arearefs="coDef-weather-servlet-2" id="coRef-weather-servlet-2">
@@ -1996,7 +1941,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     <para>Finally, the <varname>simple-webapp</varname> project was a
     <filename>web.xml</filename> which provides the basic configuration for
     the web application. The <filename>web.xml</filename> file is shown in
-    <xref linkend="ex-spring-webxml" />.</para>
+    <xref linkend="ex-spring-web-xml" />.</para>
 
     <example id="ex-spring-web-xml">
       <title>web.xml for simple-webapp</title>

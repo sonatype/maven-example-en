@@ -135,12 +135,12 @@
 
         <secondary>creating simple weather application with</secondary>
       </indexterm> skeleton for the simple weather project. Execute the
-    following command to create a new project, select archetype 15, and then
+    following command to create a new project, select archetype 16, and then
     enter "Y" to confirm and generate the new project:</para>
 
     <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.custom \
                                          -DartifactId=simple-weather \
-                                         -DpackageName=org.sonatype.mavenbook \
+                                         -Dpackage=org.sonatype.mavenbook \
                                          -Dversion=1.0
 </command>
 [INFO] Preparing archetype:generate
@@ -151,9 +151,9 @@
    (org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
 Choose archetype:
 ...
-15: internal -&gt; maven-archetype-quickstart ()
+16: internal -&gt; maven-archetype-quickstart ()
 ...
-Choose a number:  (...) 15: : <emphasis>15</emphasis>
+Choose a number:  (...) 16: : <emphasis>16</emphasis>
 Confirm properties configuration:
 groupId: org.sonatype.mavenbook.custom
 artifactId: simple-weather
@@ -190,7 +190,7 @@ package: org.sonatype.mavenbook.custom
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
-  &lt;name&gt;simple-weather2&lt;/name&gt;
+  &lt;name&gt;simple-weather&lt;/name&gt;
   &lt;url&gt;http://maven.apache.org&lt;/url&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
@@ -223,7 +223,7 @@ package: org.sonatype.mavenbook.custom
   &lt;artifactId&gt;simple-weather&lt;/artifactId&gt;
   &lt;packaging&gt;jar&lt;/packaging&gt;
   &lt;version&gt;1.0&lt;/version&gt;
-  &lt;name&gt;simple-weather2&lt;/name&gt;
+  &lt;name&gt;simple-weather&lt;/name&gt;
   &lt;url&gt;http://maven.apache.org&lt;/url&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
@@ -682,7 +682,7 @@ public class YahooRetriever {
 
   private static Logger log = Logger.getLogger(YahooRetriever.class);
 
-  public InputStream retrieve(int zipcode) throws Exception {
+  public InputStream retrieve(String zipcode) throws Exception {
     log.info( "Retrieving Weather Data" );
     String url = "http://weather.yahooapis.com/forecastrss?p=" + zipcode;
     URLConnection conn = new URL(url).openConnection();

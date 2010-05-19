@@ -64,12 +64,12 @@
         <secondary>creating a project</secondary>
       </indexterm>To start a new Maven project, use the Maven Archetype plugin
     from the command line. Run the <varname>archetype:generate</varname> goal,
-    select archetype #15, and then enter "Y" to confirm and generate the new
+    select archetype #16, and then enter "Y" to confirm and generate the new
     project:</para>
 
     <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
                                          -DartifactId=simple \
-                                         -DpackageName=org.sonatype.mavenbook \
+                                         -Dpackage=org.sonatype.mavenbook \
                                          -Dversion=1.0-SNAPSHOT
 </command>[INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
@@ -88,15 +88,8 @@
        (org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
 Choose archetype:
 ...
-12: internal -&gt; maven-archetype-mojo (A Maven Java plugin development project)
-13: internal -&gt; maven-archetype-portlet (A simple portlet application)
-14: internal -&gt; maven-archetype-profiles ()
-15: internal -&gt; maven-archetype-quickstart ()
-16: internal -&gt; maven-archetype-site-simple (A simple site generation project)
-17: internal -&gt; maven-archetype-site (A more complex site project)
-18: internal -&gt; maven-archetype-webapp (A simple Java web application)
-19: internal -&gt; jini-service-archetype (Archetype for Jini service project creation)
-Choose a number:  (...) 15: : <emphasis>15</emphasis>
+16: internal -&gt; maven-archetype-quickstart ()
+Choose a number:  (...) 16: : <emphasis>16</emphasis>
 Confirm properties configuration:
 groupId: org.sonatype.mavenbook.simple
 artifactId: simple
@@ -438,7 +431,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
       <screen><command>$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
                                         -DartifactId=simple \
-                                        -DpackageName=org.sonatype.mavenbook
+                                        -Dpackage=org.sonatype.mavenbook
 </command>...
 <emphasis>[INFO] [archetype:generate]</emphasis>
 [INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
@@ -497,9 +490,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       command-line parameters
       <command>-DgroupId=org.sonatype.mavenbook.simple</command> and
       <command>-DartifactId=simple</command>. We <phrase
-      role="keep-together">also</phrase> passed the
-      <varname>packageName</varname> parameter to the
-      <literal>generate</literal> goal as
+      role="keep-together">also</phrase> passed the <varname>package</varname>
+      parameter to the <literal>generate</literal> goal as
       <package>org.sonatype.mavenbook</package>. If we had omitted the
       <varname>packageName</varname> parameter, the package name would have
       defaulted to <package>org.sonatype.mavenbook.simple</package>.</para>
@@ -839,7 +831,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
       defined in a project’s <acronym>POM</acronym>. When the
       <varname>jar:jar</varname> goal needs to create a <acronym>JAR</acronym>
       file, it looks to the <acronym>POM</acronym> to find out what the JAR
-      file’s name is. When the <varname>compiler:compile</varname> task
+      file’s name is. When the <varname>compiler:compile</varname> goal
       compiles Java source code into bytecode, it looks to the
       <acronym>POM</acronym> to see if there are any parameters for the
       compile goal. Goals execute in the context of a <acronym>POM</acronym>.
