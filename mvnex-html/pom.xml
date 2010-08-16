@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-	<groupId>org.sonatype.mvnexbook</groupId>
-	<artifactId>mvnex-book-parent</artifactId>
-	<version>0.5-SNAPSHOT</version>
-  </parent>
-  <artifactId>mvnex-epub</artifactId>
+    <parent>
+	    <groupId>org.sonatype.mvnexbook</groupId>
+	    <artifactId>mvnex-book-parent</artifactId>
+	    <version>0.5-SNAPSHOT</version>
+    </parent>
+  <artifactId>mvnex-html</artifactId>
   <packaging>jar</packaging>
-  <name>Maven by Example (ePub)</name>
+  <name>Maven by Example (HTML)</name>
   <description>A book about Apache Maven</description>
   <build>
 		<resources>
@@ -15,7 +15,7 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>epub-custom.xsl</include>
+					<include>html_chunk.xsl</include>
 				</includes>
 			</resource>
 		</resources>
@@ -48,32 +48,29 @@
 				</dependencies>
 				<executions>
 					<execution>
-						<id>generate-epub</id>
+						<id>generate-html</id>
 						<phase>compile</phase>
 						<goals>
-							<goal>generate-epub</goal>
+							<goal>generate-html</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
+					<htmlCustomization>${basedir}/target/classes/html_chunk.xsl</htmlCustomization>
 					<sourceDirectory>${basedir}/target/docbook</sourceDirectory>
-					<targetDirectory>${basedir}/target/epub</targetDirectory>
+					<targetDirectory>${basedir}/target/html</targetDirectory>
 					<includes>public-book.xml</includes>
 					<xincludeSupported>true</xincludeSupported>
-                    <bookFile>${project.build.directory}/book-mvnex.epub</bookFile>
-                    <htmlStylesheet>epub-custom.css</htmlStylesheet>
-                    <epubCustomization>${basedir}/src/main/resources/epub-custom.xsl</epubCustomization>
-                    <postProcess>
-                        <!-- Copy the images -->
-                        <copy todir="${project.build.directory}/epub/figs/web">
-                            <fileset dir="target/docbook/figs/web" />
-                        </copy>
-                        <copy todir="${project.build.directory}/epub/covers">
-                            <fileset dir="target/docbook/covers" />
-                        </copy>
-                        <copy todir="${project.build.directory}/epub" 
-                              file="src/main/resources/epub-custom.css"/>
-                    </postProcess>
+					<chunkedOutput>true</chunkedOutput>
+					<chunkSectionDepth>1</chunkSectionDepth>
+					<postProcess>
+						<copy todir="${project.build.directory}/html/images">
+							<fileset dir="${basedir}/src/main/resources/images" />
+						</copy>
+						<copy todir="${project.build.directory}/html/figs/web">
+							<fileset dir="target/docbook/figs/web" />
+						</copy>
+					</postProcess>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -102,28 +99,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-				  <classesDirectory>${basedir}/target/epub</classesDirectory>
+				  <classesDirectory>${basedir}/target/html</classesDirectory>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>install-epub</id>
-						<phase>install</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<file>${basedir}/target/epub/public-book.epub</file>
-							<groupId>${groupId}</groupId>
-							<artifactId>${artifactId}</artifactId>
-							<version>${version}</version>
-							<packaging>epub</packaging>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 
