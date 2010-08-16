@@ -9,10 +9,16 @@
   <description>An introduction to Apache Maven</description>
   
   <url>http://sonatype.com/book</url>
+  <properties>
+    <docbkx-tools.version>2.0.11-SNAPSHOT</docbkx-tools.version>
+  </properties>
   
   <modules>
-    <module>mvnex-book-examples</module>
-    <module>mvnex-book-content</module>
+    <module>mvnex-examples</module>
+    <module>mvnex-content</module>
+    <module>mvnex-epub</module>
+    <module>mvnex-site</module>
+    <module>mvnex-pdf</module>
   </modules>
   
   <profiles>
