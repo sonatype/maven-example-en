@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+	<groupId>org.sonatype.mvnexbook</groupId>
+	<artifactId>mvnex-book-parent</artifactId>
+	<version>0.5-SNAPSHOT</version>
+  </parent>
+  <artifactId>mvnex-content</artifactId>
+  <packaging>jar</packaging>
+  <name>Maven by Example (Docbook XML)</name>
+  <description>An introduction to Apache Maven</description>
+  <organization>
+    <name>Sonatype, Inc.</name>
+  </organization>
+  
+  <url>http://sonatype.com/book</url>
+  
+  <properties>
+    <book.title>Maven by Example</book.title>
+    <book.subtitle>An Introduction to Apache Maven</book.subtitle>
+    <organization.address>800 W. El Camino Real, Suite 400, Mountain View, CA, 94040</organization.address>
+    <organization.slogan>Sonatype: The Maven Company</organization.slogan>
+    <organization.logo>http://cms.sonatype.com/sites/all/themes/sonatype/images/sonatype_logo.gif</organization.logo>
+    <copyright.year>2010</copyright.year>
+    <maven.version>2.2.1</maven.version>
+    <nexus.book.baseurl>http://books.sonatype.com/nexus-book-stage/</nexus.book.baseurl>
+    <nexus.book.title>Repository Management with Nexus</nexus.book.title>
+    <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book-stage/</m2eclipse.book.baseurl>
+    <m2eclipse.book.title>Developing with Eclipse and Maven</m2eclipse.book.title>
+    <flexmojos.version>3.3.0</flexmojos.version>
+    <flexmojos.repository>http://repository.sonatype.org/content/groups/flexgroup/</flexmojos.repository>
+    <examples.download.url>http://www.sonatype.com/books/mvnex-book/mvnex-examples-${project.version}-project.zip</examples.download.url>
+  </properties>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>*.xml</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.cjcook</groupId>
+        <artifactId>docbook-plugin</artifactId>
+        <version>1.0</version>
+        <extensions>true</extensions>
+        <executions>
+<!--        	<execution>
+        		<id>validate-chapters</id>
+        		<phase>test</phase>
+        		<goals>
+        			<goal>validate-chapter-ids</goal>
+        		</goals>
+        	</execution> -->
+<!--        	<execution>
+        		<id>inject-examples</id>
+        		<phase>process-classes</phase>
+        		<goals>
+        			<goal>inject-examples</goal>
+        		</goals>
+        	</execution> -->
+<!--        	<execution>
+        		<id>wrappify</id>
+        		<goals>
+        			<goal>wrappify</goal>
+        		</goals>
+        	</execution> -->
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <escapeString>\</escapeString>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <profiles>
+    <profile>
+      <id>publish-external</id>
+      <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book/</url>
+        </site>
+      </distributionManagement>
+      <properties>
+        <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+        <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
+        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
+      </properties>
+    </profile>
+    <profile>
+      <id>stage-external</id>
+      <distributionManagement>
+        <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/</url>
+        </site>
+      </distributionManagement>
+      <properties>
+        <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+      </properties>
+    </profile>
+  </profiles>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>mvnex-examples</artifactId>
+      <version>${project.version}</version>
+      <classifier>project</classifier>
+      <type>zip</type>
+    </dependency>
+  </dependencies>
+</project>
