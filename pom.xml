@@ -191,6 +191,13 @@
 	</configuration>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ssh</artifactId>
+         <version>1.0-beta-6</version>
+      </extension>
+    </extensions>
   </build>
   <scm>
     <connection>scm:git:git://github.com/sonatype/maven-example-en.git</connection>
