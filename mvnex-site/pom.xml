@@ -155,4 +155,29 @@
             </properties>
         </profile>
     </profiles>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mvnex-pdf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mvnex-epub</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mvnex-pdf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mvnex-examples</artifactId>
+            <version>${project.version}</version>
+            <classifier>project</classifier>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
 </project>
