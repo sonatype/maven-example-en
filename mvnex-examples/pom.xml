@@ -59,11 +59,11 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book/book-examples/</url>
+          <url>scp://site@172.16.0.1/home/site/books/htdocs/mvnex-book/book-examples/</url>
         </site>
         </distributionManagement>
         <properties>
-           <sonatype.site>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+           <sonatype.site>scp://site@172.16.0.1/home/site/books/htdocs/</sonatype.site>
         </properties>
       </profile>
       <profile>
@@ -72,7 +72,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@172.16.0.1/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/book-examples/</url>
+          <url>scp://site@172.16.0.1/home/site/books/htdocs/mvnex-book-stage/book-examples/</url>
         </site>
         </distributionManagement>
       </profile>
@@ -82,11 +82,11 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book/book-examples/</url>
+          <url>scp://site@svn.sonatype.com/home/site/books/htdocs/mvnex-book/book-examples/</url>
         </site>
         </distributionManagement>
         <properties>
-           <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+           <sonatype.site>scp://site@svn.sonatype.com/home/site/books/htdocs/</sonatype.site>
         </properties>
       </profile>
       <profile>
@@ -95,7 +95,7 @@
         <site>
           <id>sonatype-site</id>
           <name>Sonatype Book Examples</name>
-          <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/book-examples/</url>
+          <url>scp://site@svn.sonatype.com/home/site/books/htdocs/mvnex-book-stage/book-examples/</url>
         </site>
         </distributionManagement>
       </profile>

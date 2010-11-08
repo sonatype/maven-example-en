@@ -132,11 +132,11 @@
                 <site>
                     <id>sonatype-site</id>
                     <name>Sonatype Book Examples</name>
-                    <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book/</url>
+                    <url>scp://site@svn.sonatype.com/home/site/books/htdocs/mvnex-book/</url>
                 </site>
             </distributionManagement>
             <properties>
-                <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+                <sonatype.site>scp://site@svn.sonatype.com/home/site/books/htdocs/</sonatype.site>
                 <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
                 <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
             </properties>
@@ -147,11 +147,11 @@
                 <site>
                     <id>sonatype-site</id>
                     <name>Sonatype Book Examples</name>
-                    <url>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/mvnex-book-stage/</url>
+                    <url>scp://site@svn.sonatype.com/home/site/books/htdocs/mvnex-book-stage/</url>
                 </site>
             </distributionManagement>
             <properties>
-                <sonatype.site>scp://deployer@svn.sonatype.com/var/www/domains/sonatype.com/books/htdocs/</sonatype.site>
+                <sonatype.site>scp://site@svn.sonatype.com/home/site/books/htdocs/</sonatype.site>
             </properties>
         </profile>
     </profiles>
