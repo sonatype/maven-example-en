@@ -5,6 +5,14 @@
 <title>${title} | Sonatype</title>
 <link rel="shortcut icon" href="/sites/all/themes/sonatype/favicon_sonatype.ico" type="image/x-icon" />
 <link href="http://www.sonatype.com/style.css" rel="stylesheet" type="text/css" />
+<link href="http://www.sonatype.com/books/css/style.css" rel="stylesheet" type="text/css" />
+<script src="https://www.google.com/jsapi?key=ABQIAAAAIauzufjRmIHpgj11onFkMhQLYYradixvQ99z2JMasahHjbXddxRvNz1dmUSXzPC85voqpeLAWW8ubg" type="text/javascript"></script>
+    <script language="Javascript" type="text/javascript">
+    //<![CDATA[
+      google.load("jquery", "1.4.4");
+    //]]>
+    </script>
+</head>
 </head>
 
 <body>
@@ -39,6 +47,12 @@
                 	${body}
                 </div>
                 <div id="rightSingle">
+                    <div id="topAlley"></div>
+
+
+                    <div id="recentBlogs">
+                    <h2>Recent Blog Posts</h2>
+                    <script src="http://feeds.feedburner.com/sonatype?format=sigpro" type="text/javascript" ></script><noscript><p>Subscribe to RSS headline updates from: <a href="http://feeds.feedburner.com/sonatype"></a></p> </noscript>
                 </div>
             </div>
       </div>
@@ -84,5 +98,8 @@ var _sf_async_config={uid:3539,domain:"www.sonatype.com"};
 
 </script><SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript' SRC='/elqNow/elqCfg.js'></SCRIPT>
 <SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript' SRC='/elqNow/elqImg.js'></SCRIPT>
+                    <script type="text/javascript"> 
+                        $('#topAlley').load('/books/promo/mvnex-alley.html');
+                    </script>
 </body>
 </html>
