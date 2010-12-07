@@ -271,11 +271,27 @@
     <varname>groupId</varname> of
     <varname>org.sonatype.mavenbook.multi</varname>, an
     <varname>artifactId</varname> of <varname>simple-parent</varname>, and a
-    <varname>version</varname> of <varname>1.0</varname>. See <xref
-    linkend="multimodule-weather-service" />.</para>
+    <varname>version</varname> of <varname>1.0</varname>.</para>
+
+    <para>The <classname>WeatherService</classname> class shown in <xref
+    linkend="multimodule-weather-service" /> is defined in
+    <filename>src/main/java/org/sonatype/mavenbook/weather</filename>, and it
+    simply calls out to the three objects defined in <xref
+    linkend="customizing" />. In this chapter’s example, we’re creating a
+    separate project that contains service objects that are referenced in the
+    web application project. This is a common model in enterprise Java
+    development; often a complex application consists of more than just a
+    single, simple web application. You might have an enterprise application
+    that consists of multiple web applications and some command-line
+    applications. Often, you’ll want to refactor common logic to a service
+    class that can be reused across a number of projects. This is the
+    justification for creating a <classname>WeatherService</classname> class;
+    by doing so, you can see how the <varname>simple-webapp</varname> project
+    references a service object defined in
+    <varname>simple-weather</varname>.</para>
 
     <example id="multimodule-weather-service">
-      <title>The WeatherService class</title>
+      <title>The WeatherService Class</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -298,22 +314,6 @@ public class WeatherService {
 }
 </programlisting>
     </example>
-
-    <para>The <classname>WeatherService</classname> class is defined in
-    <filename>src/main/java/org/sonatype/mavenbook/weather</filename>, and it
-    simply calls out to the three objects defined in <xref
-    linkend="customizing" />. In this chapter’s example, we’re creating a
-    separate project that contains service objects that are referenced in the
-    web application project. This is a common model in enterprise Java
-    development; often a complex application consists of more than just a
-    single, simple web application. You might have an enterprise application
-    that consists of multiple web applications and some command-line
-    applications. Often, you’ll want to refactor common logic to a service
-    class that can be reused across a number of projects. This is the
-    justification for creating a <classname>WeatherService</classname> class;
-    by doing so, you can see how the <varname>simple-webapp</varname> project
-    references a service object defined in
-    <varname>simple-weather</varname>.</para>
 
     <para>The <methodname>retrieveForecast()</methodname> method takes a
     <classname>String</classname> containing a zip code. This zip code
