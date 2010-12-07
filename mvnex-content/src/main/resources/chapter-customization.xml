@@ -179,7 +179,7 @@ package: org.sonatype.mavenbook.custom
 
     <example id="ex-initial-pom-for-simple-weather">
       <title>Initial <acronym>POM</acronym> for the simple-weather
-      project</title>
+      Project</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -211,8 +211,8 @@ package: org.sonatype.mavenbook.custom
     linkend="ex-customization-initial-pom-with-compiler" />.</para>
 
     <example id="ex-customization-initial-pom-with-compiler">
-      <title><acronym>POM</acronym> for the simple-weather project with
-      compiler configuration</title>
+      <title><acronym>POM</acronym> for the simple-weather Project with
+      Compiler Configuration</title>
 
       <programlisting language="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1924,7 +1924,7 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
         </indexterm></para>
 
       <example floatstyle="" id="ex-customization-attach-assembly">
-        <title>Configuring attached Goal Execution during the package
+        <title>Configuring Attached Goal Execution During the Package
         Lifecycle Phase</title>
 
         <para><programlisting language="xml">&lt;project&gt;
@@ -1959,7 +1959,9 @@ $ <command>java -cp simple-weather-1.0-jar-with-dependencies.jar \
       execution configuration will make sure that the
       <varname>assembly:attached</varname> goal is executed when the Maven
       lifecycle transitions to the <varname>package</varname> phase of the
-      lifecycle.</para>
+      lifecycle. The assembly will also be created if you run <command>mvn
+      install</command> as the package phase precedes the install phase in the
+      default Maven lifecycle.</para>
     </section>
   </section>
 </chapter>

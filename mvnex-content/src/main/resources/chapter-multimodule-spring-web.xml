@@ -617,7 +617,7 @@ public class Weather {
     <filename>src/main/java/org/sonatype/mavenbook/weather/model</filename>.</para>
 
     <example id="example_condition_model_object">
-      <title>simple-model's Condition model object.</title>
+      <title>simple-model's Condition Model Object.</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather.model;
 
@@ -1726,7 +1726,7 @@ public class WeatherController implements Controller {
     <classname>WeatherController</classname>.</para>
 
     <example id="ex-weather-vm">
-      <title>weather.vm template rendered by WeatherController</title>
+      <title>weather.vm Template Rendered by WeatherController</title>
 
       <programlisting language="xml">&lt;b&gt;Current Weather Conditions for:
   \${weather.location.city}, \${weather.location.region}, 
@@ -1837,7 +1837,7 @@ public class HistoryController implements Controller {
     linkend="ex-spring-history-velocity" />.</para>
 
     <example id="ex-spring-history-velocity">
-      <title>history.vm rendered by the HistoryController</title>
+      <title>history.vm Rendered by the HistoryController</title>
 
       <programlisting language="java">&lt;b&gt;
 Weather History for: \${location.city}, \${location.region}, \${location.country}
@@ -1883,7 +1883,7 @@ Weather History for: \${location.city}, \${location.region}, \${location.country
     shown in <xref linkend="ex-spring-weather-servlet" />.</para>
 
     <example id="ex-spring-weather-servlet">
-      <title>Spring Controller configuration weather-servlet.xml</title>
+      <title>Spring Controller Configuration weather-servlet.xml</title>
 
       <programlisting>&lt;beans&gt;  
      &lt;bean id="weatherController" <co id="coDef-weather-servlet-1"
@@ -2233,7 +2233,7 @@ Multi-Spring Chapter Simple Web Application
     command-line.</para>
 
     <figure id="fig-multi-spring-command">
-      <title>Command line application referencing simple-weather and
+      <title>Command Line Application Referencing simple-weather and
       simple-persist</title>
 
       <mediaobject>
@@ -2354,7 +2354,7 @@ Multi-Spring Chapter Simple Web Application
     the bytecode from libraries your project depends upons.</para>
 
     <example id="ex-spring-command-main-class">
-      <title>The Main class for simple-command</title>
+      <title>The Main Class for simple-command</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -2483,8 +2483,8 @@ public class Main {
     render the weather report and the weather history.</para>
 
     <example id="ex-spring-weather-formatter">
-      <title>WeatherFormatter renders weather data using a Velocity
-      template</title>
+      <title>WeatherFormatter Renders Weather Data using a Velocity
+      Template</title>
 
       <programlisting language="java">package org.sonatype.mavenbook.weather;
 
@@ -2541,7 +2541,7 @@ public class WeatherFormatter {
     <filename>\${basedir}/src/main/resources</filename>.</para>
 
     <example>
-      <title>The weather.vm Velocity template</title>
+      <title>The weather.vm Velocity Template</title>
 
       <programlisting language="java">****************************************
 Current Weather Conditions for:
@@ -2559,7 +2559,7 @@ Current Weather Conditions for:
     </example>
 
     <example>
-      <title>The history.vm Velocity template</title>
+      <title>The history.vm Velocity Template</title>
 
       <para><programlisting>Weather History for:
 \${location.city},
