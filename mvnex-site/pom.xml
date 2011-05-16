@@ -125,36 +125,32 @@
             </plugin>
         </plugins>
     </reporting>
-    <profiles>
-        <profile>
-            <id>publish-external</id>
-            <distributionManagement>
-                <site>
-                    <id>sonatype-site</id>
-                    <name>Sonatype Book Examples</name>
-                    <url>scp://site@svn.sonatype.com/home/site/books/mvnex-book/</url>
-                </site>
-            </distributionManagement>
-            <properties>
-                <sonatype.site>scp://site@svn.sonatype.com/home/site/books/</sonatype.site>
-                <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
-                <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
-            </properties>
-        </profile>
-        <profile>
-            <id>stage-external</id>
-            <distributionManagement>
-                <site>
-                    <id>sonatype-site</id>
-                    <name>Sonatype Book Examples</name>
-                    <url>scp://site@svn.sonatype.com/home/site/books/mvnex-book-stage/</url>
-                </site>
-            </distributionManagement>
-            <properties>
-                <sonatype.site>scp://site@svn.sonatype.com/home/site/books/</sonatype.site>
-            </properties>
-        </profile>
-    </profiles>
+<profiles>
+  <profile>
+    <id>publish-external</id>
+    <distributionManagement>
+      <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@sonatype-marketing01.managed.contegix.com/var/www/domains/sonatype.com/www/static/books/mvnex-book/</url>
+        </site>
+    </distributionManagement>
+    <properties>
+      <maven.book.baseurl>http://books.sonatype.com/maven-book</maven.book.baseurl>
+    </properties>
+  </profile>
+  <profile>
+    <id>stage-external</id>
+    <distributionManagement>
+      <site>
+          <id>sonatype-site</id>
+          <name>Sonatype Book Examples</name>
+          <url>scp://deployer@sonatype-marketing01.managed.contegix.com/var/www/domains/sonatype.com/www/static/books/mvnex-book-stage/</url>
+        </site>
+    </distributionManagement>
+  </profile>
+</profiles>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
