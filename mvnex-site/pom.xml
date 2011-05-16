@@ -136,7 +136,9 @@
         </site>
     </distributionManagement>
     <properties>
-      <maven.book.baseurl>http://books.sonatype.com/maven-book</maven.book.baseurl>
+        <sonatype.site>scp://site@svn.sonatype.com/home/site/books/</sonatype.site>
+        <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
+        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
     </properties>
   </profile>
   <profile>
@@ -148,6 +150,11 @@
           <url>scp://deployer@sonatype-marketing01.managed.contegix.com/var/www/domains/sonatype.com/www/static/books/mvnex-book-stage/</url>
         </site>
     </distributionManagement>
+    <properties>
+        <sonatype.site>scp://site@svn.sonatype.com/home/site/books/</sonatype.site>
+        <nexus.book.baseurl>http://books.sonatype.com/nexus-book/</nexus.book.baseurl>
+        <m2eclipse.book.baseurl>http://books.sonatype.com/m2eclipse-book/</m2eclipse.book.baseurl>
+    </properties>
   </profile>
 </profiles>
 
