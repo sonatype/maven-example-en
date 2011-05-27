@@ -167,11 +167,17 @@
     </div>
     <!-- title-block and subnav : END -->
 
-<div id="content" class="trunk container">
-${body}
-</div>
-<!-- module_result : END --> 
-        </div> 
+    <div id="content" class="trunk container">
+        <div class="span-17">
+            <!-- Book Page Content Goes Here-->
+            ${body}
+        </div>
+        <div class="span-7" id="sidebar">
+            <!-- This section will be populated by a call resembling $('#sidebar').load('ez-cms-page.htm') -->
+        </div>
+    </div>
+    <!-- module_result : END --> 
+    </div> 
     <!-- page-content : END --> 
  
   <!-- page_footer : START --> 
