@@ -21,50 +21,6 @@
     <module>mvnex-site</module>
     <module>mvnex-pdf</module>
   </modules>
-  
-  <profiles>
-    <profile>
-      <id>publish</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://site@172.16.0.1/home/site/books/mvnex-book/parent</url>
-        </site>
-      </distributionManagement>
-    </profile>
-    <profile>
-      <id>publish-external</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://site@svn.sonatype.com/home/site/books/mvnex-book/parent</url>
-        </site>
-      </distributionManagement>
-    </profile>
-    <profile>
-      <id>stage</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://site@172.16.0.1/home/site/books/mvnex-book-stage/parent</url>
-        </site>
-      </distributionManagement>
-    </profile>
-    <profile>
-      <id>stage-external</id>
-      <distributionManagement>
-        <site>
-          <id>sonatype-site</id>
-          <name>Sonatype Book Examples</name>
-          <url>scp://site@svn.sonatype.com/home/site/books/mvnex-book-stage/parent</url>
-        </site>
-      </distributionManagement>
-    </profile>
-  </profiles>
-
   <repositories>
     <repository>
       <id>sonatype-public</id>
