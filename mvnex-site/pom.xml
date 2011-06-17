@@ -63,9 +63,11 @@
 		                            <version>${project.version}</version>
 		                            <classifier>project</classifier>
 		                            <type>zip</type>
+                                    <destFileName>mvnex-examples.zip</destFileName>
 	                            </artifactItem>
 	                        </artifactItems>
 	                        <outputDirectory>${basedir}/target/site/</outputDirectory>
+                            
 	                    </configuration>
 	                </execution>
 	                <execution>

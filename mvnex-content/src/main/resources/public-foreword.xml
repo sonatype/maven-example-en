@@ -19,7 +19,7 @@
 
   <para>Tim O'Brien (tobrien@sonatype.com)</para>
 
-  <para>May 2011</para>
+  <para>June 2011</para>
 
   <section>
     <title>Changes in Edition 0.6</title>
@@ -27,6 +27,18 @@
     <para>The following changes were made in 0.6:</para>
 
     <itemizedlist>
+      <listitem>
+        <para>Fixed an annoyance. The Maven by Example example source code was
+        being packaged in
+        <filename>mvnex-examples-&lt;VERSION&gt;-project.zip</filename>. This
+        was causing a few problems that became evident during a migration to a
+        new web server. Because this link contains the version number, it
+        locks us into constantly maintaining old versions of the example code.
+        In this edition, the link has been shortened and the version number
+        has been removed from the filename. (<ulink
+        url="https://issues.sonatype.org/browse/MVNEX-141">MVNEX-141</ulink>)</para>
+      </listitem>
+
       <listitem>
         <para>Updated site template for the new Sonatype web site.</para>
       </listitem>
