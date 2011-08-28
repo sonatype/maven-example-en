@@ -146,7 +146,7 @@ Maven incorporates this concept by providing sensible default behavior for proje
 
 One side-effect of using systems that follow "convention over configuration" is that end-users might feel that they are forced to use a particular methodology or approach. While it is certainly true that Maven has some core opinions that shouldn't be challenged, most of the defaults can be customized. For example, the location of a project's source code and resources can be customized, names of JAR files can be customized, and through the development of custom plugins, almost any behavior can be tailored to your specific environment's requirements. If you don't care to follow convention, Maven will allow you to customize defaults in order to adapt to your specific requirements. 
 
-[[installation-sect-common-interface" label="]]
+[[installation-sect-common-interface]]
 === A Common Interface
 
 Before Maven provided a common interface for building software, every single project had someone dedicated to managing a fully customized build system. Developers had to take time away from developing software to learn about the idiosyncrasies of each new project they wanted to contribute to. In 2001, you'd have a completely different approach to building a project like http://turbine.apache.org/[Turbine] than you would to building a project like http://tomcat.apache.org[Tomcat]. If a new source code analysis tool came out that would perform static analysis on source code, or if someone developed a new unit testing framework, everybody would have to drop what they were doing and figure out how to fit it into each project's custom build environment. How do you run unit tests? There were a thousand different answers. This environment was characterized by a thousand endless arguments about tools and build procedures. The age before Maven was an age of inefficiency, the age of the "Build Engineer".
@@ -198,7 +198,7 @@ This is the central point that makes all of the Maven vs. Ant, Maven vs. Buildr,
 
 While Maven is an alternative to many of these tools, the community needs to evolve beyond seeing technology as a zero-sum game between unfriendly competitors in a competition for users and developers. This might be how large corporations relate to one another, but it has very little relevance to the way that open source communities work. The headline "Who's winning? Ant or Maven?" isn't very constructive. If you force us to answer this question, we're definitely going to say that Maven is a superior alternative to Ant as a foundational technology for a build; at the same time, Maven's boundaries are constantly shifting and the Maven community is constantly trying to seek out new ways to become more ecumenical, more inter-operable, more cooperative. The core tenets of Maven are declarative builds, dependency management, repository managers, universal reuse through plugins, but the specific incarnation of these ideas at any given moment is less important than the sense that the open source community is collaborating to reduce the inefficiency of "enterprise-scale builds". 
 
-[[installation-sect-compare-ant-maven" label="]]
+[[installation-sect-compare-ant-maven]]
 === Comparing Maven with Ant
 
 The authors of this book have no interest in creating a feud between Apache Ant and Apache Maven, but we are also cognizant of the fact that most organizations have to make a decision between the two standard solutions: Apache Ant and Apache Maven. In this section, we compare and contrast the tools.
@@ -311,7 +311,7 @@ Java HotSpot(TM) Client VM (build 1.5.0_16-133, mixed mode, sharing)
 ----
 
 
-Maven works with all certified Java(TM) compatible development kits, and a few non-certified implementations of Java. The examples in this book were written and tested against the official Java Development Kit releases downloaded from the Sun Microsystems web site. If you’re working with a Linux distribution, you may need to download Sun’s JDK yourself and make sure it’s the version you’re invoking (by running +java -version+). Now that Sun has open-sourced Java, this will hopefully improve in the future, and we’ll get the Sun JRE and JDK by default even in purist Linux distributions. Until that day, you may need to do some of your own downloading. 
+Maven works with all certified Java(TM) compatible development kits, and a few non-certified implementations of Java. The examples in this book were written and tested against the official Java Development Kit releases downloaded from the Sun Microsystems web site. If you're working with a Linux distribution, you may need to download Sun's JDK yourself and make sure it's the version you're invoking (by running +java -version+). Now that Sun has open-sourced Java, this will hopefully improve in the future, and we'll get the Sun JRE and JDK by default even in purist Linux distributions. Until that day, you may need to do some of your own downloading. 
 
 [[installation-sect-maven-download]]
 === Downloading Maven
@@ -510,12 +510,12 @@ There's a good chance that, if you are reading this book, you are not a lawyer. 
 
 In this chapter, we introduce a simple project created from scratch using the Maven Archetype plugin. This elementary application provides us with the opportunity to discuss some core Maven concepts while you follow along with the development of the project.
 
-Before you can start using Maven for complex, multi-module builds, we have to start with the basics. If you’ve used Maven before, you’ll notice that it does a good job of taking care of the details. Your builds tend to “just work,” and you only really need to dive into the details of Maven when you want to customize the default behavior or write a custom plugin. However, when you do need to dive into the details, a thorough understanding of the core concepts is essential. This chapter aims to introduce you to the simplest possible Maven project and then presents some of the core concepts that make Maven a solid build platform. After reading it, you’ll have a fundamental understanding of the build lifecycle, Maven repositories, dependency management, and the Project Object Model (POM).
+Before you can start using Maven for complex, multi-module builds, we have to start with the basics. If you've used Maven before, you'll notice that it does a good job of taking care of the details. Your builds tend to “just work,” and you only really need to dive into the details of Maven when you want to customize the default behavior or write a custom plugin. However, when you do need to dive into the details, a thorough understanding of the core concepts is essential. This chapter aims to introduce you to the simplest possible Maven project and then presents some of the core concepts that make Maven a solid build platform. After reading it, you'll have a fundamental understanding of the build lifecycle, Maven repositories, dependency management, and the Project Object Model (POM).
 
 [[simple-project-sect-downloading-example]]
 ==== Downloading this Chapter's Example
 
-This chapter develops a very simple example which will be used to explore core concepts of Maven. If you follow the steps described in this chapter, you shouldn't need to download the examples to recreate the code produced by the Maven. We will be using the Maven Archetype plugin to create this simple project and this chapter doesn't modify the project in any way. If you would prefer to read this chapter with the final example source code, this chapter’s example project may be downloaded with the book’s example code at:
+This chapter develops a very simple example which will be used to explore core concepts of Maven. If you follow the steps described in this chapter, you shouldn't need to download the examples to recreate the code produced by the Maven. We will be using the Maven Archetype plugin to create this simple project and this chapter doesn't modify the project in any way. If you would prefer to read this chapter with the final example source code, this chapter's example project may be downloaded with the book's example code at:
 
 ----
 ${examples.download.url}
@@ -584,9 +584,9 @@ simple/pom.xml<2>
 /test/java
 ----
 
-This generated directory adheres to the Maven Standard Directory Layout. We’ll get into more details later in this chapter, but for now, let’s just try to understand these few basic directories: <calloutlist>
+This generated directory adheres to the Maven Standard Directory Layout. We'll get into more details later in this chapter, but for now, let's just try to understand these few basic directories: <calloutlist>
 
-<1>  The Maven Archetype plugin creates a directory 'simple/' that matches the +artifactId+. This is known as the project’s  base directory. 
+<1>  The Maven Archetype plugin creates a directory 'simple/' that matches the +artifactId+. This is known as the project's  base directory. 
 
 <2>  Every Maven project has what is known as a Project Object Model (POM) in a file named 'pom.xml'. This file describes the project, configures plugins, and declares dependencies. 
 
@@ -736,9 +736,9 @@ A goal is a specific task that may be executed as a standalone goal or along wit
 
 NOTE: When referring to a plugin goal, we frequently use the shorthand notation: pluginId:goalId. For example, when referring to the +generate+ goal in the Archetype plugin, we write +archetype:generate+. 
 
-Goals define parameters that can define sensible default values. In the +archetype:++generate+ example, we did not specify what kind of archetype the goal was to create on our command line; we simply passed in a +groupId+ and an +artifactId+. Not passing in the type of artifact we wanted to create caused the +generate+ goal to prompt us for input, the generate goal stopped and asked us to choose an archetype from a list. If you had run the +archetype:create+ goal instead, Maven would have assumed that you wanted to generate a new project using the default +maven-archetype-quickstart+ archetype. This is our first brush with convention over configuration. The convention, or default, for the +create+ goal is to create a simple project called Quickstart. The +create+ goal defines a configuration property +archetypeArtifactId+ that has a default value of +maven-archetype-++quickstart+. The Quickstart archetype generates a minimal project shell that contains a POM and a single class. The Archetype plugin is far more powerful than this first example suggests, but it is a great way to get new projects started fast. Later in this book, we’ll show you how the Archetype plugin can be used to generate more complex projects such as web applications, and how you can use the Archetype plugin to define your own set of projects.
+Goals define parameters that can define sensible default values. In the +archetype:++generate+ example, we did not specify what kind of archetype the goal was to create on our command line; we simply passed in a +groupId+ and an +artifactId+. Not passing in the type of artifact we wanted to create caused the +generate+ goal to prompt us for input, the generate goal stopped and asked us to choose an archetype from a list. If you had run the +archetype:create+ goal instead, Maven would have assumed that you wanted to generate a new project using the default +maven-archetype-quickstart+ archetype. This is our first brush with convention over configuration. The convention, or default, for the +create+ goal is to create a simple project called Quickstart. The +create+ goal defines a configuration property +archetypeArtifactId+ that has a default value of +maven-archetype-++quickstart+. The Quickstart archetype generates a minimal project shell that contains a POM and a single class. The Archetype plugin is far more powerful than this first example suggests, but it is a great way to get new projects started fast. Later in this book, we'll show you how the Archetype plugin can be used to generate more complex projects such as web applications, and how you can use the Archetype plugin to define your own set of projects.
 
-The core of Maven has little to do with the specific tasks involved in your project’s build. By itself, Maven doesn’t know how to compile your code or even how to make a JAR file. It delegates all of this work to Maven plugins like the Compiler plugin and the Jar plugin, which are downloaded on an as-needed basis and periodically updated from the central Maven repository. When you download Maven, you are getting the core of Maven, which consists of a very basic shell that knows only how to parse the command line, manage a classpath, parse a POM file, and download Maven plugins as needed. By keeping the Compiler plugin separate from Maven’s core and providing for an update mechanism, Maven makes it easier for users to have access to the latest options in the compiler. In this way, Maven plugins allow for universal reusability of common build logic. You are not defining the compile task in a build file; you are using a Compiler plugin that is shared by every user of Maven. If there is an improvement to the Compiler plugin, every project that uses Maven can immediately benefit from this change. (And, if you don’t like the Compiler plugin, you can override it with your own implementation.) 
+The core of Maven has little to do with the specific tasks involved in your project's build. By itself, Maven doesn't know how to compile your code or even how to make a JAR file. It delegates all of this work to Maven plugins like the Compiler plugin and the Jar plugin, which are downloaded on an as-needed basis and periodically updated from the central Maven repository. When you download Maven, you are getting the core of Maven, which consists of a very basic shell that knows only how to parse the command line, manage a classpath, parse a POM file, and download Maven plugins as needed. By keeping the Compiler plugin separate from Maven's core and providing for an update mechanism, Maven makes it easier for users to have access to the latest options in the compiler. In this way, Maven plugins allow for universal reusability of common build logic. You are not defining the compile task in a build file; you are using a Compiler plugin that is shared by every user of Maven. If there is an improvement to the Compiler plugin, every project that uses Maven can immediately benefit from this change. (And, if you don't like the Compiler plugin, you can override it with your own implementation.) 
 
 [[simple-project-sect-lifecycle]]
 ==== Maven Lifecycle
@@ -798,7 +798,7 @@ It is much easier to execute lifecycle phases than it is to specify explicit goa
 [[simple-project-sect-maven-coordinates]]
 ==== Maven Coordinates
 
-The Archetype plugin created a project with a file named 'pom.xml'. This is the Project Object Model (POM), a declarative description of a project. When Maven executes a goal, each goal has access to the information defined in a project’s POM. When the +jar:jar+ goal needs to create a JAR file, it looks to the POM to find out what the JAR file’s name is. When the +compiler:compile+ goal compiles Java source code into bytecode, it looks to the POM to see if there are any parameters for the compile goal. Goals execute in the context of a POM. Goals are actions we wish to take upon a project, and a project is defined by a POM. The POM names the project, provides a set of unique identifiers (coordinates) for a project, and defines the relationships between this project and others through dependencies, parents, and prerequisites. A POM can also customize plugin behavior and supply information about the community and developers involved in a project.
+The Archetype plugin created a project with a file named 'pom.xml'. This is the Project Object Model (POM), a declarative description of a project. When Maven executes a goal, each goal has access to the information defined in a project's POM. When the +jar:jar+ goal needs to create a JAR file, it looks to the POM to find out what the JAR file's name is. When the +compiler:compile+ goal compiles Java source code into bytecode, it looks to the POM to see if there are any parameters for the compile goal. Goals execute in the context of a POM. Goals are actions we wish to take upon a project, and a project is defined by a POM. The POM names the project, provides a set of unique identifiers (coordinates) for a project, and defines the relationships between this project and others through dependencies, parents, and prerequisites. A POM can also customize plugin behavior and supply information about the community and developers involved in a project.
 
 Maven coordinates define a set of identifiers which can be used to uniquely identify a project, a dependency, or a plugin in a Maven POM. Take a look at the following POM.
 
@@ -866,13 +866,13 @@ As you can see from the output of this command, Maven installed our project's JA
 
 In this chapter's simple example, Maven resolved the coordinates of the JUnit dependency—+junit:junit:3.8.1+—to a path in a Maven repository '/junit/junit/3.8.1/junit-3.8.1.jar'. The ability to locate an artifact in a repository based on Maven coordinates gives us the ability to define dependencies in a project's POM. If you examine the simple project's 'pom.xml' file, you will see that there is a section which deals with dependencies, and that this section contains a single dependency—JUnit.
 
-A more complex project would contain more than one dependency, or it might contain dependencies that depend on other artifacts. Support for transitive dependencies is one of Maven’s most powerful features. Let’s say your project depends on a library that, in turn, depends on 5 or 10 other libraries (Spring or Hibernate, for example). Instead of having to track down all of these dependencies and list them in your 'pom.xml' explicitly, you can simply depend on the library you are interested in and Maven will add the dependencies of this library to your project’s dependencies implicitly. Maven will also take care of working out conflicts between dependencies, and provides you with the ability to customize the default behavior and exclude certain transitive dependencies.
+A more complex project would contain more than one dependency, or it might contain dependencies that depend on other artifacts. Support for transitive dependencies is one of Maven's most powerful features. Let's say your project depends on a library that, in turn, depends on 5 or 10 other libraries (Spring or Hibernate, for example). Instead of having to track down all of these dependencies and list them in your 'pom.xml' explicitly, you can simply depend on the library you are interested in and Maven will add the dependencies of this library to your project's dependencies implicitly. Maven will also take care of working out conflicts between dependencies, and provides you with the ability to customize the default behavior and exclude certain transitive dependencies.
 
 Let's take a look at a dependency which was downloaded to your local repository when you ran the previous example. Look in your local repository path under '~/.m2/repository/junit/junit/3.8.1/'. If you have been following this chapter's examples, there will be a file named 'junit-3.8.1.jar' and a 'junit-3.8.1.pom' file in addition to a few checksum files which Maven uses to verify the authenticity of a downloaded artifact. Note that Maven doesn't just download the JUnit JAR file, Maven also downloads a POM file for the JUnit dependency. The fact that Maven downloads POM files in addition to artifacts is central to Maven's support for transitive dependencies.
 
-When you install your project’s artifact in the local repository, you will also notice that Maven publishes a slightly modified version of the project’s 'pom.xml' file in the same directory as the JAR file. Storing a POM file in the repository gives other projects information about this project, most importantly what dependencies it has. If Project B depends on Project A, it also depends on Project A’s dependencies. When Maven resolves a dependency artifact from a set of Maven coordinates, it also retrieves the POM and consults the dependencies POM to find any transitive dependencies. These transitive dependencies are then added as dependencies of the current project.
+When you install your project's artifact in the local repository, you will also notice that Maven publishes a slightly modified version of the project's 'pom.xml' file in the same directory as the JAR file. Storing a POM file in the repository gives other projects information about this project, most importantly what dependencies it has. If Project B depends on Project A, it also depends on Project A's dependencies. When Maven resolves a dependency artifact from a set of Maven coordinates, it also retrieves the POM and consults the dependencies POM to find any transitive dependencies. These transitive dependencies are then added as dependencies of the current project.
 
-A dependency in Maven isn’t just a JAR file; it’s a POM file that, in turn, may declare dependencies on other artifacts. These dependencies of dependencies are called transitive dependencies, and they are made possible by the fact that the Maven repository stores more than just bytecode; it stores metadata about artifacts.
+A dependency in Maven isn't just a JAR file; it's a POM file that, in turn, may declare dependencies on other artifacts. These dependencies of dependencies are called transitive dependencies, and they are made possible by the fact that the Maven repository stores more than just bytecode; it stores metadata about artifacts.
 
 [[fig-resolve-transitive]]
 .Maven Resolves Transitive Dependencies
@@ -880,27 +880,27 @@ image::figs/web/simple-project_depgraph.png" width="[]
 
 In the previous figure, project A depends on projects B and C. Project B depends on project D, and project C depends on project E. The full set of direct and transitive dependencies for project A would be projects B, C, D, and E, but all project A had to do was define a dependency on B and C. Transitive dependencies can come in handy when your project relies on other projects with several small dependencies (like Hibernate, Apache Struts, or the Spring Framework). Maven also provides you with the ability to exclude transitive dependencies from being included in a project's classpath.
 
-Maven also provides for different dependency scopes. The simple project’s 'pom.xml' contains a single dependency—+junit:junit:jar:3.8.1+—with a scope of +test+. When a dependency has a scope of +test+, it will not be available to the +compile+ goal of the Compiler plugin. It will be added to the classpath for only the +compiler:testCompile+ and +surefire:test+ goals.
+Maven also provides for different dependency scopes. The simple project's 'pom.xml' contains a single dependency—+junit:junit:jar:3.8.1+—with a scope of +test+. When a dependency has a scope of +test+, it will not be available to the +compile+ goal of the Compiler plugin. It will be added to the classpath for only the +compiler:testCompile+ and +surefire:test+ goals.
 
-When you create a JAR for a project, dependencies are not bundled with the generated artifact; they are used only for compilation. When you use Maven to create a WAR or an EAR file, you can configure Maven to bundle dependencies with the generated artifact, and you can also configure it to exclude certain dependencies from the WAR file using the +provided+ scope. The +provided+ scope tells Maven that a dependency is needed for compilation, but should not be bundled with the output of a build. This scope comes in handy when you are developing a web application. You’ll need to compile your code against the Servlet specification, but you don’t want to include the Servlet API JAR in your web application’s 'WEB-INF/lib' directory. 
+When you create a JAR for a project, dependencies are not bundled with the generated artifact; they are used only for compilation. When you use Maven to create a WAR or an EAR file, you can configure Maven to bundle dependencies with the generated artifact, and you can also configure it to exclude certain dependencies from the WAR file using the +provided+ scope. The +provided+ scope tells Maven that a dependency is needed for compilation, but should not be bundled with the output of a build. This scope comes in handy when you are developing a web application. You'll need to compile your code against the Servlet specification, but you don't want to include the Servlet API JAR in your web application's 'WEB-INF/lib' directory. 
 
 [[simple-project-sect-site-generation]]
 ==== Site Generation and Reporting
 
-Another important feature of Maven is its ability to generate documentation and reports. In your simple project’s directory, execute the following command:
+Another important feature of Maven is its ability to generate documentation and reports. In your simple project's directory, execute the following command:
 
 ----
 $ mvn site
 ----
 
-This will execute the +site+ lifecycle phase. Unlike the default build lifecycle that manages generation of code, manipulation of resources, compilation, packaging, etc., this lifecycle is concerned solely with processing site content under the 'src/site' directories and generating reports. After this command executes, you should see a project web site in the 'target/site' directory. Load 'target/site/index.html' and you should see a basic shell of a project site. This shell contains some reports under “Project Reports” in the lefthand navigation menu, and it also contains information about the project, the dependencies, and developers associated with it under “Project Information.” The simple project’s web site is mostly empty, since the POM contains very little information about itself beyond its Maven coordinates, a name, a URL, and a single test dependency.
+This will execute the +site+ lifecycle phase. Unlike the default build lifecycle that manages generation of code, manipulation of resources, compilation, packaging, etc., this lifecycle is concerned solely with processing site content under the 'src/site' directories and generating reports. After this command executes, you should see a project web site in the 'target/site' directory. Load 'target/site/index.html' and you should see a basic shell of a project site. This shell contains some reports under “Project Reports” in the lefthand navigation menu, and it also contains information about the project, the dependencies, and developers associated with it under “Project Information.” The simple project's web site is mostly empty, since the POM contains very little information about itself beyond its Maven coordinates, a name, a URL, and a single test dependency.
 
-On this site, you’ll notice that some default reports are available. A unit test report communicates the success and failure of all unit tests in the project. Another report generates Javadoc for the project’s API. Maven provides a full range of configurable reports, such as the Clover report that examines unit test coverage, the JXR report that generates cross-referenced HTML source code listings useful for code reviews, the PMD report that analyzes source code for various coding problems, and the JDepend report that analyzes the dependencies between packages in a codebase. You can customize site reports by configuring which reports are included in a build via the 'pom.xml' file.  
+On this site, you'll notice that some default reports are available. A unit test report communicates the success and failure of all unit tests in the project. Another report generates Javadoc for the project's API. Maven provides a full range of configurable reports, such as the Clover report that examines unit test coverage, the JXR report that generates cross-referenced HTML source code listings useful for code reviews, the PMD report that analyzes source code for various coding problems, and the JDepend report that analyzes the dependencies between packages in a codebase. You can customize site reports by configuring which reports are included in a build via the 'pom.xml' file.  
 
 [[simple-project-sect-summary]]
 === Summary
 
-In this chapter, we have created a simple project, packaged the project into a JAR file, installed that JAR into the Maven repository for use by other projects, and generated a site with documentation. We accomplished this without writing a single line of code or touching a single configuration file. We also took some time to develop definitions for some of the core concepts of Maven. In the next chapter, we’ll start customizing and modifying our project 'pom.xml' file to add dependencies and configure unit tests.  
+In this chapter, we have created a simple project, packaged the project into a JAR file, installed that JAR into the Maven repository for use by other projects, and generated a site with documentation. We accomplished this without writing a single line of code or touching a single configuration file. We also took some time to develop definitions for some of the core concepts of Maven. In the next chapter, we'll start customizing and modifying our project 'pom.xml' file to add dependencies and configure unit tests.  
 
 [[customizing]]
 == Customizing a Maven Project
@@ -908,12 +908,12 @@ In this chapter, we have created a simple project, packaged the project into a J
 [[customizing-sect-intro]]
 === Introduction
 
-This chapter expands on the information introduced in <<simple-project>>. We’re going to create a simple project generated with the Maven Archetype plugin, add some dependencies, add some source code, and customize the project to suit our needs. By the end of this chapter, you will know how to start using Maven to create real projects.
+This chapter expands on the information introduced in <<simple-project>>. We're going to create a simple project generated with the Maven Archetype plugin, add some dependencies, add some source code, and customize the project to suit our needs. By the end of this chapter, you will know how to start using Maven to create real projects.
 
 [[customizing-sect-downloading]]
 ==== Downloading this Chapter's Example
 
-We’ll be developing a useful program that interacts with a Yahoo! Weather web service. Although you should be able to follow along with this chapter without the example source code, we recommend that you download a copy of the code to use as a reference. This chapter’s example project may be downloaded with the book’s example code at:
+We'll be developing a useful program that interacts with a Yahoo! Weather web service. Although you should be able to follow along with this chapter without the example source code, we recommend that you download a copy of the code to use as a reference. This chapter's example project may be downloaded with the book's example code at:
 
 ----
 ${examples.download.url}
@@ -924,9 +924,9 @@ Unzip this archive in any directory, and then go to the 'ch-custom/' directory. 
 [[customizing-sect-simple-weather]]
 === Defining the Simple Weather Project
 
-Before we start customizing this project, let’s take a step back and talk about the simple weather project. What is it? It’s a contrived example, created to demonstrate some of the features of Maven. It is an application that is representative of the kind you might need to build. The simple weather application is a basic command-line-driven application that takes a zip code and retrieves some data from the Yahoo! Weather RSS feed. It then parses the result and prints the result to standard output.
+Before we start customizing this project, let's take a step back and talk about the simple weather project. What is it? It's a contrived example, created to demonstrate some of the features of Maven. It is an application that is representative of the kind you might need to build. The simple weather application is a basic command-line-driven application that takes a zip code and retrieves some data from the Yahoo! Weather RSS feed. It then parses the result and prints the result to standard output.
 
-We chose this example for a number of reasons. First, it is straightforward. A user supplies input via the command line, the app takes that zip code, makes a request to Yahoo! Weather, parses the result, and formats some simple data to the screen. This example is a simple +main()+ function and some supporting classes; there is no enterprise framework to introduce and explain, just XML parsing and some logging statements. Second, it gives us a good excuse to introduce some interesting libraries such as Velocity, Dom4J, and Log4J. Although this book is focused on Maven, we won’t shy away from an opportunity to introduce interesting utilities. Lastly, it is an example that can be introduced, developed, and deployed in a single chapter.
+We chose this example for a number of reasons. First, it is straightforward. A user supplies input via the command line, the app takes that zip code, makes a request to Yahoo! Weather, parses the result, and formats some simple data to the screen. This example is a simple +main()+ function and some supporting classes; there is no enterprise framework to introduce and explain, just XML parsing and some logging statements. Second, it gives us a good excuse to introduce some interesting libraries such as Velocity, Dom4J, and Log4J. Although this book is focused on Maven, we won't shy away from an opportunity to introduce interesting utilities. Lastly, it is an example that can be introduced, developed, and deployed in a single chapter.
 
 [[customizing-sect-yahoo-weather]]
 ==== Yahoo! Weather RSS
@@ -940,12 +940,12 @@ you provide attribution to Yahoo! Weather in connection with your use
 of the feeds.
 ----
 
-In other words, if you are thinking of integrating these feeds into your commercial web site, think again—this feed is for personal, noncommercial use. The use we’re encouraging in this chapter is personal educational use. For more information about these terms of service, see the Yahoo Weather! API documentation here: http://developer.yahoo.com/weather/[].  
+In other words, if you are thinking of integrating these feeds into your commercial web site, think again—this feed is for personal, noncommercial use. The use we're encouraging in this chapter is personal educational use. For more information about these terms of service, see the Yahoo Weather! API documentation here: http://developer.yahoo.com/weather/[].  
 
 [[customizing-sect-creating-simple-weather]]
 === Creating the Simple Weather Project
 
-First, let’s use the Maven Archetype plugin to create a basic skeleton for the simple weather project. Execute the following command to create a new project, select archetype 16, and then enter "Y" to confirm and generate the new project:
+First, let's use the Maven Archetype plugin to create a basic skeleton for the simple weather project. Execute the following command to create a new project, select archetype 16, and then enter "Y" to confirm and generate the new project:
 
 ----
 $ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.custom \
@@ -979,7 +979,7 @@ Y: : Y
 [INFO] BUILD SUCCESSFUL
 ----
 
-Once the Maven Archetype plugin creates the project, go into the 'simple-weather' directory and take a look at the 'pom.xml' file. You should see the XML document that’s shown in <<ex-initial-pom-for-simple-weather>>.
+Once the Maven Archetype plugin creates the project, go into the 'simple-weather' directory and take a look at the 'pom.xml' file. You should see the XML document that's shown in <<ex-initial-pom-for-simple-weather>>.
 
 [[ex-initial-pom-for-simple-weather]]
 .Initial POM for the simple-weather Project
@@ -1049,7 +1049,7 @@ Notice that we passed in the +version+ parameter to the +archetype:generate+ goa
 [[customizing-sect-customizing-project-info]]
 === Customize Project Information
 
-Before we start writing code, let’s customize the project information a bit. We want to add some information about the project’s license, the organization, and a few of the developers associated with the project. This is all standard information you would expect to see in most projects. <<ex-custom-org-info>> shows the XML that supplies the organizational information, the licensing information, and the developer information. 
+Before we start writing code, let's customize the project information a bit. We want to add some information about the project's license, the organization, and a few of the developers associated with the project. This is all standard information you would expect to see in most projects. <<ex-custom-org-info>> shows the XML that supplies the organizational information, the licensing information, and the developer information. 
 
 [[ex-custom-org-info]]
 .Adding Organizational, Legal, and Developer Information to the pom.xml
@@ -1168,7 +1168,7 @@ The Simple Weather command-line application consists of five Java classes.
 
    The +WeatherFormatter+ class takes a +Weather+ object, creates a +VelocityContext+, and evaluates a Velocity template.  
 
-Although we won’t dwell on the code here, we will provide all the necessary code for you to get the example working. We assume that most readers have downloaded the examples that accompany this book, but we’re also mindful of those who may wish to follow the example in this chapter step-by-step. The sections that follow list classes in the +simple-weather+ project. Each of these classes should be placed in the same package: +org.sonatype.mavenbook.weather+.
+Although we won't dwell on the code here, we will provide all the necessary code for you to get the example working. We assume that most readers have downloaded the examples that accompany this book, but we're also mindful of those who may wish to follow the example in this chapter step-by-step. The sections that follow list classes in the +simple-weather+ project. Each of these classes should be placed in the same package: +org.sonatype.mavenbook.weather+.
 
 Let's remove the +App+ and the +AppTest+ classes created by +archetype:generate+ and add our new package. In a Maven project, all of a project's source code is stored in 'src/main/java'. From the base directory of the new project, execute the following commands:
 
@@ -1301,7 +1301,7 @@ public class YahooRetriever {
 }
 ----
 
-This simple class opens a +URLConnection+ to the Yahoo! Weather API and returns an +InputStream+. To create something to parse this feed, we’ll need to create the 'YahooParser.java' file in the same directory.
+This simple class opens a +URLConnection+ to the Yahoo! Weather API and returns an +InputStream+. To create something to parse this feed, we'll need to create the 'YahooParser.java' file in the same directory.
 
 .Simple Weather's YahooParser Class
 ----
@@ -1353,9 +1353,9 @@ public class YahooParser {
 }
 ----
 
-The +YahooParser+ is the most complex class in this example. We’re not going to dive into the details of Dom4J or Jaxen here, but the class deserves some explanation. +YahooParser+’s +parse()+ method takes an +InputStream+ and returns a +Weather+ object. To do this, it needs to parse an XML document with Dom4J. Since we’re interested in elements under the Yahoo! Weather XML namespace, we need to create a namespace-aware +SAXReader+ in the +createXmlReader()+ method. Once we create this reader and parse the document, we get an +org.dom4j.Document+ object back. Instead of iterating through child elements, we simply address each piece of information we need using an XPath expression. Dom4J provides the XML parsing in this example, and Jaxen provides the XPath capabilities.
+The +YahooParser+ is the most complex class in this example. We're not going to dive into the details of Dom4J or Jaxen here, but the class deserves some explanation. +YahooParser+'s +parse()+ method takes an +InputStream+ and returns a +Weather+ object. To do this, it needs to parse an XML document with Dom4J. Since we're interested in elements under the Yahoo! Weather XML namespace, we need to create a namespace-aware +SAXReader+ in the +createXmlReader()+ method. Once we create this reader and parse the document, we get an +org.dom4j.Document+ object back. Instead of iterating through child elements, we simply address each piece of information we need using an XPath expression. Dom4J provides the XML parsing in this example, and Jaxen provides the XPath capabilities.
 
-Once we’ve created a +Weather+ object, we need to format our output for human consumption. Create a file named 'WeatherFormatter.java' in the same directory as the other classes.
+Once we've created a +Weather+ object, we need to format our output for human consumption. Create a file named 'WeatherFormatter.java' in the same directory as the other classes.
 
 
 .Simple Weather's WeatherFormatter Class
@@ -1397,7 +1397,7 @@ Before we can run this example, we'll need to add some resources to our classpat
 
 This project depends on two classpath resources: the +Main+ class that configures Log4J with a classpath resource named 'log4j.properties', and the +WeatherFormatter+ that references a Velocity template from the classpath named 'output.vm'. Both of these resources need to be in the default package (or the root of the classpath).
 
-To add these resources, we’ll need to create a new directory from the base directory of the project: 'src/main/resources'. Since this directory was not created by the +archetype:generate+ task, we need to create it by executing the following commands from the project’s base directory:
+To add these resources, we'll need to create a new directory from the base directory of the project: 'src/main/resources'. Since this directory was not created by the +archetype:generate+ task, we need to create it by executing the following commands from the project's base directory:
 
 ----
 $ cd src/main
@@ -1436,7 +1436,7 @@ Wind Chill: \${weather.chill}
 *********************************
 ----
 
-This template contains a number of references to a variable named +weather+, which is the +Weather+ bean that was passed to the +WeatherFormatter+. The +\${weather.temp}+ syntax is shorthand for retrieving and displaying the value of the +temp+ bean property. Now that we have all of our project’s code in the right place, we can use Maven to run the example. 
+This template contains a number of references to a variable named +weather+, which is the +Weather+ bean that was passed to the +WeatherFormatter+. The +\${weather.temp}+ syntax is shorthand for retrieving and displaying the value of the +temp+ bean property. Now that we have all of our project's code in the right place, we can use Maven to run the example. 
 
 [[customizing-sect-custom-exec]]
 === Running the Simple Weather Program
@@ -1464,7 +1464,7 @@ Wind Chill: 38
 ...
 ----
 
-We didn’t supply a command-line argument to the +Main+ class, so we ended up with the default zip code, 60202. To supply a zip code, we would use the +-Dexec.args+ argument and pass in a zip code:
+We didn't supply a command-line argument to the +Main+ class, so we ended up with the default zip code, 60202. To supply a zip code, we would use the +-Dexec.args+ argument and pass in a zip code:
 
 ----
 $ mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main \
@@ -1488,7 +1488,7 @@ Wind Chill: 82
 ...
 ----
 
-As you can see, we’ve successfully executed the simple weather command-line tool, retrieved some data from Yahoo! Weather, parsed the result, and formatted the resulting data with Velocity. We achieved all of this without doing much more than writing our project’s source code and adding some minimal configuration to the 'pom.xml'. Notice that no “build process” was involved. We didn’t need to define how or where the Java compiler compiles our source to bytecode, and we didn’t need to instruct the build system how to locate the bytecode when we executed the example application. All we needed to do to include a few dependencies was locate the appropriate Maven coordinates.
+As you can see, we've successfully executed the simple weather command-line tool, retrieved some data from Yahoo! Weather, parsed the result, and formatted the resulting data with Velocity. We achieved all of this without doing much more than writing our project's source code and adding some minimal configuration to the 'pom.xml'. Notice that no “build process” was involved. We didn't need to define how or where the Java compiler compiles our source to bytecode, and we didn't need to instruct the build system how to locate the bytecode when we executed the example application. All we needed to do to include a few dependencies was locate the appropriate Maven coordinates.
 
 [[customizing-sect-maven-exec]]
 ==== The Maven Exec Plugin
@@ -1499,14 +1499,14 @@ The Exec plugin allows you to execute Java classes and other scripts. It is not 
 $ mvn help:describe -Dplugin=exec -Dfull
 ----
 
-This will list all of the goals that are available in the Maven Exec plugin. The Help plugin will also list all of the valid parameters for the Exec plugin. If you would like to customize the behavior of the Exec plugin you should use the documentation provided by +help:describe+ as a guide. Although the Exec plugin is useful, you shouldn’t rely on it as a way to execute your application outside of running tests during development. For a more robust solution, use the Maven Assembly plugin that is demonstrated in the section <<customizing-sect-custom-packaged>>, later in this chapter. 
+This will list all of the goals that are available in the Maven Exec plugin. The Help plugin will also list all of the valid parameters for the Exec plugin. If you would like to customize the behavior of the Exec plugin you should use the documentation provided by +help:describe+ as a guide. Although the Exec plugin is useful, you shouldn't rely on it as a way to execute your application outside of running tests during development. For a more robust solution, use the Maven Assembly plugin that is demonstrated in the section <<customizing-sect-custom-packaged>>, later in this chapter. 
 
 [[customizing-sect-exploring-dependencies]]
 ==== Exploring Your Project Dependencies
 
-The Exec plugin makes it possible for us to run the simplest weather program without having to load the appropriate dependencies into the classpath. In any other build system, we would have to copy all of the program dependencies into some sort of 'lib/' directory containing a collection of JAR files. Then, we would have to write a simple script that includes our program’s bytecode and all of our dependencies in a classpath. Only then could we run +java org.sonatype.mavenbook.weather.Main+. The Exec plugin leverages the fact that Maven already knows how to create and manage your classpath and dependencies.
+The Exec plugin makes it possible for us to run the simplest weather program without having to load the appropriate dependencies into the classpath. In any other build system, we would have to copy all of the program dependencies into some sort of 'lib/' directory containing a collection of JAR files. Then, we would have to write a simple script that includes our program's bytecode and all of our dependencies in a classpath. Only then could we run +java org.sonatype.mavenbook.weather.Main+. The Exec plugin leverages the fact that Maven already knows how to create and manage your classpath and dependencies.
 
-This is convenient, but it’s also nice to know exactly what is being included in your project’s classpath. Although the project depends on a few libraries such as Dom4J, Log4J, Jaxen, and Velocity, it also relies on a few transitive dependencies. If you need to find out what is on the classpath, you can use the Maven Dependency plugin to print out a
+This is convenient, but it's also nice to know exactly what is being included in your project's classpath. Although the project depends on a few libraries such as Dom4J, Log4J, Jaxen, and Velocity, it also relies on a few transitive dependencies. If you need to find out what is on the classpath, you can use the Maven Dependency plugin to print out a
 
 ----
 $ mvn dependency:resolve
@@ -1584,12 +1584,12 @@ $ mvn install -X
 [DEBUG]   junit:junit:jar:3.8.1:test (selected for test)
 ----
 
-In the debug output, we see some of the guts of the dependency management system at work. What you see here is the tree of dependencies for this project. Maven is printing out the full Maven coordinates for all of your project’s dependencies and the mechanism at work.  
+In the debug output, we see some of the guts of the dependency management system at work. What you see here is the tree of dependencies for this project. Maven is printing out the full Maven coordinates for all of your project's dependencies and the mechanism at work.  
 
 [[customizing-sect-writing-tests]]
 === Writing Unit Tests
 
-Maven has built-in support for unit tests, and testing is a part of the default Maven lifecycle. Let’s add some unit tests to our simple weather project. First, let’s create the +org.sonatype.mavenbook.weather+ package under 'src/test/java':
+Maven has built-in support for unit tests, and testing is a part of the default Maven lifecycle. Let's add some unit tests to our simple weather project. First, let's create the +org.sonatype.mavenbook.weather+ package under 'src/test/java':
 
 ----
 $ cd src/test/java
@@ -1633,7 +1633,7 @@ public class YahooParserTest extends TestCase {
 }
 ----
 
-This +YahooParserTest+ extends the +TestCase+ class defined by JUnit. It follows the usual pattern for a JUnit test: a constructor that takes a single +String+ argument that calls the constructor of the superclass, and a series of public methods that begin with “+test+” that are invoked as unit tests. We define a single test method, +testParser+, which tests the +YahooParser+ by parsing an XML document with known values. The test XML document is named 'ny-weather.xml' and is loaded from the classpath. We’ll add test resources in <<customizing-sect-custom-test-resource>>. In our Maven project’s directory layout, the 'ny-weather.xml' file is found in the directory that contains test resources—'\${basedir}/src/test/resources' under' org/sonatype/mavenbook/weather/yahoo/ny-weather.xml'. The file is read as an +InputStream+ and passed to the +parse()+ method on +YahooParser+. The +parse()+ method returns a +Weather+ object, which is then tested with a series of calls to +assertEquals()+, a method defined by +TestCase+.
+This +YahooParserTest+ extends the +TestCase+ class defined by JUnit. It follows the usual pattern for a JUnit test: a constructor that takes a single +String+ argument that calls the constructor of the superclass, and a series of public methods that begin with “+test+” that are invoked as unit tests. We define a single test method, +testParser+, which tests the +YahooParser+ by parsing an XML document with known values. The test XML document is named 'ny-weather.xml' and is loaded from the classpath. We'll add test resources in <<customizing-sect-custom-test-resource>>. In our Maven project's directory layout, the 'ny-weather.xml' file is found in the directory that contains test resources—'\${basedir}/src/test/resources' under' org/sonatype/mavenbook/weather/yahoo/ny-weather.xml'. The file is read as an +InputStream+ and passed to the +parse()+ method on +YahooParser+. The +parse()+ method returns a +Weather+ object, which is then tested with a series of calls to +assertEquals()+, a method defined by +TestCase+.
 
 In the same directory, create a file named 'WeatherFormatterTest.java'.
 
@@ -1677,7 +1677,7 @@ The second unit test in this simple project tests the +WeatherFormatter+. Like t
 
 In +WeatherFormatterTest+, we used a utility from Apache Commons IO—the +IOUtils+ class. +IOUtils+ provides a number of helpful static functions that take most of the work out of input/output operations. In this particular unit test, we used <methodname role="keep-together">IOUtils.toString()+ to copy the 'format-expected.dat' classpath resource to a +String+. We could have done this without using Commons IO, but it would have required an extra six or seven lines of code to deal with the various +InputStreamReader+ and +StringWriter+ objects. The main reason we used Commons IO was to give us an excuse to add a +test+-scoped dependency on Commons IO.
 
-A +test+-scoped dependency is a dependency that is available on the classpath only during test compilation and test execution. If your project has +war+ or +ear+ packaging, a +test+-scoped dependency would not be included in the project’s output archive. To add a +test+-scoped dependency, add the dependency element to your project’s dependencies section, as shown in the following example:
+A +test+-scoped dependency is a dependency that is available on the classpath only during test compilation and test execution. If your project has +war+ or +ear+ packaging, a +test+-scoped dependency would not be included in the project's output archive. To add a +test+-scoped dependency, add the dependency element to your project's dependencies section, as shown in the following example:
 
 
 .Adding a Test-scoped Dependency
@@ -1727,7 +1727,7 @@ Wind Chill: 39
 *********************************
 ----
 
-This file should look familiar. It is the same output that was generated previously when you ran the simple weather project with the Maven Exec plugin. The second file you’ll need to add to the resources directory is 'ny-weather.xml'.
+This file should look familiar. It is the same output that was generated previously when you ran the simple weather project with the Maven Exec plugin. The second file you'll need to add to the resources directory is 'ny-weather.xml'.
 
 
 .Simple Weather's YahooParserTest XML Input
@@ -1791,7 +1791,7 @@ This file contains a test XML document for the +YahooParserTest+. We store this 
 [[customizing-sect-executing-tests]]
 === Executing Unit Tests
 
-Now that your project has unit tests, let’s run them. You don’t have to do anything special to run a unit test; the +test+ phase is a normal part of the Maven lifecycle. You run Maven tests whenever you run +mvn package+ or +mvn install+. If you would like to run all the lifecycle phases up to and including the +test+ phase, run +mvn test+:
+Now that your project has unit tests, let's run them. You don't have to do anything special to run a unit test; the +test+ phase is a normal part of the Maven lifecycle. You run Maven tests whenever you run +mvn package+ or +mvn install+. If you would like to run all the lifecycle phases up to and including the +test+ phase, run +mvn test+:
 
 ----
 $ mvn test
@@ -1823,7 +1823,7 @@ Executing +mvn test+ from the command line caused Maven to execute all lifecycle
 [[customizing-sect-ignoring-failures]]
 ==== Ignoring Test Failures
 
-You will often find yourself developing on a system that has failing unit tests. If you are practicing Test-Driven Development (TDD), you might use test failure as a measure of how close your project is to completeness. If you have failing unit tests, and you would still like to produce build output, you are going to have to tell Maven to ignore build failures. When Maven encounters a build failure, its default behavior is to stop the current build. To continue building a project even when the Surefire plugin encounters failed test cases, you’ll need to set the +testFailureIgnore+ configuration property of the Surefire plugin to +true+.
+You will often find yourself developing on a system that has failing unit tests. If you are practicing Test-Driven Development (TDD), you might use test failure as a measure of how close your project is to completeness. If you have failing unit tests, and you would still like to produce build output, you are going to have to tell Maven to ignore build failures. When Maven encounters a build failure, its default behavior is to stop the current build. To continue building a project even when the Surefire plugin encounters failed test cases, you'll need to set the +testFailureIgnore+ configuration property of the Surefire plugin to +true+.
 
 .Ignoring Unit Test Failures
 ----
@@ -1903,7 +1903,7 @@ When the Surefire plugin reaches the +test+ goal, it will skip the unit tests if
 [[customizing-sect-custom-packaged]]
 === Building a Packaged Command Line Application
 
-In the <<customizing-sect-custom-exec>> section earlier in descriptor in the Maven Assembly plugin to produce a distributable JAR file, which contains the project’s bytecode and all of the dependencies.
+In the <<customizing-sect-custom-exec>> section earlier in descriptor in the Maven Assembly plugin to produce a distributable JAR file, which contains the project's bytecode and all of the dependencies.
 
 The Maven Assembly plugin is a plugin you can use to create arbitrary distributions for your applications. You can use the Maven Assembly plugin to assemble the output of your project in any format you desire by defining a custom assembly descriptor. In a later chapter we will show you how to create a custom assembly descriptor which produces a more complex archive for the Simple Weather application. In this chapter, we're going to use the predefined +jar-with-dependencies+ format. To configure the Maven Assembly Plugin, we need to add the following plugin configuration to our existing build configuration in the 'pom.xml'.
 
@@ -1927,7 +1927,7 @@ The Maven Assembly plugin is a plugin you can use to create arbitrary distributi
 </project>
 ----
 
-Once you’ve added this configuration, you can build the assembly by running the +assembly:assembly+ goal. In the following screen listing, the +assembly:assembly+ goal is executed after the Maven build reaches the +install+ lifecycle phase:
+Once you've added this configuration, you can build the assembly by running the +assembly:assembly+ goal. In the following screen listing, the +assembly:assembly+ goal is executed after the Maven build reaches the +install+ lifecycle phase:
 
 ----
 $ mvn install assembly:assembly
@@ -1949,7 +1949,7 @@ into /tmp/archived-file-set.305257225.tmp
 simple-weather-1.0-jar-with-dependencies.jar
 ----
 
-Once our assembly is assembled in 'target/''simple-weather-1.0-jar-with-''dependencies.jar', we can run the +Main+ class again from the command line. To run the simple weather application’s +Main+ class, execute the following commands from your project’s base directory:
+Once our assembly is assembled in 'target/''simple-weather-1.0-jar-with-''dependencies.jar', we can run the +Main+ class again from the command line. To run the simple weather application's +Main+ class, execute the following commands from your project's base directory:
 
 ----
 $ cd target
@@ -1970,7 +1970,7 @@ Wind Chill: 40
 *********************************
 ----
 
-The +jar-with-dependencies+ format creates a single JAR file that includes all of the bytecode from the +simple-weather+ project as well as the unpacked bytecode from all of the dependencies. This somewhat unconventional format produces a 9 MiB JAR file containing approximately 5,290 classes, but it does provide for an easy distribution format for applications you’ve developed with Maven. Later in this book, we’ll show you how to create a custom assembly descriptor to produce a more standard distribution.
+The +jar-with-dependencies+ format creates a single JAR file that includes all of the bytecode from the +simple-weather+ project as well as the unpacked bytecode from all of the dependencies. This somewhat unconventional format produces a 9 MiB JAR file containing approximately 5,290 classes, but it does provide for an easy distribution format for applications you've developed with Maven. Later in this book, we'll show you how to create a custom assembly descriptor to produce a more standard distribution.
 
 [[customizing-sect-attaching-assembly]]
 ==== Attaching the Assembly Goal to the Package Phase
@@ -2017,12 +2017,12 @@ The following plugin configuration configures the Maven Assembly plugin to execu
 [[web-sect-intro]]
 === Introduction
 
-In this chapter, we create a simple web application with the Maven Archetype plugin. We’ll run this web application in a Servlet container named Jetty, add some dependencies, write a simple Servlet, and generate a WAR file. At the end of this chapter, you will be able to start using Maven to accelerate the development of web applications.
+In this chapter, we create a simple web application with the Maven Archetype plugin. We'll run this web application in a Servlet container named Jetty, add some dependencies, write a simple Servlet, and generate a WAR file. At the end of this chapter, you will be able to start using Maven to accelerate the development of web applications.
 
 [[web-sect-downloading]]
 ==== Downloading this Chapter's Example
 
-The example in this chapter is generated with the Maven Archetype plugin. While you should be able to follow the development of this chapter without the example source code, we recommend downloading a copy of the example code to use as a reference. This chapter’s example project may be downloaded with the book’s example code at:
+The example in this chapter is generated with the Maven Archetype plugin. While you should be able to follow the development of this chapter without the example source code, we recommend downloading a copy of the example code to use as a reference. This chapter's example project may be downloaded with the book's example code at:
 
 ----
 ${examples.download.url}
@@ -2033,7 +2033,7 @@ Unzip this archive in any directory, and then go to the 'ch-simple-web/' directo
 [[web-sect-defining-simple-web]]
 === Defining the Simple Web Application
 
-We’ve purposefully kept this chapter focused on Plain-Old Web Applications (POWA)—a Spring Framework; and the other that uses Plexus. 
+We've purposefully kept this chapter focused on Plain-Old Web Applications (POWA)—a Spring Framework; and the other that uses Plexus. 
 
 [[web-sect-creating-project]]
 === Creating the Simple Web Project
@@ -2138,7 +2138,7 @@ Next, you will need to configure the Maven Compiler plugin to target Java 5. To 
 </project>
 ----
 
-Notice the packaging element contains the value +war+. This packaging type is what configures Maven to produce a web application archive in a WAR file. A project with +war+ packaging is going to create a WAR file in the 'target/' directory. The default name of this file is '\${artifactId}-\${version}.war'. In this project, the default WAR would be generated in 'target/simple-webapp-1.0-SNAPSHOT.war'. In the +simple-webapp+ project, we’ve customized the name of the generated WAR file by adding a finalName element inside of this project’s build configuration. With a finalName of +simple-webapp+, the +package+ phase produces a WAR file in 'target/simple-webapp.war'. 
+Notice the packaging element contains the value +war+. This packaging type is what configures Maven to produce a web application archive in a WAR file. A project with +war+ packaging is going to create a WAR file in the 'target/' directory. The default name of this file is '\${artifactId}-\${version}.war'. In this project, the default WAR would be generated in 'target/simple-webapp-1.0-SNAPSHOT.war'. In the +simple-webapp+ project, we've customized the name of the generated WAR file by adding a finalName element inside of this project's build configuration. With a finalName of +simple-webapp+, the +package+ phase produces a WAR file in 'target/simple-webapp.war'. 
 
 [[web-sect-configuring-jetty]]
 === Configuring the Jetty Plugin
@@ -2219,14 +2219,14 @@ In 'src/main/webapp/WEB-INF', we will find the smallest possible web application
 [[web-sect-adding-simple-servlet]]
 === Adding a Simple Servlet
 
-A web application with a single JSP page and no configured servlets is next to useless. Let’s add a simple servlet to this application and make some changes to the 'pom.xml' and 'web.xml' to support this change. First, we’ll need to create a new package under 'src/main/java' named +org.sonatype.mavenbook.web+:
+A web application with a single JSP page and no configured servlets is next to useless. Let's add a simple servlet to this application and make some changes to the 'pom.xml' and 'web.xml' to support this change. First, we'll need to create a new package under 'src/main/java' named +org.sonatype.mavenbook.web+:
 
 ----
 $ mkdir -p src/main/java/org/sonatype/mavenbook/web
 $ cd src/main/java/org/sonatype/mavenbook/web
 ----
 
-Once you’ve created this package, change to the 'src/main/java/org/sonatype/mavenbook/web' directory and create a class named +SimpleServlet+ in 'SimpleServlet.java', which contains the code shown in the +SimpleServlet+ class:
+Once you've created this package, change to the 'src/main/java/org/sonatype/mavenbook/web' directory and create a class named +SimpleServlet+ in 'SimpleServlet.java', which contains the code shown in the +SimpleServlet+ class:
 
 
 .SimpleServlet Class
@@ -2250,7 +2250,7 @@ public class SimpleServlet extends HttpServlet {
 }
 ----
 
-Our +SimpleServlet+ class is just that: a servlet that prints a simple message to the response’s +Writer+. To add this servlet to your web application and map it to a request path, add the servlet and servlet-mapping elements shown in the following 'web.xml' to your project’s 'web.xml' file. The 'web.xml' file can be found in 'src/main/webapp/WEB-INF'.
+Our +SimpleServlet+ class is just that: a servlet that prints a simple message to the response's +Writer+. To add this servlet to your web application and map it to a request path, add the servlet and servlet-mapping elements shown in the following 'web.xml' to your project's 'web.xml' file. The 'web.xml' file can be found in 'src/main/webapp/WEB-INF'.
 
 
 .Mapping the Simple Servlet
@@ -2317,7 +2317,7 @@ The compilation fails because your Maven project doesn't have a dependency on th
 [[web-sect-adding-j2ee-depend]]
 === Adding J2EE Dependencies
 
-To write a servlet, we’ll need to add the Servlet
+To write a servlet, we'll need to add the Servlet
 
 
 .Add the Servlet 2.4 Specification as a Dependency
@@ -2395,7 +2395,7 @@ In this chapter, we create a multi-module project that combines the examples fro
 [[multimodule-sect-downloading]]
 ==== Downloading this Chapter's Example
 
-The multi-module project developed in this example consists of modified versions of the projects developed in Chapters <<customizing>> and <<web>>, and we are not using the Maven Archetype plugin to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. This chapter’s example project may be downloaded with the book’s example code at:
+The multi-module project developed in this example consists of modified versions of the projects developed in Chapters <<customizing>> and <<web>>, and we are not using the Maven Archetype plugin to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. This chapter's example project may be downloaded with the book's example code at:
 
 ----
 ${examples.download.url}
@@ -2454,14 +2454,14 @@ A multi-module project is defined by a parent POM referencing one or more submod
 </project>
 ----
 
-Notice that the parent defines a set of Maven coordinates: the +groupId+ is +org.++sonatype.++mavenbook.multi+, the +artifactId+ is +simple-parent+, and the +version+ is +1.0+. The parent project doesn’t create a JAR or a WAR like our previous projects; instead, it is simply a POM that refers to other Maven projects. The appropriate packaging for a project like +simple-parent+ that simply provides a Project Object Model is +pom+. The next section in the 'pom.xml' lists the project’s submodules. These modules are defined in the modules element, and each module element corresponds to a subdirectory of the 'simple-parent/' directory. Maven knows to look in these directories for 'pom.xml' files, and it will add submodules to the list of Maven projects included in a build.
+Notice that the parent defines a set of Maven coordinates: the +groupId+ is +org.++sonatype.++mavenbook.multi+, the +artifactId+ is +simple-parent+, and the +version+ is +1.0+. The parent project doesn't create a JAR or a WAR like our previous projects; instead, it is simply a POM that refers to other Maven projects. The appropriate packaging for a project like +simple-parent+ that simply provides a Project Object Model is +pom+. The next section in the 'pom.xml' lists the project's submodules. These modules are defined in the modules element, and each module element corresponds to a subdirectory of the 'simple-parent/' directory. Maven knows to look in these directories for 'pom.xml' files, and it will add submodules to the list of Maven projects included in a build.
 
 Lastly, we define some settings which will be inherited by all submodules. The +simple-parent+ build configuration configures the target for all Java compilation to be the Java 5 JVM. Since the compiler plugin is bound to the lifecycle by default, we can use the pluginManagement section do to this. We will discuss pluginManagement in more detail in later chapters, but the separation between providing configuration to default plugins and actually binding plugins is much easier to see when they are separated this way. The dependencies element adds JUnit 3.8.1 as a global dependency. Both the build configuration and the dependencies are inherited by all submodules. Using POM inheritance allows you to add common dependencies for universal dependencies like JUnit or Log4J. 
 
 [[multimodule-sect-simple-weather]]
 === The Simple Weather Module
 
-The first submodule we’re going to look at is the +simple-weather+ submodule. This submodule contains all
+The first submodule we're going to look at is the +simple-weather+ submodule. This submodule contains all
 
 .simple-weather Module POM
 ----
@@ -2525,9 +2525,9 @@ The first submodule we’re going to look at is the +simple-weather+ submodule. 
 </project>
 ----
 
-In +simple-weather+’s 'pom.xml' file, we see this module referencing a parent POM using a set of Maven coordinates. The parent POM for +simple-weather+ is identified by a +groupId+ of +org.sonatype.mavenbook.multi+, an +artifactId+ of +simple-parent+, and a +version+ of +1.0+.
+In +simple-weather+'s 'pom.xml' file, we see this module referencing a parent POM using a set of Maven coordinates. The parent POM for +simple-weather+ is identified by a +groupId+ of +org.sonatype.mavenbook.multi+, an +artifactId+ of +simple-parent+, and a +version+ of +1.0+.
 
-The +WeatherService+ class shown in <<multimodule-weather-service>> is defined in 'src/main/java/org/sonatype/mavenbook/weather', and it simply calls out to the three objects defined in <<customizing>>. In this chapter’s example, we’re creating a separate project that contains service objects that are referenced in the web application project. This is a common model in enterprise Java development; often a complex application consists of more than just a single, simple web application. You might have an enterprise application that consists of multiple web applications and some command-line applications. Often, you’ll want to refactor common logic to a service class that can be reused across a number of projects. This is the justification for creating a +WeatherService+ class; by doing so, you can see how the +simple-webapp+ project references a service object defined in +simple-weather+.
+The +WeatherService+ class shown in <<multimodule-weather-service>> is defined in 'src/main/java/org/sonatype/mavenbook/weather', and it simply calls out to the three objects defined in <<customizing>>. In this chapter's example, we're creating a separate project that contains service objects that are referenced in the web application project. This is a common model in enterprise Java development; often a complex application consists of more than just a single, simple web application. You might have an enterprise application that consists of multiple web applications and some command-line applications. Often, you'll want to refactor common logic to a service class that can be reused across a number of projects. This is the justification for creating a +WeatherService+ class; by doing so, you can see how the +simple-webapp+ project references a service object defined in +simple-weather+.
 
 [[multimodule-weather-service]]
 .The WeatherService Class
@@ -2553,7 +2553,7 @@ public class WeatherService {
 }
 ----
 
-The +retrieveForecast()+ method takes a +String+ containing a zip code. This zip code parameter is then passed to the +YahooRetriever+’s +retrieve()+ method, which gets the XML from Yahoo! Weather. The XML returned from +YahooRetriever+ is then passed to the +parse()+ method on +YahooParser+ which returns a +Weather+ object. This +Weather+ object is then formatted into a presentable +String+ by the +WeatherFormatter+. 
+The +retrieveForecast()+ method takes a +String+ containing a zip code. This zip code parameter is then passed to the +YahooRetriever+'s +retrieve()+ method, which gets the XML from Yahoo! Weather. The XML returned from +YahooRetriever+ is then passed to the +parse()+ method on +YahooParser+ which returns a +Weather+ object. This +Weather+ object is then formatted into a presentable +String+ by the +WeatherFormatter+. 
 
 [[multimodule-sect-simple-web]]
 === The Simple Web Application Module
@@ -2602,7 +2602,7 @@ The +simple-webapp+ module is the second submodule referenced in the +simple-par
 </project>
 ----
 
-This +simple-webapp+ module defines a very simple servlet that reads a zip code from an HTTP request, calls the +WeatherService+ shown in <<multimodule-weather-service>>, and prints the results to the response’s +Writer+.
+This +simple-webapp+ module defines a very simple servlet that reads a zip code from an HTTP request, calls the +WeatherService+ shown in <<multimodule-weather-service>>, and prints the results to the response's +Writer+.
 
 
 .simple-webapp WeatherServlet
@@ -2740,12 +2740,12 @@ Once Jetty has started, load http://localhost:8080/simple-webapp/weather?zip=012
 [[multimodule-web-spring-sect-intro]]
 === Introduction
 
-In this chapter, we create a multi-module project that evolves the examples from <<multimodule>> and <<web>> into a project that uses the Spring Framework and Hibernate to create both a simple web application and a command-line utility to read data from the Yahoo! Weather feed. The +simple-weather+ code developed in <<customizing>> will be combined with the +simple-webapp+ project defined in <<web>>. In the process of creating this multi-module project, we’ll explore Maven and discuss the different ways it can be used to create modular projects that encourage reuse.
+In this chapter, we create a multi-module project that evolves the examples from <<multimodule>> and <<web>> into a project that uses the Spring Framework and Hibernate to create both a simple web application and a command-line utility to read data from the Yahoo! Weather feed. The +simple-weather+ code developed in <<customizing>> will be combined with the +simple-webapp+ project defined in <<web>>. In the process of creating this multi-module project, we'll explore Maven and discuss the different ways it can be used to create modular projects that encourage reuse.
 
 [[multimodule-web-spring-sect-downloading-example]]
 ==== Downloading this Chapter's Example
 
-The multi-module project developed in this example consists of modified versions of the projects developed in <<customizing>> and <<web>>, and we are not using the Maven Archetype plug-in to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. Without the examples, you won't be able to recreate this chapter's example code. This chapter’s example project may be downloaded with the book’s example code at:
+The multi-module project developed in this example consists of modified versions of the projects developed in <<customizing>> and <<web>>, and we are not using the Maven Archetype plug-in to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. Without the examples, you won't be able to recreate this chapter's example code. This chapter's example project may be downloaded with the book's example code at:
 
 ----
 ${examples.download.url}
@@ -2786,14 +2786,14 @@ simple-command::
 
    This module contains a simple command-line tool which can be used to query the Yahoo! Weather feed. This project contains a class with a static +main()+ function and interacts with the +WeatherService+ defined in +simple-weather+ and the DAOs defined in +simple-persist+. +simple-command+ has a direct dependency on +simple-weather+ and +simple-persist+; is has a transitive dependency on +simple-model+.  
 
-This chapter contains a contrived example simple enough to introduce in a book, yet complex enough to justify a set of five submodules. Our contrived example has a model project with five classes, a persistence library with two service classes, and a weather parsing library with five or six classes, but a real-world system might have a model project with a hundred objects, several persistence libraries, and service libraries spanning multiple departments. Although we’ve tried to make sure that the code contained in this example is straightforward enough to comprehend in a single sitting, we’ve also gone out of our way to build a modular project. You might be tempted to look at the examples in this chapter and walk away with the idea that Maven encourages too much complexity given that our model project has only five classes. Although using Maven does suggest a certain level of modularity, do realize that we’ve gone out of our way to complicate our simple example projects for the purpose of demonstrating Maven’s multi-module features. 
+This chapter contains a contrived example simple enough to introduce in a book, yet complex enough to justify a set of five submodules. Our contrived example has a model project with five classes, a persistence library with two service classes, and a weather parsing library with five or six classes, but a real-world system might have a model project with a hundred objects, several persistence libraries, and service libraries spanning multiple departments. Although we've tried to make sure that the code contained in this example is straightforward enough to comprehend in a single sitting, we've also gone out of our way to build a modular project. You might be tempted to look at the examples in this chapter and walk away with the idea that Maven encourages too much complexity given that our model project has only five classes. Although using Maven does suggest a certain level of modularity, do realize that we've gone out of our way to complicate our simple example projects for the purpose of demonstrating Maven's multi-module features. 
 
 [[multimodule-web-spring-sect-example-tech]]
 ==== Technology Used in this Example
 
 This chapter's example involves some technology which, while popular, is not directly related to Maven. These technologies are the Spring Framework and Hibernate. The Spring Framework is an Inversion of Control (IoC) container and a set of frameworks that aim to simplify interaction with various J2EE libraries. Using the Spring Framework as a foundational framework for application development gives you access to a number of helpful abstractions that can take much of the meddlesome busywork out of dealing with persistence frameworks like Hibernate or iBatis or enterprise APIs like JDBC, JNDI, and JMS. The Spring Framework has grown in popularity over the past few years as a replacement for the heavy weight enterprise standards coming out of Sun Microsystems. Hibernate is a widely used Object-Relational Mapping framework which allows you to interact with a relational database as if it were a collection of Java objects. This example focuses on building a simple web application and a command-line application that uses the Spring Framework to expose a set of reusable components to applications and which also uses Hibernate to persist weather data in an embedded database.
 
-We’ve decided to include references to these frameworks to demonstrate how one would construct projects using these technologies when using Maven. Although we make brief efforts to introduce these technologies throughout this chapter, we will not go out of our way to fully explain these technologies. For more information about the Spring Framework, please see the project’s web site at http://www.springframework.org/[http://www.springsource.org/documentation]. For more information about Hibernate and Hibernate Annotations, please see the project’s web site at http://www.hibernate.org[http://www.hibernate.org]. This chapter uses Hyper Structured Query Language Database (HSQLDB) as an embedded database; for more information about this database, see the project’s web site at http://hsqldb.org/[http://hsqldb.org].  
+We've decided to include references to these frameworks to demonstrate how one would construct projects using these technologies when using Maven. Although we make brief efforts to introduce these technologies throughout this chapter, we will not go out of our way to fully explain these technologies. For more information about the Spring Framework, please see the project's web site at http://www.springframework.org/[http://www.springsource.org/documentation]. For more information about Hibernate and Hibernate Annotations, please see the project's web site at http://www.hibernate.org[http://www.hibernate.org]. This chapter uses Hyper Structured Query Language Database (HSQLDB) as an embedded database; for more information about this database, see the project's web site at http://hsqldb.org/[http://hsqldb.org].  
 
 [[multimodule-web-spring-sect-simple-parent]]
 === The Simple Parent Project
@@ -2896,7 +2896,7 @@ The 'pom.xml' file for this simple model object contains one dependency that bea
 </project>
 ----
 
-In 'src/main/java/org/sonatype/mavenbook/weather/model', we have 'Weather.java', which contains the annotated +Weather+ model object. The +Weather+ object is a simple Java bean. This means that we have private member variables like +id+, +location+, +condition+, +wind+, +atmosphere+, and +date+ exposed with public getter and setter methods that adhere to the following pattern: if a property is named +name+, there will be a public no-arg getter method named +getName()+, and there will be a one-argument <phrase>setter named <methodname role="keep-together">setName(String name)+. Although we show the getter and setter method for the +id+ property, we’ve omitted most of the getters and setters for most of the other properties to save a few trees. See <<example_weather_model_object>>.
+In 'src/main/java/org/sonatype/mavenbook/weather/model', we have 'Weather.java', which contains the annotated +Weather+ model object. The +Weather+ object is a simple Java bean. This means that we have private member variables like +id+, +location+, +condition+, +wind+, +atmosphere+, and +date+ exposed with public getter and setter methods that adhere to the following pattern: if a property is named +name+, there will be a public no-arg getter method named +getName()+, and there will be a one-argument <phrase>setter named <methodname role="keep-together">setName(String name)+. Although we show the getter and setter method for the +id+ property, we've omitted most of the getters and setters for most of the other properties to save a few trees. See <<example_weather_model_object>>.
 
 [[example_weather_model_object]]
 .Annotated Weather Model Object
@@ -2941,11 +2941,11 @@ import java.util.Date;
     }
 ----
 
-In the +Weather+ class, we are using Hibernate annotations to provide guidance to the +simple-persist+ project. These annotations are used by Hibernate to map an object to a table in a relational database. Although a full explanation of Hibernate annotations is beyond the scope of this chapter, here is a brief explanation for the curious. The +@Entity+ annotation marks this class as a persistent entity. We’ve omitted the +@Table+ annotation on this class, so Hibernate is going to use the name of the class as the name of the table to map +Weather+ to. The +@NamedQueries+ annotation defines a query that is used by the +WeatherDAO+ in +simple-persist+. The query language in the +@NamedQuery+ annotation is written in something called Hibernate Query Language (HQL). Each member variable is annotated with annotations that define the type of column and any relationships implied by that column:
+In the +Weather+ class, we are using Hibernate annotations to provide guidance to the +simple-persist+ project. These annotations are used by Hibernate to map an object to a table in a relational database. Although a full explanation of Hibernate annotations is beyond the scope of this chapter, here is a brief explanation for the curious. The +@Entity+ annotation marks this class as a persistent entity. We've omitted the +@Table+ annotation on this class, so Hibernate is going to use the name of the class as the name of the table to map +Weather+ to. The +@NamedQueries+ annotation defines a query that is used by the +WeatherDAO+ in +simple-persist+. The query language in the +@NamedQuery+ annotation is written in something called Hibernate Query Language (HQL). Each member variable is annotated with annotations that define the type of column and any relationships implied by that column:
 
 +Id+::
 
-   The +id+ property is annotated with +@Id+. This marks the +id+ property as the property that contains the primary key in a database table. The +@GeneratedValue+ controls how new primary key values are generated. In the case of +id+, we’re using the +IDENTITY+ +GenerationType+, which will use the underlying database’s identity generation facilities.  
+   The +id+ property is annotated with +@Id+. This marks the +id+ property as the property that contains the primary key in a database table. The +@GeneratedValue+ controls how new primary key values are generated. In the case of +id+, we're using the +IDENTITY+ +GenerationType+, which will use the underlying database's identity generation facilities.  
 
 +Location+::
 
@@ -2953,7 +2953,7 @@ In the +Weather+ class, we are using Hibernate annotations to provide guidance t
 
 +Condition+, +Wind+, +Atmosphere+::
 
-   Each of these objects is mapped as a +@OneToOne+ with the +CascadeType+ of +ALL+. This means that every time we save a +Weather+ object, we’ll be inserting a row into the +Weather+ table, the +Condition+ table, the +Wind+ table, and the +Atmosphere+ table.  
+   Each of these objects is mapped as a +@OneToOne+ with the +CascadeType+ of +ALL+. This means that every time we save a +Weather+ object, we'll be inserting a row into the +Weather+ table, the +Condition+ table, the +Wind+ table, and the +Atmosphere+ table.  
 
 +Date+::
 
@@ -3000,7 +3000,7 @@ The +Condition+ class resembles the +Weather+ class. It is annotated as an +@Ent
 [[multimodule-web-spring-sect-simple-weather]]
 === The Simple Weather Module
 
-The next module we’re going to examine could be considered something of a “service.” The Simple Weather module is the module that contains all of the logic necessary to retrieve and parse the data from the Yahoo! Weather RSS feed. Although Simple Weather contains three Java classes and one JUnit test, it is going to present a single component, +WeatherService+, to both the Simple Web Application and the Simple Command-line Utility. Very often an enterprise project will contain several API modules that contain critical business logic or logic that interacts with external systems. A banking system might have a module that retrieves and parses data from a third-party data provider, and a system to display sports scores might interact with an XML feed that presents real-time scores for basketball or soccer. In <<example_simple-weather_module_pom>>, this module encapsulates all of the network activity and XML parsing that is involved in the interaction with Yahoo! Weather. Other modules can depend on this module and simply call out to the <methodname role="keep-together">retrieveForecast()+ method on +WeatherService+, which takes a zip code as an argument and which returns a +Weather+ object.
+The next module we're going to examine could be considered something of a “service.” The Simple Weather module is the module that contains all of the logic necessary to retrieve and parse the data from the Yahoo! Weather RSS feed. Although Simple Weather contains three Java classes and one JUnit test, it is going to present a single component, +WeatherService+, to both the Simple Web Application and the Simple Command-line Utility. Very often an enterprise project will contain several API modules that contain critical business logic or logic that interacts with external systems. A banking system might have a module that retrieves and parses data from a third-party data provider, and a system to display sports scores might interact with an XML feed that presents real-time scores for basketball or soccer. In <<example_simple-weather_module_pom>>, this module encapsulates all of the network activity and XML parsing that is involved in the interaction with Yahoo! Weather. Other modules can depend on this module and simply call out to the <methodname role="keep-together">retrieveForecast()+ method on +WeatherService+, which takes a zip code as an argument and which returns a +Weather+ object.
 
 [[example_simple-weather_module_pom]]
 .simple-weather Module POM
@@ -3069,7 +3069,7 @@ The +simple-weather+ POM extends the +simple-parent+ POM, sets the packaging to 
 
    This +test+-scoped dependency is used by the +YahooParserTest+.  
 
-Next is the +WeatherService+ class, shown in <<example_weatherservice_class>>. This class is going to look very similar to the +WeatherService+ class from <<multimodule-weather-service>>. Although the +WeatherService+ is the same, there are some subtle differences in this chapter’s example. This version’s +retrieveForecast()+ method returns a +Weather+ object, and the formatting is going to be left to the applications that call +WeatherService+. The other major change is that the +YahooRetriever+ and +YahooParser+ are both bean properties of the +WeatherService+ bean.
+Next is the +WeatherService+ class, shown in <<example_weatherservice_class>>. This class is going to look very similar to the +WeatherService+ class from <<multimodule-weather-service>>. Although the +WeatherService+ is the same, there are some subtle differences in this chapter's example. This version's +retrieveForecast()+ method returns a +Weather+ object, and the formatting is going to be left to the applications that call +WeatherService+. The other major change is that the +YahooRetriever+ and +YahooParser+ are both bean properties of the +WeatherService+ bean.
 
 [[example_weatherservice_class]]
 .WeatherService Class
@@ -3117,7 +3117,7 @@ public class WeatherService {
 }
 ----
 
-Finally, in this project we have an XML file that is used by the Spring Framework to create something called an +ApplicationContext+. First, some explanation: both of our applications, the web application and the command-line utility, need to interact with the +WeatherService+ class, and they both do so by retrieving an instance of this class from a Spring +ApplicationContext+ using the name +weatherService+. Our web application uses a Spring MVC controller that is associated with an instance of +WeatherService+, and our command-line utility loads the +WeatherService+ from an +ApplicationContext+ in a static +main()+ function. To encourage reuse, we’ve included an 'applicationContext-weather.xml' file in 'src/main/resources', which is available on the classpath. Modules that depend on the +simple-weather+ module can load this application context using the +ClasspathXmlApplicationContext+ in the Spring Framework. They can then reference a named instance of the +WeatherService+ named +weatherService+.
+Finally, in this project we have an XML file that is used by the Spring Framework to create something called an +ApplicationContext+. First, some explanation: both of our applications, the web application and the command-line utility, need to interact with the +WeatherService+ class, and they both do so by retrieving an instance of this class from a Spring +ApplicationContext+ using the name +weatherService+. Our web application uses a Spring MVC controller that is associated with an instance of +WeatherService+, and our command-line utility loads the +WeatherService+ from an +ApplicationContext+ in a static +main()+ function. To encourage reuse, we've included an 'applicationContext-weather.xml' file in 'src/main/resources', which is available on the classpath. Modules that depend on the +simple-weather+ module can load this application context using the +ClasspathXmlApplicationContext+ in the Spring Framework. They can then reference a named instance of the +WeatherService+ named +weatherService+.
 
 [[ex-spring-app-ctx-simple-weather]]
 .Spring Application Context for the simple-weather Module
@@ -3149,7 +3149,7 @@ This document defines three beans: +yahooParser+, +yahooRetriever+, and +weather
 [[multimodule-web-spring-sect-simple-persist]]
 === The Simple Persist Module
 
-This module defines two very simple Data Access Objects (DAOs). A DAO is an object that provides an interface for persistence operations. In an application that makes use of an Object-Relational Mapping (ORM) framework such as Hibernate, DAOs are usually defined around objects. In this project, we are defining two DAO objects: +WeatherDAO+ and +LocationDAO+. The +WeatherDAO+ class allows us to save a +Weather+ object to a database and retrieve a +Weather+ object by +id+, and to retrieve +Weather+ objects that match a specific +Location+. The +LocationDAO+ has a method that allows us to retrieve a +Location+ object by zip code. First, let’s take a look at the +simple-persist+ POM in <<ex-simple-persist-POM>>.
+This module defines two very simple Data Access Objects (DAOs). A DAO is an object that provides an interface for persistence operations. In an application that makes use of an Object-Relational Mapping (ORM) framework such as Hibernate, DAOs are usually defined around objects. In this project, we are defining two DAO objects: +WeatherDAO+ and +LocationDAO+. The +WeatherDAO+ class allows us to save a +Weather+ object to a database and retrieve a +Weather+ object by +id+, and to retrieve +Weather+ objects that match a specific +Location+. The +LocationDAO+ has a method that allows us to retrieve a +Location+ object by zip code. First, let's take a look at the +simple-persist+ POM in <<ex-simple-persist-POM>>.
 
 [[ex-simple-persist-POM]]
 .simple-persist POM
@@ -3219,7 +3219,7 @@ This POM file references +simple-parent+ as a parent POM, and it defines a few d
 
 +org.hibernate:hibernate:3.2.5.ga+::
 
-   We define a dependency on Hibernate version 3.2.5.ga, but notice that we’re excluding a dependency of Hibernate. We’re doing this because the +javax.++transaction:++jta+ dependency is not available in the public Maven repository. This dependency happens to be one of those Sun dependencies that has not yet made it into the free central Maven repository. To avoid an annoying message telling us to go download these nonfree dependencies, we simply exclude this dependency from Hibernate.  
+   We define a dependency on Hibernate version 3.2.5.ga, but notice that we're excluding a dependency of Hibernate. We're doing this because the +javax.++transaction:++jta+ dependency is not available in the public Maven repository. This dependency happens to be one of those Sun dependencies that has not yet made it into the free central Maven repository. To avoid an annoying message telling us to go download these nonfree dependencies, we simply exclude this dependency from Hibernate.  
 
 +javax.servlet:servlet-api:2.4+::
 
@@ -3283,7 +3283,7 @@ That's it. No really, you are done writing a class that can insert new rows, sel
 
 <4>  This last method +recentForLocation()+ calls out to a +NamedQuery+ defined in the +Weather+ model object. If you can think back that far, the +Weather+ model object defined a named query +"Weather.byLocation"+ with a query of +"from Weather w where w.location = :location"+. We're loading this +NamedQuery+ using a reference to a Hibernate +Session+ object inside a +HibernateCallback+ which is executed by the +execute()+ method on +HibernateTemplate+. You can see in this method that we're populating the named parameter location with the parameter passed in to the +recentForLocation()+ method.  
 
-Now is a good time for some clarification. +HibernateDaoSupport+ and +HibernateTemplate+ are classes from the Spring Framework. They were created by the Spring Framework to make writing Hibernate DAO objects painless. To support this DAO, we’ll need to do some configuration in the +simple-persist+ Spring +ApplicationContext+ definition. The XML document shown in <<ex-persist-spring>> is stored in 'src/main/resources' in a file named 'applicationContext-persist.xml'.
+Now is a good time for some clarification. +HibernateDaoSupport+ and +HibernateTemplate+ are classes from the Spring Framework. They were created by the Spring Framework to make writing Hibernate DAO objects painless. To support this DAO, we'll need to do some configuration in the +simple-persist+ Spring +ApplicationContext+ definition. The XML document shown in <<ex-persist-spring>> is stored in 'src/main/resources' in a file named 'applicationContext-persist.xml'.
 
 [[ex-persist-spring]]
 .Spring Application Context for simple-persist
@@ -3350,11 +3350,11 @@ In this application context, we're accomplishing a few things. The +sessionFacto
 
 +hibernate.connection.*+::
 
-   In this example, we’re configuring the JDBC connection properties from the Spring configuration. Our applications are configured to run against a HSQLDB in the './data/weather' directory. In a real enterprise application, it is more likely you would use something like JNDI to externalize database configuration from your application’s code.  
+   In this example, we're configuring the JDBC connection properties from the Spring configuration. Our applications are configured to run against a HSQLDB in the './data/weather' directory. In a real enterprise application, it is more likely you would use something like JNDI to externalize database configuration from your application's code.  
 
 Lastly, in this bean definition file, both of the +simple-persist+ DAO objects are created and given a reference to the +sessionFactory+ bean just defined. Just like the Spring application context in +simple-weather+, this 'applicationContext-persist.xml' file defines the architecture of a submodule in a larger enterprise design. If you were working with a larger collection of persistence classes, you might find it useful to capture them in an application context which is separate from your application.
 
-There’s one last piece of the puzzle in +simple-persist+. Later in this chapter, we’re going to  'hibernate.cfg.xml' in 'src/main/resources'. The purpose of this file (which duplicates some of the configuration in 'applicationContext-persist.xml') is to allow us to leverage the Maven Hibernate3 plugin to generate Data Definition Language (DDL) from nothing more than our annotations. See <<ex-hibernate-cfg>>.
+There's one last piece of the puzzle in +simple-persist+. Later in this chapter, we're going to  'hibernate.cfg.xml' in 'src/main/resources'. The purpose of this file (which duplicates some of the configuration in 'applicationContext-persist.xml') is to allow us to leverage the Maven Hibernate3 plugin to generate Data Definition Language (DDL) from nothing more than our annotations. See <<ex-hibernate-cfg>>.
 
 [[ex-hibernate-cfg]]
 .simple-persist hibernate.cfg.xml
@@ -3502,17 +3502,17 @@ The POM for +simple-webapp+ is shown in <<example_pom-for-simple-webapp>>.
 </project>
 ----
 
-As this book progresses and the examples become more and more substantial, you’ll notice that the 'pom.xml' begins to take on some weight. In this POM, we’re configuring four dependencies and two plugins. Let’s go through this POM in detail and dwell on some of the important configuration points:
+As this book progresses and the examples become more and more substantial, you'll notice that the 'pom.xml' begins to take on some weight. In this POM, we're configuring four dependencies and two plugins. Let's go through this POM in detail and dwell on some of the important configuration points:
 
 <1> <calloutlist>  This +simple-webapp+ project defines four dependencies: the Servlet 2.4 specification, the simple-weather service library, the simple-persist persistence library, and the entire Spring Framework 2.0.7. 
 
-<2>  The Maven Jetty plugin couldn’t be easier to add to this project; we simply add a +plugin+ element that references the appropriate +groupId+ and +artifactId+. The fact that this plugin is so trivial to configure means that the plugin developers did a good job of providing adequate defaults that don’t need to be overridden in most cases. If you did need to override the configuration of the Jetty plugin, you would do so by providing a +configuration+ element. 
+<2>  The Maven Jetty plugin couldn't be easier to add to this project; we simply add a +plugin+ element that references the appropriate +groupId+ and +artifactId+. The fact that this plugin is so trivial to configure means that the plugin developers did a good job of providing adequate defaults that don't need to be overridden in most cases. If you did need to override the configuration of the Jetty plugin, you would do so by providing a +configuration+ element. 
 
 <3>  In our build configuration, we're going to be configuring the Maven Hibernate3 Plugin to hit an embedded HSQLDB instance. For the Maven Hibernate 3 plugin to successfully connect to this database using JDBC, the plugin will need reference the HSQLDB JDBC driver on the classpath. To make a dependency available for a plugin, we add a dependency declaration right inside plugin declaration. In this case, we're referencing hsqldb:hsqldb:1.8.0.7. The Hibernate plugin also needs the JDBC driver to create the database, so we have also added this dependency to its configuration. 
 
-<4>  The Maven Hibernate plugin is when this POM starts to get interesting. In the next section, we’re going to run the +hbm2ddl+ goal to generate a HSQLDB database. In this 'pom.xml', we’re including a reference to version 2.0 of the +hibernate3-maven-plugin+ hosted by the Codehaus Mojo plugin. 
+<4>  The Maven Hibernate plugin is when this POM starts to get interesting. In the next section, we're going to run the +hbm2ddl+ goal to generate a HSQLDB database. In this 'pom.xml', we're including a reference to version 2.0 of the +hibernate3-maven-plugin+ hosted by the Codehaus Mojo plugin. 
 
-<5>  The Maven Hibernate3 plugin has different ways to obtain Hibernate mapping information that are appropriate for different usage scenarios of the Hibernate3 plugin. If you were using Hibernate Mapping XML ('.hbm.xml') files, and you wanted to generate model classes using the +hbm2java+ goal, you would set your implementation to configuration. If you were using the Hibernate3 plugin to reverse engineer a database to produce '.hbm.xml' files and model classes from an existing database, you would use an implementation of +jdbcconfiguration+. In this case, we’re simply using an existing annotated object model to generate a database. In other words, we have our Hibernate mapping, but we don’t yet have a database. In this usage scenario, the appropriate implementation value is +annotationconfiguration+. The Maven Hibernate3 plugin is discussed in more detail in the later section <<multimodule-web-spring-sect-spring-running-web>>.  
+<5>  The Maven Hibernate3 plugin has different ways to obtain Hibernate mapping information that are appropriate for different usage scenarios of the Hibernate3 plugin. If you were using Hibernate Mapping XML ('.hbm.xml') files, and you wanted to generate model classes using the +hbm2java+ goal, you would set your implementation to configuration. If you were using the Hibernate3 plugin to reverse engineer a database to produce '.hbm.xml' files and model classes from an existing database, you would use an implementation of +jdbcconfiguration+. In this case, we're simply using an existing annotated object model to generate a database. In other words, we have our Hibernate mapping, but we don't yet have a database. In this usage scenario, the appropriate implementation value is +annotationconfiguration+. The Maven Hibernate3 plugin is discussed in more detail in the later section <<multimodule-web-spring-sect-spring-running-web>>.  
 
 Next, we turn our attention to the two Spring MVC controllers that will handle all of the requests. Both of these controllers reference the beans defined in +simple-weather+ and +simple-persist+.
 
@@ -3560,7 +3560,7 @@ public class WeatherController implements Controller {
 }
 ----
 
-+WeatherController+ implements the Spring MVC Controller interface that mandates the presence of a +handleRequest()+ method with the signature shown in the example. If you look at the meat of this method, you’ll see that it invokes the +retrieveForecast()+ method on the +weatherService+ instance variable. Unlike the previous chapter, which had a Servlet that instantiated the +WeatherService+ class, the +WeatherController+ is a bean with a +weatherService+ property. The Spring IoC container is responsible for wiring the controller to the +weatherService+ component. Also notice that we’re not using the +WeatherFormatter+ in this Spring controller implementation; instead, we’re passing the +Weather+ object returned by +retrieveForecast()+ to the constructor of +ModelAndView+. This +ModelAndView+ class is going to be used to render a Velocity template, and this template will have references to a +\${weather}+ variable. The 'weather.vm' template is stored in 'src/main/webapp/WEB-INF/vm' and is shown in <<ex-weather-vm>>.
++WeatherController+ implements the Spring MVC Controller interface that mandates the presence of a +handleRequest()+ method with the signature shown in the example. If you look at the meat of this method, you'll see that it invokes the +retrieveForecast()+ method on the +weatherService+ instance variable. Unlike the previous chapter, which had a Servlet that instantiated the +WeatherService+ class, the +WeatherController+ is a bean with a +weatherService+ property. The Spring IoC container is responsible for wiring the controller to the +weatherService+ component. Also notice that we're not using the +WeatherFormatter+ in this Spring controller implementation; instead, we're passing the +Weather+ object returned by +retrieveForecast()+ to the constructor of +ModelAndView+. This +ModelAndView+ class is going to be used to render a Velocity template, and this template will have references to a +\${weather}+ variable. The 'weather.vm' template is stored in 'src/main/webapp/WEB-INF/vm' and is shown in <<ex-weather-vm>>.
 
 In the +WeatherController+, before we render the output of the forecast, we pass the +Weather+ object returned by the +WeatherService+ to the +save()+ method on +WeatherDAO+. Here we are saving this +Weather+ object—using Hibernate—to an HSQLDB database. Later, in +HistoryController+, we will see how we can retrieve a history of weather forecasts that were saved by the +WeatherController+.
 
@@ -3781,7 +3781,7 @@ Finally, the +simple-webapp+ project was a 'web.xml' which provides the basic co
 [[multimodule-web-spring-sect-spring-running-web]]
 === Running the Web Application
 
-To run the web application, you’ll first need to build the entire multi-module project and then build the database using the Hibernate3 plugin. First, from the top-level 'simple-parent' project directory, run +mvn clean install+:
+To run the web application, you'll first need to build the entire multi-module project and then build the database using the Hibernate3 plugin. First, from the top-level 'simple-parent' project directory, run +mvn clean install+:
 
 ----
 $ mvn clean install
@@ -4259,31 +4259,31 @@ When we use the term interface project we are referring to a Maven project which
 [[optimizing-sect-intro]]
 === Introduction
 
-In <<multimodule-web-spring>>, we showed how many pieces of Maven come together to produce a fully functional multimodule build. Although the example from that chapter suggests a real application—one that interacts with a database, a web service, and that itself presents two interfaces: one in a web application, and one on the command line—that example project is still contrived. To present the complexity of a real project would require a book far larger than the one you are now reading. Real-life applications evolve over years and are often maintained by large, diverse groups of developers, each with a different focus. In a real-world project, you are often evaluating decisions and designs made and created by others. In this chapter, we take a step back from the examples you’ve seen in the previous chapters, and we ask ourselves if there are any optimizations that might make more sense given what we now know about Maven. Maven is a very capable tool that can be as simple or as complex as you need it to be. Because of this, there are often a million ways to accomplish the same task, and there is often no one “right” way to configure your Maven project.
+In <<multimodule-web-spring>>, we showed how many pieces of Maven come together to produce a fully functional multimodule build. Although the example from that chapter suggests a real application—one that interacts with a database, a web service, and that itself presents two interfaces: one in a web application, and one on the command line—that example project is still contrived. To present the complexity of a real project would require a book far larger than the one you are now reading. Real-life applications evolve over years and are often maintained by large, diverse groups of developers, each with a different focus. In a real-world project, you are often evaluating decisions and designs made and created by others. In this chapter, we take a step back from the examples you've seen in the previous chapters, and we ask ourselves if there are any optimizations that might make more sense given what we now know about Maven. Maven is a very capable tool that can be as simple or as complex as you need it to be. Because of this, there are often a million ways to accomplish the same task, and there is often no one “right” way to configure your Maven project.
 
 Don't misinterpret that last sentence as a license to go off and ask Maven to do something it wasn't designed for. While Maven allows for a diversity of approach, there is certainly "A Maven Way", and you'll be more productive using Maven as it was designed to be used. All this chapter is trying to do is communicate some of the optimizations you can perform on an existing Maven project. Why didn't we just introduce an optimized POM in the first place? Designing POMs for pedagogy is a very different requirement from designing POMs for efficiency. While it is certainly much easier to define a certain setting in your '~/.m2/settings.xml' than to declare a profile in a 'pom.xml', writing a book, and reading a book is mostly about pacing and making sure we're not introducing concepts before you are ready. In the previous chapters, we've made an effort not to overwhelm the reader with too much information, and, in doing so, we've skipped some core concepts like the dependencyManagement element introduced in this chapter.
 
-There are many instances in the previous chapters when the authors of this book took a shortcut or glossed over an important detail to shuffle you along to the main point of a specific chapter. You learned how to create a Maven project, and you compiled and installed it without having to wade through hundreds of pages introducing every last switch and dial available to you. We’ve done this because we believe it is important to deliver the new Maven user to a result faster rather than meandering our way through a very long, seemingly interminable story. Once you’ve started to use Maven, you should know how to analyze your own projects and POMs. In this chapter, we take a step back and look at what we are left with after the example from <<multimodule-web-spring>>. 
+There are many instances in the previous chapters when the authors of this book took a shortcut or glossed over an important detail to shuffle you along to the main point of a specific chapter. You learned how to create a Maven project, and you compiled and installed it without having to wade through hundreds of pages introducing every last switch and dial available to you. We've done this because we believe it is important to deliver the new Maven user to a result faster rather than meandering our way through a very long, seemingly interminable story. Once you've started to use Maven, you should know how to analyze your own projects and POMs. In this chapter, we take a step back and look at what we are left with after the example from <<multimodule-web-spring>>. 
 
 [[optimizing-sect-pom-cleanup]]
 === POM Cleanup
 
-Optimizing a multimodule project’s POM is best done in several passes, as there are many areas to focus on. In general, we are looking for repetition within a POM and across the sibling POMs. When you are starting out, or when a project is still evolving rapidly, it is acceptable to duplicate some dependencies and plugin configurations here and there, but as the project matures and as the number of modules increases, you will want to take some time to refactor common dependencies and configuration points. Making your POMs more efficient will go a long way to helping you manage complexity as your project grows. Whenever there is duplication of some piece of information, there is usually a better way. 
+Optimizing a multimodule project's POM is best done in several passes, as there are many areas to focus on. In general, we are looking for repetition within a POM and across the sibling POMs. When you are starting out, or when a project is still evolving rapidly, it is acceptable to duplicate some dependencies and plugin configurations here and there, but as the project matures and as the number of modules increases, you will want to take some time to refactor common dependencies and configuration points. Making your POMs more efficient will go a long way to helping you manage complexity as your project grows. Whenever there is duplication of some piece of information, there is usually a better way. 
 
 [[optimizing-sect-dependencies]]
 === Optimizing Dependencies
 
 If you look through the various POMs duplication into a parent POM.
 
-Just as in your project’s source code, any time you have duplication in your POMs, you open the door a bit for trouble down the road. Duplicated dependency declarations make it difficult to ensure consistent versions across a large project. When you only have two or three modules, this might not be a primary issue, but when your organization is using a large, multimodule Maven build to manage hundreds of components across multiple departments, one single mismatch between dependencies can cause chaos and confusion. A simple version mismatch in a project’s dependency on a bytecode manipulation package called ASM three levels deep in the project hierarchy could throw a wrench into a web application maintained by a completely different group of developers who depend on that particular module. Unit tests could pass because they are being run with one version of a dependency, but they could fail disastrously in production where the bundle (WAR, in this case) was packaged up with a different version. If you have tens of projects using something like Hibernate Annotations, each repeating and duplicating the dependencies and exclusions, the mean time between someone screwing up a build is going to be very short. As your Maven projects become more complex, your dependency lists are going to grow, and you are going to want to consolidate versions and dependency declarations in parent POMs.
+Just as in your project's source code, any time you have duplication in your POMs, you open the door a bit for trouble down the road. Duplicated dependency declarations make it difficult to ensure consistent versions across a large project. When you only have two or three modules, this might not be a primary issue, but when your organization is using a large, multimodule Maven build to manage hundreds of components across multiple departments, one single mismatch between dependencies can cause chaos and confusion. A simple version mismatch in a project's dependency on a bytecode manipulation package called ASM three levels deep in the project hierarchy could throw a wrench into a web application maintained by a completely different group of developers who depend on that particular module. Unit tests could pass because they are being run with one version of a dependency, but they could fail disastrously in production where the bundle (WAR, in this case) was packaged up with a different version. If you have tens of projects using something like Hibernate Annotations, each repeating and duplicating the dependencies and exclusions, the mean time between someone screwing up a build is going to be very short. As your Maven projects become more complex, your dependency lists are going to grow, and you are going to want to consolidate versions and dependency declarations in parent POMs.
 
-The duplication of the sibling module versions can introduce a particularly nasty problem that is not directly caused by Maven and is learned only after you’ve been bitten by this bug a few times. If you use the Maven Release plugin to perform your releases, all these sibling dependency versions will be updated automatically for you, so maintaining them is not the concern. If +simple-web+ version +1.3-SNAPSHOT+ depends on +simple-persist+ version +1.3-SNAPSHOT+, and if you are performing a release of the 1.3 version of both projects, the Maven Release plugin is smart enough to change the versions throughout your multimodule project’s POMs automatically. Running the release with the Release plugin will automatically increment all of the versions in your build to +1.4-SNAPSHOT+, and the release plugin will commit the code change to the repository. Releasing a huge multimodule project couldn’t be easier, until...
+The duplication of the sibling module versions can introduce a particularly nasty problem that is not directly caused by Maven and is learned only after you've been bitten by this bug a few times. If you use the Maven Release plugin to perform your releases, all these sibling dependency versions will be updated automatically for you, so maintaining them is not the concern. If +simple-web+ version +1.3-SNAPSHOT+ depends on +simple-persist+ version +1.3-SNAPSHOT+, and if you are performing a release of the 1.3 version of both projects, the Maven Release plugin is smart enough to change the versions throughout your multimodule project's POMs automatically. Running the release with the Release plugin will automatically increment all of the versions in your build to +1.4-SNAPSHOT+, and the release plugin will commit the code change to the repository. Releasing a huge multimodule project couldn't be easier, until...
 
-Problems occur when developers merge changes to the POM and interfere with a release that is in progress. Often a developer merges and occasionally mishandles the conflict on the sibling dependency, inadvertently reverting that version to a previous release. Since the consecutive versions of the dependency are often compatible, it does not show up when the developer builds, and won’t show up in any continuous integration build system as a failed build. Imagine a very complex build where the trunk is full of components at +1.4-SNAPSHOT+, and now imagine that Developer A has updated Component A deep within the project’s hierarchy to depend on version +1.3-SNAPSHOT+ of Component B. Even though most developers have +1.4-SNAPSHOT+, the build succeeds if version +1.3-SNAPSHOT+ and +1.4-SNAPSHOT+ of Component B are compatible. Maven continues to build the project using the +1.3-SNAPSHOT+ version of Component B from the developer’s local repositories. Everything seems to be going quite smoothly—the project builds, the continuous integration build works fine, and so on. Someone might have a mystifying bug related to Component B, but she chalks it up to malevolent gremlins and moves on. Meanwhile, a pump in the reactor room is steadily building up pressure, until something blows....
+Problems occur when developers merge changes to the POM and interfere with a release that is in progress. Often a developer merges and occasionally mishandles the conflict on the sibling dependency, inadvertently reverting that version to a previous release. Since the consecutive versions of the dependency are often compatible, it does not show up when the developer builds, and won't show up in any continuous integration build system as a failed build. Imagine a very complex build where the trunk is full of components at +1.4-SNAPSHOT+, and now imagine that Developer A has updated Component A deep within the project's hierarchy to depend on version +1.3-SNAPSHOT+ of Component B. Even though most developers have +1.4-SNAPSHOT+, the build succeeds if version +1.3-SNAPSHOT+ and +1.4-SNAPSHOT+ of Component B are compatible. Maven continues to build the project using the +1.3-SNAPSHOT+ version of Component B from the developer's local repositories. Everything seems to be going quite smoothly—the project builds, the continuous integration build works fine, and so on. Someone might have a mystifying bug related to Component B, but she chalks it up to malevolent gremlins and moves on. Meanwhile, a pump in the reactor room is steadily building up pressure, until something blows....
 
 Someone, let's call them Mr. Inadvertent, had a merge conflict in component A, and mistakenly pegged component A's dependency on component B to +1.3-SNAPSHOT+ while the rest of the project marches on. A bunch of developers have been trying to fix a bug in component B all this time and they've been mystified as to why they can't seem to fix the bug in production. Eventually someone looks at component A and realizes that the dependency is pointing to the wrong version. Hopefully, the bug wasn't large enough to cost money or lives, but Mr. Inadvertent feels stupid and people tend to trust him a little less than they did before the whole sibling dependency screw-up. (Hopefully, Mr. Inadvertent realizes that this was user error and not Maven's fault, but more than likely he starts an awful blog and complains about Maven endlessly to make himself feel better.)
 
-Fortunately, dependency duplication and sibling dependency mismatch are easily preventable if you make some small changes. The first thing we’re going to do is find all the dependencies used in more than one project and move them up to the parent POM’s dependencyManagement section. We’ll leave out the sibling dependencies for now. The +simple-parent+ pom now contains the following:
+Fortunately, dependency duplication and sibling dependency mismatch are easily preventable if you make some small changes. The first thing we're going to do is find all the dependencies used in more than one project and move them up to the parent POM's dependencyManagement section. We'll leave out the sibling dependencies for now. The +simple-parent+ pom now contains the following:
 
 ----
 <project>
@@ -4327,7 +4327,7 @@ Fortunately, dependency duplication and sibling dependency mismatch are easily p
 </project>
 ----
 
-Once these are moved up, we need to remove the versions for these dependencies from each of the POMs; otherwise, they will override the dependencyManagement defined in the parent project. Let’s look at only +simple-model+ for brevity’s sake:
+Once these are moved up, we need to remove the versions for these dependencies from each of the POMs; otherwise, they will override the dependencyManagement defined in the parent project. Let's look at only +simple-model+ for brevity's sake:
 
 ----
 <project>
@@ -4346,7 +4346,7 @@ Once these are moved up, we need to remove the versions for these dependencies f
 </project>
 ----
 
-The next thing we should do is fix the replication of the +hibernate-annotations+ and +hibernate-commons-annotations+ version since these should match. We’ll do this by creating a property called +hibernate.annotations.version+. The resulting +simple-parent+ section looks like this:
+The next thing we should do is fix the replication of the +hibernate-annotations+ and +hibernate-commons-annotations+ version since these should match. We'll do this by creating a property called +hibernate.annotations.version+. The resulting +simple-parent+ section looks like this:
 
 ----
 <project>
@@ -4373,7 +4373,7 @@ The next thing we should do is fix the replication of the +hibernate-annotations
 </project>
 ----
 
-The last issue we have to resolve is with the sibling dependencies and define the versions of sibling projects in the top-level parent project. This is certainly a valid approach, but we can also solve the version problem just by using two built-in properties—+\${project.groupId}+ and +\${project.version}+. Since they are sibling dependencies, there is not much value to be gained by enumerating them in the parent, so we’ll rely on the built-in +\${project.version}+ property. Because they all share the same group, we can further future-proof these declarations by referring to the current POM’s group using the built-in +\${project.groupId}+ property. The +simple-command+ dependency section now looks like this:
+The last issue we have to resolve is with the sibling dependencies and define the versions of sibling projects in the top-level parent project. This is certainly a valid approach, but we can also solve the version problem just by using two built-in properties—+\${project.groupId}+ and +\${project.version}+. Since they are sibling dependencies, there is not much value to be gained by enumerating them in the parent, so we'll rely on the built-in +\${project.version}+ property. Because they all share the same group, we can further future-proof these declarations by referring to the current POM's group using the built-in +\${project.groupId}+ property. The +simple-command+ dependency section now looks like this:
 
 ----
 <project>
@@ -4396,7 +4396,7 @@ The last issue we have to resolve is with the sibling dependencies and define th
 </project>
 ----
 
-Here’s a summary of the two optimizations we completed that reduce duplication of dependencies:
+Here's a summary of the two optimizations we completed that reduce duplication of dependencies:
 
 Pull-up common dependencies to dependencyManagement::
 
@@ -4409,7 +4409,7 @@ Use built-in project +version+ and +groupId+ for sibling projects::
 [[optimizing-sect-plugins]]
 === Optimizing Plugins
 
-If we take a look at the various plugin configurations, we can see the HSQLDB dependencies duplicated in several places. Unfortunately, dependencyManagement doesn’t apply to plugin dependencies, but we can still use a property to consolidate the versions. Most complex Maven multimodule projects tend to define all versions in the top-level POM. This top-level POM then becomes a focal point for changes that affect the entire project. Think of version numbers as string literals in a Java class; if you are constantly repeating a literal, you’ll likely want to make it a variable so that when it needs to be changed, you have to change it in only one place. Rolling up the version of HSQLDB into a property in the top-level POM yields the following +properties+ element:
+If we take a look at the various plugin configurations, we can see the HSQLDB dependencies duplicated in several places. Unfortunately, dependencyManagement doesn't apply to plugin dependencies, but we can still use a property to consolidate the versions. Most complex Maven multimodule projects tend to define all versions in the top-level POM. This top-level POM then becomes a focal point for changes that affect the entire project. Think of version numbers as string literals in a Java class; if you are constantly repeating a literal, you'll likely want to make it a variable so that when it needs to be changed, you have to change it in only one place. Rolling up the version of HSQLDB into a property in the top-level POM yields the following +properties+ element:
 
 
 ----
@@ -4423,7 +4423,7 @@ If we take a look at the various plugin configurations, we can see the HSQLDB de
 </project>
 ----
 
-The next thing we notice is that the +hibernate3-maven-plugin+ configuration is duplicated in the +simple-webapp+ and +simple-command+ modules. We can manage the plugin configuration in the top-level POM just as we managed the dependencies in the top-level POM with the dependencyManagement section. To do this, we use the pluginManagement element in the top-level POM’s build element:
+The next thing we notice is that the +hibernate3-maven-plugin+ configuration is duplicated in the +simple-webapp+ and +simple-command+ modules. We can manage the plugin configuration in the top-level POM just as we managed the dependencies in the top-level POM with the dependencyManagement section. To do this, we use the pluginManagement element in the top-level POM's build element:
 
 ----
 <project>
@@ -4469,9 +4469,9 @@ The next thing we notice is that the +hibernate3-maven-plugin+ configuration is 
 [[optimizing-sect-dependency-plugin]]
 === Optimizing with the Maven Dependency Plugin
 
-On larger projects, additional dependencies often tend to creep into a POM as the number of dependencies grow. As dependencies change, you are often left with dependencies that are not being used, and just as often, you may forget to declare explicit dependencies for libraries you require. Because Maven 2.x includes transitive dependencies in the compile scope, your project may compile properly but fail to run in production. Consider a case where a project uses classes from a widely used project such as Jakarta Commons BeanUtils. Instead of declaring an explicit dependency on BeanUtils, your project simply relies on a project like Hibernate that references BeanUtils as a transitive dependency. Your project may compile successfully and run just fine, but if you upgrade to a new version of Hibernate that doesn’t depend on BeanUtils, you’ll start to get compile and runtime errors, and it won’t be immediately obvious why your project stopped compiling. Also, because you haven’t explicitly listed a dependency version, Maven cannot resolve any version conflicts that may arise.
+On larger projects, additional dependencies often tend to creep into a POM as the number of dependencies grow. As dependencies change, you are often left with dependencies that are not being used, and just as often, you may forget to declare explicit dependencies for libraries you require. Because Maven 2.x includes transitive dependencies in the compile scope, your project may compile properly but fail to run in production. Consider a case where a project uses classes from a widely used project such as Jakarta Commons BeanUtils. Instead of declaring an explicit dependency on BeanUtils, your project simply relies on a project like Hibernate that references BeanUtils as a transitive dependency. Your project may compile successfully and run just fine, but if you upgrade to a new version of Hibernate that doesn't depend on BeanUtils, you'll start to get compile and runtime errors, and it won't be immediately obvious why your project stopped compiling. Also, because you haven't explicitly listed a dependency version, Maven cannot resolve any version conflicts that may arise.
 
-A good rule of thumb in Maven is to always declare explicit dependencies for classes referenced in your code. If you are going to be importing Commons BeanUtils classes, you should also be declaring a direct dependency on Commons BeanUtils. Fortunately, via bytecode analysis, the Maven Dependency plugin is able to assist you in uncovering direct references to dependencies. Using the updated POMs we previously optimized, let’s look to see if any errors pop up:
+A good rule of thumb in Maven is to always declare explicit dependencies for classes referenced in your code. If you are going to be importing Commons BeanUtils classes, you should also be declaring a direct dependency on Commons BeanUtils. Fortunately, via bytecode analysis, the Maven Dependency plugin is able to assist you in uncovering direct references to dependencies. Using the updated POMs we previously optimized, let's look to see if any errors pop up:
 
 ----
 $ mvn dependency:analyze
@@ -4534,7 +4534,7 @@ $ mvn dependency:analyze
 [WARNING]junit:junit:jar:3.8.1:test
 ----
 
-In the truncated output just shown, you can see the output of the +dependency:++analyze+ goal. This goal analyzes the project to see whether there are any indirect dependencies, or dependencies that are being referenced but are not directly declared. In the +simple-model+ project, the Dependency plugin indicates a “used undeclared dependency” on +javax.persistence:persistence-api+. To investigate further, go to the +simple-model+ directory and run the +dependency:tree+ goal, which will list all of the project’s direct and transitive dependencies:
+In the truncated output just shown, you can see the output of the +dependency:++analyze+ goal. This goal analyzes the project to see whether there are any indirect dependencies, or dependencies that are being referenced but are not directly declared. In the +simple-model+ project, the Dependency plugin indicates a “used undeclared dependency” on +javax.persistence:persistence-api+. To investigate further, go to the +simple-model+ directory and run the +dependency:tree+ goal, which will list all of the project's direct and transitive dependencies:
 
 ----
 $ mvn dependency:tree
@@ -4563,13 +4563,13 @@ $ mvn dependency:tree
 [INFO] ------------------------------------------------------------------------
 ----
 
-From this output, we can see that the +persistence-api+ dependency is coming from +hibernate+. A cursory scan of the source in this module will reveal many +javax.persistence+ import statements confirming that we are, indeed, directly referencing this dependency. The simple fix is to add a direct reference to the dependency. In this example, we put the dependency version in +simple-parent+’s dependencyManagement section because the dependency is linked to Hibernate, and the Hibernate version is declared here. Eventually you are going to want to upgrade your project’s version of Hibernate. Listing the +persistence-api+ dependency version near the Hibernate dependency version will make it more obvious later when your team modifies the parent POM to upgrade the Hibernate version.
+From this output, we can see that the +persistence-api+ dependency is coming from +hibernate+. A cursory scan of the source in this module will reveal many +javax.persistence+ import statements confirming that we are, indeed, directly referencing this dependency. The simple fix is to add a direct reference to the dependency. In this example, we put the dependency version in +simple-parent+'s dependencyManagement section because the dependency is linked to Hibernate, and the Hibernate version is declared here. Eventually you are going to want to upgrade your project's version of Hibernate. Listing the +persistence-api+ dependency version near the Hibernate dependency version will make it more obvious later when your team modifies the parent POM to upgrade the Hibernate version.
 
-If you look at the +dependency:analyze+ output from the +simple-web+ module, you will see that we also need to add a direct reference to the +simple-model+ dependency. The code in +simple-webapp+ directly references the model objects in +simple-model+, and the +simple-model+ is exposed to +simple-webapp+ as a transitive dependency via +simple-persist+. Since this is a sibling dependency that shares both the +version+ and +groupId+, the dependency can be defined in +simple-webapp+’s 'pom.xml' using the +\${project.groupId}+ and +\${project.version}+.
+If you look at the +dependency:analyze+ output from the +simple-web+ module, you will see that we also need to add a direct reference to the +simple-model+ dependency. The code in +simple-webapp+ directly references the model objects in +simple-model+, and the +simple-model+ is exposed to +simple-webapp+ as a transitive dependency via +simple-persist+. Since this is a sibling dependency that shares both the +version+ and +groupId+, the dependency can be defined in +simple-webapp+'s 'pom.xml' using the +\${project.groupId}+ and +\${project.version}+.
 
-How did the Maven Dependency plugin uncover these issues? How does +dependency:analyze+ know which classes and dependencies are directly referenced by your project’s bytecode? The Dependency plugin uses the ObjectWeb ASM (http://asm.objectweb.org/[http://asm.objectweb.org/])  of “used, undeclared dependencies” is produced.
+How did the Maven Dependency plugin uncover these issues? How does +dependency:analyze+ know which classes and dependencies are directly referenced by your project's bytecode? The Dependency plugin uses the ObjectWeb ASM (http://asm.objectweb.org/[http://asm.objectweb.org/])  of “used, undeclared dependencies” is produced.
 
-In contrast, the list of unused, declared dependencies is a little trickier to validate, and less useful than the “used, undeclared dependencies.” For one, some dependencies are used only at runtime or for tests, and they won’t be found in the bytecode. These are pretty obvious when you see them in the output; for example, JUnit appears in this list, but this is expected because it is used only for unit tests. You’ll also notice that the Velocity and Servlet API dependencies are listed in this list for the +simple-web+ module. This is also expected because, although the project doesn’t have any direct references to the classes of these artifacts, they are still essential during runtime.
+In contrast, the list of unused, declared dependencies is a little trickier to validate, and less useful than the “used, undeclared dependencies.” For one, some dependencies are used only at runtime or for tests, and they won't be found in the bytecode. These are pretty obvious when you see them in the output; for example, JUnit appears in this list, but this is expected because it is used only for unit tests. You'll also notice that the Velocity and Servlet API dependencies are listed in this list for the +simple-web+ module. This is also expected because, although the project doesn't have any direct references to the classes of these artifacts, they are still essential during runtime.
 
 Be careful when removing any unused, declared dependencies unless you have very good test coverage, or you might introduce a runtime error. A more sinister issue pops up with bytecode optimization. For example, it is legal for a compiler to substitute the value of a constant and optimize away the reference. Removing this dependency will cause the compile to fail, yet the tool shows it as unused. Future versions of the Maven Dependency plugin will provide better techniques for detecting and/or ignoring these types of issues.
 
@@ -4771,11 +4771,11 @@ The POM shown in <<ex-final-pom-for-simple-command>> captures the POM for +simpl
 </project>
 ----
 
-The POM shown in <<ex-final-pom-for-simple-model>> is the +simple-model+ project’s POM. The +simple-model+ project contains all of the model objects used throughout the application.
+The POM shown in <<ex-final-pom-for-simple-model>> is the +simple-model+ project's POM. The +simple-model+ project contains all of the model objects used throughout the application.
 
-    [[ex-final-pom-for-simple-model]]
-    .Final POM for simple-model
-    ----
+[[ex-final-pom-for-simple-model]]
+.Final POM for simple-model
+----
     <project xmlns="http://maven.apache.org/POM/4.0.0" 
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
@@ -4808,7 +4808,7 @@ The POM shown in <<ex-final-pom-for-simple-model>> is the +simple-model+ project
     </project>
 ----
 
-The POM shown in <<ex-final-pom-for-simple-persist>> is the +simple-persist+ project’s POM. The +simple-persist+ project contains all of the persistence logic that is implemented using Hibernate.
+The POM shown in <<ex-final-pom-for-simple-persist>> is the +simple-persist+ project's POM. The +simple-persist+ project contains all of the persistence logic that is implemented using Hibernate.
 
 [[ex-final-pom-for-simple-persist]]
 .Final POM for simple-persist
@@ -4860,7 +4860,7 @@ The POM shown in <<ex-final-pom-for-simple-persist>> is the +simple-persist+ pro
 </project>
 ----
 
-The POM shown in <<ex-final-pom-for-simple-weather>> is the +simple-weather+ project’s POM. The +simple-weather+ project is the project that contains all of the logic to parse the Yahoo! Weather RSS feed. This project depends on the +simple-model+ project.
+The POM shown in <<ex-final-pom-for-simple-weather>> is the +simple-weather+ project's POM. The +simple-weather+ project is the project that contains all of the logic to parse the Yahoo! Weather RSS feed. This project depends on the +simple-model+ project.
 
 [[ex-final-pom-for-simple-weather]]
 .Final POM for simple-weather
@@ -4911,7 +4911,7 @@ The POM shown in <<ex-final-pom-for-simple-weather>> is the +simple-weather+ pro
 </project>
 ----
 
-Finally, the POM shown in <<ex-final-pom-for-simple-webapp>> is the +simple-webapp+ project’s POM. The +simple-webapp+ project contains a web application that stores retrieved weather forecasts in an HSQLDB database and that also interacts with the libraries generated by the +simple-weather+ project.
+Finally, the POM shown in <<ex-final-pom-for-simple-webapp>> is the +simple-webapp+ project's POM. The +simple-webapp+ project contains a web application that stores retrieved weather forecasts in an HSQLDB database and that also interacts with the libraries generated by the +simple-weather+ project.
 
 [[ex-final-pom-for-simple-webapp]]
 .Final POM for simple-webapp
