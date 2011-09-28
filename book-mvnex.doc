@@ -140,11 +140,53 @@ Don't let the fact that Maven is a "project management" tool scare you away. If 
 [[installation-sect-conventionConfiguration]]
 === Convention Over Configuration
 
-Convention over configuration is a simple concept. Systems, libraries, and frameworks should assume reasonable defaults. Without requiring unnecessary configuration, systems should "just work". Popular frameworks such as http://www.rubyonrails.org/[Ruby on Rails] and EJB3 have started to adhere to these principles in reaction to the configuration complexity of frameworks such as the initial EJB 2.1 specifications. An illustration of convention over configuration is something like EJB3 persistence: all you need to do to make a particular bean persistent is to annotate that class with +@Entity. + The framework assumes table and column names based on the name of the class and the names of the properties. Hooks are provided for you to override these default, assumed names if the need arises, but, in most cases, you will find that using the framework-supplied defaults results in a faster project execution.
+Convention over configuration is a simple concept. Systems, libraries,
+and frameworks should assume reasonable defaults. Without requiring
+unnecessary configuration, systems should "just work". Popular
+frameworks such as http://www.rubyonrails.org/[Ruby on Rails] and EJB3
+have started to adhere to these principles in reaction to the
+configuration complexity of frameworks such as the initial EJB 2.1
+specifications. An illustration of convention over configuration is
+something like EJB3 persistence: all you need to do to make a
+particular bean persistent is to annotate that class with @Entity.
+The framework assumes table and column names based on the name of the
+class and the names of the properties. Hooks are provided for you to
+override these default, assumed names if the need arises, but, in most
+cases, you will find that using the framework-supplied defaults
+results in a faster project execution.
 
-Maven incorporates this concept by providing sensible default behavior for projects. Without customization, source code is assumed to be in '\${basedir}/src/main/java' and resources are assumed to be in '\${basedir}/src/main/resources'. Tests are assumed to be in '\${basedir}/src/test', and a project is assumed to produce a JAR file. Maven assumes that you want the compile byte code to '\${basedir}/target/classes' and then create a distributable JAR file in '\${basedir}/target'. While this might seem trivial, consider the fact that most Ant-based builds have to define the locations of these directories. Ant doesn't ship with any built-in idea of where source code or resources might be in a project; you have to supply this information. Maven's adoption of convention over configuration goes farther than just simple directory locations, Maven's core plugins apply a common set of conventions for compiling source code, packaging distributions, generating web sites, and many other processes. Maven's strength comes from the fact that it is "opinionated", it has a defined life-cycle and a set of common plugins that know how to build and assemble software. If you follow the conventions, Maven will require almost zero effort - just put your source in the correct directory, and Maven will take care of the rest.
+Maven incorporates this concept by providing sensible default behavior
+for projects. Without customization, source code is assumed to be in
+'+++${basedir}/src/main/java+++' and resources are assumed to be in
+'+++${basedir}/src/main/resources+++'. Tests are assumed to be in
+'+++${basedir}/src/test+++', and a project is assumed to produce a JAR
+file. Maven assumes that you want the compile byte code to
+'+++${basedir}/target/classes+++' and then create a distributable JAR file
+in '+++${basedir}/target+++'. While this might seem trivial, consider the
+fact that most Ant-based builds have to define the locations of these
+directories. Ant doesn't ship with any built-in idea of where source
+code or resources might be in a project; you have to supply this
+information. Maven's adoption of convention over configuration goes
+farther than just simple directory locations, Maven's core plugins
+apply a common set of conventions for compiling source code, packaging
+distributions, generating web sites, and many other processes. Maven's
+strength comes from the fact that it is "opinionated", it has a
+defined life-cycle and a set of common plugins that know how to build
+and assemble software. If you follow the conventions, Maven will
+require almost zero effort - just put your source in the correct
+directory, and Maven will take care of the rest.
 
-One side-effect of using systems that follow "convention over configuration" is that end-users might feel that they are forced to use a particular methodology or approach. While it is certainly true that Maven has some core opinions that shouldn't be challenged, most of the defaults can be customized. For example, the location of a project's source code and resources can be customized, names of JAR files can be customized, and through the development of custom plugins, almost any behavior can be tailored to your specific environment's requirements. If you don't care to follow convention, Maven will allow you to customize defaults in order to adapt to your specific requirements. 
+One side-effect of using systems that follow "convention over
+configuration" is that end-users might feel that they are forced to
+use a particular methodology or approach. While it is certainly true
+that Maven has some core opinions that shouldn't be challenged, most
+of the defaults can be customized. For example, the location of a
+project's source code and resources can be customized, names of JAR
+files can be customized, and through the development of custom
+plugins, almost any behavior can be tailored to your specific
+environment's requirements. If you don't care to follow convention,
+Maven will allow you to customize defaults in order to adapt to your
+specific requirements.
 
 [[installation-sect-common-interface]]
 === A Common Interface
@@ -221,36 +263,36 @@ Ant excels at build process, it is a build system modeled after make with target
         <!-- Create the time stamp -->
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
-        <mkdir dir="\${build}"/>
+        <mkdir dir="${build}"/>
     </target>
 
     <target name="compile" depends="init"
             description="compile the source " >
-        <!-- Compile the java code from \${src} into \${build} -->
-        <javac srcdir="\${src}" destdir="\${build}"/>
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}"/>
     </target>
 
     <target name="dist" depends="compile"
             description="generate the distribution" >
         <!-- Create the distribution directory -->
-        <mkdir dir="\${dist}/lib"/>
+        <mkdir dir="${dist}/lib"/>
 
-        <!-- Put everything in \${build} into the MyProject-\${DSTAMP}.jar file -->
-        <jar jarfile="\${dist}/lib/MyProject-\${DSTAMP}.jar" basedir="\${build}"/>
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
     </target>
 
     <target name="clean"
             description="clean up" >
-        <!-- Delete the \${build} and \${dist} directory trees -->
-        <delete dir="\${build}"/>
-        <delete dir="\${dist}"/>
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
     </target>
 </project>
 ----
 
 In this simple Ant example, you can see how you have to tell Ant exactly what to do. There is a compile goal which includes the +javac+ task that compiles the source in the 'src/main/java' directory to the 'target/classes' directory. You have to tell Ant exactly where your source is, where you want the resulting bytecode to be stored, and how to package this all into a JAR file. While there are some recent developments that help make Ant less procedural, a developer's experience with Ant is in coding a procedural language written in XML.
 
-Contrast the previous Ant example with a Maven example. In Maven, to create a JAR file from some Java source, all you need to do is create a simple 'pom.xml', place your source code in '\${basedir}/src/main/java' and then run +mvn install+ from the command line. The example Maven 'pom.xml' that achieves the same results as the simple Ant file listed in <<ex-ant-sample>> is shown in <<ex-maven-sample>>.
+Contrast the previous Ant example with a Maven example. In Maven, to create a JAR file from some Java source, all you need to do is create a simple 'pom.xml', place your source code in '+++${basedir}/src/main/java+++' and then run +mvn install+ from the command line. The example Maven 'pom.xml' that achieves the same results as the simple Ant file listed in <<ex-ant-sample>> is shown in <<ex-maven-sample>>.
 
 [[ex-maven-sample]]
 .A Sample Maven pom.xml
@@ -286,7 +328,7 @@ Apache Maven::
 
   *  Maven has a lifecycle which was invoked when you executed +mvn install+. This command told Maven to execute a series of sequential lifecycle phases until it reached the install lifecycle phase. As a side-effect of this journey through the lifecycle, Maven executed a number of default plugin goals which did things like compile and create a JAR.    
 
-Maven has built-in intelligence about common project tasks in the form of Maven plugins. If you wanted to write and execute unit tests, all you would need to do is write the tests, place them in '\${basedir}/src/test/java', add a test-scoped dependency on either TestNG or JUnit, and run +mvn test+. If you wanted to deploy a web application and not a JAR, all you would need to do is change your project type to +war+ and put your docroot in '\${basedir}/src/main/webapp'. Sure, you can do all of this with Ant, but you will be writing the instructions from scratch. In Ant, you would first have to figure out where the JUnit JAR file should be. Then you would have to create a classpath that includes the JUnit JAR file. Then you would tell Ant where it should look for test source code, write a goal that compiles the test source to bytecode, and execute the unit tests with JUnit.
+Maven has built-in intelligence about common project tasks in the form of Maven plugins. If you wanted to write and execute unit tests, all you would need to do is write the tests, place them in '+++${basedir}/src/test/java+++', add a test-scoped dependency on either TestNG or JUnit, and run +mvn test+. If you wanted to deploy a web application and not a JAR, all you would need to do is change your project type to +war+ and put your docroot in '+++${basedir}/src/main/webapp+++'. Sure, you can do all of this with Ant, but you will be writing the instructions from scratch. In Ant, you would first have to figure out where the JUnit JAR file should be. Then you would have to create a classpath that includes the JUnit JAR file. Then you would tell Ant where it should look for test source code, write a goal that compiles the test source to bytecode, and execute the unit tests with JUnit.
 
 Without supporting technologies like antlibs and Ivy (even with these supporting technologies), Ant has the feeling of a custom procedural build. An efficient set of Maven POMs in a project which adheres to Maven's assumed conventions has surprisingly little XML compared to the Ant alternative. Another benefit of Maven is the reliance on widely-shared Maven plugins. Everyone uses the Maven Surefire plugin for unit testing, and if someone adds support for a new unit testing framework, you can gain new capabilities in your own build by just incrementing the version of a particular Maven plugin in your project's POM.
 
@@ -334,7 +376,7 @@ There are wide differences between operating systems such as Mac OS X and Micros
 /usr/local % cd /usr/local
 /usr/local % ln -s apache-maven-3.0.3 maven
 /usr/local % export M2_HOME=/usr/local/maven
-/usr/local % export PATH=\${M2_HOME}/bin:\${PATH}
+/usr/local % export PATH=${M2_HOME}/bin:${PATH}
 ----
 
 Once Maven is installed, you need to do a couple of things to make it work correctly. You need to add its 'bin' directory in the distribution (in this example, '/usr/local/maven/bin') to your command path. You also need to set the environment variable +M2_HOME+ to the top-level directory you installed (in this example, '/usr/local/maven').
@@ -345,7 +387,7 @@ You'll need to add both +M2_HOME+ and +PATH+ to a script that will run every tim
 
 ----
 export M2_HOME=/usr/local/maven
-export PATH=\${M2_HOME}/bin:\${PATH}
+export PATH=${M2_HOME}/bin:${PATH}
 ----
 
 Once you've added these lines to your own environment, you will be able to run Maven from the command line.
@@ -498,7 +540,7 @@ http://www.sonatype.com[http://www.sonatype.com]::
 [[installation-sect-license]]
 === About the Apache Software License
 
-Apache Maven is released under the Apache Software License, Version 2.0. If you want to read this license, you can read '\${M2_HOME}/LICENSE.txt' or read this license on the Open Source Initiative's web site here: http://www.opensource.org/licenses/apache2.0.php[http://www.opensource.org/licenses/apache2.0.php].
+Apache Maven is released under the Apache Software License, Version 2.0. If you want to read this license, you can read '+++${M2_HOME}/LICENSE.txt+++' or read this license on the Open Source Initiative's web site here: http://www.opensource.org/licenses/apache2.0.php[http://www.opensource.org/licenses/apache2.0.php].
 
 There's a good chance that, if you are reading this book, you are not a lawyer. If you are wondering what the Apache License, Version 2.0 means, the Apache Software Foundation has assembled a very helpful Frequently Asked Questions (FAQ) page about the license available here: http://www.apache.org/foundation/licence-FAQ.html[http://www.apache.org/foundation/licence-FAQ.html].
 
@@ -518,7 +560,7 @@ Before you can start using Maven for complex, multi-module builds, we have to st
 This chapter develops a very simple example which will be used to explore core concepts of Maven. If you follow the steps described in this chapter, you shouldn't need to download the examples to recreate the code produced by the Maven. We will be using the Maven Archetype plugin to create this simple project and this chapter doesn't modify the project in any way. If you would prefer to read this chapter with the final example source code, this chapter's example project may be downloaded with the book's example code at:
 
 ----
-${examples.download.url}
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the 'ch-simple/' directory. There you will see a directory named 'simple/' that contains the source code for this chapter.  
@@ -916,7 +958,7 @@ This chapter expands on the information introduced in <<simple-project>>. We're 
 We'll be developing a useful program that interacts with a Yahoo! Weather web service. Although you should be able to follow along with this chapter without the example source code, we recommend that you download a copy of the code to use as a reference. This chapter's example project may be downloaded with the book's example code at:
 
 ----
-${examples.download.url}
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the 'ch-custom/' directory. There you will see a directory named 'simple-weather/', which contains the Maven project developed in this chapter.  
@@ -1427,16 +1469,16 @@ This 'log4j.properties' file simply configures Log4J to print all log messages t
 ----
 *********************************
 Current Weather Conditions for:
-\${weather.city}, \${weather.region}, \${weather.country}
+${weather.city}, ${weather.region}, ${weather.country}
 
-Temperature: \${weather.temp}
-Condition: \${weather.condition}
-Humidity: \${weather.humidity}
-Wind Chill: \${weather.chill}
+Temperature: ${weather.temp}
+Condition: ${weather.condition}
+Humidity: ${weather.humidity}
+Wind Chill: ${weather.chill}
 *********************************
 ----
 
-This template contains a number of references to a variable named +weather+, which is the +Weather+ bean that was passed to the +WeatherFormatter+. The +\${weather.temp}+ syntax is shorthand for retrieving and displaying the value of the +temp+ bean property. Now that we have all of our project's code in the right place, we can use Maven to run the example. 
+This template contains a number of references to a variable named +weather+, which is the +Weather+ bean that was passed to the +WeatherFormatter+. The '+++${weather.temp}+++' syntax is shorthand for retrieving and displaying the value of the +temp+ bean property. Now that we have all of our project's code in the right place, we can use Maven to run the example. 
 
 [[customizing-sect-custom-exec]]
 === Running the Simple Weather Program
@@ -1633,7 +1675,7 @@ public class YahooParserTest extends TestCase {
 }
 ----
 
-This +YahooParserTest+ extends the +TestCase+ class defined by JUnit. It follows the usual pattern for a JUnit test: a constructor that takes a single +String+ argument that calls the constructor of the superclass, and a series of public methods that begin with “+test+” that are invoked as unit tests. We define a single test method, +testParser+, which tests the +YahooParser+ by parsing an XML document with known values. The test XML document is named 'ny-weather.xml' and is loaded from the classpath. We'll add test resources in <<customizing-sect-custom-test-resource>>. In our Maven project's directory layout, the 'ny-weather.xml' file is found in the directory that contains test resources—'\${basedir}/src/test/resources' under' org/sonatype/mavenbook/weather/yahoo/ny-weather.xml'. The file is read as an +InputStream+ and passed to the +parse()+ method on +YahooParser+. The +parse()+ method returns a +Weather+ object, which is then tested with a series of calls to +assertEquals()+, a method defined by +TestCase+.
+This +YahooParserTest+ extends the +TestCase+ class defined by JUnit. It follows the usual pattern for a JUnit test: a constructor that takes a single +String+ argument that calls the constructor of the superclass, and a series of public methods that begin with “+test+” that are invoked as unit tests. We define a single test method, +testParser+, which tests the +YahooParser+ by parsing an XML document with known values. The test XML document is named 'ny-weather.xml' and is loaded from the classpath. We'll add test resources in <<customizing-sect-custom-test-resource>>. In our Maven project's directory layout, the 'ny-weather.xml' file is found in the directory that contains test resources—'+++${basedir}/src/test/resources+++' under' org/sonatype/mavenbook/weather/yahoo/ny-weather.xml'. The file is read as an +InputStream+ and passed to the +parse()+ method on +YahooParser+. The +parse()+ method returns a +Weather+ object, which is then tested with a series of calls to +assertEquals()+, a method defined by +TestCase+.
 
 In the same directory, create a file named 'WeatherFormatterTest.java'.
 
@@ -1670,7 +1712,7 @@ public class WeatherFormatterTest extends TestCase {
 }
 ----
 
-The second unit test in this simple project tests the +WeatherFormatter+. Like the +YahooParserTest+, the +WeatherFormatterTest+ also extends JUnit's +TestCase+ class. The single test function reads the same test resource from '\${basedir}/src/test/resources' under the 'org/sonatype/mavenbook/weather/yahoo' directory via this unit test's classpath. We'll add test resources in <<customizing-sect-custom-test-resource>>. +WeatherFormatterTest+ runs this sample input file through the +YahooParser+ which spits out a +Weather+ object, and this object is then formatted with the +WeatherFormatter+. Since the +WeatherFormatter+ prints out a +String+, we need to test it against some expected input. Our expected input has been captured in a text file named 'format-expected.dat' which is in the same directory as 'ny-weather.xml'. To compare the test's output to the expected output, we read this expected output in as an +InputStream+ and use Commons IO's +IOUtils+ class to convert this file to a +String+. This +String+ is then compared to the test output using +assertEquals()+. 
+The second unit test in this simple project tests the +WeatherFormatter+. Like the +YahooParserTest+, the +WeatherFormatterTest+ also extends JUnit's +TestCase+ class. The single test function reads the same test resource from '+++${basedir}/src/test/resources+++' under the 'org/sonatype/mavenbook/weather/yahoo' directory via this unit test's classpath. We'll add test resources in <<customizing-sect-custom-test-resource>>. +WeatherFormatterTest+ runs this sample input file through the +YahooParser+ which spits out a +Weather+ object, and this object is then formatted with the +WeatherFormatter+. Since the +WeatherFormatter+ prints out a +String+, we need to test it against some expected input. Our expected input has been captured in a text file named 'format-expected.dat' which is in the same directory as 'ny-weather.xml'. To compare the test's output to the expected output, we read this expected output in as an +InputStream+ and use Commons IO's +IOUtils+ class to convert this file to a +String+. This +String+ is then compared to the test output using +assertEquals()+. 
 
 [[customizing-sect-test-scope]]
 === Adding Test-scoped Dependencies
@@ -1762,7 +1804,7 @@ This file should look familiar. It is the same output that was generated previou
 
             <geo:lat>40.67</geo:lat>
             <geo:long>-73.94</geo:long>
-            <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/\</link>
+            <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/</link>
             <pubDate>Sat, 10 Nov 2007 8:51 pm EDT</pubDate>
             <yweather:condition text="Fair" code="33" temp="39" 
                                 date="Sat, 10 Nov 2007 8:51 pm EDT" />
@@ -1818,7 +1860,7 @@ Results :
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-Executing +mvn test+ from the command line caused Maven to execute all lifecycle phases up to the +test+ phase. The Maven Surefire plugin has a +test+ goal which is bound to the +test+ phase. This +test+ goal executes all of the unit tests this project can find under 'src/test/java' with filenames matching '**/Test*.java', '**/*Test.java' and '**/*TestCase.java'. In the case of this project, you can see that the Surefire plugin's +test+ goal executed +WeatherFormatterTest+ and +YahooParserTest+. When the Maven Surefire plugin runs the JUnit tests, it also generates XML and text reports in the '\${basedir}/target/surefire-reports' directory. If your tests are failing, you should look in this directory for details like stack traces and error messages generated by your unit tests.
+Executing +mvn test+ from the command line caused Maven to execute all lifecycle phases up to the +test+ phase. The Maven Surefire plugin has a +test+ goal which is bound to the +test+ phase. This +test+ goal executes all of the unit tests this project can find under 'src/test/java' with filenames matching '**/Test*.java', '**/*Test.java' and '**/*TestCase.java'. In the case of this project, you can see that the Surefire plugin's +test+ goal executed +WeatherFormatterTest+ and +YahooParserTest+. When the Maven Surefire plugin runs the JUnit tests, it also generates XML and text reports in the '+++${basedir}/target/surefire-reports+++' directory. If your tests are failing, you should look in this directory for details like stack traces and error messages generated by your unit tests.
 
 [[customizing-sect-ignoring-failures]]
 ==== Ignoring Test Failures
@@ -1855,7 +1897,7 @@ convenient on occasion.
 
 * Type: boolean
 * Required: No
-* Expression: \${maven.test.failure.ignore}
+* Expression: ${maven.test.failure.ignore}
 ----
 
 This expression can be set from the command line using the +-D+ parameter:
@@ -2025,7 +2067,7 @@ In this chapter, we create a simple web application with the Maven Archetype plu
 The example in this chapter is generated with the Maven Archetype plugin. While you should be able to follow the development of this chapter without the example source code, we recommend downloading a copy of the example code to use as a reference. This chapter's example project may be downloaded with the book's example code at:
 
 ----
-${examples.download.url}
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the 'ch-simple-web/' directory. There you will see a directory named 'simple-webapp/', which contains the Maven project developed in this chapter.  
@@ -2138,7 +2180,7 @@ Next, you will need to configure the Maven Compiler plugin to target Java 5. To 
 </project>
 ----
 
-Notice the packaging element contains the value +war+. This packaging type is what configures Maven to produce a web application archive in a WAR file. A project with +war+ packaging is going to create a WAR file in the 'target/' directory. The default name of this file is '\${artifactId}-\${version}.war'. In this project, the default WAR would be generated in 'target/simple-webapp-1.0-SNAPSHOT.war'. In the +simple-webapp+ project, we've customized the name of the generated WAR file by adding a finalName element inside of this project's build configuration. With a finalName of +simple-webapp+, the +package+ phase produces a WAR file in 'target/simple-webapp.war'. 
+Notice the packaging element contains the value +war+. This packaging type is what configures Maven to produce a web application archive in a WAR file. A project with +war+ packaging is going to create a WAR file in the 'target/' directory. The default name of this file is '+++${artifactId}-${version}.war+++'. In this project, the default WAR would be generated in 'target/simple-webapp-1.0-SNAPSHOT.war'. In the +simple-webapp+ project, we've customized the name of the generated WAR file by adding a finalName element inside of this project's build configuration. With a finalName of +simple-webapp+, the +package+ phase produces a WAR file in 'target/simple-webapp.war'. 
 
 [[web-sect-configuring-jetty]]
 === Configuring the Jetty Plugin
@@ -2398,7 +2440,7 @@ In this chapter, we create a multi-module project that combines the examples fro
 The multi-module project developed in this example consists of modified versions of the projects developed in Chapters <<customizing>> and <<web>>, and we are not using the Maven Archetype plugin to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. This chapter's example project may be downloaded with the book's example code at:
 
 ----
-${examples.download.url}
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the 'ch-multi/' directory. There you will see a directory named 'simple-parent/', which contains the multi-module Maven project developed in this chapter. In this directory, you will see a 'pom.xml' and the two submodule directories, 'simple-weather/' and 'simple-webapp/'.  
@@ -2748,7 +2790,7 @@ In this chapter, we create a multi-module project that evolves the examples from
 The multi-module project developed in this example consists of modified versions of the projects developed in <<customizing>> and <<web>>, and we are not using the Maven Archetype plug-in to generate this multi-module project. We strongly recommend downloading a copy of the example code to use as a supplemental reference while reading the content in this chapter. Without the examples, you won't be able to recreate this chapter's example code. This chapter's example project may be downloaded with the book's example code at:
 
 ----
-${examples.download.url}
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the 'ch-multi-spring/' directory. There you will see a directory named 'simple-parent/' that contains the multi-module Maven project developed in this chapter. In the 'simple-parent/' project directory you will see a 'pom.xml' and the five submodule directories 'simple-model/', 'simple-persist/', 'simple-command/', 'simple-weather/' and 'simple-webapp/'. 
@@ -3560,7 +3602,7 @@ public class WeatherController implements Controller {
 }
 ----
 
-+WeatherController+ implements the Spring MVC Controller interface that mandates the presence of a +handleRequest()+ method with the signature shown in the example. If you look at the meat of this method, you'll see that it invokes the +retrieveForecast()+ method on the +weatherService+ instance variable. Unlike the previous chapter, which had a Servlet that instantiated the +WeatherService+ class, the +WeatherController+ is a bean with a +weatherService+ property. The Spring IoC container is responsible for wiring the controller to the +weatherService+ component. Also notice that we're not using the +WeatherFormatter+ in this Spring controller implementation; instead, we're passing the +Weather+ object returned by +retrieveForecast()+ to the constructor of +ModelAndView+. This +ModelAndView+ class is going to be used to render a Velocity template, and this template will have references to a +\${weather}+ variable. The 'weather.vm' template is stored in 'src/main/webapp/WEB-INF/vm' and is shown in <<ex-weather-vm>>.
++WeatherController+ implements the Spring MVC Controller interface that mandates the presence of a +handleRequest()+ method with the signature shown in the example. If you look at the meat of this method, you'll see that it invokes the +retrieveForecast()+ method on the +weatherService+ instance variable. Unlike the previous chapter, which had a Servlet that instantiated the +WeatherService+ class, the +WeatherController+ is a bean with a +weatherService+ property. The Spring IoC container is responsible for wiring the controller to the +weatherService+ component. Also notice that we're not using the +WeatherFormatter+ in this Spring controller implementation; instead, we're passing the +Weather+ object returned by +retrieveForecast()+ to the constructor of +ModelAndView+. This +ModelAndView+ class is going to be used to render a Velocity template, and this template will have references to a '+++${weather}+++' variable. The 'weather.vm' template is stored in 'src/main/webapp/WEB-INF/vm' and is shown in <<ex-weather-vm>>.
 
 In the +WeatherController+, before we render the output of the forecast, we pass the +Weather+ object returned by the +WeatherService+ to the +save()+ method on +WeatherDAO+. Here we are saving this +Weather+ object—using Hibernate—to an HSQLDB database. Later, in +HistoryController+, we will see how we can retrieve a history of weather forecasts that were saved by the +WeatherController+.
 
@@ -3568,19 +3610,19 @@ In the +WeatherController+, before we render the output of the forecast, we pass
 .weather.vm Template Rendered by WeatherController
 ----
 <b>Current Weather Conditions for:
-\${weather.location.city}, \${weather.location.region}, 
-\${weather.location.country}</b><br/>
+${weather.location.city}, ${weather.location.region}, 
+${weather.location.country}</b><br/>
 
 <ul>
-<li>Temperature: \${weather.condition.temp}</li>
-<li>Condition: \${weather.condition.text}</li>
-<li>Humidity: \${weather.atmosphere.humidity}</li>
-<li>Wind Chill: \${weather.wind.chill}</li>
-<li>Date: \${weather.date}</li>
+<li>Temperature: ${weather.condition.temp}</li>
+<li>Condition: ${weather.condition.text}</li>
+<li>Humidity: ${weather.atmosphere.humidity}</li>
+<li>Wind Chill: ${weather.wind.chill}</li>
+<li>Date: ${weather.date}</li>
 </ul>
 ----
 
-The syntax for this Velocity template is straightforward: variables are referenced using +\${}+ notation. The expression between the curly braces references a property, or a property of a property on the +weather+ variable, which was passed to this template by the +WeatherController+.
+The syntax for this Velocity template is straightforward: variables are referenced using '+++${}+++' notation. The expression between the curly braces references a property, or a property of a property on the +weather+ variable, which was passed to this template by the +WeatherController+.
 
 The +HistoryController+ is used to retrieve recent forecasts that have been requested by the +WeatherController+. Whenever we retrieve a forecast from the +WeatherController+, that controller saves the +Weather+ object to the database via the +WeatherDAO+. +WeatherDAO+ then uses Hibernate to dissect the +Weather+ object into a series of rows in a set of related database tables. The +HistoryController+ is shown in <<ex-spring-history>>.
 
@@ -3640,7 +3682,7 @@ Once the +Location+ object has been retrieved, the +HistoryController+ will then
 .history.vm Rendered by the HistoryController
 ----
 <b>
-Weather History for: \${location.city}, \${location.region}, \${location.country}
+Weather History for: ${location.city}, ${location.region}, ${location.country}
 </b>
 <br/>
 
@@ -3806,7 +3848,7 @@ $ mvn hibernate3:hbm2ddl
 [INFO] ------------------------------------------------------------------------
 ----
 
-Once you've done this, there should be a '\${basedir}/data' directory which will contain the HSQLDB database. You can then start the web application with:
+Once you've done this, there should be a '+++${basedir}/data+++' directory which will contain the HSQLDB database. You can then start the web application with:
 
 ----
 $ mvn jetty:run
@@ -3874,7 +3916,7 @@ image::figs/web/multimodule-web-command-spring.png[]
     <name>Simple Command Line Tool</name>
 
     <build>
-        <finalName>\${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -4093,32 +4135,32 @@ public class WeatherFormatter {
 }
 ----
 
-The 'weather.vm' template simply prints the zip code's city, country, and region as well as the current temperature. The 'history.vm' template prints the location and then iterates through the weather forecast records stored in the local database. Both of these templates are in '\${basedir}/src/main/resources'.
+The 'weather.vm' template simply prints the zip code's city, country, and region as well as the current temperature. The 'history.vm' template prints the location and then iterates through the weather forecast records stored in the local database. Both of these templates are in '+++${basedir}/src/main/resources+++'.
 
 
 .The weather.vm Velocity Template
 ----
 ****************************************
 Current Weather Conditions for:
-\${weather.location.city},
-\${weather.location.region},
-\${weather.location.country}
+${weather.location.city},
+${weather.location.region},
+${weather.location.country}
 ****************************************
 
-* Temperature: \${weather.condition.temp}
-* Condition: \${weather.condition.text}
-* Humidity: \${weather.atmosphere.humidity}
-* Wind Chill: \${weather.wind.chill}
-* Date: \${weather.date}
+* Temperature: ${weather.condition.temp}
+* Condition: ${weather.condition.text}
+* Humidity: ${weather.atmosphere.humidity}
+* Wind Chill: ${weather.wind.chill}
+* Date: ${weather.date}
 
 ----
 
 .The history.vm Velocity Template
 ----
 Weather History for:
-\${location.city},
-\${location.region},
-\${location.country}
+${location.city},
+${location.region},
+${location.country}
 
 
 #foreach( $weather in $weathers )
@@ -4360,12 +4402,12 @@ The next thing we should do is fix the replication of the +hibernate-annotations
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
-            <version>\${hibernate.annotations.version}</version>
+            <version>${hibernate.annotations.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>\${hibernate.annotations.version}</version>
+            <version>${hibernate.annotations.version}</version>
         </dependency>
         ...
     </dependencyManagement>
@@ -4373,7 +4415,7 @@ The next thing we should do is fix the replication of the +hibernate-annotations
 </project>
 ----
 
-The last issue we have to resolve is with the sibling dependencies and define the versions of sibling projects in the top-level parent project. This is certainly a valid approach, but we can also solve the version problem just by using two built-in properties—+\${project.groupId}+ and +\${project.version}+. Since they are sibling dependencies, there is not much value to be gained by enumerating them in the parent, so we'll rely on the built-in +\${project.version}+ property. Because they all share the same group, we can further future-proof these declarations by referring to the current POM's group using the built-in +\${project.groupId}+ property. The +simple-command+ dependency section now looks like this:
+The last issue we have to resolve is with the sibling dependencies and define the versions of sibling projects in the top-level parent project. This is certainly a valid approach, but we can also solve the version problem just by using two built-in properties—'+++${project.groupId}+++' and '+++${project.version}+++'. Since they are sibling dependencies, there is not much value to be gained by enumerating them in the parent, so we'll rely on the built-in '+++${project.version}+++' property. Because they all share the same group, we can further future-proof these declarations by referring to the current POM's group using the built-in '+++${project.groupId}+++' property. The +simple-command+ dependency section now looks like this:
 
 ----
 <project>
@@ -4381,14 +4423,14 @@ The last issue we have to resolve is with the sibling dependencies and define th
     <dependencies>
         ...
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-weather</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-persist</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         ...
     </dependencies>
@@ -4404,7 +4446,7 @@ Pull-up common dependencies to dependencyManagement::
 
 Use built-in project +version+ and +groupId+ for sibling projects::
 
-   Use $+{project.version}+ and +\${project.groupId}+ when referring to a sibling project. Sibling projects almost always share the same +groupId+, and they almost always share the same release version. Using +\${project.version}+ will help you avoid the sibling version mismatch problem discussed previously.  
+   Use '+++${project.version}+++' and '+++${project.groupId}+++' when referring to a sibling project. Sibling projects almost always share the same +groupId+, and they almost always share the same release version. Using '+++${project.version}+++' will help you avoid the sibling version mismatch problem discussed previously.  
 
 [[optimizing-sect-plugins]]
 === Optimizing Plugins
@@ -4455,7 +4497,7 @@ The next thing we notice is that the +hibernate3-maven-plugin+ configuration is 
                         <dependency>
                             <groupId>hsqldb</groupId>
                             <artifactId>hsqldb</artifactId>
-                            <version>\${hsqldb.version}</version>
+                            <version>${hsqldb.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -4565,7 +4607,7 @@ $ mvn dependency:tree
 
 From this output, we can see that the +persistence-api+ dependency is coming from +hibernate+. A cursory scan of the source in this module will reveal many +javax.persistence+ import statements confirming that we are, indeed, directly referencing this dependency. The simple fix is to add a direct reference to the dependency. In this example, we put the dependency version in +simple-parent+'s dependencyManagement section because the dependency is linked to Hibernate, and the Hibernate version is declared here. Eventually you are going to want to upgrade your project's version of Hibernate. Listing the +persistence-api+ dependency version near the Hibernate dependency version will make it more obvious later when your team modifies the parent POM to upgrade the Hibernate version.
 
-If you look at the +dependency:analyze+ output from the +simple-web+ module, you will see that we also need to add a direct reference to the +simple-model+ dependency. The code in +simple-webapp+ directly references the model objects in +simple-model+, and the +simple-model+ is exposed to +simple-webapp+ as a transitive dependency via +simple-persist+. Since this is a sibling dependency that shares both the +version+ and +groupId+, the dependency can be defined in +simple-webapp+'s 'pom.xml' using the +\${project.groupId}+ and +\${project.version}+.
+If you look at the +dependency:analyze+ output from the +simple-web+ module, you will see that we also need to add a direct reference to the +simple-model+ dependency. The code in +simple-webapp+ directly references the model objects in +simple-model+, and the +simple-model+ is exposed to +simple-webapp+ as a transitive dependency via +simple-persist+. Since this is a sibling dependency that shares both the +version+ and +groupId+, the dependency can be defined in +simple-webapp+'s 'pom.xml' using the '+++${project.groupId}+++' and '+++${project.version}+++'.
 
 How did the Maven Dependency plugin uncover these issues? How does +dependency:analyze+ know which classes and dependencies are directly referenced by your project's bytecode? The Dependency plugin uses the ObjectWeb ASM (http://asm.objectweb.org/[http://asm.objectweb.org/])  of “used, undeclared dependencies” is produced.
 
@@ -4630,7 +4672,7 @@ As an overview, the final POM files are listed as a reference for this chapter. 
                         <dependency>
                             <groupId>hsqldb</groupId>
                             <artifactId>hsqldb</artifactId>
-                            <version>\${hsqldb.version}</version>
+                            <version>${hsqldb.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -4662,12 +4704,12 @@ As an overview, the final POM files are listed as a reference for this chapter. 
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
-                <version>\${hibernate.annotations.version}</version>
+                <version>${hibernate.annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-commons-annotations</artifactId>
-                <version>\${hibernate.annotations.version}</version>
+                <version>${hibernate.annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -4750,14 +4792,14 @@ The POM shown in <<ex-final-pom-for-simple-command>> captures the POM for +simpl
 
     <dependencies>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-weather</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-persist</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -4830,9 +4872,9 @@ The POM shown in <<ex-final-pom-for-simple-persist>> is the +simple-persist+ pro
 
     <dependencies>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-model</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -4882,9 +4924,9 @@ The POM shown in <<ex-final-pom-for-simple-weather>> is the +simple-weather+ pro
 
     <dependencies>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-model</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -4938,19 +4980,19 @@ Finally, the POM shown in <<ex-final-pom-for-simple-webapp>> is the +simple-weba
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-model</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-weather</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>\${project.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>simple-persist</artifactId>
-            <version>\${project.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -4982,7 +5024,7 @@ Finally, the POM shown in <<ex-final-pom-for-simple-webapp>> is the +simple-weba
                     <dependency>
                         <groupId>hsqldb</groupId>
                         <artifactId>hsqldb</artifactId>
-                        <version>\${hsqldb.version}</version>
+                        <version>${hsqldb.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
