@@ -1,0 +1,48 @@
+%%
+%% This style is derivated from the docbook one
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom-docbook}[2011/09/28 US Trade]
+
+\RequirePackageWithOptions{docbook}
+
+\setlength{\paperwidth}{7.444in}
+\setlength{\paperheight}{9.681in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{7.981in}
+\setlength{\topmargin}{0.25in}
+\setlength{\headheight}{0.5in}
+\setlength{\headwidth}{6.5in}
+\setlength{\headsep}{0.20in}
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0.5in}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0.25in}
+
+% Fancy header/footer for the front matter
+
+\def\DBKcheadfront{%
+  \begin{tabular}{
+    >{\raggedright}p{3.2in} >{\centering}p{0.1in} >{\raggedleft}p{2.7in}} %
+    \multirow{1}{3.2in}{\DBKtitle}
+    & & \tabularnewline%
+    & \releasebox & \tabularnewline %
+    & & \textsf{\thepage}
+  \tabularnewline%
+  \end{tabular}%
+}
+
+% Fancy header/footer for the doc body
+
+\def\DBKcheadbody{%
+  \begin{tabular}{
+    >{\raggedright}p{3.2in} >{\centering}p{0.1in} >{\raggedleft}p{2.7in}} %
+    \multirow{1}{3.2in}{\DBKtitle}
+    & & \tabularnewline %
+    & \releasebox & \tabularnewline %
+    & & \textsf{\thepage{}}
+  \tabularnewline%
+  \end{tabular}%
+}
+
+

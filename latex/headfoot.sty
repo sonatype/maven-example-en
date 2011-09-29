@@ -1,0 +1,27 @@
+% ##############################################################################
+% ### Header and Footer Page
+% ##############################################################################
+
+\pagestyle{fancyplain}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\plainheadrulewidth}{0.5pt}
+\renewcommand{\plainfootrulewidth}{0.5pt}
+\setcounter{page}{1}
+
+\def\releasebox{%
+  \ifthenelse{\equal{\DBKreleaseinfo}{}}{}%
+  {\framebox{\textsc{\textsf{\DBKreleaseinfo}}}}%
+}
+
+% Define front/main/back matter if not available
+\@ifundefined{frontmatter}{
+  \def\frontmatter{\cleardoublepage\pagenumbering{roman}\chead[]{\DBKcheadfront}}
+}{}
+\@ifundefined{mainmatter}{
+  \def\mainmatter{\cleardoublepage\pagenumbering{arabic}\chead[]{\DBKcheadbody}}
+}{}
+\@ifundefined{backmatter}{
+  \def\backmatter{\if@openright\cleardoublepage\else\clearpage\fi}
+}{}
+
