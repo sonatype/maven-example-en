@@ -1,73 +1,8 @@
 = Maven by Example
-:author:    Sonatype, Inc.
 :data-uri:
 :icons:
 :docinfo:
 :quotes.~:
-
-[[preface-copyright]]
-== Copyright
-
-Copyright © 2011 Sonatype, Inc.
-
-Online version published by Sonatype, Inc.
-
-This work is licensed under a Creative Commons
-Attribution, Non-Commercial, No Derivative Works 3.0 United States
-license. For more information about this license, see
-http://creativecommons.org/licenses/by-nc-nd/3.0/us/[http://creativecommons.org/licenses/by-nc-nd/3.0/us/].
-
-Nexus™, Nexus Professional™, Matrix™, Matrix Professional™, Sonatype
-Professional™, all Matrix-related logos, and all Nexus-related logos
-are trademarks or registered trademarks of Sonatype, Inc., in the
-United States and other countries.
-
-Java™, all Java-based trademarks and logos, Hudson™, and all
-Hudson-based trademarks and logos are trademarks or registered
-trademarks of Oracle, Inc., in the United States and other countries.
-
-IBM® and WebSphere® are trademarks or registered trademarks of
-International Business Machines, Inc., in the United States and other
-countries.
-
-Eclipse™ is a trademark of the Eclipse Foundation, Inc., in the United
-States and other countries.
-
-Apache and the Apache feather logo are trademarks of The Apache
-Software Foundation.
-
-Linux® is the registered trademark of Linus Torvalds in the U.S. and
-other countries.
-
-Many of the designations used by manufacturers and sellers to
-distinguish their products are claimed as trademarks. Where those
-designations appear in this book, and Sonatype, Inc. was aware of a
-trademark claim, the designations have been printed in caps or initial
-caps.
-
-While every precaution has been taken in the preparation of this book,
-the publisher and authors assume no responsibility for errors or
-omissions, or for damages resulting from the use of the information
-contained herein.
-
-[[public-foreword]]
-== Foreword: 0.7
-
-We've had some great feedback so far, please keep it coming. Your
-feedback is greatly appreciated, send it to
-mailto:book@sonatype.com[book@sonatype.com]. To keep yourself informed
-of updates, read the Sonatype blog at:
-http://www.sonatype.com/people[http://www.sonatype.com/people]. Everyone
-at Sonatype has had a hand in this version of the book, so the author
-is officially "Sonatype".
-
-Please report any bugs or issues on this book's GetSatisfaction page,
-here:
-http://www.getsatisfaction.com/sonatype/products/sonatype_maven_by_example[http://www.getsatisfaction.com/sonatype/products/sonatype_maven_by_example].
-
-Tim O'Brien (tobrien@sonatype.com)
-
-September 2011
 
 [[preface-1]]
 == Preface
@@ -95,103 +30,6 @@ http://www.sonatype.com[Sonatype], believe that the publishing of this
 book marks the beginning of a new phase of innovation and development
 surrounding Maven and the software ecosystem that surrounds it.
 
-[[preface-1-sect-how-to-use]]
-=== How to Use this Book
-
-Pick it up, read some of the text on the pages. Once you reach the end
-of a page, you'll want to either click on a link if you are looking at
-the HTML version, or, if you have the printed book, you'll lift up a
-corner of a page and turn it. If you are sitting next to a computer,
-you can type in some of the examples and try to follow along. Please
-don't throw a book this large at anyone in anger.
-
-This book introduces Maven by developing some real examples and
-walking you through the structure of those examples providing
-motivation and explanation along the way.
-
-[[preface-1-sect-feedback]]
-=== Your Feedback
-
-We didn't write this book so we could send off a Word document to our
-publisher and go to a launch party to congratulate ourselves on a job
-well done. This book isn't "done"; in fact, this book will never be
-completely "done". The subject it covers is constantly changing and
-expanding, and we consider this work an ongoing conversation with the
-community. Publishing the book means that the real work has just
-begun, and you, as a reader, play a pivotal role to helping to
-maintain and improve this book. If you see something in this book that
-is wrong: a spelling mistake, some bad code, a blatant lie, then you
-should tell us, send us an email at:
-mailto:book@sonatype.com[book@sonatype.com].
-
-The ongoing relevance of this book depends upon your feedback. We want
-to know what works and what doesn't work. We want to know if there is
-any information you couldn't understand. We especially want to know if
-you think that the book is awful. Positive or negative comments are
-all welcome. Of course, we reserve the right to disagree, but all
-feedback will be rewarded with a gracious response.
-
-[[preface-1-sect-fontConventions]]
-=== Font Conventions
-
-This book follows certain conventions for font usage. Understanding
-these conventions up-front makes it easier to use this book.
-
-+Italic+::
-
-   Used for filenames, file extensions, URLs, application names,
-   emphasis, and new terms when they are first introduced.
-
-Constant width+::
-
-   Used for Java class names, methods, variables, properties, data
-   types, database elements, and snippets of code that appear in text.
-
-Constant width bold+ ::
-
-   Used for commands you enter at the command line and to highlight
-   new code inserted in a running example.
-
-Constant width italic+ ::
-
-   Used to annotate output.
-
-[[preface-1-sect-writing-conventions]]
-=== Maven Writing Conventions
-
-The book follows certain conventions for naming and font usage in
-relation to Apache Maven. Understanding these conventions up-front
-makes it easier to read this book.
-
-Compiler plugin::
-
-   Maven plugins are capitalized.
-
-+create+ goal::
-
-   Maven goal names are displayed in a constant width font.
-
-"plugin"::
-
-   While "plug-in" (with hyphen) would be the grammatically correct
-   form, this book writes the term as "plugin" both because it is
-   easier to read and write and because it is a standard throughout
-   the Maven community.
-
-Maven Lifecycle, Maven Standard Directory Layout, Maven Plugin, Project Object Model::
-
-   Core Maven concepts are capitalized whenever they are being
-   referenced in the text.
-
-+goalParameter+::
-
-   A Maven goal parameter is displayed in a constant width font.
-
-+compile+ phase::
-
-   Lifecycle phases are displayed in a constant width font.
-
-[[preface-1-sect-acknowledgements]]
 === Acknowledgements
 
 Sonatype would like to thank the following contributors. The people
@@ -7444,3 +7282,49 @@ If no ported version of the Creative Commons license exists for a
 particular jurisdiction, this work shall be covered by the generic,
 unported Creative Commons Attribution, NC, ND version 3.0 license available from
 http://creativecommons.org/licenses/by/3.0/[http://creativecommons.org/licenses/by/3.0/].
+
+[[preface-copyright]]
+== Copyright
+
+Copyright © 2011 Sonatype, Inc.
+
+Online version published by Sonatype, Inc.
+
+This work is licensed under a Creative Commons
+Attribution, Non-Commercial, No Derivative Works 3.0 United States
+license. For more information about this license, see
+http://creativecommons.org/licenses/by-nc-nd/3.0/us/[http://creativecommons.org/licenses/by-nc-nd/3.0/us/].
+
+Nexus™, Nexus Professional™, Matrix™, Matrix Professional™, Sonatype
+Professional™, all Matrix-related logos, and all Nexus-related logos
+are trademarks or registered trademarks of Sonatype, Inc., in the
+United States and other countries.
+
+Java™, all Java-based trademarks and logos, Hudson™, and all
+Hudson-based trademarks and logos are trademarks or registered
+trademarks of Oracle, Inc., in the United States and other countries.
+
+IBM® and WebSphere® are trademarks or registered trademarks of
+International Business Machines, Inc., in the United States and other
+countries.
+
+Eclipse™ is a trademark of the Eclipse Foundation, Inc., in the United
+States and other countries.
+
+Apache and the Apache feather logo are trademarks of The Apache
+Software Foundation.
+
+Linux® is the registered trademark of Linus Torvalds in the U.S. and
+other countries.
+
+Many of the designations used by manufacturers and sellers to
+distinguish their products are claimed as trademarks. Where those
+designations appear in this book, and Sonatype, Inc. was aware of a
+trademark claim, the designations have been printed in caps or initial
+caps.
+
+While every precaution has been taken in the preparation of this book,
+the publisher and authors assume no responsibility for errors or
+omissions, or for damages resulting from the use of the information
+contained herein.
+
