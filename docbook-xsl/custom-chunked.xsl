@@ -70,19 +70,35 @@
         procedure before
     </xsl:param>
     <xsl:template match="author" mode="titlepage.mode">
-        <xsl:if test="name(preceding-sibling::*[1]) = 'author'">
-            <xsl:text>, </xsl:text>
-        </xsl:if>
         <span class="{name(.)}">
             <xsl:call-template name="person.name"/> 
-            (<xsl:value-of select="affiliation"/>)
             <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
         </span>
     </xsl:template>
     <xsl:template match="authorgroup" mode="titlepage.mode">
+        <div class="toc_intro">
+          <p>As developers, we understand that you don't want to spend
+          years reading documentation about your build tool.  We get
+          it.  You just want to get to work. On the other hand, if you
+          don't take a little bit of time to understand what Maven can
+          do and what it was designed for, there's a good possibility
+          you'll be needlessly reinventing wheels.  Take an hour or
+          two and walk through Maven by Example, it's a gentle
+          introduction to Maven and we promise it will save you time.
+          Sonatype maintains two books focused on Maven: an
+          example-driven introduction to Maven, <a
+          href="http://www.sonatype.com/books/mvnex-book/reference/public-book.html">"Maven
+          by Example"</a> and <a
+          href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">Maven:
+          The Complete Reference</a>.  If you already understand how
+          to use Maven and are just looking for a reference, <a
+          href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">go
+          read the other book</a>.
+
+</p>
+        </div>
         <div class="{name(.)}">
             <h2>Authors</h2>
-            <p/>
             <xsl:apply-templates mode="titlepage.mode"/>
         </div>
     </xsl:template>
