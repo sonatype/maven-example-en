@@ -4,7 +4,7 @@ import os
 
 t = airspeed.Template(open("site/book-template.html", "r").read())
 bookTitle = "Maven by Example"
-bookId = "mvnexbook"
+bookId = "mvnrefbook"
  
 path = 'target/site/reference'
 for infile in glob.glob( os.path.join(path, '*.html') ):
