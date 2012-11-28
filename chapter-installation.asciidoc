@@ -1,0 +1,389 @@
+[[installation]]
+== Installing Maven
+
+Java Development Kit (JDK). If you are just interested in
+installation, you can move on to the rest of the book after reading
+through <<installation-sect-maven-download>> and
+<<installation-sect-maven-install>>. If you are interested in the
+details of your Maven installation, this entire chapter will give you
+an overview of what you've installed and the meaning of the Apache
+Software License, Version 2.0.
+
+[[installation-sect-java]]
+=== Verify your Java Installation
+
+While Maven can run on Java 1.4, this book assumes that you are
+running at least Java 5. Go with the most recent stable Java
+Development Kit (JDK) available for your operating system. Either Java
+5 or Java 6 will work with all of the examples in this book.
+
+----
+% java -version
+java version "1.5.0_16"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_16-b06-284)
+Java HotSpot(TM) Client VM (build 1.5.0_16-133, mixed mode, sharing)        
+----
+
+Maven works with all certified Java(TM) compatible development kits,
+and a few non-certified implementations of Java. The examples in this
+book were written and tested against the official Java Development Kit
+releases downloaded from the Sun Microsystems web site. If you're
+working with a Linux distribution, you may need to download Sun's JDK
+yourself and make sure it's the version you're invoking (by running
++java -version+). Now that Sun has open-sourced Java, this will
+hopefully improve in the future, and we'll get the Sun JRE and JDK by
+default even in purist Linux distributions. Until that day, you may
+need to do some of your own downloading.
+
+[[installation-sect-maven-download]]
+=== Downloading Maven
+
+You can download Maven from the Apache Maven project website at
+http://maven.apache.org/download.html[http://maven.apache.org/download.html].
+
+When downloading Maven, make sure you choose the latest version of
+Apache Maven from the Maven website. The latest version of Maven when
+this book was written was Maven 3.0.3. If you are not familiar with
+the Apache Software License, you should familiarize yourself with the
+terms of the license before you start using the product. More
+information on the Apache Software License can be found in
+<<installation-sect-license>>.
+
+[[installation-sect-maven-install]]
+=== Installing Maven
+
+There are wide differences between operating systems such as Mac OS X
+and Microsoft Windows, and there are subtle differences between
+different versions of Windows. Luckily, the process of installing
+Maven on all of these operating systems is relatively painless and
+straightforward. The following sections outline the recommended
+best-practice for installing Maven on a variety of operating systems.
+
+[[installation-sect-maven-osx]]
+==== Installing Maven on Mac OSX
+
+from http://maven.apache.org/download.html[]. Download the current
+release of Maven in a format that is convenient for you to work
+with. Pick an appropriate place for it to live, and expand the archive
+there. If you expanded the archive into the directory
+'/usr/local/apache-maven-3.0.3', you may want to create a symbolic
+link to make it easier to work with and to avoid the need to change
+any environment configuration when you upgrade to a newer version:
+
+----
+/usr/local % cd /usr/local
+/usr/local % ln -s apache-maven-3.0.3 maven
+/usr/local % export M2_HOME=/usr/local/maven
+/usr/local % export PATH=${M2_HOME}/bin:${PATH}
+----
+
+Once Maven is installed, you need to do a couple of things to make it
+work correctly. You need to add its 'bin' directory in the
+distribution (in this example, '/usr/local/maven/bin') to your command
+path. You also need to set the environment variable +M2_HOME+ to the
+top-level directory you installed (in this example,
+'/usr/local/maven').
+
+NOTE: Installation instructions are the same for both OSX Tiger and
+OSX Leopard. It has been reported that Maven 2.0.6 is shipping with a
+preview release of XCode. If you have installed XCode, run +mvn+ from
+the command-line to check availability. XCode installs Maven in
+'/usr/share/maven'. We recommend installing the most recent version of
+Maven 3.0.3 as there have been a number of critical bug fixes and
+improvements since Maven 2.0.6 was released.
+
+You'll need to add both +M2_HOME+ and +PATH+ to a script that will run
+every time you login. To do this, add the following lines to
+'.bash_login'.
+
+----
+export M2_HOME=/usr/local/maven
+export PATH=${M2_HOME}/bin:${PATH}
+----
+
+Once you've added these lines to your own environment, you will be
+able to run Maven from the command line.
+
+NOTE:> These installation instructions assume that you are running
+bash.
+
+[[installation-sect-macports]]
+===== Installing Maven on OSX using MacPorts
+
+If you are using MacPorts, you can install the maven2 port by
+executing the following command-line:
+
+----
+$ sudo port install maven2
+Password: ******
+--->  Fetching maven2
+--->  Attempting to fetch apache-maven-3.0.3-bin.tar.bz2 
+from http://www.apache.org/dist/maven/binaries
+--->  Verifying checksum(s) for maven2
+--->  Extracting maven2
+--->  Configuring maven2
+--->  Building maven2 with target all
+--->  Staging maven2 into destroot
+--->  Installing maven2 3.0.3_0
+--->  Activating maven2 3.0.3_0
+--->  Cleaning maven2
+----
+
+For more information about the maven2 port, see the maven2
+http://trac.macports.org/browser/trunk/dports/java/maven2/Portfile[Portfile]. For
+more information about MacPorts and how to install it, see the
+http://www.macports.org/index.php[MacPorts project page].
+
+[[installation-sect-windows]]
+==== Installing Maven on Microsoft Windows
+
+Installing Maven on Windows is very similar to installing Maven on Mac
+OSX, the main differences being the installation location and the
+setting of an environment variable. This book assumes a Maven
+installation directory of 'c:\Program Files\apache-maven-3.0.3', but
+it won't make a difference if you install Maven in another directory
+as long as you configure the proper environment variables. Once you've
+unpacked Maven to the installation directory, you will need to set two
+environment variables—+PATH+ and +M2_HOME+. To set these environment
+variables from the command-line, type in the following commands:
+
+----
+C:\Users\tobrien > set M2_HOME=c:\Program Files\apache-maven-3.0.3
+C:\Users\tobrien > set PATH=%PATH%;%M2_HOME%\bin
+----
+
+Setting these environment variables on the command-line will allow you
+to run Maven in your current session, but unless you add them to the
+System environment variables through the control panel, you'll have to
+execute these two lines every time you log into your system. You
+should modify both of these variables through the Control Panel in
+Microsoft Windows.<!--TODO: Document process of setting environment
+variables in the window control panel system dialog.-->
+
+[[installation-sect-maven-linux]]
+==== Installing Maven on Linux
+
+To install Maven on a Linux machine follow the exact procedure
+outlined in <<installation-sect-maven-osx>>.
+
+[[installation-sect-bsd]]
+==== Installing Maven on FreeBSD or OpenBSD
+
+To install Maven on a FreeBSD or OpenBSD machine, follow the exact
+procedure outlined in <<installation-sect-maven-osx>>.
+
+[[installation-sect-test-install]]
+=== Testing a Maven Installation
+
+Once Maven is installed, you can check the version by running +mvn -v+
+from the command-line. If Maven has been installed, you should see
+something resembling the following output.
+
+----
+$ mvn -v
+Apache Maven 3.0.1
+Java version: 1.6.0_21
+Java home: /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: "mac os x" version: "10.6.3" arch: "x86_64" Family: "mac"
+----
+
+If you see this output, you know that Maven is available and ready to
+be used. If you do not see this output, and your operating system
+cannot find the +mvn+ command, make sure that your +PATH+ environment
+variable and +M2_HOME+ environment variable have been properly set.
+
+[[installation-sect-details]]
+=== Maven Installation Details
+
+Maven's download measures in at roughly 1.5 MiB, it has attained such
+a slim download size because the core of Maven has been designed to
+retrieve plugins and dependencies from a remote repository
+on-demand. When you start using Maven, it will start to download
+plugins to a local repository described in
+<<installation-sect-user>>. In case you are curious, let's take a
+quick look at what is in Maven's installation directory.
+
+----
+/usr/local/maven $ ls -p1
+LICENSE.txt
+NOTICE.txt
+README.txt
+bin/
+boot/
+conf/
+lib/
+----
+
+'LICENSE.txt' contains the software license for '~/.m2'. The 'lib/'
+directory contains a single JAR file ('maven-core-3.0.3-uber.jar')
+that contains the core of Maven.
+
+NOTE: Unless you are working in a shared Unix environment, you should
+avoid customizing the 'settings.xml' in 'M2_HOME/conf'. Altering the
+global 'settings.xml' file in the Maven installation itself is usually
+unnecessary and it tends to complicate the upgrade procedure for Maven
+as you'll have to remember to copy the customized 'settings.xml' from
+the old Maven installation to the new installation. If you need to
+customize 'settings.xml', you should be editing your own
+'settings.xml' in '~/.m2/settings.xml'.
+
+[[installation-sect-user]]
+==== User-specific Configuration and Repository
+
+Once you start using Maven extensively, you'll notice that Maven has
+created some local user-specific configuration files and a local
+repository in your home directory. In '~/.m2' there will be:
+
+~/.m2/settings.xml::
+
+   A file containing user-specific configuration for authentication,
+   repositories, and other information to customize the behavior of
+   Maven.
+
+~/.m2/repository/::
+
+   This directory contains your local Maven repository. When you
+   download a dependency from a remote Maven repository, Maven stores
+   a copy of the dependency in your local repository.
+
+NOTE: In Unix (and OSX), your home directory will be referred to using
+a tilde (i.e. '~/bin' refers to '/home/tobrien/bin'). In Windows, we
+will also be using '~' to refer to your home directory. In Windows XP,
+your home directory is 'C:\Documents and Settings\tobrien', and in
+Windows Vista, your home directory is 'C:\Users\tobrien'. From this
+point forward, you should translate paths such as '~/m2' to your
+operating system's equivalent.
+
+[[installation-sect-upgrade]]
+==== Upgrading a Maven Installation
+
+If you've installed Maven on a Mac OSX or Unix machine according to
+the details in <<installation-sect-maven-osx>> and
+<<installation-sect-maven-linux>>, it should be easy to upgrade to
+newer versions of Maven when they become available. Simply install the
+newer version of Maven ('/usr/local/maven-2.future') next to the
+existing version of Maven ('/usr/local/maven-3.0.3'). Then switch the
+symbolic link '/usr/local/maven' from '/usr/local/maven-3.0.3' to
+'/usr/local/maven-2.future'. Since, you've already set your +M2_HOME+
+variable to point to '/usr/local/maven', you won't need to change any
+environment variables.
+
+If you have installed Maven on a Windows machine, simply unpack Maven
+to 'c:\Program Files\maven-2.future' and update your +M2_HOME+
+variable.
+
+NOTE: If you have any customizations to the global 'settings.xml' in
+'M2_HOME/conf', you will need to copy this 'settings.xml' to the
+'conf' directory of the new Maven installation.
+
+[[installation-sect-upgrade-detail]]
+==== Upgrading from Maven 1.x to Maven 2.x
+
+If you are upgrading from Maven 1 to Maven 2, you are going to be
+using an entirely new POM and repository structure. If you have
+already created a custom Maven 1 repository to hold custom artifacts,
+you can use the Nexus Repository Manager to expose a Maven 1
+repository in a format that can be understood by Maven 2 clients. For
+more information about the Nexus Repository Manager, see
++http://www.sonatype.com/books/nexus-book/reference/[Repository
+Management with Nexus]+. In addition to tools like Nexus, you can also
+configure references to repositories to use the +legacy+ layout
+format.
+
+If you have a set of Maven 1 projects, you may want to know about the
+Maven One Plugin. The Maven One Plugin was designed to help projects
+migrate from Maven 1 to Maven 2. If you have a Maven 1 project, you
+can convert the project's POM by running the +one:convert+ goal as
+follows:
+
+----
+$ cd my-project
+$ mvn one:convert
+----
+
++one:convert+ will read a 'project.xml' and produce a 'pom.xml' that
+is compatible with Maven 2. If you've customized a Maven 1 build using
+Jelly script in a 'maven.xml' file, you will need to investigate other
+options. While Maven 1 emphasized Jelly scripting for customizing
+builds, Maven 2 favors custom plugins or customization through
+scripting Plugins or the Maven Antrun Plugin.
+
+The most important thing to know about when upgrading from Maven 1 to
+Maven 2 is that Maven 2 is a completely different build
+framework. Maven 2 introduces the concept of the Maven Lifecycle and
+redefines the relationships between plugins. If you upgrade from Maven
+1 to Maven 2, you need to invest some time in learning about the
+differences between the two versions. Although it might seem
+straightforward to start learning about the new POM structure, you
+should focus on the Lifecycle first. If you understand the Maven
+Lifecycle, you will be able to use Maven to its fullest potential.
+
+[[installation-sect-uninstalling]]
+=== Uninstalling Maven
+
+Most of the installation instructions involve unpacking of the Maven
+distribution archive in a directory and setting of various environment
+variables. If you need to remove Maven from your computer, all you
+need to do is delete your Maven installation directory and remove the
+environment variables. You will also want to delete the '~/.m2'
+directory as it contains your local repository.
+
+[[installation-sect-getting-help]]
+=== Getting Help with Maven
+
+While this book aims to be a comprehensive reference, there are going
+to be topics we will miss and special situations and tips which are
+not covered. While the core of Maven is very simple, the real work in
+Maven happens in the plugins, and there are too many plugins available
+to cover them all in one book. You are going to encounter problems and
+features which have not been covered in this book; in these cases, we
+suggest searching for answers at the following locations:
+
+http://maven.apache.org[http://maven.apache.org]::
+
+   This will be the first place to look, the Maven web site contains a
+   wealth of information and documentation. Every plugin has a few
+   pages of documentation and there are a series of "quick start"
+   documents which will be helpful in addition to the content of this
+   book. While the Maven site contains a wealth of information, it can
+   also be a frustrating, confusing, and overwhelming. There is a
+   custom Google search box on the main Maven page that will search
+   known Maven sites for information. This provides better results
+   than a generic Google search.
+
+Maven User Mailing List::
+
+   The Maven User mailing list is the place for users to ask
+   questions. Before you ask a question on the user mailing list, you
+   will want to search for any previous discussion that might relate
+   to your question. It is bad form to ask a question that has already
+   been asked without first checking to see if an answer already
+   exists in the archives. There are a number of useful mailing list
+   archive browsers, we've found Nabble to the be the most useful. You
+   can browse the User mailing list archives here:
+   http://www.nabble.com/Maven---Users-f178.html[http://www.nabble.com/Maven---Users-f178.html]. You
+   can join the user mailing list by following the instructions
+   available here
+   http://maven.apache.org/mail-lists.html[http://maven.apache.org/mail-lists.html].
+
+http://www.sonatype.com[http://www.sonatype.com]::
+
+   Sonatype maintains an online copy of this book and other tutorials
+   related to Apache Maven.
+
+[[installation-sect-license]]
+=== About the Apache Software License
+
+Apache Maven is released under the Apache Software License, Version
+2.0. If you want to read this license, you can read
+'+++${M2_HOME}/LICENSE.txt+++' or read this license on the Open Source
+Initiative's web site here:
+http://www.opensource.org/licenses/apache2.0.php[http://www.opensource.org/licenses/apache2.0.php].
+
+There's a good chance that, if you are reading this book, you are not
+a lawyer. If you are wondering what the Apache License, Version 2.0
+means, the Apache Software Foundation has assembled a very helpful
+Frequently Asked Questions (FAQ) page about the license available
+here:
+http://www.apache.org/foundation/licence-FAQ.html[http://www.apache.org/foundation/licence-FAQ.html].
