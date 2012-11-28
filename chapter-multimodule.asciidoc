@@ -1,0 +1,453 @@
+[[multimodule]]
+== A Multi-module Project
+
+[[multimodule-sect-intro]]
+=== Introduction
+
+In this chapter, we create a multi-module project that combines the
+examples from the two previous chapters. The +simple-weather+ code
+developed in <<customizing>> will be combined with the +simple-webapp+
+project defined in <<web>> to create a web application that retrieves
+and displays weather forecast information on a web page. At the end of
+this chapter, you will be able to use Maven to develop complex,
+multi-module projects.
+
+[[multimodule-sect-downloading]]
+==== Downloading this Chapter's Example
+
+The multi-module project developed in this example consists of
+modified versions of the projects developed in Chapters
+<<customizing>> and <<web>>, and we are not using the Maven Archetype
+plugin to generate this multi-module project. We strongly recommend
+downloading a copy of the example code to use as a supplemental
+reference while reading the content in this chapter. This chapter's
+example project may be downloaded with the book's example code at:
+
+----
+http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
+----
+
+Unzip this archive in any directory, and then go to the 'ch-multi/'
+directory. There you will see a directory named 'simple-parent/',
+which contains the multi-module Maven project developed in this
+chapter. In this directory, you will see a 'pom.xml' and the two
+submodule directories, 'simple-weather/' and 'simple-webapp/'.
+
+[[multimodule-sect-simple-parent]]
+=== The Simple Parent Project
+
+A multi-module project is defined by a parent POM referencing one or
+more submodules. In the 'simple-parent/' directory, you will find the
+parent POM (also called the top-level POM) in
+'simple-parent/pom.xml'. See <<ex-multimodule-parent-pom>>.
+
+[[ex-multimodule-parent-pom]]
+.simple-parent Project POM
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.sonatype.mavenbook.multi</groupId>
+    <artifactId>simple-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>Multi Chapter Simple Parent Project</name>
+
+    <modules>
+        <module>simple-weather</module>
+        <module>simple-webapp</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement> 
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+Notice that the parent defines a set of Maven coordinates: the
++groupId+ is +org.++sonatype.++mavenbook.multi+, the +artifactId+ is
++simple-parent+, and the +version+ is +1.0+. The parent project
+doesn't create a JAR or a WAR like our previous projects; instead, it
+is simply a POM that refers to other Maven projects. The appropriate
+packaging for a project like +simple-parent+ that simply provides a
+Project Object Model is +pom+. The next section in the 'pom.xml' lists
+the project's submodules. These modules are defined in the modules
+element, and each module element corresponds to a subdirectory of the
+'simple-parent/' directory. Maven knows to look in these directories
+for 'pom.xml' files, and it will add submodules to the list of Maven
+projects included in a build.
+
+Lastly, we define some settings which will be inherited by all
+submodules. The +simple-parent+ build configuration configures the
+target for all Java compilation to be the Java 5 JVM. Since the
+compiler plugin is bound to the lifecycle by default, we can use the
+pluginManagement section do to this. We will discuss pluginManagement
+in more detail in later chapters, but the separation between providing
+configuration to default plugins and actually binding plugins is much
+easier to see when they are separated this way. The dependencies
+element adds JUnit 3.8.1 as a global dependency. Both the build
+configuration and the dependencies are inherited by all
+submodules. Using POM inheritance allows you to add common
+dependencies for universal dependencies like JUnit or Log4J.
+
+[[multimodule-sect-simple-weather]]
+=== The Simple Weather Module
+
+The first submodule we're going to look at is the +simple-weather+
+submodule. This submodule contains all
+
+.simple-weather Module POM
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.multi</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>simple-weather</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Multi Chapter Simple Weather API</name>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement> 
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+In +simple-weather+'s 'pom.xml' file, we see this module referencing a
+parent POM using a set of Maven coordinates. The parent POM for
++simple-weather+ is identified by a +groupId+ of
++org.sonatype.mavenbook.multi+, an +artifactId+ of +simple-parent+,
+and a +version+ of +1.0+.
+
+The +WeatherService+ class shown in <<multimodule-weather-service>> is
+defined in 'src/main/java/org/sonatype/mavenbook/weather', and it
+simply calls out to the three objects defined in <<customizing>>. In
+this chapter's example, we're creating a separate project that
+contains service objects that are referenced in the web application
+project. This is a common model in enterprise Java development; often
+a complex application consists of more than just a single, simple web
+application. You might have an enterprise application that consists of
+multiple web applications and some command-line applications. Often,
+you'll want to refactor common logic to a service class that can be
+reused across a number of projects. This is the justification for
+creating a +WeatherService+ class; by doing so, you can see how the
++simple-webapp+ project references a service object defined in
++simple-weather+.
+
+[[multimodule-weather-service]]
+.The WeatherService Class
+----
+package org.sonatype.mavenbook.weather;
+
+import java.io.InputStream;
+
+public class WeatherService {
+
+    public WeatherService() {}
+
+    public String retrieveForecast( String zip ) throws Exception {
+        // Retrieve Data
+        InputStream dataIn = new YahooRetriever().retrieve( zip );
+
+        // Parse Data
+        Weather weather = new YahooParser().parse( dataIn );
+
+        // Format (Print) Data
+        return new WeatherFormatter().format( weather );
+    }
+}
+----
+
+The +retrieveForecast()+ method takes a +String+ containing a zip
+code. This zip code parameter is then passed to the +YahooRetriever+'s
++retrieve()+ method, which gets the XML from Yahoo! Weather. The XML
+returned from +YahooRetriever+ is then passed to the +parse()+ method
+on +YahooParser+ which returns a +Weather+ object. This +Weather+
+object is then formatted into a presentable +String+ by the
++WeatherFormatter+.
+
+[[multimodule-sect-simple-web]]
+=== The Simple Web Application Module
+
+The +simple-webapp+ module is the second submodule referenced in the
++simple-parent+ project. This web application project depends upon the
++simple-weather+ module, and it contains some simple servlets that
+present the results of the Yahoo! weather service query.
+
+.simple-webapp Module POM
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.multi</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>simple-webapp</artifactId>
+    <packaging>war</packaging>
+    <name>simple-webapp Maven Webapp</name>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.mavenbook.multi</groupId>
+            <artifactId>simple-weather</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>simple-webapp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+----
+
+This +simple-webapp+ module defines a very simple servlet that reads a
+zip code from an HTTP request, calls the +WeatherService+ shown in
+<<multimodule-weather-service>>, and prints the results to the
+response's +Writer+.
+
+.simple-webapp WeatherServlet
+----
+package org.sonatype.mavenbook.web;
+
+import org.sonatype.mavenbook.weather.WeatherService;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class WeatherServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+        throws ServletException, IOException {
+        String zip = request.getParameter("zip" );
+        WeatherService weatherService = new WeatherService();
+        PrintWriter out = response.getWriter();
+        try {
+            out.println( weatherService.retrieveForecast( zip ) );
+        } catch( Exception e ) {
+            out.println( "Error Retrieving Forecast: " + e.getMessage() );
+        }
+        out.flush();
+        out.close();
+    }
+}
+----
+
+In +WeatherServlet+, we instantiate an instance of the
++WeatherService+ class defined in +simple-weather+. The zip code
+supplied in the request parameter is passed to the
++retrieveForecast()+ method and the resulting test is printed to the
+response's +Writer+.
+
+Finally, to tie all of this together is the 'web.xml' for
++simple-webapp+ in 'src/main/webapp/WEB-INF'. The servlet and
+servlet-mapping elements in the 'web.xml' shown in
+<<ex-simple-webapp-web.xml>> map the request path '/weather' to the
++WeatherServlet+.
+
+[[ex-simple-webapp-web.xml]]
+.simple-webapp web.xml
+----
+<!DOCTYPE web-app PUBLIC
+          "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+          "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>simple</servlet-name>
+        <servlet-class>org.sonatype.mavenbook.web.SimpleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>weather</servlet-name>
+        <servlet-class>org.sonatype.mavenbook.web.WeatherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>simple</servlet-name>
+        <url-pattern>/simple</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>weather</servlet-name>
+        <url-pattern>/weather</url-pattern>
+    </servlet-mapping>
+</web-app>
+----
+
+[[multimodule-sect-building-multimodule]]
+=== Building the Multimodule Project
+
+With the +simple-weather+ project containing all WAR file. To do this,
+you will want to compile and install both projects in the appropriate
+order; since +simple-webapp+ depends on +simple-weather+, the
++simple-weather+ JAR needs to be created before the +simple-webapp+
+project can compile. To do this, you will run +mvn clean install+
+command from the +simple-parent+ project:
+
+----
+~/examples/ch-multi/simple-parent$ mvn clean install
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   Simple Parent Project
+[INFO]   simple-weather
+[INFO]   simple-webapp Maven Webapp
+[INFO] ----------------------------------------------------------------------
+[INFO] Building simple-weather
+[INFO]task-segment: [clean, install]
+[INFO] ----------------------------------------------------------------------
+[...]
+[INFO] [install:install]
+[INFO] Installing simple-weather-1.0.jar to simple-weather-1.0.jar
+[INFO] ----------------------------------------------------------------------
+[INFO] Building simple-webapp Maven Webapp
+[INFO]task-segment: [clean, install]
+[INFO] ----------------------------------------------------------------------
+[...]
+[INFO] [install:install]
+[INFO] Installing simple-webapp.war to simple-webapp-1.0.war
+[INFO] 
+[INFO] ----------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] ----------------------------------------------------------------------
+[INFO] Simple Parent Project ............................... SUCCESS [3.041s]
+[INFO] simple-weather ...................................... SUCCESS [4.802s]
+[INFO] simple-webapp Maven Webapp .......................... SUCCESS [3.065s]
+[INFO] ----------------------------------------------------------------------
+----
+
+When Maven is executed against a project with submodules, Maven first
+loads the parent POM and locates all of the submodule POMs. Maven then
+puts all of these project POMs into something called the Maven Reactor
+which analyzes the dependencies between modules. The Reactor takes
+care of ordering components to ensure that interdependent modules are
+compiled and installed in the proper order.
+
+NOTE: The Reactor preserves the order of modules as defined in the POM
+unless changes need to be made. A helpful mental model for this is to
+picture that modules with dependencies on sibling projects are "pushed
+down" the list until the dependency ordering is satisfied. On rare
+occasions, it may be handy to rearrange the module order of your build
+-- for example if you want a frequently unstable module towards the
+beginning of the build.
+
+Once the Reactor figures out the order in which projects must be
+built, Maven then executes the specified goals for every module in a
+multi-module build. In this example, you can see that Maven builds
++simple-weather+ before +simple-webapp+ effectively executing +mvn
+clean install+ for each submodule.
+
+NOTE: When you run Maven from the command line you'll frequently want
+to specify the +clean+ lifecycle phase before any other lifecycle
+stages. When you specify +clean+, you make sure that Maven is going to
+remove old output before it compiles and packages an
+application. Running +clean+ isn't necessary, but it is a useful
+precaution to make sure that you are performing a "clean build".
+
+[[multimodule-sect-running-web]]
+=== Running the Web Application
+
+Once the multi-module project has been installed with +mvn 
+
+----
+~/examples/ch-multi/simple-parent/simple-webapp $ mvn jetty:run
+[INFO] ----------------------------------------------------------------------
+[INFO] Building simple-webapp Maven Webapp
+[INFO]task-segment: [jetty:run]
+[INFO] ----------------------------------------------------------------------
+[...]
+[INFO] [jetty:run]
+[INFO] Configuring Jetty for project: simple-webapp Maven Webapp
+[...]
+[INFO] Webapp directory = ~/examples/ch-multi/simple-parent/\
+simple-webapp/src/main/webapp
+[INFO] Starting jetty 6.1.6rc1 ...
+2007-11-18 1:58:26.980::INFO:  jetty-6.1.6rc1
+2007-11-18 1:58:26.125::INFO:  No Transaction manager found
+2007-11-18 1:58:27.633::INFO:  Started SelectChannelConnector@0.0.0.0:8080
+[INFO] Started Jetty Server
+----
+
+Once Jetty has started, load
+http://localhost:8080/simple-webapp/weather?zip=01201[http://localhost:8080/simple-webapp/weather?zip=01201]
+in a browser and you should see the formatted weather output.

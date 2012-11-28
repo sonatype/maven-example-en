@@ -1,0 +1,996 @@
+[[optimizing]]
+== Optimizing and Refactoring POMs
+
+[[optimizing-sect-intro]]
+=== Introduction
+
+In <<multimodule-web-spring>>, we showed how many pieces of Maven come
+together to produce a fully functional multimodule build. Although the
+example from that chapter suggests a real application—one that
+interacts with a database, a web service, and that itself presents two
+interfaces: one in a web application, and one on the command line—that
+example project is still contrived. To present the complexity of a
+real project would require a book far larger than the one you are now
+reading. Real-life applications evolve over years and are often
+maintained by large, diverse groups of developers, each with a
+different focus. In a real-world project, you are often evaluating
+decisions and designs made and created by others. In this chapter, we
+take a step back from the examples you've seen in the previous
+chapters, and we ask ourselves if there are any optimizations that
+might make more sense given what we now know about Maven. Maven is a
+very capable tool that can be as simple or as complex as you need it
+to be. Because of this, there are often a million ways to accomplish
+the same task, and there is often no one “right” way to configure your
+Maven project.
+
+Don't misinterpret that last sentence as a license to go off and ask
+Maven to do something it wasn't designed for. While Maven allows for a
+diversity of approach, there is certainly "A Maven Way", and you'll be
+more productive using Maven as it was designed to be used. All this
+chapter is trying to do is communicate some of the optimizations you
+can perform on an existing Maven project. Why didn't we just introduce
+an optimized POM in the first place? Designing POMs for pedagogy is a
+very different requirement from designing POMs for efficiency. While
+it is certainly much easier to define a certain setting in your
+'~/.m2/settings.xml' than to declare a profile in a 'pom.xml', writing
+a book, and reading a book is mostly about pacing and making sure
+we're not introducing concepts before you are ready. In the previous
+chapters, we've made an effort not to overwhelm the reader with too
+much information, and, in doing so, we've skipped some core concepts
+like the dependencyManagement element introduced in this chapter.
+
+There are many instances in the previous chapters when the authors of
+this book took a shortcut or glossed over an important detail to
+shuffle you along to the main point of a specific chapter. You learned
+how to create a Maven project, and you compiled and installed it
+without having to wade through hundreds of pages introducing every
+last switch and dial available to you. We've done this because we
+believe it is important to deliver the new Maven user to a result
+faster rather than meandering our way through a very long, seemingly
+interminable story. Once you've started to use Maven, you should know
+how to analyze your own projects and POMs. In this chapter, we take a
+step back and look at what we are left with after the example from
+<<multimodule-web-spring>>.
+
+[[optimizing-sect-pom-cleanup]]
+=== POM Cleanup
+
+Optimizing a multimodule project's POM is best done in several passes,
+as there are many areas to focus on. In general, we are looking for
+repetition within a POM and across the sibling POMs. When you are
+starting out, or when a project is still evolving rapidly, it is
+acceptable to duplicate some dependencies and plugin configurations
+here and there, but as the project matures and as the number of
+modules increases, you will want to take some time to refactor common
+dependencies and configuration points. Making your POMs more efficient
+will go a long way to helping you manage complexity as your project
+grows. Whenever there is duplication of some piece of information,
+there is usually a better way.
+
+[[optimizing-sect-dependencies]]
+=== Optimizing Dependencies
+
+If you look through the various POMs duplication into a parent POM.
+
+Just as in your project's source code, any time you have duplication
+in your POMs, you open the door a bit for trouble down the
+road. Duplicated dependency declarations make it difficult to ensure
+consistent versions across a large project. When you only have two or
+three modules, this might not be a primary issue, but when your
+organization is using a large, multimodule Maven build to manage
+hundreds of components across multiple departments, one single
+mismatch between dependencies can cause chaos and confusion. A simple
+version mismatch in a project's dependency on a bytecode manipulation
+package called ASM three levels deep in the project hierarchy could
+throw a wrench into a web application maintained by a completely
+different group of developers who depend on that particular
+module. Unit tests could pass because they are being run with one
+version of a dependency, but they could fail disastrously in
+production where the bundle (WAR, in this case) was packaged up with a
+different version. If you have tens of projects using something like
+Hibernate Annotations, each repeating and duplicating the dependencies
+and exclusions, the mean time between someone screwing up a build is
+going to be very short. As your Maven projects become more complex,
+your dependency lists are going to grow, and you are going to want to
+consolidate versions and dependency declarations in parent POMs.
+
+The duplication of the sibling module versions can introduce a
+particularly nasty problem that is not directly caused by Maven and is
+learned only after you've been bitten by this bug a few times. If you
+use the Maven Release plugin to perform your releases, all these
+sibling dependency versions will be updated automatically for you, so
+maintaining them is not the concern. If +simple-web+ version
++1.3-SNAPSHOT+ depends on +simple-persist+ version +1.3-SNAPSHOT+, and
+if you are performing a release of the 1.3 version of both projects,
+the Maven Release plugin is smart enough to change the versions
+throughout your multimodule project's POMs automatically. Running the
+release with the Release plugin will automatically increment all of
+the versions in your build to +1.4-SNAPSHOT+, and the release plugin
+will commit the code change to the repository. Releasing a huge
+multimodule project couldn't be easier, until...
+
+Problems occur when developers merge changes to the POM and interfere
+with a release that is in progress. Often a developer merges and
+occasionally mishandles the conflict on the sibling dependency,
+inadvertently reverting that version to a previous release. Since the
+consecutive versions of the dependency are often compatible, it does
+not show up when the developer builds, and won't show up in any
+continuous integration build system as a failed build. Imagine a very
+complex build where the trunk is full of components at +1.4-SNAPSHOT+,
+and now imagine that Developer A has updated Component A deep within
+the project's hierarchy to depend on version +1.3-SNAPSHOT+ of
+Component B. Even though most developers have +1.4-SNAPSHOT+, the
+build succeeds if version +1.3-SNAPSHOT+ and +1.4-SNAPSHOT+ of
+Component B are compatible. Maven continues to build the project using
+the +1.3-SNAPSHOT+ version of Component B from the developer's local
+repositories. Everything seems to be going quite smoothly—the project
+builds, the continuous integration build works fine, and so
+on. Someone might have a mystifying bug related to Component B, but
+she chalks it up to malevolent gremlins and moves on. Meanwhile, a
+pump in the reactor room is steadily building up pressure, until
+something blows....
+
+Someone, let's call them Mr. Inadvertent, had a merge conflict in
+component A, and mistakenly pegged component A's dependency on
+component B to +1.3-SNAPSHOT+ while the rest of the project marches
+on. A bunch of developers have been trying to fix a bug in component B
+all this time and they've been mystified as to why they can't seem to
+fix the bug in production. Eventually someone looks at component A and
+realizes that the dependency is pointing to the wrong
+version. Hopefully, the bug wasn't large enough to cost money or
+lives, but Mr. Inadvertent feels stupid and people tend to trust him a
+little less than they did before the whole sibling dependency
+screw-up. (Hopefully, Mr. Inadvertent realizes that this was user
+error and not Maven's fault, but more than likely he starts an awful
+blog and complains about Maven endlessly to make himself feel better.)
+
+Fortunately, dependency duplication and sibling dependency mismatch
+are easily preventable if you make some small changes. The first thing
+we're going to do is find all the dependencies used in more than one
+project and move them up to the parent POM's dependencyManagement
+section. We'll leave out the sibling dependencies for now. The
++simple-parent+ pom now contains the following:
+
+----
+<project>
+    ...
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring</artifactId>
+                <version>2.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>1.5</version>
+            </dependency>  
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>3.3.0.ga</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>3.3.0.ga</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.5.ga</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    ...
+</project>
+----
+
+Once these are moved up, we need to remove the versions for these
+dependencies from each of the POMs; otherwise, they will override the
+dependencyManagement defined in the parent project. Let's look at only
++simple-model+ for brevity's sake:
+
+----
+<project>
+    ...
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+        </dependency>
+    </dependencies>
+    ...
+</project>
+----
+
+The next thing we should do is fix the replication of the
++hibernate-annotations+ and +hibernate-commons-annotations+ version
+since these should match. We'll do this by creating a property called
++hibernate.annotations.version+. The resulting +simple-parent+ section
+looks like this:
+
+----
+<project>
+    ...
+    <properties>
+        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+    </properties>
+
+    <dependencyManagement>
+        ...
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
+        </dependency>
+        ...
+    </dependencyManagement>
+    ...
+</project>
+----
+
+The last issue we have to resolve is with the sibling dependencies and
+define the versions of sibling projects in the top-level parent
+project. This is certainly a valid approach, but we can also solve the
+version problem just by using two built-in
+properties—'+++${project.groupId}+++' and
+'+++${project.version}+++'. Since they are sibling dependencies, there
+is not much value to be gained by enumerating them in the parent, so
+we'll rely on the built-in '+++${project.version}+++'
+property. Because they all share the same group, we can further
+future-proof these declarations by referring to the current POM's
+group using the built-in '+++${project.groupId}+++' property. The
++simple-command+ dependency section now looks like this:
+
+----
+<project>
+    ...
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-weather</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-persist</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        ...
+    </dependencies>
+    ...
+</project>
+----
+
+Here's a summary of the two optimizations we completed that reduce
+duplication of dependencies:
+
+Pull-up common dependencies to dependencyManagement::
+
+   If more than one project depends on a specific dependency, you can
+   list the dependency in dependencyManagement. The parent POM can
+   contain a version and a set of exclusions; all the child POM needs
+   to do to reference this dependency is use the +groupId +and
+   +artifactId+. Child projects can omit the version and exclusions if
+   the dependency is listed in dependencyManagement.
+
+Use built-in project +version+ and +groupId+ for sibling projects::
+
+   Use '+++${project.version}+++' and '+++${project.groupId}+++' when
+   referring to a sibling project. Sibling projects almost always
+   share the same +groupId+, and they almost always share the same
+   release version. Using '+++${project.version}+++' will help you
+   avoid the sibling version mismatch problem discussed previously.
+
+[[optimizing-sect-plugins]]
+=== Optimizing Plugins
+
+If we take a look at the various plugin configurations, we can see the
+HSQLDB dependencies duplicated in several places. Unfortunately,
+dependencyManagement doesn't apply to plugin dependencies, but we can
+still use a property to consolidate the versions. Most complex Maven
+multimodule projects tend to define all versions in the top-level
+POM. This top-level POM then becomes a focal point for changes that
+affect the entire project. Think of version numbers as string literals
+in a Java class; if you are constantly repeating a literal, you'll
+likely want to make it a variable so that when it needs to be changed,
+you have to change it in only one place. Rolling up the version of
+HSQLDB into a property in the top-level POM yields the following
++properties+ element:
+
+----
+<project>
+    ...
+    <properties>
+        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+        <hsqldb.version>1.8.0.7</hsqldb.version>
+    </properties>
+    ...
+</project>
+----
+
+The next thing we notice is that the +hibernate3-maven-plugin+
+configuration is duplicated in the +simple-webapp+ and
++simple-command+ modules. We can manage the plugin configuration in
+the top-level POM just as we managed the dependencies in the top-level
+POM with the dependencyManagement section. To do this, we use the
+pluginManagement element in the top-level POM's build element:
+
+----
+<project>
+    ...
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>hibernate3-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <components>
+                            <component>
+                                <name>hbm2ddl</name>
+                                <implementation>annotationconfiguration</implementation>
+                            </component>
+                        </components>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>hsqldb</groupId>
+                            <artifactId>hsqldb</artifactId>
+                            <version>${hsqldb.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    ...
+</project>
+----
+
+[[optimizing-sect-dependency-plugin]]
+=== Optimizing with the Maven Dependency Plugin
+
+On larger projects, additional dependencies often tend to creep into a
+POM as the number of dependencies grow. As dependencies change, you
+are often left with dependencies that are not being used, and just as
+often, you may forget to declare explicit dependencies for libraries
+you require. Because Maven 2.x includes transitive dependencies in the
+compile scope, your project may compile properly but fail to run in
+production. Consider a case where a project uses classes from a widely
+used project such as Jakarta Commons BeanUtils. Instead of declaring
+an explicit dependency on BeanUtils, your project simply relies on a
+project like Hibernate that references BeanUtils as a transitive
+dependency. Your project may compile successfully and run just fine,
+but if you upgrade to a new version of Hibernate that doesn't depend
+on BeanUtils, you'll start to get compile and runtime errors, and it
+won't be immediately obvious why your project stopped compiling. Also,
+because you haven't explicitly listed a dependency version, Maven
+cannot resolve any version conflicts that may arise.
+
+A good rule of thumb in Maven is to always declare explicit
+dependencies for classes referenced in your code. If you are going to
+be importing Commons BeanUtils classes, you should also be declaring a
+direct dependency on Commons BeanUtils. Fortunately, via bytecode
+analysis, the Maven Dependency plugin is able to assist you in
+uncovering direct references to dependencies. Using the updated POMs
+we previously optimized, let's look to see if any errors pop up:
+
+----
+$ mvn dependency:analyze
+[INFO] Scanning for projects...
+[INFO] Reactor build order:
+[INFO]   Chapter 8 Simple Parent Project
+[INFO]   Chapter 8 Simple Object Model
+[INFO]   Chapter 8 Simple Weather API
+[INFO]   Chapter 8 Simple Persistence API
+[INFO]   Chapter 8 Simple Command Line Tool
+[INFO]   Chapter 8 Simple Web Application
+[INFO]   Chapter 8 Parent Project
+[INFO] Searching repository for plugin with prefix: 'dependency'.
+
+...
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Chapter 8 Simple Object Model
+[INFO]task-segment: [dependency:analyze]
+[INFO] ------------------------------------------------------------------------
+[INFO] Preparing dependency:analyze
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [resources:testResources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [dependency:analyze]
+[WARNING] Used undeclared dependencies found:
+[WARNING]javax.persistence:persistence-api:jar:1.0:compile
+[WARNING] Unused declared dependencies found:
+[WARNING]org.hibernate:hibernate-annotations:jar:3.3.0.ga:compile
+[WARNING]org.hibernate:hibernate:jar:3.2.5.ga:compile
+[WARNING]junit:junit:jar:3.8.1:test
+
+...
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Chapter 8 Simple Web Application
+[INFO]task-segment: [dependency:analyze]
+[INFO] ------------------------------------------------------------------------
+[INFO] Preparing dependency:analyze
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [resources:testResources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] No sources to compile
+[INFO] [dependency:analyze]
+[WARNING] Used undeclared dependencies found:
+[WARNING]org.sonatype.mavenbook.optimize:simple-model:jar:1.0:compile
+[WARNING] Unused declared dependencies found:
+[WARNING]org.apache.velocity:velocity:jar:1.5:compile
+[WARNING]javax.servlet:jstl:jar:1.1.2:compile
+[WARNING]taglibs:standard:jar:1.1.2:compile
+[WARNING]junit:junit:jar:3.8.1:test
+----
+
+In the truncated output just shown, you can see the output of the
++dependency:++analyze+ goal. This goal analyzes the project to see
+whether there are any indirect dependencies, or dependencies that are
+being referenced but are not directly declared. In the +simple-model+
+project, the Dependency plugin indicates a “used undeclared
+dependency” on +javax.persistence:persistence-api+. To investigate
+further, go to the +simple-model+ directory and run the
++dependency:tree+ goal, which will list all of the project's direct
+and transitive dependencies:
+
+----
+$ mvn dependency:tree
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'dependency'.
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Chapter 8 Simple Object Model
+[INFO]task-segment: [dependency:tree]
+[INFO] ------------------------------------------------------------------------
+[INFO] [dependency:tree]
+[INFO] org.sonatype.mavenbook.optimize:simple-model:jar:1.0
+[INFO] +- org.hibernate:hibernate-annotations:jar:3.3.0.ga:compile
+[INFO] |  \- javax.persistence:persistence-api:jar:1.0:compile
+[INFO] +- org.hibernate:hibernate:jar:3.2.5.ga:compile
+[INFO] |  +- net.sf.ehcache:ehcache:jar:1.2.3:compile
+[INFO] |  +- commons-logging:commons-logging:jar:1.0.4:compile
+[INFO] |  +- asm:asm-attrs:jar:1.5.3:compile
+[INFO] |  +- dom4j:dom4j:jar:1.6.1:compile
+[INFO] |  +- antlr:antlr:jar:2.7.6:compile
+[INFO] |  +- cglib:cglib:jar:2.1_3:compile
+[INFO] |  +- asm:asm:jar:1.5.3:compile
+[INFO] |  \- commons-collections:commons-collections:jar:2.1.1:compile
+[INFO] \- junit:junit:jar:3.8.1:test
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+----
+
+From this output, we can see that the +persistence-api+ dependency is
+coming from +hibernate+. A cursory scan of the source in this module
+will reveal many +javax.persistence+ import statements confirming that
+we are, indeed, directly referencing this dependency. The simple fix
+is to add a direct reference to the dependency. In this example, we
+put the dependency version in +simple-parent+'s dependencyManagement
+section because the dependency is linked to Hibernate, and the
+Hibernate version is declared here. Eventually you are going to want
+to upgrade your project's version of Hibernate. Listing the
++persistence-api+ dependency version near the Hibernate dependency
+version will make it more obvious later when your team modifies the
+parent POM to upgrade the Hibernate version.
+
+If you look at the +dependency:analyze+ output from the +simple-web+
+module, you will see that we also need to add a direct reference to
+the +simple-model+ dependency. The code in +simple-webapp+ directly
+references the model objects in +simple-model+, and the +simple-model+
+is exposed to +simple-webapp+ as a transitive dependency via
++simple-persist+. Since this is a sibling dependency that shares both
+the +version+ and +groupId+, the dependency can be defined in
++simple-webapp+'s 'pom.xml' using the '+++${project.groupId}+++' and
+'+++${project.version}+++'.
+
+How did the Maven Dependency plugin uncover these issues? How does
++dependency:analyze+ know which classes and dependencies are directly
+referenced by your project's bytecode? The Dependency plugin uses the
+ObjectWeb ASM (http://asm.objectweb.org/[http://asm.objectweb.org/])
+of “used, undeclared dependencies” is produced.
+
+In contrast, the list of unused, declared dependencies is a little
+trickier to validate, and less useful than the “used, undeclared
+dependencies.” For one, some dependencies are used only at runtime or
+for tests, and they won't be found in the bytecode. These are pretty
+obvious when you see them in the output; for example, JUnit appears in
+this list, but this is expected because it is used only for unit
+tests. You'll also notice that the Velocity and Servlet API
+dependencies are listed in this list for the +simple-web+ module. This
+is also expected because, although the project doesn't have any direct
+references to the classes of these artifacts, they are still essential
+during runtime.
+
+Be careful when removing any unused, declared dependencies unless you
+have very good test coverage, or you might introduce a runtime
+error. A more sinister issue pops up with bytecode optimization. For
+example, it is legal for a compiler to substitute the value of a
+constant and optimize away the reference. Removing this dependency
+will cause the compile to fail, yet the tool shows it as
+unused. Future versions of the Maven Dependency plugin will provide
+better techniques for detecting and/or ignoring these types of issues.
+
+You should use the +dependency:analyze+ tool periodically to detect
+these common errors in your projects. It can be configured to fail the
+build if certain conditions are found, and it is also available as a
+report.
+
+[[optimizing-sect-final-poms]]
+=== Final POMs
+
+As an overview, the final POM files are listed as a reference for this
+chapter. <<ex-final-pom-for-simple-parent>> shows the top-level POM
+for +simple-parent+.
+
+[[ex-final-pom-for-simple-parent]]
+.Final POM for simple-parent
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.sonatype.mavenbook.optimize</groupId>
+    <artifactId>simple-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>Chapter 8 Simple Parent Project</name>
+
+    <modules>
+        <module>simple-command</module>
+        <module>simple-model</module>
+        <module>simple-weather</module>
+        <module>simple-persist</module>
+        <module>simple-webapp</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>hibernate3-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <components>
+                            <component>
+                                <name>hbm2ddl</name>
+                                <implementation>annotationconfiguration</implementation>
+                            </component>
+                        </components>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>hsqldb</groupId>
+                            <artifactId>hsqldb</artifactId>
+                            <version>${hsqldb.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement> 
+    </build>
+
+    <properties>
+        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+        <hsqldb.version>1.8.0.7</hsqldb.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring</artifactId>
+                <version>2.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>1.5</version>
+            </dependency>  
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>${hibernate.annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>${hibernate.annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.5.ga</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>  
+----
+
+The POM shown in <<ex-final-pom-for-simple-command>> captures the POM
+for +simple-command+, the command-line version of the tool.
+
+[[ex-final-pom-for-simple-command]]
+.Final POM for simple-command
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.optimize</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>simple-command</artifactId>
+    <packaging>jar</packaging>
+    <name>Chapter 8 Simple Command Line Tool</name>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>org.sonatype.mavenbook.weather.Main</mainClass>
+                                <addClasspath>true</addClasspath>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-weather</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-persist</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+The POM shown in <<ex-final-pom-for-simple-model>> is the
++simple-model+ project's POM. The +simple-model+ project contains all
+of the model objects used throughout the application.
+
+[[ex-final-pom-for-simple-model]]
+.Final POM for simple-model
+----
+    <project xmlns="http://maven.apache.org/POM/4.0.0" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                                 http://maven.apache.org/maven-v4_0_0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <parent>
+            <groupId>org.sonatype.mavenbook.optimize</groupId>
+            <artifactId>simple-parent</artifactId>
+            <version>1.0</version>
+        </parent>
+        <artifactId>simple-model</artifactId>
+        <packaging>jar</packaging>
+
+        <name>Chapter 8 Simple Object Model</name>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+            </dependency>
+        </dependencies>
+    </project>
+----
+
+The POM shown in <<ex-final-pom-for-simple-persist>> is the
++simple-persist+ project's POM. The +simple-persist+ project contains
+all of the persistence logic that is implemented using Hibernate.
+
+[[ex-final-pom-for-simple-persist]]
+.Final POM for simple-persist
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.optimize</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>simple-persist</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Chapter 8 Simple Persistence API</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+The POM shown in <<ex-final-pom-for-simple-weather>> is the
++simple-weather+ project's POM. The +simple-weather+ project is the
+project that contains all of the logic to parse the Yahoo! Weather RSS
+feed. This project depends on the +simple-model+ project.
+
+[[ex-final-pom-for-simple-weather]]
+.Final POM for simple-weather
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.optimize</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>simple-weather</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Chapter 8 Simple Weather API</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+Finally, the POM shown in <<ex-final-pom-for-simple-webapp>> is the
++simple-webapp+ project's POM. The +simple-webapp+ project contains a
+web application that stores retrieved weather forecasts in an HSQLDB
+database and that also interacts with the libraries generated by the
++simple-weather+ project.
+
+[[ex-final-pom-for-simple-webapp]]
+.Final POM for simple-webapp
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.mavenbook.optimize</groupId>
+        <artifactId>simple-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>simple-webapp</artifactId>
+    <packaging>war</packaging>
+    <name>Chapter 8 Simple Web Application</name>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-weather</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>simple-persist</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>simple-webapp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.9</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>${hsqldb.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+----
+
+[[optimizing-sect-conclusion]]
+=== Conclusion
+
+This chapter has shown you several techniques for improving the
+control of your dependencies and plugins to ease future maintenance of
+your builds. We recommend periodically reviewing your builds in this
+way to ensure that duplication and thus time and can easily be cleaned
+up with the Maven Dependency plugin.
