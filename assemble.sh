@@ -16,6 +16,7 @@ cp examples/target/mvnexbook-examples-1.0-project.zip target/site/mvnex-examples
 cp -r target/book-mvnex.chunked/* target/site/reference
 mkdir -p target/site/reference/css
 cp -r site/css target/site/reference
+cp -r site/js target/site/reference
 cp -r site/assets target/site/reference
 cp -r site/images target/site/reference
 
