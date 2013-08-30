@@ -141,11 +141,10 @@ the left.
 [[installation-sect-universal-reuse]]
 === Universal Reuse through Maven Plugins
 
-Central Maven Repository. This is more than just a trick to minimize
-the download size of the Maven distribution, this is behavior which
-allows you to upgrade a plugin to add capability to your project's
-build. The fact that Maven retrieves both dependencies and plugins
-from the remote repository allows for universal reuse of build logic.
+Plugins are more than just a trick to minimize the download size of the
+Maven distribution. Plugins add new behavior to your project's build.
+Maven retrieves both dependencies and plugins from the remote repository
+allowing for universal reuse of build logic.
 
 The Maven Surefire plugin is the plugin that is responsible for
 running unit tests. Somewhere between version 1.0 and the version that
