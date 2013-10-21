@@ -46,63 +46,78 @@ contains the source code for this chapter.
 === Creating a Simple Project
 
 To start a new Maven project, use the Maven Archetype plugin from the
-command line. Run the +archetype:generate+ goal, select archetype #77,
-and then enter "Y" to confirm and generate the new project:
+command line. Run the +archetype:generate+ goal, select default
+archetype suggested by pressing "Enter". This will use the archetype 
++org.apache.maven.archetypes:maven-archetype-quickstart+. Press
+"Enter" again to confirm the latest version of the archetype and then
+"Enter" to confirm the supplied parameters.
 
 WARNING: At the time of publication, the default
-"maven-archetype-quickstart" was item #77 in a list of 284 available
++maven-archetype-quickstart+ was item #312 in a list of 860 available
 archetypes. As more and more projects release Maven archetypes, this
 list will change and the number for the default archetype may
-change. Don't be surprised if you need to select a different
-number. When you run +archetype:generate+ as shown below, the default
+change. When you run +archetype:generate+ as shown below, the default
 +maven-archetype-quickstart+ will be selected by default.
 
 ----
-$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
+$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook \
 -DartifactId=simple \
 -Dpackage=org.sonatype.mavenbook \
 -Dversion=1.0-SNAPSHOT
-[INFO] Scanning for projects...
-[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO]
 [INFO] ------------------------------------------------------------------------
-[INFO] Building Maven Default Project
-[INFO]task-segment: [archetype:generate] (aggregator-style)
+[INFO] Building Maven Stub Project (No POM) 1
 [INFO] ------------------------------------------------------------------------
-[INFO] Preparing archetype:generate
-[INFO] No goals needed for project - skipping
-[INFO] Setting property: velocimacro.messages.on => 'false'.
-[INFO] Setting property: resource.loader => 'classpath'.
-[INFO] Setting property: resource.manager.logwhenfound => 'false'.
-[INFO] [archetype:generate {execution: default-cli}]
+[INFO]
+[INFO] >>> maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom >>>
+[INFO]
+[INFO] <<< maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom <<<
+[INFO]
+[INFO] --- maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom ---
 [INFO] Generating project in Interactive mode
-[INFO] No archetype defined. Using maven-archetype-quickstart \
-(org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
+[INFO] No archetype defined. Using maven-archetype-quickstart (org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
 Choose archetype:
 ...
-77: internal -> maven-archetype-quickstart ()
-Choose a number:  (...) 77: : 77
+312: remote -> org.apache.maven.archetypes:maven-archetype-quickstart (An archetype which contains a sample Maven project.)
+Choose a number or apply filter (format: [groupId:]artifactId, case sensitive contains): 312:
+Choose org.apache.maven.archetypes:maven-archetype-quickstart version:
+1: 1.0-alpha-1
+2: 1.0-alpha-2
+3: 1.0-alpha-3
+4: 1.0-alpha-4
+5: 1.0
+6: 1.1
+Choose a number: 6:
+[INFO] Using property: groupId = org.sonatype.mavenbook
+[INFO] Using property: artifactId = simple
+[INFO] Using property: version = 1.0-SNAPSHOT
+[INFO] Using property: package = org.sonatype.mavenbook
 Confirm properties configuration:
-groupId: org.sonatype.mavenbook.simple
+groupId: org.sonatype.mavenbook
 artifactId: simple
 version: 1.0-SNAPSHOT
 package: org.sonatype.mavenbook
-Y: : Y
-...
-[INFO] Parameter: groupId, Value: org.sonatype.mavenbook.simple
+ Y: :
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.1
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: org.sonatype.mavenbook
 [INFO] Parameter: packageName, Value: org.sonatype.mavenbook
-[INFO] Parameter: package, Value: org.sonatype.mavenbook.simple
+[INFO] Parameter: package, Value: org.sonatype.mavenbook
 [INFO] Parameter: artifactId, Value: simple
-[INFO] Parameter: basedir, Value: /private/tmp
+[INFO] Parameter: basedir, Value: /Volumes/mac-data/dev/github/sonatype
 [INFO] Parameter: version, Value: 1.0-SNAPSHOT
-[INFO] BUILD SUCCESSFUL
+[INFO] project created from Old (1.x) Archetype in dir: /Volumes/mac-data/dev/github/sonatype/simple
+[INFO] BUILD SUCCESS
+...
 ----
 
-+mvn+ is the Maven 2 command. +archetype:generate+ is called a Maven
-goal. If you are archetype is defined as “an original model or type
++mvn+ is the Maven command. +archetype:generate+ is called a Maven
+goal. An archetype is defined as “an original model or type
 after which other similar things are patterned; a prototype.”  A
 number of archetypes are available in Maven for anything from a simple
-Swing application to a complex web application, and the
-+archetype:generate+ offers a list of approximately 40 archetypes to
+application to a complex web application, and the
++archetype:generate+ offers a list of archetypes to
 choose from. In this chapter, we are going to use the most basic
 archetype to create a simple skeleton starter project. The plugin is
 the prefix +archetype+, and the goal is +generate+.
