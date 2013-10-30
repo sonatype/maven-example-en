@@ -10,10 +10,10 @@ rm -rf target/site/pdf
 
 echo "Building example projects"
 
-pushd .
-cd examples
-mvn clean install
-popd 
+#pushd .
+#cd examples
+#mvn clean install
+#popd 
 
 echo "Copying resources for site"
 mkdir -p target/site/reference
