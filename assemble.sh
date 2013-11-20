@@ -8,17 +8,12 @@ set -u
 rm -rf target/site/reference
 rm -rf target/site/pdf
 
-echo "Building example projects"
-
-#pushd .
-#cd examples
-#mvn clean install
-#popd 
-
 echo "Copying resources for site"
 mkdir -p target/site/reference
 mkdir -p target/site/pdf
 
+# this relies on the example project being build prior to this and is achieved
+# with a separate build step
 cp examples/target/mvnexbook-examples-1.0-project.zip target/site/mvnex-examples.zip
 
 cp -r target/book-mvnex.chunked/* target/site/reference
