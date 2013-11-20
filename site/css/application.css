@@ -6588,13 +6588,9 @@ blockquote p span {
     height: 20px;
     line-height: 20px;
     vertical-align: top;
-    background-image: url('../assets/icons-big.png');
+    background-image: url(/assets/icons-big-578cc669f8faae0b42613c160f7afba4.png);
     background-position: -2000px -2000px;
     background-repeat: no-repeat;
-    -webkit-background-size: 288px 288px;
-    -moz-background-size: 288px 288px;
-    -o-background-size: 288px 288px;
-    background-size: 288px 288px;
 }
 [class^="small-icon-"] {
     display: inline-block;
@@ -6620,7 +6616,10 @@ blockquote p span {
     background-position: -56px -11px;
 }
 .big-icon-market {
-    background-position: -8px -8px;
+    width: 22px;
+    background-image: url(http://www.sonatype.com/system/images/W1siZiIsIjIwMTMvMDkvMjUvMjEvMzcvNDQvNzE0L2ljb25fY2FydC5wbmciXV0/icon_cart.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
 }
 .big-icon-search {
     background-position: -36px -8px;
@@ -6722,7 +6721,7 @@ blockquote p span {
     background: url('social-icons-sprite.png') 0px -156px no-repeat;
 }
 .header-content {
-    background: #000;
+    background: #fff;
 }
 .header-content .navbar ul.nav li {
     position: relative;
@@ -6854,8 +6853,14 @@ blockquote p span {
     border-right: 1px solid #fff;
     position: relative;
 }
+.header-bar ul li.social-link {
+    padding-right: 0px;
+    padding-left: 5px;
+    padding-top: 3px;
+    border: none;
+}
 .header-bar ul li a {
-    color: #000;
+    color: #fff;
     text-decoration: none;
     line-height: 26px;
 }
@@ -6918,16 +6923,12 @@ blockquote p span {
 .header-bar ul li.form-holder .text-input::-webkit-input-placeholder {
     color: #000;
 }
-.header-bar ul li.form-holder .search-button {
+ul li.form-holder .search-button {
     margin: 0;
     height: 25px;
     width: 27px;
     float: left;
-    background: #97b9c2 url('../assets/icons-big.png') no-repeat -36px -6px;
-    -webkit-background-size: 288px 288px;
-    -moz-background-size: 288px 288px;
-    -o-background-size: 288px 288px;
-    background-size: 288px 288px;
+    background: #97B9C2 url(http://www.sonatype.com/system/images/W1siZiIsIjIwMTMvMDkvMjUvMTgvNTQvMTMvMzIzL2ljb25fc2VhcmNoLnBuZyJdXQ/icon_search.png) no-repeat;
     border: none;
     -webkit-border-radius: 0 12px 12px 0;
     -moz-border-radius: 0 12px 12px 0;
@@ -7004,7 +7005,7 @@ blockquote p span {
     margin: 0;
 }
 .logo {
-    padding: 36px 0 5px 0;
+    padding: 8px 0 0px 0;
 }
 .logo h2 {
     padding-bottom: 0;
@@ -7028,17 +7029,17 @@ blockquote p span {
     display: none;
 }
 .nav-holder .nav li a {
-    color: #fff;
+    color: #000;
     text-shadow: none;
     padding: 0 0 15px 0;
 }
 .nav-holder .nav li a:hover {
-    color: #528b9a;
+    color: #528B9A;
     padding-bottom: 15px;
     background: url('../assets/nav-indicator.png') no-repeat center bottom;
 }
 .nav-holder .nav li.selected a {
-    color: #528b9a;
+    color: #528B9A;
     padding-bottom: 15px;
     background: url('../assets/nav-indicator.png') no-repeat center bottom;
 }
@@ -7090,16 +7091,18 @@ blockquote p span {
     color: #000;
 }
 .content {
-    background: #000;
-    padding-bottom: 50px;
+    background: #fff;
 }
 .content-box {
-    border: 1px solid #fff;
+    border: 1px solid #FFF;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
-    background: #fff;
+    background: #FFF;
     padding-bottom: 40px;
+    -webkit-box-shadow: inset 0px -10px 5px #FFF,inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0px -10px 5px #fff,inset 0px 0px 10px rgba(0,0,0,0.2);
+    box-shadow: inset 0px -10px 5px #FFF,inset 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 #home-page .content-box {
     border: none;
@@ -8695,12 +8698,13 @@ img#clientlogos {
     line-height: 18px;
     padding-top: 32px;
     color: #000;
-    -webkit-box-shadow: inset -1px 8px 13px -6px rgba(5, 5, 5, 0.75);
-    -moz-box-shadow: inset -1px 8px 13px -6px rgba(5, 5, 5, 0.75);
-    box-shadow: inset -1px 8px 13px -6px rgba(5, 5, 5, 0.75);
+    background: #DDD;
+    -webkit-box-shadow: inset -1px 8px 13px -6px rgba(5, 5, 5, 0.25);
+    -moz-box-shadow: inset -1px 8px 13px -6px rgba(5,5,5,0.25);
+    box-shadow: inset -1px 8px 13px -6px rgba(5, 5, 5, 0.25);
 }
 .footer h6 {
-    color: #fff;
+    color: #528B9A;
     font-family: Calibri, Arial, Helvetica, sans-serif;
 }
 .footer [class*="span"] {
@@ -8735,6 +8739,12 @@ img#clientlogos {
 }
 .footer .nav-holder .footer-nav i {
     margin-top: 4px;
+}
+.footer ul li .footer-social a {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 6px 6px 0;
 }
 .news-item {
     padding-bottom: 24px;
@@ -9177,7 +9187,7 @@ img#clientlogos {
 /* This is new CSS for main navigation */
 .header-content .navbar ul.nav li {
   position: relative;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .header-content .navbar ul.nav li .sub-menu {
@@ -9286,10 +9296,12 @@ img#clientlogos {
 }
 
 .nav-holder .nav {
-  @include reset-list();
-  padding-top: 55px;
-  font-size: 20px;
-  line-height: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding-top: 21px;
+    font-size: 20px;
+    line-height: 28px;
 }
 
 .nav-holder .nav li {
@@ -9305,7 +9317,7 @@ img#clientlogos {
 }
 
 .nav-holder .nav li a {
-  color: #fff;
+  color: #000;
   text-shadow: none;
   padding: 0 0 15px 0;
 }
@@ -9362,17 +9374,19 @@ img#clientlogos {
 }
 
 .nav-holder .nav.footer-nav li a {
-  display: inline-block;
-  padding: 0;
+    display: inline-block;
+    padding: 0;
+    color: #528B9A;
+    background: none;
 }
 
 .nav-holder .nav.footer-nav li a:hover {
-  color: #fff;
+  color: #528B9A;
   text-decoration: underline;
 }
 
 .nav-holder .nav.footer-nav li.selected a {
-  color: #fff;
+  color: #528B9A;
   padding-bottom: 0;
   background: none;
 }
