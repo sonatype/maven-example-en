@@ -5,6 +5,14 @@
 
 /*** Layout ***/
 
+/* overriding content from application.css */
+
+/* this is necessary to remove the max-width 100% which causes admonition block icons to have wrong size */
+img {
+    max-width: none; 
+}
+
+
 .preface a, .preface a:hover {
 	font-family: Calibri,Arial,Helvetica,sans-serif;
 	font-size: 18px;
@@ -24,25 +32,6 @@
 .section a, .section a:hover {
 	font-family: Calibri,Arial,Helvetica,sans-serif;
 	font-size: 16px;
-}
-
-#nav-sub-block {
-	margin-top: 10px;
-	border-top: 1px solid #CCC;
-	text-align: right;
-	padding-top: 10px;
-}
-
-ul#nav-sub {
-	clear: both;
-	list-style-type: none;
-	padding:0;
-	margin:0px 0px 0px 0px;
-}
-
-ul#nav-sub li.first {
-text-align: left;
-float:left;
 }
 
 .book .titlepage h2.title {
@@ -80,14 +69,19 @@ float:left;
   margin-bottom: 10px;
 }
 
+#nav-sub-block {
+  margin: 0px;
+  padding: 0px;
+}
 
-ul#nav-sub {
+ul#nav-sub  {
+  margin: 0px;
   padding: 0px;
 }
 
 ul#nav-sub li {
-  margin: 0px;
-  padding: 0px;
+  text-align: center;
+  list-style-type: none;
 }
 
 ul#nav-sub li.first {
@@ -97,3 +91,4 @@ ul#nav-sub li.first {
 ul#nav-sub li.last {
   text-align: right;
 }
+
