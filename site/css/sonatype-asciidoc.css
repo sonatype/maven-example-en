@@ -72,6 +72,8 @@ img {
 #nav-sub-block {
   margin: 0px;
   padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 ul#nav-sub  {
@@ -82,13 +84,20 @@ ul#nav-sub  {
 ul#nav-sub li {
   text-align: center;
   list-style-type: none;
+  display: inline-block;
 }
 
 ul#nav-sub li.first {
   text-align: left;
+  float:left;
+  font-style: italic;
+  margin-right: 30px;
 }
 
 ul#nav-sub li.last {
   text-align: right;
+  float:right;
+  font-style: italic;
+  margin-left: 30px;
 }
 
