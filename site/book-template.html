@@ -16,10 +16,11 @@ lang="en">
 
 </head>
 
-<body id="executives-page" class="book ss-book-mvnex">
-  <!-- Depending on which book, the above body needs one of these classes: ss-book-mcookbook, ss-book-mvnref, 
-  ss-book-mvnrefbook, ss-book-mvnex, ss-book-nxbook, ss-book-m2eclipse, or ss-book-tychobook.
-  It is currently set to mcookbook to ensure it populates on test -->
+<body id="executives-page" class="book ${bookId}">
+  <!-- Depending on which book, the above body needs one of these
+  classes, this is used for the identification of the book and the
+  population fo the sidebar: ss-book-mvnref, ss-book-mvnex, ss-book-nxbook, ss-book-clmbook.
+  -->
   <header class="header">
     <div class="header-bar">
       <div class="container-fluid">
@@ -182,11 +183,10 @@ lang="en">
       <div class="content-box">
         <div class="row-fluid">
           <div class="span12">
-              <div class="inner-elements">
-                <br />
+            <div class="inner-elements">
+                <br>
                 <h1>${bookTitle}</h1>
-                <h2>${title}</h2>
-              </div>
+            </div>
           </div>
         </div>
         <div class="row-fluid inner-elements">
@@ -198,13 +198,10 @@ lang="en">
             <div class="span4" id="sidebar">
               <!-- widget sidebar -->
               <!-- This sidebar is populated based on which book class is in the above .body 
-                ss-book-mcookbook
                 ss-book-mvnref
-                ss-book-mvnrefbook
                 ss-book-mvnex
                 ss-book-nxbook
-                ss-book-m2eclipse
-                ss-book-tychobook
+                ss-book-clmbook
                -->
             </div>
         </div>
