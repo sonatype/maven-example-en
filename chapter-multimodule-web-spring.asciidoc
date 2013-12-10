@@ -853,7 +853,7 @@ depending on the presence of a non-null +id+ property in Weather.
 <3> The +load()+ method, once again, is a one-liner that just calls a
 method on an instance of +HibernateTemplate+. +load()+ on
 +HibernateTemplate+ takes a +Class+ object and a +Serializable+
-object. In this case, the+ Serializable+ corresponds to the +id+ value
+object. In this case, the +Serializable+ corresponds to the +id+ value
 of the +Weather+ object to load.
 
 <4> This last method +recentForLocation()+ calls out to a +NamedQuery+
