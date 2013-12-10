@@ -288,7 +288,7 @@ Pull-up common dependencies to dependencyManagement::
    If more than one project depends on a specific dependency, you can
    list the dependency in dependencyManagement. The parent POM can
    contain a version and a set of exclusions; all the child POM needs
-   to do to reference this dependency is use the +groupId +and
+   to do to reference this dependency is use the +groupId+ and
    +artifactId+. Child projects can omit the version and exclusions if
    the dependency is listed in dependencyManagement.
 
