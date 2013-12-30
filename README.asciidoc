@@ -1,0 +1,61 @@
+== Maven by Example
+
+=== About the Book
+
+An introduction to Apache Maven as formerly published as part of the
+book Maven: The Definitive Guide. 
+
+The book is available in HTML and PDF format at http://www.sonatype.com/resources/books/maven-by-example[http://www.sonatype.com/resources/books/maven-by-example].
+
+
+=== About this Project
+
+This is the source code and build setup for the book. The content is
+written in asciidoc format.  To edit asciidoc, use Emacs, vi, TextMate
+or whatever other text editor you prefer.  You can even just preview
+the files right in github and edit them on the web interface directly.
+
+The main file for the book is
+
+* book-mvnex.asciidoc
+
+which in turn includes a whole bunch of files named 
+
+* chapter-*.asciidoc
+
+These are all you should have to edit in terms of text content.
+
+==== Figures and screenshots?  
+
+Put them into figs/orig.
+
+The rest is taken care of by the build.
+
+==== Anything else? 
+
+You'll see a lot of distracting files in that directory.  For now,
+you should just ignore them.  Actually, in general, you'll notice a
+number of distracting files in this project.  Really, just ignore
+them or contact us directly if you need something.
+
+==== How to Build the Book
+
+I knew you'd ask that, and here's the simple answer:
+
+* Install asciidoc
+* Install dblatex and the docbook xsl style sheets
+* Install python
+* run ./build.sh
+
+Build is known to work on Mac OS X and Ubuntu. If you use something
+else you might or might not end up in trouble.
+
+=== Issues, Contributions and More
+
+This book is CC licensed and we welcome your contributions. Please
+file issues and send pull requests on the github project. For further
+questions please contact mailto:book@sonatype.com[book@sonatype.com]
+
+Thanks
+
+Sonatype Team
