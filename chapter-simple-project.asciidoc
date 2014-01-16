@@ -377,7 +377,7 @@ is our first brush with convention over configuration. The convention,
 or default, for the +create+ goal is to create a simple project called
 Quickstart. The +create+ goal defines a configuration property
 +archetypeArtifactId+ that has a default value of
-+maven-archetype-++quickstart+. The Quickstart archetype generates a
++maven-archetype-quickstart+. The Quickstart archetype generates a
 minimal project shell that contains a POM and a single class. The
 Archetype plugin is far more powerful than this first example
 suggests, but it is a great way to get new projects started
@@ -739,12 +739,11 @@ provides you with the ability to exclude transitive dependencies from
 being included in a project's classpath.
 
 Maven also provides for different dependency scopes. The simple
-project's 'pom.xml' contains a single
-dependency—+junit:junit:jar:3.8.1+—with a scope of +test+. When a
-dependency has a scope of +test+, it will not be available to the
-+compile+ goal of the Compiler plugin. It will be added to the
-classpath for only the +compiler:testCompile+ and +surefire:test+
-goals.
+project's 'pom.xml' contains a single dependency
+—+junit:junit:jar:3.8.1+ — with a scope of +test+. When a dependency
+has a scope of +test+, it will not be available to the +compile+ goal
+of the Compiler plugin. It will be added to the classpath for only the
++compiler:testCompile+ and +surefire:test+ goals.
 
 When you create a JAR for a project, dependencies are not bundled with
 the generated artifact; they are used only for compilation. When you
@@ -756,7 +755,7 @@ dependency is needed for compilation, but should not be bundled with
 the output of a build. This scope comes in handy when you are
 developing a web application. You'll need to compile your code against
 the Servlet specification, but you don't want to include the Servlet
-API JAR in your web application's 'WEB-INF/lib' directory.
+API JAR in your web application's +WEB-INF/lib+ directory.
 
 [[simple-project-sect-site-generation]]
 ==== Site Generation and Reporting
@@ -772,10 +771,10 @@ $ mvn site
 This will execute the +site+ lifecycle phase. Unlike the default build
 lifecycle that manages generation of code, manipulation of resources,
 compilation, packaging, etc., this lifecycle is concerned solely with
-processing site content under the 'src/site' directories and
+processing site content under the +src/site+ directories and
 generating reports. After this command executes, you should see a
-project web site in the 'target/site' directory. Load
-'target/site/index.html' and you should see a basic shell of a project
+project web site in the +target/site+ directory. Load
++target/site/index.html+ and you should see a basic shell of a project
 site. This shell contains some reports under “Project Reports” in the
 lefthand navigation menu, and it also contains information about the
 project, the dependencies, and developers associated with it under
@@ -793,7 +792,7 @@ useful for code reviews, the PMD report that analyzes source code for
 various coding problems, and the JDepend report that analyzes the
 dependencies between packages in a codebase. You can customize site
 reports by configuring which reports are included in a build via the
-'pom.xml' file.
++pom.xml+ file.
 
 [[simple-project-sect-summary]]
 === Summary
@@ -804,5 +803,5 @@ for use by other projects, and generated a site with documentation. We
 accomplished this without writing a single line of code or touching a
 single configuration file. We also took some time to develop
 definitions for some of the core concepts of Maven. In the next
-chapter, we'll start customizing and modifying our project 'pom.xml'
+chapter, we'll start customizing and modifying our project +pom.xml+
 file to add dependencies and configure unit tests.
