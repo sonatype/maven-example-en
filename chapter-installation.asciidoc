@@ -161,50 +161,31 @@ Microsoft Windows.
 
 [[installation-sect-set-env-var]]
 ===== Setting Environment Variables
-* Go into the Control Panel
-[[fig-go-into-control-panel]]
-.Go into the Control Panel
-image::figs/web/installation_set_env_var_1.png[]
-
-* Open System
-[[fig-open-system]]
-.Open System
-image::figs/web/installation_set_env_var_2.png[]
-
-* Go in Advanced tab and click on Environment Variables.
+* Go into the +Control Panel+
+* Select +System+
+* Go in +Advanced+ tab and click on +Environment Variables+.
 [[fig-click-on-env-var]]
 .Go in Advanced tab and click on Environment Variables
-image::figs/web/installation_set_env_var_3.png[]
+image::figs/web/installation_set_env_var_3.png[scale="50"]
 
-* Click on New (the lower in the System variables section).
+* Click on +New+ (the lower in the System variables section).
 [[fig-click-on-new]]
 .Click on New (the lower)
-image::figs/web/installation_set_env_var_4.png[]
+image::figs/web/installation_set_env_var_4.png[scale="50"]
 
 * Fill in the fields with +M2_HOME+ and 'c:\Program Files\apache-maven-3.0.3' and click on OK button.
 [[fig-fill-in-the-fields]]
 .Fill in the fields with +M2_HOME+ and 'c:\Program Files\apache-maven-3.0.3' and click OK.
-image::figs/web/installation_set_env_var_5.png[]
+image::figs/web/installation_set_env_var_5.png[scale="50"]
 
 * Click on the Path variable in the System variables section and click on Edit button.
 [[fig-click-path-variable]]
 .Click on the Path variable in the System variables section and click on Edit button.
-image::figs/web/installation_set_env_var_6.png[]
+image::figs/web/installation_set_env_var_6.png[scale="50"]
 
-* Add this string in the Variable value field: +;%M2_HOME%\bin+ and click on OK button.
-[[fig-add-path-variable]]
-.Add this string in the Variable value field: +;%M2_HOME%\bin+ and click on OK button.
-image::figs/web/installation_set_env_var_7.png[]
-
-* Click on OK button.
-[[fig-click-ok-env]]
-.Click on OK button.
-image::figs/web/installation_set_env_var_8.png[]
-
-* Click on OK button.
-[[fig-click-ok-sys]]
-.Click on OK button.
-image::figs/web/installation_set_env_var_9.png[]
+* Add the string +%M2_HOME%\bin;+ in the Variable value field to the
+front of the existing value and click on the OK button in this and the
+following dialogs
 
 [[installation-sect-maven-linux]]
 ==== Installing Maven on Linux
