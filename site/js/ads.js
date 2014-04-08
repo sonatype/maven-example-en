@@ -16,10 +16,18 @@ $(document).ready(function(){
 				'</a>',
 		ad6 = 	'<a onclick="_gaq.push([\'_trackEvent\',\'Book Ad\',\'Click\',\'CLM Product Tour\',\'1\']);_gaq.push([\'cdt._trackEvent\',\'Book Ad\',\'Click\',\'CLM Product Tour\',\'1\']);"  href="http://www.sonatype.com/take-a-tour/clm-tour?utm_source=Book%20Ads&utm_medium=Sidebar%20Click&utm_content=CLM%20Product%20Tour&utm_campaign=Book%20Ads%20-%20CLM%20Product%20Tour" target="_blank" class="book-ad">' +
 				'<img src="http://www.sonatype.com/system/images/W1siZiIsIjIwMTQvMDEvMDYvMDcvMTEvMjUvNDE0L04zX0NMTV9wcm9kdWN0X3RvdXIucG5nIl1d/N3-CLM-product-tour.png" />' +
-				'</a>';
+				'</a>',
+		adSurvey1 = '<a onclick="_gaq.push([\'_trackEvent\',\'Book Ad\',\'Click\',\'Survey 1\',\'1\']);_gaq.push([\'cdt._trackEvent\',\'Book Ad\',\'Click\',\'Survey 1\',\'1\']);"  href="http://www.sonatype.com/request/2014-developer-survey?s2=sbba1&utm_source=Book%20Ads&utm_medium=Sidebar%20Click&utm_content=CLM%20Product%20Tour&utm_campaign=Book%20Ads%20-%20Survey%201" target="_blank" class="book-ad">' +
+				'<img src="http://www.sonatype.com/system/images/W1siZiIsIjIwMTQvMDQvMDQvMjAvMDcvMzcvNzA4LzIwMTRfc3VydmV5X2FkLnBuZyJdXQ/2014-survey-ad.png" />' +
+				'</a>';		
 	var newline = '<br/><br/>';
 	var adsMaven = newline + ad1 + newline + ad2 + newline + ad3;
 	var adsNexus = newline + ad4 + newline + ad5 + newline + ad6;
+	var surveyEndDate = new Date(2014,3,30,23,59,59,99);
+	if(Date.now() < surveyEndDate) {
+		adsMaven = newline + adSurvey1 + adsMaven;
+		adsNexus = newline + adSurvey1 + adsNexus;
+	}
 	$('body.ss-book-mvnex #sidebar').append(adsMaven);
 	$('body.ss-book-mvnref #sidebar').append(adsMaven);
 	$('body.ss-book-nxbook #sidebar').append(adsNexus);
