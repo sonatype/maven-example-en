@@ -21,6 +21,7 @@ mkdir -p target/site/reference/css
 cp -r site/css target/site/reference
 cp -r site/js target/site/reference
 cp -r site/assets target/site/reference
+cp site/search.html target/site/reference
 
 cp target/book-mvnex.pdf target/site/pdf/mvnex-pdf.pdf
 
