@@ -188,6 +188,21 @@ lang="en">
         </div>
         <div class="row-fluid inner-elements">
             <div class="span8">
+             <div class="search-results">
+               <script>
+                (function() {
+                    var cx = '017156762307045728421:x1zm0asungi';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                      '//www.google.com/cse/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                  })();
+              </script>
+              <gcse:searchbox-only resultsUrl="./search.html"></gcse:searchbox-only>
+            </div>
               <!-- content  -->
               ${body}
               <!-- contend  ends -->
@@ -304,7 +319,7 @@ lang="en">
         <div class="row-fluid">
           <div class="span12 copyright">
             <p><a href="http://www.sonatype.com/usage/terms-of-service">Terms of Service</a> &nbsp; <a href="http://www.sonatype.com/usage/privacy-policy">Privacy Policy</a><br>
-            Copyright © 2008-2013, Sonatype Inc. All rights reserved. Includes the third-party code listed
+            Copyright © 2008-2014, Sonatype Inc. All rights reserved. Includes the third-party code listed
             here. Sonatype and Sonatype Nexus are trademarks of Sonatype, Inc. Apache Maven and Maven are
             trademarks of the Apache Software Foundation. M2Eclipse is a trademark of the Eclipse
             Foundation. All other trademarks are the property of their respective owners.</p>
