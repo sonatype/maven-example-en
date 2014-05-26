@@ -1584,7 +1584,11 @@ $ mvn clean install
 Running +mvn clean install+ at the top-level of your multi-module
 project will install all of modules into your local Maven
 repository. You need to do this before building the database from the
-+simple-webapp+ project. To build the database from the
++simple-webapp+ project. 
+
+WARNING: This plugin version requires Java 6 to work. 
+
+To build the database from the
 +simple-webapp+ project, run the following from the +simple-webapp+
 project's directory:
 
