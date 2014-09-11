@@ -79,13 +79,14 @@ http://developer.yahoo.com/weather/[].
 
 First, let's use the Maven Archetype plugin to create a basic skeleton
 for the simple weather project. Execute the following command to
-create a new project, select archetype 16, and then enter "Y" to
-confirm and generate the new project:
+create a new project, press enter to use the default 
+'maven-archetype-quickstart' and the latest version of the archetype, 
+and then enter "Y" to confirm and  generate the new project. 
+Note that the number for the archetype will be different on your execution:
 
 ----
 $ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.custom \
       -DartifactId=simple-weather \
-      -Dpackage=org.sonatype.mavenbook \
       -Dversion=1.0
 
 [INFO] Preparing archetype:generate
