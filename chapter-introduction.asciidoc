@@ -57,12 +57,12 @@ results in a faster project execution.
 
 Maven incorporates this concept by providing sensible default behavior
 for projects. Without customization, source code is assumed to be in
-'+++${basedir}/src/main/java+++' and resources are assumed to be in
-'+++${basedir}/src/main/resources+++'. Tests are assumed to be in
-'+++${basedir}/src/test+++', and a project is assumed to produce a JAR
+`${basedir}/src/main/java` and resources are assumed to be in
+`${basedir}/src/main/resources`. Tests are assumed to be in
+`${basedir}/src/test`, and a project is assumed to produce a JAR
 file. Maven assumes that you want the compile byte code to
-'+++${basedir}/target/classes+++' and then create a distributable JAR file
-in '+++${basedir}/target+++'. While this might seem trivial, consider the
+`${basedir}/target/classes` and then create a distributable JAR file
+in `${basedir}/target`. While this might seem trivial, consider the
 fact that most Ant-based builds have to define the locations of these
 directories. Ant doesn't ship with any built-in idea of where source
 code or resources might be in a project; you have to supply this
@@ -342,7 +342,7 @@ experience with Ant is in coding a procedural language written in XML.
 Contrast the previous Ant example with a Maven example. In Maven, to
 create a JAR file from some Java source, all you need to do is create
 a simple 'pom.xml', place your source code in
-'+++${basedir}/src/main/java+++' and then run +mvn install+ from the
+`${basedir}/src/main/java` and then run +mvn install+ from the
 command line. The example Maven 'pom.xml' that achieves the same
 results as the simple Ant file listed in <<ex-ant-sample>> is shown in
 <<ex-maven-sample>>.
@@ -422,11 +422,11 @@ Apache Maven::
 Maven has built-in intelligence about common project tasks in the form
 of Maven plugins. If you wanted to write and execute unit tests, all
 you would need to do is write the tests, place them in
-'+++${basedir}/src/test/java+++', add a test-scoped dependency on
+`${basedir}/src/test/java`, add a test-scoped dependency on
 either TestNG or JUnit, and run +mvn test+. If you wanted to deploy a
 web application and not a JAR, all you would need to do is change your
 project type to +war+ and put your docroot in
-'+++${basedir}/src/main/webapp+++'. Sure, you can do all of this with
+`${basedir}/src/main/webapp`. Sure, you can do all of this with
 Ant, but you will be writing the instructions from scratch. In Ant,
 you would first have to figure out where the JUnit JAR file should
 be. Then you would have to create a classpath that includes the JUnit

@@ -251,13 +251,13 @@ The last issue we have to resolve is with the sibling dependencies and
 define the versions of sibling projects in the top-level parent
 project. This is certainly a valid approach, but we can also solve the
 version problem just by using two built-in
-properties—'+++${project.groupId}+++' and
-'+++${project.version}+++'. Since they are sibling dependencies, there
+properties — `${project.groupId}` and
+`${project.version}`. Since they are sibling dependencies, there
 is not much value to be gained by enumerating them in the parent, so
-we'll rely on the built-in '+++${project.version}+++'
+we'll rely on the built-in `${project.version}`
 property. Because they all share the same group, we can further
 future-proof these declarations by referring to the current POM's
-group using the built-in '+++${project.groupId}+++' property. The
+group using the built-in `${project.groupId}` property. The
 +simple-command+ dependency section now looks like this:
 
 ----
@@ -295,10 +295,10 @@ Pull-up common dependencies to dependencyManagement::
 
 Use built-in project +version+ and +groupId+ for sibling projects::
 
-   Use '+++${project.version}+++' and '+++${project.groupId}+++' when
+   Use `${project.version}` and `${project.groupId}` when
    referring to a sibling project. Sibling projects almost always
    share the same +groupId+, and they almost always share the same
-   release version. Using '+++${project.version}+++' will help you
+   release version. Using `${project.version}` will help you
    avoid the sibling version mismatch problem discussed previously.
 
 [[optimizing-sect-plugins]]
@@ -523,8 +523,8 @@ references the model objects in +simple-model+, and the +simple-model+
 is exposed to +simple-webapp+ as a transitive dependency via
 +simple-persist+. Since this is a sibling dependency that shares both
 the +version+ and +groupId+, the dependency can be defined in
-+simple-webapp+'s 'pom.xml' using the '+++${project.groupId}+++' and
-'+++${project.version}+++'.
++simple-webapp+'s 'pom.xml' using the `${project.groupId}` and
+`${project.version}`.
 
 How did the Maven Dependency plugin uncover these issues? How does
 +dependency:analyze+ know which classes and dependencies are directly

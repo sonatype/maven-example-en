@@ -1254,7 +1254,7 @@ Spring IoC container is responsible for wiring the controller to the
 we're passing the +Weather+ object returned by +retrieveForecast()+ to
 the constructor of +ModelAndView+. This +ModelAndView+ class is going
 to be used to render a Velocity template, and this template will have
-references to a '+++${weather}+++' variable. The 'weather.vm' template
+references to a `${weather}` variable. The 'weather.vm' template
 is stored in 'src/main/webapp/WEB-INF/vm' and is shown in
 <<ex-weather-vm>>.
 
@@ -1283,7 +1283,7 @@ ${weather.location.country}</b><br/>
 ----
 
 The syntax for this Velocity template is straightforward: variables
-are referenced using '+++${}+++' notation. The expression between the
+are referenced using `${}` notation. The expression between the
 curly braces references a property, or a property of a property on the
 +weather+ variable, which was passed to this template by the
 +WeatherController+.
@@ -1618,7 +1618,7 @@ $ mvn hibernate3:hbm2ddl
 [INFO] -----------------------------------------------------
 ----
 
-Once you've done this, there should be a '+++${basedir}/data+++'
+Once you've done this, there should be a `${basedir}/data`
 directory which will contain the HSQLDB database. You can then start
 the web application with:
 
@@ -1941,7 +1941,7 @@ The 'weather.vm' template simply prints the zip code's city, country,
 and region as well as the current temperature. The 'history.vm'
 template prints the location and then iterates through the weather
 forecast records stored in the local database. Both of these templates
-are in '+++${basedir}/src/main/resources+++'.
+are in `${basedir}/src/main/resources`.
 
 
 .The weather.vm Velocity Template

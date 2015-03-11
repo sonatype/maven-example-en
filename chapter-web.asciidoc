@@ -140,7 +140,7 @@ Notice the packaging element contains the value +war+. This packaging
 type is what configures Maven to produce a web application archive in
 a WAR file. A project with +war+ packaging is going to create a WAR
 file in the 'target/' directory. The default name of this file is
-'+++${artifactId}-${version}.war+++'. In this project, the default WAR
+`${artifactId}-${version}.war`. In this project, the default WAR
 would be generated in 'target/simple-webapp-1.0-SNAPSHOT.war'. In the
 +simple-webapp+ project, we've customized the name of the generated
 WAR file by adding a finalName element inside of this project's build
