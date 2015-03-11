@@ -65,9 +65,9 @@ $ mvn archetype:generate -DgroupId=org.sonatype.mavenbook \
 -Dpackage=org.sonatype.mavenbook \
 -Dversion=1.0-SNAPSHOT
 [INFO]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Maven Stub Project (No POM) 1
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO]
 [INFO] >>> maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom >>>
 [INFO]
@@ -98,9 +98,9 @@ artifactId: simple
 version: 1.0-SNAPSHOT
 package: org.sonatype.mavenbook
  Y: :
-[INFO] ----------------------------------------------------------------------------
+[INFO] ---------------------------------------------------------
 [INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.1
-[INFO] ----------------------------------------------------------------------------
+[INFO] ---------------------------------------------------------
 [INFO] Parameter: groupId, Value: org.sonatype.mavenbook
 [INFO] Parameter: packageName, Value: org.sonatype.mavenbook
 [INFO] Parameter: package, Value: org.sonatype.mavenbook
@@ -193,10 +193,10 @@ directory that contains the 'pom.xml':
 $ cd simple
 $ mvn install
 [INFO] Scanning for projects...
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] Building simple
 [INFO]task-segment: [install]
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] [resources:resources]
 [INFO] Using default encoding to copy filtered resources.
 [INFO] [compiler:compile]
@@ -675,7 +675,7 @@ depend on each other.
 ==== Maven's Dependency Management
 
 In this chapter's simple example, Maven resolved the coordinates of
-the JUnit dependency—+junit:junit:3.8.1+—to a path in a Maven
+the JUnit dependency `junit:junit:3.8.1` to a path in a Maven
 repository '/junit/junit/3.8.1/junit-3.8.1.jar'. The ability to locate
 an artifact in a repository based on Maven coordinates gives us the
 ability to define dependencies in a project's POM. If you examine the

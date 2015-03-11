@@ -336,37 +336,37 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-    @NamedQueries({
-            @NamedQuery(name="Weather.byLocation", 
-                        query="from Weather w where w.location = :location")
-                })
-    public class Weather {
+@NamedQueries({
+  @NamedQuery(name="Weather.byLocation", 
+              query="from Weather w where w.location = :location")
+})
+public class Weather {
 
-        @Id
-            @GeneratedValue(strategy=GenerationType.IDENTITY)
-            private Integer id;
+  @Id
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  private Integer id;
 
-        @ManyToOne(cascade=CascadeType.ALL)
-            private Location location;
+  @ManyToOne(cascade=CascadeType.ALL)
+  private Location location;
 
-        @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
-            private Condition condition;
+  @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
+  private Condition condition;
 
-        @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
-            private Wind wind;
+  @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
+  private Wind wind;
 
-        @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
-            private Atmosphere atmosphere;
+  @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
+  private Atmosphere atmosphere;
 
-        private Date date;
+  private Date date;
 
-        public Weather() {}
+  public Weather() {}
 
-        public Integer getId() { return id; }
-        public void setId(Integer id) { this.id = id; }
+  public Integer getId() { return id; }
+  public void setId(Integer id) { this.id = id; }
 
-        // All getter and setter methods omitted...
-    }
+  // All getter and setter methods omitted...
+}
 ----
 
 In the +Weather+ class, we are using Hibernate annotations to provide
@@ -432,27 +432,27 @@ package org.sonatype.mavenbook.weather.model;
 import javax.persistence.*;
 
 @Entity
-    public class Condition {
+public class Condition {
 
-    @Id
-        @GeneratedValue(strategy=GenerationType.IDENTITY)
-        private Integer id;
+  @Id 
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  private Integer id;
 
-    private String text;
-    private String code;
-    private String temp;
-    private String date;
+  private String text;
+  private String code;
+  private String temp;
+  private String date;
 
-    @OneToOne(cascade=CascadeType.ALL)
-        @JoinColumn(name="weather_id", nullable=false)
-        private Weather weather;
+  @OneToOne(cascade=CascadeType.ALL)
+  @JoinColumn(name="weather_id", nullable=false)
+  private Weather weather;
 
-    public Condition() {}
+  public Condition() {}
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+  public Integer getId() { return id; }
+  public void setId(Integer id) { this.id = id; }
 
-    // All getter and setter methods omitted...
+  // All getter and setter methods omitted...
 }
 ----
 
@@ -640,7 +640,7 @@ then reference a named instance of the +WeatherService+ named
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
        default-lazy-init="true">
 
     <bean id="weatherService" 
@@ -800,27 +800,28 @@ import org.sonatype.mavenbook.weather.model.Weather;
 
 public class WeatherDAO extends HibernateDaoSupport { <1>
 
-    public WeatherDAO() {}
+  public WeatherDAO() {}
 
-    public void save(Weather weather) { <2>
-            getHibernateTemplate().save( weather );
-    }
+  public void save(Weather weather) { <2>
+    getHibernateTemplate().save( weather );
+  }
 
-    public Weather load(Integer id) { <3>
-            return (Weather) getHibernateTemplate().load( Weather.class, id);
-    }
+  public Weather load(Integer id) { <3>
+    return (Weather) getHibernateTemplate().load( Weather.class, id);
+  }
 
-    @SuppressWarnings("unchecked")
-        public List<Weather> recentForLocation( final Location location ) {
-        return (List<Weather>) getHibernateTemplate().execute(
-                                                              new HibernateCallback() { <4>
-                                                                  public Object doInHibernate(Session session) {
-                                                                  Query query = getSession().getNamedQuery("Weather.byLocation");
-                                                                  query.setParameter("location", location);
-                                                                  return new ArrayList<Weather>( query.list() );
-                                                              }
-                                                              });
-    }
+  @SuppressWarnings("unchecked")
+  public List<Weather> recentForLocation( final Location location ) {
+    return (List<Weather>) getHibernateTemplate().execute(
+        new HibernateCallback() { <4>
+          public Object doInHibernate(Session session) {
+              Query query = 
+                getSession().getNamedQuery("Weather.byLocation");
+              query.setParameter("location", location);
+              return new ArrayList<Weather>( query.list() );
+        }
+    });
+  }
 }
 ----
 
@@ -881,54 +882,54 @@ document shown in <<ex-persist-spring>> is stored in
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
        default-lazy-init="true">
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="annotatedClasses">
-            <list>
-                <value>org.sonatype.mavenbook.weather.model.Atmosphere</value>
-                <value>org.sonatype.mavenbook.weather.model.Condition</value>
-                <value>org.sonatype.mavenbook.weather.model.Location</value>
-                <value>org.sonatype.mavenbook.weather.model.Weather</value>
-                <value>org.sonatype.mavenbook.weather.model.Wind</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.transaction.factory_class">
-                    org.hibernate.transaction.JDBCTransactionFactory
-                </prop>
-                <prop key="hibernate.dialect">
-                    org.hibernate.dialect.HSQLDialect
-                </prop>
-                <prop key="hibernate.connection.pool_size">0</prop>
-                <prop key="hibernate.connection.driver_class">
-                    org.hsqldb.jdbcDriver
-                </prop>
-                <prop key="hibernate.connection.url">
-                    jdbc:hsqldb:data/weather;shutdown=true
-                </prop>
-                <prop key="hibernate.connection.username">sa</prop>
-                <prop key="hibernate.connection.password"></prop>
-                <prop key="hibernate.connection.autocommit">true</prop>
-                <prop key="hibernate.jdbc.batch_size">0</prop>
-            </props>
-        </property>
-    </bean>
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="annotatedClasses">
+      <list>
+        <value>org.sonatype.mavenbook.weather.model.Atmosphere</value>
+        <value>org.sonatype.mavenbook.weather.model.Condition</value>
+        <value>org.sonatype.mavenbook.weather.model.Location</value>
+        <value>org.sonatype.mavenbook.weather.model.Weather</value>
+        <value>org.sonatype.mavenbook.weather.model.Wind</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.show_sql">false</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.transaction.factory_class">
+          org.hibernate.transaction.JDBCTransactionFactory
+        </prop>
+        <prop key="hibernate.dialect">
+          org.hibernate.dialect.HSQLDialect
+        </prop>
+        <prop key="hibernate.connection.pool_size">0</prop>
+        <prop key="hibernate.connection.driver_class">
+          org.hsqldb.jdbcDriver
+        </prop>
+        <prop key="hibernate.connection.url">
+          jdbc:hsqldb:data/weather;shutdown=true
+        </prop>
+        <prop key="hibernate.connection.username">sa</prop>
+        <prop key="hibernate.connection.password"></prop>
+        <prop key="hibernate.connection.autocommit">true</prop>
+        <prop key="hibernate.jdbc.batch_size">0</prop>
+      </props>
+    </property>
+  </bean>
 
-    <bean id="locationDAO" 
-          class="org.sonatype.mavenbook.weather.persist.LocationDAO">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+  <bean id="locationDAO" 
+        class="org.sonatype.mavenbook.weather.persist.LocationDAO">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
 
-    <bean id="weatherDAO" 
-          class="org.sonatype.mavenbook.weather.persist.WeatherDAO">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+  <bean id="weatherDAO" 
+        class="org.sonatype.mavenbook.weather.persist.WeatherDAO">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
 </beans>
 ----
 
@@ -981,47 +982,51 @@ Language (DDL) from nothing more than our annotations. See
 .simple-persist hibernate.cfg.xml
 ----
 <!DOCTYPE hibernate-configuration PUBLIC
-          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory>
+  <session-factory>
 
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+    <!-- SQL dialect -->
+    <property name="dialect">
+      org.hibernate.dialect.HSQLDialect
+    </property>
 
-        <!-- Database connection settings -->
-        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="connection.url">jdbc:hsqldb:data/weather</property>
-        <property name="connection.username">sa</property>
-        <property name="connection.password"></property>
-        <property name="connection.shutdown">true</property>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">
+      org.hsqldb.jdbcDriver
+    </property>
+    <property name="connection.url">jdbc:hsqldb:data/weather</property>
+    <property name="connection.username">sa</property>
+    <property name="connection.password"></property>
+    <property name="connection.shutdown">true</property>
 
-        <!-- JDBC connection pool (use the built-in one) -->
-        <property name="connection.pool_size">1</property>
+    <!-- JDBC connection pool (use the built-in one) -->
+    <property name="connection.pool_size">1</property>
 
-        <!-- Enable Hibernate's automatic session context management -->
-        <property name="current_session_context_class">thread</property>
+    <!-- Enable Hibernate's automatic session context management -->
+    <property name="current_session_context_class">thread</property>
 
-        <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">
+    <!-- Disable the second-level cache  -->
+    <property name="cache.provider_class">
             org.hibernate.cache.NoCacheProvider
-        </property>
+    </property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
 
-        <!-- disable batching so HSQLDB will propagate errors correctly. -->
-        <property name="jdbc.batch_size">0</property>
+    <!-- disable batching so HSQLDB will propagate errors correctly. -->
+    <property name="jdbc.batch_size">0</property>
 
-        <!-- List all the mapping documents we're using -->
-        <mapping class="org.sonatype.mavenbook.weather.model.Atmosphere"/>
-        <mapping class="org.sonatype.mavenbook.weather.model.Condition"/>
-        <mapping class="org.sonatype.mavenbook.weather.model.Location"/>
-        <mapping class="org.sonatype.mavenbook.weather.model.Weather"/>
-        <mapping class="org.sonatype.mavenbook.weather.model.Wind"/>
+    <!-- List all the mapping documents we're using -->
+    <mapping class="org.sonatype.mavenbook.weather.model.Atmosphere"/>
+    <mapping class="org.sonatype.mavenbook.weather.model.Condition"/>
+    <mapping class="org.sonatype.mavenbook.weather.model.Location"/>
+    <mapping class="org.sonatype.mavenbook.weather.model.Weather"/>
+    <mapping class="org.sonatype.mavenbook.weather.model.Wind"/>
 
-    </session-factory>
+  </session-factory>
 </hibernate-configuration>
 ----
 
@@ -1060,80 +1065,80 @@ The POM for +simple-webapp+ is shown in
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.multispring</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.multispring</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
 
-    <artifactId>simple-webapp</artifactId>
-    <packaging>war</packaging>
-    <name>Simple Web Application</name>
-    <dependencies>
-        <dependency> <1>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.4</version>
-                <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.sonatype.mavenbook.multispring</groupId>
-            <artifactId>simple-weather</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sonatype.mavenbook.multispring</groupId>
-            <artifactId>simple-persist</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.5</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <finalName>simple-webapp</finalName>
-        <plugins>
-            <plugin> <2>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>maven-jetty-plugin</artifactId>
-                    <dependencies> <3>
-                            <dependency>
-                                <groupId>hsqldb</groupId>
-                                <artifactId>hsqldb</artifactId>
-                                <version>1.8.0.7</version>
-                            </dependency>
-                    </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId> <4>
-                    <artifactId>hibernate3-maven-plugin</artifactId>
-                    <version>2.0</version>
-                    <configuration>
-                        <components>
-                            <component>
-                                <name>hbm2ddl</name>
-                                <implementation>annotationconfiguration</implementation> <5>
-                            </component>
-                        </components>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>hsqldb</groupId>
-                            <artifactId>hsqldb</artifactId>
-                            <version>1.8.0.7</version>
-                        </dependency>
-                    </dependencies>
-            </plugin>
-        </plugins>
-    </build>
+  <artifactId>simple-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>Simple Web Application</name>
+  <dependencies>
+    <dependency> <1>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.mavenbook.multispring</groupId>
+      <artifactId>simple-weather</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.mavenbook.multispring</groupId>
+      <artifactId>simple-persist</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.5</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>simple-webapp</finalName>
+    <plugins>
+      <plugin> <2>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <dependencies> <3>
+          <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.7</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId> <4>
+        <artifactId>hibernate3-maven-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <components>
+            <component>
+              <name>hbm2ddl</name>
+              <implementation>annotationconfiguration</implementation> <5>
+          </component>
+        </components>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.7</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 ----
 
@@ -1205,33 +1210,34 @@ import org.springframework.web.servlet.mvc.Controller;
 
 public class WeatherController implements Controller {
 
-    private WeatherService weatherService;
-    private WeatherDAO weatherDAO;
+  private WeatherService weatherService;
+  private WeatherDAO weatherDAO;
 
-    public ModelAndView handleRequest(HttpServletRequest request,
-                                      HttpServletResponse response) throws Exception {
+  public ModelAndView handleRequest(HttpServletRequest request,
+                                    HttpServletResponse response) 
+                                  throws Exception {
 
-        String zip = request.getParameter("zip");
-        Weather weather = weatherService.retrieveForecast(zip);
-        weatherDAO.save(weather);
-        return new ModelAndView("weather", "weather", weather);
-    }
+    String zip = request.getParameter("zip");
+    Weather weather = weatherService.retrieveForecast(zip);
+    weatherDAO.save(weather);
+    return new ModelAndView("weather", "weather", weather);
+  }
 
-    public WeatherService getWeatherService() {
-        return weatherService;
-    }
+  public WeatherService getWeatherService() {
+    return weatherService;
+  }
 
-    public void setWeatherService(WeatherService weatherService) {
-        this.weatherService = weatherService;
-    }
+  public void setWeatherService(WeatherService weatherService) {
+    this.weatherService = weatherService;
+  }
 
-    public WeatherDAO getWeatherDAO() {
-        return weatherDAO;
-    }
+  public WeatherDAO getWeatherDAO() {
+    return weatherDAO;
+  }
 
-    public void setWeatherDAO(WeatherDAO weatherDAO) {
-        this.weatherDAO = weatherDAO;
-    }
+  public void setWeatherDAO(WeatherDAO weatherDAO) {
+    this.weatherDAO = weatherDAO;
+  }
 }
 ----
 
@@ -1304,37 +1310,38 @@ import org.sonatype.mavenbook.weather.persist.*;
 
 public class HistoryController implements Controller {
 
-    private LocationDAO locationDAO;
-    private WeatherDAO weatherDAO;
+  private LocationDAO locationDAO;
+  private WeatherDAO weatherDAO;
 
-    public ModelAndView handleRequest(HttpServletRequest request,
-                                      HttpServletResponse response) throws Exception {
-        String zip = request.getParameter("zip");
-        Location location = locationDAO.findByZip(zip);
-        List<Weather> weathers = weatherDAO.recentForLocation( location );
+  public ModelAndView handleRequest(HttpServletRequest request, 
+    HttpServletResponse response) throws Exception {
+        
+    String zip = request.getParameter("zip");
+    Location location = locationDAO.findByZip(zip);
+    List<Weather> weathers = weatherDAO.recentForLocation( location );
 
-        Map<String,Object> model = new HashMap<String,Object>();
-        model.put( "location", location );
-        model.put( "weathers", weathers );
+    Map<String,Object> model = new HashMap<String,Object>();
+    model.put( "location", location );
+    model.put( "weathers", weathers );
 
-        return new ModelAndView("history", model);
-    }
+    return new ModelAndView("history", model);
+  }
 
-    public WeatherDAO getWeatherDAO() {
-        return weatherDAO;
-    }
+  public WeatherDAO getWeatherDAO() {
+    return weatherDAO;
+  }
 
-    public void setWeatherDAO(WeatherDAO weatherDAO) {
-        this.weatherDAO = weatherDAO;
-    }
+  public void setWeatherDAO(WeatherDAO weatherDAO) {
+    this.weatherDAO = weatherDAO;
+  }
 
-    public LocationDAO getLocationDAO() {
-        return locationDAO;
-    }
+  public LocationDAO getLocationDAO() {
+    return locationDAO;
+  }
 
-    public void setLocationDAO(LocationDAO locationDAO) {
-        this.locationDAO = locationDAO;
-    }
+  public void setLocationDAO(LocationDAO locationDAO) {
+    this.locationDAO = locationDAO;
+  }
 }
 ----
 
@@ -1400,46 +1407,48 @@ from the classpath. Let's take a closer look at the
 .Spring Controller Configuration weather-servlet.xml
 ----
 <beans>  
-    <bean id="weatherController" <1>
-          class="org.sonatype.mavenbook.web.WeatherController">
-        <property name="weatherService" ref="weatherService"/>
-        <property name="weatherDAO" ref="weatherDAO"/>
-    </bean>
+  <bean id="weatherController" <1>
+        class="org.sonatype.mavenbook.web.WeatherController">
+    <property name="weatherService" ref="weatherService"/>
+    <property name="weatherDAO" ref="weatherDAO"/>
+  </bean>
 
-    <bean id="historyController" 
-          class="org.sonatype.mavenbook.web.HistoryController">
-        <property name="weatherDAO" ref="weatherDAO"/>
-        <property name="locationDAO" ref="locationDAO"/>
-    </bean>
+  <bean id="historyController" 
+        class="org.sonatype.mavenbook.web.HistoryController">
+    <property name="weatherDAO" ref="weatherDAO"/>
+    <property name="locationDAO" ref="locationDAO"/>
+  </bean>
 
-    <!-- you can have more than one handler defined -->
-    <bean id="urlMapping" 
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="urlMap">
-            <map>
-                <entry key="/weather.x"> <2>
-                        <ref bean="weatherController" />
-                </entry>
-                <entry key="/history.x">
-                    <ref bean="historyController" />
-                </entry>
-            </map>
-        </property>
-    </bean>
+  <!-- you can have more than one handler defined -->
+  <bean id="urlMapping" 
+        class="org.springframework.web.servlet.handler.
+          SimpleUrlHandlerMapping">
+    <property name="urlMap">
+      <map>
+        <entry key="/weather.x"> <2>
+          <ref bean="weatherController" />
+        </entry>
+        <entry key="/history.x">
+          <ref bean="historyController" />
+        </entry>
+      </map>
+    </property>
+  </bean>
+  
+  <bean id="velocityConfig" <3>
+    class="org.springframework.web.servlet.view.velocity.
+      VelocityConfigurer">
+    <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+  </bean>
 
-
-    <bean id="velocityConfig" <3>
-          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
-    </bean>
-
-    <bean id="viewResolver" <4>
-          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-        <property name="cache" value="true"/>
-        <property name="prefix" value=""/>
-        <property name="suffix" value=".vm"/>
-        <property name="exposeSpringMacroHelpers" value="true"/>
-    </bean>
+  <bean id="viewResolver" <4>
+    class="org.springframework.web.servlet.view.velocity.
+      VelocityViewResolver">
+    <property name="cache" value="true"/>
+    <property name="prefix" value=""/>
+    <property name="suffix" value=".vm"/>
+    <property name="exposeSpringMacroHelpers" value="true"/>
+  </bean>
 </beans>
 ----
 
@@ -1482,49 +1491,49 @@ shown in <<ex-spring-web-xml>>.
          xmlns="http://java.sun.com/xml/ns/j2ee" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
-                             http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    <display-name>Simple Web Application</display-name>
+               http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>Simple Web Application</display-name>
 
-    <context-param> <1>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>
-                classpath:applicationContext-weather.xml
-                classpath:applicationContext-persist.xml
-            </param-value>
-    </context-param>
+  <context-param> <1>
+    <param-name>contextConfigLocation</param-name>
+      <param-value>
+        classpath:applicationContext-weather.xml
+        classpath:applicationContext-persist.xml
+      </param-value>
+  </context-param>
 
-    <context-param> <2>
-            <param-name>log4jConfigLocation</param-name>
-            <param-value>/WEB-INF/log4j.properties</param-value>
-    </context-param>
+  <context-param> <2>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/WEB-INF/log4j.properties</param-value>
+  </context-param>
 
-    <listener> <3>
-            <listener-class>
-                org.springframework.web.util.Log4jConfigListener
-            </listener-class>
-    </listener>
+  <listener> <3>
+    <listener-class>
+      org.springframework.web.util.Log4jConfigListener
+    </listener-class>
+  </listener>
 
-    <listener>
-        <listener-class> <4>
-                org.springframework.web.context.ContextLoaderListener
-        </listener-class>
-    </listener>
+  <listener>
+    <listener-class> <4>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
 
-    <servlet> <5>
-            <servlet-name>weather</servlet-name>
-            <servlet-class>
-                org.springframework.web.servlet.DispatcherServlet
-            </servlet-class>
-            <load-on-startup>1</load-on-startup>
-    </servlet>
+  <servlet> <5>
+    <servlet-name>weather</servlet-name>
+    <servlet-class>
+      org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
 
-    <servlet-mapping> <6>
-            <servlet-name>weather</servlet-name>
-            <url-pattern>*.x</url-pattern>
-    </servlet-mapping>
+  <servlet-mapping> <6>
+    <servlet-name>weather</servlet-name>
+    <url-pattern>*.x</url-pattern>
+  </servlet-mapping>
 </web-app>
 ----
-
+  
 <1> <calloutlist> Here's a bit of magic which allows us to reuse the
 'applicationContext-weather.xml' and 'applicationContext-persist.xml'
 in this project. The +contextConfigLocation+ is used by the
@@ -1597,16 +1606,16 @@ $ mvn hibernate3:hbm2ddl
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'hibernate3'.
 [INFO] org.codehaus.mojo: checking for updates from central
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Multi-Spring Chapter Simple Web Application
 [INFO]task-segment: [hibernate3:hbm2ddl]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Preparing hibernate3:hbm2ddl
 ...
 10:24:56,151  INFO org.hibernate.tool.hbm2ddl.SchemaExport - export complete
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] BUILD SUCCESSFUL
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 ----
 
 Once you've done this, there should be a '+++${basedir}/data+++'
@@ -1617,10 +1626,10 @@ the web application with:
 $ mvn jetty:run
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'jetty'.
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Multi-Spring Chapter Simple Web Application
 [INFO]task-segment: [jetty:run]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Preparing jetty:run
 ...
 [INFO] [jetty:run]
@@ -1675,88 +1684,88 @@ image::figs/web/multimodule-web-command-spring.png[]
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.multispring</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.multispring</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
 
-    <artifactId>simple-command</artifactId>
-    <packaging>jar</packaging>
-    <name>Simple Command Line Tool</name>
+  <artifactId>simple-command</artifactId>
+  <packaging>jar</packaging>
+  <name>Simple Command Line Tool</name>
 
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <components>
-                        <component>
-                            <name>hbm2ddl</name>
-                            <implementation>annotationconfiguration</implementation>
-                        </component>
-                    </components>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>hsqldb</groupId>
-                        <artifactId>hsqldb</artifactId>
-                        <version>1.8.0.7</version>
-                    </dependency>
-                </dependencies>   
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.sonatype.mavenbook.multispring</groupId>
-            <artifactId>simple-weather</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sonatype.mavenbook.multispring</groupId>
-            <artifactId>simple-persist</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.0.7</version>
-        </dependency>
-        <dependency>
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>hibernate3-maven-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <components>
+            <component>
+              <name>hbm2ddl</name>
+              <implementation>annotationconfiguration</implementation>
+            </component>
+          </components>
+        </configuration>
+        <dependencies>
+          <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.7</version>
-        </dependency>
-    </dependencies>
+          </dependency>
+        </dependencies>   
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.sonatype.mavenbook.multispring</groupId>
+      <artifactId>simple-weather</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.mavenbook.multispring</groupId>
+      <artifactId>simple-persist</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.7</version>
+    </dependency>
+  </dependencies>
 </project>
 ----
 
@@ -1793,17 +1802,19 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Configure Log4J
-        PropertyConfigurator.configure(Main.class.getClassLoader().getResource(
-                                                                               "log4j.properties"));
+        PropertyConfigurator.configure(
+          Main.class.getClassLoader().getResource("log4j.properties"));
 
-        // Read the Zip Code from the Command-line (if none supplied, use 60202)
+        // Read the Zip Code from the Command-line 
+        // (if none supplied, use 60202)
         String zipcode = "60202";
         try {
             zipcode = args[0];
         } catch (Exception e) {
         }
 
-        // Read the Operation from the Command-line (if none supplied use weather)
+        // Read the Operation from the Command-line 
+        // (if none supplied use weather)
         String operation = "weather";
         try {
             operation = args[1];
@@ -1814,10 +1825,11 @@ public class Main {
         Main main = new Main(zipcode);
 
         ApplicationContext context = 
-            new ClassPathXmlApplicationContext(
-                                               new String[] { "classpath:applicationContext-weather.xml",
-                                                              "classpath:applicationContext-persist.xml" });
-        main.weatherService = (WeatherService) context.getBean("weatherService");
+          new ClassPathXmlApplicationContext(
+            new String[] { "classpath:applicationContext-weather.xml",
+              "classpath:applicationContext-persist.xml" });
+        main.weatherService = 
+          (WeatherService) context.getBean("weatherService");
         main.locationDAO = (LocationDAO) context.getBean("locationDAO");
         main.weatherDAO = (WeatherDAO) context.getBean("weatherDAO");
         if( operation.equals("weather")) {
@@ -1842,7 +1854,8 @@ public class Main {
     public void getHistory() throws Exception {
         Location location = locationDAO.findByZip(zip);
         List<Weather> weathers = weatherDAO.recentForLocation(location);
-        System.out.print(new WeatherFormatter().formatHistory(location, weathers));
+        System.out.print(
+          new WeatherFormatter().formatHistory(location, weathers));
     }
 }
 ----
@@ -1896,7 +1909,7 @@ public class WeatherFormatter {
 
     private static Logger log = Logger.getLogger(WeatherFormatter.class);
 
-    public String formatWeather( Weather weather ) throws Exception {
+    public String formatWeather(Weather weather) throws Exception {
         log.info( "Formatting Weather Data" );
         Reader reader = 
             new InputStreamReader( getClass().getClassLoader().
@@ -1908,7 +1921,7 @@ public class WeatherFormatter {
         return writer.toString();
     }
 
-    public String formatHistory( Location location, List<Weather> weathers )  
+    public String formatHistory(Location location, List<Weather> weathers)
         throws Exception {
         log.info( "Formatting History Data" );
         Reader reader = 
@@ -1976,10 +1989,10 @@ the Maven Assembly plugin from the +simple-command+ project directory:
 
 ----
 $ mvn assembly:assembly
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Multi-spring Chapter Simple Command Line Tool
 [INFO]task-segment: [assembly:assembly] (aggregator-style)
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] [resources:resources]
 [INFO] Using default encoding to copy filtered resources.
 [INFO] [compiler:compile]
@@ -2016,16 +2029,16 @@ $ mvn hibernate3:hbm2ddl
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'hibernate3'.
 [INFO] org.codehaus.mojo: checking for updates from central
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Multi-spring Chapter Simple Command Line Tool
 [INFO]task-segment: [hibernate3:hbm2ddl]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Preparing hibernate3:hbm2ddl
 ...
 10:24:56,151  INFO org.hibernate.tool.hbm2ddl.SchemaExport - export complete
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] BUILD SUCCESSFUL
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 ----
 
 Once you run this, you should see a 'data/' directory under

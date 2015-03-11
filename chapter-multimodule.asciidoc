@@ -335,23 +335,27 @@ servlet-mapping elements in the 'web.xml' shown in
           "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>simple</servlet-name>
-        <servlet-class>org.sonatype.mavenbook.web.SimpleServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>weather</servlet-name>
-        <servlet-class>org.sonatype.mavenbook.web.WeatherServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>simple</servlet-name>
-        <url-pattern>/simple</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>weather</servlet-name>
-        <url-pattern>/weather</url-pattern>
-    </servlet-mapping>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>simple</servlet-name>
+    <servlet-class>
+      org.sonatype.mavenbook.web.SimpleServlet
+    </servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>weather</servlet-name>
+    <servlet-class>
+      org.sonatype.mavenbook.web.WeatherServlet
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>simple</servlet-name>
+    <url-pattern>/simple</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>weather</servlet-name>
+    <url-pattern>/weather</url-pattern>
+  </servlet-mapping>
 </web-app>
 ----
 
@@ -372,28 +376,28 @@ command from the +simple-parent+ project:
 [INFO]   Simple Parent Project
 [INFO]   simple-weather
 [INFO]   simple-webapp Maven Webapp
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] Building simple-weather
 [INFO]task-segment: [clean, install]
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [...]
 [INFO] [install:install]
 [INFO] Installing simple-weather-1.0.jar to simple-weather-1.0.jar
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] Building simple-webapp Maven Webapp
 [INFO]task-segment: [clean, install]
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [...]
 [INFO] [install:install]
 [INFO] Installing simple-webapp.war to simple-webapp-1.0.war
 [INFO] 
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] Reactor Summary:
-[INFO] ----------------------------------------------------------------------
-[INFO] Simple Parent Project ............................... SUCCESS [3.041s]
-[INFO] simple-weather ...................................... SUCCESS [4.802s]
-[INFO] simple-webapp Maven Webapp .......................... SUCCESS [3.065s]
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
+[INFO] Simple Parent Project .................. SUCCESS [3.041s]
+[INFO] simple-weather ......................... SUCCESS [4.802s]
+[INFO] simple-webapp Maven Webapp ............. SUCCESS [3.065s]
+[INFO] -----------------------------------------
 ----
 
 When Maven is executed against a project with submodules, Maven first
@@ -431,10 +435,10 @@ Once the multi-module project has been installed with +mvn
 
 ----
 ~/examples/ch-multi/simple-parent/simple-webapp $ mvn jetty:run
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [INFO] Building simple-webapp Maven Webapp
 [INFO]task-segment: [jetty:run]
-[INFO] ----------------------------------------------------------------------
+[INFO] -----------------------------------------
 [...]
 [INFO] [jetty:run]
 [INFO] Configuring Jetty for project: simple-webapp Maven Webapp

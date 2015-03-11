@@ -293,15 +293,17 @@ project's 'web.xml' file. The 'web.xml' file can be found in
           "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>simple</servlet-name>
-        <servlet-class>org.sonatype.mavenbook.web.SimpleServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>simple</servlet-name>
-        <url-pattern>/simple</url-pattern>
-    </servlet-mapping>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>simple</servlet-name>
+    <servlet-class>
+      org.sonatype.mavenbook.web.SimpleServlet
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>simple</servlet-name>
+    <url-pattern>/simple</url-pattern>
+  </servlet-mapping>
 </web-app>
 ----
 
@@ -315,9 +317,9 @@ the Jetty plugin, compile your project by running +mvn compile+:
 [INFO] [compiler:compile]
 [INFO] Compiling 1 source file to \
 ~/examples/ch-simple-web/simple-webapp/target/classes
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [ERROR] BUILD FAILURE
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Compilation failure
 
 /src/main/java/org/sonatype/mavenbook/web/SimpleServlet.java:[4,0] \

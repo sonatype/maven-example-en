@@ -224,25 +224,26 @@ looks like this:
 ----
 <project>
     ...
-    <properties>
-        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
-    </properties>
+  <properties>
+    <hibernate.annotations.version>3.3.0.ga
+      </hibernate.annotations.version>
+  </properties>
 
-    <dependencyManagement>
-        ...
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>${hibernate.annotations.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>${hibernate.annotations.version}</version>
-        </dependency>
-        ...
-    </dependencyManagement>
+  <dependencyManagement>
     ...
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>${hibernate.annotations.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>${hibernate.annotations.version}</version>
+    </dependency>
+    ...
+  </dependencyManagement>
+  ...
 </project>
 ----
 
@@ -318,12 +319,13 @@ HSQLDB into a property in the top-level POM yields the following
 
 ----
 <project>
-    ...
-    <properties>
-        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
-        <hsqldb.version>1.8.0.7</hsqldb.version>
-    </properties>
-    ...
+  ...
+  <properties>
+    <hibernate.annotations.version>3.3.0.ga
+      </hibernate.annotations.version>
+    <hsqldb.version>1.8.0.7</hsqldb.version>
+  </properties>
+  ...
 </project>
 ----
 
@@ -336,42 +338,42 @@ pluginManagement element in the top-level POM's build element:
 
 ----
 <project>
-    ...
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>hibernate3-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <configuration>
-                        <components>
-                            <component>
-                                <name>hbm2ddl</name>
-                                <implementation>annotationconfiguration</implementation>
-                            </component>
-                        </components>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>hsqldb</groupId>
-                            <artifactId>hsqldb</artifactId>
-                            <version>${hsqldb.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-    ...
+  ...
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>hibernate3-maven-plugin</artifactId>
+          <version>2.1</version>
+          <configuration>
+            <components>
+              <component>
+                <name>hbm2ddl</name>
+                <implementation>annotationconfiguration</implementation>
+              </component>
+            </components>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>hsqldb</groupId>
+              <artifactId>hsqldb</artifactId>
+              <version>${hsqldb.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  ...
 </project>
 ----
 
@@ -418,10 +420,10 @@ $ mvn dependency:analyze
 
 ...
 
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Chapter 8 Simple Object Model
 [INFO]task-segment: [dependency:analyze]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Preparing dependency:analyze
 [INFO] [resources:resources]
 [INFO] Using default encoding to copy filtered resources.
@@ -441,10 +443,10 @@ $ mvn dependency:analyze
 
 ...
 
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Chapter 8 Simple Web Application
 [INFO]task-segment: [dependency:analyze]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Preparing dependency:analyze
 [INFO] [resources:resources]
 [INFO] Using default encoding to copy filtered resources.
@@ -478,10 +480,10 @@ and transitive dependencies:
 $ mvn dependency:tree
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'dependency'.
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] Building Chapter 8 Simple Object Model
 [INFO]task-segment: [dependency:tree]
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] [dependency:tree]
 [INFO] org.sonatype.mavenbook.optimize:simple-model:jar:1.0
 [INFO] +- org.hibernate:hibernate-annotations:jar:3.3.0.ga:compile
@@ -496,9 +498,9 @@ $ mvn dependency:tree
 [INFO] |  +- asm:asm:jar:1.5.3:compile
 [INFO] |  \- commons-collections:commons-collections:jar:2.1.1:compile
 [INFO] \- junit:junit:jar:3.8.1:test
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 [INFO] BUILD SUCCESSFUL
-[INFO] ------------------------------------------------------------------------
+[INFO] -----------------------------------------------------
 ----
 
 From this output, we can see that the +persistence-api+ dependency is
@@ -570,110 +572,111 @@ for +simple-parent+.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.sonatype.mavenbook.optimize</groupId>
-    <artifactId>simple-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
-    <name>Chapter 8 Simple Parent Project</name>
+  <groupId>org.sonatype.mavenbook.optimize</groupId>
+  <artifactId>simple-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+  <name>Chapter 8 Simple Parent Project</name>
 
-    <modules>
-        <module>simple-command</module>
-        <module>simple-model</module>
-        <module>simple-weather</module>
-        <module>simple-persist</module>
-        <module>simple-webapp</module>
-    </modules>
+  <modules>
+    <module>simple-command</module>
+    <module>simple-model</module>
+    <module>simple-weather</module>
+    <module>simple-persist</module>
+    <module>simple-webapp</module>
+  </modules>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>hibernate3-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <configuration>
-                        <components>
-                            <component>
-                                <name>hbm2ddl</name>
-                                <implementation>annotationconfiguration</implementation>
-                            </component>
-                        </components>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>hsqldb</groupId>
-                            <artifactId>hsqldb</artifactId>
-                            <version>${hsqldb.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement> 
-    </build>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>hibernate3-maven-plugin</artifactId>
+          <version>2.1</version>
+          <configuration>
+            <components>
+              <component>
+                <name>hbm2ddl</name>
+                <implementation>annotationconfiguration</implementation>
+              </component>
+            </components>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>hsqldb</groupId>
+              <artifactId>hsqldb</artifactId>
+              <version>${hsqldb.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement> 
+  </build>
 
-    <properties>
-        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
-        <hsqldb.version>1.8.0.7</hsqldb.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring</artifactId>
-                <version>2.0.7</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>1.5</version>
-            </dependency>  
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
-                <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-                <version>${hibernate.annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-commons-annotations</artifactId>
-                <version>${hibernate.annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>3.2.5.ga</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.transaction</groupId>
-                        <artifactId>jta</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+  <properties>
+    <hibernate.annotations.version>3.3.0.ga
+      </hibernate.annotations.version>
+    <hsqldb.version>1.8.0.7</hsqldb.version>
+  </properties>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring</artifactId>
+        <version>2.0.7</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>1.5</version>
+      </dependency>  
+      <dependency>
+        <groupId>javax.persistence</groupId>
+        <artifactId>persistence-api</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-annotations</artifactId>
+        <version>${hibernate.annotations.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+        <version>${hibernate.annotations.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate</artifactId>
+        <version>3.2.5.ga</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>  
 ----
 
@@ -687,71 +690,71 @@ for +simple-command+, the command-line version of the tool.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.optimize</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+      <groupId>org.sonatype.mavenbook.optimize</groupId>
+      <artifactId>simple-parent</artifactId>
+      <version>1.0</version>
+  </parent>
 
-    <artifactId>simple-command</artifactId>
-    <packaging>jar</packaging>
-    <name>Chapter 8 Simple Command Line Tool</name>
+  <artifactId>simple-command</artifactId>
+  <packaging>jar</packaging>
+  <name>Chapter 8 Simple Command Line Tool</name>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>org.sonatype.mavenbook.weather.Main</mainClass>
-                                <addClasspath>true</addClasspath>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <testFailureIgnore>true</testFailureIgnore>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <configuration>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>org.sonatype.mavenbook.weather.Main</mainClass>
+                <addClasspath>true</addClasspath>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <testFailureIgnore>true</testFailureIgnore>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
+        </plugin> 
+      </plugins>
+    </pluginManagement>
+  </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-weather</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-persist</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-weather</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-persist</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+    </dependency>
+  </dependencies>
 </project>
 ----
 
@@ -762,36 +765,36 @@ of the model objects used throughout the application.
 [[ex-final-pom-for-simple-model]]
 .Final POM for simple-model
 ----
-    <project xmlns="http://maven.apache.org/POM/4.0.0" 
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                                 http://maven.apache.org/maven-v4_0_0.xsd">
-        <modelVersion>4.0.0</modelVersion>
-        <parent>
-            <groupId>org.sonatype.mavenbook.optimize</groupId>
-            <artifactId>simple-parent</artifactId>
-            <version>1.0</version>
-        </parent>
-        <artifactId>simple-model</artifactId>
-        <packaging>jar</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.optimize</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>simple-model</artifactId>
+  <packaging>jar</packaging>
 
-        <name>Chapter 8 Simple Object Model</name>
+  <name>Chapter 8 Simple Object Model</name>
 
-        <dependencies>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
-            </dependency>
-        </dependencies>
-    </project>
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+    </dependency>
+  </dependencies>
+</project>
 ----
 
 The POM shown in <<ex-final-pom-for-simple-persist>> is the
@@ -805,46 +808,46 @@ all of the persistence logic that is implemented using Hibernate.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.optimize</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
-    <artifactId>simple-persist</artifactId>
-    <packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.optimize</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>simple-persist</artifactId>
+  <packaging>jar</packaging>
 
-    <name>Chapter 8 Simple Persistence API</name>
+  <name>Chapter 8 Simple Persistence API</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-        </dependency>
-    </dependencies>
+  <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>simple-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-annotations</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.4</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring</artifactId>
+      </dependency>
+  </dependencies>
 </project>
 ----
 
@@ -860,45 +863,45 @@ feed. This project depends on the +simple-model+ project.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.optimize</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
-    <artifactId>simple-weather</artifactId>
-    <packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.optimize</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>simple-weather</artifactId>
+  <packaging>jar</packaging>
 
-    <name>Chapter 8 Simple Weather API</name>
+  <name>Chapter 8 Simple Weather API</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>jaxen</groupId>
-            <artifactId>jaxen</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
 ----
 
@@ -915,74 +918,74 @@ database and that also interacts with the libraries generated by the
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.sonatype.mavenbook.optimize</groupId>
-        <artifactId>simple-parent</artifactId>
-        <version>1.0</version>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.mavenbook.optimize</groupId>
+    <artifactId>simple-parent</artifactId>
+    <version>1.0</version>
+  </parent>
 
-    <artifactId>simple-webapp</artifactId>
-    <packaging>war</packaging>
-    <name>Chapter 8 Simple Web Application</name>
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-weather</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>simple-persist</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-    </dependencies>
-    <build>
-        <finalName>simple-webapp</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.9</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>hsqldb</groupId>
-                        <artifactId>hsqldb</artifactId>
-                        <version>${hsqldb.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
+  <artifactId>simple-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>Chapter 8 Simple Web Application</name>
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-weather</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>simple-persist</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>simple-webapp</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>6.1.9</version>
+        <dependencies>
+          <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 ----
 

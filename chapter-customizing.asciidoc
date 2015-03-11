@@ -398,36 +398,50 @@ shown in <<ex-simple-weather-model-object>>.
 package org.sonatype.mavenbook.weather;
 
 public class Weather {
-    private String city;
-    private String region;
-    private String country;
-    private String condition;
-    private String temp;
-    private String chill;
-    private String humidity;
+  private String city;
+  private String region;
+  private String country;
+  private String condition;
+  private String temp;
+  private String chill;
+  private String humidity;
 
-    public Weather() {}
+  public Weather() {}
 
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+  public String getCity() { return city; }
+  public void setCity(String city) { 
+    this.city = city; 
+  }
 
-    public String getRegion() { return region; }
-    public void setRegion(String region) { this.region = region; }
+  public String getRegion() { return region; }
+  public void setRegion(String region) { 
+    this.region = region; 
+  }
 
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
+  public String getCountry() { return country; }
+  public void setCountry(String country) { 
+    this.country = country; 
+  }
 
-    public String getCondition() { return condition; }
-    public void setCondition(String condition) { this.condition = condition; }
+  public String getCondition() { return condition; }
+  public void setCondition(String condition) { 
+    this.condition = condition; 
+  }
 
-    public String getTemp() { return temp; }
-    public void setTemp(String temp) { this.temp = temp; }
+  public String getTemp() { return temp; }
+  public void setTemp(String temp) { 
+    this.temp = temp; 
+  }
 
-    public String getChill() { return chill; }
-    public void setChill(String chill) { this.chill = chill; }
+  public String getChill() { return chill; }
+  public void setChill(String chill) { 
+    this.chill = chill; 
+  }
 
-    public String getHumidity() { return humidity; }
-    public void setHumidity(String humidity) { this.humidity = humidity; }
+  public String getHumidity() { return humidity; }
+  public void setHumidity(String humidity) { 
+    this.humidity = humidity; 
+  }
 }
 ----
 
@@ -456,10 +470,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Configure Log4J
-        PropertyConfigurator.configure(Main.class.getClassLoader()
-                                       .getResource("log4j.properties"));
+        PropertyConfigurator
+          .configure(Main.class.getClassLoader()
+                      .getResource("log4j.properties"));
 
-        // Read the Zip Code from the Command-line (if none supplied, use 60202)
+        // Read the Zip Code from the Command-line 
+        // (if none supplied, use 60202)
         String zipcode = "60202";
         try {
             zipcode = args[0];
@@ -521,7 +537,8 @@ public class YahooRetriever {
 
     public InputStream retrieve(String zipcode) throws Exception {
         log.info( "Retrieving Weather Data" );
-        String url = "http://weather.yahooapis.com/forecastrss?p=" + zipcode;
+        String url = "http://weather.yahooapis.com/forecastrss?p=" 
+          + zipcode;
         URLConnection conn = new URL(url).openConnection();
         return conn.getInputStream();
     }
@@ -548,38 +565,45 @@ import org.dom4j.io.SAXReader;
 
 public class YahooParser {
 
-    private static Logger log = Logger.getLogger(YahooParser.class);
+  private static Logger log = Logger.getLogger(YahooParser.class);
 
-    public Weather parse(InputStream inputStream) throws Exception {
-        Weather weather = new Weather();
+  public Weather parse(InputStream inputStream) throws Exception {
+    Weather weather = new Weather();
 
-        log.info( "Creating XML Reader" );
-        SAXReader xmlReader = createXmlReader();
-        Document doc = xmlReader.read( inputStream );
+    log.info( "Creating XML Reader" );
+    SAXReader xmlReader = createXmlReader();
+    Document doc = xmlReader.read( inputStream );
 
-        log.info( "Parsing XML Response" );
-        weather.setCity( doc.valueOf("/rss/channel/y:location/@city") );
-        weather.setRegion( doc.valueOf("/rss/channel/y:location/@region") );
-        weather.setCountry( doc.valueOf("/rss/channel/y:location/@country") );
-        weather.setCondition( doc.valueOf("/rss/channel/item/y:condition/@text") );
-        weather.setTemp( doc.valueOf("/rss/channel/item/y:condition/@temp") );
-        weather.setChill( doc.valueOf("/rss/channel/y:wind/@chill") );
-        weather.setHumidity( doc.valueOf("/rss/channel/y:atmosphere/@humidity") );
+    log.info( "Parsing XML Response" );
+    weather.setCity( 
+      doc.valueOf("/rss/channel/y:location/@city") );
+    weather.setRegion( 
+      doc.valueOf("/rss/channel/y:location/@region") );
+    weather.setCountry( 
+      doc.valueOf("/rss/channel/y:location/@country") );
+    weather.setCondition( 
+      doc.valueOf("/rss/channel/item/y:condition/@text") );
+    weather.setTemp( 
+      doc.valueOf("/rss/channel/item/y:condition/@temp") );
+    weather.setChill( 
+      doc.valueOf("/rss/channel/y:wind/@chill") );
+    weather.setHumidity( 
+      doc.valueOf("/rss/channel/y:atmosphere/@humidity") );
 
-        return weather;
-    }
+    return weather;
+  }
 
-    private SAXReader createXmlReader() {
-        Map<String,String> uris = new HashMap<String,String>();
-        uris.put( "y", "http://xml.weather.yahoo.com/ns/rss/1.0" );
+  private SAXReader createXmlReader() {
+    Map<String,String> uris = new HashMap<String,String>();
+    uris.put( "y", "http://xml.weather.yahoo.com/ns/rss/1.0" );
 
-        DocumentFactory factory = new DocumentFactory();
+    DocumentFactory factory = new DocumentFactory();
         factory.setXPathNamespaceURIs( uris );
 
-        SAXReader xmlReader = new SAXReader();
-        xmlReader.setDocumentFactory( factory );
-        return xmlReader;
-    }
+    SAXReader xmlReader = new SAXReader();
+      xmlReader.setDocumentFactory( factory );
+    return xmlReader;
+  }
 }
 ----
 
@@ -944,8 +968,8 @@ public class YahooParserTest extends TestCase {
     }
 
     public void testParser() throws Exception {
-        InputStream nyData = 
-            getClass().getClassLoader().getResourceAsStream("ny-weather.xml");
+        InputStream nyData = getClass().getClassLoader()
+          .getResourceAsStream("ny-weather.xml");
         Weather weather = new YahooParser().parse( nyData );
         assertEquals( "New York", weather.getCity() );
         assertEquals( "NY", weather.getRegion() );
@@ -995,20 +1019,20 @@ import junit.framework.TestCase;
 
 public class WeatherFormatterTest extends TestCase {
 
-    public WeatherFormatterTest(String name) {
-        super(name);
-    }
+  public WeatherFormatterTest(String name) {
+    super(name);
+  }
 
-    public void testFormat() throws Exception {
-        InputStream nyData = 
-            getClass().getClassLoader().getResourceAsStream("ny-weather.xml");
-        Weather weather = new YahooParser().parse( nyData );
-        String formattedResult = new WeatherFormatter().format( weather );
-        InputStream expected = 
-            getClass().getClassLoader().getResourceAsStream("format-expected.dat");
-        assertEquals( IOUtils.toString( expected ).trim(), 
+  public void testFormat() throws Exception {
+    InputStream nyData = getClass().getClassLoader()
+      .getResourceAsStream("ny-weather.xml");
+    Weather weather = new YahooParser().parse( nyData );
+    String formattedResult = new WeatherFormatter().format( weather );
+    InputStream expected = getClass().getClassLoader()
+      .getResourceAsStream("format-expected.dat");
+    assertEquals( IOUtils.toString( expected ).trim(), 
                       formattedResult.trim() );
-    }
+  }
 }
 ----
 
@@ -1123,38 +1147,39 @@ directory is 'ny-weather.xml'.
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" 
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
-    <channel>
-        <title>Yahoo! Weather - New York, NY</title>
-        <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/</link>
-        <description>Yahoo! Weather for New York, NY</description>
-        <language>en-us</language>
-        <lastBuildDate>Sat, 10 Nov 2007 8:51 pm EDT</lastBuildDate>
+  <channel>
+    <title>Yahoo! Weather - New York, NY</title>
+    <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/
+      </link>
+    <description>Yahoo! Weather for New York, NY</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Nov 2007 8:51 pm EDT</lastBuildDate>
 
-        <ttl>60</ttl>
-        <yweather:location city="New York" region="NY" country="US" />
-        <yweather:units temperature="F" distance="mi" pressure="in" speed="mph" />
-        <yweather:wind chill="39" direction="0" speed="0" />
-        <yweather:atmosphere humidity="67" visibility="1609" pressure="30.18" 
-                             rising="1" />
-        <yweather:astronomy sunrise="6:36 am" sunset="4:43 pm" />
-        <image>
-            <title>Yahoo! Weather</title>
-
-            <width>142</width>
-            <height>18</height>
-            <link>http://weather.yahoo.com/</link>
-            <url>http://l.yimg.com/us.yimg.com/i/us/nws/th/main_142b.gif</url>
-        </image>
-        <item>
-            <title>Conditions for New York, NY at 8:51 pm EDT</title>
-
-            <geo:lat>40.67</geo:lat>
-            <geo:long>-73.94</geo:long>
-            <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/</link>
-            <pubDate>Sat, 10 Nov 2007 8:51 pm EDT</pubDate>
-            <yweather:condition text="Fair" code="33" temp="39" 
-                                date="Sat, 10 Nov 2007 8:51 pm EDT" />
-            <description><![CDATA[
+    <ttl>60</ttl>
+    <yweather:location city="New York" region="NY" country="US" />
+    <yweather:units temperature="F" distance="mi" pressure="in" 
+      speed="mph"/>
+    <yweather:wind chill="39" direction="0" speed="0" />
+    <yweather:atmosphere humidity="67" visibility="1609" 
+      pressure="30.18" rising="1" />
+    <yweather:astronomy sunrise="6:36 am" sunset="4:43 pm" />
+    <image>
+      <title>Yahoo! Weather</title>
+      <width>142</width>
+      <height>18</height>
+      <link>http://weather.yahoo.com/</link>
+      <url>http://l.yimg.com/us.yimg.com/i/us/nws/th/main_142b.gif</url>
+    </image>
+    <item>
+      <title>Conditions for New York, NY at 8:51 pm EDT</title>
+      <geo:lat>40.67</geo:lat>
+      <geo:long>-73.94</geo:long>
+      <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/
+        </link>
+      <pubDate>Sat, 10 Nov 2007 8:51 pm EDT</pubDate>
+      <yweather:condition text="Fair" code="33" temp="39" 
+                                date="Sat, 10 Nov 2007 8:51 pm EDT"/>
+      <description><![CDATA[
 <img src="http://l.yimg.com/us.yimg.com/i/us/we/52/33.gif" /><br />
 <b>Current Conditions:</b><br />
 Fair, 39 F<BR /><BR />
@@ -1163,14 +1188,14 @@ Sat - Partly Cloudy. High: 45 Low: 32<br />
 Sun - Sunny. High: 50 Low: 38<br />
 <br />
 ]]></description>
-            <yweather:forecast day="Sat" date="10 Nov 2007" low="32" high="45" 
+      <yweather:forecast day="Sat" date="10 Nov 2007" low="32" high="45" 
                                text="Partly Cloudy" code="29" />
 
-            <yweather:forecast day="Sun" date="11 Nov 2007" low="38" high="50" 
+      <yweather:forecast day="Sun" date="11 Nov 2007" low="38" high="50" 
                                text="Sunny" code="32" />
-            <guid isPermaLink="false">10002_2007_11_10_20_51_EDT</guid>
-        </item>
-    </channel>
+      <guid isPermaLink="false">10002_2007_11_10_20_51_EDT</guid>
+    </item>
+  </channel>
 </rss>
 ----
 
@@ -1191,8 +1216,8 @@ lifecycle phases up to and including the +test+ phase, run +mvn test+:
 $ mvn test
 ...
 [INFO] [surefire:test]
-[INFO] Surefire report directory: ~/examples/ch-custom/simple-weather/target/\
-surefire-reports
+[INFO] Surefire report directory: 
+~/examples/ch-custom/simple-weather/target/surefire-reports
 
 -------------------------------------------------------
 T E S T S
@@ -1349,20 +1374,20 @@ the 'pom.xml'.
 .Configuring the Maven Assembly Descriptor
 ----
 <project>
-    [...]
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    [...]
+  [...]
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  [...]
 </project>
 ----
 
@@ -1453,29 +1478,29 @@ build section of the project's POM.
 .Configuring Attached Goal Execution During the Package Lifecycle Phase
 ----
 <project>
-    [...]
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>simple-command</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    [...]
+  [...]
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>simple-command</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  [...]
 </project>
 ----
 
