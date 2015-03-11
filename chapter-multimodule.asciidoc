@@ -27,19 +27,19 @@ example project may be downloaded with the book's example code at:
 http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
-Unzip this archive in any directory, and then go to the 'ch-multi/'
-directory. There you will see a directory named 'simple-parent/',
+Unzip this archive in any directory, and then go to the `ch-multi/`
+directory. There you will see a directory named `simple-parent`,
 which contains the multi-module Maven project developed in this
-chapter. In this directory, you will see a 'pom.xml' and the two
-submodule directories, 'simple-weather/' and 'simple-webapp/'.
+chapter. In this directory, you will see a `pom.xml` and the two
+submodule directories, `simple-weather` and `simple-webapp`.
 
 [[multimodule-sect-simple-parent]]
 === The Simple Parent Project
 
 A multi-module project is defined by a parent POM referencing one or
-more submodules. In the 'simple-parent/' directory, you will find the
+more submodules. In the `simple-parent/` directory, you will find the
 parent POM (also called the top-level POM) in
-'simple-parent/pom.xml'. See <<ex-multimodule-parent-pom>>.
+`simple-parent/pom.xml`. See <<ex-multimodule-parent-pom>>.
 
 [[ex-multimodule-parent-pom]]
 .simple-parent Project POM
@@ -93,11 +93,11 @@ Notice that the parent defines a set of Maven coordinates: the
 doesn't create a JAR or a WAR like our previous projects; instead, it
 is simply a POM that refers to other Maven projects. The appropriate
 packaging for a project like +simple-parent+ that simply provides a
-Project Object Model is +pom+. The next section in the 'pom.xml' lists
+Project Object Model is +pom+. The next section in the `pom.xml` lists
 the project's submodules. These modules are defined in the modules
 element, and each module element corresponds to a subdirectory of the
-'simple-parent/' directory. Maven knows to look in these directories
-for 'pom.xml' files, and it will add submodules to the list of Maven
+`simple-parent` directory. Maven knows to look in these directories
+for `pom.xml` files, and it will add submodules to the list of Maven
 projects included in a build.
 
 Lastly, we define some settings which will be inherited by all
@@ -181,14 +181,14 @@ submodule. This submodule contains all
 </project>
 ----
 
-In +simple-weather+'s 'pom.xml' file, we see this module referencing a
+In +simple-weather+'s `pom.xml` file, we see this module referencing a
 parent POM using a set of Maven coordinates. The parent POM for
 +simple-weather+ is identified by a +groupId+ of
 +org.sonatype.mavenbook.multi+, an +artifactId+ of +simple-parent+,
 and a +version+ of +1.0+.
 
 The +WeatherService+ class shown in <<multimodule-weather-service>> is
-defined in 'src/main/java/org/sonatype/mavenbook/weather', and it
+defined in `src/main/java/org/sonatype/mavenbook/weather`, and it
 simply calls out to the three objects defined in <<customizing>>. In
 this chapter's example, we're creating a separate project that
 contains service objects that are referenced in the web application
@@ -321,10 +321,10 @@ supplied in the request parameter is passed to the
 +retrieveForecast()+ method and the resulting test is printed to the
 response's +Writer+.
 
-Finally, to tie all of this together is the 'web.xml' for
-+simple-webapp+ in 'src/main/webapp/WEB-INF'. The servlet and
-servlet-mapping elements in the 'web.xml' shown in
-<<ex-simple-webapp-web.xml>> map the request path '/weather' to the
+Finally, to tie all of this together is the `web.xml` for
++simple-webapp+ in `src/main/webapp/WEB-INF`. The servlet and
+servlet-mapping elements in the `web.xml` shown in
+<<ex-simple-webapp-web.xml>> map the request path `/weather` to the
 +WeatherServlet+.
 
 [[ex-simple-webapp-web.xml]]

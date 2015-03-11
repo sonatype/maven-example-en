@@ -66,7 +66,7 @@ from http://maven.apache.org/download.html[]. Download the current
 release of Maven in a format that is convenient for you to work
 with. Pick an appropriate place for it to live, and expand the archive
 there. If you expanded the archive into the directory
-'/usr/local/apache-maven-3.0.3', you may want to create a symbolic
+`/usr/local/apache-maven-3.0.3`, you may want to create a symbolic
 link to make it easier to work with and to avoid the need to change
 any environment configuration when you upgrade to a newer version:
 
@@ -78,23 +78,23 @@ any environment configuration when you upgrade to a newer version:
 ----
 
 Once Maven is installed, you need to do a couple of things to make it
-work correctly. You need to add its 'bin' directory in the
-distribution (in this example, '/usr/local/maven/bin') to your command
+work correctly. You need to add its `bin` directory in the
+distribution (in this example, `/usr/local/maven/bin`) to your command
 path. You also need to set the environment variable +M2_HOME+ to the
 top-level directory you installed (in this example,
-'/usr/local/maven').
+`/usr/local/maven`).
 
 NOTE: Installation instructions are the same for both OSX Tiger and
 OSX Leopard. It has been reported that Maven 2.0.6 is shipping with a
 preview release of XCode. If you have installed XCode, run +mvn+ from
 the command-line to check availability. XCode installs Maven in
-'/usr/share/maven'. We recommend installing the most recent version of
+`/usr/share/maven`. We recommend installing the most recent version of
 Maven 3.0.3 as there have been a number of critical bug fixes and
 improvements since Maven 2.0.6 was released.
 
 You'll need to add both +M2_HOME+ and +PATH+ to a script that will run
 every time you login. To do this, add the following lines to
-'.bash_login'.
+`.bash_login`.
 
 ----
 export M2_HOME=/usr/local/maven
@@ -140,7 +140,7 @@ http://www.macports.org/index.php[MacPorts project page].
 Installing Maven on Windows is very similar to installing Maven on Mac
 OSX, the main differences being the installation location and the
 setting of an environment variable. This book assumes a Maven
-installation directory of 'c:\Program Files\apache-maven-3.0.3', but
+installation directory of `C:\Program Files\apache-maven-3.0.3`, but
 it won't make a difference if you install Maven in another directory
 as long as you configure the proper environment variables. Once you've
 unpacked Maven to the installation directory, you will need to set two
@@ -175,11 +175,11 @@ image::figs/web/installation_set_env_var_3.png[scale="50"]
 .Click on New (the lower)
 image::figs/web/installation_set_env_var_4.png[scale="50"]
 
-* Fill in the fields with +M2_HOME+ and 'c:\Program
-Files\apache-maven-3.0.3' and click on OK button.
+* Fill in the fields with +M2_HOME+ and `c:\Program
+Files\apache-maven-3.0.3` and click on OK button.
 
 [[fig-fill-in-the-fields]]
-.Fill in the fields with +M2_HOME+ and 'c:\Program Files\apache-maven-3.0.3' and click OK.
+.Fill in the fields with +M2_HOME+ and `c:\Program Files\apache-maven-3.0.3` and click OK.
 image::figs/web/installation_set_env_var_5.png[scale="50"]
 
 * Click on the Path variable in the System variables section and click
@@ -248,25 +248,25 @@ conf/
 lib/
 ----
 
-'LICENSE.txt' contains the software license for '~/.m2'. The 'lib/'
+`LICENSE.txt` contains the software license for `~/.m2`. The `lib/`
 directory contains a single JAR file ('maven-core-3.0.3-uber.jar')
 that contains the core of Maven.
 
 NOTE: Unless you are working in a shared Unix environment, you should
-avoid customizing the 'settings.xml' in 'M2_HOME/conf'. Altering the
-global 'settings.xml' file in the Maven installation itself is usually
+avoid customizing the `settings.xml` in `M2_HOME/conf`. Altering the
+global `settings.xml` file in the Maven installation itself is usually
 unnecessary and it tends to complicate the upgrade procedure for Maven
-as you'll have to remember to copy the customized 'settings.xml' from
+as you'll have to remember to copy the customized `settings.xml` from
 the old Maven installation to the new installation. If you need to
-customize 'settings.xml', you should be editing your own
-'settings.xml' in '~/.m2/settings.xml'.
+customize `settings.xml`, you should be editing your own
+`settings.xml` in `~/.m2/settings.xml`.
 
 [[installation-sect-user]]
 ==== User-specific Configuration and Repository
 
 Once you start using Maven extensively, you'll notice that Maven has
 created some local user-specific configuration files and a local
-repository in your home directory. In '~/.m2' there will be:
+repository in your home directory. In `~/.m2` there will be:
 
 ~/.m2/settings.xml::
 
@@ -281,11 +281,11 @@ repository in your home directory. In '~/.m2' there will be:
    a copy of the dependency in your local repository.
 
 NOTE: In Unix (and OSX), your home directory will be referred to using
-a tilde (i.e. '~/bin' refers to '/home/tobrien/bin'). In Windows, we
-will also be using '~' to refer to your home directory. In Windows XP,
-your home directory is 'C:\Documents and Settings\tobrien', and in
-Windows Vista, your home directory is 'C:\Users\tobrien'. From this
-point forward, you should translate paths such as '~/m2' to your
+a tilde (i.e. `~/bin` refers to `/home/tobrien/bin`). In Windows, we
+will also be using `~` to refer to your home directory. In Windows XP,
+your home directory is `C:\Documents and Settings\tobrien`, and in
+Windows Vista, your home directory is `C:\Users\tobrien`. From this
+point forward, you should translate paths such as `~/m2` to your
 operating system's equivalent.
 
 [[installation-sect-upgrade]]
@@ -297,18 +297,18 @@ the details in <<installation-sect-maven-osx>> and
 newer versions of Maven when they become available. Simply install the
 newer version of Maven ('/usr/local/maven-2.future') next to the
 existing version of Maven ('/usr/local/maven-3.0.3'). Then switch the
-symbolic link '/usr/local/maven' from '/usr/local/maven-3.0.3' to
-'/usr/local/maven-2.future'. Since, you've already set your +M2_HOME+
-variable to point to '/usr/local/maven', you won't need to change any
+symbolic link `/usr/local/maven` from `/usr/local/maven-3.0.3` to
+`/usr/local/maven-2.future`. Since, you've already set your +M2_HOME+
+variable to point to `/usr/local/maven`, you won't need to change any
 environment variables.
 
 If you have installed Maven on a Windows machine, simply unpack Maven
-to 'c:\Program Files\maven-2.future' and update your +M2_HOME+
+to `C:\Program Files\maven-2.future` and update your +M2_HOME+
 variable.
 
-NOTE: If you have any customizations to the global 'settings.xml' in
-'M2_HOME/conf', you will need to copy this 'settings.xml' to the
-'conf' directory of the new Maven installation.
+NOTE: If you have any customizations to the global `settings.xml` in
+`M2_HOME/conf`, you will need to copy this `settings.xml` to the
+`conf` directory of the new Maven installation.
 
 [[installation-sect-upgrade-detail]]
 ==== Upgrading from Maven 1.x to Maven 2.x
@@ -335,9 +335,9 @@ $ cd my-project
 $ mvn one:convert
 ----
 
-+one:convert+ will read a 'project.xml' and produce a 'pom.xml' that
++one:convert+ will read a `project.xml` and produce a `pom.xml` that
 is compatible with Maven 2. If you've customized a Maven 1 build using
-Jelly script in a 'maven.xml' file, you will need to investigate other
+Jelly script in a `maven.xml` file, you will need to investigate other
 options. While Maven 1 emphasized Jelly scripting for customizing
 builds, Maven 2 favors custom plugins or customization through
 scripting Plugins or the Maven Antrun Plugin.
@@ -359,7 +359,7 @@ Most of the installation instructions involve unpacking of the Maven
 distribution archive in a directory and setting of various environment
 variables. If you need to remove Maven from your computer, all you
 need to do is delete your Maven installation directory and remove the
-environment variables. You will also want to delete the '~/.m2'
+environment variables. You will also want to delete the `~/.m2`
 directory as it contains your local repository.
 
 [[installation-sect-getting-help]]

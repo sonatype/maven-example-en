@@ -285,7 +285,7 @@ with targets and dependencies. Each target consists of a set of
 instructions which are coded in XML. There is a copy task and a javac
 task as well as a jar task. When you use Ant, you supply Ant with
 specific instructions for compiling and packaging your output. Look at
-the following example of a simple 'build.xml' file:
+the following example of a simple `build.xml` file:
 
 [[ex-ant-sample]]
 .A Simple Ant build.xml File
@@ -332,7 +332,7 @@ the following example of a simple 'build.xml' file:
 
 In this simple Ant example, you can see how you have to tell Ant
 exactly what to do. There is a compile goal which includes the +javac+
-task that compiles the source in the 'src/main/java' directory to the
+task that compiles the source in the `src/main/java` directory to the
 'target/classes' directory. You have to tell Ant exactly where your
 source is, where you want the resulting bytecode to be stored, and how
 to package this all into a JAR file. While there are some recent
@@ -341,9 +341,9 @@ experience with Ant is in coding a procedural language written in XML.
 
 Contrast the previous Ant example with a Maven example. In Maven, to
 create a JAR file from some Java source, all you need to do is create
-a simple 'pom.xml', place your source code in
+a simple `pom.xml`, place your source code in
 `${basedir}/src/main/java` and then run +mvn install+ from the
-command line. The example Maven 'pom.xml' that achieves the same
+command line. The example Maven `pom.xml` that achieves the same
 results as the simple Ant file listed in <<ex-ant-sample>> is shown in
 <<ex-maven-sample>>.
 
@@ -358,27 +358,27 @@ results as the simple Ant file listed in <<ex-ant-sample>> is shown in
 </project>
 ----
 
-That's all you need in your 'pom.xml'. Running +mvn install+ from the
+That's all you need in your `pom.xml`. Running +mvn install+ from the
 command line will process resources, compile source, execute unit
 tests, create a JAR, and install the JAR in a local repository for
 reuse in other projects. Without modification, you can run +mvn site+
-and then find an 'index.html' file in 'target/site' that contains
+and then find an `index.html` file in `target/site` that contains
 links to JavaDoc and a few reports about your source code.
 
 Admittedly, this is the simplest possible example project containing
 nothing more than some source code and producing a simple JAR. It is a
 project which closely follows Maven conventions and doesn't require
 any dependencies or customization. If we wanted to start customizing
-the behavior, our 'pom.xml' is going to grow in size, and in the
+the behavior, our `pom.xml` is going to grow in size, and in the
 largest of projects you can see collections of very complex Maven POMs
 which contain a great deal of plugin customization and dependency
 declarations. But, even when your project's POM files become more
 substantial, they hold an entirely different kind of information from
 the build file of a similarly sized project using Ant. Maven POMs
 contain declarations: "This is a JAR project", and "The source code is
-in 'src/main/java'". Ant build files contain explicit instructions:
-"This is project", "The source is in 'src/main/java'", "Run javac
-against this directory", "Put the results in 'target/classes'",
+in `src/main/java`". Ant build files contain explicit instructions:
+"This is project", "The source is in `src/main/java`", "Run javac
+against this directory", "Put the results in `target/classes`",
 "Create a JAR from the ....", etc. Where Ant had to be explicit about
 the process, there was something "built-in" to Maven that just knew
 where the source code was and how it should be processed.
@@ -405,10 +405,10 @@ Apache Maven::
 
   * Maven has conventions. It knows where your source code is because
        you followed the convention. Maven's Compiler plugin put the
-       bytecode in 'target/classes', and it produces a JAR file in
+       bytecode in `target/classes`, and it produces a JAR file in
        target.
 
-  * Maven is declarative. All you had to do was create a 'pom.xml'
+  * Maven is declarative. All you had to do was create a `pom.xml`
      file and put your source in the default directory. Maven took
      care of the rest.
 

@@ -24,8 +24,8 @@ example project may be downloaded with the book's example code at:
 http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
-Unzip this archive in any directory, and then go to the 'ch-custom/'
-directory. There you will see a directory named 'simple-weather/',
+Unzip this archive in any directory, and then go to the `ch-custom/`
+directory. There you will see a directory named `simple-weather/`,
 which contains the Maven project developed in this chapter.
 
 [[customizing-sect-simple-weather]]
@@ -80,7 +80,7 @@ http://developer.yahoo.com/weather/[].
 First, let's use the Maven Archetype plugin to create a basic skeleton
 for the simple weather project. Execute the following command to
 create a new project, press enter to use the default 
-'maven-archetype-quickstart' and the latest version of the archetype, 
+`maven-archetype-quickstart` and the latest version of the archetype, 
 and then enter "Y" to confirm and  generate the new project. 
 Note that the number for the archetype will be different on your execution:
 
@@ -116,7 +116,7 @@ Y: : Y
 ----
 
 Once the Maven Archetype plugin creates the project, go into the
-'simple-weather' directory and take a look at the 'pom.xml' file. You
+`simple-weather` directory and take a look at the `pom.xml` file. You
 should see the XML document that's shown in
 <<ex-initial-pom-for-simple-weather>>.
 
@@ -188,7 +188,7 @@ in <<ex-customization-initial-pom-with-compiler>>.
 Notice that we passed in the +version+ parameter to the
 +archetype:generate+ goal. This overrides the default value of
 +1.0-SNAPSHOT+. In this project, we're developing the +1.0+ version of
-the +simple-weather+ project as you can see in the 'pom.xml' +version+
+the +simple-weather+ project as you can see in the `pom.xml` +version+
 element.
 
 [[customizing-sect-customizing-project-info]]
@@ -247,10 +247,10 @@ developer information.
 ----
 
 The ellipses in <<ex-custom-org-info>> are shorthand for an
-abbreviated listing. When you see a 'pom.xml' with "..." and "..."
+abbreviated listing. When you see a `pom.xml` with "..." and "..."
 directly after the +project+ element's start tag and directly before
 the +project+ element's end tag, this implies that we are not showing
-the entire 'pom.xml' file. In this case the +licenses+,
+the entire `pom.xml` file. In this case the +licenses+,
 +organization+, and +developers+ element were all added before the
 +dependencies+ element.
 
@@ -261,7 +261,7 @@ The simple weather application is going to have to complete the
 following three tasks: retrieve XML data from Yahoo! Weather, parse
 the XML from Yahoo, and then print formatted output to standard
 output. To accomplish these tasks, we have to introduce some new
-dependencies to our project's 'pom.xml'. To parse the XML response
+dependencies to our project's `pom.xml`. To parse the XML response
 from Yahoo!, we're going to be using Dom4J and Jaxen, to format the
 output of this command-line program we are going to be using Velocity,
 and we will also need to add a dependency for Log4J which we will be
@@ -307,7 +307,7 @@ element will look like the following example.
 As you can see above, we've added four more dependency elements in
 addition to the existing element which was referencing the +test+
 scoped dependency on JUnit. If you add these dependencies to the
-project's 'pom.xml' file and then run +mvn install+, you will see
+project's `pom.xml` file and then run +mvn install+, you will see
 Maven downloading all of these dependencies and other transitive
 dependencies to your local Maven repository.
 
@@ -326,7 +326,7 @@ Spring Framework. When you search for an artifact on this site, it
 will show you an +artifactId+ and all of the versions known to the
 central Maven repository. Clicking on the details for a specific
 version will load a page that contains the dependency element you'll
-need to copy and paste into your own project's 'pom.xml'. If you need
+need to copy and paste into your own project's `pom.xml`. If you need
 to find a dependency, you'll want to check out
 http://repository.sonatype.org[repository.sonatype.org], as you'll
 often find that certain libraries have more than one +groupId+. With
@@ -374,7 +374,7 @@ the same package: +org.sonatype.mavenbook.weather+.
 
 Let's remove the +App+ and the +AppTest+ classes created by
 +archetype:generate+ and add our new package. In a Maven project, all
-of a project's source code is stored in 'src/main/java'. From the base
+of a project's source code is stored in `src/main/java`. From the base
 directory of the new project, execute the following commands:
 
 ----
@@ -389,7 +389,7 @@ $ cd weather
 
 This creates a new package named +org.sonatype.mavenbook.weather+. Now
 we need to put some classes in this directory. Using your favorite
-text editor, create a new file named 'Weather.java' with the contents
+text editor, create a new file named `Weather.java` with the contents
 shown in <<ex-simple-weather-model-object>>.
 
 [[ex-simple-weather-model-object]]
@@ -453,7 +453,7 @@ possible, the +Weather+ model object keeps track of only the
 temperature, chill, humidity, and a textual description of current
 conditions.
 
-Now, in the same directory, create a file named 'Main.java'. This
+Now, in the same directory, create a file named `Main.java`. This
 +Main+ class will hold the static +main()+ function—the entry point
 for this example.
 
@@ -517,7 +517,7 @@ returns a +Weather+ object. Finally, the+ WeatherFormatter+ takes a
 +Weather+ object and spits out a formatted +String+ which is printed
 to standard output.
 
-Create a file named 'YahooRetriever.java' in the same directory with
+Create a file named `YahooRetriever.java` in the same directory with
 the contents shown in <<ex-simple-weather-yahoo-retriever-class>>.
 
 [[ex-simple-weather-yahoo-retriever-class]]
@@ -547,7 +547,7 @@ public class YahooRetriever {
 
 This simple class opens a +URLConnection+ to the Yahoo! Weather API
 and returns an +InputStream+. To create something to parse this feed,
-we'll need to create the 'YahooParser.java' file in the same
+we'll need to create the `YahooParser.java` file in the same
 directory.
 
 .Simple Weather's YahooParser Class
@@ -621,7 +621,7 @@ XPath expression. Dom4J provides the XML parsing in this example, and
 Jaxen provides the XPath capabilities.
 
 Once we've created a +Weather+ object, we need to format our output
-for human consumption. Create a file named 'WeatherFormatter.java' in
+for human consumption. Create a file named `WeatherFormatter.java`in
 the same directory as the other classes.
 
 .Simple Weather's WeatherFormatter Class
@@ -657,7 +657,7 @@ public class WeatherFormatter {
 The +WeatherFormatter+ uses Velocity to render a template. The
 +format()+ method takes a +Weather+ bean and spits out a formatted
 +String+. The first thing the +format()+ method does is load a
-Velocity template from the classpath named 'output.vm'. We then create
+Velocity template from the classpath named `output.vm`. We then create
 a +VelocityContext+ which is populated with a single +Weather+ object
 named +weather+. A +StringWriter+ is created to hold the results of
 the template merge. The template is evaluated with a call to
@@ -670,13 +670,13 @@ our classpath.
 === Add Resources
 
 This project depends on two classpath resources: the +Main+ class that
-configures Log4J with a classpath resource named 'log4j.properties',
+configures Log4J with a classpath resource named `log4j.properties`,
 and the +WeatherFormatter+ that references a Velocity template from
-the classpath named 'output.vm'. Both of these resources need to be in
+the classpath named `output.vm`. Both of these resources need to be in
 the default package (or the root of the classpath).
 
 To add these resources, we'll need to create a new directory from the
-base directory of the project: 'src/main/resources'. Since this
+base directory of the project: `src/main/resources`. Since this
 directory was not created by the +archetype:generate+ task, we need to
 create it by executing the following commands from the project's base
 directory:
@@ -688,7 +688,7 @@ $ cd resources
 ----
 
 Once the resources directory is created, we can add the two
-resources. First, add the 'log4j.properties' file in the 'resources'
+resources. First, add the `log4j.properties` file in the `resources`
 directory, as shown in <<ex-simple-weather-log4j-config>>.
 
 [[ex-simple-weather-log4j-config]]
@@ -704,11 +704,11 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%-4r %-5p %c{1} %x - %m%n
 ----
 
-This 'log4j.properties' file simply configures Log4J to print all log
+This `log4j.properties` file simply configures Log4J to print all log
 messages to standard output using a +PatternLayout+. Lastly, we need
-to create the 'output.vm', which is the Velocity template used to
-render the output of this command-line program. Create 'output.vm' in
-the 'resources/' directory.
+to create the `output.vm`, which is the Velocity template used to
+render the output of this command-line program. Create `output.vm` in
+the `resources` directory.
 
 .Simple Weather's Output Velocity Template
 ----
@@ -787,7 +787,7 @@ As you can see, we've successfully executed the simple weather
 command-line tool, retrieved some data from Yahoo! Weather, parsed the
 result, and formatted the resulting data with Velocity. We achieved
 all of this without doing much more than writing our project's source
-code and adding some minimal configuration to the 'pom.xml'. Notice
+code and adding some minimal configuration to the `pom.xml`. Notice
 that no “build process” was involved. We didn't need to define how or
 where the Java compiler compiles our source to bytecode, and we didn't
 need to instruct the build system how to locate the bytecode when we
@@ -823,7 +823,7 @@ Maven Assembly plugin that is demonstrated in the section
 The Exec plugin makes it possible for us to run the simplest weather
 program without having to load the appropriate dependencies into the
 classpath. In any other build system, we would have to copy all of the
-program dependencies into some sort of 'lib/' directory containing a
+program dependencies into some sort of `lib/` directory containing a
 collection of JAR files. Then, we would have to write a simple script
 that includes our program's bytecode and all of our dependencies in a
 classpath. Only then could we run +java
@@ -936,7 +936,7 @@ at work.
 Maven has built-in support for unit tests, and testing is a part of
 the default Maven lifecycle. Let's add some unit tests to our simple
 weather project. First, let's create the
-+org.sonatype.mavenbook.weather+ package under 'src/test/java':
++org.sonatype.mavenbook.weather+ package under `src/test/java`:
 
 ----
 $ cd src/test/java
@@ -947,7 +947,7 @@ $ cd weather/yahoo
 
 At this point, we will create two unit tests. The first will test the
 +YahooParser+, and the second will test the +WeatherFormatter+. In the
-+weather+ package, create a file named 'YahooParserTest.java' with the
++weather+ package, create a file named `YahooParserTest.java` with the
 contents shown in the next example.
 
 .Simple Weather's YahooParserTest Unit Test
@@ -989,19 +989,19 @@ the superclass, and a series of public methods that begin with
 “+test+” that are invoked as unit tests. We define a single test
 method, +testParser+, which tests the +YahooParser+ by parsing an XML
 document with known values. The test XML document is named
-'ny-weather.xml' and is loaded from the classpath. We'll add test
+`ny-weather.xml` and is loaded from the classpath. We'll add test
 resources in <<customizing-sect-custom-test-resource>>. In our Maven
-project's directory layout, the 'ny-weather.xml' file is found in the
+project's directory layout, the `ny-weather.xml` file is found in the
 directory that contains test
-resources — `${basedir}/src/test/resources` under'
-org/sonatype/mavenbook/weather/yahoo/ny-weather.xml'. The file is read
+resources — `${basedir}/src/test/resources` under`
+org/sonatype/mavenbook/weather/yahoo/ny-weather.xml`. The file is read
 as an +InputStream+ and passed to the +parse()+ method on
 +YahooParser+. The +parse()+ method returns a +Weather+ object, which
 is then tested with a series of calls to +assertEquals()+, a method
 defined by +TestCase+.
 
 In the same directory, create a file named
-'WeatherFormatterTest.java'.
+`WeatherFormatterTest.java`.
 
 .Simple Weather's WeatherFormatterTest Unit Test
 ----
@@ -1048,8 +1048,8 @@ this sample input file through the +YahooParser+ which spits out a
 +Weather+ object, and this object is then formatted with the
 +WeatherFormatter+. Since the +WeatherFormatter+ prints out a
 +String+, we need to test it against some expected input. Our expected
-input has been captured in a text file named 'format-expected.dat'
-which is in the same directory as 'ny-weather.xml'. To compare the
+input has been captured in a text file named `format-expected.dat`
+which is in the same directory as `ny-weather.xml`. To compare the
 test's output to the expected output, we read this expected output in
 as an +InputStream+ and use Commons IO's +IOUtils+ class to convert
 this file to a +String+. This +String+ is then compared to the test
@@ -1063,7 +1063,7 @@ IO—the +IOUtils+ class. +IOUtils+ provides a number of helpful static
 functions that take most of the work out of input/output
 operations. In this particular unit test, we used <methodname
 role="keep-together">IOUtils.toString()+ to copy the
-'format-expected.dat' classpath resource to a +String+. We could have
+`format-expected.dat` classpath resource to a +String+. We could have
 done this without using Commons IO, but it would have required an
 extra six or seven lines of code to deal with the various
 +InputStreamReader+ and +StringWriter+ objects. The main reason we
@@ -1094,7 +1094,7 @@ dependencies section, as shown in the following example:
 </project>
 ----
 
-After you add this dependency to the 'pom.xml', run +mvn
+After you add this dependency to the `pom.xml`, run +mvn
 dependency:resolve+ and you should see that +commons-io+ is now listed
 as a dependency with scope +test+. We need to do one more thing before
 we are ready to run this project's unit tests. We need to create the
@@ -1107,10 +1107,10 @@ A unit test has access to a set of resources which are specific to
 tests. Often you'll store files containing expected results and files
 containing dummy input in the test classpath. In this project, we're
 storing a test XML document for +YahooParserTest+ named
-'ny-weather.xml' and a file containing expected output from the
-+WeatherFormatter+ in 'format-expected.dat'.
+`ny-weather.xml` and a file containing expected output from the
++WeatherFormatter+ in `format-expected.dat`.
 
-To add test resources, you'll need to create the 'src/test/resources'
+To add test resources, you'll need to create the `src/test/resources`
 directory. This is the default directory in which Maven looks for unit
 test resources. To create this directory execute the following
 commands from your project's base directory.
@@ -1122,7 +1122,7 @@ $ cd resources
 ----
 
 Once you've create the resources directory, create a file named
-'format-expected.dat' in the 'resources' directory.
+`format-expected.dat` in the `resources` directory.
 
 .Simple Weather's WeatherFormatterTest Expected Output
 ----
@@ -1140,7 +1140,7 @@ Wind Chill: 39
 This file should look familiar. It is the same output that was
 generated previously when you ran the simple weather project with the
 Maven Exec plugin. The second file you'll need to add to the resources
-directory is 'ny-weather.xml'.
+directory is `ny-weather.xml`.
 
 .Simple Weather's YahooParserTest XML Input
 ----
@@ -1241,8 +1241,8 @@ Executing +mvn test+ from the command line caused Maven to execute all
 lifecycle phases up to the +test+ phase. The Maven Surefire plugin has
 a +test+ goal which is bound to the +test+ phase. This +test+ goal
 executes all of the unit tests this project can find under
-'src/test/java' with filenames matching '**/Test*.java',
-'**/*Test.java' and '**/*TestCase.java'. In the case of this project,
+`src/test/java` with filenames matching `**/Test*.java`,
+`**/*Test.java` and `**/*TestCase.java`. In the case of this project,
 you can see that the Surefire plugin's +test+ goal executed
 +WeatherFormatterTest+ and +YahooParserTest+. When the Maven Surefire
 plugin runs the JUnit tests, it also generates XML and text reports in
@@ -1331,7 +1331,7 @@ $ mvn install -Dmaven.test.skip=true
 When the Surefire plugin reaches the +test+ goal, it will skip the
 unit tests if the +maven.test.skip+ properties is set to
 +true+. Another way to configure Maven to skip unit tests is to add
-this configuration to your project's 'pom.xml'. To do this, you would
+this configuration to your project's `pom.xml`. To do this, you would
 add a plugin element to your build configuration.
 
 .Skipping Unit Tests
@@ -1369,7 +1369,7 @@ more complex archive for the Simple Weather application. In this
 chapter, we're going to use the predefined +jar-with-dependencies+
 format. To configure the Maven Assembly Plugin, we need to add the
 following plugin configuration to our existing build configuration in
-the 'pom.xml'.
+the `pom.xml`.
 
 .Configuring the Maven Assembly Descriptor
 ----
@@ -1417,7 +1417,7 @@ simple-weather-1.0-jar-with-dependencies.jar
 ----
 
 Once our assembly is assembled in
-'target/''simple-weather-1.0-jar-with-''dependencies.jar', we can run
+`target/`simple-weather-1.0-jar-with-dependencies.jar`, we can run
 the +Main+ class again from the command line. To run the simple
 weather application's +Main+ class, execute the following commands
 from your project's base directory:

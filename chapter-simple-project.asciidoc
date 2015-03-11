@@ -38,8 +38,8 @@ downloaded with the book's example code at:
 http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
-Unzip this archive in any directory, and then go to the 'ch-simple/'
-directory. There you will see a directory named 'simple/' that
+Unzip this archive in any directory, and then go to the `ch-simple/`
+directory. There you will see a directory named `simple` that
 contains the source code for this chapter.
 
 [[simple-project-sect-create-simple]]
@@ -139,26 +139,26 @@ This generated directory adheres to the Maven Standard Directory
 Layout. We'll get into more details later in this chapter, but for
 now, let's just try to understand these few basic directories:
 
-<1> The Maven Archetype plugin creates a directory 'simple/' that
+<1> The Maven Archetype plugin creates a directory `simple` that
 matches the +artifactId+. This is known as the project's base
 directory.
 
 <2> Every Maven project has what is known as a Project Object Model
-(POM) in a file named 'pom.xml'. This file describes the project,
+(POM) in a file named `pom.xml`. This file describes the project,
 configures plugins, and declares dependencies.
 
 <3> Our project's source code and resources are placed under
-'src/main'. In the case of our simple Java project this will consist
+`src/main`. In the case of our simple Java project this will consist
 of a few Java classes and some properties file. In another project,
 this could be the document root of a web application or configuration
 files for an application server. In a Java project, Java classes are
-placed in 'src/main/java' and classpath resources are placed in
-'src/main/resources'.
+placed in `src/main/java` and classpath resources are placed in
+`src/main/resources`.
 
-<4> Our project's test cases are located in 'src/test'. Under this
+<4> Our project's test cases are located in `src/test`. Under this
 directory, Java classes such as JUnit or TestNG tests are placed in
-'src/test/java', and classpath resources for tests are located in
-'src/test/resources'.
+`src/test/java`, and classpath resources for tests are located in
+`src/test/resources`.
 
 The Maven Archetype plugin generated a single class
 +org.sonatype.mavenbook.App+, which is a 13-line Java class with a
@@ -187,7 +187,7 @@ a program which prints "Hello World!" to standard output.
 [[simple-project-sect-building-simple]]
 === Building a Simple Project
 
-directory that contains the 'pom.xml':
+directory that contains the `pom.xml`:
 
 ----
 $ cd simple
@@ -240,7 +240,7 @@ Hello World!
 === Simple Project Object Model
 
 [[example_simple-project-pom]]
-.Simple Project's 'pom.xml' file
+.Simple Project's `pom.xml` file
 ----
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -264,7 +264,7 @@ Hello World!
 </project>
 ----
 
-This 'pom.xml' file is the most basic POM you will ever deal with for
+This `pom.xml` file is the most basic POM you will ever deal with for
 a Maven project, usually a POM file is considerably more complex:
 defining multiple dependencies and customizing plugin behavior. The
 first few elements—groupId, artifactId, packaging, version—are what is
@@ -274,14 +274,14 @@ name and associating the project with a web site. The dependencies
 element defines a single, test-scoped dependency on a unit testing
 framework called JUnit. These topics will be further introduced in
 <<simple-project-sect-simple-core>>, all you need to know, at this
-point, is that the 'pom.xml' is the file that makes Maven go.
+point, is that the `pom.xml` is the file that makes Maven go.
 
 Maven always executes against an effective POM, a combination of
-settings from this project's 'pom.xml', all parent POMs, a super-POM
+settings from this project's `pom.xml`, all parent POMs, a super-POM
 defined within Maven, user-defined settings, and active profiles. All
 projects ultimately extend the super-POM, which defines a set of
 sensible default configuration settings. While your project might have
-a relatively minimal 'pom.xml', the contents of your project's POM are
+a relatively minimal `pom.xml`, the contents of your project's POM are
 interpolated with the contents of all parent POMs, user settings, and
 any active profiles. To see this "effective" POM, run the following
 command in the simple project's base directory.
@@ -440,25 +440,25 @@ Maven steps through the phases preceding +package+ in the
 +resources:resources+::
 
   plugin is bound to the +process-resources+ phase. This goal copies
-  all of the resources from 'src/main/resources' and any other
+  all of the resources from `src/main/resources` and any other
   configured resource directories to the output directory.
 
 +compiler:compile+::
 
   is bound to the +compile+ phase. This goal compiles all of the
-  source code from 'src/main/java' or any other configured source
+  source code from `src/main/java` or any other configured source
   directories to the output directory.
 
 +resources:testResources+::
 
   plugin is bound to the +process-test-resources+ phase. This goal
-  copies all of the resources from 'src/test/resources' and any other
+  copies all of the resources from `src/test/resources` and any other
   configured test resource directories to a test output directory.
 
 +compiler:testCompile+::
 
   plugin is bound to the +test-compile+ phase. This goal compiles test
-  cases from 'src/test/java' and any other configured test source
+  cases from `src/test/java` and any other configured test source
   directories to a test output directory.
 
 +surefire:test+::
@@ -504,7 +504,7 @@ project, you can build them all.
 ==== Maven Coordinates
 
 The Archetype plugin created a project with a file named
-'pom.xml'. This is the Project Object Model (POM), a declarative
+`pom.xml`. This is the Project Object Model (POM), a declarative
 description of a project. When Maven executes a goal, each goal has
 access to the information defined in a project's POM. When the
 +jar:jar+ goal needs to create a JAR file, it looks to the POM to find
@@ -538,7 +538,7 @@ pinpoints a project via its coordinates when one project relates to
 another, either as a dependency, a plugin, or a parent project
 reference. Maven coordinates are often written using a colon as a
 delimiter in the following format:
-+groupId:artifactId:packaging:version+. In the above 'pom.xml' file
++groupId:artifactId:packaging:version+. In the above `pom.xml` file
 for our current project, its coordinates are represented as
 +mavenbook:my-app:jar:1.0-SNAPSHOT+.
 
@@ -623,8 +623,8 @@ repository at
 http://repo1.maven.org/maven2/[http://repo1.maven.org/maven2/]. You
 will see that an artifact with the coordinates
 +org.apache.commons:commons-email:1.1+ is available under the
-directory '/org/apache/commons/commons-email/1.1/' in a file named
-'commons-email-1.1.jar'. The standard for a Maven repository is to
+directory `/org/apache/commons/commons-email/1.1/` in a file named
+`commons-email-1.1.jar`. The standard for a Maven repository is to
 store an artifact in the following directory relative to the root of
 the repository:
 
@@ -638,10 +638,10 @@ repository. Once Maven has downloaded an artifact from the remote
 Maven repository it never needs to download that artifact again as
 Maven will always look for the artifact in the local repository before
 looking elsewhere. On Windows XP, your local repository is likely in
-'C:\Documents and Settings\USERNAME\.m2\repository', and on Windows
+`C:\Documents and Settings\USERNAME\.m2\repository`, and on Windows
 Vista, your local repository is in
-'C:\Users\USERNAME\.m2\repository'. On Unix systems, your local Maven
-repository is available in '~/.m2/repository'. When you build a
+`C:\Users\USERNAME\.m2\repository`. On Unix systems, your local Maven
+repository is available in `~/.m2/repository`. When you build a
 project like the simple project you created in the previous section,
 the +install+ phase executes a goal which installs your project's
 artifacts in your local Maven repository.
@@ -676,10 +676,10 @@ depend on each other.
 
 In this chapter's simple example, Maven resolved the coordinates of
 the JUnit dependency `junit:junit:3.8.1` to a path in a Maven
-repository '/junit/junit/3.8.1/junit-3.8.1.jar'. The ability to locate
+repository `/junit/junit/3.8.1/junit-3.8.1.jar`. The ability to locate
 an artifact in a repository based on Maven coordinates gives us the
 ability to define dependencies in a project's POM. If you examine the
-simple project's 'pom.xml' file, you will see that there is a section
+simple project's `pom.xml` file, you will see that there is a section
 which deals with dependencies, and that this section contains a single
 dependency—JUnit.
 
@@ -689,7 +689,7 @@ transitive dependencies is one of Maven's most powerful
 features. Let's say your project depends on a library that, in turn,
 depends on 5 or 10 other libraries (Spring or Hibernate, for
 example). Instead of having to track down all of these dependencies
-and list them in your 'pom.xml' explicitly, you can simply depend on
+and list them in your `pom.xml` explicitly, you can simply depend on
 the library you are interested in and Maven will add the dependencies
 of this library to your project's dependencies implicitly. Maven will
 also take care of working out conflicts between dependencies, and
@@ -698,9 +698,9 @@ exclude certain transitive dependencies.
 
 Let's take a look at a dependency which was downloaded to your local
 repository when you ran the previous example. Look in your local
-repository path under '~/.m2/repository/junit/junit/3.8.1/'. If you
+repository path under `~/.m2/repository/junit/junit/3.8.1/`. If you
 have been following this chapter's examples, there will be a file
-named 'junit-3.8.1.jar' and a 'junit-3.8.1.pom' file in addition to a
+named `junit-3.8.1.jar` and a `junit-3.8.1.pom` file in addition to a
 few checksum files which Maven uses to verify the authenticity of a
 downloaded artifact. Note that Maven doesn't just download the JUnit
 JAR file, Maven also downloads a POM file for the JUnit
@@ -709,7 +709,7 @@ artifacts is central to Maven's support for transitive dependencies.
 
 When you install your project's artifact in the local repository, you
 will also notice that Maven publishes a slightly modified version of
-the project's 'pom.xml' file in the same directory as the JAR
+the project's `pom.xml` file in the same directory as the JAR
 file. Storing a POM file in the repository gives other projects
 information about this project, most importantly what dependencies it
 has. If Project B depends on Project A, it also depends on Project A's
@@ -739,7 +739,7 @@ provides you with the ability to exclude transitive dependencies from
 being included in a project's classpath.
 
 Maven also provides for different dependency scopes. The simple
-project's 'pom.xml' contains a single dependency
+project's `pom.xml` contains a single dependency
 —+junit:junit:jar:3.8.1+ — with a scope of +test+. When a dependency
 has a scope of +test+, it will not be available to the +compile+ goal
 of the Compiler plugin. It will be added to the classpath for only the

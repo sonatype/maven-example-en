@@ -31,12 +31,12 @@ http://www.sonatype.com/books/mvnex-book/mvnex-examples.zip
 ----
 
 Unzip this archive in any directory, and then go to the
-'ch-multi-spring/' directory. There you will see a directory named
-'simple-parent/' that contains the multi-module Maven project
-developed in this chapter. In the 'simple-parent/' project directory
-you will see a 'pom.xml' and the five submodule directories
-'simple-model/', 'simple-persist/', 'simple-command/',
-'simple-weather/' and 'simple-webapp/'.
+`ch-multi-spring` directory. There you will see a directory named
+`simple-parent` that contains the multi-module Maven project
+developed in this chapter. In the `simple-parent/` project directory
+you will see a `pom.xml` and the five submodule directories
+`simple-model/`, `simple-persist/`, `simple-command/`,
+`simple-weather/` and `simple-webapp/`.
 
 [[multimodule-web-spring-sect-project-description]]
 ==== Multi-module Enterprise Project
@@ -179,9 +179,9 @@ web site at http://hsqldb.org/[http://hsqldb.org].
 [[multimodule-web-spring-sect-simple-parent]]
 === The Simple Parent Project
 
-This +simple-parent+ project has a 'pom.xml' that references five
+This +simple-parent+ project has a `pom.xml` that references five
 submodules: +simple-command+, +simple-model+, +simple-weather+,
-+simple-persist+, and +simple-webapp+. The top-level 'pom.xml' is
++simple-persist+, and +simple-webapp+. The top-level `pom.xml` is
 shown in <<ex-multimodule-web-spring-parent>>.
 
 [[ex-multimodule-web-spring-parent]]
@@ -271,12 +271,12 @@ date of the observation is stored in a +Condition+ class.
 .Simple Object Model for Weather Data
 image::figs/web/multimodule-web-spring_object-model.png[]
 
-The 'pom.xml' file for this simple model object contains one
+The `pom.xml` file for this simple model object contains one
 dependency that bears some explanation. Our object model is annotated
 with Hibernate Annotations. We use these annotations to map the model
 objects in this model to tables in a relational database. The
 dependency is +org.hibernate:hibernate-annotations:3.3.0.ga+. Take a
-look at the 'pom.xml' shown in <<example_simple-model_pom.xml>>, and
+look at the `pom.xml` shown in <<example_simple-model_pom.xml>>, and
 then look at the next few examples for some illustrations of these
 annotations.
 
@@ -313,8 +313,8 @@ annotations.
 </project>
 ----
 
-In 'src/main/java/org/sonatype/mavenbook/weather/model', we have
-'Weather.java', which contains the annotated +Weather+ model
+In `src/main/java/org/sonatype/mavenbook/weather/model`, we have
+`Weather.java`, which contains the annotated +Weather+ model
 object. The +Weather+ object is a simple Java bean. This means that we
 have private member variables like +id+, +location+, +condition+,
 +wind+, +atmosphere+, and +date+ exposed with public getter and setter
@@ -422,7 +422,7 @@ you would annotate that property with +@Transient+.
 
 Next, take a look at one of the secondary model objects, +Condition+,
 shown in <<example_condition_model_object>>. This class also resides
-in 'src/main/java/org/sonatype/mavenbook/weather/model'.
+in `src/main/java/org/sonatype/mavenbook/weather/model`.
 
 [[example_condition_model_object]]
 .simple-model's Condition Model Object.
@@ -625,7 +625,7 @@ application uses a Spring MVC controller that is associated with an
 instance of +WeatherService+, and our command-line utility loads the
 +WeatherService+ from an +ApplicationContext+ in a static +main()+
 function. To encourage reuse, we've included an
-'applicationContext-weather.xml' file in 'src/main/resources', which
+`applicationContext-weather.xml` file in `src/main/resources`, which
 is available on the classpath. Modules that depend on the
 +simple-weather+ module can load this application context using the
 +ClasspathXmlApplicationContext+ in the Spring Framework. They can
@@ -662,7 +662,7 @@ and +weatherService+. The +weatherService+ bean is an instance of
 +WeatherService+, and this XML document populates the +yahooParser+
 and +yahooRetriever+ properties with references to the named instances
 of the corresponding classes. Think of this
-'applicationContext-weather.xml' file as defining the architecture of
+`applicationContext-weather.xml` file as defining the architecture of
 a subsystem in this multi-module project. Projects like
 +simple-webapp+ and +simple-command+ can reference this context and
 retrieve an instance of +WeatherService+ which already has
@@ -874,7 +874,7 @@ created by the Spring Framework to make writing Hibernate DAO objects
 painless. To support this DAO, we'll need to do some configuration in
 the +simple-persist+ Spring +ApplicationContext+ definition. The XML
 document shown in <<ex-persist-spring>> is stored in
-'src/main/resources' in a file named 'applicationContext-persist.xml'.
+`src/main/resources` in a file named `applicationContext-persist.xml`.
 
 [[ex-persist-spring]]
 .Spring Application Context for simple-persist
@@ -956,7 +956,7 @@ properties define a number of settings:
 
    In this example, we're configuring the JDBC connection properties
    from the Spring configuration. Our applications are configured to
-   run against a HSQLDB in the './data/weather' directory. In a real
+   run against a HSQLDB in the`./data/weather` directory. In a real
    enterprise application, it is more likely you would use something
    like JNDI to externalize database configuration from your
    application's code.
@@ -964,16 +964,16 @@ properties define a number of settings:
 Lastly, in this bean definition file, both of the +simple-persist+ DAO
 objects are created and given a reference to the +sessionFactory+ bean
 just defined. Just like the Spring application context in
-+simple-weather+, this 'applicationContext-persist.xml' file defines
++simple-weather+, this `applicationContext-persist.xml` file defines
 the architecture of a submodule in a larger enterprise design. If you
 were working with a larger collection of persistence classes, you
 might find it useful to capture them in an application context which
 is separate from your application.
 
 There's one last piece of the puzzle in +simple-persist+. Later in
-this chapter, we're going to 'hibernate.cfg.xml' in
-'src/main/resources'. The purpose of this file (which duplicates some
-of the configuration in 'applicationContext-persist.xml') is to allow
+this chapter, we're going to `hibernate.cfg.xml` in
+`src/main/resources`. The purpose of this file (which duplicates some
+of the configuration in `applicationContext-persist.xml`) is to allow
 us to leverage the Maven Hibernate3 plugin to generate Data Definition
 Language (DDL) from nothing more than our annotations. See
 <<ex-hibernate-cfg>>.
@@ -1033,11 +1033,11 @@ Language (DDL) from nothing more than our annotations. See
 The contents of <<ex-persist-spring>> and
 <<ex-multimodule-web-spring-parent>> are redundant. While the Spring
 Application Context XML is going to be used by the web application and
-the command-line application, the 'hibernate.cfg.xml' exists only to
+the command-line application, the `hibernate.cfg.xml` exists only to
 support the Maven Hibernate3 plugin. Later in this chapter, we'll see
-how to use this 'hibernate.cfg.xml' and the Maven Hibernate3 plugin to
+how to use this `hibernate.cfg.xml` and the Maven Hibernate3 plugin to
 generate a database schema based on the annotated object model defined
-in +simple-model+. This 'hibernate.cfg.xml' file is the file that will
+in +simple-model+. This `hibernate.cfg.xml` file is the file that will
 configure the JDBC connection properties and enumerate the list of
 annotated model classes for the Maven Hibernate3 plugin.
 
@@ -1047,7 +1047,7 @@ annotated model classes for the Maven Hibernate3 plugin.
 The web application is defined in a +simple-webapp+ project. This
 simple web application project is going to define two Spring MVC
 Controllers: +WeatherController+ and +simple-weather+ and the
-'applicationContext-persist.xml' file in +simple-persist+. The
+`applicationContext-persist.xml` file in +simple-persist+. The
 component architecture of this simple web application is shown in
 <<fig-web-components>>.
 
@@ -1143,7 +1143,7 @@ The POM for +simple-webapp+ is shown in
 ----
 
 As this book progresses and the examples become more and more
-substantial, you'll notice that the 'pom.xml' begins to take on some
+substantial, you'll notice that the `pom.xml` begins to take on some
 weight. In this POM, we're configuring four dependencies and two
 plugins. Let's go through this POM in detail and dwell on some of the
 important configuration points:
@@ -1173,17 +1173,17 @@ this dependency to its configuration.
 
 <4> The Maven Hibernate plugin is when this POM starts to get
 interesting. In the next section, we're going to run the +hbm2ddl+
-goal to generate a HSQLDB database. In this 'pom.xml', we're including
+goal to generate a HSQLDB database. In this `pom.xml`, we're including
 a reference to version 2.0 of the +hibernate3-maven-plugin+ hosted by
 the Codehaus Mojo plugin.
 
 <5> The Maven Hibernate3 plugin has different ways to obtain Hibernate
 mapping information that are appropriate for different usage scenarios
 of the Hibernate3 plugin. If you were using Hibernate Mapping XML
-('.hbm.xml') files, and you wanted to generate model classes using the
+(`.hbm.xml`) files, and you wanted to generate model classes using the
 +hbm2java+ goal, you would set your implementation to
 configuration. If you were using the Hibernate3 plugin to reverse
-engineer a database to produce '.hbm.xml' files and model classes from
+engineer a database to produce `.hbm.xml` files and model classes from
 an existing database, you would use an implementation of
 +jdbcconfiguration+. In this case, we're simply using an existing
 annotated object model to generate a database. In other words, we have
@@ -1254,8 +1254,8 @@ Spring IoC container is responsible for wiring the controller to the
 we're passing the +Weather+ object returned by +retrieveForecast()+ to
 the constructor of +ModelAndView+. This +ModelAndView+ class is going
 to be used to render a Velocity template, and this template will have
-references to a `${weather}` variable. The 'weather.vm' template
-is stored in 'src/main/webapp/WEB-INF/vm' and is shown in
+references to a `${weather}` variable. The `weather.vm` template
+is stored in `src/main/webapp/WEB-INF/vm` and is shown in
 <<ex-weather-vm>>.
 
 In the +WeatherController+, before we render the output of the
@@ -1360,7 +1360,7 @@ corresponds to the +zip+ parameter. It does this by invoking the
 Once the +Location+ object has been retrieved, the +HistoryController+
 will then attempt to retrieve recent +Weather+ objects that match the
 given +Location+. Once the +List<Weather>+ has been retrieved, a
-+HashMap+ is created to hold two variables for the 'history.vm'
++HashMap+ is created to hold two variables for the `history.vm`
 Velocity template shown in <<ex-spring-history-velocity>>.
 
 [[ex-spring-history-velocity]]
@@ -1382,7 +1382,7 @@ Weather History for: ${location.city}, ${location.region}, ${location.country}
 #end
 ----
 
-The 'history.vm' template in 'src/main/webapp/WEB-INF/vm' references
+The `history.vm` template in `src/main/webapp/WEB-INF/vm` references
 the +location+ variable to print out information about the location of
 the forecasts retrieved from the +WeatherDAO+. This template then uses
 a Velocity control structure, +#foreach+, to loop through each element
@@ -1396,12 +1396,12 @@ they reference other beans defined in +simple-weather+ and
 control to some mysterious templating system that knows how to render
 Velocity templates. All of this magic is configured in a Spring
 application context in
-'src/main/webapp/WEB-INF/weather-servlet.xml'. This XML configures the
+`src/main/webapp/WEB-INF/weather-servlet.xml`. This XML configures the
 controllers and references other Spring-managed beans, it is loaded by
 a +ServletContextListener+ which is also configured to load the
-'applicationContext-weather.xml' and 'applicationContext-persist.xml'
+`applicationContext-weather.xml` and `applicationContext-persist.xml`
 from the classpath. Let's take a closer look at the
-'weather-servlet.xml' shown in <<ex-spring-weather-servlet>>.
+`weather-servlet.xml` shown in <<ex-spring-weather-servlet>>.
 
 [[ex-spring-weather-servlet]]
 .Spring Controller Configuration weather-servlet.xml
@@ -1452,7 +1452,7 @@ from the classpath. Let's take a closer look at the
 </beans>
 ----
 
-<1> The 'weather-servlet.xml' defines the two controllers as
+<1> The `weather-servlet.xml` defines the two controllers as
 Spring-managed beans. +weatherController+ has two properties which are
 references to +weatherService+ and +weatherDAO+. +historyController+
 references the beans +weatherDAO+ and +locationDAO+. When this
@@ -1464,12 +1464,12 @@ Spring configuration files.
 
 <2> The +urlMapping+ bean defines the URL patterns which invoke the
 +WeatherController+ and the +HistoryController+. In this example, we
-are using the +SimpleUrlHandlerMapping+ and mapping '/weather.x' to
-+WeatherController+ and '/history.x' to +HistoryController+.
+are using the +SimpleUrlHandlerMapping+ and mapping `/weather.x` to
++WeatherController+ and `/history.x` to +HistoryController+.
 
 <3> Since we are using the Velocity templating engine, we will need to
 pass in some configuration options. In the +velocityConfig+ bean, we
-are telling Velocity to look for all templates in the '/WEB-INF/vm'
+are telling Velocity to look for all templates in the `/WEB-INF/vm`
 directory.
 
 <4> Last, the +viewResolver+ is configured with the class
@@ -1480,8 +1480,8 @@ this example, we're configuring the Velocity templating engine and
 setting the default prefix and suffix which will be automatically
 appended to the names of the template passed to +ModelAndView+.
 
-Finally, the +simple-webapp+ project was a 'web.xml' which provides
-the basic configuration for the web application. The 'web.xml' file is
+Finally, the +simple-webapp+ project was a `web.xml` which provides
+the basic configuration for the web application. The `web.xml` file is
 shown in <<ex-spring-web-xml>>.
 
 [[ex-spring-web-xml]]
@@ -1535,23 +1535,23 @@ shown in <<ex-spring-web-xml>>.
 ----
   
 <1> <calloutlist> Here's a bit of magic which allows us to reuse the
-'applicationContext-weather.xml' and 'applicationContext-persist.xml'
+`applicationContext-weather.xml` and `applicationContext-persist.xml`
 in this project. The +contextConfigLocation+ is used by the
 +ContextLoaderListener+ to create an +ApplicationContext+. When the
-weather servlet is created, the 'weather-servlet.xml' from
+weather servlet is created, the `weather-servlet.xml` from
 <<ex-spring-weather-servlet>> is going to be evaluated with the
 +ApplicationContext+ created from this +contextConfigLocation+. In
 this way, you can define a set of beans in another project and you can
 reference these beans via the classpath. Since the +simple-persist+
-and +simple-weather+ JARs are going to be in 'WEB-INF/lib', all we do
+and +simple-weather+ JARs are going to be in `WEB-INF/lib`, all we do
 is use the +classpath:+ prefix to reference these files. (Another
-option would have been to copy these files to '/WEB-INF' and reference
-them with something like '/WEB-INF/applicationContext-persist.xml').
+option would have been to copy these files to `/WEB-INF` and reference
+them with something like `/WEB-INF/applicationContext-persist.xml`).
 
 <2> The +log4jConfigLocation+ is used to tell the
 +Log4JConfigListener+ where to look for Log4J logging
 configuration. In this example, we tell Log4J to look in
-'/WEB-INF/log4j.properties'.
+`/WEB-INF/log4j.properties`.
 
 <3> This makes sure that the Log4J system is configured when the web
 application starts. It is important to put this +Log4JConfigListener+
@@ -1570,12 +1570,12 @@ container. When the application starts, this listener will build an
 
 <5> We define a Spring MVC +DispatcherServlet+ with a name of
 +weather+. This will cause Spring to look for a Spring configuration
-file in '/WEB-INF/weather-servlet.xml'. You can have as many
+file in `/WEB-INF/weather-servlet.xml`. You can have as many
 +DispatcherServlet+s as you need, a +DispatcherServlet+ can contain
 one or more Spring MVC +Controller+ implementations.
 
-<6> All requests ending in '.x' will be routed to the +weather+
-servlet. Note that the '.x' extension has no particular meaning, it is
+<6> All requests ending in `.x` will be routed to the +weather+
+servlet. Note that the `.x` extension has no particular meaning, it is
 an arbitrary choice and you can use whatever URL pattern you like.
 
 [[multimodule-web-spring-sect-spring-running-web]]
@@ -1583,7 +1583,7 @@ an arbitrary choice and you can use whatever URL pattern you like.
 
 To run the web application, you'll first need to build the entire
 multi-module project and then build the database using the Hibernate3
-plugin. First, from the top-level 'simple-parent' project directory,
+plugin. First, from the top-level `simple-parent` project directory,
 run +mvn clean install+:
 
 ----
@@ -1937,8 +1937,8 @@ public class WeatherFormatter {
 }
 ----
 
-The 'weather.vm' template simply prints the zip code's city, country,
-and region as well as the current temperature. The 'history.vm'
+The `weather.vm` template simply prints the zip code's city, country,
+and region as well as the current temperature. The `history.vm`
 template prints the location and then iterates through the weather
 forecast records stored in the local database. Both of these templates
 are in `${basedir}/src/main/resources`.
@@ -2015,8 +2015,8 @@ The build progresses through the lifecycle compiling bytecode, running
 tests, and finally building a JAR for the project. Then the
 +assembly:assembly+ goal creates a JAR with dependencies by unpacking
 all of the dependencies to temporary directories and then collecting
-all of the bytecode into a single JAR in 'target/' named
-'simple-command-jar-with-dependencies.jar'. This "uber" JAR weighs in
+all of the bytecode into a single JAR in `target/` named
+`simple-command-jar-with-dependencies.jar`. This "uber" JAR weighs in
 at 15 MB.
 
 Before you run the command-line tool, you will need to invoke the
@@ -2041,10 +2041,10 @@ $ mvn hibernate3:hbm2ddl
 [INFO] -----------------------------------------------------
 ----
 
-Once you run this, you should see a 'data/' directory under
-+simple-command+. This 'data/' directory holds the HSQLDB database. To
+Once you run this, you should see a `data` directory under
++simple-command+. This `data` directory holds the HSQLDB database. To
 run the command-line weather forecaster, run the following from the
-'simple-command/' project directory:
+`simple-command` project directory:
 
 ----
 $ java -cp target/simple-command-jar-with-dependencies.jar \

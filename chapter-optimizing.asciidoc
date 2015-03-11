@@ -32,7 +32,7 @@ can perform on an existing Maven project. Why didn't we just introduce
 an optimized POM in the first place? Designing POMs for pedagogy is a
 very different requirement from designing POMs for efficiency. While
 it is certainly much easier to define a certain setting in your
-'~/.m2/settings.xml' than to declare a profile in a 'pom.xml', writing
+`~/.m2/settings.xml` than to declare a profile in a `pom.xml`, writing
 a book, and reading a book is mostly about pacing and making sure
 we're not introducing concepts before you are ready. In the previous
 chapters, we've made an effort not to overwhelm the reader with too
@@ -523,7 +523,7 @@ references the model objects in +simple-model+, and the +simple-model+
 is exposed to +simple-webapp+ as a transitive dependency via
 +simple-persist+. Since this is a sibling dependency that shares both
 the +version+ and +groupId+, the dependency can be defined in
-+simple-webapp+'s 'pom.xml' using the `${project.groupId}` and
++simple-webapp+'s `pom.xml` using the `${project.groupId}` and
 `${project.version}`.
 
 How did the Maven Dependency plugin uncover these issues? How does
