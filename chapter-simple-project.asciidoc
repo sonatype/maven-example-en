@@ -318,13 +318,9 @@ plugin goal, it prints out the plugin identifier and goal identifier
 to standard output:
 
 ----
-$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple \
--DartifactId=simple \
--Dpackage=org.sonatype.mavenbook
+$ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simple
 ...
 [INFO] [archetype:generate]
-[INFO] artifact org.apache.maven.archetypes:maven-archetype-quickstart: \
-checking for updates from central
 ...
 ----
 
@@ -353,11 +349,12 @@ Compiler plugin, which compiles all of the source code for a project,
 or the +test+ goal of the Surefire plugin, which can execute unit
 tests. Goals are configured via configuration properties that can be
 used to customize behavior. For example, the +compile+ goal of the
-Compiler plugin defines a set of configuration also passed the
-+package+ parameter to the +generate+ goal as
-+org.sonatype.mavenbook+. If we had omitted the +packageName+
-parameter, the package name would have defaulted to
-+org.sonatype.mavenbook.simple+.
+Compiler plugin defines a set of configuration parameters.  When
+running the +archetype:generate+ goal earlier in
+<<simple-project-sect-create-simple>> we passed the +package+
+parameter to the +generate+ goal as +org.sonatype.mavenbook+. If we
+had omitted the +package+ parameter, the package name would have
+defaulted to +org.sonatype.mavenbook.simple+.
 
 NOTE: When referring to a plugin goal, we frequently use the shorthand
 notation: pluginId:goalId. For example, when referring to the
@@ -408,14 +405,15 @@ override it with your own implementation.)
 [[simple-project-sect-lifecycle]]
 ==== Maven Lifecycle
 
-The second command we ran in the previous section Maven lifecycle,
-which begins with a phase to validate the basic integrity of the
-project and ends with a phase that involves deploying a project to
-production. Lifecycle phases are intentionally vague, defined solely
-as validation, testing, or deployment, and they may mean different
-things to different projects. For example, in a project that produces
-a Java archive, the +package+ phase produces a JAR; in a project that
-produces a web application, the +package+ phase produces a WAR.
+The second command we ran in the previous section included an
+execution of the Maven lifecycle. It begins with a phase to validate
+the basic integrity of the project and ends with a phase that involves
+deploying a project to production. Lifecycle phases are intentionally
+vague, defined solely as validation, testing, or deployment, and they
+may mean different things to different projects. For example, in a
+project that produces a Java archive, the +package+ phase produces a
+JAR; in a project that produces a web application, the +package+ phase
+produces a WAR.
 
 Plugin goals can be attached to a lifecycle phase. As Maven moves
 through the phases in a lifecycle, it will execute the goals attached
@@ -435,7 +433,7 @@ image::figs/web/simple-project_phasebinding.png[]
 We know that the +package+ phase is going to create a JAR file for a
 project with +jar+ packaging. But what of the goals preceding it, such
 as +compiler:compile+ and +surefire:test+? These goals are executed as
-Maven steps through the phases preceding +package+ in the
+Maven steps through the phases preceding +package+ in the Maven lifecycle.
 
 +resources:resources+::
 
