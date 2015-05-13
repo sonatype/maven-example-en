@@ -17,18 +17,13 @@ mkdir -p target/site/pdf
 cp examples/target/mvnexbook-examples-1.0-project.zip target/site/mvnex-examples.zip
 
 cp -r target/book-mvnex.chunked/* target/site/reference
-mkdir -p target/site/reference/css
-cp -r site/css target/site/reference
-cp -r site/js target/site/reference
-cp -r site/assets target/site/reference
-cp site/search.html target/site/reference
+
+laf=../documentation-wrapper
+cp -r $laf/* target/site/reference
 
 cp target/book-mvnex.pdf target/site/pdf/mvnex-pdf.pdf
 
 echo "Applying website template"
-python template.py
+python template.py -l=$laf/template.html
 
 cp target/site/reference/index.html target/site/reference/public-book.html
-
-echo "Copying to production server"
-rsync -e ssh --delete -av target/site/ deployer@marketing01.int.sonatype.com:/var/www/domains/sonatype.com/www/shared/books/mvnex-book/
