@@ -5,6 +5,9 @@ set -e
 # fail if a function call is missing an argument
 set -u
 
+html=target/site/reference
+pdf=target/site/pdf
+
 rm -rf target/site/reference
 rm -rf target/site/pdf
 
@@ -16,14 +19,12 @@ mkdir -p target/site/pdf
 # with a separate build step
 cp examples/target/mvnexbook-examples-1.0-project.zip target/site/mvnex-examples.zip
 
-cp -r target/book-mvnex.chunked/* target/site/reference
+cp -r target/book-mvnex.chunked/* $html
+cp target/book-mvnex.pdf $pdf/mvnex-pdf.pdf
 
-laf=../documentation-wrapper
-cp -r $laf/* target/site/reference
+echo "Invoking templating process"
+../documentation-wrapper/apply-template.sh ../maven-example-en/$html "Maven by Example" "017156762307045728421:x1zm0asungi"
 
-cp target/book-mvnex.pdf target/site/pdf/mvnex-pdf.pdf
+cp $html/index.html $html/public-book.html
 
-echo "Applying website template"
-python template.py -l=$laf/template.html
 
-cp target/site/reference/index.html target/site/reference/public-book.html
