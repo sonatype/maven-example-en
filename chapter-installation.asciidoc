@@ -59,8 +59,8 @@ Maven on all of these operating systems is relatively painless and
 straightforward. The following sections outline the recommended
 best-practice for installing Maven on a variety of operating systems.
 
-[[installation-sect-maven-osx]]
-==== Installing Maven on Mac OSX
+[[installation-sect-maven-nix]]
+==== Installing Maven on Linux, BSD and Mac OSX
 
 from http://maven.apache.org/download.html[]. Download the current
 release of Maven in a format that is convenient for you to work
@@ -128,18 +128,6 @@ on Edit button.
 * Add the string +"c:\Program Files\apache-maven-3.0.5\bin;"+ in the Variable value field to the
 front of the existing value and click on the OK button in this and the
 following dialogs
-
-[[installation-sect-maven-linux]]
-==== Installing Maven on Linux
-
-To install Maven on a Linux machine follow the exact procedure
-outlined in <<installation-sect-maven-osx>>.
-
-[[installation-sect-bsd]]
-==== Installing Maven on FreeBSD or OpenBSD
-
-To install Maven on a FreeBSD or OpenBSD machine, follow the exact
-procedure outlined in <<installation-sect-maven-osx>>.
 
 [[installation-sect-test-install]]
 === Testing a Maven Installation
@@ -229,8 +217,7 @@ operating system's equivalent.
 ==== Upgrading a Maven Installation
 
 If you've installed Maven on a Mac OSX or Unix machine according to
-the details in <<installation-sect-maven-osx>> and
-<<installation-sect-maven-linux>>, it should be easy to upgrade to
+the details in <<installation-sect-maven-nix>>, it should be easy to upgrade to
 newer versions of Maven when they become available. Simply install the
 newer version of Maven ('/usr/local/maven-2.future') next to the
 existing version of Maven ('/usr/local/maven-3.0.3'). Then switch the
