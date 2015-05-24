@@ -146,7 +146,7 @@ should see the XML document that's shown in
 ----
 
 Next, you will need to configure the Maven Compiler plugin to target
-Java 5. To do this, add the build element to the initial POM as shown
+Java 5. To do this, add the +build+ element to the initial POM as shown
 in <<ex-customization-initial-pom-with-compiler>>.
 
 [[ex-customization-initial-pom-with-compiler]]
@@ -247,11 +247,11 @@ developer information.
 ----
 
 The ellipses in <<ex-custom-org-info>> are shorthand for an
-abbreviated listing. When you see a `pom.xml` with "..." and "..."
+abbreviated listing. When you see a `pom.xml` with “...” and “...”
 directly after the +project+ element's start tag and directly before
 the +project+ element's end tag, this implies that we are not showing
 the entire `pom.xml` file. In this case the +licenses+,
-+organization+, and +developers+ element were all added before the
++organization+, and +developers+ elements were all added before the
 +dependencies+ element.
 
 [[customizing-sect-add-depend]]
@@ -304,19 +304,19 @@ element will look like the following example.
 </project>
 ----
 
-As you can see above, we've added four more dependency elements in
+As you can see above, we've added four more +dependency+ elements in
 addition to the existing element which was referencing the +test+
 scoped dependency on JUnit. If you add these dependencies to the
 project's `pom.xml` file and then run +mvn install+, you will see
 Maven downloading all of these dependencies and other transitive
 dependencies to your local Maven repository.
 
-How did we find these dependencies? Did we just "know" the appropriate
+How did we find these dependencies? Did we just “know” the appropriate
 +groupId+ and +artifactId+ values? Some of the dependencies are so
 widely used (like Log4J) that you'll just remember what the +groupId+
 and +artifactId+ are every time you need to use them. Velocity, Dom4J,
 and Jaxen were all located using the searching capability on
-http://repository.sonatype.org[http://repository.sonatype.org] . This
+http://repository.sonatype.org[http://repository.sonatype.org]. This
 is a public Sonatype Nexus instance which provides a search interface
 to various public Maven repositories, you can use it to search for
 dependencies. To test this for yourself, load
@@ -340,7 +340,7 @@ classes.
 
 +org.sonatype.mavenbook.weather.Main+::
 
-   The +Main+ class contains a static +main()+ function: the entry
+   The +Main+ class contains a static +main()+ method: the entry
    point for this system.
 
 +org.sonatype.mavenbook.weather.Weather+::
@@ -356,7 +356,7 @@ classes.
 
 +org.sonatype.mavenbook.weather.YahooParser+::
 
-   The +YahooParser+ class parses the XML from Yahoo! Weather, and
+   The +YahooParser+ class parses the XML from Yahoo! Weather and
    returns a +Weather+ object.
 
 +org.sonatype.mavenbook.weather.WeatherFormatter+::
@@ -378,10 +378,11 @@ of a project's source code is stored in `src/main/java`. From the base
 directory of the new project, execute the following commands:
 
 ----
-$ cd src/test/java/org/sonatype/mavenbook
+$ cd src/test/java/org/sonatype/mavenbook/custom
 $ rm AppTest.java
-$ cd ../../../../../..
-$ cd src/main/java/org/sonatype/mavenbook
+$ cd ../../../../../../..
+$ cd src/main/java/org/sonatype/mavenbook/custom
+$ cd ..
 $ rm App.java
 $ mkdir weather
 $ cd weather
@@ -454,7 +455,7 @@ temperature, chill, humidity, and a textual description of current
 conditions.
 
 Now, in the same directory, create a file named `Main.java`. This
-+Main+ class will hold the static +main()+ function—the entry point
++Main+ class will hold the static +main()+ method—the entry point
 for this example.
 
 .Simple Weather's Main Class
@@ -474,7 +475,7 @@ public class Main {
           .configure(Main.class.getClassLoader()
                       .getResource("log4j.properties"));
 
-        // Read the Zip Code from the Command-line 
+        // Read the ZIP Code from the command line 
         // (if none supplied, use 60202)
         String zipcode = "60202";
         try {
@@ -504,16 +505,16 @@ public class Main {
 }
 ----
 
-The +main()+ function shown above configures Log4J by retrieving a
-resource from the classpath, it then tries to read a zip code from the
-command-line. If an exception is thrown while it is trying to read the
-zip code, the program will default to a zip code of 60202. Once it has
-a zip code, it instantiates an instance of +Main+ and calls the
+The +main()+ method shown above configures Log4J by retrieving a
+resource from the classpath. It then tries to read a ZIP code from the
+command line. If an exception is thrown while it is trying to read the
+ZIP code, the program will default to a ZIP code of 60202. Once it has
+a ZIP code, it instantiates an instance of +Main+ and calls the
 +start()+ method on an instance of +Main+. The +start()+ method calls
 out to the +YahooRetriever+ to retrieve the weather XML. The
 +YahooRetriever+ returns an +InputStream+ which is then passed to the
 +YahooParser+. The +YahooParser+ parses the Yahoo! Weather XML and
-returns a +Weather+ object. Finally, the+ WeatherFormatter+ takes a
+returns a +Weather+ object. Finally, the +WeatherFormatter+ takes a
 +Weather+ object and spits out a formatted +String+ which is printed
 to standard output.
 
@@ -758,15 +759,15 @@ Wind Chill: 38
 ----
 
 We didn't supply a command-line argument to the +Main+ class, so we
-ended up with the default zip code, 60202. To supply a zip code, we
-would use the +-Dexec.args+ argument and pass in a zip code:
+ended up with the default ZIP code, 60202. To supply a ZIP code, we
+would use the +-Dexec.args+ argument and pass in a ZIP code:
 
 ----
 $ mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main \
       -Dexec.args="70112"
 ...
 [INFO] [exec:java]
-0INFO  YahooRetriever  - Retrieving Weather Data
+0    INFO  YahooRetriever  - Retrieving Weather Data
 134  INFO  YahooParser  - Creating XML Reader
 333  INFO  YahooParser  - Parsing XML Response
 420  INFO  WeatherFormatter  - Formatting Weather Data
@@ -820,7 +821,7 @@ Maven Assembly plugin that is demonstrated in the section
 [[customizing-sect-exploring-dependencies]]
 ==== Exploring Your Project Dependencies
 
-The Exec plugin makes it possible for us to run the simplest weather
+The Exec plugin makes it possible for us to run the simple weather
 program without having to load the appropriate dependencies into the
 classpath. In any other build system, we would have to copy all of the
 program dependencies into some sort of `lib/` directory containing a
@@ -986,15 +987,14 @@ This +YahooParserTest+ extends the +TestCase+ class defined by
 JUnit. It follows the usual pattern for a JUnit test: a constructor
 that takes a single +String+ argument that calls the constructor of
 the superclass, and a series of public methods that begin with
-“+test+” that are invoked as unit tests. We define a single test
+“++test++” that are invoked as unit tests. We define a single test
 method, +testParser+, which tests the +YahooParser+ by parsing an XML
 document with known values. The test XML document is named
 `ny-weather.xml` and is loaded from the classpath. We'll add test
 resources in <<customizing-sect-custom-test-resource>>. In our Maven
 project's directory layout, the `ny-weather.xml` file is found in the
 directory that contains test
-resources — `${basedir}/src/test/resources` under`
-org/sonatype/mavenbook/weather/yahoo/ny-weather.xml`. The file is read
+resources — `${basedir}/src/test/resources` under `org/sonatype/mavenbook/weather/yahoo/ny-weather.xml`. The file is read
 as an +InputStream+ and passed to the +parse()+ method on
 +YahooParser+. The +parse()+ method returns a +Weather+ object, which
 is then tested with a series of calls to +assertEquals()+, a method
@@ -1060,9 +1060,9 @@ output using +assertEquals()+.
 
 In +WeatherFormatterTest+, we used a utility from Apache Commons
 IO—the +IOUtils+ class. +IOUtils+ provides a number of helpful static
-functions that take most of the work out of input/output
+methods that take most of the work out of input/output
 operations. In this particular unit test, we used <methodname
-role="keep-together">IOUtils.toString()+ to copy the
+role="keep-together">+IOUtils.toString()+ to copy the
 `format-expected.dat` classpath resource to a +String+. We could have
 done this without using Commons IO, but it would have required an
 extra six or seven lines of code to deal with the various
@@ -1074,8 +1074,8 @@ A +test+-scoped dependency is a dependency that is available on the
 classpath only during test compilation and test execution. If your
 project has +war+ or +ear+ packaging, a +test+-scoped dependency would
 not be included in the project's output archive. To add a
-+test+-scoped dependency, add the dependency element to your project's
-dependencies section, as shown in the following example:
++test+-scoped dependency, add the +dependency+ element to your project's
++dependencies+ section, as shown in the following example:
 
 .Adding a Test-scoped Dependency
 ----
@@ -1201,7 +1201,7 @@ Sun - Sunny. High: 50 Low: 38<br />
 
 This file contains a test XML document for the +YahooParserTest+. We
 store this file so that we can test the +YahooParser+ without having
-to retrieve and XML response from Yahoo! Weather.
+to retrieve an XML response from Yahoo! Weather.
 
 [[customizing-sect-executing-tests]]
 === Executing Unit Tests
@@ -1212,7 +1212,8 @@ normal part of the Maven lifecycle. You run Maven tests whenever you
 run +mvn package+ or +mvn install+. If you would like to run all the
 lifecycle phases up to and including the +test+ phase, run +mvn test+:
 
-----
+[listing]
+........
 $ mvn test
 ...
 [INFO] [surefire:test]
@@ -1223,7 +1224,7 @@ $ mvn test
 T E S T S
 -------------------------------------------------------
 Running org.sonatype.mavenbook.weather.yahoo.WeatherFormatterTest
-0INFO  YahooParser  - Creating XML Reader
+0    INFO  YahooParser  - Creating XML Reader
 177  INFO  YahooParser  - Parsing XML Response
 239  INFO  WeatherFormatter  - Formatting Weather Data
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.547 sec
@@ -1235,7 +1236,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec
 Results :
 
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-----
+........
 
 Executing +mvn test+ from the command line caused Maven to execute all
 lifecycle phases up to the +test+ phase. The Maven Surefire plugin has
@@ -1289,16 +1290,16 @@ show that this parameter declares an expression:
 
 .Plugin Parameter Expressions
 ----
-testFailureIgnore  Set this to true to ignore a failure during \
-testing. Its use is NOT RECOMMENDED, but quite \
-convenient on occasion.
+testFailureIgnore  Set this to true to ignore a failure during 
+                   testing. Its use is NOT RECOMMENDED, but quite 
+                   convenient on occasion.
 
 * Type: boolean
 * Required: No
-* Expression: ${maven.test.failure.ignore}
+* User Property: maven.test.failure.ignore
 ----
 
-This expression can be set from the command line using the +-D+
+This property can be set from the command line using the +-D+
 parameter:
 
 ----
@@ -1315,7 +1316,7 @@ producing output. You might be working with a legacy system that has a
 series of failing unit tests, and instead of fixing the unit tests,
 you might just want to produce a JAR. Maven provides for the ability
 to skip unit tests using the +skip+ parameter of the Surefire
-plugin. To skip tests from the command-line, simply add the
+plugin. To skip tests from the command line, simply add the
 +maven.test.skip+ property to any goal:
 
 ----
@@ -1332,7 +1333,7 @@ When the Surefire plugin reaches the +test+ goal, it will skip the
 unit tests if the +maven.test.skip+ properties is set to
 +true+. Another way to configure Maven to skip unit tests is to add
 this configuration to your project's `pom.xml`. To do this, you would
-add a plugin element to your build configuration.
+add a +plugin+ element to your build configuration.
 
 .Skipping Unit Tests
 ----
@@ -1356,7 +1357,7 @@ add a plugin element to your build configuration.
 [[customizing-sect-custom-packaged]]
 === Building a Packaged Command Line Application
 
-In the <<customizing-sect-custom-exec>> section earlier in descriptor
+In <<customizing-sect-custom-exec>> earlier in descriptor
 in the Maven Assembly plugin to produce a distributable JAR file,
 which contains the project's bytecode and all of the dependencies.
 
@@ -1417,7 +1418,7 @@ simple-weather-1.0-jar-with-dependencies.jar
 ----
 
 Once our assembly is assembled in
-`target/`simple-weather-1.0-jar-with-dependencies.jar`, we can run
+`target/simple-weather-1.0-jar-with-dependencies.jar`, we can run
 the +Main+ class again from the command line. To run the simple
 weather application's +Main+ class, execute the following commands
 from your project's base directory:
@@ -1426,7 +1427,7 @@ from your project's base directory:
 $ cd target
 $ java -cp simple-weather-1.0-jar-with-dependencies.jar \
        org.sonatype.mavenbook.weather.Main 10002
-0INFO  YahooRetriever  - Retrieving Weather Data
+0    INFO  YahooRetriever  - Retrieving Weather Data
 221  INFO  YahooParser  - Creating XML Reader
 399  INFO  YahooParser  - Parsing XML Response
 474  INFO  WeatherFormatter  - Formatting Weather Data
@@ -1462,7 +1463,7 @@ provides a solid foundation that makes it easier to predict and manage
 the plugin goals which will be executed in a given build. In Maven 1,
 plugin goals related to one another directly; in Maven 2, plugin goals
 relate to a set of common lifecycle stages. While it is certainly
-valid to execute a plugin goal directly from the command-line as we
+valid to execute a plugin goal directly from the command line as we
 just demonstrated, it is more consistent with the design of Maven to
 configure the Assembly plugin to execute the +assembly:assembly+ goal
 during a phase in the Maven lifecycle.
@@ -1471,8 +1472,8 @@ The following plugin configuration configures the Maven Assembly
 plugin to execute the +attached+ goal during the +package+ phase of
 the Maven default build lifecycle. The +attached+ goal does the same
 thing as the +assembly+ goal. To bind to +assembly:attached+ goal to
-the +package+ phase we use the executions element under plugin in the
-build section of the project's POM.
+the +package+ phase we use the +executions+ element under +plugin+ in the
++build+ section of the project's POM.
 
 [[ex-customization-attach-assembly]]
 .Configuring Attached Goal Execution During the Package Lifecycle Phase
@@ -1509,5 +1510,5 @@ generate the assembly is run +mvn package+. The execution
 configuration will make sure that the +assembly:attached+ goal is
 executed when the Maven lifecycle transitions to the +package+ phase
 of the lifecycle. The assembly will also be created if you run +mvn
-install+ as the package phase precedes the install phase in the
+install+, as the +package+ phase precedes the +install+ phase in the
 default Maven lifecycle.
