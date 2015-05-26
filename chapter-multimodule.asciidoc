@@ -1,5 +1,5 @@
 [[multimodule]]
-== A Multi-module Project
+== A Multi-Module Project
 
 [[multimodule-sect-intro]]
 === Introduction
@@ -16,7 +16,7 @@ multi-module projects.
 ==== Downloading this Chapter's Example
 
 The multi-module project developed in this example consists of
-modified versions of the projects developed in Chapters
+modified versions of the projects developed in 
 <<customizing>> and <<web>>, and we are not using the Maven Archetype
 plugin to generate this multi-module project. We strongly recommend
 downloading a copy of the example code to use as a supplemental
@@ -94,8 +94,8 @@ doesn't create a JAR or a WAR like our previous projects; instead, it
 is simply a POM that refers to other Maven projects. The appropriate
 packaging for a project like +simple-parent+ that simply provides a
 Project Object Model is +pom+. The next section in the `pom.xml` lists
-the project's submodules. These modules are defined in the modules
-element, and each module element corresponds to a subdirectory of the
+the project's submodules. These modules are defined in the `modules`
+element, and each `module` element corresponds to a subdirectory of the
 `simple-parent` directory. Maven knows to look in these directories
 for `pom.xml` files, and it will add submodules to the list of Maven
 projects included in a build.
@@ -104,10 +104,10 @@ Lastly, we define some settings which will be inherited by all
 submodules. The +simple-parent+ build configuration configures the
 target for all Java compilation to be the Java 5 JVM. Since the
 compiler plugin is bound to the lifecycle by default, we can use the
-pluginManagement section do to this. We will discuss pluginManagement
+`pluginManagement` section do to this. We will discuss `pluginManagement`
 in more detail in later chapters, but the separation between providing
 configuration to default plugins and actually binding plugins is much
-easier to see when they are separated this way. The dependencies
+easier to see when they are separated this way. The `dependencies`
 element adds JUnit 3.8.1 as a global dependency. Both the build
 configuration and the dependencies are inherited by all
 submodules. Using POM inheritance allows you to add common
@@ -117,7 +117,8 @@ dependencies for universal dependencies like JUnit or Log4J.
 === The Simple Weather Module
 
 The first submodule we're going to look at is the +simple-weather+
-submodule. This submodule contains all
+submodule. This submodule contains all the code from the previous 
+<<customizing>>.
 
 .simple-weather Module POM
 ----
@@ -322,8 +323,8 @@ supplied in the request parameter is passed to the
 response's +Writer+.
 
 Finally, to tie all of this together is the `web.xml` for
-+simple-webapp+ in `src/main/webapp/WEB-INF`. The servlet and
-servlet-mapping elements in the `web.xml` shown in
++simple-webapp+ in `src/main/webapp/WEB-INF`. The `servlet` and
+`servlet-mapping` elements in the `web.xml` shown in
 <<ex-simple-webapp-web.xml>> map the request path `/weather` to the
 +WeatherServlet+.
 
@@ -416,9 +417,9 @@ occasions, it may be handy to rearrange the module order of your build
 beginning of the build.
 
 Once the Reactor figures out the order in which projects must be
-built, Maven then executes the specified goals for every module in a
+built, Maven then executes the specified goals for every module in the
 multi-module build. In this example, you can see that Maven builds
-+simple-weather+ before +simple-webapp+ effectively executing +mvn
++simple-weather+ before +simple-webapp+, effectively executing +mvn
 clean install+ for each submodule.
 
 NOTE: When you run Maven from the command line you'll frequently want
@@ -431,7 +432,8 @@ precaution to make sure that you are performing a "clean build".
 [[multimodule-sect-running-web]]
 === Running the Web Application
 
-Once the multi-module project has been installed with +mvn 
+Once the multi-module project has been installed with `mvn install`, you 
+can run the web application with `mvn jetty:run`.
 
 ----
 ~/examples/ch-multi/simple-parent/simple-webapp $ mvn jetty:run
