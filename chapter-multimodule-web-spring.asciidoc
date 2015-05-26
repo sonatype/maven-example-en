@@ -1,5 +1,5 @@
 [[multimodule-web-spring]]
-== Multi-module Enterprise Project
+== Multi-Module Enterprise Project
 
 [[multimodule-web-spring-sect-intro]]
 === Introduction
@@ -39,7 +39,7 @@ you will see a `pom.xml` and the five submodule directories
 `simple-weather/` and `simple-webapp/`.
 
 [[multimodule-web-spring-sect-project-description]]
-==== Multi-module Enterprise Project
+==== Multi-Module Enterprise Project
 
 Presenting the complexity of a massive Enterprise-level project far
 exceeds the scope of this book. Such projects are characterized by
@@ -64,11 +64,11 @@ introduced in <<customizing>>. This project is divided into five
 submodules shown in <<fig-multimodule-web-spring-projects>>.
 
 [[fig-multimodule-web-spring-projects]]
-.Multi-module Enterprise Application Module Relationships
+.Multi-Module Enterprise Application Module Relationships
 image::figs/web/multimodule-web-spring_projects.png[]
 
 In <<fig-multimodule-web-spring-projects>>, you can see that there are
-five submodules of simple-parent, they are:
+five submodules of `simple-parent`. They are:
 
 simple-model::
 
@@ -117,10 +117,10 @@ simple-command::
 
    This module contains a simple command-line tool which can be used
    to query the Yahoo! Weather feed. This project contains a class
-   with a static +main()+ function and interacts with the
+   with a static +main()+ method and interacts with the
    +WeatherService+ defined in +simple-weather+ and the DAOs defined
    in +simple-persist+. +simple-command+ has a direct dependency on
-   +simple-weather+ and +simple-persist+; is has a transitive
+   +simple-weather+ and +simple-persist+; it has a transitive
    dependency on +simple-model+.
 
 This chapter contains a contrived example simple enough to introduce
@@ -158,8 +158,8 @@ Sun Microsystems. Hibernate is a widely used Object-Relational Mapping
 framework which allows you to interact with a relational database as
 if it were a collection of Java objects. This example focuses on
 building a simple web application and a command-line application that
-uses the Spring Framework to expose a set of reusable components to
-applications and which also uses Hibernate to persist weather data in
+use the Spring Framework to expose a set of reusable components to
+applications and which also use Hibernate to persist weather data in
 an embedded database.
 
 We've decided to include references to these frameworks to demonstrate
@@ -252,8 +252,8 @@ target the Java 5 JVM.
 
 The first thing most enterprise projects need is an object model. An
 object model captures the core set of domain objects in any system. A
-banking system might have an object model which consists of an
-+Account+, +Customer+, and +Transaction+ object, or a system to
+banking system might have an object model which consists of 
++Account+, +Customer+, and +Transaction+ objects, or a system to
 capture and communicate sports scores might have a +Team+ and a +Game+
 object. Whatever it is, there's a good chance that you've modeled the
 concepts in your system in an object model. It is a common practice in
@@ -264,14 +264,14 @@ other objects. Wind direction, chill, and speed are stored in a +Wind+
 object. Location data including the zip code, city, region, and
 country are stored in a +Location+ class. Atmospheric conditions such
 as the humidity, maximum visibility, barometric pressure, and whether
-the pressure is rising or falling is stored in an +Atmosphere+
+the pressure is rising or falling are stored in an +Atmosphere+
 class. A textual description of conditions, the temperature, and the
 date of the observation is stored in a +Condition+ class.
 
 .Simple Object Model for Weather Data
 image::figs/web/multimodule-web-spring_object-model.png[]
 
-The `pom.xml` file for this simple model object contains one
+The `pom.xml` file for this simple object model contains one
 dependency that bears some explanation. Our object model is annotated
 with Hibernate Annotations. We use these annotations to map the model
 objects in this model to tables in a relational database. The
@@ -320,9 +320,9 @@ have private member variables like +id+, +location+, +condition+,
 +wind+, +atmosphere+, and +date+ exposed with public getter and setter
 methods that adhere to the following pattern: if a property is named
 +name+, there will be a public no-arg getter method named +getName()+,
-and there will be a one-argument <phrase>setter named <methodname
-role="keep-together">setName(String name)+. Although we show the
-getter and setter method for the +id+ property, we've omitted most of
+and there will be a one-argument setter named +setName(String name)+. 
+Although we show the
+getter and setter methods for the +id+ property, we've omitted most of
 the getters and setters for most of the other properties to save a few
 trees. See <<example_weather_model_object>>.
 
@@ -473,7 +473,7 @@ all of the logic necessary to retrieve and parse the data from the
 Yahoo! Weather RSS feed. Although Simple Weather contains three Java
 classes and one JUnit test, it is going to present a single component,
 +WeatherService+, to both the Simple Web Application and the Simple
-Command-line Utility. Very often an enterprise project will contain
+Command-Line Utility. Very often an enterprise project will contain
 several API modules that contain critical business logic or logic that
 interacts with external systems. A banking system might have a module
 that retrieves and parses data from a third-party data provider, and a
@@ -482,8 +482,7 @@ presents real-time scores for basketball or soccer. In
 <<example_simple-weather_module_pom>>, this module encapsulates all of
 the network activity and XML parsing that is involved in the
 interaction with Yahoo! Weather. Other modules can depend on this
-module and simply call out to the <methodname
-role="keep-together">retrieveForecast()+ method on +WeatherService+,
+module and simply call out to the +retrieveForecast()+ method on +WeatherService+,
 which takes a zip code as an argument and which returns a +Weather+
 object.
 
@@ -548,7 +547,7 @@ packaging to +jar+, and then adds the following dependencies:
 
    +simple-weather+ uses the Log4J library to print log messages.
 
-+dom4j:dom4j:1.6.1 and jaxen:jaxen:1.1.1+::
++dom4j:dom4j:1.6.1+ and +jaxen:jaxen:1.1.1+::
 
    Both of these dependencies are used to parse the XML returned from
    Yahoo! Weather.
@@ -865,7 +864,7 @@ w.location = :location"+. We're loading this +NamedQuery+ using a
 reference to a Hibernate +Session+ object inside a +HibernateCallback+
 which is executed by the +execute()+ method on
 +HibernateTemplate+. You can see in this method that we're populating
-the named parameter location with the parameter passed in to the
+the named parameter +location+ with the parameter passed in to the
 +recentForLocation()+ method.
 
 Now is a good time for some clarification. +HibernateDaoSupport+ and
@@ -948,7 +947,7 @@ properties define a number of settings:
    This setting controls how SQL is to be generated for our
    database. Since we are using the HSQLDB database, our database
    dialect is set to
-   +org.++hibernate.++dialect.++HSQLDialect+. Hibernate has dialects
+   +org.hibernate.dialect.HSQLDialect+. Hibernate has dialects
    for all major databases such as Oracle, MySQL, Postgres, and SQL
    Server.
 
@@ -956,7 +955,7 @@ properties define a number of settings:
 
    In this example, we're configuring the JDBC connection properties
    from the Spring configuration. Our applications are configured to
-   run against a HSQLDB in the`./data/weather` directory. In a real
+   run against a HSQLDB in the `./data/weather` directory. In a real
    enterprise application, it is more likely you would use something
    like JNDI to externalize database configuration from your
    application's code.
@@ -971,7 +970,7 @@ might find it useful to capture them in an application context which
 is separate from your application.
 
 There's one last piece of the puzzle in +simple-persist+. Later in
-this chapter, we're going to `hibernate.cfg.xml` in
+this chapter, we're going to use `hibernate.cfg.xml` in
 `src/main/resources`. The purpose of this file (which duplicates some
 of the configuration in `applicationContext-persist.xml`) is to allow
 us to leverage the Maven Hibernate3 plugin to generate Data Definition
@@ -1164,9 +1163,9 @@ would do so by providing a +configuration+ element.
 <3> In our build configuration, we're going to be configuring the
 Maven Hibernate3 Plugin to hit an embedded HSQLDB instance. For the
 Maven Hibernate 3 plugin to successfully connect to this database
-using JDBC, the plugin will need reference the HSQLDB JDBC driver on
+using JDBC, the plugin will need to reference the HSQLDB JDBC driver on
 the classpath. To make a dependency available for a plugin, we add a
-dependency declaration right inside plugin declaration. In this case,
+dependency declaration right inside the plugin declaration. In this case,
 we're referencing hsqldb:hsqldb:1.8.0.7. The Hibernate plugin also
 needs the JDBC driver to create the database, so we have also added
 this dependency to its configuration.
@@ -1182,7 +1181,7 @@ mapping information that are appropriate for different usage scenarios
 of the Hibernate3 plugin. If you were using Hibernate Mapping XML
 (`.hbm.xml`) files, and you wanted to generate model classes using the
 +hbm2java+ goal, you would set your implementation to
-configuration. If you were using the Hibernate3 plugin to reverse
++configuration+. If you were using the Hibernate3 plugin to reverse
 engineer a database to produce `.hbm.xml` files and model classes from
 an existing database, you would use an implementation of
 +jdbcconfiguration+. In this case, we're simply using an existing
@@ -1388,7 +1387,7 @@ the forecasts retrieved from the +WeatherDAO+. This template then uses
 a Velocity control structure, +#foreach+, to loop through each element
 in the +weathers+ variable. Each element in +weathers+ is assigned to
 a variable named +weather+ and the template between +#foreach+ and
-+#end+ is rendered for each forecast.
++#end+ is rendered for each observation.
 
 You've seen these +Controller+ implementations, and you've seen that
 they reference other beans defined in +simple-weather+ and
@@ -1397,7 +1396,7 @@ control to some mysterious templating system that knows how to render
 Velocity templates. All of this magic is configured in a Spring
 application context in
 `src/main/webapp/WEB-INF/weather-servlet.xml`. This XML configures the
-controllers and references other Spring-managed beans, it is loaded by
+controllers and references other Spring-managed beans. It is loaded by
 a +ServletContextListener+ which is also configured to load the
 `applicationContext-weather.xml` and `applicationContext-persist.xml`
 from the classpath. Let's take a closer look at the
@@ -1457,7 +1456,7 @@ Spring-managed beans. +weatherController+ has two properties which are
 references to +weatherService+ and +weatherDAO+. +historyController+
 references the beans +weatherDAO+ and +locationDAO+. When this
 +ApplicationContext+ is created, it is created in an environment that
-has access to the +ApplicationContext+s defined in both
+has access to the ++ApplicationContext++s defined in both
 +simple-persist+ and +simple-weather+. In <<ex-spring-web-xml>> you
 will see how Spring is configured to merge components from multiple
 Spring configuration files.
@@ -1534,7 +1533,7 @@ shown in <<ex-spring-web-xml>>.
 </web-app>
 ----
   
-<1> <calloutlist> Here's a bit of magic which allows us to reuse the
+<1> Here's a bit of magic which allows us to reuse the
 `applicationContext-weather.xml` and `applicationContext-persist.xml`
 in this project. The +contextConfigLocation+ is used by the
 +ContextLoaderListener+ to create an +ApplicationContext+. When the
@@ -1546,7 +1545,7 @@ reference these beans via the classpath. Since the +simple-persist+
 and +simple-weather+ JARs are going to be in `WEB-INF/lib`, all we do
 is use the +classpath:+ prefix to reference these files. (Another
 option would have been to copy these files to `/WEB-INF` and reference
-them with something like `/WEB-INF/applicationContext-persist.xml`).
+them with something like `/WEB-INF/applicationContext-persist.xml`.)
 
 <2> The +log4jConfigLocation+ is used to tell the
 +Log4JConfigListener+ where to look for Log4J logging
@@ -1555,7 +1554,7 @@ configuration. In this example, we tell Log4J to look in
 
 <3> This makes sure that the Log4J system is configured when the web
 application starts. It is important to put this +Log4JConfigListener+
-before the+ ContextLoaderListener+; otherwise, you may miss important
+before the +ContextLoaderListener+; otherwise, you may miss important
 logging messages which point to a problem preventing application
 startup. If you have a particularly large set of beans managed by
 Spring, and one of them happens to blow up on application startup,
@@ -1571,11 +1570,11 @@ container. When the application starts, this listener will build an
 <5> We define a Spring MVC +DispatcherServlet+ with a name of
 +weather+. This will cause Spring to look for a Spring configuration
 file in `/WEB-INF/weather-servlet.xml`. You can have as many
-+DispatcherServlet+s as you need, a +DispatcherServlet+ can contain
+++DispatcherServlet++s as you need; a +DispatcherServlet+ can contain
 one or more Spring MVC +Controller+ implementations.
 
 <6> All requests ending in `.x` will be routed to the +weather+
-servlet. Note that the `.x` extension has no particular meaning, it is
+servlet. Note that the `.x` extension has no particular meaning; it is
 an arbitrary choice and you can use whatever URL pattern you like.
 
 [[multimodule-web-spring-sect-spring-running-web]]
@@ -1672,7 +1671,7 @@ The +simple-command+ project is a command-line version of the
 +simple-webapp+. It is a utility that relies on the same dependencies:
 +simple-persist+ and +simple-weather+. Instead of interacting with
 this application via a web browser, you would run the +simple-command+
-utility from the command-line.
+utility from the command line.
 
 [[fig-multi-spring-command]]
 .Command Line Application Referencing simple-weather and simple-persist
@@ -1774,7 +1773,7 @@ This POM creates a JAR file which will contain the
 <<ex-spring-command-main-class>>. In this POM we configure the Maven
 Assembly plugin to use a built-in assembly descriptor named
 +jar-with-dependencies+ which creates a single JAR file containing all
-the bytecode a project needs to execute including the bytecode from
+the bytecode a project needs to execute, including the bytecode from
 the project you are building and all the bytecode from libraries your
 project depends upons.
 
@@ -1805,7 +1804,7 @@ public class Main {
         PropertyConfigurator.configure(
           Main.class.getClassLoader().getResource("log4j.properties"));
 
-        // Read the Zip Code from the Command-line 
+        // Read the zip code from the Command-line 
         // (if none supplied, use 60202)
         String zipcode = "60202";
         try {
@@ -1863,9 +1862,9 @@ public class Main {
 The +Main+ class has a reference to +WeatherDAO+, +LocationDAO+, and
 +WeatherService+. The static +main()+ method in this class:
 
-* Reads the Zip Code from the first command line argument
+* Reads the zip code from the first command line argument
 
-* Reads the Operation from the second command line argument. If the
+* Reads the operation from the second command line argument. If the
    operation is "weather", the latest weather will be retrieved from
    the web service. If the operation is "history", the program will
    fetch historical weather records from the local database.
@@ -1878,8 +1877,8 @@ The +Main+ class has a reference to +WeatherDAO+, +LocationDAO+, and
 * Populates the +weatherService+, +weatherDAO+, and +locationDAO+ with
    beans from the Spring +ApplicationContext+
 
-* Runs the appropriate method +getWeather()+ or +getHistory()+
-   depending on the specified operation.
+* Runs the appropriate method +getWeather()+ or +getHistory()+,
+   depending on the specified operation
 
 In the web application we use Spring +VelocityViewResolver+ to render
 a Velocity template. In the stand-alone implementation, we need to
@@ -1940,7 +1939,7 @@ public class WeatherFormatter {
 The `weather.vm` template simply prints the zip code's city, country,
 and region as well as the current temperature. The `history.vm`
 template prints the location and then iterates through the weather
-forecast records stored in the local database. Both of these templates
+records stored in the local database. Both of these templates
 are in `${basedir}/src/main/resources`.
 
 
@@ -2099,14 +2098,14 @@ Evanston, IL, US
 [[multimodule-web-spring-sect-conclusion]]
 === Conclusion
 
-We've spent a great deal of time on topics not directly related Maven
+We've spent a great deal of time on topics not directly related to Maven
 to get this far. We've done this to present a complete and meaningful
 example project which you can use to implement real-world systems. We
-didn't take any short-cuts to produce slick, canned results quickly,
+didn't take any shortcuts to produce slick, canned results quickly,
 and we're not going to dazzle you with some Ruby on Rails-esque
 wizardry and lead you to believe that you can create a finished Java
 Enterprise application in "10 easy minutes!" There's too much of this
-in the market, there are too many people trying to sell you the
+in the market; there are too many people trying to sell you the
 easiest framework that requires zero investment of time or
 attention. What we're trying to do in this chapter is present the
 entire picture, the entire ecosystem of a multi-module build. What
@@ -2137,7 +2136,7 @@ the project on which this chapter was based has two distinct model
 projects, two persistence projects which persist to dramatically
 different databases, several web applications, and a Java mobile
 application. In total, the real world system I based this on contains
-at least 15 interrelated modules. The point is that, you've seen the
+at least 15 interrelated modules. The point is that you've seen the
 most complex multi-module example we're going to include in this book,
 but you should also know that this example just scratches the surface
 of what is possible with Maven.
@@ -2155,7 +2154,7 @@ might find yourself building a system resembling
 .Programming to Interface Projects
 image::figs/web/multimodule-web-spring_projects-complex.png[]
 
-When we use the term interface project we are referring to a Maven
+When we use the term _interface project_ we are referring to a Maven
 project which contains interfaces and constants only. In
 <<fig-multimodule-web-spring-projects-complex>> the interface projects
 would be +persist-api+ and +parse-api+. If +big-command+ and
