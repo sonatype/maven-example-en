@@ -37,7 +37,7 @@ Plexus.
 [[web-sect-creating-project]]
 === Creating the Simple Web Project
 
-To create your web application
+To create your web application:
 
 ----
 $ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.simpleweb \
@@ -69,7 +69,7 @@ Y: : Y
 
 Once the Maven Archetype plugin creates the project, change
 directories into the `simple-webapp` directory and take a look at the
-`pom.xml`. You should see the
+`pom.xml`. You should see something close to the following.
 
 .Initial POM for the simple-webapp Project
 ----
@@ -139,7 +139,7 @@ shown in <<ex-web-initial-pom-with-compiler>>.
 </project>
 ----
 
-Notice the packaging element contains the value +war+. This packaging
+Notice the `packaging` element contains the value +war+. This packaging
 type is what configures Maven to produce a web application archive in
 a WAR file. A project with +war+ packaging is going to create a WAR
 file in the `target/` directory. The default name of this file is
@@ -284,8 +284,8 @@ public class SimpleServlet extends HttpServlet {
 
 Our +SimpleServlet+ class is just that: a servlet that prints a simple
 message to the response's +Writer+. To add this servlet to your web
-application and map it to a request path, add the servlet and
-servlet-mapping elements shown in the following `web.xml` to your
+application and map it to a request path, add the `servlet` and
+`servlet-mapping` elements shown in the following `web.xml` to your
 project's `web.xml` file. The `web.xml` file can be found in
 `src/main/webapp/WEB-INF`.
 
@@ -359,7 +359,8 @@ Servlet API to this project's POM.
 [[web-sect-adding-j2ee-depend]]
 === Adding J2EE Dependencies
 
-To write a servlet, we'll need to add the Servlet
+To write a servlet, we'll need to add the Servlet API as a dependency
+to the project's POM.
 
 .Add the Servlet 2.4 Specification as a Dependency
 ----
@@ -379,11 +380,11 @@ To write a servlet, we'll need to add the Servlet
 ----
 
 It is also worth pointing out that we have used the +provided+ scope
-for this dependency. This tells Maven that the jar is "provided" by
-the container and thus should not be included in the war. If you were
+for this dependency. This tells Maven that the JAR is "provided" by
+the container and thus should not be included in the WAR. If you were
 interested in writing a custom JSP tag for this simple web
 application, you would need to add a dependency on the JSP 2.0
-spec. Use the configuration shown in this example:
+API. Use the configuration shown in this example:
 
 .Adding the JSP 2.0 Specification as a Dependency
 ----
@@ -405,7 +406,7 @@ spec. Use the configuration shown in this example:
 Once you've added the Servlet specification as a dependency, run +mvn
 clean install+ followed by +mvn jetty:run+.
 
-NOTE: mvn jetty:run will continue to run the Jetty servlet container
+NOTE: `mvn jetty:run` will continue to run the Jetty servlet container
 until you stop the process with CTRL-C. If you started Jetty in
 <<web-sect-configuring-jetty>>, you will need to stop that process
 before starting Jetty a second time.
@@ -436,6 +437,6 @@ SimpleServlet Executed
 
 After reading this chapter, you should be able to bootstrap a simple
 web application. This chapter didn't dwell on the million different
-ways to create a complete web application, other chapters provide a
+ways to create a complete web application. Other chapters provide a
 more comprehensive overview of projects that involve some of the more
 popular web frameworks and technologies.
