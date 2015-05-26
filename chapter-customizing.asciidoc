@@ -475,7 +475,7 @@ public class Main {
           .configure(Main.class.getClassLoader()
                       .getResource("log4j.properties"));
 
-        // Read the ZIP Code from the command line 
+        // Read the zip code from the command line 
         // (if none supplied, use 60202)
         String zipcode = "60202";
         try {
@@ -506,10 +506,10 @@ public class Main {
 ----
 
 The +main()+ method shown above configures Log4J by retrieving a
-resource from the classpath. It then tries to read a ZIP code from the
+resource from the classpath. It then tries to read a zip code from the
 command line. If an exception is thrown while it is trying to read the
-ZIP code, the program will default to a ZIP code of 60202. Once it has
-a ZIP code, it instantiates an instance of +Main+ and calls the
+zip code, the program will default to a zip code of 60202. Once it has
+a zip code, it instantiates an instance of +Main+ and calls the
 +start()+ method on an instance of +Main+. The +start()+ method calls
 out to the +YahooRetriever+ to retrieve the weather XML. The
 +YahooRetriever+ returns an +InputStream+ which is then passed to the
@@ -622,7 +622,7 @@ XPath expression. Dom4J provides the XML parsing in this example, and
 Jaxen provides the XPath capabilities.
 
 Once we've created a +Weather+ object, we need to format our output
-for human consumption. Create a file named `WeatherFormatter.java`in
+for human consumption. Create a file named `WeatherFormatter.java` in
 the same directory as the other classes.
 
 .Simple Weather's WeatherFormatter Class
@@ -759,8 +759,8 @@ Wind Chill: 38
 ----
 
 We didn't supply a command-line argument to the +Main+ class, so we
-ended up with the default ZIP code, 60202. To supply a ZIP code, we
-would use the +-Dexec.args+ argument and pass in a ZIP code:
+ended up with the default zip code, 60202. To supply a zip code, we
+would use the +-Dexec.args+ argument and pass in a zip code:
 
 ----
 $ mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main \
@@ -837,7 +837,7 @@ included in your project's classpath. Although the project depends on
 a few libraries such as Dom4J, Log4J, Jaxen, and Velocity, it also
 relies on a few transitive dependencies. If you need to find out what
 is on the classpath, you can use the Maven Dependency plugin to print
-out a
+out a list of dependencies.
 
 ----
 $ mvn dependency:resolve
@@ -865,8 +865,8 @@ $ mvn dependency:resolve
 As you can see, our project has a very large set of
 dependencies. While we only included direct dependencies on four
 libraries, we appear to be depending on 15 dependencies in
-total. Dom4J depends on Xerces and the XML Parser APIs, Jaxen depends
-on Xalan being available in the classpath. The Dependency plugin is
+total. Dom4J depends on Xerces and the XML Parser APIs, and Jaxen depends
+on Xalan. The Dependency plugin is
 going to print out the final combination of dependencies under which
 your project is being compiled. If you would like to know about the
 entire dependency tree of your project, you can run the
@@ -898,7 +898,7 @@ $ mvn dependency:tree
 
 If you're truly adventurous or want to see the full dependency trail,
 including artifacts that were rejected due to conflicts and other
-reasons, run Maven with the debug flag.
+reasons, run Maven with the `-X` debug flag.
 
 ----
 $ mvn install -X
