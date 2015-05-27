@@ -1,24 +1,30 @@
 #!/bin/bash
+#
+# assemble.sh - Assemble the web site
+#
+# The book and examples must already be built via other build steps
+# before calling this script.
 
-# fail if anything errors
+# Fail if anything errors
 set -e
-# fail if a function call is missing an argument
+# Fail if a function call is missing an argument
 set -u
 
-html=target/site/reference
-pdf=target/site/pdf
+site=target/site
+html=$site/reference
+pdf=$site/pdf
 
-rm -rf target/site/reference
-rm -rf target/site/pdf
+rm -rf $html
+rm -rf $pdf
 
 echo "Copying resources for site"
-mkdir -p target/site/reference
-mkdir -p target/site/pdf
+mkdir -p $html
+mkdir -p $pdf
 
-# this relies on the example project being build prior to this and is achieved
-# with a separate build step
+# Relies on examples already being built
 cp examples/target/mvnexbook-examples-1.0-project.zip target/site/mvnex-examples.zip
 
+# Relies on book already being built
 cp -r target/book-mvnex.chunked/* $html
 cp target/book-mvnex.pdf $pdf/mvnex-pdf.pdf
 
