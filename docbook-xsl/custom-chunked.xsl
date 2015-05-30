@@ -77,25 +77,23 @@
     </xsl:template>
     <xsl:template match="authorgroup" mode="titlepage.mode">
         <div class="toc_intro">
-          <p>As developers, we understand that you don't want to spend
+          <p>As developers, we understand that you don’t want to spend
           years reading documentation about your build tool.  We get
           it.  You just want to get to work. On the other hand, if you
-          don't take a little bit of time to understand what Maven can
-          do and what it was designed for, there's a good possibility
-          you'll be needlessly reinventing wheels.  Take an hour or
-          two and walk through Maven by Example, it's a gentle
-          introduction to Maven and we promise it will save you time.
-          Sonatype maintains two books focused on Maven: an
+          don’t take a little bit of time to understand what Maven can
+          do and what it was designed for, there’s a good possibility
+          you’ll be needlessly reinventing wheels.  Take an hour or
+          two and walk through <i>Maven by Example</i>. It’s a gentle
+          introduction to Maven and we promise it will save you time.</p>
+          <p>Sonatype maintains two books focused on Maven: an
           example-driven introduction to Maven, <a
-          href="http://www.sonatype.com/books/mvnex-book/reference/public-book.html">"Maven
-          by Example"</a> and <a
-          href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">Maven:
-          The Complete Reference</a>.  If you already understand how
+          href="http://www.sonatype.com/books/mvnex-book/reference/public-book.html"><i>Maven
+          by Example</i></a>, and <a
+          href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html"><i>Maven:
+          The Complete Reference</i></a>.  If you already understand how
           to use Maven and are just looking for a reference, <a
           href="http://www.sonatype.com/books/mvnref-book/reference/public-book.html">go
-          read the other book</a>.
-
-</p>
+          read the other book</a>.</p>
         </div>
         <div class="{name(.)}">
             <h2>Authors</h2>
