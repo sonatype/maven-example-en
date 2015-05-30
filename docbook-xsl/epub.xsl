@@ -19,7 +19,7 @@ Suppressed by default in Docbook XSL 1.76.1 epub.xsl.
 <xsl:param name="suppress.navigation" select="1"/>
 
 <!--
-DocBook XLS 1.75.2 doesn't handle TOCs
+DocBook XSL 1.75.2 doesn't handle TOCs
 -->
 <xsl:param name="generate.toc">
   <xsl:choose>
