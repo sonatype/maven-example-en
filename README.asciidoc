@@ -3,7 +3,7 @@
 === About the Book
 
 An introduction to Apache Maven as formerly published as part of the
-book Maven: The Definitive Guide. 
+book _Maven: The Definitive Guide_.
 
 The book is available in HTML and PDF format at http://www.sonatype.com/resources/books/maven-by-example[http://www.sonatype.com/resources/books/maven-by-example].
 
@@ -11,50 +11,54 @@ The book is available in HTML and PDF format at http://www.sonatype.com/resource
 === About this Project
 
 This is the source code and build setup for the book. The content is
-written in asciidoc format.  To edit asciidoc, use Emacs, vi, TextMate
+written in asciidoc format.  To edit asciidoc, use Emacs, vi, TextMate,
 or whatever other text editor you prefer.  You can even just preview
-the files right in github and edit them on the web interface directly.
+the files right in GitHub and edit them on the web interface directly.
 
 The main file for the book is
 
-* book-mvnex.asciidoc
+* `book-mvnex.asciidoc`
 
 which in turn includes a whole bunch of files named 
 
-* chapter-*.asciidoc
+* `chapter-*.asciidoc`
 
 These are all you should have to edit in terms of text content.
 
+Additional documentation for authors and contributors to this book can be found
+in the `doc/` subdirectory of the project.
+
 ==== Figures and screenshots?  
 
-Put them into figs/orig.
+Put them into `figs/orig`.
 
 The rest is taken care of by the build.
 
 ==== Anything else? 
 
-You'll see a lot of distracting files in that directory.  For now,
+You'll see a lot of distracting files in that `figs/orig` directory.  For now,
 you should just ignore them.  Actually, in general, you'll notice a
 number of distracting files in this project.  Really, just ignore
 them or contact us directly if you need something.
 
-==== How to Build the Book
+==== How to build the book
 
 I knew you'd ask that, and here's the simple answer:
 
 * Install asciidoc
 * Install dblatex and the docbook xsl style sheets
 * Install python
-* run ./build.sh
+* Run `./build.sh`
 
 Build is known to work on Mac OS X and Ubuntu. If you use something
 else you might or might not end up in trouble.
 
-=== Issues, Contributions and More
+=== Issues, Contributions, and More
 
-This book is CC licensed and we welcome your contributions. Please
-file issues and send pull requests on the github project. For further
-questions please contact us at book@sonatype.com.
+This book is CC licensed (CC BY-NC-ND 3.0 US) and we welcome your contributions.
+Please file issues and send pull requests on the GitHub project. 
+
+For further questions please contact us at book@sonatype.com.
 
 Thanks
 

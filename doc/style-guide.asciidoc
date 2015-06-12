@@ -1,0 +1,90 @@
+== Style Guide
+
+This is a style guide for book contributors that indicates how things should
+be formatted, spelled, and so on.
+
+=== Font Conventions
+
+This book follows certain conventions for font usage. Understanding
+these conventions up front makes it easier to use this book.
+
+// This should be a definition list, except in some output formats
+// the list items are all bolded automatically, so you can't distinguisn
+// the bold from non-bold styles we're discussing here.
+
+_italic_
+
+Used for filenames, file extensions, URLs, application names,
+emphasis, and new terms when they are first introduced.
+
++constant width+
+
+Used for Java class names, methods, variables, properties, data
+types, database elements, and snippets of code that appear in text.
+
+**++constant width bold++**
+
+Used for commands you enter at the command line and to highlight
+new code inserted in a running example.
+
+__++constant width italic++__
+
+Used to annotate output.
+
+=== Maven Writing Conventions
+
+The book follows certain conventions for naming and font usage in
+relation to Apache Maven. Understanding these conventions up-front
+makes it easier to read this book.
+
+Compiler plugin::
+
+   Maven plugins are capitalized.
+
++create+ goal::
+
+   Maven goal names are displayed in a constant width font.
+
+“plugin”::
+
+   While “plug-in” (with hyphen) would be the grammatically correct
+   form, this book writes the term as “plugin” both because it is
+   easier to read and write and because it is a standard throughout
+   the Maven community.
+
+Maven Lifecycle, Maven Standard Directory Layout, Maven Plugin, Project Object Model::
+
+   Core Maven concepts are capitalized whenever they are being
+   referenced in the text.
+
++goalParameter+::
+
+   A Maven goal parameter is displayed in a constant width font.
+
++compile+ phase::
+
+   Lifecycle phases are displayed in a constant width font.
+
+=== House Style
+
+Serial comma::
+
+   This book uses https://en.wikipedia.org/wiki/Serial_comma[serial commas] (also
+   known as Oxford commas) in lists.
+
+Curly quotes::
+
+   Use curly quotes (“typographer's quotes”) everywhere in body text.
+
+==== Spellings of Particular Things
+
+This book's name is “Maven by Example”.
+
+Use American English spellings (“behavior”, “color”) and not British English spellings (“behaviour”, “colour”).
+
+Some words and phrases have variant spellings or capitalization styles, and we're using these forms in this book:
+
+* zip code
+
+
+
