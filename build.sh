@@ -21,6 +21,6 @@ a2x -k -fpdf -dbook --dblatex-opts=" -P doc.publisher.show=0 -P latex.output.rev
 echo "done"
 
 # Build the Chunked HTML
-echo "Building Mutli Page HTML"
+echo "Building Multi Page HTML"
 a2x -k -fchunked --xsl-file=docbook-xsl/custom-chunked.xsl --xsltproc-opts "--stringparam chunk.section.depth 1" -dbook --dblatex-opts=" -P doc.publisher.show=0 -P latex.output.revhistory=0" -D target book-mvnex.asciidoc
 echo "done"
