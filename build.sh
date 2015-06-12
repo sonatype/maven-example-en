@@ -116,7 +116,7 @@ if array_contains "chunked" "${formats[@]}"; then
         "$book.xml"
     }
     run_xslt_fcn xslt_chunked
-    mkdir $chunked_dir/figs
+    mkdir -p $chunked_dir/figs
     cp ../docbook-xsl/docbook-xsl.css $chunked_dir
     cp -r ../figs/web $chunked_dir/figs
   )
@@ -147,7 +147,7 @@ if array_contains "epub" "${formats[@]}"; then
     run_xslt_fcn xslt_epub
     oebps=OEBPS
     cp -r ../../covers $oebps
-    mkdir $oebps/figs
+    mkdir -p $oebps/figs
     cp -r ../../figs/web $oebps/figs
     cp ../../docbook-xsl/docbook-xsl.css $oebps
     mkdir -p $oebps/images/icons
