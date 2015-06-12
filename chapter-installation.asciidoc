@@ -2,7 +2,7 @@
 == Installing Maven
 
 The process of installing Apache Maven is very simple. This chapter
-covers it in details. Your only pre-requisite is an installed Java
+covers it in detail. Your only prerequisite is an installed Java
 Development Kit (JDK). If you are just interested in installation, you
 can move on to the rest of the book after reading through
 <<installation-sect-maven-download>> and
@@ -27,9 +27,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.71-b01, mixed mode)
 ----
 
 TIP: More details about Java version required for different Maven
-versions can be found http://maven.apache.org/docs/history.html[on theMaven site].
+versions can be found http://maven.apache.org/docs/history.html[on the Maven site].
 
-Maven works with all certified Java^TM^ compatible development kits,
+Maven works with all certified Java™ compatible development kits,
 and a few non-certified implementations of Java. The examples in this
 book were written and tested against the official Java Development Kit
 releases downloaded from the Oracle web site. 
@@ -60,10 +60,10 @@ straightforward. The following sections outline the recommended
 best-practice for installing Maven on a variety of operating systems.
 
 [[installation-sect-maven-nix]]
-==== Installing Maven on Linux, BSD and Mac OSX
+==== Installing Maven on Linux, BSD and Mac OS X
 
-from http://maven.apache.org/download.html[]. Download the current
-release of Maven in a format that is convenient for you to work
+Download the current release of Maven from http://maven.apache.org/download.html[]. 
+Choose a format that is convenient for you to work
 with. Pick an appropriate place for it to live, and expand the archive
 there. If you expanded the archive into the directory
 `/usr/local/apache-maven-3.0.5`, you may want to create a symbolic
@@ -98,21 +98,21 @@ bash.
 ==== Installing Maven on Microsoft Windows
 
 Installing Maven on Windows is very similar to installing Maven on Mac
-OSX, the main differences being the installation location and the
+OS X, the main differences being the installation location and the
 setting of an environment variable. This book assumes a Maven
 installation directory of `C:\Program Files\apache-maven-3.0.5`, but
 it won't make a difference if you install Maven in another directory
 as long as you configure the proper environment variables. Once you've
 unpacked Maven to the installation directory, you will need to update
-the update the  `PATH` environment variable:
+the `PATH` environment variable:
 
 ----
 C:\Users\tobrien > set PATH="c:\Program Files\apache-maven-3.0.5\bin";%PATH%
 ----
 
-Setting these environment variables on the command-line will allow you
+Setting these environment variables on the command line will allow you
 to run Maven in your current session, but unless you add them to the
-System environment variables through the control panel, you'll have to
+System or User environment variables through the Control Panel, you'll have to
 execute these two lines every time you log into your system. You
 should modify both of these variables through the Control Panel in
 Microsoft Windows.
@@ -122,18 +122,17 @@ Microsoft Windows.
 * Go into the +Control Panel+
 * Select +System+
 * Go in +Advanced+ tab and click on +Environment Variables+.
-* Click on +New+ (the lower in the System variables section).
-* Click on the Path variable in the System variables section and click
-on Edit button.  
-* Add the string +"c:\Program Files\apache-maven-3.0.5\bin;"+ in the Variable value field to the
+* Click on the Path variable in the lower System variables section and click
+the Edit button.  
+* Add the string +"C:\Program Files\apache-maven-3.0.5\bin;"+ in the Variable value field to the
 front of the existing value and click on the OK button in this and the
-following dialogs
+following dialogs.
 
 [[installation-sect-test-install]]
 === Testing a Maven Installation
 
 Once Maven is installed, you can check the version by running +mvn -v+
-from the command-line. If Maven has been installed, you should see
+from the command line. If Maven has been installed, you should see
 something resembling the following output.
 
 ----
@@ -187,7 +186,7 @@ customize `settings.xml`, you should be editing your own
 `settings.xml` in `~/.m2/settings.xml`.
 
 [[installation-sect-user]]
-==== User-specific Configuration and Repository
+==== User-Specific Configuration and Repository
 
 Once you start using Maven extensively, you'll notice that Maven has
 created some local user-specific configuration files and a local
@@ -205,7 +204,7 @@ repository in your home directory. In `~/.m2` there will be:
    download a dependency from a remote Maven repository, Maven stores
    a copy of the dependency in your local repository.
 
-NOTE: In Unix (and OSX), your home directory will be referred to using
+NOTE: In Unix (and OS X), your home directory will be referred to using
 a tilde (i.e. `~/bin` refers to `/home/tobrien/bin`). In Windows, we
 will also be using `~` to refer to your home directory. In Windows XP,
 your home directory is `C:\Documents and Settings\tobrien`, and in
@@ -216,18 +215,18 @@ operating system's equivalent.
 [[installation-sect-upgrade]]
 ==== Upgrading a Maven Installation
 
-If you've installed Maven on a Mac OSX or Unix machine according to
+If you've installed Maven on a Mac OS X or Unix machine according to
 the details in <<installation-sect-maven-nix>>, it should be easy to upgrade to
 newer versions of Maven when they become available. Simply install the
-newer version of Maven ('/usr/local/maven-2.future') next to the
+newer version of Maven ('/usr/local/maven-3.future') next to the
 existing version of Maven ('/usr/local/maven-3.0.3'). Then switch the
 symbolic link `/usr/local/maven` from `/usr/local/maven-3.0.3` to
-`/usr/local/maven-2.future`. Since, you've already set your +PATH+
+`/usr/local/maven-3.future`. Since you've already set your +PATH+
 variable to point to `/usr/local/maven`, you won't need to change any
 environment variables.
 
 If you have installed Maven on a Windows machine, simply unpack Maven
-to `C:\Program Files\maven-2.future` and update your +PATH+
+to `C:\Program Files\maven-3.future` and update your +PATH+
 variable.
 
 NOTE: If you have any customizations to the global `settings.xml` in
@@ -257,12 +256,12 @@ suggest searching for answers at the following locations:
 
 http://maven.apache.org[http://maven.apache.org]::
 
-   This will be the first place to look, the Maven web site contains a
+   This will be the first place to look. The Maven web site contains a
    wealth of information and documentation. Every plugin has a few
-   pages of documentation and there are a series of "quick start"
+   pages of documentation and there is a series of "quick start"
    documents which will be helpful in addition to the content of this
    book. While the Maven site contains a wealth of information, it can
-   also be a frustrating, confusing, and overwhelming. There is a
+   also be frustrating, confusing, and overwhelming. There is a
    custom Google search box on the main Maven page that will search
    known Maven sites for information. This provides better results
    than a generic Google search.
@@ -275,7 +274,7 @@ Maven User Mailing List::
    to your question. It is bad form to ask a question that has already
    been asked without first checking to see if an answer already
    exists in the archives. There are a number of useful mailing list
-   archive browsers, we've found Nabble to the be the most useful. You
+   archive browsers; we've found Nabble to the be the most useful. You
    can browse the User mailing list archives at
    http://mail-archives.apache.org/mod_mbox/maven-users/[http://mail-archives.apache.org/mod_mbox/maven-users/]. You
    can join the user mailing list by following the instructions
