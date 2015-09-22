@@ -1062,8 +1062,7 @@ output using +assertEquals()+.
 In +WeatherFormatterTest+, we used a utility from Apache Commons
 IO—the +IOUtils+ class. +IOUtils+ provides a number of helpful static
 methods that take most of the work out of input/output
-operations. In this particular unit test, we used <methodname
-role="keep-together">+IOUtils.toString()+ to copy the
+operations. In this particular unit test, we used +IOUtils.toString()+ to copy the
 `format-expected.dat` classpath resource to a +String+. We could have
 done this without using Commons IO, but it would have required an
 extra six or seven lines of code to deal with the various
