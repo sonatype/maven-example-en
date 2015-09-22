@@ -7,7 +7,7 @@
 In this chapter, we create a multi-module project that evolves the
 examples from <<multimodule>> and <<web>> into a project that uses the
 Spring Framework and Hibernate to create both a simple web application
-and a command-line utility to read data from the Yahoo! Weather
+and a command-line utility to read data from the Yahoo Weather
 feed. The +simple-weather+ code developed in <<customizing>> will be
 combined with the +simple-webapp+ project defined in <<web>>. In the
 process of creating this multi-module project, we'll explore Maven and
@@ -54,12 +54,12 @@ presented in this chapter.
 
 In this chapter, we're going to look at a multi-module Maven project
 that will produce two applications: a command-line query tool for the
-Yahoo! Weather feed and a web application which queries the Yahoo!
+Yahoo Weather feed and a web application which queries the Yahoo
 Weather feed. Both of these applications will store the results of
 queries in an embedded database. Each will allow the user to retrieve
 historical weather data from this embedded database. Both applications
 will reuse application logic and share a persistence library. This
-chapter's example builds upon the Yahoo! Weather parsing code
+chapter's example builds upon the Yahoo Weather parsing code
 introduced in <<customizing>>. This project is divided into five
 submodules shown in <<fig-multimodule-web-spring-projects>>.
 
@@ -73,9 +73,9 @@ five submodules of `simple-parent`. They are:
 simple-model::
 
    This module defines a simple object model which models the data
-   returned from the Yahoo! Weather feed. This object model contains
+   returned from the Yahoo Weather feed. This object model contains
    the +Weather+, +Condition+, +Atmosphere+, +Location+, and +Wind+
-   objects. When our application parses the Yahoo! Weather feed, the
+   objects. When our application parses the Yahoo Weather feed, the
    parsers defined in +simple-weather+ will parse the XML and create
    +Weather+ objects which are then used by the application. This
    project contains model objects annotated with Hibernate 3
@@ -86,7 +86,7 @@ simple-model::
 simple-weather::
 
    This module contains all of the logic required to retrieve data
-   from the Yahoo! Weather feed and parse the resulting XML. The XML
+   from the Yahoo Weather feed and parse the resulting XML. The XML
    returned from this feed is converted into the model objects defined
    in +simple-model+. +simple-weather+ has a dependency on
    +simple-model+. +simple-weather+ defines a +WeatherService+ object
@@ -116,7 +116,7 @@ simple-webapp::
 simple-command::
 
    This module contains a simple command-line tool which can be used
-   to query the Yahoo! Weather feed. This project contains a class
+   to query the Yahoo Weather feed. This project contains a class
    with a static +main()+ method and interacts with the
    +WeatherService+ defined in +simple-weather+ and the DAOs defined
    in +simple-persist+. +simple-command+ has a direct dependency on
@@ -259,7 +259,7 @@ object. Whatever it is, there's a good chance that you've modeled the
 concepts in your system in an object model. It is a common practice in
 Maven projects to separate this project into a separate project which
 is widely referenced. In this system we are capturing each query to
-the Yahoo! Weather feed with a +Weather+ object which references four
+the Yahoo Weather feed with a +Weather+ object which references four
 other objects. Wind direction, chill, and speed are stored in a +Wind+
 object. Location data including the zip code, city, region, and
 country are stored in a +Location+ class. Atmospheric conditions such
@@ -470,7 +470,7 @@ named +weather_id+.
 The next module we're going to examine could be considered something
 of a “service.” The Simple Weather module is the module that contains
 all of the logic necessary to retrieve and parse the data from the
-Yahoo! Weather RSS feed. Although Simple Weather contains three Java
+Yahoo Weather RSS feed. Although Simple Weather contains three Java
 classes and one JUnit test, it is going to present a single component,
 +WeatherService+, to both the Simple Web Application and the Simple
 Command-Line Utility. Very often an enterprise project will contain
@@ -481,7 +481,7 @@ system to display sports scores might interact with an XML feed that
 presents real-time scores for basketball or soccer. In
 <<example_simple-weather_module_pom>>, this module encapsulates all of
 the network activity and XML parsing that is involved in the
-interaction with Yahoo! Weather. Other modules can depend on this
+interaction with Yahoo Weather. Other modules can depend on this
 module and simply call out to the +retrieveForecast()+ method on +WeatherService+,
 which takes a zip code as an argument and which returns a +Weather+
 object.
@@ -540,7 +540,7 @@ packaging to +jar+, and then adds the following dependencies:
 
 +org.sonatype.mavenbook.multispring:simple-model:1.0+::
 
-   +simple-weather+ parses the Yahoo! Weather RSS feed into a
+   +simple-weather+ parses the Yahoo Weather RSS feed into a
    +Weather+ object. It has a direct dependency on +simple-model+.
 
 +log4j:log4j:1.2.14+::
@@ -550,7 +550,7 @@ packaging to +jar+, and then adds the following dependencies:
 +dom4j:dom4j:1.6.1+ and +jaxen:jaxen:1.1.1+::
 
    Both of these dependencies are used to parse the XML returned from
-   Yahoo! Weather.
+   Yahoo Weather.
 
 +org.apache.commons:commons-io:1.3.2 (scope=test)+::
 

@@ -228,7 +228,7 @@ public class WeatherService {
 
 The +retrieveForecast()+ method takes a +String+ containing a zip
 code. This zip code parameter is then passed to the +YahooRetriever+'s
-+retrieve()+ method, which gets the XML from Yahoo! Weather. The XML
++retrieve()+ method, which gets the XML from Yahoo Weather. The XML
 returned from +YahooRetriever+ is then passed to the +parse()+ method
 on +YahooParser+ which returns a +Weather+ object. This +Weather+
 object is then formatted into a presentable +String+ by the
@@ -240,7 +240,7 @@ object is then formatted into a presentable +String+ by the
 The +simple-webapp+ module is the second submodule referenced in the
 +simple-parent+ project. This web application project depends upon the
 +simple-weather+ module, and it contains some simple servlets that
-present the results of the Yahoo! weather service query.
+present the results of the Yahoo weather service query.
 
 .simple-webapp Module POM
 ----

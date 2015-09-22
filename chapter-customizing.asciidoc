@@ -14,7 +14,7 @@ projects.
 [[customizing-sect-downloading]]
 ==== Downloading this Chapter's Example
 
-We'll be developing a useful program that interacts with a Yahoo!
+We'll be developing a useful program that interacts with a Yahoo
 Weather web service. Although you should be able to follow along with
 this chapter without the example source code, we recommend that you
 download a copy of the code to use as a reference. This chapter's
@@ -32,17 +32,17 @@ which contains the Maven project developed in this chapter.
 === Defining the Simple Weather Project
 
 Before we start customizing this project, let's take a step back and
-talk about the simple weather project. What is it? It's a contrived
+talk about the Simple Weather project. What is it? It's a contrived
 example, created to demonstrate some of the features of Maven. It is
 an application that is representative of the kind you might need to
-build. The simple weather application is a basic command-line-driven
+build. The Simple Weather application is a basic command-line-driven
 application that takes a zip code and retrieves some data from the
-Yahoo! Weather RSS feed. It then parses the result and prints the
+Yahoo Weather RSS feed. It then parses the result and prints the
 result to standard output.
 
 We chose this example for a number of reasons. First, it is
 straightforward. A user supplies input via the command line, the app
-takes that zip code, makes a request to Yahoo! Weather, parses the
+takes that zip code, makes a request to Yahoo Weather, parses the
 result, and formats some simple data to the screen. This example is a
 simple +main()+ function and some supporting classes; there is no
 enterprise framework to introduce and explain, just XML parsing and
@@ -54,16 +54,16 @@ example that can be introduced, developed, and deployed in a single
 chapter.
 
 [[customizing-sect-yahoo-weather]]
-==== Yahoo! Weather RSS
+==== Yahoo Weather RSS
 
 Before you build this application, you should know something about the
-Yahoo! Weather RSS feed. To start with, the service is made available
+Yahoo Weather RSS feed. To start with, the service is made available
 under the following terms:
 
 ----
 The feeds are provided free of charge for use by individuals and
 nonprofit organizations for personal, noncommercial uses. We ask that
-you provide attribution to Yahoo! Weather in connection with your use
+you provide attribution to Yahoo Weather in connection with your use
 of the feeds.
 ----
 
@@ -78,7 +78,7 @@ http://developer.yahoo.com/weather/[].
 === Creating the Simple Weather Project
 
 First, let's use the Maven Archetype plugin to create a basic skeleton
-for the simple weather project. Execute the following command to
+for the Simple Weather project. Execute the following command to
 create a new project, press enter to use the default 
 `maven-archetype-quickstart` and the latest version of the archetype, 
 and then enter "Y" to confirm and  generate the new project. 
@@ -258,12 +258,12 @@ the entire `pom.xml` file. In this case the +licenses+,
 [[customizing-sect-add-depend]]
 === Add New Dependencies
 
-The simple weather application is going to have to complete the
-following three tasks: retrieve XML data from Yahoo! Weather, parse
+The Simple Weather application is going to have to complete the
+following three tasks: retrieve XML data from Yahoo Weather, parse
 the XML from Yahoo, and then print formatted output to standard
 output. To accomplish these tasks, we have to introduce some new
 dependencies to our project's `pom.xml`. To parse the XML response
-from Yahoo!, we're going to be using Dom4J and Jaxen, to format the
+from Yahoo, we're going to be using Dom4J and Jaxen, to format the
 output of this command-line program we are going to be using Velocity,
 and we will also need to add a dependency for Log4J which we will be
 using for logging. After we add these dependencies, our +dependencies+
@@ -352,12 +352,12 @@ classes.
 
 +org.sonatype.mavenbook.weather.YahooRetriever+::
 
-   The +YahooRetriever+ class connects to Yahoo! Weather and returns
+   The +YahooRetriever+ class connects to Yahoo Weather and returns
    an +InputStream+ of the data from the feed.
 
 +org.sonatype.mavenbook.weather.YahooParser+::
 
-   The +YahooParser+ class parses the XML from Yahoo! Weather and
+   The +YahooParser+ class parses the XML from Yahoo Weather and
    returns a +Weather+ object.
 
 +org.sonatype.mavenbook.weather.WeatherFormatter+::
@@ -448,7 +448,7 @@ public class Weather {
 ----
 
 The +Weather+ class defines a simple bean that is used to hold the
-weather information parsed from the Yahoo! Weather feed. This feed
+weather information parsed from the Yahoo Weather feed. This feed
 provides a wealth of information, from the sunrise and sunset times to
 the speed and direction of the wind. To keep this example as simple as
 possible, the +Weather+ model object keeps track of only the
@@ -514,7 +514,7 @@ a zip code, it instantiates an instance of +Main+ and calls the
 +start()+ method on an instance of +Main+. The +start()+ method calls
 out to the +YahooRetriever+ to retrieve the weather XML. The
 +YahooRetriever+ returns an +InputStream+ which is then passed to the
-+YahooParser+. The +YahooParser+ parses the Yahoo! Weather XML and
++YahooParser+. The +YahooParser+ parses the Yahoo Weather XML and
 returns a +Weather+ object. Finally, the +WeatherFormatter+ takes a
 +Weather+ object and spits out a formatted +String+ which is printed
 to standard output.
@@ -547,7 +547,7 @@ public class YahooRetriever {
 }
 ----
 
-This simple class opens a +URLConnection+ to the Yahoo! Weather API
+This simple class opens a +URLConnection+ to the Yahoo Weather API
 and returns an +InputStream+. To create something to parse this feed,
 we'll need to create the `YahooParser.java` file in the same
 directory.
@@ -614,7 +614,7 @@ going to dive into the details of Dom4J or Jaxen here, but the class
 deserves some explanation. +YahooParser+'s +parse()+ method takes an
 +InputStream+ and returns a +Weather+ object. To do this, it needs to
 parse an XML document with Dom4J. Since we're interested in elements
-under the Yahoo! Weather XML namespace, we need to create a
+under the Yahoo Weather XML namespace, we need to create a
 namespace-aware +SAXReader+ in the +createXmlReader()+ method. Once we
 create this reader and parse the document, we get an
 +org.dom4j.Document+ object back. Instead of iterating through child
@@ -785,8 +785,8 @@ Wind Chill: 82
 ...
 ----
 
-As you can see, we've successfully executed the simple weather
-command-line tool, retrieved some data from Yahoo! Weather, parsed the
+As you can see, we've successfully executed the Simple Weather
+command-line tool, retrieved some data from Yahoo Weather, parsed the
 result, and formatted the resulting data with Velocity. We achieved
 all of this without doing much more than writing our project's source
 code and adding some minimal configuration to the `pom.xml`. Notice
@@ -822,7 +822,7 @@ Maven Assembly plugin that is demonstrated in the section
 [[customizing-sect-exploring-dependencies]]
 ==== Exploring Your Project Dependencies
 
-The Exec plugin makes it possible for us to run the simple weather
+The Exec plugin makes it possible for us to run the Simple Weather
 program without having to load the appropriate dependencies into the
 classpath. In any other build system, we would have to copy all of the
 program dependencies into some sort of `lib/` directory containing a
@@ -1138,7 +1138,7 @@ Wind Chill: 39
 ----
 
 This file should look familiar. It is the same output that was
-generated previously when you ran the simple weather project with the
+generated previously when you ran the Simple Weather project with the
 Maven Exec plugin. The second file you'll need to add to the resources
 directory is `ny-weather.xml`.
 
@@ -1148,10 +1148,10 @@ directory is `ny-weather.xml`.
 <rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" 
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
   <channel>
-    <title>Yahoo! Weather - New York, NY</title>
+    <title>Yahoo Weather - New York, NY</title>
     <link>http://us.rd.yahoo.com/dailynews/rss/weather/New_York__NY/
       </link>
-    <description>Yahoo! Weather for New York, NY</description>
+    <description>Yahoo Weather for New York, NY</description>
     <language>en-us</language>
     <lastBuildDate>Sat, 10 Nov 2007 8:51 pm EDT</lastBuildDate>
 
@@ -1164,7 +1164,7 @@ directory is `ny-weather.xml`.
       pressure="30.18" rising="1" />
     <yweather:astronomy sunrise="6:36 am" sunset="4:43 pm" />
     <image>
-      <title>Yahoo! Weather</title>
+      <title>Yahoo Weather</title>
       <width>142</width>
       <height>18</height>
       <link>http://weather.yahoo.com/</link>
@@ -1201,7 +1201,7 @@ Sun - Sunny. High: 50 Low: 38<br />
 
 This file contains a test XML document for the +YahooParserTest+. We
 store this file so that we can test the +YahooParser+ without having
-to retrieve an XML response from Yahoo! Weather.
+to retrieve an XML response from Yahoo Weather.
 
 [[customizing-sect-executing-tests]]
 === Executing Unit Tests
