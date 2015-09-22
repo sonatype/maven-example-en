@@ -433,7 +433,7 @@ image::figs/web/simple-project_phasebinding.png[]
 We know that the +package+ phase is going to create a JAR file for a
 project with +jar+ packaging. But what of the goals preceding it, such
 as +compiler:compile+ and +surefire:test+? These goals are executed as
-Maven steps through the phases preceding +package+ in the Maven lifecycle.
+Maven steps in the phases preceding +package+ in the Maven lifecycle.
 
 +resources:resources+::
 

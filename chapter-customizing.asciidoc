@@ -167,7 +167,7 @@ in <<ex-customization-initial-pom-with-compiler>>.
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -175,6 +175,7 @@ in <<ex-customization-initial-pom-with-compiler>>.
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
