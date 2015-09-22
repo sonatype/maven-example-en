@@ -153,7 +153,7 @@ variable and +M2_HOME+ environment variable have been properly set.
 [[installation-sect-details]]
 === Maven Installation Details
 
-Maven's download measures in at roughly 1.5 MiB, it has attained such
+Maven's download measures in at a few megabyte only. it has attained such
 a slim download size because the core of Maven has been designed to
 retrieve plugins and dependencies from a remote repository
 on-demand. When you start using Maven, it will start to download
@@ -164,7 +164,7 @@ quick look at what is in Maven's installation directory.
 ----
 /usr/local/maven $ ls -p1
 LICENSE.txt
-NOTICE.txt
+NOTICE
 README.txt
 bin/
 boot/
@@ -172,9 +172,8 @@ conf/
 lib/
 ----
 
-`LICENSE.txt` contains the software license for `~/.m2`. The `lib/`
-directory contains a single JAR file ('maven-core-3.0.3-uber.jar')
-that contains the core of Maven.
+`LICENSE.txt` contains the software license for Apache Maven. The `lib/`
+directory contains a the JAR files that contains the core of Maven.
 
 NOTE: Unless you are working in a shared Unix environment, you should
 avoid customizing the `settings.xml` in `conf`. Altering the
