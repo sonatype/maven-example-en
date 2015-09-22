@@ -102,7 +102,7 @@ OS X, the main differences being the installation location and the
 setting of an environment variable. This book assumes a Maven
 installation directory of `C:\Program Files\apache-maven-3.0.5`, but
 it won't make a difference if you install Maven in another directory
-as long as you configure the proper environment variables. Once you've
+as long as you configure the proper environment variable. Once you've
 unpacked Maven to the installation directory, you will need to update
 the `PATH` environment variable:
 
@@ -110,8 +110,8 @@ the `PATH` environment variable:
 C:\Users\tobrien > set PATH="c:\Program Files\apache-maven-3.0.5\bin";%PATH%
 ----
 
-Setting these environment variables on the command line will allow you
-to run Maven in your current session, but unless you add them to the
+Setting this environment variable on the command line will allow you
+to run Maven in your current session. Unless you add them to the
 System or User environment variables through the Control Panel, you'll have to
 execute these two lines every time you log into your system. You
 should modify both of these variables through the Control Panel in
