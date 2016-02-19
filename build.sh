@@ -61,6 +61,8 @@ done
 book=book-mvnex
 book_file=$book.asciidoc
 
+mkdir target
+
 # Build the Single Page HTML
 if array_contains "html" "${formats[@]}"; then
   echo "Building Single Page HTML"
@@ -72,8 +74,6 @@ dblatex_opts_common="$dblatex_vflag -P doc.publisher.show=0 -P latex.output.revh
 # Build the PDF
 if array_contains "pdf" "${formats[@]}"; then
   echo "Building PDF"
-  rm -rf target/images
-  rm -rf target/figs
   cp -r figs target
   cp -r images target
   $asciidoc_exe $vflag -d book -b docbook \
