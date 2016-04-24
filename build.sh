@@ -66,7 +66,7 @@ mkdir target
 # Build the Single Page HTML
 if array_contains "html" "${formats[@]}"; then
   echo "Building Single Page HTML"
-  $asciidoc_exe $vflag -o target/$book.html $book_file
+  $asciidoc_exe $vflag -o target/$book.html -a gitrevision=`git describe --dirty` $book_file
 fi
 
 dblatex_opts_common="$dblatex_vflag -P doc.publisher.show=0 -P latex.output.revhistory=0"
@@ -76,7 +76,7 @@ if array_contains "pdf" "${formats[@]}"; then
   echo "Building PDF"
   cp -r figs target
   cp -r images target
-  $asciidoc_exe $vflag -d book -b docbook \
+  $asciidoc_exe $vflag -d book -b docbook -a gitrevision=`git describe --dirty` \
     -o target/$book.xml $book_file
   xmllint --nonet --noout --valid target/$book.xml
   dblatex -t pdf $dblatex_opts_common \
@@ -100,7 +100,7 @@ run_xslt_fcn() {
 # Build the Chunked HTML
 if array_contains "chunked" "${formats[@]}"; then
   echo "Building Multi Page HTML"
-  $asciidoc_exe $vflag -d book -b docbook \
+  $asciidoc_exe $vflag -d book -b docbook -a gitrevision=`git describe --dirty` \
     -o target/$book.xml $book_file
   xmllint --nonet --noout --valid target/$book.xml
   (
@@ -127,7 +127,7 @@ fi
 # Build the EPUB
 if array_contains "epub" "${formats[@]}"; then
   echo "Building EPUB"
-  $asciidoc_exe $vflag -d book -b docbook \
+  $asciidoc_exe $vflag -d book -b docbook -a gitrevision=`git describe --dirty` \
     -o target/$book.xml $book_file
   xmllint --nonet --noout --valid target/$book.xml
   (
