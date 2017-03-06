@@ -105,7 +105,7 @@ if array_contains "chunked" "${formats[@]}"; then
   xmllint --nonet --noout --valid target/$book.xml
   (
   	cd target
-    chunked_dir=$book.chunked
+    chunked_dir=$book.chunked/
     xslt_chunked() { 
       # Don't include $vflag in xsltproc. It's just *too* verbose.
       xsltproc --stringparam chunk.section.depth 1 \
